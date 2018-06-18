@@ -37,6 +37,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             if(iterator.hasNext()){
                 usuario = (Usuario) iterator.next();
                 usuario.getAccesos().size();
+                usuario.getTrabajador().getPersona();
             }
         } catch (HibernateException he) {
             

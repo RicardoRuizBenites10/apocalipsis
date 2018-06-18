@@ -16,26 +16,26 @@
     for the index controller we are using ParameterizableViewController, so we must
     define an explicit mapping for it.
     -->
+    
+    <!-- HANDLER MAPPING -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
                 <prop key="login.htm">usuController</prop>
+                <prop key="validaAcceso.htm">usuController</prop>
             </props>
         </property>
     </bean>
-
+    
+    <!-- VIEW RESOLVER -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
-    <!--
-    The index controller.
-    -->
+    <!-- CONTROLLER -->
     <bean name="usuController" class="controller.UsuarioController" />
-    <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+    <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController" p:viewName="index" />
 
 </beans>
