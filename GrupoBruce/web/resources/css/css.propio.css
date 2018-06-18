@@ -1,0 +1,15 @@
+.FrmLogin{
+    background: #fff !important;
+    border-radius: 2px;
+    box-shadow: 0 0 0 3px #404040 ;
+    cursor: default;
+    padding: 20px;
+}
+
+.nav-tabs>li.active>a, 
+.nav-tabs>li.active>a:hover, 
+.nav-tabs>li.active>a:focus{
+    color: #1479B8;
+    font-weight: bold;
+    border-bottom: 0;
+}
