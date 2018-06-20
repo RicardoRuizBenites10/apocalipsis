@@ -1,14 +1,14 @@
 <%@page import="dao.dto.hibernate.Usuario"%>
 <%@page import="java.util.ArrayList"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <%  
-    Usuario usu = (Usuario)session.getAttribute("ssUsuario");
-    String avatar="../../resources/img/img1.jpg";
+    Usuario usu = (Usuario) request.getAttribute("usuario"); //(Usuario)session.getAttribute("ssUsuario");
+    String avatar="/resources/img/img1.jpg";
     if(!usu.getTrabajador().getPersona().getFoto().equalsIgnoreCase("")){
         avatar = usu.getTrabajador().getPersona().getFoto().split(";")[1]+";"+usu.getTrabajador().getPersona().getFoto().split(";")[2];
     }
-    String trab = usu.getTrabajador().getPersona().getNombres();
 %>
 
 <div class="left_col scroll-view">
@@ -21,11 +21,11 @@
     <!-- menu prile quick info -->
     <div class="profile">
         <div class="profile_pic">
-            <img src="<%=avatar%>" alt="..." class="img-circle profile_img">
+            <img src="<c:url value="<%=avatar%>"/> " alt="..." class="img-circle profile_img">
         </div>
         <div class="profile_info">
             <span>Bienvenido,</span>
-            <h2><%=trab%></h2>
+            <h2>${usuario.getTrabajador().getPersona().getNombres()}</h2>
         </div>
     </div>
     <!-- menu prile quick info -->

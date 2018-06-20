@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bienvenido ${usuario.getTrabajador().getMontoBase()}</h1>
+        <h1>Bienvenido ${usuario.getTrabajador().getPersona().getNombres()}</h1>
         <p>${usuario.getUsu()}</p>
         <p>${usuario.isAcceder()}</p>
         <p>${usuario.isEstado()}</p>

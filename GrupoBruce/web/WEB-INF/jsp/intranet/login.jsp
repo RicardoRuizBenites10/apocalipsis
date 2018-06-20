@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -45,10 +45,12 @@
                         -->
                         <form:form commandName="usuario" action="validaAcceso.htm" method="POST" cssClass="FrmLogin">
                             <h1>Iniciar Sesión</h1>
+                            <form:errors path="usu" cssStyle="color:red;" element="div" />
                             <div class="form-group has-feedback">
                                 <form:input path="usu" placeholder="Ingrese su usuario" cssClass="form-control has-feedback-left"/>
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"> </span>
                             </div>
+                            <form:errors path="clave" cssStyle="color:red;" element="div" />
                             <div class="form-group has-feedback">
                                 <form:password path="clave" placeholder="Ingrese su contraseña"  cssClass="form-control has-feedback-left" />
                                 <span class="fa fa-key form-control-feedback left" aria-hidden="true"> </span>
@@ -61,7 +63,7 @@
                             <div class="separator">
                                 <div class="clearfix"></div>
                                 <div>
-                                 <h1><i class="fa fa-bus" style="font-size: 21px;"></i> Factoria Bruce</h1>   
+                                    <h1><i class="fa fa-bus" style="font-size: 21px;"></i> Factoria Bruce</h1>   
                                 </div>
                             </div>
                         </form:form>

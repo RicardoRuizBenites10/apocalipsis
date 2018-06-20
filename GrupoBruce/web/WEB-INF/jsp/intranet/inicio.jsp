@@ -1,14 +1,8 @@
-<%-- 
-    Document   : inicio
-    Created on : 28/11/2017, 03:11:13 PM
-    Author     : SISTEMAS
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="./../../WEB-INF/template/meta-intranet.jspf" %>
+        <%@include file="../../template/meta-intranet.jspf" %>
     </head>
     <body class="nav-md">
         <div class="container body">
@@ -16,11 +10,10 @@
             <div class="main_container">
                 
                 <div class="top_nav">
-                    <%@include file="./../../WEB-INF/template/menu-top.jspf" %>
                 </div>
                 
                 <div class="col-md-3 left_col">
-                    <%@include file="./../../WEB-INF/template/menu-left.jspf" %>
+                    <%@include file="../../template/menu-left.jspf" %>
                 </div>
                 
                 <div class="right_col" role="main">
@@ -33,7 +26,7 @@
                     </div>
                     <div class="clearfix"></div>
                     
-                    <%@include file="./../../WEB-INF/template/footer-intranet.jspf" %>
+                    <%@include file="../../template/footer-intranet.jspf" %>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ package dao.implement.hibernate;
 
 import dao.design.hibernate.IUsuarioDAO;
 import dao.dto.hibernate.Usuario;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -15,6 +16,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import persistence.HibernateUtil;
+import util.Constante;
+import util.Metodo;
 
 /**
  *
@@ -36,8 +39,6 @@ public class UsuarioDAO implements IUsuarioDAO {
             Iterator iterator = result.iterator();
             if(iterator.hasNext()){
                 usuario = (Usuario) iterator.next();
-                usuario.getAccesos().size();
-                usuario.getTrabajador().getPersona();
             }
         } catch (HibernateException he) {
             
