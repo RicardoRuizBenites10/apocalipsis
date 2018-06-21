@@ -47,11 +47,11 @@ public class UsuarioController {
                 model.addAttribute("usuario", usuario);
 
                 //DECLARACIÓN DE SESIÓN
-//                HttpSession sesion = request.getSession();
-//                sesion.setAttribute("ssUsuario", usuario);
-//                Date fs = new Date();
-//                sesion.setAttribute("ssFechaHora", fs);
-//                sesion.setMaxInactiveInterval(3 * 60);
+////                HttpSession sesion = request.getSession();
+////                sesion.setAttribute("ssUsuario", usuario);
+////                Date fs = new Date();
+////                sesion.setAttribute("ssFechaHora", fs);
+////                sesion.setMaxInactiveInterval(3 * 60);
 
                 urlResult = "redirect:inicio.htm";
             }
