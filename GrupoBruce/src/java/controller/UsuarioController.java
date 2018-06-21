@@ -43,7 +43,7 @@ public class UsuarioController {
             if (su.validarUsuario(usuario.getUsu(), new String(usuario.getClave()))) {
                 usuario = su.getUsuario();
                 model.addAttribute("usuario", usuario);
-                System.out.println("My avatar_: "+usuario.getTrabajador().getPersona().getAvatarB64());
+                System.out.println("My avatar_: "+usuario.getTrabajador().getPersona().getFotoB64());
                 urlResult = "intranet/inicio";
             }
         }

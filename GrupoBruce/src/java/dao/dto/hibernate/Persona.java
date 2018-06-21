@@ -40,7 +40,7 @@ public class Persona implements java.io.Serializable {
     private String referencia;
     private Trabajador trabajador;
     
-    private String avatarB64;
+    private String fotoB64;
     
     public Persona() {
     }
@@ -126,12 +126,12 @@ public class Persona implements java.io.Serializable {
     }
     
     @Transient
-    public String getAvatarB64() {
+    public String getFotoB64() {
         return Metodo.getAvatarB64(this.dni, this.foto);
     }
     
-    public void setAvatarB64(String avatarB64) {
-        this.avatarB64 = avatarB64;
+    public void setFotoB64(String fotoB64) {
+        this.fotoB64 = fotoB64;
     }
     
     @Column(name = "AP_PATERNO", nullable = false, length = 25)

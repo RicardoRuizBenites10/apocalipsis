@@ -10,6 +10,7 @@
             <div class="main_container">
                 
                 <div class="top_nav">
+                    <%@include file="../../template/menu-top.jspf" %>
                 </div>
                 
                 <div class="col-md-3 left_col">

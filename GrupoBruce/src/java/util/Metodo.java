@@ -115,13 +115,13 @@ public class Metodo {
     }
 
     public static String getAvatarB64(String codAvatar, String nomAvatar) {
-
         if (nomAvatar != null && Metodo.CheckFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
-            byte[] bytes = Metodo.OpenFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
-            nomAvatar = nomAvatar + ";" + "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
-            usuario.getTrabajador().getPersona().setnomAvatar(nomAvatar);
+            byte[] bytes = OpenFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
+//            nomAvatar = nomAvatar + ";" + "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
+            nomAvatar = "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
+        } else {
+            nomAvatar = Constante.FPERFIL_DEFAULT;
         }
-
-        return "JJJJJOOOODEEER!!!!";
+        return nomAvatar;
     }
 }
