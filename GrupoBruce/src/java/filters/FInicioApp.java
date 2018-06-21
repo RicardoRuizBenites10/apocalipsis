@@ -21,12 +21,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author SISTEMAS
  */
-@WebFilter(filterName = "FInicioApp", urlPatterns = {"/view/intranet/login.jsp"})
+@WebFilter(filterName = "FInicioApp", urlPatterns = {"/login.htm"})
 public class FInicioApp implements Filter {
     private FilterConfig filterConfig;
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.err.println("Se inicio filtro: FInicioApp");
         this.filterConfig = filterConfig;
     }
 
@@ -36,9 +37,11 @@ public class FInicioApp implements Filter {
         HttpServletResponse res = (HttpServletResponse)response;
         HttpSession session = req.getSession(true);
         
-        if(session.getAttribute("ssUsuario")!=null){
-            res.sendRedirect("../intranet/inicio.jsp");
+        if(session.getAttribute("usuario")!=null){
+            System.err.println("FInicioApp: True ---->");
+            res.sendRedirect("inicio.htm");
         }else{
+            System.err.println("FInicioApp: False ---->");
             chain.doFilter(request, response);
         }
     }

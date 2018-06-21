@@ -1,0 +1,90 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="col-xs-12" style="margin-bottom: 10px;">
+    <div class="col-xs-12 col-sm-2 hidden">
+        <label for="trabContrato"> JSONTrabajador :</label>
+        <input type="text" id="trabContrato" class="form-control" disabled="true" />
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <label for="nomTContrato"> Trabajador :</label>
+        <input type="text" id="nomTContrato" class="form-control" disabled="true" />
+    </div>
+</div>
+<form id="form-contrato" data-parsley-validate>
+    <div class="col-xs-12">
+        <div class="col-xs-4">
+            <label for="tipoContrato" >Tipo contrato *:</label>
+            <select id="tipoContrato" class="form-control" required>
+                <option value=""> Selecciona opción </option>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            <label for="estadoContrato" >Estado contrato :</label>
+            <select id="estadoContrato" class="form-control" disabled="true" required>
+                <option value=""> Selecciona opción </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-4">
+            <label for="areaLabor" >Área de labor *:</label>
+            <select id="areaLabor" class="form-control" required>
+                <option value=""> Selecciona opción </option>
+            </select>    
+        </div>
+        <div class="col-xs-4">
+            <label for="subareaLabor" >Subarea de labor *:</label>
+            <select id="subareaLabor" class="form-control" required>
+                <option value=""> Selecciona opción </option>
+            </select>    
+        </div>
+        <div class="col-xs-4">
+            <label for="cargoLabor" >Cargo desempeñar *:</label>
+            <select id="cargoLabor" class="form-control" required>
+                <option value=""> Selecciona opción </option>
+            </select>    
+        </div>                        
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12"> 
+            <label for="obsCargo">Observacion sobre el cargo :</label>
+            <input id="obsCargo" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-4"> 
+            <label for="inicioContrato">Inicio contrato *:</label>
+            <input id="inicioContrato" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'" title="0" required>
+        </div>
+        <div class="col-xs-4">
+            <label for="tiempoContrato" >Tiempo contrato *:</label>
+            <select id="tiempoContrato" class="form-control" required>
+                <option value=""> Selecciona opción </option>
+            </select>
+        </div>
+        <div class="col-xs-4"> 
+            <label for="finContrato">Fin contrato *:</label>
+            <input id="finContrato" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'" disabled="true">
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-4"> 
+            <label for="remuneracion">Remuneración *:</label>
+            <input id="remuneracion" type="number" class="form-control" title="0" required>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="ln_solid"></div>
+    <div class="">
+        <button type="button" id="btnGContrato" value="" class="btn btn-success btn-sm pull-right btn-validate">GRABAR REGISTRO</button>
+        <input type="reset" id="btnCContrato" class="btn btn-primary btn-sm pull-right btn-cancel" value="CANCELAR REGISTRO" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form-contrato .btn-validate').on('click', function () {
+            $('#form-contrato').parsley().validate();
+        });
+    });
+</script>

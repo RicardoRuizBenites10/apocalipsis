@@ -1,23 +1,17 @@
-<%-- 
-    Document   : empleados
-    Created on : 30/11/2017, 03:50:01 AM
-    Author     : RICARDO
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="./../../WEB-INF/template/meta-intranet.jspf" %>
+        <%@include file="../../template/meta-intranet.jspf" %>
     </head>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
                 <div class="col-md-3 left_col">
-                    <%@include file="./../../WEB-INF/template/menu-left.jspf" %>
+                    <%@include file="../../template/menu-left.jspf" %>
                 </div>
                 <div class="top_nav">
-                    <%@include file="./../../WEB-INF/template/menu-top.jspf" %>
+                    <%@include file="../../template/menu-top.jspf" %>
                 </div>
                 <div class="right_col" role="main">
                     <div class="page-title">
@@ -44,7 +38,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">REGISTRO DE TRABAJADOR</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="./../../WEB-INF/jspf/FrmTrabajador.jspf" %>
+                                            <%@include file="../jspf/FrmTrabajador.jspf" %>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -59,7 +53,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">HIJOS TRABAJADOR</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="./../../WEB-INF/jspf/FrmHijo.jspf" %>
+                                            <%@include file="../jspf/FrmHijo.jspf" %>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -78,7 +72,7 @@
                         });
                     </script>
                 
-                    <%@include file="./../../WEB-INF/template/footer-intranet.jspf" %>
+                    <%@include file="../../template/footer-intranet.jspf" %>
                 </div>
             </div>
         </div>

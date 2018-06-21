@@ -1,0 +1,48 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<form id="form-cargo" data-parsley-validate>
+    <div class="col-xs-12">
+        <label for="areaCargo" >Área *:</label>
+        <select id="areaCargo" class="form-control" required>
+            <option value=""> Selecciona opción </option>
+        </select>    
+    </div>
+    <div class="col-xs-12">
+        <label for="subareaCargo" >Subarea *:</label>
+        <select id="subareaCargo" class="form-control" required>
+            <option value=""> Selecciona opción </option>
+        </select>    
+    </div>
+    <div class="col-xs-12">
+        <label for="nomCargo">Nombre de cargo *:</label>
+        <input type="text" id="nomCargo" class="form-control" required/>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <label for="estadoCargo">Estado:</label>
+        </div>
+        <div class="col-xs-6">
+            <label>
+                <input type="radio" checked id="optECargo1" value="1" name="optEstadoCargo"> Activado
+            </label>
+        </div>
+        <div class="col-xs-6">
+            <label>
+                <input type="radio" id="optECargo2" value="0" name="optEstadoCargo"> Desactivado
+            </label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="ln_solid"></div>
+    <div class="">
+        <button type="button" id="btnGCargo" value="" class="btn btn-success btn-sm pull-right btn-validate">GRABAR</button>
+        <input type="reset" id="btnCCargo" class="btn btn-primary btn-sm pull-right btn-cancel" value="CANCELAR" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form-cargo .btn-validate').on('click', function () {
+            $('#form-cargo').parsley().validate();
+        });
+    });
+</script>

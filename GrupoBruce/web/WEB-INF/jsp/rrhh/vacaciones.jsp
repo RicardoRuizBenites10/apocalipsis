@@ -1,26 +1,17 @@
-<%-- 
-    Document   : vacaciones
-    Created on : 12/04/2018, 10:24:46 AM
-    Author     : SISTEMAS
---%>
-
-<%@page import="util.Constante"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="services.STrabajador"%>
-<%@page import="dao.dto.Trabajador"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="./../../WEB-INF/template/meta-intranet.jspf" %>
+        <%@include file="../../template/meta-intranet.jspf" %>
     </head>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
                 <div class="col-md-3 left_col">
-                    <%@include file="./../../WEB-INF/template/menu-left.jspf" %>
+                    <%@include file="../../template/menu-left.jspf" %>
                 </div>
                 <div class="top_nav">
-                    <%@include file="./../../WEB-INF/template/menu-top.jspf" %>
+                    <%@include file="../../template/menu-top.jspf" %>
                 </div>
                 <div class="right_col" role="main">
                     <div class="page-title">
@@ -46,7 +37,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">REGISTRO DE VACACIÓN</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="./../../WEB-INF/jspf/FrmVacacion.jspf" %>
+                                            <%@include file="../jspf/FrmVacacion.jspf" %>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -61,7 +52,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">HISTORIAL DE VACACIONES</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="./../../WEB-INF/jspf/FrmVacacionHistorial.jspf" %>
+                                            <%@include file="../jspf/FrmVacacionHistorial.jspf" %>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -116,7 +107,7 @@
                         });
                     </script>                    
                 
-                    <%@include file="./../../WEB-INF/template/footer-intranet.jspf" %>
+                    <%@include file="../../template/footer-intranet.jspf" %>
                 </div>
             </div>
         </div>

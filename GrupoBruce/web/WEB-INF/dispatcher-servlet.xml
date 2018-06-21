@@ -23,7 +23,9 @@
             <props>
                 <prop key="index.htm">indexController</prop>
                 <prop key="login.htm">usuController</prop>
-                <prop key="validaAcceso.htm">usuController</prop>
+                <prop key="validate.htm">usuController</prop>
+                <prop key="inicio.htm">usuController</prop>
+                <prop key="empleados.htm">empleadosController</prop>
             </props>
         </property>
     </bean>
@@ -35,7 +37,8 @@
           p:suffix=".jsp" />
 
     <!-- CONTROLLER -->
-    <bean name="usuController" class="controller.UsuarioController" />
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController" p:viewName="index" />
+    <bean name="usuController" class="controller.UsuarioController" />
+    <bean name="empleadosController" class="controller.TrabajadorController" />
 
 </beans>

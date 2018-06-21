@@ -7,6 +7,8 @@ package controller;
 
 import dao.dto.hibernate.Usuario;
 import dao.validator.hibernate.UsuarioValidator;
+import java.util.Date;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -34,7 +36,7 @@ public class UsuarioController {
         return new ModelAndView("intranet/login", "usuario", new Usuario());
     }
 
-    @RequestMapping(value = "/validaAcceso", method = RequestMethod.POST)
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public String validaAcceso(@ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
         String urlResult = "intranet/login";
         validator.validate(usuario, result);
@@ -43,10 +45,22 @@ public class UsuarioController {
             if (su.validarUsuario(usuario.getUsu(), new String(usuario.getClave()))) {
                 usuario = su.getUsuario();
                 model.addAttribute("usuario", usuario);
-                System.out.println("My avatar_: "+usuario.getTrabajador().getPersona().getFotoB64());
-                urlResult = "intranet/inicio";
+
+                //DECLARACIÓN DE SESIÓN
+//                HttpSession sesion = request.getSession();
+//                sesion.setAttribute("ssUsuario", usuario);
+//                Date fs = new Date();
+//                sesion.setAttribute("ssFechaHora", fs);
+//                sesion.setMaxInactiveInterval(3 * 60);
+
+                urlResult = "redirect:inicio.htm";
             }
         }
         return urlResult;
+    }
+
+    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
+    public String inicioAP() {
+        return "intranet/inicio";
     }
 }

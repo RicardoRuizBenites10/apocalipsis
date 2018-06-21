@@ -1,0 +1,29 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="col-xs-12" style="margin-bottom: 10px;">
+    <div class="col-xs-12 col-sm-8">
+        <label for="trabajadorVacacionH"> Trabajador :</label>
+        <input type="text" id="trabajadorVacacionH" class="form-control" disabled="tru" />
+    </div>
+    <div class="col-xs-12 col-sm-3">
+        <a id="printHistorialVacacion" class="btn btn-app">
+            <i class="fa fa-print"></i> Imprimir
+        </a>
+    </div>
+</div>
+<div class="col-xs-12">
+    <label>Lista de vacaciones :</label>
+    <table id="table-vacacion-historial" class="table table-condensed jambo_table">
+        <thead>
+                <th>Periodo</th>
+                <th>F. Base</th>
+                <th>F. Inicio</th>
+                <th>F. Retorno</th>
+                <th>Usados</th>
+                <th>Pagados</th>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
