@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-    <!--bean id="propertyConfigurer"
+    <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />
 
@@ -18,7 +18,7 @@
           p:driverClassName="${jdbc.driverClassName}"
           p:url="${jdbc.url}"
           p:username="${jdbc.username}"
-          p:password="${jdbc.password}" /-->
+          p:password="${jdbc.password}" />
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 

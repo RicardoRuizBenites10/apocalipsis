@@ -8,6 +8,7 @@ package controller;
 import dao.dto.hibernate.Usuario;
 import dao.validator.hibernate.UsuarioValidator;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +38,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public String validaAcceso(@ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
+    public String validaAcceso(@ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model, HttpServletRequest request) {
         String urlResult = "intranet/login";
         validator.validate(usuario, result);
         if (!result.hasErrors()) {
@@ -47,11 +48,11 @@ public class UsuarioController {
                 model.addAttribute("usuario", usuario);
 
                 //DECLARACIÓN DE SESIÓN
-////                HttpSession sesion = request.getSession();
-////                sesion.setAttribute("ssUsuario", usuario);
-////                Date fs = new Date();
-////                sesion.setAttribute("ssFechaHora", fs);
-////                sesion.setMaxInactiveInterval(3 * 60);
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("ssUsuario", usuario);
+                Date fs = new Date();
+                sesion.setAttribute("ssFechaHora", fs);
+//                sesion.setMaxInactiveInterval(3 * 60);
 
                 urlResult = "redirect:inicio.htm";
             }
