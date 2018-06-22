@@ -24,8 +24,10 @@
                 <prop key="index.htm">indexController</prop>
                 <prop key="login.htm">usuController</prop>
                 <prop key="validate.htm">usuController</prop>
+                <prop key="logout.htm">usuController</prop>
                 <prop key="inicio.htm">usuController</prop>
                 <prop key="empleados.htm">empleadosController</prop>
+                <prop key="list.htm">empleadosController</prop>
             </props>
         </property>
     </bean>

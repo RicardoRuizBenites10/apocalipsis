@@ -441,50 +441,6 @@ function from_Cargo(){
     });
 }
 
-/****************** FORMULARIO LOGIN ******************/
-$(document).ready(function(){
-    var $usuario = $("#idUsu"), $password = $("#idPass"), $accion=$("#idLogin");
-    
-    $("#idUsu, #idPass").on('focus',function(){
-        $("#msgRpta").html("");
-    });
-    //INICIO DE SESIÓN
-    $('#form-login').on('submit', function (e) {
-        e.preventDefault();
-        var avatar_default = "../../resources/img/img1.jpg";
-        var $uAvatar = $(".user-avatar"), $uNombres = $(".user-name") ;
-
-        var usuario,redirect;
-        $('#form-login').parsley().validate();
-        if($(this).parsley().isValid()){
-            var acc = $accion.val();
-            var usu = $usuario.val();
-            var pass = $password.val();
-            $.post("../../CLogin",{accion:acc,txtUsuario:usu,txtPassword:pass},function(responseText){
-                var aSplit = responseText.split("|");
-                if( $.trim(aSplit[0]) === "error"){
-                    $("#msgRpta").html(aSplit[1]);
-                    $accion.focus();
-                }else{
-                    usuario = JSON.parse(aSplit[1]);
-                    redirect = aSplit[2];
-                }
-            }).done(function(){
-                $uNombres.html(usuario.trabajador.nombres);
-                $(location).attr({href:redirect});
-            });
-        }
-    });
-    $usuario.focus();
-    //CERRAR SESIÓN
-    $(".logout").on("click",function(e){
-        e.preventDefault();
-        $.post("../../CLogin",{accion:"SALIR"},function(responseText){
-            $(location).attr({href:responseText});
-        });
-    });
-});
-
 /****************** FORMULARIO TRABAJADOR ******************/
 //$(document).ready(function () {
 $(document).ready(function(){

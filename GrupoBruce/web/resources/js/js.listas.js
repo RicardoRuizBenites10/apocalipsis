@@ -144,8 +144,11 @@ function cargarTrabajadores() {
             '</tr>' +
             '</thead>' +
             '<tbody>';
+    alert("cargarTrabajadores");
 
-    $.post("../../CTrabajador", {accion: "getAllEmployee"}, function (responseText) {
+    $.post("GrupoBruce/list.htm", {accion: "getAllEmployee"}, function (responseText) {
+        alert("list");
+        alert(responseText);
         if (responseText !== null) {
             $.each(responseText, function (index, item) {
                 table = table +
@@ -171,6 +174,7 @@ function cargarTrabajadores() {
         }
         table = table + '</tbody> </table>';
     }).done(function () {
+        alert("Jojolete");
         $("#lista-empleados").html(table);
         inicializaTabla($("#tbl-trabajador"));
         from_trabajador();

@@ -37,8 +37,13 @@ public class UsuarioController {
         return new ModelAndView("intranet/login", "usuario", new Usuario());
     }
 
+    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
+    public String inicioAP() {
+        return "intranet/inicio";
+    }
+
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public String validaAcceso(@ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model, HttpServletRequest request) {
+    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
         String urlResult = "intranet/login";
         validator.validate(usuario, result);
         if (!result.hasErrors()) {
@@ -60,8 +65,12 @@ public class UsuarioController {
         return urlResult;
     }
 
-    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
-    public String inicioAP() {
-        return "intranet/inicio";
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String salirUsuario(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        sesion.removeAttribute("ssUsuario");
+        sesion.invalidate();
+        System.err.println("Cerrando sesión.");
+        return "redirect:login.htm";
     }
 }

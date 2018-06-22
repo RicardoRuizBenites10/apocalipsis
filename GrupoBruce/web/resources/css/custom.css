@@ -6389,3 +6389,11 @@ ul.notifications {
     width: 0;
     z-index: -9999;
 }
+
+.FrmLogin{
+    background: #fff !important;
+    border-radius: 2px;
+    box-shadow: 0 0 0 3px #404040 ;
+    cursor: default;
+    padding: 20px;
+}

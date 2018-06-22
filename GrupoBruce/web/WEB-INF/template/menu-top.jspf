@@ -9,7 +9,8 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img class="user-avatar" src="<c:url value="${usuario.getTrabajador().getPersona().getFotoB64()}"/> " alt=""><label class="user-name">${usuario.getTrabajador().getPersona().getNombres()}</label>
+                    <img class="user-avatar" src="<c:url value="${ssUsuario.getTrabajador().getPersona().getFotoB64()}"/> " alt="">
+                    <label class="user-name">${ssUsuario.getTrabajador().getPersona().getNombres()}</label>
                     <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -20,7 +21,7 @@
                             <span>Notas</span>
                         </a>
                     </li>-->
-                    <li><a href="#" class="logout"><i class="fa fa-sign-out pull-right"></i> Cerrar sesión</a></li>
+                    <li><a href="<c:url value="logout.htm"/>" class="logoutss"> Cerrar sesión</a></li>
                 </ul>
             </li>
 

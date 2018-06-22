@@ -4,14 +4,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="../../template/meta-intranet.jspf" %>
-        <script src="<c:url value="/resources/js/jquery.min.js"/> "></script>
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+        <link rel="stylesheet" href="<c:url value="/resources/fonts/css/font-awesome.min.css"/>">
+        <link rel="stylesheet" href="<c:url value="/resources/css/custom.css?1.0.2"/>">
     </head>
     <body style="background: #fafafa;">
         <div class="">
-            <a class="hiddenanchor" id="toregister"></a>
-            <a class="hiddenanchor" id="tologin"></a>
-
             <div id="wrapper">
                 <div id="login" class="animate form">
                     <section class="login_content">

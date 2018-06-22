@@ -22,10 +22,10 @@ public class ConexionSQL {
 
     private ConexionSQL() {
         pool = new SQLServerConnectionPoolDataSource();
-        pool.setServerName("ENGLOBASYSTEMS");//SERVIDOR // ENGLOBASYSTEMS // PC-SISTEMAS\BRUCE
+        pool.setServerName("PC-SISTEMAS\\BRUCE");//SERVIDOR // ENGLOBASYSTEMS // PC-SISTEMAS\BRUCE
         pool.setDatabaseName("BDBRUCE");//FBPRUEBA // FBRUCE
         pool.setUser("sa");//sabruce //sa//sa
-        pool.setPassword("Nakamas");//Bruce123 //Nakamas//anteromariano
+        pool.setPassword("anteromariano");//Bruce123 //Nakamas//anteromariano
         pool.setPortNumber(1433);
     }
 

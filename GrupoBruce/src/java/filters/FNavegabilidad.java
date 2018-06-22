@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author SISTEMAS
  */
-@WebFilter(filterName = "FRolCliente", urlPatterns = {"/view/intranet/inicio.jsp","/view/rrhh/*"})
+@WebFilter(filterName = "FRolCliente", urlPatterns = {"/inicio.htm","/view/rrhh/*"})
 public class FNavegabilidad implements Filter{
     
     private FilterConfig filterConfig;
@@ -42,7 +42,8 @@ public class FNavegabilidad implements Filter{
         Usuario usuario = (Usuario)session.getAttribute("ssUsuario");
         
         if(usuario==null){
-            res.sendRedirect("../intranet/login.jsp");
+            System.err.println("FNavegabilidad: Activado");
+            res.sendRedirect("/login.htm");
         }else{
             chain.doFilter(request, response);
         }
