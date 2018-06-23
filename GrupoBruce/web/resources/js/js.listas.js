@@ -145,40 +145,46 @@ function cargarTrabajadores() {
             '</thead>' +
             '<tbody>';
     alert("cargarTrabajadores");
+    var data = "";
+    $.ajax({
+        url: "trabajadores.htm",
+        type: 'POST',
+        dataType: 'json',
+        success: function (responseText) {
+            data = responseText.data;
+            
+            
+//            if (data !== null) {
+//                $.each(data, function (index, item) {
+//                    table = table +
+//                            '<tr class="odd pointer">' +
+//                            '<td class="hidden">' + JSON.stringify(item) + '</td>' +
+//                            '<td class=" ">' + item.dni + '</td>' +
+//                            '<td class=" ">' + item.ap_paterno + ' ' + item.ap_materno + ' ' + item.nombres + '</td>' +
+//                            '<td class="a-right a-right ">' + item.telefono + '</td>' +
+//                            '<td class=" ">' + item.direccion + '</td>' +
+//                            '<td class=" ">' + item.tipoTrabajador.descripcion + '</td>' +
+//                            '<td class="text-center">' +
+//                            '<span class="label ' + item.estadoTrabajador.descripcion + ' "> ' + item.estadoTrabajador.descripcion + '</span>' +
+//                            '</td>' +
+//                            '<td class=" a-center ">' +
+//                            '<a style="cursor: pointer;" class="btn-trabajador-info btn btn-info btn-xs"  data-toggle="modal" data-target="#panel-info" title="Información"><i class="fa fa-info-circle"></i></a>' +
+//                            '<a style="cursor: pointer;" class="btn-trabajador-edit btn btn-dark btn-xs"  data-toggle="modal" data-target="#panel-trabajador" title="Editar"><i class="fa fa-pencil"></i></a>';
+//                    if (item.nro_hijos > 0) {
+//                        table = table +
+//                                '<a style="cursor: pointer;" class="btn-trabajador-hijo btn btn-primary btn-xs"  data-toggle="modal" data-target="#panel-hijos" title="Hijos"><i class="fa fa-child"></i></a>';
+//                    }
+//                    table = table + '</td> </tr>';
+//                });
+//            }
+            table = table + '</tbody> </table>';
 
-    $.post("GrupoBruce/list.htm", {accion: "getAllEmployee"}, function (responseText) {
-        alert("list");
-        alert(responseText);
-        if (responseText !== null) {
-            $.each(responseText, function (index, item) {
-                table = table +
-                        '<tr class="odd pointer">' +
-                        '<td class="hidden">' + JSON.stringify(item) + '</td>' +
-                        '<td class=" ">' + item.dni + '</td>' +
-                        '<td class=" ">' + item.ap_paterno + ' ' + item.ap_materno + ' ' + item.nombres + '</td>' +
-                        '<td class="a-right a-right ">' + item.telefono + '</td>' +
-                        '<td class=" ">' + item.direccion + '</td>' +
-                        '<td class=" ">' + item.tipoTrabajador.descripcion + '</td>' +
-                        '<td class="text-center">' +
-                        '<span class="label ' + item.estadoTrabajador.descripcion + ' "> ' + item.estadoTrabajador.descripcion + '</span>' +
-                        '</td>' +
-                        '<td class=" a-center ">' +
-                        '<a style="cursor: pointer;" class="btn-trabajador-info btn btn-info btn-xs"  data-toggle="modal" data-target="#panel-info" title="Información"><i class="fa fa-info-circle"></i></a>' +
-                        '<a style="cursor: pointer;" class="btn-trabajador-edit btn btn-dark btn-xs"  data-toggle="modal" data-target="#panel-trabajador" title="Editar"><i class="fa fa-pencil"></i></a>';
-                if (item.nro_hijos > 0) {
-                    table = table +
-                            '<a style="cursor: pointer;" class="btn-trabajador-hijo btn btn-primary btn-xs"  data-toggle="modal" data-target="#panel-hijos" title="Hijos"><i class="fa fa-child"></i></a>';
-                }
-                table = table + '</td> </tr>';
-            });
+            $("#lista-empleados").html(table);
+            inicializaTabla($("#tbl-trabajador"));
         }
-        table = table + '</tbody> </table>';
-    }).done(function () {
-        alert("Jojolete");
-        $("#lista-empleados").html(table);
-        inicializaTabla($("#tbl-trabajador"));
-        from_trabajador();
     });
+
+    alert("termino");
 }
 
 function cargarContratos() {

@@ -8,7 +8,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-
+       
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
     
     <!--
@@ -26,8 +26,9 @@
                 <prop key="validate.htm">usuController</prop>
                 <prop key="logout.htm">usuController</prop>
                 <prop key="inicio.htm">usuController</prop>
-                <prop key="empleados.htm">empleadosController</prop>
-                <prop key="list.htm">empleadosController</prop>
+                <prop key="empleados.htm">trabajadorController</prop>
+                <prop key="trabajadores.htm">trabajadorController</prop>
+                <prop key="test.htm">pruebitaController</prop>
             </props>
         </property>
     </bean>
@@ -41,6 +42,7 @@
     <!-- CONTROLLER -->
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController" p:viewName="index" />
     <bean name="usuController" class="controller.UsuarioController" />
-    <bean name="empleadosController" class="controller.TrabajadorController" />
+    <bean name="trabajadorController" class="controller.TrabajadoresController" />
+    <bean name="pruebitaController" class="controller.PruebitaController" />
 
 </beans>

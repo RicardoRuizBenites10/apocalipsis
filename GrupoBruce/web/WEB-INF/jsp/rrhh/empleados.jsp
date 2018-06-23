@@ -59,23 +59,33 @@
                                     </div>
                                 </div>
                             </div>
-                                            
+
                             <!-- LISTA DE TRABAJADORES -->
                             <div id="lista-empleados" class="tab-pane fade in active "  style="padding-top: 30px;">
-                                
+
+                            </div>
+                            <div id="vita_empleado">
+                                <table id="mi_tabla" border="1">
+                                    <thead>
+                                        <th>Nombres</th><th>Sueldo</th><th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <script>
-                        $(document).ready(function(){
+                        $(document).ready(function () {
                             cargarTrabajadores();
                         });
                     </script>
-                
+
                     <%@include file="../../template/footer-intranet.jspf" %>
                 </div>
             </div>
         </div>
-        
+
     </body>
 </html>
