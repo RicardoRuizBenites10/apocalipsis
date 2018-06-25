@@ -28,7 +28,9 @@
                 <prop key="inicio.htm">usuController</prop>
                 <prop key="empleados.htm">trabajadorController</prop>
                 <prop key="trabajadores.htm">trabajadorController</prop>
-                <prop key="test.htm">pruebitaController</prop>
+                <prop key="testa.htm">pruebitaController</prop>
+                <prop key="testa2.htm">pruebitaController</prop>
+                <prop key="testa3.htm">pruebitaController</prop>
             </props>
         </property>
     </bean>
