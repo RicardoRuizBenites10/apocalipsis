@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 17/06/2018 01:48:57 PM by Hibernate Tools 4.3.1
+// Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,11 +20,11 @@ import util.Metodo;
  */
 @Entity
 @Table(name = "PERSONA",
-        schema = "dbo",
-        catalog = "BDBRUCE"
+         schema = "dbo",
+         catalog = "BDBRUCE"
 )
 public class Persona implements java.io.Serializable {
-    
+
     private String dni;
     private Ecivil ecivil;
     private Genero genero;
@@ -39,12 +39,12 @@ public class Persona implements java.io.Serializable {
     private int nroHijos;
     private String referencia;
     private Trabajador trabajador;
-    
+
     private String fotoB64;
-    
+
     public Persona() {
     }
-    
+
     public Persona(String dni, Ecivil ecivil, Genero genero, TipoDocumento tipoDocumento, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos) {
         this.dni = dni;
         this.ecivil = ecivil;
@@ -58,7 +58,7 @@ public class Persona implements java.io.Serializable {
         this.telefono = telefono;
         this.nroHijos = nroHijos;
     }
-    
+
     public Persona(String dni, Ecivil ecivil, Genero genero, TipoDocumento tipoDocumento, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, Trabajador trabajador) {
         this.dni = dni;
         this.ecivil = ecivil;
@@ -75,145 +75,145 @@ public class Persona implements java.io.Serializable {
         this.referencia = referencia;
         this.trabajador = trabajador;
     }
-    
+
     @Id
     @Column(name = "DNI", unique = true, nullable = false, length = 15)
     public String getDni() {
         return this.dni;
     }
-    
+
     public void setDni(String dni) {
         this.dni = dni;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ECIVIL", nullable = false)
     public Ecivil getEcivil() {
         return this.ecivil;
     }
-    
+
     public void setEcivil(Ecivil ecivil) {
         this.ecivil = ecivil;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_GENERO", nullable = false)
     public Genero getGenero() {
         return this.genero;
     }
-    
+
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TDOCUMENTO", nullable = false)
     public TipoDocumento getTipoDocumento() {
         return this.tipoDocumento;
     }
-    
+
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
-    
+
     @Column(name = "FOTO", length = 50)
     public String getFoto() {
         return this.foto;
     }
-    
+
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
+
     @Transient
     public String getFotoB64() {
         return Metodo.getAvatarB64(this.dni, this.foto);
     }
-    
+
     public void setFotoB64(String fotoB64) {
         this.fotoB64 = fotoB64;
     }
-    
+
     @Column(name = "AP_PATERNO", nullable = false, length = 25)
     public String getApPaterno() {
         return this.apPaterno;
     }
-    
+
     public void setApPaterno(String apPaterno) {
         this.apPaterno = apPaterno;
     }
-    
+
     @Column(name = "AP_MATERNO", nullable = false, length = 25)
     public String getApMaterno() {
         return this.apMaterno;
     }
-    
+
     public void setApMaterno(String apMaterno) {
         this.apMaterno = apMaterno;
     }
-    
+
     @Column(name = "NOMBRES", nullable = false, length = 50)
     public String getNombres() {
         return this.nombres;
     }
-    
+
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "NACIMIENTO", nullable = false, length = 10)
     public Date getNacimiento() {
         return this.nacimiento;
     }
-    
+
     public void setNacimiento(Date nacimiento) {
         this.nacimiento = nacimiento;
     }
-    
+
     @Column(name = "DIRECCION", nullable = false, length = 100)
     public String getDireccion() {
         return this.direccion;
     }
-    
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
+
     @Column(name = "TELEFONO", nullable = false, length = 15)
     public String getTelefono() {
         return this.telefono;
     }
-    
+
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
+
     @Column(name = "NRO_HIJOS", nullable = false)
     public int getNroHijos() {
         return this.nroHijos;
     }
-    
+
     public void setNroHijos(int nroHijos) {
         this.nroHijos = nroHijos;
     }
-    
+
     @Column(name = "REFERENCIA", length = 200)
     public String getReferencia() {
         return this.referencia;
     }
-    
+
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-    
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")
     public Trabajador getTrabajador() {
         return this.trabajador;
     }
-    
+
     public void setTrabajador(Trabajador trabajador) {
         this.trabajador = trabajador;
     }
-    
+
 }

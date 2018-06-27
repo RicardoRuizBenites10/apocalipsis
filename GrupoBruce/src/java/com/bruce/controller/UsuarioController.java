@@ -31,15 +31,10 @@ public class UsuarioController {
     public UsuarioController() {
         this.validator = new UsuarioValidator();
     }
-
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView accediendo() {
         return new ModelAndView("intranet/login", "usuario", new Usuario());
-    }
-
-    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
-    public String inicioAP() {
-        return "intranet/inicio";
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
@@ -57,12 +52,17 @@ public class UsuarioController {
                 sesion.setAttribute("ssUsuario", usuario);
                 Date fs = new Date();
                 sesion.setAttribute("ssFechaHora", fs);
-//                sesion.setMaxInactiveInterval(3 * 60);
+                sesion.setMaxInactiveInterval(3 * 60);
 
                 urlResult = "redirect:inicio.htm";
             }
         }
         return urlResult;
+    }
+    
+    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
+    public String inicioUsuario() {
+        return "intranet/inicio";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
