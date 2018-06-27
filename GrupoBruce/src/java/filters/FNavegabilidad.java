@@ -5,7 +5,7 @@
  */
 package filters;
 
-import dao.dto.hibernate.Usuario;
+import com.bruce.dao.to.Usuario;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

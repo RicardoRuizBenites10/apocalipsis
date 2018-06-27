@@ -3,46 +3,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-       
-    <mvc:annotation-driven />
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-    
-    <!-- HANDLER MAPPING -->
-    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="index.htm">indexController</prop>
-                <prop key="login.htm">usuController</prop>
-                <prop key="validate.htm">usuController</prop>
-                <prop key="logout.htm">usuController</prop>
-                <prop key="inicio.htm">usuController</prop>
-                <prop key="empleados.htm">trabajadorController</prop>
-                <prop key="trabajadores.htm">trabajadorController</prop>
-                <prop key="testa1.htm">pruebitaController</prop>
-                <prop key="testa2.htm">pruebitaController</prop>
-                <prop key="testa3.htm">pruebitaController</prop>
-            </props>
-        </property>
-    </bean>
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+      
+    <context:component-scan base-package="com.bruce" />
     
     <!-- VIEW RESOLVER -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
-
-    <!-- CONTROLLER -->
-    <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController" p:viewName="index" />
-    <bean name="usuController" class="controller.UsuarioController" />
-    <bean name="trabajadorController" class="controller.TrabajadoresController" />
-    <bean name="pruebitaController" class="controller.PruebitaController" />
     
-
 </beans>
