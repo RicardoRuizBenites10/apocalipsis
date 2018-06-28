@@ -54,7 +54,7 @@ public class UsuarioController {
                 sesion.setAttribute("ssFechaHora", fs);
                 sesion.setMaxInactiveInterval(3 * 60);
 
-                urlResult = "redirect:inicio.htm";
+                urlResult = "redirect:inicio";
             }
         }
         return urlResult;
@@ -70,7 +70,6 @@ public class UsuarioController {
         HttpSession sesion = request.getSession();
         sesion.removeAttribute("ssUsuario");
         sesion.invalidate();
-        System.err.println("Cerrando sesión.");
-        return "redirect:login.htm";
+        return "redirect:login";
     }
 }
