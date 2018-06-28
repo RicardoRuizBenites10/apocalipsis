@@ -38,7 +38,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">REGISTRO DE TRABAJADOR</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="../jspf/FrmTrabajador.jspf" %>
+                                           
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                             <h5 class="modal-title" id="titleTrabajador">HIJOS TRABAJADOR</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <%@include file="../jspf/FrmHijo.jspf" %>
+                                            
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -63,16 +63,6 @@
                             <!-- LISTA DE TRABAJADORES -->
                             <div id="lista-empleados" class="tab-pane fade in active "  style="padding-top: 30px;">
 
-                            </div>
-                            <div id="vita_empleado">
-                                <table id="mi_tabla" border="1">
-                                    <thead>
-                                        <th>Nombres</th><th>Sueldo</th><th>Acciones</th>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>

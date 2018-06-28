@@ -145,15 +145,14 @@ function cargarTrabajadores() {
             '</thead>' +
             '<tbody>';
     alert("cargarTrabajadores");
-    var data = "";
+    var data = {};
     $.ajax({
-        url: "trabajadores.htm",
+        url: "trabajadores",
         type: 'POST',
         dataType: 'json',
         success: function (responseText) {
-            data = responseText.data;
-            
-            
+            alert("dodo13");
+
 //            if (data !== null) {
 //                $.each(data, function (index, item) {
 //                    table = table +
@@ -176,14 +175,19 @@ function cargarTrabajadores() {
 //                    }
 //                    table = table + '</td> </tr>';
 //                });
-//            }
-            table = table + '</tbody> </table>';
-
-            $("#lista-empleados").html(table);
-            inicializaTabla($("#tbl-trabajador"));
+//            }     
+        },
+        timeout: 5000,
+        error: function (e) {
+            alert("Error:  "+ JSON.stringify(e));
+        },
+        done: function (e) {
+            alert("Done: ");
         }
     });
-
+    table = table + '</tbody> </table>';
+    $("#lista-empleados").html(table);
+    inicializaTabla($("#tbl-trabajador"));
     alert("termino");
 }
 

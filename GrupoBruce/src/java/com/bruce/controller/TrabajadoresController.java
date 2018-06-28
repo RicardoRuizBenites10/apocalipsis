@@ -1,5 +1,6 @@
 package com.bruce.controller;
 
+import com.bruce.dao.to.Alibaba;
 import com.bruce.dao.to.Trabajador;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,20 +21,18 @@ public class TrabajadoresController {
 
     @RequestMapping(value = "/empleados", method = RequestMethod.GET)
     public String vistaEmpleados() {
-        System.err.println("Entro a TrabajadoresController");
         return "rrhh/empleados";
     }
 
-    @RequestMapping(value = "/trabajadores", method = RequestMethod.POST)
+    @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> getAllEmployes() {
-        System.out.println("getAllEmployes de TrabajadoresController:");
         STrabajador st = new STrabajador();
         Map<String, Object> map = new HashMap<>();
         List<Trabajador> list = st.listarTrabajadores() ? st.getLTrabajador() : new ArrayList<>();
+        System.err.println("Entro a lista y contiene " +list.size()+ " datos");
         map.put("status", 200);
         map.put("message", "Datos encontrados");
         map.put("data", list);
-        System.err.println("Entro a lista y contiene " +list.size()+ " datos");
         return map;
     }
 }

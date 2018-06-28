@@ -13,7 +13,7 @@
             <div id="wrapper">
                 <div id="login" class="animate form">
                     <section class="login_content">
-                        <form:form commandName="usuario" action="validate.htm" method="POST" cssClass="FrmLogin">
+                        <form:form commandName="usuario" action="validate" method="POST" cssClass="FrmLogin">
                             <h1>Iniciar Sesión</h1>
                             <form:errors path="usu" cssStyle="color:red;" element="div" />
                             <div class="form-group has-feedback">
