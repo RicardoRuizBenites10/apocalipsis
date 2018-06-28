@@ -15,9 +15,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import persistence.HibernateUtil;
-import util.Constante;
-import util.Metodo;
+import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.Constante;
+import com.bruce.util.Metodo;
 
 /**
  *

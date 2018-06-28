@@ -1,4 +1,4 @@
-package persistence;
+package com.bruce.persistence;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

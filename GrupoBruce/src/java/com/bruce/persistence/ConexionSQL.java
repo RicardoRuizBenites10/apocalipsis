@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistence;
+package com.bruce.persistence;
 
 import com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -22,10 +22,10 @@ public class ConexionSQL {
 
     private ConexionSQL() {
         pool = new SQLServerConnectionPoolDataSource();
-        pool.setServerName("ENGLOBASYSTEMS");//USUARIO001 // ENGLOBASYSTEMS // PC-SISTEMAS\BRUCE
+        pool.setServerName("PC-SISTEMAS\\BRUCE");//USUARIO001 // ENGLOBASYSTEMS // PC-SISTEMAS\BRUCE
         pool.setDatabaseName("BDBRUCE");//FBPRUEBA // FBRUCE
         pool.setUser("sa");//sa //sa//sa
-        pool.setPassword("Nakamas");//Nakama$10 //Nakamas//anteromariano
+        pool.setPassword("anteromariano");//Nakama$10 //Nakamas//anteromariano
         pool.setPortNumber(1433);
     }
 

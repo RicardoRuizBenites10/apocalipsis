@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package filters;
+package com.bruce.filters;
 
-import com.bruce.dao.to.Usuario;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,9 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author SISTEMAS
  */
-@WebFilter(filterName = "FRolCliente", urlPatterns = {"/inicio.htm","/view/rrhh/*"})
-public class FNavegabilidad implements Filter{
-    
+@WebFilter(filterName = "FInicioApp", urlPatterns = {"/login"})
+public class FInicioApp implements Filter {
     private FilterConfig filterConfig;
     
     @Override
@@ -38,12 +36,8 @@ public class FNavegabilidad implements Filter{
         HttpServletResponse res = (HttpServletResponse)response;
         HttpSession session = req.getSession(true);
         
-        String requestUrl = req.getRequestURL().toString();
-        Usuario usuario = (Usuario)session.getAttribute("ssUsuario");
-        
-        if(usuario==null){
-            System.err.println("FNavegabilidad: Activado");
-            res.sendRedirect("/login.htm");
+        if(session.getAttribute("ssUsuario")!=null){
+            res.sendRedirect("inicio");
         }else{
             chain.doFilter(request, response);
         }

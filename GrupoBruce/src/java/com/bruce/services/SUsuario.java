@@ -6,7 +6,7 @@
 package com.bruce.services;
 
 import com.bruce.dao.to.Usuario;
-import factory.hibernate.FactoryDAO;
+import com.bruce.factory.FactoryDAO;
 
 /**
  *

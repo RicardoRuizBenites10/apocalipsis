@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package factory.hibernate;
+package com.bruce.factory;
 
 import com.bruce.dao.design.IAccesoDAO;
 import com.bruce.dao.design.IAfiliacionDAO;

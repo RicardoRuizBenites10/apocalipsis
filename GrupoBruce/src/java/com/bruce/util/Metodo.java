@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package com.bruce.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-import static util.Constante.*;
+import static com.bruce.util.Constante.*;
 
 /**
  *
