@@ -144,14 +144,12 @@ function cargarTrabajadores() {
             '</tr>' +
             '</thead>' +
             '<tbody>';
-    alert("cargarTrabajadores");
-    var data = {};
     $.ajax({
         url: "trabajadores",
         type: 'POST',
         dataType: 'json',
         success: function (responseText) {
-            alert("dodo13");
+            alert("Dabadu: ");
 
 //            if (data !== null) {
 //                $.each(data, function (index, item) {

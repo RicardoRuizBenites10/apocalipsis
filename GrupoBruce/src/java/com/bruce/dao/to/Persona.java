@@ -20,8 +20,8 @@ import com.bruce.util.Metodo;
  */
 @Entity
 @Table(name = "PERSONA",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Persona implements java.io.Serializable {
 
@@ -39,7 +39,7 @@ public class Persona implements java.io.Serializable {
     private int nroHijos;
     private String referencia;
     private Trabajador trabajador;
-
+    
     private String fotoB64;
 
     public Persona() {

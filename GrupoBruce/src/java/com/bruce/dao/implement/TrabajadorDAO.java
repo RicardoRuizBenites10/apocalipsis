@@ -15,6 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.QuerySQL;
+import java.util.Map;
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -82,6 +86,7 @@ public class TrabajadorDAO implements ITrabajadorDAO{
             Iterator iterator = result.iterator();
             if(iterator.hasNext()){
                 trabajador = (Trabajador)iterator;
+                Hibernate.initialize(trabajador);
             }
             tx.commit();
         }catch(HibernateException he ){
@@ -99,7 +104,7 @@ public class TrabajadorDAO implements ITrabajadorDAO{
         List result = null;
         try{
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Trabajador T");
+            Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL);
             result = query.list();
             tx.commit();
         }catch(HibernateException he ){
@@ -108,6 +113,25 @@ public class TrabajadorDAO implements ITrabajadorDAO{
             session.close();
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Object> getAllPerforms() {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        Map map = null;
+        try{
+            tx = session.beginTransaction();
+            Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
+            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+            map = (Map) query.list();
+            tx.commit();
+        }catch(HibernateException he){
+            if(tx!=null)tx.rollback();
+        }finally{
+            session.close();
+        }
+        return map;
     }
     
 }

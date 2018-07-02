@@ -8,6 +8,7 @@ package com.bruce.services;
 import com.bruce.dao.to.Trabajador;
 import com.bruce.factory.FactoryDAO;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,5 +32,9 @@ public class STrabajador {
         LTrabajador = FactoryDAO.getInstance().getTrabajadorDAO().findAll();
         rpta = LTrabajador.size()>0;
         return rpta;
+    }
+    
+    public Map<String,Object> listarTrabajadoresPerformance(){
+        return FactoryDAO.getInstance().getTrabajadorDAO().getAllPerforms();
     }
 }

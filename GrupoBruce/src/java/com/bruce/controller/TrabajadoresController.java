@@ -24,15 +24,15 @@ public class TrabajadoresController {
         return "rrhh/empleados";
     }
 
-    @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
+    @RequestMapping(value = "/trabajadores", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> getAllEmployes() {
         STrabajador st = new STrabajador();
         Map<String, Object> map = new HashMap<>();
+        Map<String,Object> mapita = st.listarTrabajadoresPerformance();
         List<Trabajador> list = st.listarTrabajadores() ? st.getLTrabajador() : new ArrayList<>();
-        System.err.println("Entro a lista y contiene " +list.size()+ " datos");
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-        map.put("data", list);
+        map.put("data", mapita);
         return map;
     }
 }

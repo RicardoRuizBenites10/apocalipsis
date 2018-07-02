@@ -7,7 +7,6 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IUsuarioDAO;
 import com.bruce.dao.to.Usuario;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -16,8 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
-import com.bruce.util.Constante;
-import com.bruce.util.Metodo;
+import com.bruce.util.QuerySQL;
 
 /**
  *
@@ -32,13 +30,13 @@ public class UsuarioDAO implements IUsuarioDAO {
         Session session = sf.openSession();
         Usuario usuario=null;
         try {
-            Query query = session.createQuery("FROM Usuario U WHERE U.usu = :usuario AND U.clave = :pass");
+            Query query = session.createQuery(QuerySQL.USUARIO_VALIDA);
             query.setParameter("usuario", usu);
             query.setParameter("pass", pass.getBytes());
             List result = query.list();
             Iterator iterator = result.iterator();
             if(iterator.hasNext()){
-                usuario = (Usuario) iterator.next();
+                usuario =  (Usuario) iterator.next();
             }
         } catch (HibernateException he) {
             

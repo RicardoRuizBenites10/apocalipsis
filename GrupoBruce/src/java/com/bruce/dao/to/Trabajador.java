@@ -22,8 +22,8 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "TRABAJADOR",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Trabajador implements java.io.Serializable {
 
