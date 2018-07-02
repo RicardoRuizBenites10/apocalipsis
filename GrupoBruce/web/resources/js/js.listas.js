@@ -149,44 +149,37 @@ function cargarTrabajadores() {
         type: 'POST',
         dataType: 'json',
         success: function (responseText) {
-            alert("Dabadu: ");
-
-//            if (data !== null) {
-//                $.each(data, function (index, item) {
-//                    table = table +
-//                            '<tr class="odd pointer">' +
-//                            '<td class="hidden">' + JSON.stringify(item) + '</td>' +
-//                            '<td class=" ">' + item.dni + '</td>' +
-//                            '<td class=" ">' + item.ap_paterno + ' ' + item.ap_materno + ' ' + item.nombres + '</td>' +
-//                            '<td class="a-right a-right ">' + item.telefono + '</td>' +
-//                            '<td class=" ">' + item.direccion + '</td>' +
-//                            '<td class=" ">' + item.tipoTrabajador.descripcion + '</td>' +
-//                            '<td class="text-center">' +
-//                            '<span class="label ' + item.estadoTrabajador.descripcion + ' "> ' + item.estadoTrabajador.descripcion + '</span>' +
-//                            '</td>' +
-//                            '<td class=" a-center ">' +
-//                            '<a style="cursor: pointer;" class="btn-trabajador-info btn btn-info btn-xs"  data-toggle="modal" data-target="#panel-info" title="Información"><i class="fa fa-info-circle"></i></a>' +
-//                            '<a style="cursor: pointer;" class="btn-trabajador-edit btn btn-dark btn-xs"  data-toggle="modal" data-target="#panel-trabajador" title="Editar"><i class="fa fa-pencil"></i></a>';
-//                    if (item.nro_hijos > 0) {
-//                        table = table +
-//                                '<a style="cursor: pointer;" class="btn-trabajador-hijo btn btn-primary btn-xs"  data-toggle="modal" data-target="#panel-hijos" title="Hijos"><i class="fa fa-child"></i></a>';
-//                    }
-//                    table = table + '</td> </tr>';
-//                });
-//            }     
+            if (responseText["data"] !== null) {
+                $.each(responseText["data"], function (index, item) {
+                    table = table +
+                            '<tr class="odd pointer">' +
+                            '<td class="hidden">' +  item.codigo + '</td>' +
+                            '<td class=" ">' + item.codigo + '</td>' +
+                            '<td class=" ">' + item.nombres + '</td>' +
+                            '<td class="a-right a-right ">' + item.telefono + '</td>' +
+                            '<td class=" ">' + item.direccion + '</td>' +
+                            '<td class=" ">' + item.tipoTrabajador + '</td>' +
+                            '<td class="text-center">' +
+                            '<span class="label ' + item.estadoTrabajador + ' "> ' + item.estadoTrabajador + '</span>' +
+                            '</td>' +
+                            '<td class=" a-center ">' +
+                            '<a style="cursor: pointer;" class="btn-trabajador-info btn btn-info btn-xs"  data-toggle="modal" data-target="#panel-info" title="Información"><i class="fa fa-info-circle"></i></a>' +
+                            '<a style="cursor: pointer;" class="btn-trabajador-edit btn btn-dark btn-xs"  data-toggle="modal" data-target="#panel-trabajador" title="Editar"><i class="fa fa-pencil"></i></a>';
+                    if (item.nro_hijos > 0) {
+                        table = table +
+                                '<a style="cursor: pointer;" class="btn-trabajador-hijo btn btn-primary btn-xs"  data-toggle="modal" data-target="#panel-hijos" title="Hijos"><i class="fa fa-child"></i></a>';
+                    }
+                    table = table + '</td> </tr>';
+                });
+            }    
+            table = table + '</tbody> </table>';
+            $("#lista-empleados").html(table);
+            inicializaTabla($("#tbl-trabajador"));
         },
-        timeout: 5000,
-        error: function (e) {
+        fail: function (e) {
             alert("Error:  "+ JSON.stringify(e));
-        },
-        done: function (e) {
-            alert("Done: ");
         }
     });
-    table = table + '</tbody> </table>';
-    $("#lista-empleados").html(table);
-    inicializaTabla($("#tbl-trabajador"));
-    alert("termino");
 }
 
 function cargarContratos() {

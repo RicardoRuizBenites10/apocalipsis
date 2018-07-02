@@ -74,7 +74,7 @@
                             <a href="../rrhh/mantenimiento-rrhh.jsp">Mantenimiento [RRHH]</a>
                         </li>
                         <li>
-                            <a href="<c:url value="empleados"/> ">Personal</a>
+                            <a href="<c:url value="rrhh/empleados"/> ">Personal</a>
                         </li>
                         <li>
                             <a href="../rrhh/contratos.jsp">Contratos</a>

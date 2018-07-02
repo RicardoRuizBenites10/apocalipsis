@@ -6,12 +6,13 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Trabajador;
-import java.util.Map;
+import com.bruce.dao.to.TrabajadorDTO;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface ITrabajadorDAO extends IEntidadDAO<Trabajador>{
-    public Map<String,Object> getAllPerforms();
+    public List<TrabajadorDTO> getAllPerforms();
 }

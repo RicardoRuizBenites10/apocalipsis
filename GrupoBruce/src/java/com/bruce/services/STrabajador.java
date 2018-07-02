@@ -6,9 +6,9 @@
 package com.bruce.services;
 
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.TrabajadorDTO;
 import com.bruce.factory.FactoryDAO;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -18,6 +18,7 @@ public class STrabajador {
 
     private Trabajador trabajador;
     private List<Trabajador> LTrabajador;
+    private List<TrabajadorDTO> LTrabajadorDTO;
 
     public Trabajador getTrabajador() {
         return trabajador;
@@ -27,6 +28,10 @@ public class STrabajador {
         return LTrabajador;
     }
 
+    public List<TrabajadorDTO> getLTrabajadorDTO() {
+        return LTrabajadorDTO;
+    }
+
     public boolean listarTrabajadores(){
         boolean rpta;
         LTrabajador = FactoryDAO.getInstance().getTrabajadorDAO().findAll();
@@ -34,7 +39,10 @@ public class STrabajador {
         return rpta;
     }
     
-    public Map<String,Object> listarTrabajadoresPerformance(){
-        return FactoryDAO.getInstance().getTrabajadorDAO().getAllPerforms();
+    public boolean listarTrabajadoresPerformance(){
+        boolean rpta;
+        LTrabajadorDTO = FactoryDAO.getInstance().getTrabajadorDAO().getAllPerforms();
+        rpta = LTrabajadorDTO.size()>0;
+        return rpta;
     }
 }

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author SISTEMAS
  */
-@WebFilter(filterName = "FRolCliente", urlPatterns = {"/inicio.htm","/view/rrhh/*"})
+@WebFilter(filterName = "FRolCliente", urlPatterns = {"/inicio","/rrhh/*"})
 public class FNavegabilidad implements Filter{
     
     private FilterConfig filterConfig;

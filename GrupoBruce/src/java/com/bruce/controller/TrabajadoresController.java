@@ -2,6 +2,7 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.Alibaba;
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.TrabajadorDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.bruce.services.STrabajador;
  * @author SISTEMAS
  */
 @Controller
+@RequestMapping("rrhh")
 public class TrabajadoresController {
 
     @RequestMapping(value = "/empleados", method = RequestMethod.GET)
@@ -28,11 +30,10 @@ public class TrabajadoresController {
     public @ResponseBody Map<String, Object> getAllEmployes() {
         STrabajador st = new STrabajador();
         Map<String, Object> map = new HashMap<>();
-        Map<String,Object> mapita = st.listarTrabajadoresPerformance();
-        List<Trabajador> list = st.listarTrabajadores() ? st.getLTrabajador() : new ArrayList<>();
+        List<TrabajadorDTO> list = st.listarTrabajadoresPerformance() ? st.getLTrabajadorDTO(): new ArrayList<>();
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-        map.put("data", mapita);
+        map.put("data", list);
         return map;
     }
 }

@@ -7,6 +7,7 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.TrabajadorDTO;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -19,6 +20,7 @@ import com.bruce.util.QuerySQL;
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.transform.Transformers;
 
 /**
  *
@@ -116,22 +118,22 @@ public class TrabajadorDAO implements ITrabajadorDAO{
     }
 
     @Override
-    public Map<String, Object> getAllPerforms() {
+    public List<TrabajadorDTO> getAllPerforms() {
         Session session = sf.openSession();
         Transaction tx = null;
-        Map map = null;
+        List<TrabajadorDTO> result = null;
         try{
             tx = session.beginTransaction();
             Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
-            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            map = (Map) query.list();
+            result = query.setResultTransformer(Transformers.aliasToBean(TrabajadorDTO.class)).list();
             tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null)tx.rollback();
+        }catch(HibernateException he ){
+            System.err.println("Error getAllPermorms: " + he.getMessage());
+            if(tx!=null) tx.rollback();
         }finally{
             session.close();
         }
-        return map;
+        return result;
     }
     
 }
