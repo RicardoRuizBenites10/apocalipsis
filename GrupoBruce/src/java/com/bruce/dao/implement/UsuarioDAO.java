@@ -16,11 +16,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
 import com.bruce.util.QuerySQL;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class UsuarioDAO implements IUsuarioDAO {
 
     SessionFactory sf = HibernateUtil.getSessionFactory();

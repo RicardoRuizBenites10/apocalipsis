@@ -21,11 +21,13 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.transform.Transformers;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class TrabajadorDAO implements ITrabajadorDAO{
     
     private final SessionFactory sf = HibernateUtil.getSessionFactory();

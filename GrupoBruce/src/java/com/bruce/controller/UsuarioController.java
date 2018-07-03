@@ -7,6 +7,7 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.Usuario;
 import com.bruce.dao.validator.UsuarioValidator;
+import com.bruce.services.design.IUsuarioService;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.bruce.services.SUsuario;
+import com.bruce.services.implement.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -26,6 +28,9 @@ import com.bruce.services.SUsuario;
 @Controller
 public class UsuarioController {
 
+    @Autowired
+    private IUsuarioService su;
+    
     private final UsuarioValidator validator;
 
     public UsuarioController() {
@@ -42,18 +47,15 @@ public class UsuarioController {
         String urlResult = "intranet/login";
         validator.validate(usuario, result);
         if (!result.hasErrors()) {
-            SUsuario su = new SUsuario();
-            if (su.validarUsuario(usuario.getUsu(), new String(usuario.getClave()))) {
-                usuario = su.getUsuario();
+            usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
+            if (usuario!=null) {
                 model.addAttribute("usuario", usuario);
-
                 //DECLARACIÓN DE SESIÓN
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("ssUsuario", usuario);
                 Date fs = new Date();
                 sesion.setAttribute("ssFechaHora", fs);
                 sesion.setMaxInactiveInterval(3 * 60);
-
                 urlResult = "redirect:inicio";
             }
         }
