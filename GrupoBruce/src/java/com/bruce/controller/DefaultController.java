@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DefaultController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String defaultPage() {
-        return "redirect:login";
-    }
+//    @RequestMapping(value = "/index.htm", method = RequestMethod.GET)
+//    public String defaultPage() {
+//        return "index";
+////        return "redirect:login";
+//    }
 }

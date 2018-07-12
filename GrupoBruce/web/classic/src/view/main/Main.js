@@ -20,6 +20,8 @@ Ext.define('GrupoBruce.view.main.Main', {
 
     controller: 'main',
     viewModel: 'main',
+    
+    plugins: 'viewport',
 
     ui: 'navigation',
 
@@ -37,7 +39,13 @@ Ext.define('GrupoBruce.view.main.Main', {
             },
             flex: 0
         },
-        iconCls: 'fa-th-list'
+        iconCls: 'fa-bus',
+        items: [{
+            xtype: 'button',
+            text: 'Cerrar sesión',
+            margin: '5 0',
+            handler: 'onClickButton'
+        }]
     },
 
     tabBar: {

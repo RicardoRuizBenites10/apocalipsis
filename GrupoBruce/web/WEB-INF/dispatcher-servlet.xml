@@ -12,11 +12,15 @@
       
     <context:component-scan base-package="com.bruce"/>
     
-    <!-- VIEW RESOLVER -->
+    <!-- VIEW RESOLVER 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
-          p:suffix=".jsp" />
+          p:suffix=".jsp" />-->
+    
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:suffix=".html" />
     
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/"/>

@@ -2,7 +2,6 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.TrabajadorDTO;
 import com.bruce.services.design.ITrabajadorService;
-import com.bruce.services.implement.TrabajadorService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

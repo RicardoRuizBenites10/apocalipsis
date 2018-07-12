@@ -17,5 +17,19 @@ Ext.define('GrupoBruce.view.main.MainController', {
         if (choice === 'yes') {
             //
         }
+    },
+    
+    onClickButton: function () {
+        // Remove the localStorage key/value
+        localStorage.removeItem('validacionUsuario');
+
+        // Remove Main View
+        this.getView().destroy();
+
+        // Add the Login Window
+        Ext.create({
+            xtype: 'login'
+        });
     }
+    
 });
