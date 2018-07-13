@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.view.main.MainController', {
     
     onClickButton: function () {
         // Remove the localStorage key/value
-        localStorage.removeItem('validacionUsuario');
+        localStorage.removeItem('sesionUsuario');
 
         // Remove Main View
         this.getView().destroy();

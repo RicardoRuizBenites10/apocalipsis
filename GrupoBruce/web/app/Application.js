@@ -25,12 +25,12 @@ Ext.define('GrupoBruce.Application', {
         var loggedIn;
 
         // Check to see the current value of the localStorage key
-        loggedIn = localStorage.getItem("validacionUsuario");
+        loggedIn = localStorage.getItem("sesionUsuario");
         // This ternary operator determines the value of the TutorialLoggedIn key.
         // If TutorialLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
         Ext.create({
-            xtype: loggedIn ? 'app-main' : 'usuario'
+            xtype: loggedIn ? 'app-main' : 'login'
         });
     },
 

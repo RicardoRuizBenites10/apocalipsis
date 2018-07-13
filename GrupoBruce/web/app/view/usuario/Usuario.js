@@ -2,17 +2,18 @@
 Ext.define('GrupoBruce.view.usuario.Usuario',{
     extend: 'Ext.window.Window',
 
-    xtype: 'usuario',
+    xtype: 'login',
 
     requires: [
         'GrupoBruce.view.usuario.UsuarioController',
         'GrupoBruce.view.usuario.UsuarioModel',
+        
         'Ext.form.Panel'
     ],
 
-    controller: 'usuario',
+    controller: 'vc-usuario',
     viewModel: {
-        type: 'usuario'
+        type: 'vm-usuario'
     },
     
     bodyPadding: 10,
@@ -26,18 +27,18 @@ Ext.define('GrupoBruce.view.usuario.Usuario',{
         items: [{
             xtype: 'textfield',
             name: 'username',
-            fieldLabel: 'Usuario :',
+            fieldLabel: 'Usuario',
             allowBlank: false
         }, {
             xtype: 'textfield',
             name: 'password',
             inputType: 'password',
-            fieldLabel: 'Contraseña :',
+            fieldLabel: 'Contraseña',
             allowBlank: false
         }, {
             xtype: 'displayfield',
             hideEmptyLabel: false,
-            value: 'No dejar en blanco contraseña'
+            value: 'No dejar espacios en blanco'
         }],
         buttons: [{
             text: 'Ingresar',

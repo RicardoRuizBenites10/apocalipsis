@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.view.usuario.UsuarioController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.usuario',
+    alias: 'controller.vc-usuario',
     
     onLoginClick: function() {
 
@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.view.usuario.UsuarioController', {
         // a server-side lookup. We'll just move forward for the sake of this example.
 
         // Set the localStorage value to true
-        localStorage.setItem("validacionUsuario", false);
+        localStorage.setItem("sesionUsuario", true);
 
         // Remove Login Window
         this.getView().destroy();
