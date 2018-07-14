@@ -1,9 +1,10 @@
-Ext.define('GrupoBruce.view.usuario.UsuarioController', {
+Ext.define('GrupoBruce.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.vc-usuario',
+    alias: 'controller.login',
     
-    onLoginClick: function() {
-
+    inicioSesion: function(){
+        var form = this.lookupReference('formLogin');
+        
         // This would be the ideal location to verify the user's credentials via
         // a server-side lookup. We'll just move forward for the sake of this example.
 
@@ -17,6 +18,7 @@ Ext.define('GrupoBruce.view.usuario.UsuarioController', {
         Ext.create({
             xtype: 'app-main'
         });
-
+        
     }
+    
 });

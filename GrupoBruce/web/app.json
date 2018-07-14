@@ -360,7 +360,7 @@
         "microloader": "bootstrap.js",
         "css": "bootstrap.css"
     },
-
+    
     /**
      * Controls the output directory for build resources.  May be set with
      * either a string:
@@ -535,17 +535,9 @@
         }
     },
 
-    /**
-     * File / directory name patttern to ignore when copying to the builds. Must be a
-     * valid regular expression.
-     */
     "ignore": [
         "(^|/)CVS(/?$|/.*?$)"
     ],
 
-    /**
-     * Uniquely generated id for this application, used as prefix for localStorage keys.
-     * Normally you should never change this value.
-     */
     "id": "b5cc785c-fcd4-46a1-823a-4ef8205b9a8d"
 }

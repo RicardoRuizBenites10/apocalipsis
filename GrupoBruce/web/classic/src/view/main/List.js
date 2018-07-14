@@ -8,8 +8,8 @@ Ext.define('GrupoBruce.view.main.List', {
     requires: [
         'GrupoBruce.store.Personnel'
     ],
-
-    title: 'Personnel',
+    
+    title: 'Trabajadores',
 
     store: {
         type: 'personnel'
