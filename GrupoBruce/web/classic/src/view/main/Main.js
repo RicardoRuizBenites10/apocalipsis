@@ -39,12 +39,17 @@ Ext.define('GrupoBruce.view.main.Main', {
             },
             flex: 0
         },
-        iconCls: 'fa-bus',
-        items: [{
+        iconCls: 'fa-bus'
+        ,items: [{
             xtype: 'button',
-            text: 'Cerrar sesión',
-            margin: '5 0',
-            handler: 'onClickButton'
+            iconCls: 'fa-user',
+            text: 'Oscar Ricardo Ruiz Benites',
+             menu: [{
+                text:'Mi perfil'
+            },{
+                text:'Cerrar sesión',
+                handler: 'onClickButton'
+            }]
         }]
     },
 
@@ -77,35 +82,44 @@ Ext.define('GrupoBruce.view.main.Main', {
                 tall: {
                     iconAlign: 'top',
                     textAlign: 'center',
-                    width: 120
+                    width: 60
                 }
             }
         }
     },
 
     items: [{
-        title: 'Home',
-        iconCls: 'fa-home',
+        title: ' Recursos Humanos',
+        iconCls: 'fa-male',
         items: [{
             xtype: 'mainlist'
         }]
     }, {
-        title: 'Users',
-        iconCls: 'fa-user',
+        title: 'Logistica',
+        iconCls: 'fa-folder-o',
         bind: {
             html: '{loremIpsum}'
         }
+    },{
+        title: 'Ingeniería y diseño',
+        iconCls: 'fa-crop'
     }, {
-        title: 'Groups',
-        iconCls: 'fa-users',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }, {
-        title: 'Settings',
+        title: 'Producción',
         iconCls: 'fa-cog',
         bind: {
             html: '{loremIpsum}'
         }
+    },{
+        title: 'Control de calidad',
+        iconCls: 'fa-check-square-o'
+    }, {
+        title: 'Sistemas',
+        iconCls: 'fa-code',
+        bind: {
+            html: '{loremIpsum}'
+        }
+    }, {
+        title: 'Reportes',
+        iconCls: 'fa-bar-chart-o'
     }]
 });
