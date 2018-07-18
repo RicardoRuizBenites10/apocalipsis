@@ -7,6 +7,8 @@ Ext.define('GrupoBruce.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
+        usuario: 'Oscar Ricardo Ruiz Benites',
+        
         name: 'Grupo Bruce',
 
         loremIpsum: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'

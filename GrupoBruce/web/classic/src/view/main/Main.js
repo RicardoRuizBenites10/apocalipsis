@@ -1,10 +1,3 @@
-/**
- * This class is the main view for the application. It is specified in app.js as the
- * "mainView" property. That setting automatically applies the "viewport"
- * plugin causing this view to become the body element (i.e., the viewport).
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define('GrupoBruce.view.main.Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'app-main',
@@ -15,17 +8,19 @@ Ext.define('GrupoBruce.view.main.Main', {
 
         'GrupoBruce.view.main.MainController',
         'GrupoBruce.view.main.MainModel',
+        'GrupoBruce.view.main.Menu',
         'GrupoBruce.view.main.List'
     ],
 
     controller: 'main',
     viewModel: 'main',
-    
+
     plugins: 'viewport',
 
     ui: 'navigation',
 
     tabBarHeaderPosition: 1,
+    
     titleRotation: 0,
     tabRotation: 0,
 
@@ -39,22 +34,24 @@ Ext.define('GrupoBruce.view.main.Main', {
             },
             flex: 0
         },
-        iconCls: 'fa-bus'
-        ,items: [{
-            xtype: 'button',
-            iconCls: 'fa-user',
-            text: 'Oscar Ricardo Ruiz Benites',
-             menu: [{
-                text:'Mi perfil'
-            },{
-                text:'Cerrar sesión',
-                handler: 'onClickButton'
+        items: [{
+                xtype: 'button',
+                iconCls: 'fa fa-user',
+                bind: {
+                    text: '{usuario}'
+                },
+                menu: [{
+                        text: 'Mi perfil'
+                    }, {
+                        text: 'Cerrar sesión',
+                        handler: 'onClickButton'
+                    }]
             }]
-        }]
     },
 
     tabBar: {
         flex: 1,
+        scrollable: true,
         layout: {
             align: 'stretch',
             overflowHandler: 'none'
@@ -89,37 +86,53 @@ Ext.define('GrupoBruce.view.main.Main', {
     },
 
     items: [{
-        title: ' Recursos Humanos',
-        iconCls: 'fa-male',
-        items: [{
-            xtype: 'mainlist'
+            title: ' Recursos Humanos',
+            iconCls: 'fa-male',
+            items:[{
+                    xtype: 'MiMenu',
+                    items: [{
+                            title: 'Mantenimiento',
+                            html:'hola'
+                    },{
+                        title: 'Personal',
+                        html:'hola 2'
+                    },{
+                        title: 'Contrato',
+                        html:'hola 2'
+                    }]
+            }]
+        }, {
+            title: 'Logistica',
+            iconCls: 'fa-folder-o',
+            items: [{
+                    xtype: 'mainlist'
+                }]
+        }, {
+            title: 'Ingeniería y diseño',
+            iconCls: 'fa-crop',
+            items:[{
+                    title: 'jojode',
+                    html: 'dadada',
+                    closable: true,
+                    iconCls: 'fa fa-home'
+            }]
+        }, {
+            title: 'Producción',
+            iconCls: 'fa-cog',
+            bind: {
+                html: '{loremIpsum}'
+            }
+        }, {
+            title: 'Control de calidad',
+            iconCls: 'fa-check-square-o'
+        }, {
+            title: 'Sistemas',
+            iconCls: 'fa-code',
+            bind: {
+                html: '{loremIpsum}'
+            }
+        }, {
+            title: 'Reportes',
+            iconCls: 'fa-bar-chart-o'
         }]
-    }, {
-        title: 'Logistica',
-        iconCls: 'fa-folder-o',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    },{
-        title: 'Ingeniería y diseño',
-        iconCls: 'fa-crop'
-    }, {
-        title: 'Producción',
-        iconCls: 'fa-cog',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    },{
-        title: 'Control de calidad',
-        iconCls: 'fa-check-square-o'
-    }, {
-        title: 'Sistemas',
-        iconCls: 'fa-code',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }, {
-        title: 'Reportes',
-        iconCls: 'fa-bar-chart-o'
-    }]
 });

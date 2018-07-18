@@ -7,7 +7,21 @@ Ext.define('GrupoBruce.store.Usuario',{
     
     proxy: {
         type: 'json',
-        url: ''
-    }
+        url: 'validate.htm',
+        
+        api: {
+            read: '',
+            create: '',
+            update: '',
+            delete: ''
+        },
+        
+        reader: {
+             type: 'json',
+             root: 'data'
+         }
+    },
+    
+    autoLoad: true
     
 });

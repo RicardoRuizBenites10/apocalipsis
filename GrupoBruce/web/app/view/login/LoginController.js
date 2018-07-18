@@ -3,11 +3,34 @@ Ext.define('GrupoBruce.view.login.LoginController', {
     alias: 'controller.login',
     
     inicioSesion: function(){
-        var form = this.lookupReference('formLogin');
         
-        // This would be the ideal location to verify the user's credentials via
-        // a server-side lookup. We'll just move forward for the sake of this example.
-
+        var form = this.lookupReference('formLogin');
+        if (!form.isDirty()) {
+            Ext.Msg.alert('Status', 'No new data to create.');
+            return;
+        }
+        else if (!form.isValid()) {
+            Ext.Msg.alert('Status', 'Invalid data.');
+            return;
+        }
+        form.submit({
+            url: '/validate.htm',
+            waitMsg: 'Saving..',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            clientValidation: true,
+            submitEmptyText: true,
+            
+            success: function(){
+                Ext.Msg.alert('Status', 'Saved successfully.');
+            },
+            
+            failurer: function(){
+                Ext.Msg.alert('Status', 'Saved error.');
+            }
+        });
+        
         // Set the localStorage value to true
         localStorage.setItem("sesionUsuario", true);
 
