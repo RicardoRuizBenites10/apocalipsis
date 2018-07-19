@@ -65,22 +65,23 @@ public class UsuarioController {
     public @ResponseBody
     Map<String, Object> validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
-
-        usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
+        System.out.println("usuario: "+usuario.getUsu());
+//        usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
         if (usuario != null) {
             //DECLARACIÓN DE SESIÓN
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("ssUsuario", usuario);
-            Date fs = new Date();
-            sesion.setAttribute("ssFechaHora", fs);
-            sesion.setMaxInactiveInterval(3 * 60);
-
-            map.put("status", 200);
-            map.put("message", "Datos encontrados.");
+//            HttpSession sesion = request.getSession();
+//            sesion.setAttribute("ssUsuario", usuario);
+//            Date fs = new Date();
+//            sesion.setAttribute("ssFechaHora", fs);
+//            sesion.setMaxInactiveInterval(3 * 60);
+            System.out.println("Bien crjo!!!!");
+            map.put("success", true);
+            map.put("msg", "Datos encontrados.");
             map.put("data", usuario);
         }else{
-            map.put("status", 200);
-            map.put("message", "Datos no encontrados.");
+            System.out.println("Ptm!!!!");
+            map.put("success", false);
+            map.put("msg", "Datos no encontrados.");
         }
 
         return map;

@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.Usuario', {
     extend: 'Ext.data.Model',
+    
     alias: 'model.usuario',
     
     fields: [

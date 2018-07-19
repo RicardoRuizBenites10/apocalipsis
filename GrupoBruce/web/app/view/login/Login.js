@@ -15,8 +15,11 @@ Ext.define('GrupoBruce.view.login.Login', {
     viewModel: {
         type: 'login'
     },
+    
+    bind: {
+        title: '{titLogin}'
+    },
 
-    title: 'INICIO DE SESIÓN',
     bodyPadding: 20,
     closable: false,
     autoShow: true,
@@ -25,7 +28,7 @@ Ext.define('GrupoBruce.view.login.Login', {
     items: [{
             xtype: 'form',
             reference: 'formLogin',
-            
+
             items: [{
                     xtype: 'textfield',
                     name: 'usu',
