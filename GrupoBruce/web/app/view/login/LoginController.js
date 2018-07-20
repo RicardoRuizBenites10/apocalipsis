@@ -14,7 +14,10 @@ Ext.define('GrupoBruce.view.login.LoginController', {
         }
         form.submit({
             url: 'validate.htm',
+            method: 'POST',
+            
             waitMsg: 'Accediendo al servidor..',
+            
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -37,9 +40,6 @@ Ext.define('GrupoBruce.view.login.LoginController', {
                 Ext.Msg.alert('Status', action.result.msg);
             }
         });
-
-
-
     }
 
 });

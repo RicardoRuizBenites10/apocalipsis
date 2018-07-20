@@ -8,18 +8,15 @@ package com.bruce.controller;
 import com.bruce.dao.to.Usuario;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.IUsuarioService;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -61,11 +58,11 @@ public class UsuarioController {
 //        }
 //        return urlResult;
 //    }
+    @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario) {
+    public Map<String, Object> validarUsuario(HttpServletRequest request, @RequestBody Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
-        System.out.println("usuario: "+usuario.getUsu());
+        System.out.println("usuario: " + usuario.getUsu());
 //        usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
         if (usuario != null) {
             //DECLARACIÓN DE SESIÓN
@@ -74,12 +71,12 @@ public class UsuarioController {
 //            Date fs = new Date();
 //            sesion.setAttribute("ssFechaHora", fs);
 //            sesion.setMaxInactiveInterval(3 * 60);
-            System.out.println("Bien crjo!!!!");
+            System.out.println("Bien crjo!!!...");
             map.put("success", true);
             map.put("msg", "Datos encontrados.");
             map.put("data", usuario);
-        }else{
-            System.out.println("Ptm!!!!");
+        } else {
+            System.out.println("Ptm!!!!...");
             map.put("success", false);
             map.put("msg", "Datos no encontrados.");
         }
@@ -99,4 +96,5 @@ public class UsuarioController {
         sesion.invalidate();
         return "redirect:login";
     }
+    
 }
