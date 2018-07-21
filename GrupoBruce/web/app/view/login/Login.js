@@ -24,7 +24,7 @@ Ext.define('GrupoBruce.view.login.Login', {
     closable: false,
     autoShow: true,
     resizable: false,
-
+    
     items: [{
             xtype: 'form',
             reference: 'formLogin',

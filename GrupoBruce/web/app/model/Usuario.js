@@ -4,12 +4,12 @@ Ext.define('GrupoBruce.model.Usuario', {
     alias: 'model.usuario',
     
     fields: [
-        { name: 'acceder', type: 'boolean' },
-        { name: 'accesos', type: 'auto' },
+        { name: 'idUsuario', type: 'string' },
+        { name: 'trabajador', type: 'string' },
+        { name: 'usu', type: 'string' },
         { name: 'clave', type: 'string' },
         { name: 'estado', type: 'boolean' },
-        { name: 'idUsuario', type: 'string' },
-        { name: 'trabajador', type: 'auto' },
-        { name: 'usu', type: 'string' }
+        { name: 'acceder', type: 'boolean' },
+        { name: 'accesos', type: 'string' }
     ]
 });

@@ -12,6 +12,4 @@ Ext.application({
         'GrupoBruce.view.main.Main'
     ]
 
-//    mainView: 'GrupoBruce.view.main.Main'
-
 });

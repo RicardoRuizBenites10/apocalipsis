@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -60,9 +62,9 @@ public class UsuarioController {
 //    }
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public Map<String, Object> validarUsuario(HttpServletRequest request, @RequestBody Usuario usuario) {
+    public Map<String, Object> validarUsuario(HttpServletRequest request, @ModelAttribute("login") Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
-        System.out.println("usuario: " + usuario.getUsu());
+        System.out.println("Usuario: " + usuario.toString());
 //        usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
         if (usuario != null) {
             //DECLARACIÓN DE SESIÓN
@@ -71,12 +73,12 @@ public class UsuarioController {
 //            Date fs = new Date();
 //            sesion.setAttribute("ssFechaHora", fs);
 //            sesion.setMaxInactiveInterval(3 * 60);
-            System.out.println("Bien crjo!!!...");
+            System.out.println("validado!!!...");
             map.put("success", true);
             map.put("msg", "Datos encontrados.");
             map.put("data", usuario);
         } else {
-            System.out.println("Ptm!!!!...");
+            System.out.println("No validado!!!!...");
             map.put("success", false);
             map.put("msg", "Datos no encontrados.");
         }

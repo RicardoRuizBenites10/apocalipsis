@@ -1,26 +1,29 @@
 Ext.define('GrupoBruce.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login',
-
     inicioSesion: function () {
 
-        var form = this.lookupReference('formLogin');
-        if (!form.isDirty()) {
-            Ext.Msg.alert('Status', 'No new data to create.');
+        var formLogin = this.lookupReference('formLogin');
+        if (!formLogin.isDirty()) {
+            Ext.Msg.alert('Status', 'No hay informacion que guardar.');
             return;
-        } else if (!form.isValid()) {
-            Ext.Msg.alert('Status', 'Invalid data.');
+        } else if (!formLogin.isValid()) {
+            Ext.Msg.alert('Status', 'Información ingresada no es valida.');
             return;
         }
-        form.submit({
+
+        formLogin.submit({
             url: 'validate.htm',
             method: 'POST',
+            params: {'usuu': formLogin.getForm().getValues()},
+            jsonData: formLogin.getForm().getValues(),
             
             waitMsg: 'Accediendo al servidor..',
-            
+
             headers: {
                 'Content-Type': 'application/json'
             },
+
             clientValidation: true,
             submitEmptyText: true,
 
