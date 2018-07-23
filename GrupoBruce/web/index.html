@@ -1,12 +1,11 @@
-<!DOCTYPE HTML>
-<html manifest="">
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, user-scalable=yes">
     <link rel="SHORTCUT ICON" href="./resources/img/Gbruce_logo.png">
-    <title>Grupo Bruce</title>
-
+    <title>Grupo Bruce JSP</title>
     <script type="text/javascript">
         var Ext = Ext || {}; 
         Ext.beforeLoad = function (tags) {
@@ -20,14 +19,15 @@
             }
             else {
                 profile = tags.desktop ? 'classic' : 'modern';
-                profile = tags.phone ? 'modern' : 'classic';
+               // profile = tags.phone ? 'modern' : 'classic';
             }
             Ext.manifest = profile; // this name must match a build profile name
         };
     </script>
 
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
-    <script id="microloader" data-app="b5cc785c-fcd4-46a1-823a-4ef8205b9a8d" type="text/javascript" src="bootstrap.js"></script>
+    <script id="microloader" data-app="b5cc785c-fcd4-46a1-823a-4ef8205b9a8d" type="text/javascript" src="bootstrap.js">
+    </script>
 
 </head>
 <body></body>

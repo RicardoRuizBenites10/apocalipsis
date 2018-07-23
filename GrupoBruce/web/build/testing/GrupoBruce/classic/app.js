@@ -59745,41 +59745,6 @@ Ext.define('Ext.toolbar.TextItem', {extend:Ext.toolbar.Item, alias:'widget.tbtex
 }, setText:function(text) {
   this.update(text);
 }});
-Ext.define('Ext.form.field.Display', {extend:Ext.form.field.Base, alias:'widget.displayfield', alternateClassName:['Ext.form.DisplayField', 'Ext.form.Display'], fieldSubTpl:['\x3cdiv id\x3d"{id}" data-ref\x3d"inputEl" role\x3d"textbox" aria-readonly\x3d"true"', ' aria-labelledby\x3d"{cmpId}-labelEl" {inputAttrTpl}', ' tabindex\x3d"\x3ctpl if\x3d"tabIdx !\x3d null"\x3e{tabIdx}\x3ctpl else\x3e-1\x3c/tpl\x3e"', '\x3ctpl if\x3d"fieldStyle"\x3e style\x3d"{fieldStyle}"\x3c/tpl\x3e', ' class\x3d"{fieldCls} {fieldCls}-{ui}"\x3e{value}\x3c/div\x3e', 
-{compiled:true, disableFormats:true}], ariaRole:undefined, focusable:false, skipLabelForAttribute:true, readOnly:true, fieldCls:Ext.baseCSSPrefix + 'form-display-field', fieldBodyCls:Ext.baseCSSPrefix + 'form-display-field-body', htmlEncode:false, noWrap:false, validateOnChange:false, initEvents:Ext.emptyFn, submitValue:false, getValue:function() {
-  return this.value;
-}, valueToRaw:function(value) {
-  if (value || value === 0 || value === false) {
-    return value;
-  } else {
-    return '';
-  }
-}, isDirty:function() {
-  return false;
-}, isValid:Ext.returnTrue, validate:Ext.returnTrue, getRawValue:function() {
-  return this.rawValue;
-}, setRawValue:function(value) {
-  var me = this;
-  value = Ext.valueFrom(value, '');
-  me.rawValue = value;
-  if (me.rendered) {
-    me.inputEl.dom.innerHTML = me.getDisplayValue();
-    me.updateLayout();
-  }
-  return value;
-}, getDisplayValue:function() {
-  var me = this, value = this.getRawValue(), display;
-  if (me.renderer) {
-    display = me.renderer.call(me.scope || me, value, me);
-  } else {
-    display = me.htmlEncode ? Ext.util.Format.htmlEncode(value) : value;
-  }
-  return display;
-}, getSubTplData:function(fieldData) {
-  var ret = this.callParent(arguments);
-  ret.value = this.getDisplayValue();
-  return ret;
-}});
 Ext.define('Ext.tip.Tip', {extend:Ext.panel.Panel, xtype:'tip', alternateClassName:'Ext.Tip', minWidth:40, maxWidth:500, shadow:'sides', constrainPosition:true, autoRender:true, hidden:true, baseCls:Ext.baseCSSPrefix + 'tip', focusOnToFront:false, maskOnDisable:false, closeAction:'hide', alwaysFramed:true, frameHeader:false, initComponent:function() {
   var me = this;
   me.floating = Ext.apply({}, {shadow:me.shadow}, me.self.prototype.floating);
@@ -72674,6 +72639,29 @@ Ext.define('GrupoBruce.Application', {extend:Ext.app.Application, name:'GrupoBru
   });
 }});
 Ext.define('GrupoBruce.store.Personnel', {extend:Ext.data.Store, alias:'store.personnel', fields:['name', 'email', 'phone'], data:{items:[{name:'Jean Luc', email:'jeanluc.picard@enterprise.com', phone:'555-111-1111'}, {name:'Worf', email:'worf.moghsson@enterprise.com', phone:'555-222-2222'}, {name:'Deanna', email:'deanna.troi@enterprise.com', phone:'555-333-3333'}, {name:'Data', email:'mr.data@enterprise.com', phone:'555-444-4444'}]}, proxy:{type:'memory', reader:{type:'json', rootProperty:'items'}}});
+Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewController, alias:'controller.login', inicioSesion:function() {
+  var formLogin = this.lookupReference('formLogin');
+  if (!formLogin.isDirty()) {
+    Ext.Msg.alert('Status', 'No hay informacion que guardar.');
+    return;
+  } else {
+    if (!formLogin.isValid()) {
+      Ext.Msg.alert('Status', 'Información ingresada no es valida.');
+      return;
+    }
+  }
+  formLogin.submit({url:'validate.htm', method:'POST', params:{'usuu':formLogin.getForm().getValues()}, jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
+    Ext.Msg.alert('Status', action.result.msg);
+    localStorage.setItem('sesionUsuario', true);
+    this.getView().destroy();
+    Ext.create({xtype:'app-main'});
+  }, failurer:function(form, action) {
+    Ext.Msg.alert('Status', action.result.msg);
+  }});
+}});
+Ext.define('GrupoBruce.view.login.LoginModel', {extend:Ext.app.ViewModel, alias:'viewmodel.login', data:{name:'GrupoBruce', titLogin:'Bienvenido a Grupo Bruce'}});
+Ext.define('GrupoBruce.view.login.Login', {extend:Ext.window.Window, xtype:'login', controller:'login', viewModel:{type:'login'}, bind:{title:'{titLogin}'}, bodyPadding:20, closable:false, autoShow:true, resizable:false, items:[{xtype:'form', reference:'formLogin', items:[{xtype:'textfield', name:'usu', fieldLabel:'Usuario', emptyText:'Número de DNI', allowBlank:false}, {xtype:'textfield', name:'clave', fieldLabel:'Contraseña', inputType:'password', emptyText:'Caracteres alfanuméricos', allowBlank:false}], 
+buttons:[{text:'Ingresar', formBind:true, listeners:{click:'inicioSesion'}}]}]});
 Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController, alias:'controller.main', onItemSelected:function(sender, record) {
   Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
 }, onConfirm:function(choice) {
@@ -72684,16 +72672,10 @@ Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController
   this.getView().destroy();
   Ext.create({xtype:'login'});
 }});
-Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{name:'Grupo Bruce', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}});
-Ext.define('GrupoBruce.view.usuario.UsuarioController', {extend:Ext.app.ViewController, alias:'controller.vc-usuario', onLoginClick:function() {
-  localStorage.setItem('sesionUsuario', true);
-  this.getView().destroy();
-  Ext.create({xtype:'app-main'});
-}});
-Ext.define('GrupoBruce.view.usuario.UsuarioModel', {extend:Ext.app.ViewModel, alias:'viewmodel.vm-usuario', data:{name:'GrupoBruce'}});
-Ext.define('GrupoBruce.view.usuario.Usuario', {extend:Ext.window.Window, xtype:'login', controller:'vc-usuario', viewModel:{type:'vm-usuario'}, bodyPadding:10, title:'Inicio de Sesión', closable:false, autoShow:true, items:{xtype:'form', reference:'formLogin', items:[{xtype:'textfield', name:'username', fieldLabel:'Usuario :', allowBlank:false}, {xtype:'textfield', name:'password', inputType:'password', fieldLabel:'Contraseña :', allowBlank:false}, {xtype:'displayfield', hideEmptyLabel:false, value:'No dejar espacions en blanco'}], 
-buttons:[{text:'Ingresar', formBind:true, listeners:{click:'onLoginClick'}}]}});
-Ext.define('GrupoBruce.view.main.List', {extend:Ext.grid.Panel, xtype:'mainlist', title:'Personnel', store:{type:'personnel'}, columns:[{text:'Name', dataIndex:'name'}, {text:'Email', dataIndex:'email', flex:1}, {text:'Phone', dataIndex:'phone', flex:1}], listeners:{select:'onItemSelected'}});
-Ext.define('GrupoBruce.view.main.Main', {extend:Ext.tab.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', ui:'navigation', tabBarHeaderPosition:1, titleRotation:0, tabRotation:0, header:{layout:{align:'stretchmax'}, title:{bind:{text:'{name}'}, flex:0}, iconCls:'fa-bus', items:[{xtype:'button', text:'Cerrar sesión', margin:'5 0', handler:'onClickButton'}]}, tabBar:{flex:1, layout:{align:'stretch', overflowHandler:'none'}}, responsiveConfig:{tall:{headerPosition:'top'}, 
-wide:{headerPosition:'left'}}, defaults:{bodyPadding:20, tabConfig:{plugins:'responsive', responsiveConfig:{wide:{iconAlign:'left', textAlign:'left'}, tall:{iconAlign:'top', textAlign:'center', width:120}}}}, items:[{title:'Home', iconCls:'fa-home', items:[{xtype:'mainlist'}]}, {title:'Users', iconCls:'fa-user', bind:{html:'{loremIpsum}'}}, {title:'Groups', iconCls:'fa-users', bind:{html:'{loremIpsum}'}}, {title:'Settings', iconCls:'fa-cog', bind:{html:'{loremIpsum}'}}]});
+Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benites', name:'Grupo Bruce', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}});
+Ext.define('GrupoBruce.view.main.Menu', {extend:Ext.tab.Panel, xtype:'MiMenu'});
+Ext.define('GrupoBruce.view.main.List', {extend:Ext.grid.Panel, xtype:'mainlist', title:'Trabajadores', store:{type:'personnel'}, columns:[{text:'Name', dataIndex:'name'}, {text:'Email', dataIndex:'email', flex:1}, {text:'Phone', dataIndex:'phone', flex:1}], listeners:{select:'onItemSelected'}});
+Ext.define('GrupoBruce.view.main.Main', {extend:Ext.tab.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', ui:'navigation', tabBarHeaderPosition:1, titleRotation:0, tabRotation:0, header:{layout:{align:'stretchmax'}, title:{bind:{text:'{name}'}, flex:0}, items:[{xtype:'button', iconCls:'fa fa-user', bind:{text:'{usuario}'}, menu:[{text:'Mi perfil'}, {text:'Cerrar sesión', handler:'onClickButton'}]}]}, tabBar:{flex:1, scrollable:true, layout:{align:'stretch', overflowHandler:'none'}}, 
+responsiveConfig:{tall:{headerPosition:'top'}, wide:{headerPosition:'left'}}, defaults:{bodyPadding:10, tabConfig:{plugins:'responsive', responsiveConfig:{wide:{iconAlign:'left', textAlign:'left'}, tall:{iconAlign:'top', textAlign:'center', width:60}}}}, items:[{title:' Recursos Humanos', iconCls:'fa-male', items:[{xtype:'MiMenu', items:[{title:'Mantenimiento', html:'hola'}, {title:'Personal', html:'hola 2'}, {title:'Contrato', html:'hola 2'}]}]}, {title:'Logistica', iconCls:'fa-folder-o', items:[{xtype:'mainlist'}]}, 
+{title:'Ingeniería y diseño', iconCls:'fa-crop', items:[{title:'jojode', html:'dadada', closable:true, iconCls:'fa fa-home'}]}, {title:'Producción', iconCls:'fa-cog', bind:{html:'{loremIpsum}'}}, {title:'Control de calidad', iconCls:'fa-check-square-o'}, {title:'Sistemas', iconCls:'fa-code', bind:{html:'{loremIpsum}'}}, {title:'Reportes', iconCls:'fa-bar-chart-o'}]});
 Ext.application({name:'GrupoBruce', extend:GrupoBruce.Application});

@@ -1,4 +1,3 @@
-
 Ext.define('GrupoBruce.view.login.Login', {
     extend: 'Ext.window.Window',
 

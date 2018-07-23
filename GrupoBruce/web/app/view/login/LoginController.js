@@ -1,9 +1,11 @@
 Ext.define('GrupoBruce.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login',
+    
     inicioSesion: function () {
 
         var formLogin = this.lookupReference('formLogin');
+        
         if (!formLogin.isDirty()) {
             Ext.Msg.alert('Status', 'No hay informacion que guardar.');
             return;
@@ -13,8 +15,9 @@ Ext.define('GrupoBruce.view.login.LoginController', {
         }
 
         formLogin.submit({
-            url: 'validate.htm',
+            url: '/validate',
             method: 'POST',
+            
             params: {'usuu': formLogin.getForm().getValues()},
             jsonData: formLogin.getForm().getValues(),
             

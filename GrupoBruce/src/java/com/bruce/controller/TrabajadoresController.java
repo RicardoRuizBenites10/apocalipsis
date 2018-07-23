@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("rrhh")
 public class TrabajadoresController {
-    
+
     @Autowired
     private ITrabajadorService st;
 
@@ -27,9 +27,9 @@ public class TrabajadoresController {
         return "rrhh/empleados";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> getAllEmployes() {
+    public Map<String, Object> getAllEmployes() {
         Map<String, Object> map = new HashMap<>();
         List<TrabajadorDTO> list = st.findAllPerform();
         map.put("status", 200);
