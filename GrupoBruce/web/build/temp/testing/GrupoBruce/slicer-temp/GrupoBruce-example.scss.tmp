@@ -1086,7 +1086,6 @@ $include-grupobruce-view-main-list: dynamic(true);;
 $include-grupobruce-view-main-main: dynamic(true);;
 $include-grupobruce-view-main-maincontroller: dynamic(true);;
 $include-grupobruce-view-main-mainmodel: dynamic(true);;
-$include-grupobruce-view-main-menu: dynamic(true);;
 
 
 /* ======================== ETC ======================== */

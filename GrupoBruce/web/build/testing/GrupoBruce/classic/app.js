@@ -72650,7 +72650,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewControll
       return;
     }
   }
-  formLogin.submit({url:'validate.htm', method:'POST', params:{'usuu':formLogin.getForm().getValues()}, jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
+  formLogin.submit({url:'validate', method:'POST', params:{'usuu':formLogin.getForm().getValues()}, jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
     Ext.Msg.alert('Status', action.result.msg);
     localStorage.setItem('sesionUsuario', true);
     this.getView().destroy();
@@ -72673,7 +72673,6 @@ Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController
   Ext.create({xtype:'login'});
 }});
 Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benites', name:'Grupo Bruce', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}});
-Ext.define('GrupoBruce.view.main.Menu', {extend:Ext.tab.Panel, xtype:'MiMenu'});
 Ext.define('GrupoBruce.view.main.List', {extend:Ext.grid.Panel, xtype:'mainlist', title:'Trabajadores', store:{type:'personnel'}, columns:[{text:'Name', dataIndex:'name'}, {text:'Email', dataIndex:'email', flex:1}, {text:'Phone', dataIndex:'phone', flex:1}], listeners:{select:'onItemSelected'}});
 Ext.define('GrupoBruce.view.main.Main', {extend:Ext.tab.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', ui:'navigation', tabBarHeaderPosition:1, titleRotation:0, tabRotation:0, header:{layout:{align:'stretchmax'}, title:{bind:{text:'{name}'}, flex:0}, items:[{xtype:'button', iconCls:'fa fa-user', bind:{text:'{usuario}'}, menu:[{text:'Mi perfil'}, {text:'Cerrar sesión', handler:'onClickButton'}]}]}, tabBar:{flex:1, scrollable:true, layout:{align:'stretch', overflowHandler:'none'}}, 
 responsiveConfig:{tall:{headerPosition:'top'}, wide:{headerPosition:'left'}}, defaults:{bodyPadding:10, tabConfig:{plugins:'responsive', responsiveConfig:{wide:{iconAlign:'left', textAlign:'left'}, tall:{iconAlign:'top', textAlign:'center', width:60}}}}, items:[{title:' Recursos Humanos', iconCls:'fa-male', items:[{xtype:'MiMenu', items:[{title:'Mantenimiento', html:'hola'}, {title:'Personal', html:'hola 2'}, {title:'Contrato', html:'hola 2'}]}]}, {title:'Logistica', iconCls:'fa-folder-o', items:[{xtype:'mainlist'}]}, 
