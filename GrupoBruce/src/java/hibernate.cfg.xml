@@ -48,7 +48,9 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <property name="hibernate.connection.pool_size">1</property>
     <property name="hibernate.show_sql">true</property>
-    <!--<property name="hibernate.enable_lazy_load_no_trans">true</property>-->
+    <!-- Inicializa dependencia de hibernate para to  
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+    -->
     <mapping class="com.bruce.dao.to.Genero"/>
     <mapping class="com.bruce.dao.to.AccesoId"/>
     <mapping class="com.bruce.dao.to.Permiso"/>

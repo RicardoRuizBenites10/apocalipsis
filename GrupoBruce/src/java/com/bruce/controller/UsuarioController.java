@@ -45,49 +45,52 @@ public class UsuarioController {
         return new ModelAndView("intranet/login", "usuario", new Usuario());
     }
 
-    @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
-        String urlResult = "intranet/login";
-        validator.validate(usuario, result);
-        if (!result.hasErrors()) {
-            usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
-            if (usuario!=null) {
-                model.addAttribute("usuario", usuario);
-                //DECLARACIÓN DE SESIÓN
-                HttpSession sesion = request.getSession();
-                sesion.setAttribute("ssUsuario", usuario);
-                Date fs = new Date();
-                sesion.setAttribute("ssFechaHora", fs);
-                sesion.setMaxInactiveInterval(3 * 60);
-                urlResult = "redirect:inicio";
-            }
-        }
-        return urlResult;
-    }
-    
-//    @ResponseBody
 //    @RequestMapping(value = "/validate", method = RequestMethod.POST)
-//    public Map<String,Object> validarUsuario(HttpServletRequest request, @RequestBody Usuario usuario) {
-//        Map<String, Object> map = new HashMap<>();
-//        System.out.println("Usuario: " + usuario.toString());
-////        usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
-//        if (usuario!=null) {
+//    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
+//        String urlResult = "intranet/login";
+//        validator.validate(usuario, result);
+//        if (!result.hasErrors()) {
+//            usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
+//            if (usuario!=null) {
+//                model.addAttribute("usuario", usuario);
+//                //DECLARACIÓN DE SESIÓN
+//                HttpSession sesion = request.getSession();
+//                sesion.setAttribute("ssUsuario", usuario);
+//                Date fs = new Date();
+//                sesion.setAttribute("ssFechaHora", fs);
+//                sesion.setMaxInactiveInterval(3 * 60);
+//                urlResult = "redirect:inicio";
+//            }
+//        }
+//        return urlResult;
+//    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    public Map<String,Object> validarUsuario(Usuario usuario) {
+        Map<String, Object> map = new HashMap<>();
+        System.out.println("Usuario: -----------------" + usuario.toString());
+        Usuario logUsuario = su.accesoUsuario("46099060", "Nakamas123");
+        System.out.println("Usuario 2: " + logUsuario.toString());
+        if (usuario!=null) {
+            System.out.println("Validando...");
 //            //DECLARACIÓN DE SESIÓN
 //            HttpSession sesion = request.getSession();
 //            sesion.setAttribute("ssUsuario", usuario);
 //            Date fs = new Date();
 //            sesion.setAttribute("ssFechaHora", fs);
 //            sesion.setMaxInactiveInterval(3 * 60);
-//            map.put("status", 200);
-//            map.put("message", "Datos encontrados");
-//            map.put("data", usuario);
-//        }else{
-//            map.put("status", 400);
-//            map.put("message", "Datos no encontrados");
-//        }
-//
-//        return map;
-//    }
+            map.put("status", 200);
+            map.put("message", "Datos encontrados");
+            map.put("data", logUsuario);
+        }else{
+            System.err.println("Rechazado...");
+            map.put("status", 400);
+            map.put("message", "Datos no encontrados");
+        }
+
+        return map;
+    }
     
     @RequestMapping(value = "/inicio", method = RequestMethod.GET)
     public String inicioUsuario() {

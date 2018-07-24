@@ -135,10 +135,4 @@ public class Usuario implements java.io.Serializable {
     public void setAccesos(Set<Acceso> accesos) {
         this.accesos = accesos;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", trabajador=" + trabajador + ", usu=" + usu + ", clave=" + clave + ", estado=" + estado + ", acceder=" + acceder + ", accesos=" + accesos + ", diClave=" + diClave + '}';
-    }
-
 }

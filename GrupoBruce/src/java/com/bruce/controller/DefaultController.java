@@ -20,5 +20,10 @@ public class DefaultController {
 //    public String defaultPage() {
 //        return "redirect:login";
 //    }
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String defaultPage() {
+        return "index";
+    }
 
 }

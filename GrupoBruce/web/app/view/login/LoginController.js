@@ -15,7 +15,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {
         }
 
         formLogin.submit({
-            url: '/validate',
+            url: 'validate',
             method: 'POST',
             
             params: {'usuu': formLogin.getForm().getValues()},
