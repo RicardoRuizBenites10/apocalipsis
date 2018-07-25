@@ -72650,7 +72650,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewControll
       return;
     }
   }
-  formLogin.submit({url:'validate', method:'POST', params:{'usuu':formLogin.getForm().getValues()}, jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
+  formLogin.submit({url:'validate', method:'POST', jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
     Ext.Msg.alert('Status', action.result.msg);
     localStorage.setItem('sesionUsuario', true);
     this.getView().destroy();
@@ -72660,7 +72660,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewControll
   }});
 }});
 Ext.define('GrupoBruce.view.login.LoginModel', {extend:Ext.app.ViewModel, alias:'viewmodel.login', data:{name:'GrupoBruce', titLogin:'Bienvenido a Grupo Bruce'}});
-Ext.define('GrupoBruce.view.login.Login', {extend:Ext.window.Window, xtype:'login', controller:'login', viewModel:{type:'login'}, bind:{title:'{titLogin}'}, bodyPadding:20, closable:false, autoShow:true, resizable:false, items:[{xtype:'form', reference:'formLogin', items:[{xtype:'textfield', name:'usu', fieldLabel:'Usuario', emptyText:'Número de DNI', allowBlank:false}, {xtype:'textfield', name:'clave', fieldLabel:'Contraseña', inputType:'password', emptyText:'Caracteres alfanuméricos', allowBlank:false}], 
+Ext.define('GrupoBruce.view.login.Login', {extend:Ext.panel.Panel, xtype:'login', controller:'login', viewModel:{type:'login'}, bind:{title:'{titLogin}'}, bodyPadding:20, closable:false, autoShow:true, resizable:false, items:[{xtype:'form', reference:'formLogin', items:[{xtype:'textfield', name:'usu', fieldLabel:'Usuario', emptyText:'Número de DNI', allowBlank:false}, {xtype:'textfield', name:'clave', fieldLabel:'Contraseña', inputType:'password', emptyText:'Caracteres alfanuméricos', allowBlank:false}], 
 buttons:[{text:'Ingresar', formBind:true, listeners:{click:'inicioSesion'}}]}]});
 Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController, alias:'controller.main', onItemSelected:function(sender, record) {
   Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);

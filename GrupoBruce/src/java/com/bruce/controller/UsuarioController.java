@@ -5,6 +5,7 @@
  */
 package com.bruce.controller;
 
+import com.bruce.dao.to.Alibaba;
 import com.bruce.dao.to.Usuario;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.IUsuarioService;
@@ -67,10 +68,10 @@ public class UsuarioController {
     
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public Map<String,Object> validarUsuario(Usuario usuario) {
+    public Map<String,Object> validarUsuario(Alibaba alibaba) {
         Map<String, Object> map = new HashMap<>();
-        Usuario logUsuario = su.accesoUsuario("46099060", "Nakamas123");
-        System.out.println("Usuario ::::::::::  \n" + logUsuario.toString());
+        Usuario logUsuario = su.accesoUsuario("46099060", "Nakamas123"), usuario = null;
+        System.out.println("Usuario ::::::::::  \n" + alibaba.toString());
         if (usuario!=null) {
             System.out.println("Validando...");
 //            //DECLARACIÓN DE SESIÓN

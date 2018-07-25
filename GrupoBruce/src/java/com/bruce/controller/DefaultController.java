@@ -23,7 +23,7 @@ public class DefaultController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultPage() {
-        return "index";
+        return "welcome";
     }
 
 }

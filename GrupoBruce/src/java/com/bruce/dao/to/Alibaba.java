@@ -10,20 +10,15 @@ package com.bruce.dao.to;
  * @author SISTEMAS
  */
 public class Alibaba {
-    private String idUsuario;
     private String usu;
     private String clave;
-    private boolean acceder;
-    private String accesos;
-    private boolean estado;
-    private String trabajador;
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public Alibaba() {
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public Alibaba(String usu, String clave) {
+        this.usu = usu;
+        this.clave = clave;
     }
 
     public String getUsu() {
@@ -42,48 +37,9 @@ public class Alibaba {
         this.clave = clave;
     }
 
-    public boolean isAcceder() {
-        return acceder;
+    @Override
+    public String toString() {
+        return "Alibaba{" + "usu=" + usu + ", clave=" + clave + '}';
     }
-
-    public void setAcceder(boolean acceder) {
-        this.acceder = acceder;
-    }
-
-    public String getAccesos() {
-        return accesos;
-    }
-
-    public void setAccesos(String accesos) {
-        this.accesos = accesos;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public String getTrabajador() {
-        return trabajador;
-    }
-
-    public void setTrabajador(String trabajador) {
-        this.trabajador = trabajador;
-    }
-
-    public Alibaba(String idUsuario, String usu, String clave, boolean acceder, String accesos, boolean estado, String trabajador) {
-        this.idUsuario = idUsuario;
-        this.usu = usu;
-        this.clave = clave;
-        this.acceder = acceder;
-        this.accesos = accesos;
-        this.estado = estado;
-        this.trabajador = trabajador;
-    }
-
-    public Alibaba() {
-    }
+    
 }

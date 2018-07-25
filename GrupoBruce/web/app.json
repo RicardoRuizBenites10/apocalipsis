@@ -9,7 +9,7 @@
                 "charts"
             ],
             
-            "indexHtmlPath": "index.html",
+            "indexHtmlPath": "welcome.html",
 
             "classpath": [
                 "app",
@@ -123,7 +123,7 @@
 
             "output": {
                 "base": "${workspace.build.dir}/${build.environment}/${app.name}",
-                "page": "index.html",
+                "page": "welcome.html",
                 "manifest": "${build.id}.json",
                 "js": "${build.id}/app.js",
                 "appCache": {
@@ -142,7 +142,7 @@
 
             "appCache": {
                         "cache": [
-                            "index.html"
+                            "welcome.html"
                         ],
 
                         "network": [
