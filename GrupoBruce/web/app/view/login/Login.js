@@ -26,7 +26,7 @@ Ext.define('GrupoBruce.view.login.Login', {
     
     items: [{
             xtype: 'form',
-            reference: 'formLogin',
+            reference: 'formSesion',
 
             items: [{
                     xtype: 'textfield',
@@ -36,7 +36,7 @@ Ext.define('GrupoBruce.view.login.Login', {
                     allowBlank: false
                 }, {
                     xtype: 'textfield',
-                    name: 'clave',
+                    name: 'deClave',
                     fieldLabel: 'Contraseña',
                     inputType: 'password',
                     emptyText: 'Caracteres alfanuméricos',
@@ -46,7 +46,7 @@ Ext.define('GrupoBruce.view.login.Login', {
                     text: 'Ingresar',
                     formBind: true,
                     listeners: {
-                        click: 'inicioSesion'
+                        click: 'validaSesion'
                     }
                 }]
         }]

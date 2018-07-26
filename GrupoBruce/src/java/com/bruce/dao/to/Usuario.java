@@ -36,7 +36,7 @@ public class Usuario implements java.io.Serializable {
     private Set<Acceso> accesos = new HashSet<Acceso>(0);
     
     
-    private String diClave;
+    private String deClave;
 
     public Usuario() {
     }
@@ -91,7 +91,7 @@ public class Usuario implements java.io.Serializable {
     }
 
     @Column(name = "CLAVE", nullable = false)
-    @ColumnTransformer(write = "ENCRYPTBYPASSPHRASE('Bruces@22',?)", read = "DECRYPTBYPASSPHRASE('Bruces@22',CLAVE)")
+    @ColumnTransformer(read = "DECRYPTBYPASSPHRASE('Bruces@22',CLAVE)", write = "ENCRYPTBYPASSPHRASE('Bruces@22',?)")
     public byte[] getClave() {
         return this.clave;
     }
@@ -101,12 +101,13 @@ public class Usuario implements java.io.Serializable {
     }
 
     @Transient
-    public String getDiClave() {
+    public String getDeClave() {
         return new String(clave);
     }
 
-    public void setDiClave(String diClave) {
-        this.diClave = diClave;
+    public void setDeClave(String deClave) {
+        this.clave = deClave.getBytes();
+        this.deClave = deClave;
     }
 
     @Column(name = "ESTADO", nullable = false)

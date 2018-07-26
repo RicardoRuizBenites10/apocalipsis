@@ -5,7 +5,7 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Alibaba;
+import com.bruce.dao.to.perform.Alibaba;
 import com.bruce.dao.to.Usuario;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.IUsuarioService;
@@ -68,23 +68,20 @@ public class UsuarioController {
     
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public Map<String,Object> validarUsuario(Alibaba alibaba) {
+    public Map<String,Object> validarUsuario(@RequestBody Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
-        Usuario logUsuario = su.accesoUsuario("46099060", "Nakamas123"), usuario = null;
-        System.out.println("Usuario ::::::::::  \n" + alibaba.toString());
+        usuario = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
         if (usuario!=null) {
-            System.out.println("Validando...");
 //            //DECLARACIÓN DE SESIÓN
 //            HttpSession sesion = request.getSession();
 //            sesion.setAttribute("ssUsuario", usuario);
 //            Date fs = new Date();
 //            sesion.setAttribute("ssFechaHora", fs);
 //            sesion.setMaxInactiveInterval(3 * 60);
-            map.put("status", 400);
+            map.put("status", 200);
             map.put("message", "Datos encontrados");
-//            map.put("data", logUsuario);
+//            map.put("data", usuario);
         }else{
-            System.err.println("Rechazado...");
             map.put("status", 400);
             map.put("message", "Datos no encontrados");
         }

@@ -86,20 +86,7 @@ Ext.define('GrupoBruce.view.main.Main', {
 
     items: [{
             title: ' Recursos Humanos',
-            iconCls: 'fa-male',
-            items: [{
-                    xtype: 'MiMenu',
-                    items: [{
-                            title: 'Mantenimiento',
-                            html: 'hola'
-                        }, {
-                            title: 'Personal',
-                            html: 'hola 2'
-                        }, {
-                            title: 'Contrato',
-                            html: 'hola 2'
-                        }]
-                }]
+            iconCls: 'fa-male'
         }, {
             title: 'Logistica',
             iconCls: 'fa-folder-o',

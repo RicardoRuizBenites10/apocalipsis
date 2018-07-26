@@ -16,6 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
 import com.bruce.util.QuerySQL;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,6 +40,8 @@ public class UsuarioDAO implements IUsuarioDAO {
             Iterator iterator = result.iterator();
             if(iterator.hasNext()){
                 usuario =  (Usuario) iterator.next();
+                Hibernate.initialize(usuario.getTrabajador());
+                usuario.getAccesos().size();
             }
         } catch (HibernateException he) {
             
