@@ -70,19 +70,21 @@ public class UsuarioController {
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public Map<String,Object> validarUsuario(@RequestBody Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
-        usuario = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
-        if (usuario!=null) {
+        Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
+        if (usu!=null) {
 //            //DECLARACIÓN DE SESIÓN
 //            HttpSession sesion = request.getSession();
 //            sesion.setAttribute("ssUsuario", usuario);
 //            Date fs = new Date();
 //            sesion.setAttribute("ssFechaHora", fs);
 //            sesion.setMaxInactiveInterval(3 * 60);
-            map.put("status", 200);
+            System.out.println("Aprobado");
+            map.put("success", true);
             map.put("message", "Datos encontrados");
 //            map.put("data", usuario);
         }else{
-            map.put("status", 400);
+            System.out.println("No Aprobado");
+            map.put("success", false);
             map.put("message", "Datos no encontrados");
         }
 

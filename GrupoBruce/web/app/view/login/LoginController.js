@@ -18,54 +18,25 @@ Ext.define('GrupoBruce.view.login.LoginController', {
             url: 'validate',
             jsonData: formLogin.getForm().getValues(),
             method: 'POST',
-            
-            success: function (response) {
+            success: function (response, opts) {
+                var responseText = Ext.decode(response.responseText);
                 // Set the localStorage value to true
-                localStorage.setItem("sesionUsuario", true);
-                // Remove Login Window
-                formLogin.getForm().destroy();
-                // Add the main view to the viewport
-                Ext.create({
-                    xtype: 'app-main'
-                });
+                localStorage.setItem("sesionUsuario", responseText.success);
             },
-            
-            failurer: function (response) {
+            failurer: function (response, opts) {
                 Ext.Msg.alert('Status 20', response.status);
             }
         });
-
-//        formLogin.submit({
-//            url: 'validate',
-//            method: 'POST',
-//            type: 'json',
-//            jsonData: formLogin.getForm().getValues(),
-//
-//            waitMsg: 'Accediendo al servidor..',
-//
-//            headers: {
-//                'Content-Type': 'application/json'
-//            },
-//
-//            clientValidation: true,
-//            submitEmptyText: true,
-//
-//            success: function (form, action) {
-//                Ext.Msg.alert('Status', action.result.msg);
-//                // Set the localStorage value to true
-//                localStorage.setItem("sesionUsuario", true);
-//                // Remove Login Window
-//                this.getView().destroy();
-//                // Add the main view to the viewport
-//                Ext.create({
-//                    xtype: 'app-main'
-//                });
-//            },
-//
-//            failurer: function (form, action) {
-//                Ext.Msg.alert('Status', action.result.msg);
-//            }
-//        });
+        
+//        var loggedIn;
+//        loggedIn = localStorage.getItem("sesionUsuario");
+        // Remove Login Window
+//        this.getView().destroy();
+//        // Add the main view to the viewport
+//        Ext.create({
+//            xtype: loggedIn ? 'app-main' : 'login'
+//        });     
+        
     }
 
 });
