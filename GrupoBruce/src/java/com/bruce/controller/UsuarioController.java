@@ -41,10 +41,10 @@ public class UsuarioController {
         this.validator = new UsuarioValidator();
     }
     
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView accediendo() {
-        return new ModelAndView("intranet/login", "usuario", new Usuario());
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public ModelAndView accediendo() {
+//        return new ModelAndView("intranet/login", "usuario", new Usuario());
+//    }
 
 //    @RequestMapping(value = "/validate", method = RequestMethod.POST)
 //    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
@@ -60,6 +60,7 @@ public class UsuarioController {
 //                Date fs = new Date();
 //                sesion.setAttribute("ssFechaHora", fs);
 //                sesion.setMaxInactiveInterval(3 * 60);
+    
 //                urlResult = "redirect:inicio";
 //            }
 //        }
@@ -72,35 +73,28 @@ public class UsuarioController {
         Map<String, Object> map = new HashMap<>();
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
         if (usu!=null) {
-//            //DECLARACIÓN DE SESIÓN
-//            HttpSession sesion = request.getSession();
-//            sesion.setAttribute("ssUsuario", usuario);
-//            Date fs = new Date();
-//            sesion.setAttribute("ssFechaHora", fs);
-//            sesion.setMaxInactiveInterval(3 * 60);
-            System.out.println("Aprobado");
             map.put("success", true);
             map.put("message", "Datos encontrados");
-//            map.put("data", usuario);
+            map.put("data", usu);
+            System.out.println("Aprobado");
         }else{
-            System.out.println("No Aprobado");
             map.put("success", false);
             map.put("message", "Datos no encontrados");
+            System.out.println("No Aprobado");
         }
-
         return map;
     }
     
-    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
-    public String inicioUsuario() {
-        return "intranet/inicio";
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String salirUsuario(HttpServletRequest request) {
-        HttpSession sesion = request.getSession();
-        sesion.removeAttribute("ssUsuario");
-        sesion.invalidate();
-        return "redirect:login";
-    }
+//    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
+//    public String inicioUsuario() {
+//        return "intranet/inicio";
+//    }
+//
+//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+//    public String salirUsuario(HttpServletRequest request) {
+//        HttpSession sesion = request.getSession();
+//        sesion.removeAttribute("ssUsuario");
+//        sesion.invalidate();
+//        return "redirect:login";
+//    }
 }
