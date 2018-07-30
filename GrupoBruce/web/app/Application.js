@@ -15,20 +15,11 @@ Ext.define('GrupoBruce.Application', {
     ],
 
     launch: function () {
-        var loggedIn;
-        loggedIn = localStorage.getItem("sesionUsuario");
-        console.dir("Application: " + loggedIn);
-        if (loggedIn || loggedIn === null) {
-            console.dir("Application opcion app-main. ");
-            Ext.create({
-                xtype: 'app-main'
+        var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
+        console.dir("controller application: " + loggedIn);
+        Ext.create({
+                xtype: loggedIn ? 'app-main' : 'login'
             });
-        } else {
-            console.dir("Application opcion login. ");
-            Ext.create({
-                xtype: 'login'
-            });
-        }
 
     },
 
