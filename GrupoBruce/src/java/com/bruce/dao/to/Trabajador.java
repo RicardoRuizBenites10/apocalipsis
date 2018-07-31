@@ -108,7 +108,7 @@ public class Trabajador implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ETRABAJADOR", nullable = false)
     public EstadoTrabajador getEstadoTrabajador() {

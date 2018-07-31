@@ -7,6 +7,7 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.perform.Alibaba;
 import com.bruce.dao.to.Usuario;
+import com.bruce.dao.to.perform.Genero;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.IUsuarioService;
 import java.util.Date;
@@ -75,7 +76,7 @@ public class UsuarioController {
         if (usu!=null) {
             map.put("success", true);
             map.put("message", "Datos encontrados");
-            map.put("data", usu);
+            map.put("data", usu.getTrabajador());
             System.out.println("Aprobado");
         }else{
             map.put("success", false);

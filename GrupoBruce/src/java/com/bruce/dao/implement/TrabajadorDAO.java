@@ -7,7 +7,7 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.TrabajadorDTO;
+import com.bruce.dao.to.perform.TrabajadorDTO;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;

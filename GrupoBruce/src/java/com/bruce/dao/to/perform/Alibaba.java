@@ -23,6 +23,14 @@ public class Alibaba {
     public Alibaba() {
     }
 
+    public Alibaba(int idUsuario, Genero genero, String usu, boolean acceder, String clave) {
+        this.idUsuario = idUsuario;
+        this.genero = genero;
+        this.usu = usu;
+        this.acceder = acceder;
+        this.clave = clave;
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }

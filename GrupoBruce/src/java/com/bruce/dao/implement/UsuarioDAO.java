@@ -44,11 +44,10 @@ public class UsuarioDAO implements IUsuarioDAO {
                 Hibernate.initialize(usuario.getAccesos());
             }
         } catch (HibernateException he) {
-            
+            throw he;
         } finally {
             session.close();
         }
-       
         return usuario;
     }
 

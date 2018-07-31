@@ -22,8 +22,8 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "USUARIO",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Usuario implements java.io.Serializable {
 
@@ -34,8 +34,7 @@ public class Usuario implements java.io.Serializable {
     private boolean estado;
     private boolean acceder;
     private Set<Acceso> accesos = new HashSet<Acceso>(0);
-    
-    
+
     private String deClave;
 
     public Usuario() {
@@ -61,7 +60,6 @@ public class Usuario implements java.io.Serializable {
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "trabajador"))
     @Id
     @GeneratedValue(generator = "generator")
-
     @Column(name = "ID_USUARIO", unique = true, nullable = false, length = 15)
     public String getIdUsuario() {
         return this.idUsuario;

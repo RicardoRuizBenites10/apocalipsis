@@ -6,7 +6,7 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.TrabajadorDTO;
+import com.bruce.dao.to.perform.TrabajadorDTO;
 import java.util.List;
 
 /**

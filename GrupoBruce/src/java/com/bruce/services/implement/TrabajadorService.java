@@ -7,7 +7,7 @@ package com.bruce.services.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.TrabajadorDTO;
+import com.bruce.dao.to.perform.TrabajadorDTO;
 import com.bruce.services.design.ITrabajadorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
