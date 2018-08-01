@@ -1,6 +1,7 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
@@ -80,8 +81,8 @@ public class EstadoTrabajador implements java.io.Serializable {
     public void setSituacion(Boolean situacion) {
         this.situacion = situacion;
     }
-    
-    @JsonIgnore
+
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estadoTrabajador")
     public Set<Trabajador> getTrabajadors() {
         return this.trabajadors;

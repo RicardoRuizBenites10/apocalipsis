@@ -1,7 +1,7 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -71,7 +71,7 @@ public class FormaPago implements java.io.Serializable {
         this.situacion = situacion;
     }
     
-    @JsonIgnoreProperties("formaPago")
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "formaPago")
     public Set<Trabajador> getTrabajadors() {
         return this.trabajadors;

@@ -1,6 +1,8 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -108,9 +110,11 @@ public class Trabajador implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ETRABAJADOR", nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public EstadoTrabajador getEstadoTrabajador() {
         return this.estadoTrabajador;
     }
@@ -121,6 +125,8 @@ public class Trabajador implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FPAGO", nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public FormaPago getFormaPago() {
         return this.formaPago;
     }
@@ -131,6 +137,8 @@ public class Trabajador implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_NACIONALIDAD", nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Nacionalidad getNacionalidad() {
         return this.nacionalidad;
     }
@@ -139,6 +147,8 @@ public class Trabajador implements java.io.Serializable {
         this.nacionalidad = nacionalidad;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PERIOCIDAD", nullable = false)
     public Periocidad getPeriocidad() {
@@ -149,6 +159,8 @@ public class Trabajador implements java.io.Serializable {
         this.periocidad = periocidad;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     public Persona getPersona() {
@@ -159,6 +171,8 @@ public class Trabajador implements java.io.Serializable {
         this.persona = persona;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SUCURSAL", nullable = false)
     public Sucursal getSucursal() {
@@ -169,6 +183,8 @@ public class Trabajador implements java.io.Serializable {
         this.sucursal = sucursal;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TTRABAJADOR", nullable = false)
     public TipoTrabajador getTipoTrabajador() {

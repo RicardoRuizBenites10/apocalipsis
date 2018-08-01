@@ -17,26 +17,16 @@ import java.util.Set;
 public class Alibaba {
     
     private String idUsuario;
-    private Trabajador trabajador;
+//    private Trabajador trabajador;
     private String usu;
     private byte[] clave;
     private boolean estado;
     private boolean acceder;
-    private Set<Acceso> accesos = new HashSet<Acceso>(0);
+//    private Set<Acceso> accesos = new HashSet<Acceso>(0);
 
     private String deClave;
 
     public Alibaba() {
-    }
-
-    public Alibaba(String idUsuario, Trabajador trabajador, String usu, byte[] clave, boolean estado, boolean acceder, String deClave) {
-        this.idUsuario = idUsuario;
-        this.trabajador = trabajador;
-        this.usu = usu;
-        this.clave = clave;
-        this.estado = estado;
-        this.acceder = acceder;
-        this.deClave = deClave;
     }
 
     public String getIdUsuario() {
@@ -47,13 +37,13 @@ public class Alibaba {
         this.idUsuario = idUsuario;
     }
 
-    public Trabajador getTrabajador() {
-        return trabajador;
-    }
-
-    public void setTrabajador(Trabajador trabajador) {
-        this.trabajador = trabajador;
-    }
+//    public Trabajador getTrabajador() {
+//        return trabajador;
+//    }
+//
+//    public void setTrabajador(Trabajador trabajador) {
+//        this.trabajador = trabajador;
+//    }
 
     public String getUsu() {
         return usu;
@@ -87,13 +77,13 @@ public class Alibaba {
         this.acceder = acceder;
     }
 
-    public Set<Acceso> getAccesos() {
-        return accesos;
-    }
-
-    public void setAccesos(Set<Acceso> accesos) {
-        this.accesos = accesos;
-    }
+//    public Set<Acceso> getAccesos() {
+//        return accesos;
+//    }
+//
+//    public void setAccesos(Set<Acceso> accesos) {
+//        this.accesos = accesos;
+//    }
 
     public String getDeClave() {
         return deClave;
