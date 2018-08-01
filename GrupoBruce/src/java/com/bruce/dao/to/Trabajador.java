@@ -249,6 +249,8 @@ public class Trabajador implements java.io.Serializable {
         this.entradaSalidas = entradaSalidas;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<ContratoTrabajador> getContratoTrabajadors() {
         return this.contratoTrabajadors;
