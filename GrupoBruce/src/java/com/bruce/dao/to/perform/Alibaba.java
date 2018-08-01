@@ -5,46 +5,54 @@
  */
 package com.bruce.dao.to.perform;
 
+import com.bruce.dao.to.Acceso;
+import com.bruce.dao.to.Trabajador;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author SISTEMAS
  */
 public class Alibaba {
     
-    private int idUsuario;
-    private Genero genero;
+    private String idUsuario;
+    private Trabajador trabajador;
     private String usu;
-    private byte[] diClave;
+    private byte[] clave;
     private boolean estado;
     private boolean acceder;
-    
-    private String clave;
+    private Set<Acceso> accesos = new HashSet<Acceso>(0);
+
+    private String deClave;
 
     public Alibaba() {
     }
 
-    public Alibaba(int idUsuario, Genero genero, String usu, boolean acceder, String clave) {
+    public Alibaba(String idUsuario, Trabajador trabajador, String usu, byte[] clave, boolean estado, boolean acceder, String deClave) {
         this.idUsuario = idUsuario;
-        this.genero = genero;
+        this.trabajador = trabajador;
         this.usu = usu;
-        this.acceder = acceder;
         this.clave = clave;
+        this.estado = estado;
+        this.acceder = acceder;
+        this.deClave = deClave;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Genero getGenero() {
-        return genero;
+    public Trabajador getTrabajador() {
+        return trabajador;
     }
 
-    public void setGenero(Genero genero) {
-        this.genero = genero;
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 
     public String getUsu() {
@@ -55,12 +63,12 @@ public class Alibaba {
         this.usu = usu;
     }
 
-    public byte[] getDiClave() {
-        return diClave;
+    public byte[] getClave() {
+        return clave;
     }
 
-    public void setDiClave(byte[] diClave) {
-        this.diClave = diClave;
+    public void setClave(byte[] clave) {
+        this.clave = clave;
     }
 
     public boolean isEstado() {
@@ -79,16 +87,20 @@ public class Alibaba {
         this.acceder = acceder;
     }
 
-    public String getClave() {
-        return clave;
+    public Set<Acceso> getAccesos() {
+        return accesos;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setAccesos(Set<Acceso> accesos) {
+        this.accesos = accesos;
     }
 
-    @Override
-    public String toString() {
-        return "Alibaba{" + "idUsuario=" + idUsuario + ", genero=" + genero + ", usu=" + usu + ", clave=" + clave + ", estado=" + estado + ", acceder=" + acceder + '}';
+    public String getDeClave() {
+        return deClave;
     }
+
+    public void setDeClave(String deClave) {
+        this.deClave = deClave;
+    }
+
 }

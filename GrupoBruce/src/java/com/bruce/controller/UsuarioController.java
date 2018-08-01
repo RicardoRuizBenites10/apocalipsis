@@ -70,7 +70,7 @@ public class UsuarioController {
     
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public Map<String,Object> validarUsuario(@RequestBody Usuario usuario) {
+    public Map<String,Object> validarUsuario(@RequestBody Alibaba usuario) {
         Map<String, Object> map = new HashMap<>();
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
         if (usu!=null) {
