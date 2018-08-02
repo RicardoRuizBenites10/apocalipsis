@@ -1,6 +1,9 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -69,6 +72,7 @@ public class Usuario implements java.io.Serializable {
         this.idUsuario = idUsuario;
     }
 
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     public Trabajador getTrabajador() {
@@ -126,6 +130,8 @@ public class Usuario implements java.io.Serializable {
         this.acceder = acceder;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     public Set<Acceso> getAccesos() {
         return this.accesos;

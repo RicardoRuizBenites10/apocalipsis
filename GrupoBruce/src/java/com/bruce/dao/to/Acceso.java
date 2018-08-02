@@ -1,6 +1,9 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,8 +19,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ACCESO",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Acceso implements java.io.Serializable {
 
@@ -44,7 +47,8 @@ public class Acceso implements java.io.Serializable {
 
     @EmbeddedId
     @AttributeOverrides({
-        @AttributeOverride(name = "idUsuario", column = @Column(name = "ID_USUARIO", nullable = false, length = 15)), 
+        @AttributeOverride(name = "idUsuario", column = @Column(name = "ID_USUARIO", nullable = false, length = 15))
+        , 
         @AttributeOverride(name = "idMenu", column = @Column(name = "ID_MENU", nullable = false))})
     public AccesoId getId() {
         return this.id;
@@ -54,6 +58,8 @@ public class Acceso implements java.io.Serializable {
         this.id = id;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MENU", nullable = false, insertable = false, updatable = false)
     public Menu getMenu() {
@@ -64,6 +70,7 @@ public class Acceso implements java.io.Serializable {
         this.menu = menu;
     }
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USUARIO", nullable = false, insertable = false, updatable = false)
     public Usuario getUsuario() {
