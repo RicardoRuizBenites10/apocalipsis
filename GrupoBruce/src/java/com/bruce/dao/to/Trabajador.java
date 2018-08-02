@@ -111,10 +111,10 @@ public class Trabajador implements java.io.Serializable {
         this.idTrabajador = idTrabajador;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_ETRABAJADOR", nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_ETRABAJADOR", nullable = false)
     public EstadoTrabajador getEstadoTrabajador() {
         return this.estadoTrabajador;
     }

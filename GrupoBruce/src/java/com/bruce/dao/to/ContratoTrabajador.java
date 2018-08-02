@@ -157,6 +157,8 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.fechaCese = fechaCese;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contratoTrabajador")
     public Set<Remuneracion> getRemuneracions() {
         return this.remuneracions;
@@ -166,6 +168,8 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.remuneracions = remuneracions;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contratoTrabajador")
     public Set<CargoContrato> getCargoContratos() {
         return this.cargoContratos;
