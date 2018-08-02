@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "EMPRESA",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Empresa implements java.io.Serializable {
 

@@ -18,8 +18,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MENU",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Menu implements java.io.Serializable {
 
@@ -96,7 +96,7 @@ public class Menu implements java.io.Serializable {
     }
 
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     public Set<Submenu> getSubmenus() {
         return this.submenus;

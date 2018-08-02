@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "REGIMEN_PENSIONARIO",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class RegimenPensionario implements java.io.Serializable {
 

@@ -275,6 +275,222 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Usuario"
       }
+    },
+    "app/model/EstadoTrabajador.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:int:null,descripcion:string:null,idEtrabajador:int:null,situacion:boolean:null",
+        "modelFileName": "EstadoTrabajador",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EstadoTrabajador"
+      }
+    },
+    "app/model/TipoTrabajador.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,descripcion:string:null,idTtrabajador:int:null,situacion:boolean:null",
+        "modelFileName": "TipoTrabajador",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoTrabajador"
+      }
+    },
+    "app/model/Nacionalidad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:int:null,descripcion:string:null,idNacionalidad:int:null,situacion:boolean:null",
+        "modelFileName": "Nacionalidad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Nacionalidad"
+      }
+    },
+    "app/model/FormaPago.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idFpago:int:null,situacion:boolean:null",
+        "modelFileName": "FormaPago",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "FormaPago"
+      }
+    },
+    "app/model/Periocidad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idPeriocidad:int:null,situacion:boolean:null",
+        "modelFileName": "Periocidad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Periocidad"
+      }
+    },
+    "app/model/Empresa.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idEmpresa:string:null,situacion:boolean:null",
+        "modelFileName": "Empresa",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Empresa"
+      }
+    },
+    "app/model/RegimenPensionario.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,cuspp:boolean:null,descripcion:string:null,idRpensionario:int:null,situacion:boolean:null",
+        "modelFileName": "RegimenPensionario",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "RegimenPensionario"
+      }
+    },
+    "app/model/TipoDocumento.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,descripcion:string:null,idTdocumento:int:null,situacion:boolean:null",
+        "modelFileName": "TipoDocumento",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoDocumento"
+      }
+    },
+    "app/model/Ecivil.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idEcivil:int:null,situacion:boolean:null",
+        "modelFileName": "Ecivil",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Ecivil"
+      }
+    },
+    "app/model/Genero.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idGenero:int:null,situacion:boolean:null",
+        "modelFileName": "Genero",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Genero"
+      }
+    },
+    "app/model/EstadoContrato.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:boolean:null,idEcontrato:int:null,situacion:boolean:null",
+        "modelFileName": "EstadoContrato",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EstadoContrato"
+      }
+    },
+    "app/model/TipoContrato.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,idTcontrato:int:null,situacion:boolean:null,tipo:string:null",
+        "modelFileName": "TipoContrato",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoContrato"
+      }
+    },
+    "app/model/TiempoContrato.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTiempo:int:null,nroMeses:int:null,situacion:boolean:null",
+        "modelFileName": "TiempoContrato",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TiempoContrato"
+      }
+    },
+    "app/model/Area.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idArea:int:null,nombre:string:null,situacion:boolean:null",
+        "modelFileName": "Area",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Area"
+      }
+    },
+    "app/model/EntidadFinanciera.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,idEfinanciera:int:null,nombre:string:null,situacion:boolean:null",
+        "modelFileName": "EntidadFinanciera",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EntidadFinanciera"
+      }
+    },
+    "app/model/TipoEstudio.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTestudio:int:null,situacion:boolean:null",
+        "modelFileName": "TipoEstudio",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoEstudio"
+      }
+    },
+    "app/model/TipoPeriodo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTperiodo:int:null,situacion:boolean:null",
+        "modelFileName": "TipoPeriodo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoPeriodo"
+      }
+    },
+    "app/model/Menu.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,icono:string:null,idMenu:int:null,situacion:boolean:null",
+        "modelFileName": "Menu",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Menu"
+      }
     }
   }
 }

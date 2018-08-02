@@ -15,8 +15,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SUBMENU",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Submenu implements java.io.Serializable {
 

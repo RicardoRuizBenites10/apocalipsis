@@ -20,8 +20,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SUCURSAL",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Sucursal implements java.io.Serializable {
 
