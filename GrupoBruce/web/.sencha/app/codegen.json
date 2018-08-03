@@ -491,6 +491,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Menu"
       }
+    },
+    "app/model/Persona.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "apMaterno:string:null,apPaterno:string:null,direccion:string:null,foto:string:null,nacimiento:date:null,nombres:string:null,nroHijos:int:null,referencia:string:null,telefono:string:null",
+        "modelFileName": "Persona",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Persona"
+      }
     }
   }
 }
