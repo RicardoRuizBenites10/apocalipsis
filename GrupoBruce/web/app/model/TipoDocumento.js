@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.model.TipoDocumento', {
     extend: 'Ext.data.Model',
-
+    idProperty: 'idTdocumento',
     fields: [
         { name: 'codigo', type: 'string' },
         { name: 'descripcion', type: 'string' },

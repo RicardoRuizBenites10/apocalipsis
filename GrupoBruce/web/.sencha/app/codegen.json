@@ -503,6 +503,42 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Persona"
       }
+    },
+    "app/model/Trabajador.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "asignacion:boolean:null,codigo:string:null,idTrabajador:string:null,montoBase:float:null,montoPasaje:float:null",
+        "modelFileName": "Trabajador",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Trabajador"
+      }
+    },
+    "app/model/Sucursal.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "direccion:string:null,idSucursal:string:null,situacion:boolean:null",
+        "modelFileName": "Sucursal",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Sucursal"
+      }
+    },
+    "app/model/Hijo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "dni:string:null,idHijo:int:null,nacimiento:date:null,nombres:string:null",
+        "modelFileName": "Hijo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Hijo"
+      }
     }
   }
 }
