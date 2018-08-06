@@ -12,9 +12,9 @@ Ext.define('GrupoBruce.model.Persona', {
         { name: 'nroHijos', type: 'int' },
         { name: 'referencia', type: 'string' },
         { name: 'telefono', type: 'string' },
-        { name: 'ecivilId', reference: 'Ecivil', unique: true},
-        { name: 'tipoDocumentoId', reference: 'TipoDocumento', unique: true},
-        { name: 'generoId', reference: 'Genero', unique: true}
+        { name: 'ecivilId', reference: 'Ecivil' },
+        { name: 'tipoDocumentoId', reference: 'TipoDocumento' },
+        { name: 'generoId', reference: 'Genero' }
     ],
     
     validators:{

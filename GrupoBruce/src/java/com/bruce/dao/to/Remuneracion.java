@@ -22,8 +22,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "REMUNERACION",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Remuneracion implements java.io.Serializable {
 

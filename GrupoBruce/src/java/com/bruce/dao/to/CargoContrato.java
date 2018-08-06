@@ -23,8 +23,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "CARGO_CONTRATO",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class CargoContrato implements java.io.Serializable {
 

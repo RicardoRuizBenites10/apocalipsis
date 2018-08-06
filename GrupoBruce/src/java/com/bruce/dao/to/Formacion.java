@@ -50,7 +50,6 @@ public class Formacion implements java.io.Serializable {
     }
 
     @EmbeddedId
-
     @AttributeOverrides({
         @AttributeOverride(name = "idTrabajador", column = @Column(name = "ID_TRABAJADOR", nullable = false, length = 15))
         , 

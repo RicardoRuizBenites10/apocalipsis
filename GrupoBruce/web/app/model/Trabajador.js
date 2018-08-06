@@ -7,12 +7,12 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'idTrabajador', type: 'string' },
         { name: 'montoBase', type: 'float' },
         { name: 'montoPasaje', type: 'float' },
-        { name: 'estadoTrabajadorId', reference: 'EstadoTrabajador', unique: true},
-        { name: 'tipoTrabajadorId', reference: 'TipoTrabajador', unique: true},
-        { name: 'formaPagoId', reference: 'FormaPago', unique: true},
-        { name: 'nacionalidadId', reference: 'Nacionalidad', unique: true},
-        { name: 'periocidadId', reference: 'Periocidad', unique: true},
+        { name: 'estadoTrabajadorId', reference: 'EstadoTrabajador' },
+        { name: 'tipoTrabajadorId', reference: 'TipoTrabajador' },
+        { name: 'formaPagoId', reference: 'FormaPago' },
+        { name: 'nacionalidadId', reference: 'Nacionalidad' },
+        { name: 'periocidadId', reference: 'Periocidad' },
         { name: 'personaId', reference: 'Persona', unique: true},
-        { name: 'sucursalId', reference: 'Sucursal', unique: true}
+        { name: 'sucursalId', reference: 'Sucursal' }
     ]
 });

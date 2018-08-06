@@ -1,9 +1,9 @@
-Ext.define('GrupoBruce.model.TipoEstudio', {
+Ext.define('GrupoBruce.model.EstadoEstudio', {
     extend: 'Ext.data.Model',
-    idProperty: 'idTestudio',
+    idProperty: 'idEestudio',
     fields: [
         { name: 'descripcion', type: 'string' },
-        { name: 'idTestudio', type: 'int' },
+        { name: 'idEestudio', type: 'int' },
         { name: 'situacion', type: 'boolean' }
 
     ]

@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.model.Hijo', {
         { name: 'idHijo', type: 'int' },
         { name: 'nacimiento', type: 'date' },
         { name: 'nombres', type: 'string' },
-        { name: 'generoId', reference: 'Genero', unique:true},
-        { name: 'trabajadorId', reference: 'Trabajador'}
+        { name: 'generoId', reference: 'Genero' },
+        { name: 'trabajadorId', reference: 'Trabajador' }
     ]
 });

@@ -539,6 +539,198 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Hijo"
       }
+    },
+    "app/model/CuentaCts.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idTrabajador:string:null,nroCuenta:string:null",
+        "modelFileName": "CuentaCts",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CuentaCts"
+      }
+    },
+    "app/model/CuentaSueldo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idTrabajador:string:null,nroCuenta:string:null",
+        "modelFileName": "CuentaSueldo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CuentaSueldo"
+      }
+    },
+    "app/model/EstadoEstudio.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idEestudio:int:null,situacion:boolean:null",
+        "modelFileName": "EstadoEstudio",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EstadoEstudio"
+      }
+    },
+    "app/model/FormacionId.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idFormacion:int:null,idTrabajador:string:null",
+        "modelFileName": "FormacionId",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "FormacionId"
+      }
+    },
+    "app/model/Formacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,institucion:string:null",
+        "modelFileName": "Formacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Formacion"
+      }
+    },
+    "app/model/Afiliacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idTrabajador:string:null,nrocuspp:string:null,observacion:string:null",
+        "modelFileName": "Afiliacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Afiliacion"
+      }
+    },
+    "app/model/ContratoTrabajadorId.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idContrato:int:null,idTrabajador:string:null",
+        "modelFileName": "ContratoTrabajadorId",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ContratoTrabajadorId"
+      }
+    },
+    "app/model/ContratoTrabajador.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fechaCese:date:null,fechaFin:date:null,fechaInicio:date:null",
+        "modelFileName": "ContratoTrabajador",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ContratoTrabajador"
+      }
+    },
+    "app/model/RemuneracionId.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idContrato:int:null,idRemuneracion:int:null,idTrabajador:string:null",
+        "modelFileName": "RemuneracionId",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "RemuneracionId"
+      }
+    },
+    "app/model/Remuneracion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,monto:float:null",
+        "modelFileName": "Remuneracion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Remuneracion"
+      }
+    },
+    "app/model/Subarea.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idSubarea:int:null,nombre:string:null,situacion:boolean:null",
+        "modelFileName": "Subarea",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Subarea"
+      }
+    },
+    "app/model/Cargo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,fecha:date:null,idCargo:int:null,situacion:boolean:null",
+        "modelFileName": "Cargo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Cargo"
+      }
+    },
+    "app/model/Funcion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,detalle:string:null,fecha:date:null,idFuncion:int:null,situacion:boolean:null",
+        "modelFileName": "Funcion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Funcion"
+      }
+    },
+    "app/model/CargoContratoId.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idCcontrato:int:null,idContrato:int:null,idTrabajador:string:null",
+        "modelFileName": "CargoContratoId",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CargoContratoId"
+      }
+    },
+    "app/model/CargoContrato.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,observacion:string:null",
+        "modelFileName": "CargoContrato",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CargoContrato"
+      }
+    },
+    "app/model/Submenu.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idSubmenu:int:null,link:string:null,situacion:boolean:null",
+        "modelFileName": "Submenu",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Submenu"
+      }
     }
   }
 }

@@ -20,8 +20,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SUBAREA",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Subarea implements java.io.Serializable {
 

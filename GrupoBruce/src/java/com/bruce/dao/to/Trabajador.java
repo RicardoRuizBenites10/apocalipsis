@@ -41,7 +41,7 @@ public class Trabajador implements java.io.Serializable {
     private String codigo;
     private double montoBase;
     private Double montoPasaje;
-    private Set<Afiliacion> afiliacions = new HashSet<Afiliacion>(0);
+    private Afiliacion afiliacion;
     private Set<EntradaSalida> entradaSalidas = new HashSet<EntradaSalida>(0);
     private Set<ContratoTrabajador> contratoTrabajadors = new HashSet<ContratoTrabajador>(0);
     private Set<Vacacion> vacacions = new HashSet<Vacacion>(0);
@@ -71,7 +71,7 @@ public class Trabajador implements java.io.Serializable {
         this.montoBase = montoBase;
     }
 
-    public Trabajador(EstadoTrabajador estadoTrabajador, FormaPago formaPago, Nacionalidad nacionalidad, Periocidad periocidad, Persona persona, Sucursal sucursal, TipoTrabajador tipoTrabajador, boolean asignacion, String codigo, double montoBase, Double montoPasaje, Set<Afiliacion> afiliacions, Set<EntradaSalida> entradaSalidas, Set<ContratoTrabajador> contratoTrabajadors, Set<Vacacion> vacacions, CuentaSueldo cuentaSueldo, Set<Hijo> hijos, Set<AlmuerzoTrabajador> almuerzoTrabajadors, Set<Asistencia> asistencias, CuentaCts cuentaCts, Set<Formacion> formacions, Set<Permiso> permisos, Set<Textralaboral> textralaborals, Usuario usuario) {
+    public Trabajador(EstadoTrabajador estadoTrabajador, FormaPago formaPago, Nacionalidad nacionalidad, Periocidad periocidad, Persona persona, Sucursal sucursal, TipoTrabajador tipoTrabajador, boolean asignacion, String codigo, double montoBase, Double montoPasaje, Afiliacion afiliacion, Set<EntradaSalida> entradaSalidas, Set<ContratoTrabajador> contratoTrabajadors, Set<Vacacion> vacacions, CuentaSueldo cuentaSueldo, Set<Hijo> hijos, Set<AlmuerzoTrabajador> almuerzoTrabajadors, Set<Asistencia> asistencias, CuentaCts cuentaCts, Set<Formacion> formacions, Set<Permiso> permisos, Set<Textralaboral> textralaborals, Usuario usuario) {
         this.estadoTrabajador = estadoTrabajador;
         this.formaPago = formaPago;
         this.nacionalidad = nacionalidad;
@@ -83,7 +83,7 @@ public class Trabajador implements java.io.Serializable {
         this.codigo = codigo;
         this.montoBase = montoBase;
         this.montoPasaje = montoPasaje;
-        this.afiliacions = afiliacions;
+        this.afiliacion = afiliacion;
         this.entradaSalidas = entradaSalidas;
         this.contratoTrabajadors = contratoTrabajadors;
         this.vacacions = vacacions;
@@ -101,7 +101,6 @@ public class Trabajador implements java.io.Serializable {
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "persona"))
     @Id
     @GeneratedValue(generator = "generator")
-
     @Column(name = "ID_TRABAJADOR", unique = true, nullable = false, length = 15)
     public String getIdTrabajador() {
         return this.idTrabajador;
@@ -231,13 +230,13 @@ public class Trabajador implements java.io.Serializable {
         this.montoPasaje = montoPasaje;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
-    public Set<Afiliacion> getAfiliacions() {
-        return this.afiliacions;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "trabajador")
+    public Afiliacion getAfiliacion() {
+        return this.afiliacion;
     }
 
-    public void setAfiliacions(Set<Afiliacion> afiliacions) {
-        this.afiliacions = afiliacions;
+    public void setAfiliacion(Afiliacion afiliacion) {
+        this.afiliacion = afiliacion;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
@@ -268,9 +267,9 @@ public class Trabajador implements java.io.Serializable {
     public void setVacacions(Set<Vacacion> vacacions) {
         this.vacacions = vacacions;
     }
-    
+
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public CuentaSueldo getCuentaSueldo() {
         return this.cuentaSueldo;
@@ -306,7 +305,7 @@ public class Trabajador implements java.io.Serializable {
     public void setAsistencias(Set<Asistencia> asistencias) {
         this.asistencias = asistencias;
     }
-    
+
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "trabajador")
@@ -319,7 +318,7 @@ public class Trabajador implements java.io.Serializable {
     }
 
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Formacion> getFormacions() {
         return this.formacions;
@@ -348,7 +347,7 @@ public class Trabajador implements java.io.Serializable {
     }
 
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Usuario getUsuario() {
         return this.usuario;
