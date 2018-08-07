@@ -30,11 +30,12 @@ public class TrabajadoresController {
     @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.POST)
     public Map<String, Object> getAllEmployes() {
+        System.out.println("INGRESO A CONTROLADOR -> trabajadores");
         Map<String, Object> map = new HashMap<>();
         List<TrabajadorDTO> list = st.findAllPerform();
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-        map.put("data", list);
+//        map.put("data", list);
         return map;
     }
 }

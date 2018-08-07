@@ -29,7 +29,6 @@ Ext.define('GrupoBruce.view.login.LoginController', {
                 Ext.Msg.alert('Status', response.status);
             }
         });
-
         this.getView().destroy();
     }
 

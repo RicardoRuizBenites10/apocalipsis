@@ -1,16 +1,23 @@
 
-Ext.define('GrupoBruce.view.trabajador.Trabajador',{
+Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     extend: 'Ext.panel.Panel',
-
+    
+    xtype: 'trabajadors',
+    
     requires: [
         'GrupoBruce.view.trabajador.TrabajadorController',
-        'GrupoBruce.view.trabajador.TrabajadorModel'
+        'GrupoBruce.view.trabajador.TrabajadorModel',
+        
+        'GrupoBruce.view.trabajador.TrabajadorList'
     ],
 
-    controller: 'trabajador-trabajador',
+    controller: 'Ctrabajador',
     viewModel: {
-        type: 'trabajador-trabajador'
+        type: 'VMtrabajador'
     },
+    
+    items: [{
+            xtype: 'trabajadorList'
+    }]
 
-    html: 'Hello, World!!'
 });

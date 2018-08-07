@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.model.Trabajador', {
     extend: 'Ext.data.Model',
-    alias: 'model.trabajador',
+    alias: 'model.Mtrabajador',
     
     idProperty: 'idTrabajador',
     fields: [
@@ -17,4 +17,5 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'personaId', reference: 'Persona', unique: true},
         { name: 'sucursalId', reference: 'Sucursal' }
     ]
+    
 });

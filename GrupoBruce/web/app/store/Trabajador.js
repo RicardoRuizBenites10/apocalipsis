@@ -1,16 +1,22 @@
 Ext.define('GrupoBruce.store.Trabajador',{
     extend: 'Ext.data.Model',
-    alias: 'store.trabajador',
+    alias: 'store.Strabajador',
     
-    model: 'trabajador',
-    
+    model: 'Mtrabajador',
+
     proxy: {
-        url: 'trabajadores',
         type: 'ajax',
-        
+        method: 'POST',
+        url: 'trabajadores',
         reader: {
-            type: 'json'
+            type: 'json',
+            rootProperty: 'data'
         }
-        
-    }
+    },
+    autoLoad: true,
+    
+    sorters: [
+        {property: 'persona.dni' , direction: 'ASC'}
+    ]
+    
 });
