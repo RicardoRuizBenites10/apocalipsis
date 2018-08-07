@@ -97,7 +97,7 @@ Ext.define('GrupoBruce.view.main.Main', {
             title: 'Ingeniería y diseño',
             iconCls: 'fa-crop',
             items: [{
-                    title: 'jojode',
+                    title: 'Módulo de Ingeniería',
                     html: 'dadada',
                     closable: true,
                     iconCls: 'fa fa-home'

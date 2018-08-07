@@ -26,8 +26,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {
                 });
             },
             failurer: function (response, opts) {
-                console.dir("Jooder: " + response.status);
-                Ext.Msg.alert('Status 20', response.status);
+                Ext.Msg.alert('Status', response.status);
             }
         });
 

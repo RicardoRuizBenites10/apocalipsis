@@ -1,5 +1,7 @@
 Ext.define('GrupoBruce.model.Trabajador', {
     extend: 'Ext.data.Model',
+    alias: 'model.trabajador',
+    
     idProperty: 'idTrabajador',
     fields: [
         { name: 'asignacion', type: 'boolean' },
