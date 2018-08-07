@@ -9,6 +9,6 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
         { name: 'estadoContratoId', reference: 'EstadoContrato' },
         { name: 'tipoContratoId', reference: 'TipoContrato' },
         { name: 'tiempoContratoId', reference: 'TiempoContrato'},
-        { name: 'TrabajadorId', reference: 'Trabajador' }
+        { name: 'trabajadorId', reference: 'Trabajador' }
     ]
 });

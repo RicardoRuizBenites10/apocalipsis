@@ -731,6 +731,42 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Submenu"
       }
+    },
+    "app/model/AccesoId.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idMenu:int:null,idUsuario:string:null",
+        "modelFileName": "AccesoId",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "AccesoId"
+      }
+    },
+    "app/model/Acceso.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "vistas:string:null",
+        "modelFileName": "Acceso",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Acceso"
+      }
+    },
+    "app/model/Periodo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cerrado:boolean:null,fin:date:null,finPlame:date:null,idPeriodo:int:null,iniPlame:date:null,inicio:date:null,situacion:boolean:null",
+        "modelFileName": "Periodo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Periodo"
+      }
     }
   }
 }

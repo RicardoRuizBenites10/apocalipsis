@@ -5,6 +5,5 @@ Ext.define('GrupoBruce.model.FormaPago', {
         { name: 'descripcion', type: 'string' },
         { name: 'idFpago', type: 'int' },
         { name: 'situacion', type: 'boolean' }
-
     ]
 });

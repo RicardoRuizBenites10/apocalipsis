@@ -59,7 +59,7 @@ public class Acceso implements java.io.Serializable {
     }
 
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MENU", nullable = false, insertable = false, updatable = false)
     public Menu getMenu() {
