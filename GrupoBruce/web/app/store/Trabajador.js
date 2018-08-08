@@ -1,22 +1,20 @@
-Ext.define('GrupoBruce.store.Trabajador',{
+Ext.define('GrupoBruce.store.Trabajador', {
     extend: 'Ext.data.Model',
     alias: 'store.Strabajador',
-    
-    model: 'Mtrabajador',
 
+    model: 'Mtrabajador',
+    
+    autoLoad: true,
     proxy: {
         type: 'ajax',
-        method: 'POST',
-        url: 'trabajadores',
+        api: {
+            read: 'rrhh/trabajadores'
+        },
         reader: {
             type: 'json',
-            rootProperty: 'data'
+            rootProperty: 'data',
+            successProperty : 'success'
         }
-    },
-    autoLoad: true,
-    
-    sorters: [
-        {property: 'persona.dni' , direction: 'ASC'}
-    ]
-    
+    }
+
 });

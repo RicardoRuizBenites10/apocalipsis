@@ -77,11 +77,9 @@ public class UsuarioController {
             map.put("success", true);
             map.put("message", "Datos encontrados");
             map.put("data", usu.getTrabajador());
-            System.out.println("Aprobado");
         }else{
             map.put("success", false);
             map.put("message", "Datos no encontrados");
-            System.out.println("No Aprobado");
         }
         return map;
     }

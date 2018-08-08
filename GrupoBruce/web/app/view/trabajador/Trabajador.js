@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     },
     
     items: [{
-            xtype: 'trabajadorList'
+        xtype: 'trabajadorList'
     }]
 
 });

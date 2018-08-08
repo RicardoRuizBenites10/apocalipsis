@@ -1,5 +1,6 @@
 package com.bruce.controller;
 
+import com.bruce.dao.to.Trabajador;
 import com.bruce.dao.to.perform.TrabajadorDTO;
 import com.bruce.services.design.ITrabajadorService;
 import java.util.HashMap;
@@ -22,20 +23,21 @@ public class TrabajadoresController {
     @Autowired
     private ITrabajadorService st;
 
-    @RequestMapping(value = "/empleados", method = RequestMethod.GET)
-    public String vistaEmpleados() {
-        return "rrhh/empleados";
-    }
+//    @RequestMapping(value = "/empleados", method = RequestMethod.GET)
+//    public String vistaEmpleados() {
+//        return "rrhh/empleados";
+//    }
 
     @ResponseBody
-    @RequestMapping(value = "/trabajadores", method = RequestMethod.POST)
+    @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
     public Map<String, Object> getAllEmployes() {
         System.out.println("INGRESO A CONTROLADOR -> trabajadores");
         Map<String, Object> map = new HashMap<>();
         List<TrabajadorDTO> list = st.findAllPerform();
+        List<Trabajador> liist = st.findAll();
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-//        map.put("data", list);
+        map.put("data", liist);
         return map;
     }
 }

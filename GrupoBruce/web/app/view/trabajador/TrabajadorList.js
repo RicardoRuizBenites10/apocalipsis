@@ -6,21 +6,14 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList',{
         'GrupoBruce.store.Trabajador'
     ],
     
+    title: 'Lista de trabajadores',
+    
     store: {
         xtype: 'Strabajador'
     },
-    
     columns:[{
             text: 'DNI', 
-            dataIndex: 'persona.dni'
-        },{
-            text: 'Apellidos', 
-            dataIndex:'persona.apPaterno',
-            flex: 1
-        },{
-            text: 'Nombres', 
-            dataIndex:'persona.nombres',
-            flex: 1
+            dataIndex: 'idTrabajador'
         }
     ]
     

@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
-        // TODO: add global / shared stores here
+        
     ],
 
     launch: function () {
