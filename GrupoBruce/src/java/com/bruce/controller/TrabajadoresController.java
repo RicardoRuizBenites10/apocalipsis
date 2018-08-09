@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-@RequestMapping("rrhh")
+//@RequestMapping("rrhh")
 public class TrabajadoresController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class TrabajadoresController {
         List<Trabajador> liist = st.findAll();
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-        map.put("data", liist);
+        map.put("data", list);
         return map;
     }
 }

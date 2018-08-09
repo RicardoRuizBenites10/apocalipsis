@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
-        
+        'GrupoBruce.store.Trabajador'
     ],
 
     launch: function () {

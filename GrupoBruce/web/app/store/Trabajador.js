@@ -1,19 +1,18 @@
 Ext.define('GrupoBruce.store.Trabajador', {
-    extend: 'Ext.data.Model',
+    extend: 'Ext.data.Store',
     alias: 'store.Strabajador',
-
-    model: 'Mtrabajador',
+    
+    model: 'GrupoBruce.model.Trabajador',
     
     autoLoad: true,
     proxy: {
         type: 'ajax',
         api: {
-            read: 'rrhh/trabajadores'
+            read: 'trabajadores'
         },
         reader: {
             type: 'json',
-            rootProperty: 'data',
-            successProperty : 'success'
+            rootProperty: 'data'
         }
     }
 
