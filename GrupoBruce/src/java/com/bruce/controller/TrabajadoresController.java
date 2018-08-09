@@ -40,9 +40,9 @@ public class TrabajadoresController {
         list.add(new Aamon(20, "Yeghor", "Industrial"));
         list.add(new Aamon(30, "Sheyimi", "Docente"));
         
-        map.put("status", 200);
+        map.put("success", true);
         map.put("message", "Datos encontrados");
-        map.put("items", list);
+        map.put("data", list);
 
         return map;
     }

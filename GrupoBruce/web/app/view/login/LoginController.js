@@ -13,23 +13,37 @@ Ext.define('GrupoBruce.view.login.LoginController', {
             Ext.Msg.alert('Status', 'Información ingresada no es valida.');
             return;
         }
-        
+
         Ext.Ajax.request({
             url: 'validate',
             jsonData: formLogin.getForm().getValues(),
             method: 'POST',
-            success: function (response, opts) {
-                var responseText = Ext.decode(response.responseText);
-                localStorage.setItem("sesionUsuario", responseText.success);
-                Ext.create({
-                    xtype: responseText.success ? 'app-main' : 'login'
-                });
-            },
-            failurer: function (response, opts) {
-                Ext.Msg.alert('Status', response.status);
-            }
+            scope: this,
+            success: this.onLoginSuccess,
+            failurer: this.onLoginFailure
         });
-        this.getView().destroy();
+    },
+
+    onLoginSuccess: function (response, opts) {
+        var responseText = Ext.decode(response.responseText);
+        localStorage.setItem("sesionUsuario", responseText.success);
+        if(responseText.success){
+            this.getView().destroy();
+            Ext.create({
+                xtype: 'app-main'
+            });
+        }else{
+            Ext.Msg.show({
+                title: 'Error',
+                msg: responseText.message,
+                icon: Ext.Msg.ERROR,
+                botones: Ext.Msg.OK
+            });
+        }
+    },
+    
+    onLoginFailure: function (response, opts) {
+        Ext.Msg.alert('Status', response.status);
     }
 
 });

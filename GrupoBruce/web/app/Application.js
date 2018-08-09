@@ -16,7 +16,6 @@ Ext.define('GrupoBruce.Application', {
 
     launch: function () {
         var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-        console.dir("controller application: " + loggedIn);
         Ext.create({
                 xtype: loggedIn ? 'app-main' : 'login'
             });

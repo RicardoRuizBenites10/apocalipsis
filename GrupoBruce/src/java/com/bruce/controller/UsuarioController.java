@@ -75,11 +75,11 @@ public class UsuarioController {
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
         if (usu!=null) {
             map.put("success", true);
-            map.put("message", "Datos encontrados");
+            map.put("message", "Usuario validado.");
             map.put("data", usu.getTrabajador());
         }else{
             map.put("success", false);
-            map.put("message", "Datos no encontrados");
+            map.put("message", "El usuario y/o contraseña no coinciden.");
         }
         return map;
     }
