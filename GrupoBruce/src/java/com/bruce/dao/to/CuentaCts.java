@@ -22,8 +22,8 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "CUENTA_CTS",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class CuentaCts implements java.io.Serializable {
 
@@ -52,7 +52,7 @@ public class CuentaCts implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-    
+
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,7 +64,7 @@ public class CuentaCts implements java.io.Serializable {
     public void setEntidadFinanciera(EntidadFinanciera entidadFinanciera) {
         this.entidadFinanciera = entidadFinanciera;
     }
-    
+
     @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn

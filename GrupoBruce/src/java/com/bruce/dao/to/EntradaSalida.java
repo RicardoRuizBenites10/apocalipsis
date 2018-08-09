@@ -2,6 +2,7 @@ package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -74,7 +75,8 @@ public class EntradaSalida  implements java.io.Serializable {
         this.tipoEs = tipoEs;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @JsonBackReference
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="ID_TRABAJADOR", nullable=false, insertable=false, updatable=false)
     public Trabajador getTrabajador() {
         return this.trabajador;

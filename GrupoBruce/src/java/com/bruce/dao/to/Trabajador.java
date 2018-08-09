@@ -239,6 +239,8 @@ public class Trabajador implements java.io.Serializable {
         this.afiliacion = afiliacion;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<EntradaSalida> getEntradaSalidas() {
         return this.entradaSalidas;
@@ -259,6 +261,8 @@ public class Trabajador implements java.io.Serializable {
         this.contratoTrabajadors = contratoTrabajadors;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Vacacion> getVacacions() {
         return this.vacacions;
@@ -279,6 +283,8 @@ public class Trabajador implements java.io.Serializable {
         this.cuentaSueldo = cuentaSueldo;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Hijo> getHijos() {
         return this.hijos;
@@ -288,6 +294,8 @@ public class Trabajador implements java.io.Serializable {
         this.hijos = hijos;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<AlmuerzoTrabajador> getAlmuerzoTrabajadors() {
         return this.almuerzoTrabajadors;
@@ -297,6 +305,8 @@ public class Trabajador implements java.io.Serializable {
         this.almuerzoTrabajadors = almuerzoTrabajadors;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Asistencia> getAsistencias() {
         return this.asistencias;
@@ -328,6 +338,8 @@ public class Trabajador implements java.io.Serializable {
         this.formacions = formacions;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Permiso> getPermisos() {
         return this.permisos;
@@ -337,6 +349,8 @@ public class Trabajador implements java.io.Serializable {
         this.permisos = permisos;
     }
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
     public Set<Textralaboral> getTextralaborals() {
         return this.textralaborals;

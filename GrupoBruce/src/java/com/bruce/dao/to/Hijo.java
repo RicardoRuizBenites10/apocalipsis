@@ -1,6 +1,7 @@
 package com.bruce.dao.to;
 // Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
@@ -73,7 +74,8 @@ public class Hijo implements java.io.Serializable {
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
-
+    
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TRABAJADOR", nullable = false)
     public Trabajador getTrabajador() {

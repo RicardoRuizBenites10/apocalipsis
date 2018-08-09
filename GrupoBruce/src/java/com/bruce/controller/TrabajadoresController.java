@@ -1,8 +1,10 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.perform.Aamon;
 import com.bruce.dao.to.perform.TrabajadorDTO;
 import com.bruce.services.design.ITrabajadorService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +33,17 @@ public class TrabajadoresController {
     @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
     public Map<String, Object> getAllEmployes() {
-        System.out.println("INGRESO A CONTROLADOR -> trabajadores");
         Map<String, Object> map = new HashMap<>();
-        List<TrabajadorDTO> list = st.findAllPerform();
-        List<Trabajador> liist = st.findAll();
+//        List<Trabajador> list = st.findAll();
+        List<Aamon> list = new ArrayList<>();
+        list.add(new Aamon(10, "Oscar", "Sistemas"));
+        list.add(new Aamon(20, "Yeghor", "Industrial"));
+        list.add(new Aamon(30, "Sheyimi", "Docente"));
+        
         map.put("status", 200);
         map.put("message", "Datos encontrados");
-        map.put("data", list);
+        map.put("items", list);
+
         return map;
     }
 }

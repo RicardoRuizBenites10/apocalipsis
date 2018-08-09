@@ -767,6 +767,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Periodo"
       }
+    },
+    "app/model/Aamon.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "carrerra:string:null,codigo:int:null,nombres:string:null",
+        "modelFileName": "Aamon",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Aamon"
+      }
     }
   }
 }
