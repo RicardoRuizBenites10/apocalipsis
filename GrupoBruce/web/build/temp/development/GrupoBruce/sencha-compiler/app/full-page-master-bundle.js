@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Users\SISTEMAS\Documents\NetBeansProjects\repository2\apocalipsis\GrupoBruce\web\app.js
+// @require C:\Users\SISTEMAS\Documents\NetBeansProjects\Repository_Git\apocalipsis\GrupoBruce\web\app.js

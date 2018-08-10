@@ -2,15 +2,21 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     extend: 'Ext.grid.Panel',
     xtype: 'trabajadorList',
 
-    title: 'Lista de trabajadores',
-
     store: {
         xtype: 'Strabajador'
     },
 
     columns: [{
-            text: 'DNI',
+            text: 'CODIGO',
             dataIndex: 'codigo',
+            flex: 1
+        },{
+            text: 'NOMBRES',
+            dataIndex: 'nombres',
+            flex: 1
+        },{
+            text: 'CARRERA',
+            dataIndex: 'carrerra',
             flex: 1
         }
     ]

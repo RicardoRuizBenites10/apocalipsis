@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
+        'GrupoBruce.store.Personnel',
         'GrupoBruce.store.Trabajador'
     ],
 

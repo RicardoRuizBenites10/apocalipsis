@@ -9,8 +9,9 @@ Ext.define('GrupoBruce.view.main.MainController', {
 
     alias: 'controller.main',
 
-    onItemSelected: function (sender, record) {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
+    onItemSelected: function (sender, record, item, index) {
+//        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
+            Ext.Msg.alert("Prueba","Datos: " + Ext.encode(record.getData()));
     },
 
     onConfirm: function (choice) {

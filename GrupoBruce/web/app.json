@@ -176,18 +176,19 @@
                             "src": "classic/sass/save"
                         }
                     }
-                },
-
-                "modern": {
-                    "toolkit": "modern",
-                    "theme": "theme-material",
-                    "sass": {
-                        "generated": {
-                            "var": "modern/sass/save.scss",
-                            "src": "modern/sass/save"
-                        }
-                    }
                 }
+
+            #    ,"modern": {
+            #        "toolkit": "modern",
+            #        "theme": "theme-material",
+            #        "sass": {
+            #            "generated": {
+            #                "var": "modern/sass/save.scss",
+            #                "src": "modern/sass/save"
+            #            }
+            #        }
+            #    }
+                
             },
     "ignore": [
         "(^|/)CVS(/?$|/.*?$)"
