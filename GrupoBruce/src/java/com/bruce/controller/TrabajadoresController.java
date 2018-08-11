@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -33,18 +34,12 @@ public class TrabajadoresController {
 
     @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
-    public Map<String, Object> getAllEmployes() {
+    public Map<String, Object> getAllEmployes(@RequestParam int page, @RequestParam int limit) {
         Map<String, Object> map = new HashMap<>();
-        List<Trabajador> list = st.findAll();
-//        List<Aamon> list = new ArrayList<>();
-//        list.add(new Aamon(10, "Oscar", "Sistemas"));
-//        list.add(new Aamon(20, "Yeghor", "Industrial"));
-//        list.add(new Aamon(30, "Sheyimi", "Docente"));
-//        
+        List<Trabajador> list = st.findPagination(page, limit);
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", list);
-
         return map;
     }
 }

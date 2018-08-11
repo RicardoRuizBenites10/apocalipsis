@@ -52,4 +52,9 @@ public class TrabajadorService implements ITrabajadorService{
     public List<Trabajador> findAll() {
         return dao.findAll();
     }
+
+    @Override
+    public List<Trabajador> findPagination(int page, int limit) {
+        return dao.getTrabajadorsPagination(page, limit);
+    }
 }

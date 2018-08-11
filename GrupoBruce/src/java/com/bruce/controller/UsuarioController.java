@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,7 +70,7 @@ public class UsuarioController {
 //    }
     
     @ResponseBody
-    @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    @RequestMapping(value = "/validate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String,Object> validarUsuario(@RequestBody Alibaba usuario) {
         Map<String, Object> map = new HashMap<>();
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());

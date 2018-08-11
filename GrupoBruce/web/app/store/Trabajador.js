@@ -4,12 +4,12 @@ Ext.define('GrupoBruce.store.Trabajador', {
     alias: 'store.strabajador',
 
     model: 'GrupoBruce.model.Aamon',
+    
     proxy: {
         type: 'ajax',
         api: {
             read: 'trabajadores'
         },
-        paramsAsJson: true,
         reader: {
             type: 'json',
             rootProperty: 'data'

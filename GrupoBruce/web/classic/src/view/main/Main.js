@@ -96,7 +96,7 @@ Ext.define('GrupoBruce.view.main.Main', {
             title: 'Logistica',
             iconCls: 'fa-folder-o',
             items: [{
-                    xtype: 'mainlist'
+                    xtype: 'mainlist',
                 }]
         }, {
             title: 'Ingeniería y diseño',

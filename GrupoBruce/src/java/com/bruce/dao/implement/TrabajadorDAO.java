@@ -28,21 +28,23 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class TrabajadorDAO implements ITrabajadorDAO{
-    
+public class TrabajadorDAO implements ITrabajadorDAO {
+
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+
     @Override
     public void create(Trabajador t) {
         Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.save(t);
             tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
     }
@@ -51,13 +53,15 @@ public class TrabajadorDAO implements ITrabajadorDAO{
     public void update(Trabajador t) {
         Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
     }
@@ -66,13 +70,15 @@ public class TrabajadorDAO implements ITrabajadorDAO{
     public void delete(Trabajador t) {
         Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
     }
@@ -82,20 +88,22 @@ public class TrabajadorDAO implements ITrabajadorDAO{
         Session session = sf.openSession();
         Transaction tx = null;
         Trabajador trabajador = null;
-        try{
+        try {
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM Trabajador T WHERE T.idTrabajador = :idTrabajador");
-            query.setParameter("idTrabajador", (String)idT);
+            query.setParameter("idTrabajador", (String) idT);
             List result = query.list();
             Iterator iterator = result.iterator();
-            if(iterator.hasNext()){
-                trabajador = (Trabajador)iterator;
+            if (iterator.hasNext()) {
+                trabajador = (Trabajador) iterator;
                 Hibernate.initialize(trabajador);
             }
             tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
         return trabajador;
@@ -106,14 +114,16 @@ public class TrabajadorDAO implements ITrabajadorDAO{
         Session session = sf.openSession();
         Transaction tx = null;
         List result = null;
-        try{
+        try {
             tx = session.beginTransaction();
             Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL);
             result = query.list();
             tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
         return result;
@@ -124,18 +134,41 @@ public class TrabajadorDAO implements ITrabajadorDAO{
         Session session = sf.openSession();
         Transaction tx = null;
         List<TrabajadorDTO> result = null;
-        try{
+        try {
             tx = session.beginTransaction();
             Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
             result = query.setResultTransformer(Transformers.aliasToBean(TrabajadorDTO.class)).list();
             tx.commit();
-        }catch(HibernateException he ){
+        } catch (HibernateException he) {
             System.err.println("Error getAllPermorms: " + he.getMessage());
-            if(tx!=null) tx.rollback();
-        }finally{
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
         return result;
     }
-    
+
+    @Override
+    public List<Trabajador> getTrabajadorsPagination(int page, int limit) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List result = null;
+        try {
+            tx = session.beginTransaction();
+            Criteria cr = session.createCriteria(Trabajador.class);
+            cr.setFirstResult(page);
+            cr.setMaxResults(limit);
+            result = cr.list();
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 }

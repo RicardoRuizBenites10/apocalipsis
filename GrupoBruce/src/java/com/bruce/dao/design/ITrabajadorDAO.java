@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface ITrabajadorDAO extends IEntidadDAO<Trabajador>{
     public List<TrabajadorDTO> getAllPerforms();
+    public List<Trabajador> getTrabajadorsPagination(int page, int limit);
 }
