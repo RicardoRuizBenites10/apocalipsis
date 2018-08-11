@@ -14,8 +14,8 @@ import java.util.Set;
  *
  * @author SISTEMAS
  */
-public class Alibaba {
-    
+public class Alibaba implements java.io.Serializable {
+
     private String idUsuario;
 //    private Trabajador trabajador;
     private String usu;

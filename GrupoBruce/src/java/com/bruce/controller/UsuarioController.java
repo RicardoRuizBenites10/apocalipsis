@@ -7,7 +7,6 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.perform.Alibaba;
 import com.bruce.dao.to.Usuario;
-import com.bruce.dao.to.perform.Genero;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.IUsuarioService;
 import java.util.Date;
@@ -70,8 +69,9 @@ public class UsuarioController {
 //    }
     
     @ResponseBody
-    @RequestMapping(value = "/validate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public Map<String,Object> validarUsuario(@RequestBody Alibaba usuario) {
+        System.out.println("Entro por la ptm");
         Map<String, Object> map = new HashMap<>();
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
         if (usu!=null) {

@@ -131,7 +131,7 @@ public class Usuario implements java.io.Serializable {
     }
 
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     public Set<Acceso> getAccesos() {
         return this.accesos;
