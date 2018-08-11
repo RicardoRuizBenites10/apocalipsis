@@ -1,10 +1,11 @@
 Ext.define('GrupoBruce.store.Trabajador', {
     extend: 'Ext.data.Store',
     
-    alias: 'store.strabajador',
+    alias: 'store.Strabajador',
 
-    model: 'GrupoBruce.model.Aamon',
+    model: 'GrupoBruce.model.Trabajador',
     
+    autoLoad: true,
     proxy: {
         type: 'ajax',
         api: {
@@ -15,6 +16,9 @@ Ext.define('GrupoBruce.store.Trabajador', {
             rootProperty: 'data'
         }
     },
-    autoLoad: true
+    
+    sorters: [
+        {property: 'idTrabajador', direction: 'ASC'}
+    ]
 
 });

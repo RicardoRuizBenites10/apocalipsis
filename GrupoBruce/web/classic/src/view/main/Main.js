@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.view.main.Main', {
         'GrupoBruce.view.main.MainController',
         'GrupoBruce.view.main.MainModel',
         'GrupoBruce.view.main.List',
-        
+
         'GrupoBruce.view.trabajador.Trabajador'
     ],
 
@@ -90,13 +90,16 @@ Ext.define('GrupoBruce.view.main.Main', {
             title: ' Recursos Humanos',
             iconCls: 'fa-male',
             items: [{
+                    bind: {
+                        title: '{title_rrhh}'
+                    },
                     xtype: 'trabajadors'
-            }]            
+                }]
         }, {
             title: 'Logistica',
             iconCls: 'fa-folder-o',
             items: [{
-                    xtype: 'mainlist',
+                    xtype: 'mainlist'
                 }]
         }, {
             title: 'Ingeniería y diseño',

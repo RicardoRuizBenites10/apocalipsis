@@ -3,24 +3,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     xtype: 'trabajadorList',
 
     store: {
-        xtype: 'Strabajador'
+        type: 'Strabajador'
     },
 
-    columns: [{
-            text: 'CODIGO',
-            dataIndex: 'codigo',
-            flex: 1
-        },{
-            text: 'NOMBRES',
-            dataIndex: 'nombres',
-            flex: 1
-        },{
-            text: 'CARRERA',
-            dataIndex: 'carrerra',
-            flex: 1
-        }
+    columns: [
+        { text: 'Código',  dataIndex: 'idTrabajador' },
+        { text: 'Nombres', dataIndex: 'montoPasaje', flex: 1 },
+        { text: 'Carrera', dataIndex: 'montoBase', flex: 1 }
     ]
 
 });
-
-

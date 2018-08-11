@@ -7,13 +7,15 @@ Ext.define('GrupoBruce.view.main.List', {
 //    ],
 
     store: {
-        type: 'Spersonnel'
+        type: 'personnel'
     },
-
+    
+    title: 'Personnel',
+    
     columns: [
-        { text: 'Código',  dataIndex: 'idTrabajador' },
-        { text: 'Nombres', dataIndex: 'montoPasaje', flex: 1 },
-        { text: 'Carrera', dataIndex: 'montoBase', flex: 1 }
+        { text: 'Name',  dataIndex: 'name' },
+        { text: 'Email', dataIndex: 'email', flex: 1 },
+        { text: 'Phone', dataIndex: 'phone', flex: 1 }
     ],
 
     listeners: {

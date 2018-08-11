@@ -8,8 +8,9 @@ Ext.define('GrupoBruce.view.main.MainModel', {
 
     data: {
         usuario: 'Oscar Ricardo Ruiz Benites',
-        
         name: 'Grupo Bruce',
+        
+        title_rrhh: 'Lista de Trabajadores',
 
         loremIpsum: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
     }
