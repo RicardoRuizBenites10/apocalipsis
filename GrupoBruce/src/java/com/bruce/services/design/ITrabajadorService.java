@@ -15,5 +15,6 @@ import java.util.List;
  */
 public interface ITrabajadorService extends IEntidadService<Trabajador>{
     public List<TrabajadorDTO> findAllPerform();
-    public List<Trabajador> findPagination(int page, int limit);
+    public List<Trabajador> findPagination(int start, int limit);
+    public int  findTrabajadorCount();
 }

@@ -17,9 +17,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
 import com.bruce.util.QuerySQL;
+import java.util.ArrayList;
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
@@ -151,14 +154,16 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public List<Trabajador> getTrabajadorsPagination(int page, int limit) {
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit) {
         Session session = sf.openSession();
         Transaction tx = null;
         List result = null;
         try {
             tx = session.beginTransaction();
             Criteria cr = session.createCriteria(Trabajador.class);
-            cr.setFirstResult(page);
+
+            cr.addOrder(Order.asc("idTrabajador"));
+            cr.setFirstResult(start);
             cr.setMaxResults(limit);
             result = cr.list();
             tx.commit();
@@ -170,5 +175,27 @@ public class TrabajadorDAO implements ITrabajadorDAO {
             session.close();
         }
         return result;
+    }
+
+    @Override
+    public int getTrabajadorCount() {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List count = new ArrayList<>();
+        try {
+            tx = session.beginTransaction();
+            Criteria cr = session.createCriteria(Trabajador.class);
+            cr.setProjection(Projections.rowCount());
+            count = cr.list();
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        
+        return ((Long)count.get(0)).intValue() ;
     }
 }

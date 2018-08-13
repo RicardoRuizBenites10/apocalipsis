@@ -54,7 +54,12 @@ public class TrabajadorService implements ITrabajadorService{
     }
 
     @Override
-    public List<Trabajador> findPagination(int page, int limit) {
-        return dao.getTrabajadorsPagination(page, limit);
+    public List<Trabajador> findPagination(int start, int limit) {
+        return dao.getTrabajadorsPagination(start, limit);
+    }
+
+    @Override
+    public int findTrabajadorCount() {
+        return dao.getTrabajadorCount();
     }
 }

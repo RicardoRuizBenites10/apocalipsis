@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.store.Trabajador', {
     model: 'GrupoBruce.model.Trabajador',
     
     autoLoad: true,
+    
     proxy: {
         type: 'ajax',
         api: {
