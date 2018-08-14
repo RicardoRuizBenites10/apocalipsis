@@ -5,8 +5,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     store: {
         type: 'Strabajador'
     },
-//    pageSize: 15,
-
+    
     columns: [
         {text: 'Código', dataIndex: 'idTrabajador'},
         {text: 'Nombres', dataIndex: 'montoPasaje', flex: 1},
@@ -18,7 +17,28 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             dock: 'bottom',
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros"
+            emptyMsg: "No hay registros",
+            pageSize: 30
+        }],
+
+    tbar: [{
+            text: 'Nuevo',
+            iconCls: 'fa fa-plus',
+            listeners: {
+                click: 'nuevoTrabajador'
+            }
+        }, {
+            text: 'Editar',
+            iconCls: 'fa fa-edit',
+            listeners: {
+                click: 'editarTrabajador'
+            }
+        }, '-', {
+            text: 'Ver',
+            iconCls: 'fa fa-search',
+            listeners: {
+                click: 'verTrabajador'
+            }
         }]
 
 });

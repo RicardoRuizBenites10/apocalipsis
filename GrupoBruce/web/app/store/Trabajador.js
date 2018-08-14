@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.store.Trabajador', {
     model: 'GrupoBruce.model.Trabajador',
     
     autoLoad: true,
+    pageSize: 15,
     
     proxy: {
         type: 'ajax',
@@ -14,7 +15,8 @@ Ext.define('GrupoBruce.store.Trabajador', {
         },
         reader: {
             type: 'json',
-            rootProperty: 'data'
+            rootProperty: 'data',
+            totalProperty: 'total'
         }
     },
     
