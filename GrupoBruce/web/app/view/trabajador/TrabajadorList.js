@@ -7,9 +7,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     },
     
     columns: [
-        {text: 'Código', dataIndex: 'idTrabajador'},
-        {text: 'Nombres', dataIndex: 'montoPasaje', flex: 1},
-        {text: 'Carrera', dataIndex: 'montoBase', flex: 1}
+        {text: 'DNI', dataIndex: 'idTrabajador'},
+        {text: 'Apellidos y Nombres', dataIndex: 'persona.apMaterno', flex: 2},
+        {text: 'Teléfono', dataIndex: 'montoBase' },
+        {text: 'Dirección', dataIndex: 'montoBase', flex: 2},
+        {text: 'Tipo', dataIndex: 'montoBase' },
+        {text: 'Estado', dataIndex: 'persona' }
     ],
 
     dockedItems: [{
@@ -17,8 +20,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             dock: 'bottom',
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros",
-            pageSize: 30
+            emptyMsg: "No hay registros que mostrar"
         }],
 
     tbar: [{
@@ -39,6 +41,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             listeners: {
                 click: 'verTrabajador'
             }
-        }]
-
+        }],
+    
+    listeners: {
+        select: 'onItemSelected'
+    }
+    
 });

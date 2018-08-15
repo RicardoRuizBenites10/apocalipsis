@@ -1,4 +1,3 @@
-
 Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     extend: 'Ext.panel.Panel',
     
