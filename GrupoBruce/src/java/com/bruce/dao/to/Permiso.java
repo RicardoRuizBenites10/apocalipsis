@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 )
 public class Permiso implements java.io.Serializable {
 
-    private PermisoId id;
+    private PermisoId permisoId;
     private TipoPermiso tipoPermiso;
     private Trabajador trabajador;
     private Date fechaRetorno;
@@ -33,8 +33,8 @@ public class Permiso implements java.io.Serializable {
     public Permiso() {
     }
 
-    public Permiso(PermisoId id, TipoPermiso tipoPermiso, Trabajador trabajador, Date fechaRetorno) {
-        this.id = id;
+    public Permiso(PermisoId permisoId, TipoPermiso tipoPermiso, Trabajador trabajador, Date fechaRetorno) {
+        this.permisoId = permisoId;
         this.tipoPermiso = tipoPermiso;
         this.trabajador = trabajador;
         this.fechaRetorno = fechaRetorno;
@@ -46,12 +46,12 @@ public class Permiso implements java.io.Serializable {
         @AttributeOverride(name = "idTrabajador", column = @Column(name = "ID_TRABAJADOR", nullable = false, length = 15))
         , 
         @AttributeOverride(name = "fechaSalida", column = @Column(name = "FECHA_SALIDA", nullable = false, length = 10))})
-    public PermisoId getId() {
-        return this.id;
+    public PermisoId getPermisoId() {
+        return this.permisoId;
     }
 
-    public void setId(PermisoId id) {
-        this.id = id;
+    public void setPermisoId(PermisoId permisoId) {
+        this.permisoId = permisoId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

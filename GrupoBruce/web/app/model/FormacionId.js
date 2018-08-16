@@ -4,6 +4,5 @@ Ext.define('GrupoBruce.model.FormacionId', {
     fields: [
         { name: 'idFormacion', type: 'int' },
         { name: 'idTrabajador', type: 'string' }
-
     ]
 });

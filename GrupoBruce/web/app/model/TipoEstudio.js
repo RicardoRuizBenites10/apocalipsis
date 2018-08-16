@@ -5,6 +5,5 @@ Ext.define('GrupoBruce.model.TipoEstudio', {
         { name: 'descripcion', type: 'string' },
         { name: 'idTestudio', type: 'int' },
         { name: 'situacion', type: 'boolean' }
-
     ]
 });

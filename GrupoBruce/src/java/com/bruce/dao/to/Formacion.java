@@ -24,7 +24,7 @@ import javax.persistence.Table;
 )
 public class Formacion implements java.io.Serializable {
 
-    private FormacionId id;
+    private FormacionId formacionId;
     private EstadoEstudio estadoEstudio;
     private TipoEstudio tipoEstudio;
     private Trabajador trabajador;
@@ -34,14 +34,14 @@ public class Formacion implements java.io.Serializable {
     public Formacion() {
     }
 
-    public Formacion(FormacionId id, Trabajador trabajador, String institucion) {
-        this.id = id;
+    public Formacion(FormacionId formacionId, Trabajador trabajador, String institucion) {
+        this.formacionId = formacionId;
         this.trabajador = trabajador;
         this.institucion = institucion;
     }
 
-    public Formacion(FormacionId id, EstadoEstudio estadoEstudio, TipoEstudio tipoEstudio, Trabajador trabajador, String institucion, String descripcion) {
-        this.id = id;
+    public Formacion(FormacionId formacionId, EstadoEstudio estadoEstudio, TipoEstudio tipoEstudio, Trabajador trabajador, String institucion, String descripcion) {
+        this.formacionId = formacionId;
         this.estadoEstudio = estadoEstudio;
         this.tipoEstudio = tipoEstudio;
         this.trabajador = trabajador;
@@ -54,12 +54,12 @@ public class Formacion implements java.io.Serializable {
         @AttributeOverride(name = "idTrabajador", column = @Column(name = "ID_TRABAJADOR", nullable = false, length = 15))
         , 
         @AttributeOverride(name = "idFormacion", column = @Column(name = "ID_FORMACION", nullable = false))})
-    public FormacionId getId() {
-        return this.id;
+    public FormacionId getFormacionId() {
+        return this.formacionId;
     }
 
-    public void setId(FormacionId id) {
-        this.id = id;
+    public void setFormacionId(FormacionId formacionId) {
+        this.formacionId = formacionId;
     }
 
     @JsonManagedReference

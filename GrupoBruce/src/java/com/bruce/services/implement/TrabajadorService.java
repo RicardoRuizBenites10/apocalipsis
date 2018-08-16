@@ -59,7 +59,7 @@ public class TrabajadorService implements ITrabajadorService{
     }
 
     @Override
-    public int findTrabajadorCount() {
+    public int totalCount() {
         return dao.getTrabajadorCount();
     }
 }

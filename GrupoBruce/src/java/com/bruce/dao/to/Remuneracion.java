@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 )
 public class Remuneracion implements java.io.Serializable {
 
-    private RemuneracionId id;
+    private RemuneracionId remuneracionId;
     private ContratoTrabajador contratoTrabajador;
     private Date fecha;
     private BigDecimal monto;
@@ -35,8 +35,8 @@ public class Remuneracion implements java.io.Serializable {
     public Remuneracion() {
     }
 
-    public Remuneracion(RemuneracionId id, ContratoTrabajador contratoTrabajador, Date fecha, BigDecimal monto) {
-        this.id = id;
+    public Remuneracion(RemuneracionId remuneracionId, ContratoTrabajador contratoTrabajador, Date fecha, BigDecimal monto) {
+        this.remuneracionId = remuneracionId;
         this.contratoTrabajador = contratoTrabajador;
         this.fecha = fecha;
         this.monto = monto;
@@ -50,12 +50,12 @@ public class Remuneracion implements java.io.Serializable {
         @AttributeOverride(name = "idContrato", column = @Column(name = "ID_CONTRATO", nullable = false))
         , 
         @AttributeOverride(name = "idRemuneracion", column = @Column(name = "ID_REMUNERACION", nullable = false))})
-    public RemuneracionId getId() {
-        return this.id;
+    public RemuneracionId getRemuneracionId() {
+        return this.remuneracionId;
     }
 
-    public void setId(RemuneracionId id) {
-        this.id = id;
+    public void setRemuneracionId(RemuneracionId remuneracionId) {
+        this.remuneracionId = remuneracionId;
     }
 
     @JsonBackReference

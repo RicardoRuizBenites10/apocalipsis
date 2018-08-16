@@ -24,7 +24,7 @@ import javax.persistence.Table;
 )
 public class Acceso implements java.io.Serializable {
 
-    private AccesoId id;
+    private AccesoId accesoId;
     private Menu menu;
     private Usuario usuario;
     private String vistas;
@@ -32,14 +32,14 @@ public class Acceso implements java.io.Serializable {
     public Acceso() {
     }
 
-    public Acceso(AccesoId id, Menu menu, Usuario usuario) {
-        this.id = id;
+    public Acceso(AccesoId accesoId, Menu menu, Usuario usuario) {
+        this.accesoId = accesoId;
         this.menu = menu;
         this.usuario = usuario;
     }
 
-    public Acceso(AccesoId id, Menu menu, Usuario usuario, String vistas) {
-        this.id = id;
+    public Acceso(AccesoId accesoId, Menu menu, Usuario usuario, String vistas) {
+        this.accesoId = accesoId;
         this.menu = menu;
         this.usuario = usuario;
         this.vistas = vistas;
@@ -50,12 +50,12 @@ public class Acceso implements java.io.Serializable {
         @AttributeOverride(name = "idUsuario", column = @Column(name = "ID_USUARIO", nullable = false, length = 15))
         , 
         @AttributeOverride(name = "idMenu", column = @Column(name = "ID_MENU", nullable = false))})
-    public AccesoId getId() {
-        return this.id;
+    public AccesoId getAccesoId() {
+        return this.accesoId;
     }
 
-    public void setId(AccesoId id) {
-        this.id = id;
+    public void setAccesoId(AccesoId accesoId) {
+        this.accesoId = accesoId;
     }
 
     @JsonManagedReference
