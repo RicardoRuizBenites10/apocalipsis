@@ -7,12 +7,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     },
     
     columns: [
-        {text: 'DNI', dataIndex: 'codigo'},
-        {text: 'Apellidos y Nombres', dataIndex: 'nombres', flex: 2},
-        {text: 'Teléfono', dataIndex: 'profecion' },
-        {text: 'Dirección', dataIndex: 'edad', flex: 2},
-        {text: 'Tipo', dataIndex: 'estado' },
-        {text: 'Estado', dataIndex: 'dni' }
+        {text: 'DNI', dataIndex: 'idTrabajador'},
+        {text: 'Apellidos y Nombres', xtype: 'templatecolumn', tpl: '{persona.apPaterno} {persona.apMaterno}, {persona.nombres}' , flex: 2},
+        {text: 'Teléfono', xtype: 'templatecolumn', tpl: '{persona.telefono}' },
+        {text: 'Dirección', xtype: 'templatecolumn', tpl: '{persona.direccion}', flex: 2},
+        {text: 'Tipo', xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}' },
+        {text: 'Estado', xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}' }
     ],
 
     dockedItems: [{
