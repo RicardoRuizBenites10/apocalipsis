@@ -5,14 +5,25 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     store: {
         type: 'Strabajador'
     },
-    
+
+    plugins: 'gridfilters',
+
     columns: [
-        {text: 'DNI', dataIndex: 'idTrabajador'},
-        {text: 'Apellidos y Nombres', xtype: 'templatecolumn', tpl: '{persona.apPaterno} {persona.apMaterno}, {persona.nombres}' , flex: 2},
-        {text: 'Teléfono', xtype: 'templatecolumn', tpl: '{persona.telefono}' },
-        {text: 'Dirección', xtype: 'templatecolumn', tpl: '{persona.direccion}', flex: 2},
-        {text: 'Tipo', xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}' },
-        {text: 'Estado', xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}' }
+        {
+            text: 'DNI',
+            dataIndex: 'idTrabajador',
+            sortable: false,
+            filter: {
+                type: 'string'
+            }
+        }, {
+            text: 'Apellidos y Nombres', dataIndex: 'persona.nombres',
+            xtype: 'templatecolumn', tpl: '{persona.apPaterno} {persona.apMaterno}, {persona.nombres}',
+            flex: 2, align: 'left'},
+        {text: 'Teléfono', xtype: 'templatecolumn', tpl: '{persona.telefono}'},
+        {text: 'Dirección', xtype: 'templatecolumn', tpl: '{persona.direccion}', flex: 2, align: 'left'},
+        {text: 'Tipo', xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}', align: 'center'},
+        {text: 'Estado', xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}'}
     ],
 
     dockedItems: [{
@@ -42,9 +53,21 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
                 click: 'verTrabajador'
             }
         }],
-    
+
     listeners: {
+        headerclick: function (header, column, event, t, eOpts) {
+            // header:Header Container of grid
+            // column: The Column header Component
+            var store = header.grid.getStore(); //.sorters.filter('property', column.dataIndex);
+
+            store.getProxy().extraParams = {
+                paramHeader: 50
+            };
+
+            store.load();
+            Ext.Msg.alert("Prueba", "Datos: " + column.dataIndex + " - ");
+        },
         select: 'onItemSelected'
     }
-    
+
 });

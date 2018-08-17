@@ -161,8 +161,11 @@ public class TrabajadorDAO implements ITrabajadorDAO {
         try {
             tx = session.beginTransaction();
             Criteria cr = session.createCriteria(Trabajador.class);
-
-            cr.addOrder(Order.asc("idTrabajador"));
+            cr.createCriteria("persona")
+                    .addOrder(Order.asc("apPaterno"))
+                    .addOrder(Order.asc("apMaterno"))
+                    .addOrder(Order.asc("nombres"));
+            
             cr.setFirstResult(start);
             cr.setMaxResults(limit);
             result = cr.list();
