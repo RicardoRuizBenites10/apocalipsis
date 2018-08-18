@@ -30,18 +30,18 @@ public class TrabajadoresController {
     @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
     public Map<String, Object> getAllEmployes(
-            @RequestParam("pagina") int page, 
-            @RequestParam("inicio") int start, 
-            @RequestParam("limite") int limit) {
+            @RequestParam("page") int page, 
+            @RequestParam("start") int start, 
+            @RequestParam("limit") int limit) {
         
         Map<String, Object> map = new HashMap<>();
-//        List<Trabajador> lista = st.findPagination(start, limit);
-        List<Trabajador> lista = st.findAll();
+        List<Trabajador> lista = st.findPagination(start, limit);
+//        List<Trabajador> lista = st.findAll();
 
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
-        map.put("total", lista.size());
+        map.put("total", st.totalCount());
         return map;
 
     }

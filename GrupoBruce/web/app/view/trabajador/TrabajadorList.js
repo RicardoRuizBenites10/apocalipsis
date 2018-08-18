@@ -12,14 +12,23 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
         {
             text: 'DNI',
             dataIndex: 'idTrabajador',
-            sortable: false,
+            sortable: true,
             filter: {
                 type: 'string'
             }
-        }, {
-            text: 'Apellidos y Nombres', dataIndex: 'persona.nombres',
-            xtype: 'templatecolumn', tpl: '{persona.apPaterno} {persona.apMaterno}, {persona.nombres}',
-            flex: 2, align: 'left'},
+        }, 
+        {
+            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
+            xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
+            align: 'left'}, 
+        {
+            text: 'A. Materno', dataIndex: 'persona.apMaterno',
+            xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
+            align: 'left'}, 
+        {
+            text: 'Nombres', dataIndex: 'persona.nombres',
+            xtype: 'templatecolumn', tpl: '{persona.nombres}',
+            align: 'left'},
         {text: 'Teléfono', xtype: 'templatecolumn', tpl: '{persona.telefono}'},
         {text: 'Dirección', xtype: 'templatecolumn', tpl: '{persona.direccion}', flex: 2, align: 'left'},
         {text: 'Tipo', xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}', align: 'center'},
@@ -55,18 +64,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
         }],
 
     listeners: {
-        headerclick: function (header, column, event, t, eOpts) {
-            // header:Header Container of grid
-            // column: The Column header Component
-            var store = header.grid.getStore(); //.sorters.filter('property', column.dataIndex);
-
-            store.getProxy().extraParams = {
-                paramHeader: 50
-            };
-
-            store.load();
-            Ext.Msg.alert("Prueba", "Datos: " + column.dataIndex + " - ");
-        },
+        headerclick: 'onHeaderClick',
         select: 'onItemSelected'
     }
 
