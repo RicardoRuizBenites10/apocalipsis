@@ -30,9 +30,12 @@ public class TrabajadoresController {
     @ResponseBody
     @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
     public Map<String, Object> getAllEmployes(
-            @RequestParam("page") int page, 
-            @RequestParam("start") int start, 
-            @RequestParam("limit") int limit) {
+            @RequestParam("page") int page,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit,
+            @RequestParam("sort") String sort) {
+        
+        System.err.println("Mi sort: " + sort);
         
         Map<String, Object> map = new HashMap<>();
         List<Trabajador> lista = st.findPagination(start, limit);

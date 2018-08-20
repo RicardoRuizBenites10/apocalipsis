@@ -3,22 +3,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     alias: 'controller.Ctrabajador',
 
     onHeaderClick: function (header, column, event, t, eOpts) {
-        // header:Header Container of grid
-        // column: The Column header Component
-        var store = header.grid.getStore(); //.sorters.filter('property', column.dataIndex);
-
-        store.getProxy().extraParams = {
-            sort: 50,
-            filter: 'dad'
-        };
-
+        var store = header.grid.getStore();      
         store.load();
-        Ext.Msg.alert("Prueba", "Datos: " + column.dataIndex + " - " + store.getSorters().filter('property', column.dataIndex) );
     },
 
     onItemSelected: function (sender, record, item, index) {
 //        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-        Ext.Msg.alert("Prueba", "Datos: " + Ext.encode(record.getData()));
+        Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
 //        Ext.Msg.alert("Prueba","Mis datos: " + record.getData().persona.dni);
     },
 

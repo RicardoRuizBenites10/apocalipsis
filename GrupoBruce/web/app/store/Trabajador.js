@@ -6,11 +6,13 @@ Ext.define('GrupoBruce.store.Trabajador', {
     model: 'GrupoBruce.model.EstadoTrabajador',
 
     pageSize: 15,
-
     proxy: {
         type: 'ajax',
         api: {
-            read: 'trabajadores'
+            read: 'trabajadores',
+            create: 'insert',
+            update: 'update',
+            destroy: 'delete'
         },
         reader: {
             type: 'json',
@@ -18,19 +20,14 @@ Ext.define('GrupoBruce.store.Trabajador', {
             totalProperty: 'total'
         }
     },
-    
+
     autoLoad: true,
-    remoteSort: true
-    
-//    ,listeners: {
-//        beforeload: function (store, operation, eOpts) {
-//            var filterText = 10; //Ext.getCmp('filterText').value;
-//            store.getProxy().setExtraParam("paramBeforeLoad", filterText);
-//        }
-//    }
-    
-    ,sorters: [
+    remoteSort: true,
+    remoteFilter: true
+
+    , sorters: [
         {property: 'idTrabajador', direction: 'ASC'}
     ]
+
 
 });

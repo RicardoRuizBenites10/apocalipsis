@@ -14,8 +14,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             dataIndex: 'idTrabajador',
             sortable: true,
             filter: {
-                type: 'string'
-            }
+                type: 'string',
+                value : ''
+            },
+            align: 'left'
         }, 
         {
             text: 'A. Paterno', dataIndex: 'persona.apPaterno',
