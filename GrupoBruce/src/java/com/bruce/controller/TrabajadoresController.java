@@ -1,10 +1,17 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.perform.SortPage;
 import com.bruce.services.design.ITrabajadorService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +41,19 @@ public class TrabajadoresController {
             @RequestParam("start") int start,
             @RequestParam("limit") int limit,
             @RequestParam("sort") String sort) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        try {
+            sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() { });
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadoresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        System.err.println("Mi sort: " + sort);
+//        System.err.println("Mi sort: " + sort + " ::: " + objs.size());
         
         Map<String, Object> map = new HashMap<>();
-        List<Trabajador> lista = st.findPagination(start, limit);
+        List<Trabajador> lista = st.findPagination(start, limit, sorts);
 //        List<Trabajador> lista = st.findAll();
 
         map.put("success", true);

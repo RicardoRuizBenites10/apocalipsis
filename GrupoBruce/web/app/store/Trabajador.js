@@ -18,7 +18,8 @@ Ext.define('GrupoBruce.store.Trabajador', {
             type: 'json',
             rootProperty: 'data',
             totalProperty: 'total'
-        }
+        },
+        simpleSortMode: false
     },
 
     autoLoad: true,

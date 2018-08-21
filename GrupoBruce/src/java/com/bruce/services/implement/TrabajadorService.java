@@ -7,6 +7,7 @@ package com.bruce.services.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.perform.SortPage;
 import com.bruce.dao.to.perform.TrabajadorDTO;
 import com.bruce.services.design.ITrabajadorService;
 import java.util.List;
@@ -23,11 +24,6 @@ public class TrabajadorService implements ITrabajadorService{
     @Autowired
     private ITrabajadorDAO dao;
     
-    @Override
-    public List<TrabajadorDTO> findAllPerform() {
-        return dao.getAllPerforms();
-    }
-
     @Override
     public void create(Trabajador t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -54,8 +50,8 @@ public class TrabajadorService implements ITrabajadorService{
     }
 
     @Override
-    public List<Trabajador> findPagination(int start, int limit) {
-        return dao.getTrabajadorsPagination(start, limit);
+    public List<Trabajador> findPagination(int start, int limit, List<SortPage> sorts) {
+        return dao.getTrabajadorsPagination(start, limit, sorts);
     }
 
     @Override

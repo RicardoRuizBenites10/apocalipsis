@@ -6,6 +6,7 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.perform.SortPage;
 import com.bruce.dao.to.perform.TrabajadorDTO;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import java.util.List;
  * @author RICARDO
  */
 public interface ITrabajadorService extends IEntidadService<Trabajador>{
-    public List<TrabajadorDTO> findAllPerform();
-    public List<Trabajador> findPagination(int start, int limit);
+    public List<Trabajador> findPagination(int start, int limit, List<SortPage> sorts);
     public int  totalCount();
 }

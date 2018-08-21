@@ -7,6 +7,7 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
+import com.bruce.dao.to.perform.SortPage;
 import com.bruce.dao.to.perform.TrabajadorDTO;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.Metodo;
 import com.bruce.util.QuerySQL;
 import java.util.ArrayList;
 import java.util.Map;
@@ -154,18 +156,23 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit) {
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts) {
         Session session = sf.openSession();
         Transaction tx = null;
         List result = null;
         try {
             tx = session.beginTransaction();
             Criteria cr = session.createCriteria(Trabajador.class);
-            cr.createCriteria("persona")
-                    .addOrder(Order.asc("apPaterno"))
-                    .addOrder(Order.asc("apMaterno"))
-                    .addOrder(Order.asc("nombres"));
-            
+            sorts.forEach(item -> {
+                ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
+                if (propiedad.size() > 1) {
+                    cr.createCriteria(propiedad.get(0)).addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(propiedad.get(1)) : Order.desc(propiedad.get(1)));
+                } else {
+                    cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+                }
+
+            });
+
             cr.setFirstResult(start);
             cr.setMaxResults(limit);
             result = cr.list();
@@ -198,7 +205,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
         } finally {
             session.close();
         }
-        
-        return ((Long)count.get(0)).intValue() ;
+
+        return ((Long) count.get(0)).intValue();
     }
 }

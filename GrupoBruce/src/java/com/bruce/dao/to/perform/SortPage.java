@@ -9,11 +9,11 @@ package com.bruce.dao.to.perform;
  *
  * @author SISTEMAS
  */
-public class Sort {
+public class SortPage {
     private String property;
     private String direction;
 
-    public Sort() {
+    public SortPage() {
     }
 
     public String getProperty() {

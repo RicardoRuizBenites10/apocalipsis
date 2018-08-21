@@ -20,6 +20,7 @@ import java.util.Base64;
 import java.util.List;
 
 import static com.bruce.util.Constante.*;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -59,7 +60,7 @@ public class Metodo {
     //Array de palabras de un texto separado por cadena
     public static List<String> getSplit(String texto, String delimitador) {
         List<String> listaPalabras = new ArrayList<>();
-        listaPalabras.addAll(Arrays.asList(texto.split(delimitador)));
+        listaPalabras.addAll(Arrays.asList(texto.split(Pattern.quote(delimitador))));
         return listaPalabras;
     }
 

@@ -5,9 +5,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     store: {
         type: 'Strabajador'
     },
-
-    plugins: 'gridfilters',
-
+    
+    plugins: [
+        'gridfilters'
+    ],
+    
+    style: 'border: solid rgb(234,234,236) 1px',
     columns: [
         {
             text: 'DNI',
@@ -15,36 +18,42 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             sortable: true,
             filter: {
                 type: 'string',
-                value : ''
+                value: ''
             },
             align: 'left'
-        }, 
+        },
         {
             text: 'A. Paterno', dataIndex: 'persona.apPaterno',
             xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
-            align: 'left'}, 
+            align: 'left'},
         {
             text: 'A. Materno', dataIndex: 'persona.apMaterno',
             xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
-            align: 'left'}, 
+            align: 'left'},
         {
             text: 'Nombres', dataIndex: 'persona.nombres',
             xtype: 'templatecolumn', tpl: '{persona.nombres}',
             align: 'left'},
-        {text: 'Teléfono', xtype: 'templatecolumn', tpl: '{persona.telefono}'},
-        {text: 'Dirección', xtype: 'templatecolumn', tpl: '{persona.direccion}', flex: 2, align: 'left'},
-        {text: 'Tipo', xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}', align: 'center'},
-        {text: 'Estado', xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}'}
+        {
+            text: 'Teléfono', dataIndex: 'persona.telefono',
+            xtype: 'templatecolumn', tpl: '{persona.telefono}'},
+        {
+            text: 'Dirección', dataIndex: 'persona.direccion',
+            xtype: 'templatecolumn', tpl: '{persona.direccion}',
+            flex: 2, align: 'left'},
+        {
+            text: 'Tipo', dataIndex: 'tipoTrabajador.descripcion',
+            xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}',
+            align: 'center'},
+        {
+            text: 'Estado', dataIndex: 'estadoTrabajador.descripcion',
+            xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}',
+            align: 'center'
+        }
     ],
-
-    dockedItems: [{
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar"
-        }],
-
+    
+    allowDeselect: true,
+    
     tbar: [{
             text: 'Nuevo',
             iconCls: 'fa fa-plus',
@@ -63,6 +72,17 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             listeners: {
                 click: 'verTrabajador'
             }
+        }],
+
+    dockedItems: [{
+            xtype: 'pagingtoolbar',
+            dock: 'bottom',
+            displayInfo: true,
+            displayMsg: 'Mostrando registros {0} - {1} de {2}',
+//            emptyMsg: "No hay registros que mostrar"
+            items:['-',{
+                    iconCls: 'fa fa-file-excel-o'
+            }]
         }],
 
     listeners: {
