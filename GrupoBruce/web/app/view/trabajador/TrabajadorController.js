@@ -2,11 +2,6 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctrabajador',
 
-    onHeaderClick: function (header, column, event, t, eOpts) {
-        var store = header.grid.getStore();      
-        store.load();
-    },
-
     onItemSelected: function (sender, record, item, index) {
 //        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
 //        Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
@@ -14,7 +9,14 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     nuevoTrabajador: function () {
-        Ext.Msg.alert('Alerta', 'Nuevo trabajador.');
+        var grid = this.lookup('list_trabajador');
+        
+        var record = grid.getStore().getSelect();
+        if(grid){
+            Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
+        }
+        
+        
     },
 
     editarTrabajador: function () {

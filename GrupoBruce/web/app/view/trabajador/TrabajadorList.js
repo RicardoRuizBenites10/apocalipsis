@@ -1,6 +1,8 @@
 Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     extend: 'Ext.grid.Panel',
     xtype: 'trabajadorList',
+    
+    reference: 'list_trabajador',
 
     store: {
         type: 'Strabajador'
@@ -11,6 +13,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     ],
     
     style: 'border: solid rgb(234,234,236) 1px',
+    
     columns: [
         {
             text: 'DNI',
@@ -25,15 +28,15 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
         {
             text: 'A. Paterno', dataIndex: 'persona.apPaterno',
             xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
-            align: 'left'},
+            width: 130, align: 'left'},
         {
             text: 'A. Materno', dataIndex: 'persona.apMaterno',
             xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
-            align: 'left'},
+            width: 130, align: 'left'},
         {
             text: 'Nombres', dataIndex: 'persona.nombres',
             xtype: 'templatecolumn', tpl: '{persona.nombres}',
-            align: 'left'},
+            width: 160, align: 'left'},
         {
             text: 'Teléfono', dataIndex: 'persona.telefono',
             xtype: 'templatecolumn', tpl: '{persona.telefono}'},
@@ -53,6 +56,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     ],
     
     allowDeselect: true,
+    bind: {
+        selection: '{rowSelect}'
+    },
     
     tbar: [{
             text: 'Nuevo',
@@ -63,12 +69,20 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
         }, {
             text: 'Editar',
             iconCls: 'fa fa-edit',
+            disabled: true,
+            bind: {
+                disabled: '{!rowSelect}'
+            },
             listeners: {
                 click: 'editarTrabajador'
             }
         }, '-', {
             text: 'Ver',
             iconCls: 'fa fa-search',
+            disabled: true,
+            bind: {
+                disabled: '{!rowSelect}'
+            },
             listeners: {
                 click: 'verTrabajador'
             }
@@ -86,7 +100,6 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
         }],
 
     listeners: {
-        headerclick: 'onHeaderClick',
         select: 'onItemSelected'
     }
 

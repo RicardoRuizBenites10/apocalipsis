@@ -3,7 +3,6 @@ Ext.define('GrupoBruce.view.login.LoginModel', {
     alias: 'viewmodel.login',
     data: {
         name: 'GrupoBruce',
-        
         titLogin : 'Bienvenido a Grupo Bruce'
     }
 

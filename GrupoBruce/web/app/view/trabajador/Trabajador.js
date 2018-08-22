@@ -7,7 +7,8 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
         'GrupoBruce.view.trabajador.TrabajadorController',
         'GrupoBruce.view.trabajador.TrabajadorModel',
         
-        'GrupoBruce.view.trabajador.TrabajadorList'
+        'GrupoBruce.view.trabajador.TrabajadorList',
+        'GrupoBruce.view.trabajador.TrabajadorForm'
     ],
 
     controller: 'Ctrabajador',
