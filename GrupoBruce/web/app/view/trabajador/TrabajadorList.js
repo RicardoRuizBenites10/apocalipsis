@@ -57,6 +57,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     tbar: [{
             text: 'Nuevo',
             iconCls: 'fa fa-plus',
+            bind: {
+                disabled: '{rowSelect}'
+            },
             listeners: {
                 click: 'nuevoTrabajador'
             }

@@ -4,17 +4,31 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
     
     reference: 'form_trabajador',
 
+    
+    bodyPadding: 10,
     items: [{
             xtype: 'textfield',
-            fieldlabel: 'Ap. Paterno',
+            name: 'idTrabajador',
+            fieldLabel: 'Número DNI',
             allowBlank: false
         },{
             xtype: 'textfield',
-            fieldlabel: 'Ap. Materno',
+            name: 'this.getPersona().get("apPaterno")',
+            fieldLabel: 'Ap. Paterno',
             allowBlank: false
         },{
             xtype: 'textfield',
-            fieldlabel: 'Nombres',
+            name: 'persona.apMaterno',
+            fieldLabel: 'Ap. Materno',
             allowBlank: false
+        },{
+            xtype: 'textfield',
+            name: 'persona.nombres',
+            fieldLabel: 'Nombres',
+            allowBlank: false
+        },{
+            xtype: 'datefield',
+            fieldLabel: 'Nacimiento',
+            name: 'persona.nacimiento'
         }]
 });

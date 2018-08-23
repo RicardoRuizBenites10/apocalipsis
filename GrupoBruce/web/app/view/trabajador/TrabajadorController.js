@@ -14,10 +14,20 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     editarTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
-        if (grid) {
-            var record = grid.getStore();
-            Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
-        }
+        var record = grid.getSelection()[0];
+        
+        var form = new GrupoBruce.view.trabajador.TrabajadorForm();
+        form.loadRecord(record);
+        var window = new Ext.window.Window({
+            width: 700,
+            height: 400,
+            title: 'Employee Salaries',
+            items: form,
+            closable: false,
+            resizable: false,
+            modal: true
+        });
+        window.show();
     },
 
     verTrabajador: function () {
