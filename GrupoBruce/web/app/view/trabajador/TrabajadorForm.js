@@ -8,5 +8,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
             xtype: 'textfield',
             fieldlabel: 'Ap. Paterno',
             allowBlank: false
+        },{
+            xtype: 'textfield',
+            fieldlabel: 'Ap. Materno',
+            allowBlank: false
+        },{
+            xtype: 'textfield',
+            fieldlabel: 'Nombres',
+            allowBlank: false
         }]
 });

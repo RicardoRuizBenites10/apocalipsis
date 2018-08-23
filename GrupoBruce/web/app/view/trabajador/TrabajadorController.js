@@ -9,18 +9,15 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     nuevoTrabajador: function () {
-        var grid = this.lookup('list_trabajador');
-        
-        var record = grid.getStore().getSelect();
-        if(grid){
-            Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
-        }
-        
-        
+        Ext.Msg.alert('Alerta', 'Nuevo trabajador.');
     },
 
     editarTrabajador: function () {
-        Ext.Msg.alert('Alerta', 'Editar trabajador.');
+        var grid = this.lookupReference('gridTrabajador');
+        if (grid) {
+            var record = grid.getStore();
+            Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
+        }
     },
 
     verTrabajador: function () {

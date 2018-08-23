@@ -1,29 +1,23 @@
 Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'trabajadorList',
     
-    reference: 'list_trabajador',
+    xtype: 'trabajadorList',
 
     store: {
         type: 'Strabajador'
     },
-    
+
     plugins: [
         'gridfilters'
     ],
-    
+
     style: 'border: solid rgb(234,234,236) 1px',
-    
+
     columns: [
         {
-            text: 'DNI',
-            dataIndex: 'idTrabajador',
-            sortable: true,
-            filter: {
-                type: 'string',
-                value: ''
-            },
-            align: 'left'
+            text: 'DNI', dataIndex: 'idTrabajador',
+            align: 'left',
+            filter: {type: 'string', value: ''}
         },
         {
             text: 'A. Paterno', dataIndex: 'persona.apPaterno',
@@ -54,12 +48,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             align: 'center'
         }
     ],
-    
+
     allowDeselect: true,
     bind: {
         selection: '{rowSelect}'
     },
-    
+
     tbar: [{
             text: 'Nuevo',
             iconCls: 'fa fa-plus',
@@ -94,9 +88,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
 //            emptyMsg: "No hay registros que mostrar"
-            items:['-',{
+            items: ['-', {
                     iconCls: 'fa fa-file-excel-o'
-            }]
+                }]
         }],
 
     listeners: {
