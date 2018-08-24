@@ -4,8 +4,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     onItemSelected: function (sender, record, item, index) {
 //        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-//        Ext.Msg.alert("Test select", "Row: " + Ext.encode(record.getData()));
-//        Ext.Msg.alert("Prueba","Mis datos: " + record.getData().persona.dni);
+        Ext.Msg.alert("Test select", record.getData());
+//        Ext.Msg.alert("Prueba", Ext.encode(record.getData().persona));
     },
 
     nuevoTrabajador: function () {
@@ -16,13 +16,18 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         var grid = this.lookupReference('gridTrabajador');
         var record = grid.getSelection()[0];
         
-        var form = new GrupoBruce.view.trabajador.TrabajadorForm();
-        form.loadRecord(record);
+        var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
+        formT.loadRecord(record);
+        var formP = new GrupoBruce.view.trabajador.PersonaForm();
+        formP.loadRecord(record.persona);
+        
         var window = new Ext.window.Window({
             width: 700,
             height: 400,
             title: 'Employee Salaries',
-            items: form,
+            items: [formT,{
+                    xtype:'personaForm'
+            }],
             closable: false,
             resizable: false,
             modal: true
