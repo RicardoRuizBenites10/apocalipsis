@@ -16,9 +16,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         var grid = this.lookupReference('gridTrabajador');
         var trabajadorModel = grid.getSelection()[0];
         
-//        var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
+        var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
 //        formT.loadRecord(record);
-        Ext.Msg.alert("Titulo", "Contenido: " + trabajadorModel.getPersona());
+        Ext.Msg.alert("Titulo", "Contenido: " + trabajadorModel.get('codigo'));
 //        var formP = new GrupoBruce.view.trabajador.PersonaForm();
 //        formP.loadRecord(record.getPersona());
         
