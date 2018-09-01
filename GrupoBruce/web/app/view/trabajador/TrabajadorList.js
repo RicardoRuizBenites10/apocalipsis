@@ -18,35 +18,35 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             text: 'DNI', dataIndex: 'idTrabajador',
             align: 'left',
             filter: {type: 'string', value: ''}
-        },
-        {
-            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
-            xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
-            width: 130, align: 'left'},
-        {
-            text: 'A. Materno', dataIndex: 'persona.apMaterno',
-            xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
-            width: 130, align: 'left'},
-        {
-            text: 'Nombres', dataIndex: 'persona.nombres',
-            xtype: 'templatecolumn', tpl: '{persona.nombres}',
-            width: 160, align: 'left'},
-        {
-            text: 'Teléfono', dataIndex: 'persona.telefono',
-            xtype: 'templatecolumn', tpl: '{persona.telefono}'},
-        {
-            text: 'Dirección', dataIndex: 'persona.direccion',
-            xtype: 'templatecolumn', tpl: '{persona.direccion}',
-            flex: 2, align: 'left'},
-        {
-            text: 'Tipo', dataIndex: 'tipoTrabajador.descripcion',
-            xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}',
-            align: 'center'},
-        {
-            text: 'Estado', dataIndex: 'estadoTrabajador.descripcion',
-            xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}',
-            align: 'center'
         }
+//       ,{
+//            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
+//            xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
+//            width: 130, align: 'left'},
+//        {
+//            text: 'A. Materno', dataIndex: 'persona.apMaterno',
+//            xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
+//            width: 130, align: 'left'},
+//        {
+//            text: 'Nombres', dataIndex: 'persona.nombres',
+//            xtype: 'templatecolumn', tpl: '{persona.nombres}',
+//            width: 160, align: 'left'},
+//        {
+//            text: 'Teléfono', dataIndex: 'persona.telefono',
+//            xtype: 'templatecolumn', tpl: '{persona.telefono}'},
+//        {
+//            text: 'Dirección', dataIndex: 'persona.direccion',
+//            xtype: 'templatecolumn', tpl: '{persona.direccion}',
+//            flex: 2, align: 'left'},
+//        {
+//            text: 'Tipo', dataIndex: 'tipoTrabajador.descripcion',
+//            xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}',
+//            align: 'center'},
+//        {
+//            text: 'Estado', dataIndex: 'estadoTrabajador.descripcion',
+//            xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}',
+//            align: 'center'
+//        }
     ],
 
     allowDeselect: true,

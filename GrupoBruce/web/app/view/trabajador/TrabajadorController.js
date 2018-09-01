@@ -4,8 +4,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     onItemSelected: function (sender, record, item, index) {
 //        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-        Ext.Msg.alert("Test select", record.getData());
-//        Ext.Msg.alert("Prueba", Ext.encode(record.getData().persona));
+//        Ext.Msg.alert("Test select", record.getData());
+//        Ext.Msg.alert("Prueba", Ext.encode(record.getData()));
     },
 
     nuevoTrabajador: function () {
@@ -14,12 +14,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     editarTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
-        var record = grid.getSelection()[0];
+        var trabajadorModel = grid.getSelection()[0];
         
-        var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
-        formT.loadRecord(record);
-        var formP = new GrupoBruce.view.trabajador.PersonaForm();
-        formP.loadRecord(record.persona);
+//        var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
+//        formT.loadRecord(record);
+        Ext.Msg.alert("Titulo", "Contenido: " + trabajadorModel.getPersona());
+//        var formP = new GrupoBruce.view.trabajador.PersonaForm();
+//        formP.loadRecord(record.getPersona());
         
         var window = new Ext.window.Window({
             width: 700,
@@ -32,7 +33,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             resizable: false,
             modal: true
         });
-        window.show();
+        
+//        window.show();
     },
 
     verTrabajador: function () {

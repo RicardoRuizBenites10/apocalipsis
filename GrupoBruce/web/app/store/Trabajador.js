@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.store.Trabajador', {
 
     alias: 'store.Strabajador',
 
-    model: 'GrupoBruce.model.EstadoTrabajador',
+    model: 'GrupoBruce.model.Trabajador',
 
     pageSize: 15,
     proxy: {
