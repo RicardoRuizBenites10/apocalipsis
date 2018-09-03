@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.model.Periodo', {
         { name: 'iniPlame', type: 'date' },
         { name: 'inicio', type: 'date' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'tipoPeriodoId', reference: 'TipoPeriodo' },
-        { name: 'tipoTrabajador', reference: 'TipoTrabajador' }
+        { name: 'tipoPeriodoId', reference: 'GrupoBruce.model.TipoPeriodo', type: 'int' },
+        { name: 'tipoTrabajador', reference: 'GrupoBruce.model.TipoTrabajador', type: 'int' }
     ]
 });

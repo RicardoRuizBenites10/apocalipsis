@@ -5,6 +5,6 @@ Ext.define('GrupoBruce.model.Subarea', {
         { name: 'idSubarea', type: 'int' },
         { name: 'nombre', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'areaId', reference: 'Area' }
+        { name: 'areaId', reference: 'GrupoBruce.model.Area', type: 'int' }
     ]
 });

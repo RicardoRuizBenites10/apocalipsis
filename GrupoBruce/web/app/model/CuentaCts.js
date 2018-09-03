@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.CuentaCts', {
     fields: [
         { name: 'idTrabajador', type: 'string' },
         { name: 'nroCuenta', type: 'string' },
-        { name: 'entidadFinancieraId', reference: 'EntidadFinanciera' },
-        { name: 'trabajadorId', reference: 'Trabajador', unique: true }
+        { name: 'entidadFinancieraId', reference: 'GrupoBruce.model.EntidadFinanciera', type: 'int' },
+        { name: 'trabajadorId', reference: 'GrupoBruce.model.Trabajador', unique: true, type: 'string' }
     ]
 });

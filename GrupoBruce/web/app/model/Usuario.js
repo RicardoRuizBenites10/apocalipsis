@@ -1,6 +1,7 @@
 Ext.define('GrupoBruce.model.Usuario', {
     extend: 'Ext.data.Model',
     alias: 'model.usuario',
+    
     idProperty: 'idUsuario',
     fields: [
         { name: 'idUsuario', type: 'string' },
@@ -8,6 +9,6 @@ Ext.define('GrupoBruce.model.Usuario', {
         { name: 'clave', type: 'string' },
         { name: 'estado', type: 'boolean' },
         { name: 'acceder', type: 'boolean' },
-        { name: 'trabajadorId', reference: 'Trabajador', unique: true }
+        { name: 'trabajadorId', reference: 'GrupoBruce.model.Trabajador', unique: true, type: 'string' }
     ]
 });

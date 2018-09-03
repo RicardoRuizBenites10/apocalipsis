@@ -6,6 +6,6 @@ Ext.define('GrupoBruce.model.Submenu', {
         { name: 'idSubmenu', type: 'int' },
         { name: 'link', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'menuId', reference: 'Menu' }
+        { name: 'menuId', reference: 'GrupoBruce.model.Menu', type: 'int' }
     ]
 });

@@ -1,5 +1,7 @@
 Ext.define('GrupoBruce.model.Persona', {
     extend: 'Ext.data.Model',
+    alias: 'model.Mpersona',
+    
     idProperty: 'dni',
     fields: [
         { name: 'apMaterno', type: 'string' },
@@ -12,9 +14,9 @@ Ext.define('GrupoBruce.model.Persona', {
         { name: 'nroHijos', type: 'int' },
         { name: 'referencia', type: 'string' },
         { name: 'telefono', type: 'string' },
-        { name: 'ecivilId', reference: 'Ecivil' },
-        { name: 'tipoDocumentoId', reference: 'TipoDocumento' },
-        { name: 'generoId', reference: 'Genero' }
+        { name: 'ecivilId', reference: 'GrupoBruce.model.Ecivil', type: 'int' },
+        { name: 'tipoDocumentoId', reference: 'GrupoBruce.model.TipoDocumento', type: 'int' },
+        { name: 'generoId', reference: 'GrupoBruce.model.Genero', type: 'int' }
     ],
     
     validators:{

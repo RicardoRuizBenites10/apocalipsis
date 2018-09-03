@@ -7,6 +7,6 @@ Ext.define('GrupoBruce.model.Funcion', {
         { name: 'fecha', type: 'date' },
         { name: 'idFuncion', type: 'int' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'cargoId', reference: 'Cargo' }
+        { name: 'cargoId', reference: 'GrupoBruce.model.Cargo', type: 'int' }
     ]
 });

@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.Menu', {
     extend: 'Ext.data.Model',
+    
     idProperty: 'idMenu',
     fields: [
         { name: 'descripcion', type: 'string' },

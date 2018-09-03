@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.TipoContrato', {
     extend: 'Ext.data.Model',
+    
     idProperty: 'idTcontrato',
     fields: [
         { name: 'codigo', type: 'string' },

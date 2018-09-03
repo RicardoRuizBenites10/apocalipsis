@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.RegimenPensionario', {
     extend: 'Ext.data.Model',
+    
     idProperty: 'idRpensionario',
     fields: [
         { name: 'codigo', type: 'string' },
