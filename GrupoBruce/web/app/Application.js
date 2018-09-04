@@ -12,7 +12,9 @@ Ext.define('GrupoBruce.Application', {
 
     stores: [
         'GrupoBruce.store.Personnel',
-        'GrupoBruce.store.Trabajador'
+        'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.Nacionalidad',
+        'GrupoBruce.store.TipoDocumento'
     ],
 
     launch: function () {

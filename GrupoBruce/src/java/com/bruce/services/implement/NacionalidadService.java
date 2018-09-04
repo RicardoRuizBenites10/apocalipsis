@@ -5,10 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.ITrabajadorDAO;
-import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
-import com.bruce.services.design.ITrabajadorService;
+import com.bruce.dao.design.INacionalidadDAO;
+import com.bruce.dao.to.Nacionalidad;
+import com.bruce.services.design.INacionalidadService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,43 +17,39 @@ import org.springframework.stereotype.Service;
  * @author SISTEMAS
  */
 @Service
-public class TrabajadorService implements ITrabajadorService{
+public class NacionalidadService implements INacionalidadService{
     
     @Autowired
-    private ITrabajadorDAO dao;
+    private INacionalidadDAO dao;
     
     @Override
-    public void create(Trabajador t) {
+    public void create(Nacionalidad t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void save(Trabajador t) {
+    public void save(Nacionalidad t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Trabajador t) {
+    public void delete(Nacionalidad t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Trabajador find(Object id) {
+    public Nacionalidad find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Trabajador> findAll() {
+    public List<Nacionalidad> findAll() {
         return dao.findAll();
     }
 
     @Override
-    public List<Trabajador> findPagination(int start, int limit, List<SortPage> sorts) {
-        return dao.getTrabajadorsPagination(start, limit, sorts);
+    public List<Nacionalidad> findBySituacion(boolean situacion) {
+        return dao.filterBySituacion(situacion);
     }
-
-    @Override
-    public int totalCount() {
-        return dao.getTrabajadorCount();
-    }
+    
 }

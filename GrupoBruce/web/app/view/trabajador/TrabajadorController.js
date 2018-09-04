@@ -23,13 +23,38 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         formP.loadRecord(trabajadorModel.getPersona());
 
         var window = new Ext.window.Window({
-            width: 700,
-            height: 400,
-            title: 'Employee Salaries',
-            items: [formT, formP],
-            closable: false,
-            resizable: false,
+            title: 'EDITAR TRABAJADOR',
+            
+            width: 600,
             modal: true,
+            closable: false,
+            
+            items: [{
+                    xtype: 'tabpanel',
+                    border: false,
+                    defaults: {
+                        bodyPadding: 10,
+                        scrollable: true,
+                        border: false
+                    },
+                    items: [{
+                            title: 'Información personal',
+                            iconCls: 'fa fa-user',
+                            items: [
+                                formP
+                            ]
+                        }, {
+                            title: 'Nivel educacional',
+                            iconCls: 'fa fa-mortar-board'
+                        }, {
+                            title: 'Datos laborales',
+                            iconCls: 'fa fa-file-text',
+                            items: [
+                                formT
+                            ]
+                        }]
+                }],
+            
             buttons: [{
                     text: 'CANCELAR'
                 }, {
@@ -41,7 +66,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     verTrabajador: function () {
-        Ext.Msg.alert('Alerta', 'Ver trabajador.');
+        
     }
 
 });

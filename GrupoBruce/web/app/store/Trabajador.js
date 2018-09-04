@@ -1,9 +1,8 @@
 Ext.define('GrupoBruce.store.Trabajador', {
     extend: 'Ext.data.Store',
-
+    model: 'GrupoBruce.model.Trabajador',
     alias: 'store.Strabajador',
 
-    model: 'GrupoBruce.model.Trabajador',
 
     pageSize: 15,
     proxy: {
@@ -18,8 +17,7 @@ Ext.define('GrupoBruce.store.Trabajador', {
             type: 'json',
             rootProperty: 'data',
             totalProperty: 'total'
-        },
-        simpleSortMode: false
+        }
     },
 
     autoLoad: true,

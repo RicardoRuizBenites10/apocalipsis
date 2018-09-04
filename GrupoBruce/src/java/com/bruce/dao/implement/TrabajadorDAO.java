@@ -20,7 +20,6 @@ import com.bruce.persistence.HibernateUtil;
 import com.bruce.util.Metodo;
 import com.bruce.util.QuerySQL;
 import java.util.ArrayList;
-import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;

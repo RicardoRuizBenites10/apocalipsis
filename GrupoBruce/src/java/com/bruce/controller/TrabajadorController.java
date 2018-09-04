@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 //@RequestMapping("rrhh")
-public class TrabajadoresController {
+public class TrabajadorController {
 
     @Autowired
     private ITrabajadorService st;
@@ -47,14 +47,11 @@ public class TrabajadoresController {
         try {
             sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() { });
         } catch (IOException ex) {
-            Logger.getLogger(TrabajadoresController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-//        System.err.println("Mi sort: " + sort + " ::: " + objs.size());
         
         Map<String, Object> map = new HashMap<>();
         List<Trabajador> lista = st.findPagination(start, limit, sorts);
-//        List<Trabajador> lista = st.findAll();
 
         map.put("success", true);
         map.put("message", "Datos encontrados");

@@ -14,45 +14,30 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author RICARDO
  */
-public class NacionalidadDAO implements INacionalidadDAO{
-    
+@Repository
+public class NacionalidadDAO implements INacionalidadDAO {
+
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
-    @Override
-    public List<Nacionalidad> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Nacionalidad N WHERE N.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
-    }
 
     @Override
     public void create(Nacionalidad t) {
         Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.save(t);
             tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
     }
@@ -61,30 +46,35 @@ public class NacionalidadDAO implements INacionalidadDAO{
     public void update(Nacionalidad t) {
         Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
     }
 
     @Override
     public void delete(Nacionalidad t) {
-    Session session = sf.openSession();
+        Session session = sf.openSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
-        }}
+        }
+    }
 
     @Override
     public Nacionalidad find(Object idT) {
@@ -96,17 +86,39 @@ public class NacionalidadDAO implements INacionalidadDAO{
         Session session = sf.openSession();
         Transaction tx = null;
         List result = null;
-        try{
+        try {
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM Nacionalidad");
             result = query.list();
             tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
             session.close();
         }
         return result;
     }
-    
+
+    @Override
+    public List<Nacionalidad> filterBySituacion(boolean situacion) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List result = null;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Nacionalidad N WHERE N.situacion = :situacion");
+            query.setParameter("situacion", situacion);
+            result = query.list();
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 }
