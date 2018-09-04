@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm',{
     xtype: 'personaForm',
     reference: 'form_persona',
     
+    bodyPadding: 10,
     items: [{
             xtype: 'textfield',
             name: 'apPaterno',

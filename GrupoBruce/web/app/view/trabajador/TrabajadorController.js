@@ -15,28 +15,29 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     editarTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
         var trabajadorModel = grid.getSelection()[0];
-        
-        
+
         var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
-//        formT.loadRecord(record);
-        Ext.Msg.alert('One-to-Many Association', '<pre>' + Ext.JSON.encodeValue(trabajadorModel.getData(true), '\n') + '</pre>');
-//        Ext.Msg.alert("Titulo", "Contenido: " + trabajadorModel.get('codigo'));
-//        var formP = new GrupoBruce.view.trabajador.PersonaForm();
-//        formP.loadRecord(record.getPersona());
-        
+        formT.loadRecord(trabajadorModel);
+
+        var formP = new GrupoBruce.view.trabajador.PersonaForm();
+        formP.loadRecord(trabajadorModel.getPersona());
+
         var window = new Ext.window.Window({
             width: 700,
             height: 400,
             title: 'Employee Salaries',
-            items: [formT,{
-                    xtype:'personaForm'
-            }],
+            items: [formT, formP],
             closable: false,
             resizable: false,
-            modal: true
+            modal: true,
+            buttons: [{
+                    text: 'CANCELAR'
+                }, {
+                    text: 'GRABAR'
+                }]
         });
-        
-//        window.show();
+
+        window.show();
     },
 
     verTrabajador: function () {
