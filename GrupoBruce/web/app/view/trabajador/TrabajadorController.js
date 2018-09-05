@@ -28,6 +28,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             width: 560,
             modal: true,
             closable: false,
+            resizable: false,
             
             items: [{
                     xtype: 'tabpanel',

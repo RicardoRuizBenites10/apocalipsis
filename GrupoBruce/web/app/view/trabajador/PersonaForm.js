@@ -20,6 +20,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
 
             items: [{
                     xtype: 'combobox',
+                    reference: 'cbo_nacionalidad',
                     fieldLabel: 'Nacionalidad:',
                     displayField: 'descripcion',
                     valueField: 'idNacionalidad',
