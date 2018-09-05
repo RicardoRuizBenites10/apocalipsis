@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ENTIDAD_FINANCIERA",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class EntidadFinanciera implements java.io.Serializable {
 
@@ -84,7 +84,7 @@ public class EntidadFinanciera implements java.io.Serializable {
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
     }
-    
+
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "entidadFinanciera")
     public Set<CuentaCts> getCuentaCtses() {
@@ -94,7 +94,7 @@ public class EntidadFinanciera implements java.io.Serializable {
     public void setCuentaCtses(Set<CuentaCts> cuentaCtses) {
         this.cuentaCtses = cuentaCtses;
     }
-    
+
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "entidadFinanciera")
     public Set<CuentaSueldo> getCuentaSueldos() {

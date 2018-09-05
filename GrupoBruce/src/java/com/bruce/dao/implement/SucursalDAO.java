@@ -111,5 +111,24 @@ public class SucursalDAO implements ISucursalDAO{
         }
         return result;
     }
+
+    @Override
+    public List<Sucursal> filterByEmpresa(String idEmpresa) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List result = null;
+        try{
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Sucursal S WHERE FROM Sucursal S WHERE S.empresa.idEmpresa = :empresa");
+            query.setParameter("empresa", idEmpresa);
+            result = query.list();
+            tx.commit();
+        }catch(HibernateException he){
+            if(tx!=null) tx.rollback();
+        }finally{
+            session.close();
+        }
+        return result;
+    }
     
 }

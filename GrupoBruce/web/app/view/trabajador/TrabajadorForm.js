@@ -15,10 +15,22 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
     items: [{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Tipo trabajador :'
+                    fieldLabel: 'Tipo trabajador :',
+                    displayField: 'descripcion',
+                    valueField: 'idTtrabajador',
+                    store: {
+                        type: 'StipoTrabajador',
+                        autoLoad: true
+                    }
                 }, {
                     xtype: 'combobox',
-                    fieldLabel: 'Regimen pensionario :'
+                    fieldLabel: 'Regimen pensionario :',
+                    displayField: 'descripcion',
+                    valueField: 'idRpensionario',
+                    store: {
+                        type: 'SregimenPensionario',
+                        autoLoad: true
+                    }
                 },{
                     xtype: 'textfield',
                     fieldLabel: 'Nro CUSPP :'
@@ -26,7 +38,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Banco CTS :'
+                    fieldLabel: 'Banco CTS :',
+                    displayField: 'nombre',
+                    valueField: 'idEfinanciera',
+                    store: {
+                        type: 'SentidadFinanciera',
+                        autoLoad: true
+                    }
                 },{
                     xtype: 'textfield',
                     fieldLabel: 'Cuenta CTS :'
@@ -34,18 +52,39 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Forma Pago :'
+                    fieldLabel: 'Forma Pago :',
+                    displayField: 'descripcion',
+                    valueField: 'idFpago',
+                    store: {
+                        type: 'SformaPago',
+                        autoLoad: true
+                    }
                 }, {
                     xtype: 'combobox',
-                    fieldLabel: 'Periocidad de Pago :'
+                    fieldLabel: 'Periocidad de Pago :',
+                    displayField: 'descripcion',
+                    valueField: 'idPeriocidad',
+                    store: {
+                        type: 'Speriocidad',
+                        autoLoad: true
+                    }
                 },{
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
+                    hideTrigger: true,
+                    minValue: 0,
+                    name: 'montoPasaje',
                     fieldLabel: 'Monto pasaje :'
                 }]
         },{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Banco sueldo :'
+                    fieldLabel: 'Banco sueldo :',
+                    displayField: 'nombre',
+                    valueField: 'idEfinanciera',
+                    store: {
+                        type: 'SentidadFinanciera',
+                        autoLoad: true
+                    }
                 },{
                     xtype: 'textfield',
                     fieldLabel: 'Cuenta sueldo :'
@@ -53,12 +92,24 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Situación trabajador :'
+                    fieldLabel: 'Situación trabajador :',
+                    displayField: 'descripcion',
+                    valueField: 'idEtrabajador',
+                    store: {
+                        type: 'SestadoTrabajador',
+                        autoLoad: true
+                    }
                 }]
         },{
             items: [{
                     xtype: 'combobox',
-                    fieldLabel: 'Empresa :'
+                    fieldLabel: 'Empresa :',
+                    displayField: 'descripcion',
+                    valueField: 'idEmpresa',
+                    store: {
+                        type: 'Sempresa',
+                        autoLoad: true
+                    }
                 }, {
                     xtype: 'combobox',
                     fieldLabel: 'Lugar de trabajo :',

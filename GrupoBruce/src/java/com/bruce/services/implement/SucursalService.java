@@ -46,5 +46,10 @@ public class SucursalService implements ISucursalService{
     public List<Sucursal> findAll() {
         return dao.findAll();
     }
+
+    @Override
+    public List<Sucursal> findByEmpresa(String idEmpresa) {
+        return dao.filterByEmpresa(idEmpresa);
+    }
     
 }

@@ -16,7 +16,14 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.TipoDocumento',
         'GrupoBruce.store.Genero',
-        'GrupoBruce.store.Ecivil'
+        'GrupoBruce.store.Ecivil',
+        'GrupoBruce.store.TipoTrabajador',
+        'GrupoBruce.store.RegimenPensionario',
+        'GrupoBruce.store.EntidadFinanciera',
+        'GrupoBruce.store.FormaPago',
+        'GrupoBruce.store.Periocidad',
+        'GrupoBruce.store.EstadoTrabajador',
+        'GrupoBruce.store.Empresa'
     ],
 
     launch: function () {

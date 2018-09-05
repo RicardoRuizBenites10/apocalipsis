@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Sucursal;
+import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface ISucursalService extends IEntidadService<Sucursal>{
-    
+    public List<Sucursal> findByEmpresa(String idEmpresa);
 }

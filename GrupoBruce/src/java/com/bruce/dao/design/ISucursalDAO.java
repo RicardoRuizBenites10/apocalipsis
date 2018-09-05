@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface ISucursalDAO extends IEntidadDAO<Sucursal>{
     public List<Sucursal> filterBySituacion(boolean situacion);
+    public List<Sucursal> filterByEmpresa(String idEmpresa);
 }

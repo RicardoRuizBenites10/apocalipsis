@@ -32,7 +32,7 @@ public class EntidadFinancieraDAO implements IEntidadFinancieraDAO{
         List result = null;
         try{
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM EntidadFinanciera EF.situacion = :situacion");
+            Query query = session.createQuery("FROM EntidadFinanciera EF WHERE EF.situacion = :situacion");
             query.setParameter("situacion", situacion);
             result = query.list();
             tx.commit();
