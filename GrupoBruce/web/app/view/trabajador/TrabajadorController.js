@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         var window = new Ext.window.Window({
             title: 'EDITAR TRABAJADOR',
             
-            width: 600,
+            width: 560,
             modal: true,
             closable: false,
             

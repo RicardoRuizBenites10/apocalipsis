@@ -13,8 +13,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
         defaults: {
             allowBlank: false,
             labelAlign: 'top',
-            padding: 5,
-            flex: 1
+            padding: 5
         }
     },
     items: [{
@@ -62,8 +61,13 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
             items: [
                 {
                     xtype: 'combobox',
-                    name: 'apMaterno',
-                    fieldLabel: 'Genero :'
+                    fieldLabel: 'Genero :',
+                    displayField: 'descripcion',
+                    valueField: 'idGenero',
+                    store:{
+                        type: 'Sgenero',
+                        autoLoad: true
+                    }
                     
                 }, {
                     xtype: 'datefield',
@@ -71,8 +75,13 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
                     fieldLabel: 'Fecha nacimiento :'
                 }, {
                     xtype: 'combobox',
-                    name: 'apPaterno',
-                    fieldLabel: 'Estado civil :'
+                    fieldLabel: 'Estado civil :',
+                    displayField: 'descripcion',
+                    valueField: 'idEcivil',
+                    store: {
+                        type: 'Secivil',
+                        autoLoad: true
+                    }
                 }
             ]
         }, {
@@ -95,13 +104,15 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
             items: [{
                     xtype: 'textfield',
                     name: 'referencia',
-                    fieldLabel: 'Referencia :'
+                    fieldLabel: 'Referencia :',
+                    flex: 3
                 }]
         }, {
             items: [{
                     xtype: 'textfield',
                     name: 'direccion',
-                    fieldLabel: 'Dirección :'
+                    fieldLabel: 'Dirección :',
+                    flex: 3
                 }]
         }]
 });

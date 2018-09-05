@@ -28,7 +28,7 @@ public class NacionalidadController {
     private INacionalidadService sn;
 
     @ResponseBody
-    @RequestMapping(value = "/getBySituacion", method = RequestMethod.GET)
+    @RequestMapping(value = "/nacionalidadBySituacion", method = RequestMethod.GET)
     public Map<String, Object> getBySituacion() {
         Map<String, Object> map = new HashMap<>();
         List<Nacionalidad> lista = sn.findBySituacion(true);

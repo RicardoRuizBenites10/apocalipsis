@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.TipoDocumento;
-import com.bruce.services.design.ITipoDocumentoService;
+import com.bruce.dao.to.Genero;
+import com.bruce.services.design.IGeneroService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,24 +18,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author SISTEMAS
+ * @author RICARDO
  */
-
 @Controller
-public class TipoDocumentoController {
+public class GeneroController {
     
     @Autowired
-    private ITipoDocumentoService std;
+    private IGeneroService sg;
     
     @ResponseBody
-    @RequestMapping(value="/tipoDocumentoBySituacion", method = RequestMethod.GET )
+    @RequestMapping(value="/generoBySituacion", method = RequestMethod.GET)
     public Map<String, Object> getBySituacion(){
         Map<String, Object> map = new HashMap<>();
-        List<TipoDocumento> lista = std.findBySituacion(true);
+        List<Genero> lista = sg.findBySituacion(true);
         
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
+        
         return map;
     }
+    
 }

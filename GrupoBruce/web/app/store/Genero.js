@@ -1,12 +1,12 @@
-Ext.define('GrupoBruce.store.TipoDocumento',{
+Ext.define('GrupoBruce.store.Genero',{
     extend: 'Ext.data.Store',
-    model: 'GrupoBruce.model.TipoDocumento',
-    alias: 'store.StipoDocumento',
+    model: 'GrupoBruce.model.Genero',
+    alias: 'store.Sgenero',
     
     proxy: {
         type: 'ajax',
         api: {
-            read: 'tipoDocumentoBySituacion'
+            read: 'generoBySituacion'
         },
         reader: {
             type: 'json',

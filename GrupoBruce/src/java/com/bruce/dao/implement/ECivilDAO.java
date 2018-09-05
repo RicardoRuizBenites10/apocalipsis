@@ -14,11 +14,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class ECivilDAO implements IECivilDAO{
 
     private final SessionFactory sf = HibernateUtil.getSessionFactory();

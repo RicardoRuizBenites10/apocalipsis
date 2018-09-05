@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.store.Nacionalidad',{
     proxy: {
         type: 'ajax',
         api: {
-            read: 'getBySituacion'
+            read: 'nacionalidadBySituacion'
         },
         reader: {
             type: 'json',
