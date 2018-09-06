@@ -16,20 +16,20 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         var grid = this.lookupReference('gridTrabajador');
         var trabajadorModel = grid.getSelection()[0];
 
+        var formP = new GrupoBruce.view.trabajador.PersonaForm();
+        formP.loadRecord(trabajadorModel);
+
         var formT = new GrupoBruce.view.trabajador.TrabajadorForm();
         formT.loadRecord(trabajadorModel);
 
-        var formP = new GrupoBruce.view.trabajador.PersonaForm();
-        formP.loadRecord(trabajadorModel.getPersona());
-
         var window = new Ext.window.Window({
             title: 'EDITAR TRABAJADOR',
-            
+
             width: 560,
             modal: true,
             closable: false,
             resizable: false,
-            
+
             items: [{
                     xtype: 'tabpanel',
                     border: false,
@@ -45,17 +45,20 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
                                 formP
                             ]
                         }, {
-                            title: 'Nivel educacional',
-                            iconCls: 'fa fa-mortar-board'
-                        }, {
                             title: 'Datos laborales',
                             iconCls: 'fa fa-file-text',
                             items: [
                                 formT
                             ]
+                        }, {
+                            title: 'Nivel educacional',
+                            iconCls: 'fa fa-mortar-board',
+                            items: [
+
+                            ]
                         }]
                 }],
-            
+
             buttons: [{
                     text: 'CANCELAR'
                 }, {
@@ -67,7 +70,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     verTrabajador: function () {
-        
+
     }
 
 });

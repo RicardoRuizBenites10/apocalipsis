@@ -97,11 +97,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
             Query query = session.createQuery("FROM Trabajador T WHERE T.idTrabajador = :idTrabajador");
             query.setParameter("idTrabajador", (String) idT);
             List result = query.list();
-            Iterator iterator = result.iterator();
-            if (iterator.hasNext()) {
-                trabajador = (Trabajador) iterator;
-                Hibernate.initialize(trabajador);
-            }
+            trabajador = (Trabajador) result.get(0);
             tx.commit();
         } catch (HibernateException he) {
             if (tx != null) {

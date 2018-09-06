@@ -16,11 +16,11 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
             padding: 5
         }
     },
+    
     items: [{
-
             items: [{
                     xtype: 'combobox',
-                    reference: 'cbo_nacionalidad',
+                    name: 'idNacionalidad',
                     fieldLabel: 'Nacionalidad:',
                     displayField: 'descripcion',
                     valueField: 'idNacionalidad',
@@ -30,6 +30,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
                     }
                 }, {
                     xtype: 'combobox',
+                    name: 'idTdocumento',
                     fieldLabel: 'Tipo documento:',
                     displayField: 'descripcion',
                     valueField: 'idTdocumento',
@@ -39,7 +40,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
                     }
                 }, {
                     xtype: 'textfield',
-                    name: 'dni',
+                    name: 'idTrabajador',
                     fieldLabel: 'Número DNI:'
                 }]
         }, {
@@ -62,20 +63,23 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
             items: [
                 {
                     xtype: 'combobox',
+                    name: 'idGenero',
                     fieldLabel: 'Genero :',
                     displayField: 'descripcion',
                     valueField: 'idGenero',
-                    store:{
+                    store: {
                         type: 'Sgenero',
                         autoLoad: true
                     }
-                    
+
                 }, {
                     xtype: 'datefield',
                     name: 'nacimiento',
-                    fieldLabel: 'Fecha nacimiento :'
+                    fieldLabel: 'Fecha nacimiento :',
+                    format: 'd/m/Y'
                 }, {
                     xtype: 'combobox',
+                    name: 'idEcivil',
                     fieldLabel: 'Estado civil :',
                     displayField: 'descripcion',
                     valueField: 'idEcivil',

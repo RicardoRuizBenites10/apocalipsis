@@ -15,6 +15,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
     items: [{
             items: [{
                     xtype: 'combobox',
+                    name: 'idTtrabajador',
                     fieldLabel: 'Tipo trabajador :',
                     displayField: 'descripcion',
                     valueField: 'idTtrabajador',
@@ -52,6 +53,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
+                    name: 'idFpago',
                     fieldLabel: 'Forma Pago :',
                     displayField: 'descripcion',
                     valueField: 'idFpago',
@@ -61,6 +63,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 }, {
                     xtype: 'combobox',
+                    name: 'idPeriocidad',
                     fieldLabel: 'Periocidad de Pago :',
                     displayField: 'descripcion',
                     valueField: 'idPeriocidad',
@@ -70,9 +73,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 },{
                     xtype: 'numberfield',
+                    name: 'montoPasaje',
                     hideTrigger: true,
                     minValue: 0,
-                    name: 'montoPasaje',
                     fieldLabel: 'Monto pasaje :'
                 }]
         },{
@@ -92,6 +95,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
+                    name: 'idEtrabajador',
                     fieldLabel: 'Situación trabajador :',
                     displayField: 'descripcion',
                     valueField: 'idEtrabajador',
