@@ -1,14 +1,10 @@
 package com.bruce.dao.to;
-// Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
+// Generated 06/09/2018 09:02:17 AM by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,22 +21,14 @@ public class TipoPermiso  implements java.io.Serializable {
      private int idTpermiso;
      private String tipo;
      private boolean situacion;
-     private Set<Permiso> permisos = new HashSet<Permiso>(0);
 
     public TipoPermiso() {
     }
 
-	
     public TipoPermiso(int idTpermiso, String tipo, boolean situacion) {
-        this.idTpermiso = idTpermiso;
-        this.tipo = tipo;
-        this.situacion = situacion;
-    }
-    public TipoPermiso(int idTpermiso, String tipo, boolean situacion, Set<Permiso> permisos) {
        this.idTpermiso = idTpermiso;
        this.tipo = tipo;
        this.situacion = situacion;
-       this.permisos = permisos;
     }
    
      @Id 
@@ -73,15 +61,6 @@ public class TipoPermiso  implements java.io.Serializable {
     
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tipoPermiso")
-    public Set<Permiso> getPermisos() {
-        return this.permisos;
-    }
-    
-    public void setPermisos(Set<Permiso> permisos) {
-        this.permisos = permisos;
     }
 
 

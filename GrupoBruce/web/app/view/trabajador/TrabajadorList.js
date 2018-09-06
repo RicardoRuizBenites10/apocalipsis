@@ -19,24 +19,23 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             align: 'left',
             filter: {type: 'string', value: ''}
         },
+//        {
+//            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
+//            xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
+//            width: 130, align: 'left'},
         {
-            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
-            xtype: 'templatecolumn', tpl: '{persona.apPaterno}',
+            text: 'A. Paterno', dataIndex: 'apPaterno',
             width: 130, align: 'left'},
         {
-            text: 'A. Materno', dataIndex: 'persona.apMaterno',
-            xtype: 'templatecolumn', tpl: '{persona.apMaterno}',
+            text: 'A. Materno', dataIndex: 'apMaterno',
             width: 130, align: 'left'},
         {
-            text: 'Nombres', dataIndex: 'persona.nombres',
-            xtype: 'templatecolumn', tpl: '{persona.nombres}',
+            text: 'Nombres', dataIndex: 'nombres',
             width: 160, align: 'left'},
         {
-            text: 'Teléfono', dataIndex: 'persona.telefono',
-            xtype: 'templatecolumn', tpl: '{persona.telefono}'},
+            text: 'Teléfono', dataIndex: 'telefono'},
         {
-            text: 'Dirección', dataIndex: 'persona.direccion',
-            xtype: 'templatecolumn', tpl: '{persona.direccion}',
+            text: 'Dirección', dataIndex: 'direccion',
             flex: 2, align: 'left'},
         {
             text: 'Tipo', dataIndex: 'tipoTrabajador.descripcion',

@@ -1,17 +1,13 @@
 package com.bruce.dao.to;
-// Generated 27/06/2018 10:09:26 AM by Hibernate Tools 4.3.1
+// Generated 06/09/2018 09:02:17 AM by Hibernate Tools 4.3.1
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +24,6 @@ public class Vacacion  implements java.io.Serializable {
 
 
      private VacacionId id;
-     private Periodo periodo;
-     private Trabajador trabajador;
      private Date fechaBase;
      private Date fechaLimite;
      private Date fechaSalida;
@@ -42,19 +36,15 @@ public class Vacacion  implements java.io.Serializable {
     }
 
 	
-    public Vacacion(VacacionId id, Periodo periodo, Trabajador trabajador, Date fechaBase, Date fechaLimite, Date fechaSalida, Date fechaRetorno) {
+    public Vacacion(VacacionId id, Date fechaBase, Date fechaLimite, Date fechaSalida, Date fechaRetorno) {
         this.id = id;
-        this.periodo = periodo;
-        this.trabajador = trabajador;
         this.fechaBase = fechaBase;
         this.fechaLimite = fechaLimite;
         this.fechaSalida = fechaSalida;
         this.fechaRetorno = fechaRetorno;
     }
-    public Vacacion(VacacionId id, Periodo periodo, Trabajador trabajador, Date fechaBase, Date fechaLimite, Date fechaSalida, Date fechaRetorno, Date fechaIngreso, Integer diasUsados, Integer diasComprados) {
+    public Vacacion(VacacionId id, Date fechaBase, Date fechaLimite, Date fechaSalida, Date fechaRetorno, Date fechaIngreso, Integer diasUsados, Integer diasComprados) {
        this.id = id;
-       this.periodo = periodo;
-       this.trabajador = trabajador;
        this.fechaBase = fechaBase;
        this.fechaLimite = fechaLimite;
        this.fechaSalida = fechaSalida;
@@ -76,27 +66,6 @@ public class Vacacion  implements java.io.Serializable {
     
     public void setId(VacacionId id) {
         this.id = id;
-    }
-
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ID_PERIODO", nullable=false, insertable=false, updatable=false)
-    public Periodo getPeriodo() {
-        return this.periodo;
-    }
-    
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-    
-    @JsonBackReference
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ID_TRABAJADOR", nullable=false, insertable=false, updatable=false)
-    public Trabajador getTrabajador() {
-        return this.trabajador;
-    }
-    
-    public void setTrabajador(Trabajador trabajador) {
-        this.trabajador = trabajador;
     }
 
     @Temporal(TemporalType.DATE)
