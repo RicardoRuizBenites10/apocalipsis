@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 06/09/2018 09:02:17 AM by Hibernate Tools 4.3.1
+// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -33,6 +33,10 @@ public class Trabajador implements java.io.Serializable {
     private String codigo;
     private double montoBase;
     private Double montoPasaje;
+    private String nrocuentaSueldo;
+    private String nrocuentaCts;
+    private String observacionAfiliacion;
+    private String nrocusppAfiliacion;
     private int idNacionalidad;
     private int idTdocumento;
     private int idGenero;
@@ -42,8 +46,12 @@ public class Trabajador implements java.io.Serializable {
     private int idFpago;
     private int idPeriocidad;
     private String idSucursal;
-
+    private Integer idEfSueldo;
+    private Integer idEfCts;
+    private Integer idRpAfiliacion;
+    
 //    private String fotoB64; //quitado hasta terminar de mapear clases para json
+
     public Trabajador() {
     }
 
@@ -70,7 +78,7 @@ public class Trabajador implements java.io.Serializable {
         this.idSucursal = idSucursal;
     }
 
-    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, boolean asignacion, String codigo, double montoBase, Double montoPasaje, int idNacionalidad, int idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idSucursal) {
+    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, boolean asignacion, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String observacionAfiliacion, String nrocusppAfiliacion, int idNacionalidad, int idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idSucursal, Integer idEfSueldo, Integer idEfCts, Integer idRpAfiliacion) {
         this.idTrabajador = idTrabajador;
         this.foto = foto;
         this.apPaterno = apPaterno;
@@ -85,6 +93,10 @@ public class Trabajador implements java.io.Serializable {
         this.codigo = codigo;
         this.montoBase = montoBase;
         this.montoPasaje = montoPasaje;
+        this.nrocuentaSueldo = nrocuentaSueldo;
+        this.nrocuentaCts = nrocuentaCts;
+        this.observacionAfiliacion = observacionAfiliacion;
+        this.nrocusppAfiliacion = nrocusppAfiliacion;
         this.idNacionalidad = idNacionalidad;
         this.idTdocumento = idTdocumento;
         this.idGenero = idGenero;
@@ -94,6 +106,9 @@ public class Trabajador implements java.io.Serializable {
         this.idFpago = idFpago;
         this.idPeriocidad = idPeriocidad;
         this.idSucursal = idSucursal;
+        this.idEfSueldo = idEfSueldo;
+        this.idEfCts = idEfCts;
+        this.idRpAfiliacion = idRpAfiliacion;
     }
 
     @Id
@@ -106,7 +121,7 @@ public class Trabajador implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-    
+
     @Column(name = "FOTO", length = 50)
     public String getFoto() {
         return this.foto;
@@ -234,6 +249,42 @@ public class Trabajador implements java.io.Serializable {
         this.montoPasaje = montoPasaje;
     }
 
+    @Column(name = "NROCUENTA_SUELDO", length = 25)
+    public String getNrocuentaSueldo() {
+        return this.nrocuentaSueldo;
+    }
+
+    public void setNrocuentaSueldo(String nrocuentaSueldo) {
+        this.nrocuentaSueldo = nrocuentaSueldo;
+    }
+
+    @Column(name = "NROCUENTA_CTS", length = 25)
+    public String getNrocuentaCts() {
+        return this.nrocuentaCts;
+    }
+
+    public void setNrocuentaCts(String nrocuentaCts) {
+        this.nrocuentaCts = nrocuentaCts;
+    }
+
+    @Column(name = "OBSERVACION_AFILIACION", length = 12)
+    public String getObservacionAfiliacion() {
+        return this.observacionAfiliacion;
+    }
+
+    public void setObservacionAfiliacion(String observacionAfiliacion) {
+        this.observacionAfiliacion = observacionAfiliacion;
+    }
+
+    @Column(name = "NROCUSPP_AFILIACION", length = 15)
+    public String getNrocusppAfiliacion() {
+        return this.nrocusppAfiliacion;
+    }
+
+    public void setNrocusppAfiliacion(String nrocusppAfiliacion) {
+        this.nrocusppAfiliacion = nrocusppAfiliacion;
+    }
+
     @Column(name = "ID_NACIONALIDAD", nullable = false)
     public int getIdNacionalidad() {
         return this.idNacionalidad;
@@ -313,6 +364,33 @@ public class Trabajador implements java.io.Serializable {
 
     public void setIdSucursal(String idSucursal) {
         this.idSucursal = idSucursal;
+    }
+
+    @Column(name = "ID_EF_SUELDO")
+    public Integer getIdEfSueldo() {
+        return this.idEfSueldo;
+    }
+
+    public void setIdEfSueldo(Integer idEfSueldo) {
+        this.idEfSueldo = idEfSueldo;
+    }
+
+    @Column(name = "ID_EF_CTS")
+    public Integer getIdEfCts() {
+        return this.idEfCts;
+    }
+
+    public void setIdEfCts(Integer idEfCts) {
+        this.idEfCts = idEfCts;
+    }
+
+    @Column(name = "ID_RP_AFILIACION")
+    public Integer getIdRpAfiliacion() {
+        return this.idRpAfiliacion;
+    }
+
+    public void setIdRpAfiliacion(Integer idRpAfiliacion) {
+        this.idRpAfiliacion = idRpAfiliacion;
     }
 
 }

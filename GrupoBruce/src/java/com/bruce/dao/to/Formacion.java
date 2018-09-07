@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 06/09/2018 09:02:17 AM by Hibernate Tools 4.3.1
+// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.AttributeOverride;

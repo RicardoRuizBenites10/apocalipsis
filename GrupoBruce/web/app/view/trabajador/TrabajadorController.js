@@ -4,8 +4,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     onItemSelected: function (sender, record, item, index) {
 //        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-//        Ext.Msg.alert("Test select", record.getData());
-//        Ext.Msg.alert("Prueba", Ext.encode(record.getData()));
+//        Ext.Msg.alert("Prueba", Ext.encode(record.getData(true)));
     },
 
     nuevoTrabajador: function () {
@@ -62,7 +61,14 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             buttons: [{
                     text: 'CANCELAR'
                 }, {
-                    text: 'GRABAR'
+                    text: 'GRABAR',
+                    listeners: {
+                        click: function(){
+//                            var formPersona = this.lookupReference('form_persona');
+                            var data = formP.getForm().getValues();
+                            Ext.Msg.alert('Titulo', 'Info: '+Ext.JSON.encodeValue(data, '\n'));
+                        }
+                    }
                 }]
         });
 

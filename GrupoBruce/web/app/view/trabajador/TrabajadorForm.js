@@ -25,6 +25,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 }, {
                     xtype: 'combobox',
+                    name: 'idRpAfiliacion',
                     fieldLabel: 'Regimen pensionario :',
                     displayField: 'descripcion',
                     valueField: 'idRpensionario',
@@ -34,11 +35,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 },{
                     xtype: 'textfield',
+                    name: 'nrocusppAfiliacion',
                     fieldLabel: 'Nro CUSPP :'
                 }]
         },{
             items: [{
                     xtype: 'combobox',
+                    name: 'idEfCts',
                     fieldLabel: 'Banco CTS :',
                     displayField: 'nombre',
                     valueField: 'idEfinanciera',
@@ -48,6 +51,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 },{
                     xtype: 'textfield',
+                    name: 'nrocuentaCts',
                     fieldLabel: 'Cuenta CTS :'
                 }]
         },{
@@ -81,6 +85,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         },{
             items: [{
                     xtype: 'combobox',
+                    name: 'idEfSueldo',
                     fieldLabel: 'Banco sueldo :',
                     displayField: 'nombre',
                     valueField: 'idEfinanciera',
@@ -90,6 +95,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                     }
                 },{
                     xtype: 'textfield',
+                    name: 'nrocuentaSueldo',
                     fieldLabel: 'Cuenta sueldo :'
                 }]
         },{

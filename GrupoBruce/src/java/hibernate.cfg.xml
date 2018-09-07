@@ -53,10 +53,8 @@ Contributor(s):
       -->
     <mapping class="com.bruce.dao.to.TextralaboralId"/>
     <mapping class="com.bruce.dao.to.Formacion"/>
-    <mapping class="com.bruce.dao.to.CuentaSueldo"/>
     <mapping class="com.bruce.dao.to.TiempoContrato"/>
     <mapping class="com.bruce.dao.to.Afiliacion"/>
-    <mapping class="com.bruce.dao.to.CuentaCts"/>
     <mapping class="com.bruce.dao.to.Remuneracion"/>
     <mapping class="com.bruce.dao.to.Permiso"/>
     <mapping class="com.bruce.dao.to.Ecivil"/>
