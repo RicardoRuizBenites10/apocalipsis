@@ -15,6 +15,16 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
     items: [{
             items: [{
                     xtype: 'combobox',
+                    name: 'idEtrabajador',
+                    fieldLabel: 'Situación trabajador :',
+                    displayField: 'descripcion',
+                    valueField: 'idEtrabajador',
+                    store: {
+                        type: 'SestadoTrabajador',
+                        autoLoad: true
+                    }
+                }, {
+                    xtype: 'combobox',
                     name: 'idTtrabajador',
                     fieldLabel: 'Tipo trabajador :',
                     displayField: 'descripcion',
@@ -23,22 +33,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                         type: 'StipoTrabajador',
                         autoLoad: true
                     }
-                }, {
-                    xtype: 'combobox',
-                    name: 'idRpAfiliacion',
-                    fieldLabel: 'Regimen pensionario :',
-                    displayField: 'descripcion',
-                    valueField: 'idRpensionario',
-                    store: {
-                        type: 'SregimenPensionario',
-                        autoLoad: true
-                    }
-                },{
-                    xtype: 'textfield',
-                    name: 'nrocusppAfiliacion',
-                    fieldLabel: 'Nro CUSPP :'
                 }]
-        },{
+        }, {
             items: [{
                     xtype: 'combobox',
                     name: 'idEfCts',
@@ -49,12 +45,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                         type: 'SentidadFinanciera',
                         autoLoad: true
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     name: 'nrocuentaCts',
                     fieldLabel: 'Cuenta CTS :'
                 }]
-        },{
+        }, {
             items: [{
                     xtype: 'combobox',
                     name: 'idFpago',
@@ -75,14 +71,14 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                         type: 'Speriocidad',
                         autoLoad: true
                     }
-                },{
+                }, {
                     xtype: 'numberfield',
                     name: 'montoPasaje',
                     hideTrigger: true,
                     minValue: 0,
                     fieldLabel: 'Monto pasaje :'
                 }]
-        },{
+        }, {
             items: [{
                     xtype: 'combobox',
                     name: 'idEfSueldo',
@@ -93,24 +89,32 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
                         type: 'SentidadFinanciera',
                         autoLoad: true
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     name: 'nrocuentaSueldo',
                     fieldLabel: 'Cuenta sueldo :'
                 }]
-        },{
+        }, {
             items: [{
                     xtype: 'combobox',
-                    name: 'idEtrabajador',
-                    fieldLabel: 'Situación trabajador :',
+                    name: 'idRpAfiliacion',
+                    fieldLabel: 'Regimen pensionario :',
                     displayField: 'descripcion',
-                    valueField: 'idEtrabajador',
+                    valueField: 'idRpensionario',
                     store: {
-                        type: 'SestadoTrabajador',
+                        type: 'SregimenPensionario',
                         autoLoad: true
                     }
+                }, {
+                    xtype: 'textfield',
+                    name: 'observacionAfiliacion',
+                    fieldLabel: 'Comisión :'
+                }, {
+                    xtype: 'textfield',
+                    name: 'nrocusppAfiliacion',
+                    fieldLabel: 'Nro CUSPP :'
                 }]
-        },{
+        }, {
             items: [{
                     xtype: 'combobox',
                     fieldLabel: 'Empresa :',
