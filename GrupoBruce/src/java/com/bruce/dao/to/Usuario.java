@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +23,7 @@ public class Usuario implements java.io.Serializable {
     private byte[] clave;
     private boolean estado;
     private boolean acceder;
-    
-    private String deClave;
-    
+
     public Usuario() {
     }
 
@@ -36,9 +34,10 @@ public class Usuario implements java.io.Serializable {
         this.estado = estado;
         this.acceder = acceder;
     }
+    
+    private String deClave;
 
     @Id
-
     @Column(name = "ID_USUARIO", unique = true, nullable = false, length = 15)
     public String getIdUsuario() {
         return this.idUsuario;

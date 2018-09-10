@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,56 +18,56 @@ import javax.persistence.Table;
 public class TipoDocumento  implements java.io.Serializable {
 
 
-     private int idTdocumento;
-     private String codigo;
+     private String idTdocumento;
      private String descripcion;
+     private String descripcionAbreviada;
      private boolean situacion;
 
     public TipoDocumento() {
     }
 
 	
-    public TipoDocumento(int idTdocumento, boolean situacion) {
+    public TipoDocumento(String idTdocumento, boolean situacion) {
         this.idTdocumento = idTdocumento;
         this.situacion = situacion;
     }
-    public TipoDocumento(int idTdocumento, String codigo, String descripcion, boolean situacion) {
+    public TipoDocumento(String idTdocumento, String descripcion, String descripcionAbreviada, boolean situacion) {
        this.idTdocumento = idTdocumento;
-       this.codigo = codigo;
        this.descripcion = descripcion;
+       this.descripcionAbreviada = descripcionAbreviada;
        this.situacion = situacion;
     }
    
      @Id 
 
     
-    @Column(name="ID_TDOCUMENTO", unique=true, nullable=false)
-    public int getIdTdocumento() {
+    @Column(name="ID_TDOCUMENTO", unique=true, nullable=false, length=2)
+    public String getIdTdocumento() {
         return this.idTdocumento;
     }
     
-    public void setIdTdocumento(int idTdocumento) {
+    public void setIdTdocumento(String idTdocumento) {
         this.idTdocumento = idTdocumento;
     }
 
     
-    @Column(name="CODIGO", length=2)
-    public String getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    
-    @Column(name="DESCRIPCION", length=25)
+    @Column(name="DESCRIPCION", length=45)
     public String getDescripcion() {
         return this.descripcion;
     }
     
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    
+    @Column(name="DESCRIPCION_ABREVIADA", length=25)
+    public String getDescripcionAbreviada() {
+        return this.descripcionAbreviada;
+    }
+    
+    public void setDescripcionAbreviada(String descripcionAbreviada) {
+        this.descripcionAbreviada = descripcionAbreviada;
     }
 
     

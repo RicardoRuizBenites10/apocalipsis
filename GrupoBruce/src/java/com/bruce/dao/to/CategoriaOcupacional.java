@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,17 +18,15 @@ import javax.persistence.Table;
 public class CategoriaOcupacional  implements java.io.Serializable {
 
 
-     private int idCocupacional;
-     private String codigo;
+     private String idCocupacional;
      private String descripcion;
      private boolean situacion;
 
     public CategoriaOcupacional() {
     }
 
-    public CategoriaOcupacional(int idCocupacional, String codigo, String descripcion, boolean situacion) {
+    public CategoriaOcupacional(String idCocupacional, String descripcion, boolean situacion) {
        this.idCocupacional = idCocupacional;
-       this.codigo = codigo;
        this.descripcion = descripcion;
        this.situacion = situacion;
     }
@@ -36,23 +34,13 @@ public class CategoriaOcupacional  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="ID_COCUPACIONAL", unique=true, nullable=false)
-    public int getIdCocupacional() {
+    @Column(name="ID_COCUPACIONAL", unique=true, nullable=false, length=2)
+    public String getIdCocupacional() {
         return this.idCocupacional;
     }
     
-    public void setIdCocupacional(int idCocupacional) {
+    public void setIdCocupacional(String idCocupacional) {
         this.idCocupacional = idCocupacional;
-    }
-
-    
-    @Column(name="CODIGO", nullable=false, length=2)
-    public String getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     

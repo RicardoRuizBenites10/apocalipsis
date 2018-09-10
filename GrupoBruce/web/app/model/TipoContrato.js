@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.TipoContrato', {
     idProperty: 'idTcontrato',
     fields: [
         { name: 'codigo', type: 'string' },
-        { name: 'idTcontrato', type: 'int' },
+        { name: 'idTcontrato', type: 'string' },
         { name: 'situacion', type: 'boolean' },
         { name: 'tipo', type: 'string' }
     ]

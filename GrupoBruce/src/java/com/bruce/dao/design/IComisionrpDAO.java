@@ -5,12 +5,13 @@
  */
 package com.bruce.dao.design;
 
-import com.bruce.dao.to.Afiliacion;
+import com.bruce.dao.to.Comisionrp;
+import java.util.List;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
-public interface IAfiliacionDAO extends IEntidadDAO<Afiliacion>{
-    
+public interface IComisionrpDAO extends IEntidadDAO<Comisionrp>{
+    public List<Comisionrp> findByRPensionario(String idRPensionario);
 }

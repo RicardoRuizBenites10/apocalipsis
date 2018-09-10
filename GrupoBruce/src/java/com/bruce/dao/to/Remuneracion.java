@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;

@@ -24,25 +24,6 @@ import org.springframework.stereotype.Repository;
 public class SucursalDAO implements ISucursalDAO{
     
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
-    @Override
-    public List<Sucursal> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Sucursal S WHERE S.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
-    }
 
     @Override
     public void create(Sucursal t) {
@@ -119,7 +100,7 @@ public class SucursalDAO implements ISucursalDAO{
         List result = null;
         try{
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Sucursal S WHERE FROM Sucursal S WHERE S.empresa.idEmpresa = :empresa");
+            Query query = session.createQuery("FROM Sucursal S WHERE S.idEmpresa = :empresa");
             query.setParameter("empresa", idEmpresa);
             result = query.list();
             tx.commit();

@@ -779,6 +779,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Aamon"
       }
+    },
+    "app/model/Comisionrp.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "comision:float:null,descripcion:string:null,fondo:float:null,idComisionrp:int:null,idRpensionario:string:null,seguro:float:null",
+        "modelFileName": "Comisionrp",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Comisionrp"
+      }
     }
   }
 }

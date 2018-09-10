@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -19,22 +19,14 @@ public class Nacionalidad  implements java.io.Serializable {
 
 
      private int idNacionalidad;
-     private Long codigo;
      private String descripcion;
      private boolean situacion;
 
     public Nacionalidad() {
     }
 
-	
     public Nacionalidad(int idNacionalidad, String descripcion, boolean situacion) {
-        this.idNacionalidad = idNacionalidad;
-        this.descripcion = descripcion;
-        this.situacion = situacion;
-    }
-    public Nacionalidad(int idNacionalidad, Long codigo, String descripcion, boolean situacion) {
        this.idNacionalidad = idNacionalidad;
-       this.codigo = codigo;
        this.descripcion = descripcion;
        this.situacion = situacion;
     }
@@ -49,16 +41,6 @@ public class Nacionalidad  implements java.io.Serializable {
     
     public void setIdNacionalidad(int idNacionalidad) {
         this.idNacionalidad = idNacionalidad;
-    }
-
-    
-    @Column(name="CODIGO")
-    public Long getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
     }
 
     

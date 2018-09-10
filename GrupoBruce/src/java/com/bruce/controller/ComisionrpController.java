@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Sucursal;
-import com.bruce.services.design.ISucursalService;
+import com.bruce.dao.to.Comisionrp;
+import com.bruce.services.design.IComisionrpService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-public class SucursalController {
+public class ComisionrpController {
     
     @Autowired
-    private ISucursalService se;
+    private IComisionrpService se;
     
     @ResponseBody
-    @RequestMapping(value="/sucursalByEmpresa", method = RequestMethod.GET)
-    public Map<String, Object> getByEmpresa(@RequestParam("idEmpresa") String idEmpresa){
+    @RequestMapping(value="/comisionrpByRPensionario", method = RequestMethod.GET)
+    public Map<String, Object> getByRPensionario(@RequestParam("idRPensionario") String idRPensionario){
         Map<String, Object> map = new HashMap<>();
-        List<Sucursal> lista = se.findByEmpresa(idEmpresa);
+        List<Comisionrp> lista = se.findByRPensionario(idRPensionario);
         
         map.put("success", true);
         map.put("message", "Datos encontrados");
@@ -40,10 +40,10 @@ public class SucursalController {
     }
     
     @ResponseBody
-    @RequestMapping(value="/sucursalAll", method = RequestMethod.GET)
+    @RequestMapping(value="/comisionrpAll", method = RequestMethod.GET)
     public Map<String, Object> getAll(){
         Map<String, Object> map = new HashMap<>();
-        List<Sucursal> lista = se.findAll();
+        List<Comisionrp> lista = se.findAll();
         
         map.put("success", true);
         map.put("message", "Datos encontrados");

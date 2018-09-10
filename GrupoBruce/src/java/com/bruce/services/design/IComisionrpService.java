@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
-import com.bruce.dao.to.Sucursal;
+import com.bruce.dao.to.Comisionrp;
 import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
-public interface ISucursalDAO extends IEntidadDAO<Sucursal>{
-    public List<Sucursal> filterByEmpresa(String idEmpresa);
+public interface IComisionrpService extends IEntidadService<Comisionrp>{
+    public List<Comisionrp> findByRPensionario(String idRPensionario);
 }

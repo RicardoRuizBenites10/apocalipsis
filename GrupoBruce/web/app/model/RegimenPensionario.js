@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.model.RegimenPensionario', {
         { name: 'codigo', type: 'string' },
         { name: 'cuspp', type: 'boolean' },
         { name: 'descripcion', type: 'string' },
-        { name: 'idRpensionario', type: 'int' },
+        { name: 'idRpensionario', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ]
 });

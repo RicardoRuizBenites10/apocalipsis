@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -19,16 +19,14 @@ public class TipoTrabajador  implements java.io.Serializable {
 
 
      private int idTtrabajador;
-     private String codigo;
      private String descripcion;
      private boolean situacion;
 
     public TipoTrabajador() {
     }
 
-    public TipoTrabajador(int idTtrabajador, String codigo, String descripcion, boolean situacion) {
+    public TipoTrabajador(int idTtrabajador, String descripcion, boolean situacion) {
        this.idTtrabajador = idTtrabajador;
-       this.codigo = codigo;
        this.descripcion = descripcion;
        this.situacion = situacion;
     }
@@ -43,16 +41,6 @@ public class TipoTrabajador  implements java.io.Serializable {
     
     public void setIdTtrabajador(int idTtrabajador) {
         this.idTtrabajador = idTtrabajador;
-    }
-
-    
-    @Column(name="CODIGO", nullable=false, length=2)
-    public String getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     

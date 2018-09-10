@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,8 +18,7 @@ import javax.persistence.Table;
 public class RegimenPensionario  implements java.io.Serializable {
 
 
-     private int idRpensionario;
-     private String codigo;
+     private String idRpensionario;
      private String descripcion;
      private boolean cuspp;
      private boolean situacion;
@@ -28,15 +27,13 @@ public class RegimenPensionario  implements java.io.Serializable {
     }
 
 	
-    public RegimenPensionario(int idRpensionario, String codigo, boolean cuspp, boolean situacion) {
+    public RegimenPensionario(String idRpensionario, boolean cuspp, boolean situacion) {
         this.idRpensionario = idRpensionario;
-        this.codigo = codigo;
         this.cuspp = cuspp;
         this.situacion = situacion;
     }
-    public RegimenPensionario(int idRpensionario, String codigo, String descripcion, boolean cuspp, boolean situacion) {
+    public RegimenPensionario(String idRpensionario, String descripcion, boolean cuspp, boolean situacion) {
        this.idRpensionario = idRpensionario;
-       this.codigo = codigo;
        this.descripcion = descripcion;
        this.cuspp = cuspp;
        this.situacion = situacion;
@@ -45,23 +42,13 @@ public class RegimenPensionario  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="ID_RPENSIONARIO", unique=true, nullable=false)
-    public int getIdRpensionario() {
+    @Column(name="ID_RPENSIONARIO", unique=true, nullable=false, length=2)
+    public String getIdRpensionario() {
         return this.idRpensionario;
     }
     
-    public void setIdRpensionario(int idRpensionario) {
+    public void setIdRpensionario(String idRpensionario) {
         this.idRpensionario = idRpensionario;
-    }
-
-    
-    @Column(name="CODIGO", nullable=false, length=3)
-    public String getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     

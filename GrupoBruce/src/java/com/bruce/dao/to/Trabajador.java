@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -35,27 +35,28 @@ public class Trabajador implements java.io.Serializable {
     private Double montoPasaje;
     private String nrocuentaSueldo;
     private String nrocuentaCts;
-    private String observacionAfiliacion;
     private String nrocusppAfiliacion;
+    
     private int idNacionalidad;
-    private int idTdocumento;
+    private String idTdocumento;
     private int idGenero;
     private int idEcivil;
     private int idTtrabajador;
     private int idEtrabajador;
     private int idFpago;
     private int idPeriocidad;
+    private String idEmpresa;
     private String idSucursal;
-    private Integer idEfSueldo;
-    private Integer idEfCts;
-    private Integer idRpAfiliacion;
-    
-//    private String fotoB64; //quitado hasta terminar de mapear clases para json
+    private String idEfSueldo;
+    private String idEfCts;
+    private String idRpensionario;
+    private Integer idComisionrp;
 
+//    private String fotoB64; //quitado hasta terminar de mapear clases para json
     public Trabajador() {
     }
 
-    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, boolean asignacion, String codigo, double montoBase, int idNacionalidad, int idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idSucursal) {
+    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, boolean asignacion, String codigo, double montoBase, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal) {
         this.idTrabajador = idTrabajador;
         this.apPaterno = apPaterno;
         this.apMaterno = apMaterno;
@@ -75,10 +76,11 @@ public class Trabajador implements java.io.Serializable {
         this.idEtrabajador = idEtrabajador;
         this.idFpago = idFpago;
         this.idPeriocidad = idPeriocidad;
+        this.idEmpresa = idEmpresa;
         this.idSucursal = idSucursal;
     }
 
-    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, boolean asignacion, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String observacionAfiliacion, String nrocusppAfiliacion, int idNacionalidad, int idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idSucursal, Integer idEfSueldo, Integer idEfCts, Integer idRpAfiliacion) {
+    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, boolean asignacion, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
         this.idTrabajador = idTrabajador;
         this.foto = foto;
         this.apPaterno = apPaterno;
@@ -95,7 +97,6 @@ public class Trabajador implements java.io.Serializable {
         this.montoPasaje = montoPasaje;
         this.nrocuentaSueldo = nrocuentaSueldo;
         this.nrocuentaCts = nrocuentaCts;
-        this.observacionAfiliacion = observacionAfiliacion;
         this.nrocusppAfiliacion = nrocusppAfiliacion;
         this.idNacionalidad = idNacionalidad;
         this.idTdocumento = idTdocumento;
@@ -105,10 +106,12 @@ public class Trabajador implements java.io.Serializable {
         this.idEtrabajador = idEtrabajador;
         this.idFpago = idFpago;
         this.idPeriocidad = idPeriocidad;
+        this.idEmpresa = idEmpresa;
         this.idSucursal = idSucursal;
         this.idEfSueldo = idEfSueldo;
         this.idEfCts = idEfCts;
-        this.idRpAfiliacion = idRpAfiliacion;
+        this.idRpensionario = idRpensionario;
+        this.idComisionrp = idComisionrp;
     }
 
     @Id
@@ -130,7 +133,7 @@ public class Trabajador implements java.io.Serializable {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
+
 //    @Transient
 //    public String getFotoB64() {
 //        return Metodo.getAvatarB64(this.dni, this.foto);
@@ -139,7 +142,7 @@ public class Trabajador implements java.io.Serializable {
 //    public void setFotoB64(String fotoB64) {
 //        this.fotoB64 = fotoB64;
 //    }
-
+    
     @Column(name = "AP_PATERNO", nullable = false, length = 25)
     public String getApPaterno() {
         return this.apPaterno;
@@ -267,15 +270,6 @@ public class Trabajador implements java.io.Serializable {
         this.nrocuentaCts = nrocuentaCts;
     }
 
-    @Column(name = "OBSERVACION_AFILIACION", length = 12)
-    public String getObservacionAfiliacion() {
-        return this.observacionAfiliacion;
-    }
-
-    public void setObservacionAfiliacion(String observacionAfiliacion) {
-        this.observacionAfiliacion = observacionAfiliacion;
-    }
-
     @Column(name = "NROCUSPP_AFILIACION", length = 15)
     public String getNrocusppAfiliacion() {
         return this.nrocusppAfiliacion;
@@ -294,12 +288,12 @@ public class Trabajador implements java.io.Serializable {
         this.idNacionalidad = idNacionalidad;
     }
 
-    @Column(name = "ID_TDOCUMENTO", nullable = false)
-    public int getIdTdocumento() {
+    @Column(name = "ID_TDOCUMENTO", nullable = false, length = 2)
+    public String getIdTdocumento() {
         return this.idTdocumento;
     }
 
-    public void setIdTdocumento(int idTdocumento) {
+    public void setIdTdocumento(String idTdocumento) {
         this.idTdocumento = idTdocumento;
     }
 
@@ -357,6 +351,15 @@ public class Trabajador implements java.io.Serializable {
         this.idPeriocidad = idPeriocidad;
     }
 
+    @Column(name = "ID_EMPRESA", nullable = false, length = 2)
+    public String getIdEmpresa() {
+        return this.idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
     @Column(name = "ID_SUCURSAL", nullable = false, length = 2)
     public String getIdSucursal() {
         return this.idSucursal;
@@ -366,31 +369,40 @@ public class Trabajador implements java.io.Serializable {
         this.idSucursal = idSucursal;
     }
 
-    @Column(name = "ID_EF_SUELDO")
-    public Integer getIdEfSueldo() {
+    @Column(name = "ID_EF_SUELDO", length = 3)
+    public String getIdEfSueldo() {
         return this.idEfSueldo;
     }
 
-    public void setIdEfSueldo(Integer idEfSueldo) {
+    public void setIdEfSueldo(String idEfSueldo) {
         this.idEfSueldo = idEfSueldo;
     }
 
-    @Column(name = "ID_EF_CTS")
-    public Integer getIdEfCts() {
+    @Column(name = "ID_EF_CTS", length = 3)
+    public String getIdEfCts() {
         return this.idEfCts;
     }
 
-    public void setIdEfCts(Integer idEfCts) {
+    public void setIdEfCts(String idEfCts) {
         this.idEfCts = idEfCts;
     }
 
-    @Column(name = "ID_RP_AFILIACION")
-    public Integer getIdRpAfiliacion() {
-        return this.idRpAfiliacion;
+    @Column(name = "ID_RPENSIONARIO", length = 2)
+    public String getIdRpensionario() {
+        return this.idRpensionario;
     }
 
-    public void setIdRpAfiliacion(Integer idRpAfiliacion) {
-        this.idRpAfiliacion = idRpAfiliacion;
+    public void setIdRpensionario(String idRpensionario) {
+        this.idRpensionario = idRpensionario;
+    }
+
+    @Column(name = "ID_COMISIONRP")
+    public Integer getIdComisionrp() {
+        return this.idComisionrp;
+    }
+
+    public void setIdComisionrp(Integer idComisionrp) {
+        this.idComisionrp = idComisionrp;
     }
 
 }

@@ -12,6 +12,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
             padding: 5
         }
     },
+    viewModel: true,
     items: [{
             items: [{
                     xtype: 'combobox',
@@ -97,18 +98,32 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         }, {
             items: [{
                     xtype: 'combobox',
-                    name: 'idRpAfiliacion',
+                    name: 'idRpensionario',
                     fieldLabel: 'Regimen pensionario :',
                     displayField: 'descripcion',
                     valueField: 'idRpensionario',
+                    reference: 'cboRPensionario',
+                    publishes: 'value',
                     store: {
                         type: 'SregimenPensionario',
                         autoLoad: true
                     }
                 }, {
-                    xtype: 'textfield',
-                    name: 'observacionAfiliacion',
-                    fieldLabel: 'Comisión :'
+                    xtype: 'combobox',
+                    name: 'idComisionrp',
+                    fieldLabel: 'Comisión :',
+                    displayField: 'descripcion',
+                    valueField: 'idComisionrp',
+                    bind:{
+                        filters: {
+                            property: 'idRpensionario',
+                            value: '{cboRPensionario.idRpensionario}'
+                        }
+                    },
+                    store: {
+                        type: 'Scomisionrp',
+                        autoLoad: true
+                    }
                 }, {
                     xtype: 'textfield',
                     name: 'nrocusppAfiliacion',
@@ -117,17 +132,34 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorForm', {
         }, {
             items: [{
                     xtype: 'combobox',
+                    name: 'idEmpresa',
                     fieldLabel: 'Empresa :',
                     displayField: 'descripcion',
                     valueField: 'idEmpresa',
+                    forceSelection: true,
+                    reference: 'cboEmpresa',
+                    publishes: 'value',
                     store: {
                         type: 'Sempresa',
                         autoLoad: true
                     }
                 }, {
                     xtype: 'combobox',
+                    name: 'idSucursal',
+                    displayField: 'direccion',
+                    valueField: 'idSucursal',
                     fieldLabel: 'Lugar de trabajo :',
-                    flex: 2
+                    flex: 2,
+                    bind:{
+                        filters:{
+                           property: 'idSucursal',
+                            value: '{cboEmpresa.values}' 
+                        }
+                    },
+                    store: {
+                        type: 'Ssucursal',
+                        autoLoad: true
+                    }
                 }]
         }]
 });

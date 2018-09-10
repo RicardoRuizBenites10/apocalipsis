@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -27,7 +27,7 @@ public class ContratoTrabajador  implements java.io.Serializable {
      private Date fechaInicio;
      private Date fechaFin;
      private Date fechaCese;
-     private int idTcontrato;
+     private String idTcontrato;
      private int idEcontrato;
      private int idTiempo;
 
@@ -35,14 +35,14 @@ public class ContratoTrabajador  implements java.io.Serializable {
     }
 
 	
-    public ContratoTrabajador(ContratoTrabajadorId id, Date fechaInicio, int idTcontrato, int idEcontrato, int idTiempo) {
+    public ContratoTrabajador(ContratoTrabajadorId id, Date fechaInicio, String idTcontrato, int idEcontrato, int idTiempo) {
         this.id = id;
         this.fechaInicio = fechaInicio;
         this.idTcontrato = idTcontrato;
         this.idEcontrato = idEcontrato;
         this.idTiempo = idTiempo;
     }
-    public ContratoTrabajador(ContratoTrabajadorId id, Date fechaInicio, Date fechaFin, Date fechaCese, int idTcontrato, int idEcontrato, int idTiempo) {
+    public ContratoTrabajador(ContratoTrabajadorId id, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo) {
        this.id = id;
        this.fechaInicio = fechaInicio;
        this.fechaFin = fechaFin;
@@ -97,12 +97,12 @@ public class ContratoTrabajador  implements java.io.Serializable {
     }
 
     
-    @Column(name="ID_TCONTRATO", nullable=false)
-    public int getIdTcontrato() {
+    @Column(name="ID_TCONTRATO", nullable=false, length=2)
+    public String getIdTcontrato() {
         return this.idTcontrato;
     }
     
-    public void setIdTcontrato(int idTcontrato) {
+    public void setIdTcontrato(String idTcontrato) {
         this.idTcontrato = idTcontrato;
     }
 

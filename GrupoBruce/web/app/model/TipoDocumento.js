@@ -5,7 +5,8 @@ Ext.define('GrupoBruce.model.TipoDocumento', {
     fields: [
         { name: 'codigo', type: 'string' },
         { name: 'descripcion', type: 'string' },
-        { name: 'idTdocumento', type: 'int' },
+        { name: 'descripcionAbreviada', type: 'string' },
+        { name: 'idTdocumento', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ]
 });

@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,51 +18,39 @@ import javax.persistence.Table;
 public class TipoContrato  implements java.io.Serializable {
 
 
-     private int idTcontrato;
-     private String codigo;
-     private String tipo;
+     private String idTcontrato;
+     private String descripcion;
      private boolean situacion;
 
     public TipoContrato() {
     }
 
-    public TipoContrato(int idTcontrato, String codigo, String tipo, boolean situacion) {
+    public TipoContrato(String idTcontrato, String descripcion, boolean situacion) {
        this.idTcontrato = idTcontrato;
-       this.codigo = codigo;
-       this.tipo = tipo;
+       this.descripcion = descripcion;
        this.situacion = situacion;
     }
    
      @Id 
 
     
-    @Column(name="ID_TCONTRATO", unique=true, nullable=false)
-    public int getIdTcontrato() {
+    @Column(name="ID_TCONTRATO", unique=true, nullable=false, length=2)
+    public String getIdTcontrato() {
         return this.idTcontrato;
     }
     
-    public void setIdTcontrato(int idTcontrato) {
+    public void setIdTcontrato(String idTcontrato) {
         this.idTcontrato = idTcontrato;
     }
 
     
-    @Column(name="CODIGO", nullable=false, length=2)
-    public String getCodigo() {
-        return this.codigo;
+    @Column(name="DESCRIPCION", nullable=false, length=25)
+    public String getDescripcion() {
+        return this.descripcion;
     }
     
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    
-    @Column(name="TIPO", nullable=false, length=25)
-    public String getTipo() {
-        return this.tipo;
-    }
-    
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     

@@ -32,7 +32,7 @@ Ext.define('GrupoBruce.view.trabajador.PersonaForm', {
                     xtype: 'combobox',
                     name: 'idTdocumento',
                     fieldLabel: 'Tipo documento:',
-                    displayField: 'descripcion',
+                    displayField: 'descripcionAbreviada',
                     valueField: 'idTdocumento',
                     store: {
                         type: 'StipoDocumento',

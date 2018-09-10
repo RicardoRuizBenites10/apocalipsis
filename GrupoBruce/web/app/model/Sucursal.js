@@ -6,6 +6,6 @@ Ext.define('GrupoBruce.model.Sucursal', {
         { name: 'direccion', type: 'string' },
         { name: 'idSucursal', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name:'empresaId', reference: 'GrupoBruce.model.Empresa', type: 'string' }
+        { name:'idEmpresa', type: 'string' }
     ]
 });

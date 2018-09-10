@@ -1,5 +1,5 @@
 package com.bruce.dao.to;
-// Generated 07/09/2018 11:57:55 AM by Hibernate Tools 4.3.1
+// Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,17 +18,15 @@ import javax.persistence.Table;
 public class EntidadFinanciera  implements java.io.Serializable {
 
 
-     private int idEfinanciera;
-     private String codigo;
+     private String idEfinanciera;
      private String nombre;
      private boolean situacion;
 
     public EntidadFinanciera() {
     }
 
-    public EntidadFinanciera(int idEfinanciera, String codigo, String nombre, boolean situacion) {
+    public EntidadFinanciera(String idEfinanciera, String nombre, boolean situacion) {
        this.idEfinanciera = idEfinanciera;
-       this.codigo = codigo;
        this.nombre = nombre;
        this.situacion = situacion;
     }
@@ -36,23 +34,13 @@ public class EntidadFinanciera  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="ID_EFINANCIERA", unique=true, nullable=false)
-    public int getIdEfinanciera() {
+    @Column(name="ID_EFINANCIERA", unique=true, nullable=false, length=3)
+    public String getIdEfinanciera() {
         return this.idEfinanciera;
     }
     
-    public void setIdEfinanciera(int idEfinanciera) {
+    public void setIdEfinanciera(String idEfinanciera) {
         this.idEfinanciera = idEfinanciera;
-    }
-
-    
-    @Column(name="CODIGO", nullable=false, length=3)
-    public String getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     
