@@ -23,12 +23,7 @@ public class RegimenPensionarioService implements IRegimenPensionarioService{
     private IRegimenPensionarioDAO dao;
 
     @Override
-    public void create(RegimenPensionario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(RegimenPensionario t) {
+    public void insert(RegimenPensionario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +45,10 @@ public class RegimenPensionarioService implements IRegimenPensionarioService{
     @Override
     public List<RegimenPensionario> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(RegimenPensionario t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

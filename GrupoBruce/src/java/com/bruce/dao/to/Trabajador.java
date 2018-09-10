@@ -29,7 +29,6 @@ public class Trabajador implements java.io.Serializable {
     private String telefono;
     private int nroHijos;
     private String referencia;
-    private boolean asignacion;
     private String codigo;
     private double montoBase;
     private Double montoPasaje;
@@ -53,10 +52,11 @@ public class Trabajador implements java.io.Serializable {
     private Integer idComisionrp;
 
 //    private String fotoB64; //quitado hasta terminar de mapear clases para json
+    
     public Trabajador() {
     }
 
-    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, boolean asignacion, String codigo, double montoBase, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal) {
+    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String codigo, double montoBase, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal) {
         this.idTrabajador = idTrabajador;
         this.apPaterno = apPaterno;
         this.apMaterno = apMaterno;
@@ -65,7 +65,6 @@ public class Trabajador implements java.io.Serializable {
         this.direccion = direccion;
         this.telefono = telefono;
         this.nroHijos = nroHijos;
-        this.asignacion = asignacion;
         this.codigo = codigo;
         this.montoBase = montoBase;
         this.idNacionalidad = idNacionalidad;
@@ -80,7 +79,7 @@ public class Trabajador implements java.io.Serializable {
         this.idSucursal = idSucursal;
     }
 
-    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, boolean asignacion, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
+    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
         this.idTrabajador = idTrabajador;
         this.foto = foto;
         this.apPaterno = apPaterno;
@@ -91,7 +90,6 @@ public class Trabajador implements java.io.Serializable {
         this.telefono = telefono;
         this.nroHijos = nroHijos;
         this.referencia = referencia;
-        this.asignacion = asignacion;
         this.codigo = codigo;
         this.montoBase = montoBase;
         this.montoPasaje = montoPasaje;
@@ -141,7 +139,7 @@ public class Trabajador implements java.io.Serializable {
 //
 //    public void setFotoB64(String fotoB64) {
 //        this.fotoB64 = fotoB64;
-//    }
+//    } 
     
     @Column(name = "AP_PATERNO", nullable = false, length = 25)
     public String getApPaterno() {
@@ -214,15 +212,6 @@ public class Trabajador implements java.io.Serializable {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
-    }
-
-    @Column(name = "ASIGNACION", nullable = false)
-    public boolean isAsignacion() {
-        return this.asignacion;
-    }
-
-    public void setAsignacion(boolean asignacion) {
-        this.asignacion = asignacion;
     }
 
     @Column(name = "CODIGO", nullable = false, length = 10)

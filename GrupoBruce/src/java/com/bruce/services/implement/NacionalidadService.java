@@ -21,14 +21,9 @@ public class NacionalidadService implements INacionalidadService{
     
     @Autowired
     private INacionalidadDAO dao;
-    
-    @Override
-    public void create(Nacionalidad t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void save(Nacionalidad t) {
+    public void insert(Nacionalidad t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class NacionalidadService implements INacionalidadService{
     @Override
     public List<Nacionalidad> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(Nacionalidad t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -6,7 +6,7 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 
 /**

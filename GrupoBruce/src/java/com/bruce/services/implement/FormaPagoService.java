@@ -23,12 +23,7 @@ public class FormaPagoService implements IFormaPagoService{
     private IFormaPagoDAO dao;
 
     @Override
-    public void create(FormaPago t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(FormaPago t) {
+    public void insert(FormaPago t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class FormaPagoService implements IFormaPagoService{
     @Override
     public List<FormaPago> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(FormaPago t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -11,21 +11,21 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
-        'GrupoBruce.store.Personnel',
-        'GrupoBruce.store.Trabajador',
-        'GrupoBruce.store.Nacionalidad',
-        'GrupoBruce.store.TipoDocumento',
-        'GrupoBruce.store.Genero',
-        'GrupoBruce.store.Ecivil',
-        'GrupoBruce.store.TipoTrabajador',
-        'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Comisionrp',
-        'GrupoBruce.store.EntidadFinanciera',
-        'GrupoBruce.store.FormaPago',
-        'GrupoBruce.store.Periocidad',
-        'GrupoBruce.store.EstadoTrabajador',
+        'GrupoBruce.store.Ecivil',
         'GrupoBruce.store.Empresa',
-        'GrupoBruce.store.Sucursal'
+        'GrupoBruce.store.EntidadFinanciera',
+        'GrupoBruce.store.EstadoTrabajador',
+        'GrupoBruce.store.FormaPago',
+        'GrupoBruce.store.Genero',
+        'GrupoBruce.store.Nacionalidad',
+        'GrupoBruce.store.Periocidad',
+        'GrupoBruce.store.Personnel',
+        'GrupoBruce.store.RegimenPensionario',
+        'GrupoBruce.store.Sucursal',
+        'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.TipoDocumento',
+        'GrupoBruce.store.TipoTrabajador'
     ],
 
     launch: function () {

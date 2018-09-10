@@ -7,9 +7,7 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
-import com.bruce.dao.to.perform.TrabajadorDTO;
-import java.util.Iterator;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -21,10 +19,8 @@ import com.bruce.util.Metodo;
 import com.bruce.util.QuerySQL;
 import java.util.ArrayList;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -129,26 +125,25 @@ public class TrabajadorDAO implements ITrabajadorDAO {
         return result;
     }
 
-    @Override
-    public List<TrabajadorDTO> getAllPerforms() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List<TrabajadorDTO> result = null;
-        try {
-            tx = session.beginTransaction();
-            Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
-            result = query.setResultTransformer(Transformers.aliasToBean(TrabajadorDTO.class)).list();
-            tx.commit();
-        } catch (HibernateException he) {
-            System.err.println("Error getAllPermorms: " + he.getMessage());
-            if (tx != null) {
-                tx.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return result;
-    }
+//    @Override
+//    public List<TrabajadorDTO> getAllPerforms() {
+//        Session session = sf.openSession();
+//        Transaction tx = null;
+//        List<TrabajadorDTO> result = null;
+//        try {
+//            tx = session.beginTransaction();
+////            Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
+////            result = query.setResultTransformer(Transformers.aliasToBean(TrabajadorDTO.class)).list();
+//            tx.commit();
+//        } catch (HibernateException he) {
+//            if (tx != null) {
+//                tx.rollback();
+//            }
+//        } finally {
+//            session.close();
+//        }
+//        return result;
+//    }
 
     @Override
     public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts) {
@@ -165,9 +160,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
                 } else {
                     cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
                 }
-
             });
-
             cr.setFirstResult(start);
             cr.setMaxResults(limit);
             result = cr.list();

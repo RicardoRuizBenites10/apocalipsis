@@ -12,8 +12,8 @@ import java.util.List;
  * @author RICARDO
  */
 public interface IEntidadService<T> {
-    public void create(T t);
-    public void save(T t);
+    public void insert(T t);
+    public void update(T t);
     public void delete(T t);
     public T find(Object id);
     public List<T> findAll();

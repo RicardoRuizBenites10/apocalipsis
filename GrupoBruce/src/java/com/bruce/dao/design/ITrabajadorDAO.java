@@ -6,8 +6,7 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
-import com.bruce.dao.to.perform.TrabajadorDTO;
+import com.bruce.util.SortPage;
 import java.util.List;
 
 /**
@@ -15,7 +14,6 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ITrabajadorDAO extends IEntidadDAO<Trabajador>{
-    public List<TrabajadorDTO> getAllPerforms();
     public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts);
     public int getTrabajadorCount();
 }

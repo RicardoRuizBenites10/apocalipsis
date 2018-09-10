@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.EntidadFinanciera', {
     idProperty: 'idEfinanciera',
     fields: [
         { name: 'codigo', type: 'string' },
-        { name: 'idEfinanciera', type: 'int' },
+        { name: 'idEfinanciera', type: 'string' },
         { name: 'nombre', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ]

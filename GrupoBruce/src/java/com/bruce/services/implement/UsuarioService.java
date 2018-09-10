@@ -28,12 +28,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
-    public void create(Usuario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Usuario t) {
+    public void insert(Usuario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,6 +44,11 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public List<Usuario> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(Usuario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

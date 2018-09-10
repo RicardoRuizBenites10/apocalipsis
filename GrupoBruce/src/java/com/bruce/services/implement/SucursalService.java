@@ -23,12 +23,7 @@ public class SucursalService implements ISucursalService{
     private ISucursalDAO dao;
 
     @Override
-    public void create(Sucursal t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Sucursal t) {
+    public void insert(Sucursal t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class SucursalService implements ISucursalService{
     @Override
     public List<Sucursal> findByEmpresa(String idEmpresa) {
         return dao.filterByEmpresa(idEmpresa);
+    }
+
+    @Override
+    public void update(Sucursal t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

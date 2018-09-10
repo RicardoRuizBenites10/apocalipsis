@@ -23,12 +23,7 @@ public class EstadoTrabajadorService implements IEstadoTrabajadorService {
     private IEstadoTrabajadorDAO dao;
 
     @Override
-    public void create(EstadoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(EstadoTrabajador t) {
+    public void insert(EstadoTrabajador t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class EstadoTrabajadorService implements IEstadoTrabajadorService {
     @Override
     public List<EstadoTrabajador> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(EstadoTrabajador t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

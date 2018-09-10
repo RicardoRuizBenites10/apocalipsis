@@ -23,12 +23,7 @@ public class PeriocidadService implements IPeriocidadService {
     private IPeriocidadDAO dao;
 
     @Override
-    public void create(Periocidad t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Periocidad t) {
+    public void insert(Periocidad t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class PeriocidadService implements IPeriocidadService {
     @Override
     public List<Periocidad> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(Periocidad t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

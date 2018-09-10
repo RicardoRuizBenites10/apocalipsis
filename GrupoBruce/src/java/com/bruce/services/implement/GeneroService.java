@@ -23,12 +23,7 @@ public class GeneroService implements IGeneroService {
     private IGeneroDAO dao;
 
     @Override
-    public void create(Genero t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Genero t) {
+    public void insert(Genero t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +45,10 @@ public class GeneroService implements IGeneroService {
     @Override
     public List<Genero> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(Genero t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

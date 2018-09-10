@@ -23,12 +23,7 @@ public class TipoTrabajadorService implements ITipoTrabajadorService{
     private ITipoTrabajadorDAO dao;
 
     @Override
-    public void create(TipoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(TipoTrabajador t) {
+    public void insert(TipoTrabajador t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class TipoTrabajadorService implements ITipoTrabajadorService{
     @Override
     public List<TipoTrabajador> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(TipoTrabajador t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

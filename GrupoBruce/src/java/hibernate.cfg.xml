@@ -44,7 +44,7 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost\toHibernate:1433;databaseName=BDBRUCE</property>
     <property name="hibernate.connection.username">sa</property>
-    <property name="hibernate.connection.password">Nakamas</property>
+    <property name="hibernate.connection.password">anteromariano</property>
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <property name="hibernate.connection.pool_size">1</property>
     <property name="hibernate.show_sql">true</property>
@@ -103,10 +103,5 @@ Contributor(s):
     <mapping class="com.bruce.dao.to.TipoTextra"/>
     <mapping class="com.bruce.dao.to.Sucursal"/>
     <mapping class="com.bruce.dao.to.Nacionalidad"/>
-    <mapping class="com.bruce.dao.to.perform.TrabajadorDTO"/>
-    <mapping class="com.bruce.dao.to.perform.SortPage"/>
-    <mapping class="com.bruce.dao.to.perform.Filter"/>
-    <mapping class="com.bruce.dao.to.perform.Alibaba"/>
-    <mapping class="com.bruce.dao.to.perform.Solicitud"/>
   </session-factory>
 </hibernate-configuration>

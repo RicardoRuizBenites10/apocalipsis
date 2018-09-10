@@ -23,12 +23,7 @@ public class EmpresaService implements IEmpresaService {
     private IEmpresaDAO dao;
 
     @Override
-    public void create(Empresa t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Empresa t) {
+    public void insert(Empresa t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class EmpresaService implements IEmpresaService {
     @Override
     public List<Empresa> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(Empresa t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

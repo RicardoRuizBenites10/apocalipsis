@@ -23,12 +23,7 @@ public class ECivilService implements IECivilService {
     private IECivilDAO dao;
 
     @Override
-    public void create(Ecivil t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Ecivil t) {
+    public void insert(Ecivil t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,6 +45,11 @@ public class ECivilService implements IECivilService {
     @Override
     public List<Ecivil> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(Ecivil t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -23,12 +23,7 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     private IEntidadFinancieraDAO dao;
 
     @Override
-    public void create(EntidadFinanciera t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(EntidadFinanciera t) {
+    public void insert(EntidadFinanciera t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +45,10 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     @Override
     public List<EntidadFinanciera> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(EntidadFinanciera t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

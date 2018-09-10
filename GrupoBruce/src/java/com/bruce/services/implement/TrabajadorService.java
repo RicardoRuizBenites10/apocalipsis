@@ -7,7 +7,7 @@ package com.bruce.services.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
+import com.bruce.util.SortPage;
 import com.bruce.services.design.ITrabajadorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,10 @@ public class TrabajadorService implements ITrabajadorService{
     
     @Autowired
     private ITrabajadorDAO dao;
-    
-    @Override
-    public void create(Trabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void save(Trabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insert(Trabajador t) {
+        dao.create(t);
     }
 
     @Override
@@ -56,5 +51,10 @@ public class TrabajadorService implements ITrabajadorService{
     @Override
     public int totalCount() {
         return dao.getTrabajadorCount();
+    }
+
+    @Override
+    public void update(Trabajador t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

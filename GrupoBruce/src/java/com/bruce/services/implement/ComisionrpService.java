@@ -21,14 +21,9 @@ public class ComisionrpService implements IComisionrpService{
     
     @Autowired
     private IComisionrpDAO dao;
-    
-    @Override
-    public void create(Comisionrp t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void save(Comisionrp t) {
+    public void insert(Comisionrp t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +45,10 @@ public class ComisionrpService implements IComisionrpService{
     @Override
     public List<Comisionrp> findByRPensionario(String idRPensionario) {
         return dao.findByRPensionario(idRPensionario);
+    }
+
+    @Override
+    public void update(Comisionrp t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

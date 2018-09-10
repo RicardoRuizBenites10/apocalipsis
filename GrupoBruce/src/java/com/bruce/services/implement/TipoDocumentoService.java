@@ -21,14 +21,9 @@ public class TipoDocumentoService implements ITipoDocumentoService{
     
     @Autowired
     private ITipoDocumentoDAO dao;
-    
-    @Override
-    public void create(TipoDocumento t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void save(TipoDocumento t) {
+    public void insert(TipoDocumento t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,5 +45,10 @@ public class TipoDocumentoService implements ITipoDocumentoService{
     @Override
     public List<TipoDocumento> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
+    }
+
+    @Override
+    public void update(TipoDocumento t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

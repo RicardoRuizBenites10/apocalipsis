@@ -1,7 +1,7 @@
-Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
+Ext.define('GrupoBruce.view.trabajador.List', {
     extend: 'Ext.grid.Panel',
-    
-    xtype: 'trabajadorList',
+    xtype: 'listTrabajador',
+    reference: 'list_trabajador',
 
     store: {
         type: 'Strabajador'
@@ -16,8 +16,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
     columns: [
         {
             text: 'DNI', dataIndex: 'idTrabajador',
-            align: 'left',
-            filter: {type: 'string', value: ''}
+            align: 'left'
+//            ,filter: {type: 'string', value: ''}
         },
 //        {
 //            text: 'A. Paterno', dataIndex: 'persona.apPaterno',
@@ -25,26 +25,18 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
 //            width: 130, align: 'left'},
         {
             text: 'A. Paterno', dataIndex: 'apPaterno',
-            width: 130, align: 'left'},
-        {
+            width: 130, align: 'left'
+        }, {
             text: 'A. Materno', dataIndex: 'apMaterno',
-            width: 130, align: 'left'},
-        {
+            width: 130, align: 'left'
+        }, {
             text: 'Nombres', dataIndex: 'nombres',
-            width: 160, align: 'left'},
-        {
+            width: 160, align: 'left'
+        }, {
             text: 'Teléfono', dataIndex: 'telefono'},
         {
             text: 'Dirección', dataIndex: 'direccion',
-            flex: 2, align: 'left'},
-        {
-            text: 'Tipo', dataIndex: 'tipoTrabajador.descripcion',
-            xtype: 'templatecolumn', tpl: '{tipoTrabajador.descripcion}',
-            align: 'center'},
-        {
-            text: 'Estado', dataIndex: 'estadoTrabajador.descripcion',
-            xtype: 'templatecolumn', tpl: '{estadoTrabajador.descripcion}',
-            align: 'center'
+            flex: 2, align: 'left'
         }
     ],
 
@@ -60,7 +52,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
                 disabled: '{rowSelect}'
             },
             listeners: {
-                click: 'nuevoTrabajador'
+                click: 'addTrabajador'
             }
         }, {
             text: 'Editar',
@@ -70,7 +62,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
                 disabled: '{!rowSelect}'
             },
             listeners: {
-                click: 'editarTrabajador'
+                click: 'editTrabajador'
             }
         }, '-', {
             text: 'Ver',
@@ -93,10 +85,6 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorList', {
             items: ['-', {
                     iconCls: 'fa fa-file-excel-o'
                 }]
-        }],
-
-    listeners: {
-        select: 'onItemSelected'
-    }
+        }]
 
 });

@@ -3,17 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.to.perform;
+package com.bruce.util;
 
 /**
  *
  * @author SISTEMAS
  */
-public class SortPage {
-    private String property;
-    private String direction;
+public class FilterPage {
 
-    public SortPage() {
+    private String operator;
+    private String property;
+    private String value;
+
+    public FilterPage() {
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
     public String getProperty() {
@@ -24,11 +34,11 @@ public class SortPage {
         this.property = property;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getValue() {
+        return value;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

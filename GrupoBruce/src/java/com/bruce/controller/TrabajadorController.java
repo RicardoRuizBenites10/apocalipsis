@@ -1,7 +1,7 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Trabajador;
-import com.bruce.dao.to.perform.SortPage;
+import com.bruce.util.SortPage;
 import com.bruce.services.design.ITrabajadorService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,5 +60,15 @@ public class TrabajadorController {
         map.put("total", st.totalCount());
         return map;
 
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/insertTrabajador", method = RequestMethod.POST)
+    public Map<String,Object> insert(@RequestBody Trabajador trabajador){
+        Map<String, Object> map = new HashMap<>();
+        st.insert(trabajador);
+        map.put("success", true);
+        map.put("message", "Datos encontrados");
+        return map;
     }
 }
