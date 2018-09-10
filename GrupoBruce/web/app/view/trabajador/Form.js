@@ -230,7 +230,10 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
                                             name: 'nrocuentaSueldo',
                                             fieldLabel: 'Cuenta sueldo :'
                                         }, {
-                                            xtype: 'textfield',
+                                            xtype: 'numberfield',
+                                            allowDecimals: true,
+                                            hideTrigger: true,
+                                            minValue: 0,
                                             name: 'montoBase',
                                             fieldLabel: 'Monto sueldo :'
                                         }]
@@ -304,8 +307,8 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
                                 }]
                         }]
                 }, {
-                    title: 'Archivos',
-                    iconCls: 'fa fa_search',
+                    title: 'Archivos adicionales',
+                    iconCls: 'fa fa-folder-open',
                     items: [{
                             xtype: 'textfield',
                             name: 'foto',

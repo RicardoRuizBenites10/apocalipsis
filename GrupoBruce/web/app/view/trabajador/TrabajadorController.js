@@ -6,6 +6,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         Ext.Msg.alert('Alerta', 'Nuevo trabajador.');
     },
 
+    verTrabajador: function () {
+
+    },
+    
     editTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
         var trabajadorModel = grid.getSelection()[0];
@@ -24,15 +28,19 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             items: [form],
 
             buttons: [{
-                    text: 'CANCELAR'
+                    text: 'CANCELAR',
+                    listeners: {
+                        click: function(){
+                            this.up('window').destroy();
+                        }
+                    }
                 }, {
                     text: 'GRABAR',
                     listeners: {
                         click: function () {
-//                            var data = form.getForm().getValues();
                             Ext.Ajax.request({
                                 url: 'insertTrabajador',
-                                jsonData: form.getForm().getValues(),
+                                jsonData: form.getForm().getFieldValues(),
                                 method: 'POST',
                                 scope: this,
                                 success: this.onTrabajadorSuccess,
@@ -45,11 +53,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
         window.show();
     },
-
-    verTrabajador: function () {
-
-    },
-
+    
     onTrabajadorSuccess: function (response, opts) {
         var responseText = Ext.decode(response.responseText);
         Ext.Msg.show({

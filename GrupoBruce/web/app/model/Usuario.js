@@ -8,7 +8,6 @@ Ext.define('GrupoBruce.model.Usuario', {
         { name: 'usu', type: 'string' },
         { name: 'clave', type: 'string' },
         { name: 'estado', type: 'boolean' },
-        { name: 'acceder', type: 'boolean' },
-        { name: 'trabajadorId', reference: 'GrupoBruce.model.Trabajador', unique: true, type: 'string' }
+        { name: 'acceder', type: 'boolean' }
     ]
 });

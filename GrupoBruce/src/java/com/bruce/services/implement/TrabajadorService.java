@@ -55,6 +55,6 @@ public class TrabajadorService implements ITrabajadorService{
 
     @Override
     public void update(Trabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 }
