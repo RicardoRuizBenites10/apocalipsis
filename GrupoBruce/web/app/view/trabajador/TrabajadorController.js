@@ -5,44 +5,17 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     addTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
         var form = new GrupoBruce.view.trabajador.Form();
-
+        
+        Ext.Msg.alert('titulo',form.getReference());
         var window = new Ext.window.Window({
             title: 'TRABAJADOR',
-
+            reference: 'ww_trabajador',
+            hegiht: 560,
             width: 560,
             modal: true,
             closable: false,
             resizable: false,
-            items: [form],
-
-            buttons: [{
-                    text: 'CANCELAR',
-                    listeners: {
-                        click: function () {
-                            this.up('window').destroy();
-                        }
-                    }
-                }, {
-                    text: 'GRABAR',
-                    formBind: true,
-                    listeners: {
-                        click: function () {
-                            Ext.Ajax.request({
-                                url: 'insertTrabajador',
-                                jsonData: form.getForm().getFieldValues(),
-                                method: 'POST',
-                                success: function (response, opts) {
-                                    var responseText = Ext.decode(response.responseText);
-                                    window.destroy();
-                                    grid.getStore().reload();
-                                },
-                                failurer: function (response, opts) {
-                                    Ext.Msg.alert('Status', response.status);
-                                }
-                            });
-                        }
-                    }
-                }]
+            items: [form]
         });
 
         window.show();
@@ -105,6 +78,16 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         });
 
         window.show();
+    },
+    
+    
+    onCancelarTrabajador: function(){
+        var form = this.lookupReference('ww_trabajador');
+        form.destroy();
+    },
+    
+    onSaveTrabajador: function(){
+        Ext.Msg.alert('Titulo','cuerpo');
     }
-
+    
 });

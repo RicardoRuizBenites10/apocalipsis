@@ -1,11 +1,15 @@
 Ext.define('GrupoBruce.view.trabajador.Form', {
     extend: 'Ext.form.Panel',
     xtype: 'formTrabajador',
-    reference: 'form_trabajador',
 
     height: 490,
     scrolable: true,
     
+    controller: 'Ctrabajador',
+    viewModel: {
+        type: 'VMtrabajador'
+    },
+
     items: [{
             xtype: 'tabpanel',
             border: false,
@@ -315,6 +319,16 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
                             fieldLabel: 'Avatar'
                         }]
                 }]
+        }],
+   
+    buttons: [{
+            text: 'Cancelar',
+            listeners: {
+                click: 'onCancelar'
+            }
+        }, {
+            text: 'Grabar',
+            iconCls: 'fa fa-save',
+            formBind: true
         }]
-
 });
