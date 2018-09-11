@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
 
     height: 490,
     scrolable: true,
-
+    
     items: [{
             xtype: 'tabpanel',
             border: false,
