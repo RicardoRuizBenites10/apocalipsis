@@ -4,20 +4,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
 
     addTrabajador: function () {
         var grid = this.lookupReference('gridTrabajador');
-        var form = new GrupoBruce.view.trabajador.Form();
         
-        Ext.Msg.alert('titulo',form.getReference());
-        var window = new Ext.window.Window({
-            title: 'TRABAJADOR',
-            reference: 'ww_trabajador',
-            hegiht: 560,
-            width: 560,
-            modal: true,
-            closable: false,
-            resizable: false,
-            items: [form]
+        var window = new GrupoBruce.view.trabajador.Form({
+            title: 'REGISTRO TRABAJADOR'
         });
-
         window.show();
     },
 

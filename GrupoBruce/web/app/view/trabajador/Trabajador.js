@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     items: [{
         xtype: 'listTrabajador',
         reference: 'gridTrabajador',
-        height: 500
+        height: 530
     }]
 
 });
