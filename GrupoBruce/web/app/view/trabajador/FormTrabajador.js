@@ -1,7 +1,10 @@
-Ext.define('GrupoBruce.view.trabajador.Form', {
+Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     extend: 'Ext.window.Window',
-    alias: 'widget.formTrabajador',
-
+    alias: 'widget.wformTrabajador',
+    reference: 'form_trabajador',
+    
+    controller: 'Ctrabajador',
+    
     height: 575,
     width: 550,
     resizable: false,
@@ -10,6 +13,7 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
 
     items: [{
             xtype: 'form',
+            reference: 'form_trabajador',
             items: [{
                     xtype: 'tabpanel',
                     border: false,
@@ -330,7 +334,10 @@ Ext.define('GrupoBruce.view.trabajador.Form', {
                 }, {
                     text: 'Grabar',
                     iconCls: 'fa fa-save',
-                    formBind: true
+                    formBind: true,
+                    listeners:{
+                        click: 'onSaveTrabajador'
+                    }
                 }]
         }]
 

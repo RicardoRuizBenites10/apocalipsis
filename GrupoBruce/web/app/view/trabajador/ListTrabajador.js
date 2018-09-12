@@ -1,6 +1,6 @@
-Ext.define('GrupoBruce.view.trabajador.List', {
+Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
-    xtype: 'listTrabajador',
+    alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
 
     store: {

@@ -7,8 +7,8 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
         'GrupoBruce.view.trabajador.TrabajadorController',
         'GrupoBruce.view.trabajador.TrabajadorModel',
         
-        'GrupoBruce.view.trabajador.List',
-        'GrupoBruce.view.trabajador.Form',
+        'GrupoBruce.view.trabajador.ListTrabajador',
+        'GrupoBruce.view.trabajador.FormTrabajador',
         
         'GrupoBruce.model.Trabajador'
     ],
@@ -19,8 +19,7 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     },
     
     items: [{
-        xtype: 'listTrabajador',
-        reference: 'gridTrabajador',
+        xtype: 'wlistTrabajador',
         height: 530
     }]
 
