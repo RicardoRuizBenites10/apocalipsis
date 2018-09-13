@@ -8,10 +8,7 @@ Ext.define('GrupoBruce.store.Trabajador', {
     proxy: {
         type: 'ajax',
         api: {
-            read: 'trabajadores',
-            create: 'insertTrabajador',
-            update: 'updateTrabajador',
-            destroy: 'deleteTrabajador'
+            read: 'trabajadores'
         },
         reader: {
             type: 'json',

@@ -2,14 +2,16 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
-
-    store: {
-        type: 'Strabajador'
-    },
-
+    
     plugins: [
         'gridfilters'
     ],
+   
+    bind: {
+        store: '{trabajadores}',
+        selection: '{rowSelect}'
+    },
+    allowDeselect: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
 
@@ -40,18 +42,14 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
         }
     ],
 
-    allowDeselect: true,
-    bind: {
-        selection: '{rowSelect}'
-    },
-
     tbar: [{
             text: 'Nuevo',
             iconCls: 'fa fa-plus',
             bind: {
                 disabled: '{rowSelect}'
-            },
-            listeners: {
+            }
+//            ,action: 'add'
+            ,listeners: {
                 click: 'addTrabajador'
             }
         }, {
@@ -70,9 +68,6 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             disabled: true,
             bind: {
                 disabled: '{!rowSelect}'
-            },
-            listeners: {
-                click: 'verTrabajador'
             }
         }],
 
