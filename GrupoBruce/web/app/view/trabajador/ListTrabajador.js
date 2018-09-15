@@ -2,11 +2,11 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
-    
+
     plugins: [
         'gridfilters'
     ],
-   
+
     bind: {
         store: '{trabajadores}',
         selection: '{rowSelect}'
@@ -39,6 +39,36 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
         {
             text: 'Dirección', dataIndex: 'direccion',
             flex: 2, align: 'left'
+        },
+        {
+            text: 'Tipo', dataIndex: 'idTtrabajador', sortable: false,
+            renderer: function (val) {
+                switch (val) {
+                    case 19:
+                        return 'Ejecutivo';
+                    case 20:
+                        return 'Obrero';
+                    case 22:
+                        return 'Empleado';
+                    case 23:
+                        return 'Practicante';
+                }
+            },
+            align: 'left'
+        },
+        {
+            text: 'Tipo', dataIndex: 'idEtrabajador', sortable: false,
+            renderer: function (val) {
+                switch (val) {
+                    case 0:
+                        return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
+                    case 1:
+                        return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
+                    case 2:
+                        return 'Sin vinculo laboral';
+                }
+            },
+            align: 'left'
         }
     ],
 
@@ -49,7 +79,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                 disabled: '{rowSelect}'
             }
 //            ,action: 'add'
-            ,listeners: {
+            , listeners: {
                 click: 'addTrabajador'
             }
         }, {

@@ -10,6 +10,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     resizable: false,
     modal: true,
     closable: false,
+    autoShow: true,
 
     items: [{
             xtype: 'form',

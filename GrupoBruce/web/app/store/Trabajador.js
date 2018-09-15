@@ -5,19 +5,21 @@ Ext.define('GrupoBruce.store.Trabajador', {
 
 
     pageSize: 15,
-    proxy: {
-        type: 'ajax',
-        api: {
-            read: 'trabajadores'
-        },
-        reader: {
-            type: 'json',
-            rootProperty: 'data',
-            totalProperty: 'total'
-        }
-    },
+    //Este proxy reescribe al del modelo
+//    proxy: {
+//        type: 'ajax',
+//        api: {
+//            read: 'trabajadores'
+//        },
+//        reader: {
+//            type: 'json',
+//            rootProperty: 'data',
+//            totalProperty: 'total'
+//        }
+//    },
 
     autoLoad: true,
+    autoSync: true,
     remoteSort: true,
     remoteFilter: true
 

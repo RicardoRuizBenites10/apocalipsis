@@ -50,7 +50,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public void update(Trabajador t) {
+    public void update(Trabajador t){
         Session session = sf.openSession();
         Transaction tx = null;
         try {

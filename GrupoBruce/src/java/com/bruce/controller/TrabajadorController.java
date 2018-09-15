@@ -63,13 +63,13 @@ public class TrabajadorController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/insertTrabajador", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateTrabajador", method = RequestMethod.POST)
     public Map<String,Object> insert(@RequestBody Trabajador trabajador){
         System.err.println("Entro a insert trabajador.");
         Map<String, Object> map = new HashMap<>();
         st.update(trabajador);
         map.put("success", true);
-        map.put("message", "Operación exitosa.");
+        map.put("message", "Actualización[Trabajador] exitosa.");
         return map;
     }
 }

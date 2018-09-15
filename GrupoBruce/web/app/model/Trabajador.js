@@ -38,6 +38,21 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'idComisionrp', type:'int' }
     ],
     
+    proxy: {
+        type: 'ajax',
+        api: {
+            read: 'trabajadores',
+            create: 'insertTrabajador',
+            update: 'updateTrabajador',
+            delete: 'deleteTrabajador'
+        },
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+            totalProperty: 'total'
+        }
+    },
+    
     validators:{
         idTrabajador: ['presence',
             { type: 'length', min: 8, max: 8 }
