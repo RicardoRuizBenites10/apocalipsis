@@ -57,7 +57,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             align: 'left'
         },
         {
-            text: 'Tipo', dataIndex: 'idEtrabajador', sortable: false,
+            text: 'Estado', dataIndex: 'idEtrabajador', sortable: false,
             renderer: function (val) {
                 switch (val) {
                     case 0:

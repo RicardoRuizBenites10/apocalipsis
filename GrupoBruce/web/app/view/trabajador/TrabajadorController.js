@@ -19,41 +19,21 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     onSaveTrabajador: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var record = form.getRecord();
+        var trabajadorModel = form.getRecord();
         if (form.isValid()) { // make sure the form contains valid data before submitting
-            form.updateRecord(record); // update the record with the form data
-            record.save({// save the record to the server
-                success: function (user,action) {
+            form.updateRecord(trabajadorModel); // update the record with the form data
+            trabajadorModel.save({// save the record to the server
+                success: function (user, operation) {
                     window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                    Ext.Msg.alert('Success', 'Operación exitosa.' + operation.successType )
                 },
-                failure: function (user) {
+                failure: function (user, operation) {
                     Ext.Msg.alert('Failure', 'Operacion fallada.')
                 }
             });
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
-
-
-//        Ext.Ajax.request({
-//            url: 'updateTrabajador',
-//            jsonData: form.getForm().getFieldValues(),
-//            method: 'POST',
-//            success: function (response, opts) {
-//                var responseText = Ext.decode(response.responseText);
-//                window.destroy();
-//                Ext.Msg.show({
-//                    title: 'Grupo Bruce',
-//                    msg: responseText.message,
-//                    icon: responseText ? Ext.Msg.INFO : Ext.Msg.ERROR,
-//                    buttons: Ext.Msg.OK
-//                });
-//            },
-//            failurer: function (response, opts) {
-//                Ext.Msg.alert('Status', response.status);
-//            }
-//        });
     }
 
 });

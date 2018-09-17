@@ -6,14 +6,13 @@ Ext.define('GrupoBruce.model.Trabajador', {
     fields: [
         { name: 'apMaterno', type: 'string' },
         { name: 'apPaterno', type: 'string' },
-        {name: 'asignacion', type: 'boolean'},
         {name: 'codigo', type: 'string'},
         { name: 'direccion', type: 'string' },
         { name: 'foto', type: 'string' },
         {name: 'idTrabajador', type: 'string'},
         {name: 'montoBase', type: 'float'},
         {name: 'montoPasaje', type: 'float'},
-        { name: 'nacimiento', type: 'date' },
+        { name: 'nacimiento', type: 'date', dateFormat: 'c' },
         { name: 'nombres', type: 'string' },
         { name: 'nrocuentaCts', type: 'string' },
         { name: 'nrocusppAfiliacion', type: 'string' },
@@ -50,7 +49,13 @@ Ext.define('GrupoBruce.model.Trabajador', {
             type: 'json',
             rootProperty: 'data',
             totalProperty: 'total'
+        },
+        
+        writer: {
+            type: 'json',
+            writeAllFields: true 
         }
+        
     },
     
     validators:{

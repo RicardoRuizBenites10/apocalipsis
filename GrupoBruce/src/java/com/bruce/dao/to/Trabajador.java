@@ -14,8 +14,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "TRABAJADOR",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Trabajador implements java.io.Serializable {
 
@@ -35,7 +35,7 @@ public class Trabajador implements java.io.Serializable {
     private String nrocuentaSueldo;
     private String nrocuentaCts;
     private String nrocusppAfiliacion;
-    
+
     private int idNacionalidad;
     private String idTdocumento;
     private int idGenero;
@@ -52,7 +52,6 @@ public class Trabajador implements java.io.Serializable {
     private Integer idComisionrp;
 
 //    private String fotoB64; //quitado hasta terminar de mapear clases para json
-    
     public Trabajador() {
     }
 
@@ -140,7 +139,6 @@ public class Trabajador implements java.io.Serializable {
 //    public void setFotoB64(String fotoB64) {
 //        this.fotoB64 = fotoB64;
 //    } 
-    
     @Column(name = "AP_PATERNO", nullable = false, length = 25)
     public String getApPaterno() {
         return this.apPaterno;

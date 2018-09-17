@@ -19,7 +19,6 @@ Ext.define('GrupoBruce.store.Trabajador', {
 //    },
 
     autoLoad: true,
-    autoSync: true,
     remoteSort: true,
     remoteFilter: true
 
