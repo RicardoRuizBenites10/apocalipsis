@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             trabajadorModel.save({// save the record to the server
                 success: function (user, operation) {
                     window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.' + operation.successType )
+                    Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
                 failure: function (user, operation) {
                     Ext.Msg.alert('Failure', 'Operacion fallada.')

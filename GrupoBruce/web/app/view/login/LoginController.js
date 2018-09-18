@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {
 
         Ext.Ajax.request({
             url: 'validate',
-            jsonData: formLogin.getForm().getValues(),
+            jsonData: formLogin.getForm().getFieldValues(),
             method: 'POST',
             scope: this,
             success: this.onLoginSuccess,

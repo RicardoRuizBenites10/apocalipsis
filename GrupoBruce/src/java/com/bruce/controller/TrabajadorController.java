@@ -64,12 +64,25 @@ public class TrabajadorController {
     
     @ResponseBody
     @RequestMapping(value = "/updateTrabajador", method = RequestMethod.POST)
-    public Map<String,Object> insert(@RequestBody Trabajador trabajador){
-        System.err.println("Entro a insert trabajador.");
+    public Map<String,Object> update(@RequestBody Trabajador trabajador){
+        System.err.println("Entro a update trabajador.");
         Map<String, Object> map = new HashMap<>();
         st.update(trabajador);
         map.put("success", true);
-        map.put("message", "Actualización[Trabajador] exitosa.");
+        map.put("data", trabajador);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/insertTrabajador", method = RequestMethod.POST)
+    public Map<String,Object> insert(@RequestBody Trabajador trabajador){
+        System.err.println("Entro a insert trabajador.");
+        Map<String, Object> map = new HashMap<>();
+        st.insert(trabajador);
+        map.put("success", true);
+        map.put("data", trabajador);
+        map.put("message", "Actualización exitosa.");
         return map;
     }
 }
