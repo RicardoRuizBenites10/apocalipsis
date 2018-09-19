@@ -774,7 +774,7 @@
       "parameters": {
         "appName": "GrupoBruce",
         "baseClass": "Ext.data.Model",
-        "fields": "carrerra:string:null,codigo:int:null,nombres:string:null",
+        "fields": "codigo:string:null,descripcion:string:null",
         "modelFileName": "Aamon",
         "modelNamespace": "GrupoBruce.model",
         "name": "Aamon"

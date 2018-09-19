@@ -3,7 +3,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
     alias: 'viewmodel.VMtrabajador',
     
     data: {
-        name: 'GrupoBruce'
+        name: 'GrupoBrucewsss',
+        hasrpensionario: false
     },
 
     stores: {

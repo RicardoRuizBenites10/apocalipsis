@@ -2,9 +2,14 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctrabajador',
 
-    addTrabajador: function () {
+    addTrabajador: function () {   
+        var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
+        trabajadorModel.set('idTrabajador', '');
+        this.lookupReference('list_trabajador').getStore().add(trabajadorModel);
+        
         var window = new GrupoBruce.view.trabajador.FormTrabajador();
         window.setTitle('Registrar Trabajador');
+        window.down('form').loadRecord(trabajadorModel);
     },
 
     editTrabajador: function () {

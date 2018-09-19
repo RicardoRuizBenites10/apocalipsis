@@ -112,7 +112,6 @@ public class Trabajador implements java.io.Serializable {
     }
 
     @Id
-
     @Column(name = "ID_TRABAJADOR", unique = true, nullable = false, length = 15)
     public String getIdTrabajador() {
         return this.idTrabajador;

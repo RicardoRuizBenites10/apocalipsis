@@ -2,9 +2,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     extend: 'Ext.window.Window',
     alias: 'widget.wformTrabajador',
     reference: 'form_trabajador',
-    
+
     controller: 'Ctrabajador',
-    
+
     height: 575,
     width: 550,
     resizable: false,
@@ -189,7 +189,11 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     store: {
                                                         type: 'SentidadFinanciera',
                                                         autoLoad: true
+                                                    },
+                                                    bind: {
+                                                        hidden: '{hasctacts}'
                                                     }
+//                                                    hidden: true
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaCts',
@@ -325,7 +329,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                             this.up('window').close();
                         }
                     }
-                },{
+                }, {
                     text: 'Restablecer',
                     listeners: {
                         click: function () {
@@ -336,7 +340,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                     text: 'Grabar',
                     iconCls: 'fa fa-save',
                     formBind: true,
-                    listeners:{
+                    listeners: {
                         click: 'onSaveTrabajador'
                     }
                 }]
