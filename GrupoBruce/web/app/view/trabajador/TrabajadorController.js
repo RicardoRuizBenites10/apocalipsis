@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         
         var window = new GrupoBruce.view.trabajador.FormTrabajador();
         window.setTitle('Registrar Trabajador');
-        window.down('form').loadRecord(trabajadorModel);
+//        window.down('form').loadRecord(trabajadorModel);
     },
 
     editTrabajador: function () {

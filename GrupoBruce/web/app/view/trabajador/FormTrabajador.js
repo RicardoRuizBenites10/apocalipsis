@@ -101,6 +101,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'datefield',
                                                     name: 'nacimiento',
                                                     fieldLabel: 'Fecha nacimiento :',
+                                                    maxValue: '01/01/2000',
                                                     format: 'd/m/Y'
                                                 }, {
                                                     xtype: 'combobox',
