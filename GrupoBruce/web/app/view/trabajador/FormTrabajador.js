@@ -3,6 +3,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     alias: 'widget.wformTrabajador',
     reference: 'form_trabajador',
 
+    viewModel: {
+        type: 'VMtrabajador'
+    },
     controller: 'Ctrabajador',
 
     height: 575,
@@ -41,21 +44,23 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idNacionalidad',
                                                     fieldLabel: 'Nacionalidad:',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idNacionalidad',
-                                                    store: {
-                                                        type: 'Snacionalidad',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{nacionalidads}'
                                                     }
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idTdocumento',
                                                     fieldLabel: 'Tipo documento:',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcionAbreviada',
                                                     valueField: 'idTdocumento',
-                                                    store: {
-                                                        type: 'StipoDocumento',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{tipoDocumentos}'
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
@@ -84,11 +89,12 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idGenero',
                                                     fieldLabel: 'Genero :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idGenero',
-                                                    store: {
-                                                        type: 'Sgenero',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{generos}'
                                                     }
 
                                                 }, {
@@ -100,11 +106,12 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idEcivil',
                                                     fieldLabel: 'Estado civil :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idEcivil',
-                                                    store: {
-                                                        type: 'Secivil',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{ecivils}'
                                                     }
                                                 }
                                             ]
@@ -149,6 +156,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                         layout: 'hbox',
                                         defaults: {
                                             labelAlign: 'top',
+                                            allowBlank: false,
                                             padding: 5
                                         }
                                     },
@@ -158,67 +166,77 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idEtrabajador',
                                                     fieldLabel: 'Situación trabajador :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idEtrabajador',
-                                                    store: {
-                                                        type: 'SestadoTrabajador',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{estadoTrabajadors}'
                                                     }
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idTtrabajador',
                                                     fieldLabel: 'Tipo trabajador :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idTtrabajador',
-                                                    store: {
-                                                        type: 'StipoTrabajador',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{tipoTrabajadors}',
+                                                        selection: '{selectTTrabajador}'
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'codigo',
-                                                    fieldLabel: 'Codigo trabajador :'
+                                                    fieldLabel: 'Codigo trabajador :',
+                                                    allowBlank: true
                                                 }]
                                         }, {
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idEfCts',
                                                     fieldLabel: 'Banco CTS :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'nombre',
                                                     valueField: 'idEfinanciera',
-                                                    store: {
-                                                        type: 'SentidadFinanciera',
-                                                        autoLoad: true
-                                                    },
+                                                    disabled: true,
                                                     bind: {
-                                                        hidden: '{hasctacts}'
+                                                        store: '{entidadFinancieras}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
                                                     }
-//                                                    hidden: true
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaCts',
-                                                    fieldLabel: 'Cuenta CTS :'
+                                                    fieldLabel: 'Cuenta CTS :',
+                                                    disabled: true,
+                                                    bind: {
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
+                                                    }
                                                 }]
                                         }, {
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idFpago',
                                                     fieldLabel: 'Forma Pago :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idFpago',
-                                                    store: {
-                                                        type: 'SformaPago',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{formaPagos}',
+                                                        selection: '{selectFPago}'
                                                     }
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idPeriocidad',
                                                     fieldLabel: 'Periocidad de Pago :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idPeriocidad',
-                                                    store: {
-                                                        type: 'Speriocidad',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{periocidads}'
                                                     }
                                                 }, {
                                                     xtype: 'numberfield',
@@ -232,16 +250,23 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idEfSueldo',
                                                     fieldLabel: 'Banco sueldo :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'nombre',
                                                     valueField: 'idEfinanciera',
-                                                    store: {
-                                                        type: 'SentidadFinanciera',
-                                                        autoLoad: true
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{entidadFinancieras}',
+                                                        disabled: '{!selectFPago.hasnrocuenta}'
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaSueldo',
-                                                    fieldLabel: 'Cuenta sueldo :'
+                                                    fieldLabel: 'Cuenta sueldo :',
+                                                    disabled: true,
+                                                    bind: {
+                                                        disabled: '{!selectFPago.hasnrocuenta}'
+                                                    }
                                                 }, {
                                                     xtype: 'numberfield',
                                                     allowDecimals: true,
@@ -255,66 +280,78 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combobox',
                                                     name: 'idRpensionario',
                                                     fieldLabel: 'Regimen pensionario :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idRpensionario',
                                                     reference: 'cboRPensionario',
                                                     publishes: ['value'],
-                                                    store: {
-                                                        type: 'SregimenPensionario',
-                                                        autoLoad: true
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{regimenPensionarios}',
+                                                        selection: '{selectRPensionario}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
                                                     }
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idComisionrp',
                                                     fieldLabel: 'Comisión :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idComisionrp',
                                                     forceSelection: true,
+                                                    disabled: true,
                                                     bind: {
+                                                        store: '{comisionrps}',
                                                         filters: {
                                                             property: 'idRpensionario',
                                                             value: '{cboRPensionario.value}'
-                                                        }
-                                                    },
-                                                    store: {
-                                                        type: 'Scomisionrp',
-                                                        autoLoad: true
+                                                        },
+                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario} ' && '{!selectRPensionario.cuspp}',
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocusppAfiliacion',
-                                                    fieldLabel: 'Nro CUSPP :'
+                                                    fieldLabel: 'Nro CUSPP :',
+                                                    disabled: true,
+                                                    bind: {
+                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario.cuspp}',
+                                                    }
                                                 }]
                                         }, {
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idEmpresa',
                                                     fieldLabel: 'Empresa :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idEmpresa',
                                                     forceSelection: true,
                                                     reference: 'cboEmpresa',
                                                     publishes: 'value',
-                                                    store: {
-                                                        type: 'Sempresa',
-                                                        autoLoad: true
+                                                    bind: {
+                                                        store: '{empresas}',
+                                                        selection: '{selectEmpresa}'
                                                     }
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idSucursal',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
                                                     displayField: 'direccion',
                                                     valueField: 'idSucursal',
                                                     fieldLabel: 'Lugar de trabajo :',
                                                     flex: 2,
+                                                    disabled: true,
                                                     bind: {
+                                                        disabled: '{!selectEmpresa}',
+                                                        store: '{sucursals}',
                                                         filters: {
                                                             property: 'idEmpresa',
                                                             value: '{cboEmpresa.value}'
                                                         }
-                                                    },
-                                                    store: {
-                                                        type: 'Ssucursal',
-                                                        autoLoad: true
                                                     }
                                                 }]
                                         }]
@@ -326,6 +363,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                     text: 'Cancelar',
                     listeners: {
                         click: function () {
+                            this.up('form').reset();
                             this.up('window').close();
                         }
                     }

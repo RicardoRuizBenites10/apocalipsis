@@ -41,8 +41,8 @@ Ext.define('GrupoBruce.model.Trabajador', {
         type: 'ajax',
         api: {
             read: 'trabajadores',
-            create: 'insertTrabajador',
-            update: 'updateTrabajador',
+            create: 'insertTrabajadord',
+            update: 'updateTrabajadord',
             delete: 'deleteTrabajador'
         },
         reader: {

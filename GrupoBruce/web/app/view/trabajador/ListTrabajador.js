@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     ],
 
     bind: {
-        store: '{trabajadores}',
+        store: '{trabajadors}',
         selection: '{rowSelect}'
     },
     allowDeselect: true,
