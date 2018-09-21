@@ -208,11 +208,12 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
+                                                    reference: 'ref_txtnrocuenta',
                                                     name: 'nrocuentaCts',
                                                     fieldLabel: 'Cuenta CTS :',
-                                                    disabled: true,
+                                                    hidden: true,
                                                     bind: {
-                                                        disabled: '{!selectTTrabajador.hasctacts}'
+                                                        hidden: '{!selectTTrabajador.hasctacts}'
                                                     }
                                                 }]
                                         }, {
