@@ -214,15 +214,15 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     disabled: true,
                                                     bind: {
                                                         disabled: '{!selectTTrabajador.hasctacts}'
-                                                    },
-                                                    listeners: {
-                                                        change: function (field, newValue, oldValue) {
-                                                            if(field.isDisabled){
-                                                                Ext.Msg.alert('Titulo','cuerpo: ' + field.isDisabled)
-                                                            }
-                                                            field.setValue(newValue.toUpperCase());
-                                                        }
                                                     }
+                                                    ,
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                        } 
+                                                    }
+                                                    
                                                 }]
                                         }, {
                                             items: [{
@@ -318,7 +318,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             property: 'idRpensionario',
                                                             value: '{cboRPensionario.value}'
                                                         },
-                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario} ' && '{!selectRPensionario.cuspp}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario} ' && '{!selectRPensionario.cuspp}'
                                                     }
                                                 }, {
                                                     xtype: 'textfield',
@@ -326,7 +326,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     fieldLabel: 'Nro CUSPP :',
                                                     disabled: true,
                                                     bind: {
-                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario.cuspp}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}' && '{!selectRPensionario.cuspp}'
                                                     }
                                                 }]
                                         }, {

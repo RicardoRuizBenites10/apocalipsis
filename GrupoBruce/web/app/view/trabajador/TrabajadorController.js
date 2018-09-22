@@ -5,11 +5,11 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     addTrabajador: function () {   
         var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
         trabajadorModel.set('idTrabajador', '');
-        this.lookupReference('list_trabajador').getStore().add(trabajadorModel);
+//        this.lookupReference('list_trabajador').getStore().add(trabajadorModel);
         
         var window = new GrupoBruce.view.trabajador.FormTrabajador();
         window.setTitle('Registrar Trabajador');
-//        window.down('form').loadRecord(trabajadorModel);
+        window.down('form').loadRecord(trabajadorModel);
     },
 
     editTrabajador: function () {
