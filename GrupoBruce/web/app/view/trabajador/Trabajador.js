@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     
     items: [{
         xtype: 'wlistTrabajador',
-        height: 530
+        height: 575
     }]
 
 });
