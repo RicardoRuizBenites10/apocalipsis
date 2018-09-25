@@ -116,7 +116,7 @@ public class Metodo {
     }
 
     public static String getAvatarB64(String codAvatar, String nomAvatar) {
-        if (nomAvatar != null && Metodo.CheckFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
+        if (nomAvatar != null && !nomAvatar.equalsIgnoreCase("") && Metodo.CheckFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
             byte[] bytes = OpenFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
 //            nomAvatar = nomAvatar + ";" + "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
             nomAvatar = "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);

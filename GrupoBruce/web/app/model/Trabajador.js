@@ -9,6 +9,7 @@ Ext.define('GrupoBruce.model.Trabajador', {
         {name: 'codigo', type: 'string'},
         { name: 'direccion', type: 'string' },
         { name: 'foto', type: 'string' },
+        { name: 'fotoB64', type: 'string' },
         {name: 'idTrabajador', type: 'string'},
         {name: 'montoBase', type: 'float', defaulValue: 1542},
         {name: 'montoPasaje', type: 'float'},

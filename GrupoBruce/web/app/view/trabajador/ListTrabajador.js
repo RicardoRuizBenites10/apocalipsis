@@ -2,6 +2,10 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
+    
+//    requires: [
+//        'GrupoBruce.store.Trabajador'
+//    ],
 
     plugins: [
         'gridfilters'
@@ -9,7 +13,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
 
     bind: {
         store: '{trabajadors}',
-        selection: '{rowSelect}'
+        selection: '{selectTrabajador}'
     },
     allowDeselect: true,
 
@@ -35,12 +39,11 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             text: 'Nombres', dataIndex: 'nombres',
             width: 160, align: 'left'
         }, {
-            text: 'Teléfono', dataIndex: 'telefono'},
-        {
+            text: 'Teléfono', dataIndex: 'telefono'
+        }, {
             text: 'Dirección', dataIndex: 'direccion',
             flex: 2, align: 'left'
-        },
-        {
+        }, {
             text: 'Tipo', dataIndex: 'idTtrabajador', sortable: false,
             renderer: function (val) {
                 switch (val) {
@@ -76,7 +79,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             text: 'Nuevo',
             iconCls: 'fa fa-plus',
             bind: {
-                disabled: '{rowSelect}'
+                disabled: '{selectTrabajador}'
             }, 
             listeners: {
                 click: 'addTrabajador'
@@ -86,7 +89,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             iconCls: 'fa fa-edit',
             disabled: true,
             bind: {
-                disabled: '{!rowSelect}'
+                disabled: '{!selectTrabajador}'
             },
             listeners: {
                 click: 'editTrabajador'
@@ -96,28 +99,29 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             iconCls: 'fa fa-search',
             disabled: true,
             bind: {
-                disabled: '{!rowSelect}'
+                disabled: '{!selectTrabajador}'
             }
         }, '-', {
             text: 'Contratos',
             iconCls: 'fa fa-files-o',
-            disabled: true,
+            hidden: true,
             bind: {
-                disabled: '{!rowSelect}'
+                hidden: '{!selectTrabajador}',
+                tooltip: 'Contratos'
             }
         }, {
             text: 'Vacaciones',
             iconCls: 'fa fa-gamepad',
-            disabled: true,
+            hidden: true,
             bind: {
-                disabled: '{!rowSelect}'
+                hidden: '{!selectTrabajador}'
             }
         }, {
             text: 'Hijos',
             iconCls: 'fa fa-child',
-            disabled: true,
+            hidden: true,
             bind: {
-                disabled: '{!rowSelect}'
+                hidden: '{hasChild}'
             }
         }],
 

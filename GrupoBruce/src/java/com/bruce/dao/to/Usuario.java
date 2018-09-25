@@ -13,8 +13,8 @@ import org.hibernate.annotations.ColumnTransformer;
  */
 @Entity
 @Table(name = "USUARIO",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Usuario implements java.io.Serializable {
 
@@ -23,6 +23,8 @@ public class Usuario implements java.io.Serializable {
     private byte[] clave;
     private boolean estado;
     private boolean acceder;
+
+    private String deClave;
 
     public Usuario() {
     }
@@ -34,8 +36,6 @@ public class Usuario implements java.io.Serializable {
         this.estado = estado;
         this.acceder = acceder;
     }
-    
-    private String deClave;
 
     @Id
     @Column(name = "ID_USUARIO", unique = true, nullable = false, length = 15)
@@ -65,7 +65,7 @@ public class Usuario implements java.io.Serializable {
     public void setClave(byte[] clave) {
         this.clave = clave;
     }
-    
+
     @Transient
     public String getDeClave() {
         return new String(clave);

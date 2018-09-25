@@ -26,7 +26,9 @@ Ext.define('GrupoBruce.view.login.LoginController', {
 
     onLoginSuccess: function (response, opts) {
         var responseText = Ext.decode(response.responseText);
-        localStorage.setItem("sesionUsuario", responseText.success);
+        localStorage.setItem("sesionEstado", responseText.success);
+        localStorage.setItem("sesionUsuario", Ext.JSON.encode(responseText.data));
+
         if(responseText.success){
             this.getView().destroy();
             Ext.create({
@@ -40,6 +42,7 @@ Ext.define('GrupoBruce.view.login.LoginController', {
                 botones: Ext.Msg.OK
             });
         }
+        
     },
     
     onLoginFailure: function (response, opts) {

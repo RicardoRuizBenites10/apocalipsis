@@ -9,8 +9,11 @@ import com.bruce.dao.to.Usuario;
 import com.bruce.dao.validator.UsuarioValidator;
 import com.bruce.services.design.ITrabajadorService;
 import com.bruce.services.design.IUsuarioService;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,18 +32,17 @@ public class UsuarioController {
     private IUsuarioService su;
     @Autowired
     private ITrabajadorService st;
-    
+
     private final UsuarioValidator validator;
 
     public UsuarioController() {
         this.validator = new UsuarioValidator();
     }
-    
+
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    public ModelAndView accediendo() {
 //        return new ModelAndView("intranet/login", "usuario", new Usuario());
 //    }
-
 //    @RequestMapping(value = "/validate", method = RequestMethod.POST)
 //    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
 //        String urlResult = "intranet/login";
@@ -55,29 +57,27 @@ public class UsuarioController {
 //                Date fs = new Date();
 //                sesion.setAttribute("ssFechaHora", fs);
 //                sesion.setMaxInactiveInterval(3 * 60);
-    
 //                urlResult = "redirect:inicio";
 //            }
 //        }
 //        return urlResult;
 //    }
-    
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public Map<String,Object> validarUsuario(@RequestBody Usuario usuario) {
+    public Map<String, Object> validarUsuario(@RequestBody Usuario usuario) {
         Map<String, Object> map = new HashMap<>();
         Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
-        if (usu!=null) {
+        if (usu != null) {
             map.put("success", true);
             map.put("message", "Usuario validado.");
             map.put("data", st.find(usu.getIdUsuario()));
-        }else{
+        } else {
             map.put("success", false);
             map.put("message", "El usuario y/o contraseña no coinciden.");
         }
         return map;
     }
-    
+
 //    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
 //    public String inicioUsuario() {
 //        return "intranet/inicio";

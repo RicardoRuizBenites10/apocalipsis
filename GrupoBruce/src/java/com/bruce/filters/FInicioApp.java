@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author SISTEMAS
  */
-@WebFilter(filterName = "FInicioApp", urlPatterns = {"/login"})
+@WebFilter(filterName = "FInicioApp", urlPatterns = {"/welcome"})
 public class FInicioApp implements Filter {
     private FilterConfig filterConfig;
     
@@ -36,7 +36,10 @@ public class FInicioApp implements Filter {
         HttpServletResponse res = (HttpServletResponse)response;
         HttpSession session = req.getSession(true);
         
+            System.err.println("FNavegabilidad: Activado");
         if(session.getAttribute("ssUsuario")!=null){
+            
+            System.err.println("FNavegabilidad: Activadof");
             res.sendRedirect("inicio");
         }else{
             chain.doFilter(request, response);

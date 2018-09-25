@@ -8,7 +8,6 @@ Ext.define('GrupoBruce.view.main.Main', {
 
         'GrupoBruce.view.main.MainController',
         'GrupoBruce.view.main.MainModel',
-        'GrupoBruce.view.main.List',
 
         'GrupoBruce.view.trabajador.Trabajador'
     ],
@@ -31,7 +30,7 @@ Ext.define('GrupoBruce.view.main.Main', {
         },
         title: {
             bind: {
-                text: '{name}'
+                text: '{appname}'
             },
             flex: 0
         },
@@ -39,7 +38,7 @@ Ext.define('GrupoBruce.view.main.Main', {
                 xtype: 'button',
                 iconCls: 'fa fa-user',
                 bind: {
-                    text: '{usuario}'
+                    text: '{thisName}'
                 },
                 menu: [{
                         text: 'Mi perfil'
@@ -98,9 +97,9 @@ Ext.define('GrupoBruce.view.main.Main', {
         }, {
             title: 'Logistica',
             iconCls: 'fa-folder-o',
-            items: [{
-                    xtype: 'mainlist'
-                }]
+            bind: {
+                html: '{loremIpsum}'
+            }
         }, {
             title: 'Ingeniería y diseño',
             iconCls: 'fa-crop',

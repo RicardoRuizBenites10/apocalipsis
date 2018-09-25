@@ -20,7 +20,6 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Genero',
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.Periocidad',
-        'GrupoBruce.store.Personnel',
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Sucursal',
         'GrupoBruce.store.Trabajador',
@@ -29,11 +28,10 @@ Ext.define('GrupoBruce.Application', {
     ],
 
     launch: function () {
-        var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
+        var loggedIn = Ext.decode(localStorage.getItem("sesionEstado"));
         Ext.create({
-                xtype: loggedIn ? 'app-main' : 'login'
-            });
-
+            xtype: loggedIn ? 'app-main' : 'login'
+        });
     },
 
     onAppUpdate: function () {

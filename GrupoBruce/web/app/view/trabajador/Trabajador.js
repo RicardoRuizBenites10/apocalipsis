@@ -22,10 +22,6 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
         xtype: 'wlistTrabajador',
         height: 575,
         flex: 4
-    },{
-        xtype: 'panel',
-        flex: 1,
-        title: 'Relacionados'
     }]
 
 });
