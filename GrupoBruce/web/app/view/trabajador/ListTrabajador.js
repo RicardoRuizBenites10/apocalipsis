@@ -77,9 +77,8 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             iconCls: 'fa fa-plus',
             bind: {
                 disabled: '{rowSelect}'
-            }
-//            ,action: 'add'
-            , listeners: {
+            }, 
+            listeners: {
                 click: 'addTrabajador'
             }
         }, {
@@ -92,9 +91,30 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             listeners: {
                 click: 'editTrabajador'
             }
-        }, '-', {
+        }, {
             text: 'Ver',
             iconCls: 'fa fa-search',
+            disabled: true,
+            bind: {
+                disabled: '{!rowSelect}'
+            }
+        }, '-', {
+            text: 'Contratos',
+            iconCls: 'fa fa-files-o',
+            disabled: true,
+            bind: {
+                disabled: '{!rowSelect}'
+            }
+        }, {
+            text: 'Vacaciones',
+            iconCls: 'fa fa-gamepad',
+            disabled: true,
+            bind: {
+                disabled: '{!rowSelect}'
+            }
+        }, {
+            text: 'Hijos',
+            iconCls: 'fa fa-child',
             disabled: true,
             bind: {
                 disabled: '{!rowSelect}'
