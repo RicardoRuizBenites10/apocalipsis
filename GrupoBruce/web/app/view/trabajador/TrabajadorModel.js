@@ -65,7 +65,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
     },
     
     formulas: {
-
+        hasChild: function(get){
+            var select = get('selectTrabajador');
+            return select ? select.get('nroHijos') === 0 : true;
+        }
     }
 
 });

@@ -107,7 +107,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             hidden: true,
             bind: {
                 hidden: '{!selectTrabajador}',
-                tooltip: 'Contratos'
+                tooltip: 'Contratos: ' + '{selectTrabajador.nroHijos}'
             }
         }, {
             text: 'Vacaciones',
