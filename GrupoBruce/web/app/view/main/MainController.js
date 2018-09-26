@@ -15,7 +15,7 @@ Ext.define('GrupoBruce.view.main.MainController', {
         }
     },
     
-    onClickButton: function () {
+    onCerrarSesion: function () {
         // Remove the localStorage key/value
         localStorage.removeItem('sesionEstado');
         localStorage.removeItem('sesionUsuario');

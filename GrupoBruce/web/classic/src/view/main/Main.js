@@ -36,16 +36,18 @@ Ext.define('GrupoBruce.view.main.Main', {
         },
         items: [{
                 xtype: 'button',
-                iconCls: 'fa fa-user',
                 bind: {
                     text: '{thisName}'
                 },
-                menu: [{
-                        text: 'Mi perfil'
-                    }, {
-                        text: 'Cerrar sesión',
-                        handler: 'onClickButton'
-                    }]
+                menu: {
+                    width: 235,
+                    items: [{
+                            text: 'Mi perfil'
+                        }, {
+                            text: 'Cerrar sesión',
+                            handler: 'onCerrarSesion'
+                        }]
+                }
             }]
     },
 
@@ -68,7 +70,7 @@ Ext.define('GrupoBruce.view.main.Main', {
     },
 
     defaults: {
-        bodyPadding: 10,
+        bodyPadding: 0,
         tabConfig: {
             plugins: 'responsive',
             responsiveConfig: {
@@ -104,10 +106,7 @@ Ext.define('GrupoBruce.view.main.Main', {
             title: 'Ingeniería y diseño',
             iconCls: 'fa-crop',
             items: [{
-                    title: 'Módulo de Ingeniería',
-                    html: 'dadada',
-                    closable: true,
-                    iconCls: 'fa fa-home'
+                    title: 'Módulo de Ingeniería'
                 }]
         }, {
             title: 'Producción',
