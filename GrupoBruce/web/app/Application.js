@@ -12,6 +12,7 @@ Ext.define('GrupoBruce.Application', {
 
     stores: [
         'GrupoBruce.store.Comisionrp',
+        'GrupoBruce.store.Contrato',
         'GrupoBruce.store.Ecivil',
         'GrupoBruce.store.Empresa',
         'GrupoBruce.store.EntidadFinanciera',

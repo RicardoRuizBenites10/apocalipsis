@@ -13,8 +13,7 @@ Ext.define('GrupoBruce.view.main.Main', {
         'Ext.MessageBox',
 
         'GrupoBruce.view.main.MainController',
-        'GrupoBruce.view.main.MainModel',
-        'GrupoBruce.view.main.List'
+        'GrupoBruce.view.main.MainModel'
     ],
 
     controller: 'main',
@@ -33,11 +32,7 @@ Ext.define('GrupoBruce.view.main.Main', {
         {
             title: 'Home',
             iconCls: 'x-fa fa-home',
-            layout: 'fit',
-            // The following grid shares a store with the classic version's grid as well!
-            items: [{
-                xtype: 'mainlist'
-            }]
+            layout: 'fit'
         },{
             title: 'Users',
             iconCls: 'x-fa fa-user',

@@ -14,11 +14,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO{
     
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -81,6 +83,25 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO{
         try{
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM ContratoTrabajador");
+            result = query.list();
+            tx.commit();
+        }catch(HibernateException he){
+            if(tx!=null) tx.rollback();
+        }finally{
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public List<ContratoTrabajador> filterByTrabajador(String idTrabajador) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List result = null;
+        try{
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM ContratoTrabajador ct WHERE ct.id.idTrabajador = :idTrabajador");
+            query.setParameter("idTrabajador", idTrabajador);
             result = query.list();
             tx.commit();
         }catch(HibernateException he){

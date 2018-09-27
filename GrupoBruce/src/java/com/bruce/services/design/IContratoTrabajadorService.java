@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.ContratoTrabajador;
 import java.util.List;
 
 /**
  *
- * @author SISTEMAS
+ * @author RICARDO
  */
-public interface IContratoTrabajadorDAO extends IEntidadDAO<ContratoTrabajador>{
-    public List<ContratoTrabajador> filterByTrabajador(String idTrabajador);
+public interface IContratoTrabajadorService extends IEntidadService<ContratoTrabajador>{
+    public List<ContratoTrabajador> findByTrabajador(String idTrabajador);
 }

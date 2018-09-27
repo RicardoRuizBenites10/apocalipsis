@@ -39,5 +39,17 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+    },
+    
+    onContratosTrabajador: function(){
+        Ext.create('GrupoBruce.view.contrato.Contrato');
+    },
+    
+    onBodyTrabajador: function(){
+        var panel = this.lookupReference('body_trabajador');
+        var gridTrabajador = Ext.create('GrupoBruce.view.trabajador.ListTrabajador',{height: 530});
+        panel.add(gridTrabajador);
     }
+    
+    
 });

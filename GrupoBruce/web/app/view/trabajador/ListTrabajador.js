@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
-    
+
 //    requires: [
 //        'GrupoBruce.store.Trabajador'
 //    ],
@@ -77,16 +77,16 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
 
     tbar: [{
             text: 'Nuevo',
-            iconCls: 'fa fa-plus',
+            iconCls: 'x-fa fa-plus',
             bind: {
                 disabled: '{selectTrabajador}'
-            }, 
+            },
             listeners: {
                 click: 'addTrabajador'
             }
         }, {
             text: 'Editar',
-            iconCls: 'fa fa-edit',
+            iconCls: 'x-fa fa-edit',
             disabled: true,
             bind: {
                 disabled: '{!selectTrabajador}'
@@ -96,29 +96,29 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             }
         }, {
             text: 'Ver',
-            iconCls: 'fa fa-search',
+            iconCls: 'x-fa fa-search',
             disabled: true,
             bind: {
                 disabled: '{!selectTrabajador}'
             }
         }, '-', {
             text: 'Contratos',
-            iconCls: 'fa fa-files-o',
+            iconCls: 'x-fa fa-files-o',
             hidden: true,
             bind: {
-                hidden: '{!selectTrabajador}',
-                tooltip: 'Contratos: ' + '{selectTrabajador.nroHijos}'
-            }
+                hidden: '{!selectTrabajador}'
+            },
+            handler: 'onContratosTrabajador'
         }, {
             text: 'Vacaciones',
-            iconCls: 'fa fa-gamepad',
+            iconCls: 'x-fa fa-gamepad',
             hidden: true,
             bind: {
                 hidden: '{!selectTrabajador}'
             }
         }, {
             text: 'Hijos',
-            iconCls: 'fa fa-child',
+            iconCls: 'x-fa fa-child',
             hidden: true,
             bind: {
                 hidden: '{hasChild}'
