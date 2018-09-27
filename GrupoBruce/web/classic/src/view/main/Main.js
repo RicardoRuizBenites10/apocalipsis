@@ -91,10 +91,55 @@ Ext.define('GrupoBruce.view.main.Main', {
             title: ' Recursos Humanos',
             iconCls: 'fa-male',
             items: [{
-                    bind: {
-                        title: '{title_rrhh}'
+                    xtype: 'menu',
+                    //showSeparator:true,
+                    //cls:'main-menu',
+                    floating: false,
+                    ignoreParentClicks: true,
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch',
+                        pack: 'start'
                     },
-                    xtype: 'trabajadors'
+                    defaults: {
+                        menuAlign: 'tl-bl?'
+                    },
+                    items: [
+                        {
+                            text: 'Mantenimientos',
+                            menu: {
+//                                cls: 'main-sub-menu',
+                                items: [
+                                    {
+                                        text: 'Home'
+                                    },
+                                    {
+                                        text: 'Dashboard'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            text: 'Trabajador',
+                            menu: {
+                                cls: 'main-sub-menu',
+                                items: [
+                                    {
+                                        text: 'Contact'
+                                    },
+                                    {
+                                        text: 'Account'
+                                    },
+                                    {
+                                        text: 'Company'
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }, {
+                    xtype: 'trabajadors',
+                    bodyPadding: 10
                 }]
         }, {
             title: 'Logistica',
