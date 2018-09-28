@@ -16,17 +16,22 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     resizable: false,
     modal: true,
     closable: true,
-    autoShow: true,
 
     items: [{
             xtype: 'grid',
-
+            reference: 'list_contrato',
+            
+            bind: {
+                store: '{ScontratoTrabajador}'
+            },
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
                     text: 'Fecha Inicio',
+                    dataIndex: 'fechaInicio',
                     flex: 1
                 }, {
                     text: 'Fecha fin',
+                    dataIndex: 'fechaFin',
                     flex: 1
                 }, {
                     text: 'Tipo contrato',
@@ -47,7 +52,7 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
                 text: 'Modificar'
             }]
     },
-    
+
     dockedItems: [{
             xtype: 'pagingtoolbar',
             dock: 'bottom',
@@ -55,5 +60,5 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
             emptyMsg: "No hay registros que mostrar"
         }]
-    
+
 });

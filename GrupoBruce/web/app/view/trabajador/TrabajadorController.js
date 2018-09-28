@@ -41,15 +41,22 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         }
     },
     
-    onContratosTrabajador: function(){
-        Ext.create('GrupoBruce.view.contrato.Contrato');
-    },
-    
     onBodyTrabajador: function(){
         var panel = this.lookupReference('body_trabajador');
         var gridTrabajador = Ext.create('GrupoBruce.view.trabajador.ListTrabajador',{height: 530});
         panel.add(gridTrabajador);
-    }
+    },
     
+    onContratosTrabajador: function(){
+        var panelContrato = Ext.create('GrupoBruce.view.contrato.Contrato');
+        var store = panelContrato.lookupReference('list_contrato').getStore();
+        store.load({
+            params:{
+                idTrabajador: '46099060'
+            },
+            autoLoad: true
+        });
+        panelContrato.show();
+    }
     
 });

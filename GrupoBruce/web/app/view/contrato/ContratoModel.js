@@ -3,6 +3,12 @@ Ext.define('GrupoBruce.view.contrato.ContratoModel', {
     alias: 'viewmodel.contrato-contrato',
     data: {
         name: 'GrupoBruce'
+    },
+    
+    stores: {
+        contratos: {
+            type: 'ScontratoTrabajador'
+        }
     }
 
 });
