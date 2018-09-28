@@ -1,22 +1,22 @@
 Ext.define('GrupoBruce.model.ContratoTrabajador', {
     extend: 'Ext.data.Model',
 
-    idProperty: 'contratoTrabajadorIdId',
+    idProperty: 'idTrabajador',
     fields: [
+        { name: 'idTrabajador', type: 'string' },
+        { name: 'idContrato', type: 'int' },
         {name: 'fechaCese', type: 'date'},
         {name: 'fechaFin', type: 'date'},
         {name: 'fechaInicio', type: 'date'},
         {name: 'idTcontrato', type: 'string'},
         {name: 'idEcontrato', type: 'int'},
-        {name: 'idTiempo', type: 'int'},
-        
-        {name: 'contratoTrabajadorIdId', reference: 'GrupoBruce.model.ContratoTrabajadorId', unique: true}
+        {name: 'idTiempo', type: 'int'}
     ],
 
     proxy: {
         type: 'ajax',
         api: {
-            read: 'contratoByTrabajador?idTrabajador=46099060',
+            read: 'contratoByTrabajador',
             create: 'insertContrato',
             update: 'updateContrato',
             delete: 'deleteContrato'

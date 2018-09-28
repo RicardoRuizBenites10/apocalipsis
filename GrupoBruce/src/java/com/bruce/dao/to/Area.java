@@ -31,9 +31,7 @@ public class Area  implements java.io.Serializable {
        this.situacion = situacion;
     }
    
-     @Id 
-
-    
+    @Id 
     @Column(name="ID_AREA", unique=true, nullable=false)
     public int getIdArea() {
         return this.idArea;

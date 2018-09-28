@@ -20,9 +20,8 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     items: [{
             xtype: 'grid',
             reference: 'list_contrato',
-            
             bind: {
-                store: '{ScontratoTrabajador}'
+                store: '{contratos}'
             },
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
@@ -45,7 +44,8 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     tbar: {
         items: [{
                 iconCls: 'x-fa fa-plus',
-                text: 'Nuevo'
+                text: 'Nuevo',
+                handler: 'addContrato'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,

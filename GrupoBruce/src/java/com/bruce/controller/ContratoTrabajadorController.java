@@ -36,6 +36,19 @@ public class ContratoTrabajadorController {
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
+        map.put("total", 1);
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="/contratos", method = RequestMethod.GET)
+    public Map<String, Object> getAll(){
+        Map<String, Object> map = new HashMap<>();
+        List<ContratoTrabajador> lista = se.findAll();
+        
+        map.put("success", true);
+        map.put("message", "Datos encontrados");
+        map.put("data", lista);
         return map;
     }
     
