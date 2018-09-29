@@ -6,16 +6,23 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
         'GrupoBruce.view.contrato.ContratoModel'
     ],
 
-    controller: 'contrato-contrato',
+//    controller: 'CcontratoTrabajador',
+//    viewModel: {
+//        type: 'VMcontratoTrabajador'
+//    },
+    
+    controller: 'Ctrabajador',
     viewModel: {
-        type: 'contrato-contrato'
+        type: 'VMtrabajador'
     },
+
 
     height: 400,
     width: 600,
     resizable: false,
     modal: true,
     closable: true,
+    autoShow: true,
 
     items: [{
             xtype: 'grid',

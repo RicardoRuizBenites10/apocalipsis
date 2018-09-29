@@ -61,6 +61,16 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
         sucursals: {
             type: 'Ssucursal',
             autoLoad: true
+        },
+        contratos: {
+            type: 'ScontratoTrabajador',
+            listeners: {
+                beforeload: function (store) {
+                    var idTrabajador = "46099060";//Ext.getCmp('filterText').value;
+                    store.getProxy().setExtraParam("idTrabajador", idTrabajador);
+                }
+            }
+            , autoLoad: true
         }
     },
     

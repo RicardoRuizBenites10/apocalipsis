@@ -3,8 +3,8 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
 
     idProperty: 'idTrabajador',
     fields: [
-        { name: 'idTrabajador', type: 'string' },
-        { name: 'idContrato', type: 'int' },
+        {name: 'idTrabajador', type: 'string'},
+        {name: 'idContrato', type: 'int'},
         {name: 'fechaCese', type: 'date'},
         {name: 'fechaFin', type: 'date'},
         {name: 'fechaInicio', type: 'date'},
@@ -31,4 +31,5 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
             writeAllFields: true
         }
     }
+
 });

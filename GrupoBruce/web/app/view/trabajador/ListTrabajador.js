@@ -3,10 +3,6 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     alias: 'widget.wlistTrabajador',
     reference: 'list_trabajador',
 
-//    requires: [
-//        'GrupoBruce.store.Trabajador'
-//    ],
-
     plugins: [
         'gridfilters'
     ],
