@@ -63,6 +63,9 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     dockedItems: [{
             xtype: 'pagingtoolbar',
             dock: 'bottom',
+            bind: {
+                store: '{contratos}'
+            },
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
             emptyMsg: "No hay registros que mostrar"
