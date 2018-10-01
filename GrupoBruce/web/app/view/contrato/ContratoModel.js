@@ -3,7 +3,8 @@ Ext.define('GrupoBruce.view.contrato.ContratoModel', {
     alias: 'viewmodel.VMcontratoTrabajador',
     
     data: {
-        recordTrabajador: null
+        recordTrabajador: null,
+        my_idTrabajador: '46099060'
     },
 
     stores: {
@@ -12,7 +13,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoModel', {
             listeners: {
                 beforeload: function (store) {
                     var idTrabajador = '{my_idTrabajador}';//Ext.getCmp('filterText').value;
-                    store.getProxy().setExtraParam("idTrabajador", '{my_idTrabajador}');
+                    store.getProxy().setExtraParam("idTrabajador", idTrabajador);
                 }
             }
             , autoLoad: true
