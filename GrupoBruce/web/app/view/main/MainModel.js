@@ -51,7 +51,8 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                             }, {
                                 text: 'Trabajador',
                                 iconCls: 'x-fa fa-male',
-                                leaf: true
+                                leaf: true,
+                                handler: 'onShowBody'
                             }]
                     }, {
                         text: 'Logistica',

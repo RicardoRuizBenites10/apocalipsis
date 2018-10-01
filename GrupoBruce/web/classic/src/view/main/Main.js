@@ -1,46 +1,30 @@
 Ext.define('GrupoBruce.view.main.Main', {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.panel.Panel',
     xtype: 'app-main',
 
     requires: [
         'Ext.plugin.Viewport',
         'GrupoBruce.view.main.MainController',
-        'GrupoBruce.view.main.MainModel'
+        'GrupoBruce.view.main.MainModel',
 
-        ,'GrupoBruce.view.trabajador.Trabajador'
+        'GrupoBruce.view.trabajador.Trabajador'
     ],
 
     controller: 'main',
     viewModel: 'main',
-
     plugins: 'viewport',
 
-    ui: 'navigation',
-
-    tabBarHeaderPosition: 1,
-
-    titleRotation: 0,
-    tabRotation: 0,
-
+    title: 'GRUPO BRUCE S.A.',
+    iconCls: 'x-fa fa-bus',
     header: {
-        layout: {
-            align: 'stretchmax'
-        },
-        title: {
-            bind: {
-                text: '{appname}'
-            },
-            flex: 0
-        },
         items: [{
                 xtype: 'button',
-                bind: {
-                    text: '{thisName}'
-                },
+                iconCls: 'x-fa fa-list',
+                text: 'Mi cuenta',
                 menu: {
-                    width: 235,
                     items: [{
-                            text: 'Mi perfil'
+                            text: 'Mi perfil',
+                            checkHandler: 'onItemCheck'
                         }, {
                             text: 'Cerrar sesión',
                             handler: 'onCerrarSesion'
@@ -49,80 +33,41 @@ Ext.define('GrupoBruce.view.main.Main', {
             }]
     },
 
-    tabBar: {
-        flex: 1,
-        scrollable: true,
-        layout: {
-            align: 'stretch',
-            overflowHandler: 'none'
-        }
-    },
-
-    responsiveConfig: {
-        tall: {
-            headerPosition: 'top'
-        },
-        wide: {
-            headerPosition: 'left'
-        }
-    },
-
-    defaults: {
-        bodyPadding: 0,
-        tabConfig: {
-            plugins: 'responsive',
-            responsiveConfig: {
-                wide: {
-                    iconAlign: 'left',
-                    textAlign: 'left'
-                },
-                tall: {
-                    iconAlign: 'top',
-                    textAlign: 'center',
-                    width: 60
-                }
-            }
-        }
-    },
-
+    layout: 'border',
     items: [{
-            title: ' Recursos Humanos',
-            iconCls: 'fa-male',
+            region: 'west',
+            width: 250,
+            split: false,
+//            collapsible: true,
+            border: true,
+            scrollable: 'y',
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
             items: [{
-                    xtype: 'panel',
-                    items: [{
-                            xtype: 'trabajadors'
-                        }]
+                    xtype: 'treelist',
+                    reference: 'treelist',
+                    cls: 'treelist-with-nav',
+                    bind: '{navItems}'
+                }]
+
+        }, {
+            region: 'center',
+            bodyPadding: 0,
+            layout: 'border',
+            items: [{
+                    region: 'center',
+                    bodyPadding: 0
+                }, {
+                    region: 'south',
+                    border: true,
+                    html: '<h4>EPRESA CARROCERA "FACTORIA BRUCE S.A." </h4>'
                 }]
         }, {
-            title: 'Logistica',
-            iconCls: 'fa-folder-o',
-            bind: {
-                html: '{loremIpsum}'
-            }
-        }, {
-            title: 'Ingeniería y diseño',
-            iconCls: 'fa-crop',
-            items: [{
-                    title: 'Módulo de Ingeniería'
-                }]
-        }, {
-            title: 'Producción',
-            iconCls: 'fa-cog',
-            bind: {
-                html: '{loremIpsum}'
-            }
-        }, {
-            title: 'Control de calidad',
-            iconCls: 'fa-check-square-o'
-        }, {
-            title: 'Sistemas',
-            iconCls: 'fa-code',
-            bind: {
-                html: '{loremIpsum}'
-            }
-        }, {
-            title: 'Reportes',
-            iconCls: 'fa-bar-chart-o'
-        }]
+            region: 'north',
+            border: true
+        }
+    ]
+
 });

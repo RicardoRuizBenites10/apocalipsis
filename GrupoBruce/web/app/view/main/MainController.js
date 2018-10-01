@@ -27,6 +27,10 @@ Ext.define('GrupoBruce.view.main.MainController', {
         Ext.create({
             xtype: 'login'
         });
+    },
+    
+    onShowBody: function(){
+        Ext.Msg.alert('Titulo', 'Cuerpo');
     }
     
 });
