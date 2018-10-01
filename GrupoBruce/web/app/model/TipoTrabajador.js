@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.TipoTrabajador', {
     extend: 'Ext.data.Model',
+    alias: 'model.MtipoTrabajador',
     
     idProperty: 'idTtrabajador',
     fields: [
@@ -9,5 +10,19 @@ Ext.define('GrupoBruce.model.TipoTrabajador', {
         { name: 'hasctacts', type: 'boolean' },
         { name: 'hasrpensionario', type: 'boolean' },
         { name: 'situacion', type: 'boolean' }
-    ]
+    ],
+    
+    proxy: {
+        type: 'ajax',
+        api:{
+            read: 'tipoTrabajadorBySituacion',
+            create: 'insertTipoTrabajador',
+            updte: 'updateTipoTrabajador',
+            delete: 'deleteTipoTrabajador'
+        },
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    }
 });

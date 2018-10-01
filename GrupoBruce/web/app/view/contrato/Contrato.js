@@ -1,21 +1,16 @@
 Ext.define('GrupoBruce.view.contrato.Contrato', {
     extend: 'Ext.window.Window',
+    reference: 'panel_contrato',
 
     requires: [
         'GrupoBruce.view.contrato.ContratoController',
         'GrupoBruce.view.contrato.ContratoModel'
     ],
 
-//    controller: 'CcontratoTrabajador',
-//    viewModel: {
-//        type: 'VMcontratoTrabajador'
-//    },
-    
-    controller: 'Ctrabajador',
     viewModel: {
-        type: 'VMtrabajador'
+        type: 'VMcontratoTrabajador'
     },
-
+    controller: 'CcontratoTrabajador',
 
     height: 400,
     width: 600,
@@ -25,6 +20,14 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     autoShow: true,
 
     items: [{
+            xtype: 'form',
+            items: [{
+                    reference: 'id_trabajador',
+                    xtype: 'textfield',
+                    fieldLabel: 'Codigo trabajador',
+                    bind: '{my_idTrabajador.idTrabajador}'
+                }]
+        }, {
             xtype: 'grid',
             reference: 'list_contrato',
             bind: {

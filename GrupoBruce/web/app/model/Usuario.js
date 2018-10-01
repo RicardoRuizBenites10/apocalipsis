@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.model.Usuario', {
     extend: 'Ext.data.Model',
-    alias: 'model.usuario',
+    alias: 'model.Musuario',
     
     idProperty: 'idUsuario',
     fields: [
@@ -9,5 +9,19 @@ Ext.define('GrupoBruce.model.Usuario', {
         { name: 'clave', type: 'string' },
         { name: 'estado', type: 'boolean' },
         { name: 'acceder', type: 'boolean' }
-    ]
+    ],
+    
+    proxy: {
+        type: 'json',
+        api: {
+            read: 'usuarios',
+            create: 'insertUsuario',
+            update: 'updateUsuario',
+            delete: 'deleteUsuario'
+        },
+        reader: {
+             type: 'json',
+             root: 'data'
+         }
+    }
 });

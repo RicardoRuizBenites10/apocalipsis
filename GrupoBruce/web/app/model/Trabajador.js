@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'foto', type: 'string' },
         { name: 'fotoB64', type: 'string' },
         {name: 'idTrabajador', type: 'string'},
-        {name: 'montoBase', type: 'float', defaulValue: 1542},
+        {name: 'montoBase', type: 'float'},
         {name: 'montoPasaje', type: 'float'},
         { name: 'nacimiento', type: 'date', dateFormat: 'c' },
         { name: 'nombres', type: 'string' },
@@ -51,7 +51,6 @@ Ext.define('GrupoBruce.model.Trabajador', {
             rootProperty: 'data',
             totalProperty: 'total'
         },
-        
         writer: {
             type: 'json',
             writeAllFields: true 

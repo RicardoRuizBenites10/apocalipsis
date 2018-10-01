@@ -4,12 +4,10 @@ Ext.define('GrupoBruce.view.main.Main', {
 
     requires: [
         'Ext.plugin.Viewport',
-        'Ext.window.MessageBox',
-
         'GrupoBruce.view.main.MainController',
-        'GrupoBruce.view.main.MainModel',
+        'GrupoBruce.view.main.MainModel'
 
-        'GrupoBruce.view.trabajador.Trabajador'
+        ,'GrupoBruce.view.trabajador.Trabajador'
     ],
 
     controller: 'main',

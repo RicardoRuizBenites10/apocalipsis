@@ -5,10 +5,12 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
 
     requires: [
         'GrupoBruce.view.trabajador.TrabajadorController',
-        'GrupoBruce.view.trabajador.TrabajadorModel',
+        'GrupoBruce.view.trabajador.TrabajadorModel'
 
-        'GrupoBruce.view.trabajador.ListTrabajador',
-        'GrupoBruce.view.trabajador.FormTrabajador'
+        ,'GrupoBruce.view.trabajador.ListTrabajador'
+        ,'GrupoBruce.view.trabajador.FormTrabajador'
+        
+        ,'GrupoBruce.view.contrato.Contrato'
     ],
 
     controller: 'Ctrabajador',
