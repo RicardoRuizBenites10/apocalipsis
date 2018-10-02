@@ -41,6 +41,7 @@ Ext.define('GrupoBruce.view.main.Main', {
 //            collapsible: true,
             border: true,
             scrollable: 'y',
+            cls: 'treelist-with-nav',
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -48,7 +49,6 @@ Ext.define('GrupoBruce.view.main.Main', {
             items: [{
                     xtype: 'treelist',
                     reference: 'treelist',
-                    cls: 'treelist-with-nav',
                     bind: '{navItems}'
                 }]
 
@@ -56,13 +56,10 @@ Ext.define('GrupoBruce.view.main.Main', {
             region: 'center',
             bodyPadding: 0,
             layout: 'border',
+            border: true,
             items: [{
                     region: 'center',
                     bodyPadding: 0
-                }, {
-                    region: 'south',
-                    border: true,
-                    html: '<h4>EPRESA CARROCERA "FACTORIA BRUCE S.A." </h4>'
                 }]
         }, {
             region: 'north',
