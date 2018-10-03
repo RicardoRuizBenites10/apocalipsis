@@ -28742,6 +28742,97 @@ _scrollableCfg:{x:{x:true, y:false}, y:{x:false, y:true}, horizontal:{x:true, y:
     }
   });
 });
+Ext.define('Ext.layout.container.border.Region', {override:'Ext.Component', initBorderRegion:function() {
+  var me = this;
+  if (!me._borderRegionInited) {
+    me._borderRegionInited = true;
+    me.addStateEvents(['changeregion', 'changeweight']);
+    Ext.override(me, {getState:function() {
+      var state = me.callParent();
+      state = me.addPropertyToState(state, 'region');
+      state = me.addPropertyToState(state, 'weight');
+      return state;
+    }});
+  }
+}, getOwningBorderContainer:function() {
+  var layout = this.getOwningBorderLayout();
+  return layout && layout.owner;
+}, getOwningBorderLayout:function() {
+  var layout = this.ownerLayout;
+  return layout && layout.isBorderLayout ? layout : null;
+}, setRegion:function(region) {
+  var me = this, borderLayout, old = me.region;
+  if (typeof region !== 'string') {
+    Ext.raise('Use setBox to set the size or position of a component.');
+  }
+  if (region !== old) {
+    borderLayout = me.getOwningBorderLayout();
+    if (borderLayout) {
+      var regionFlags = borderLayout.regionFlags[region], placeholder = me.placeholder, splitter = me.splitter, owner = borderLayout.owner, regionMeta = borderLayout.regionMeta, collapsed = me.collapsed || me.floated, delta, items, index;
+      if (me.fireEventArgs('beforechangeregion', [me, region]) === false) {
+        return old;
+      }
+      Ext.suspendLayouts();
+      me.region = region;
+      Ext.apply(me, regionFlags);
+      if (me.updateCollapseTool) {
+        me.updateCollapseTool();
+      }
+      if (splitter) {
+        Ext.apply(splitter, regionFlags);
+        splitter.updateOrientation();
+        items = owner.items;
+        index = items.indexOf(me);
+        if (index >= 0) {
+          delta = regionMeta[region].splitterDelta;
+          if (items.getAt(index + delta) !== splitter) {
+            items.remove(splitter);
+            index = items.indexOf(me);
+            if (delta > 0) {
+              ++index;
+            }
+            items.insert(index, splitter);
+          }
+        }
+      }
+      if (placeholder) {
+        if (collapsed) {
+          me.expand(false);
+        }
+        owner.remove(placeholder);
+        me.placeholder = null;
+        if (collapsed) {
+          me.collapse(null, false);
+        }
+      }
+      owner.updateLayout();
+      Ext.resumeLayouts(true);
+      me.fireEventArgs('changeregion', [me, old]);
+    } else {
+      me.region = region;
+    }
+  }
+  return old;
+}, setWeight:function(weight) {
+  var me = this, ownerCt = me.getOwningBorderContainer(), placeholder = me.placeholder, old = me.weight;
+  if (weight !== old) {
+    if (me.fireEventArgs('beforechangeweight', [me, weight]) !== false) {
+      me.weight = weight;
+      if (placeholder) {
+        placeholder.weight = weight;
+      }
+      if (ownerCt) {
+        ownerCt.updateLayout();
+      }
+      me.fireEventArgs('changeweight', [me, old]);
+    }
+  }
+  return old;
+}}, function(Component) {
+  var proto = Component.prototype;
+  proto.setBorderRegion = proto.setRegion;
+  proto.setRegionWeight = proto.setWeight;
+});
 Ext.define('Ext.theme.neptune.Component', {override:'Ext.Component', initComponent:function() {
   this.callParent();
   if (this.dock && this.border === undefined) {
@@ -41182,6 +41273,858 @@ Ext.define('Ext.data.BufferedStore', {extend:Ext.data.ProxyStore, alias:'store.b
 }, isMoving:function() {
   return false;
 }}});
+Ext.define('Ext.data.NodeInterface', {statics:{decorate:function(modelClass) {
+  var model = Ext.data.schema.Schema.lookupEntity(modelClass), proto = model.prototype, idName, idField, idType;
+  if (!model.prototype.isObservable) {
+    model.mixin(Ext.mixin.Observable.prototype.mixinId, Ext.mixin.Observable);
+  }
+  if (proto.isNode) {
+    return;
+  }
+  idName = proto.idProperty;
+  idField = model.getField(idName);
+  idType = idField.type;
+  model.override(this.getPrototypeBody());
+  model.addFields([{name:'parentId', type:idType, defaultValue:null, allowNull:idField.allowNull}, {name:'index', type:'int', defaultValue:-1, persist:false, convert:null}, {name:'depth', type:'int', defaultValue:0, persist:false, convert:null}, {name:'expanded', type:'bool', defaultValue:false, persist:false, convert:null}, {name:'expandable', type:'bool', defaultValue:true, persist:false, convert:null}, {name:'checked', type:'auto', defaultValue:null, persist:false, convert:null}, {name:'leaf', 
+  type:'bool', defaultValue:false}, {name:'cls', type:'string', defaultValue:'', persist:false, convert:null}, {name:'iconCls', type:'string', defaultValue:'', persist:false, convert:null}, {name:'icon', type:'string', defaultValue:'', persist:false, convert:null}, {name:'glyph', type:'string', defaultValue:'', persist:false, convert:null}, {name:'root', type:'boolean', defaultValue:false, persist:false, convert:null}, {name:'isLast', type:'boolean', defaultValue:false, persist:false, convert:null}, 
+  {name:'isFirst', type:'boolean', defaultValue:false, persist:false, convert:null}, {name:'allowDrop', type:'boolean', defaultValue:true, persist:false, convert:null}, {name:'allowDrag', type:'boolean', defaultValue:true, persist:false, convert:null}, {name:'loaded', type:'boolean', defaultValue:false, persist:false, convert:null}, {name:'loading', type:'boolean', defaultValue:false, persist:false, convert:null}, {name:'href', type:'string', defaultValue:'', persist:false, convert:null}, {name:'hrefTarget', 
+  type:'string', defaultValue:'', persist:false, convert:null}, {name:'qtip', type:'string', defaultValue:'', persist:false, convert:null}, {name:'qtitle', type:'string', defaultValue:'', persist:false, convert:null}, {name:'qshowDelay', type:'int', defaultValue:0, persist:false, convert:null}, {name:'children', type:'auto', defaultValue:null, persist:false, convert:null}, {name:'visible', type:'boolean', defaultValue:true, persist:false}, {name:'text', type:'string', persist:false}]);
+}, getPrototypeBody:function() {
+  var bubbledEvents = {idchanged:true, append:true, remove:true, move:true, insert:true, beforeappend:true, beforeremove:true, beforemove:true, beforeinsert:true, expand:true, collapse:true, beforeexpand:true, beforecollapse:true, sort:true}, silently = {silent:true};
+  return {isNode:true, firstChild:null, lastChild:null, parentNode:null, previousSibling:null, nextSibling:null, constructor:function() {
+    var me = this;
+    me.mixins.observable.constructor.call(me);
+    me.callParent(arguments);
+    me.childNodes = [];
+    return me;
+  }, createNode:function(node) {
+    var me = this, childType = me.childType, store, storeReader, nodeProxy, nodeReader, reader, typeProperty, T = me.self;
+    if (!node.isModel) {
+      if (childType) {
+        T = me.schema.getEntity(childType);
+      } else {
+        store = me.getTreeStore();
+        storeReader = store && store.getProxy().getReader();
+        nodeProxy = me.getProxy();
+        nodeReader = nodeProxy ? nodeProxy.getReader() : null;
+        reader = !storeReader || nodeReader && nodeReader.initialConfig.typeProperty ? nodeReader : storeReader;
+        if (reader) {
+          typeProperty = reader.getTypeProperty();
+          if (typeProperty) {
+            T = reader.getChildType(me.schema, node, typeProperty);
+          }
+        }
+      }
+      node = new T(node);
+    }
+    if (!node.childNodes) {
+      node.firstChild = node.lastChild = node.parentNode = node.previousSibling = node.nextSibling = null;
+      node.childNodes = [];
+    }
+    return node;
+  }, isLeaf:function() {
+    return this.get('leaf') === true;
+  }, setFirstChild:function(node) {
+    this.firstChild = node;
+  }, setLastChild:function(node) {
+    this.lastChild = node;
+  }, updateInfo:function(commit, info) {
+    var me = this, phantom = me.phantom, result;
+    commit = {silent:true, commit:commit};
+    if (info.depth !== me.data.depth) {
+      var childInfo = {depth:me.data.depth + 1}, children = me.childNodes, childCount = children.length, i;
+      for (i = 0; i < childCount; i++) {
+        children[i].set(childInfo);
+      }
+    }
+    result = me.set(info, commit);
+    me.phantom = phantom;
+    return result;
+  }, isLast:function() {
+    return this.get('isLast');
+  }, isFirst:function() {
+    return this.get('isFirst');
+  }, hasChildNodes:function() {
+    return !this.isLeaf() && this.childNodes.length > 0;
+  }, isExpandable:function() {
+    var me = this;
+    if (me.get('expandable')) {
+      return !(me.isLeaf() || me.isLoaded() && !me.phantom && !me.hasChildNodes());
+    }
+    return false;
+  }, triggerUIUpdate:function() {
+    this.callJoined('afterEdit', []);
+  }, appendChild:function(node, suppressEvents, commit) {
+    var me = this, i, ln, index, oldParent, previousSibling, childInfo = {isLast:true, parentId:me.getId(), depth:(me.data.depth || 0) + 1}, result, treeStore = me.getTreeStore(), halfCheckedValue = treeStore && treeStore.triStateCheckbox ? 1 : false, bulkUpdate = treeStore && treeStore.bulkUpdate, meChecked, nodeChecked, modifiedFields;
+    Ext.suspendLayouts();
+    if (Ext.isArray(node)) {
+      ln = node.length;
+      result = new Array(ln);
+      me.callTreeStore('beginFill');
+      for (i = 0; i < ln; i++) {
+        result[i] = me.appendChild(node[i], suppressEvents, commit);
+      }
+      me.callTreeStore('endFill', [result]);
+    } else {
+      node = me.createNode(node);
+      if (suppressEvents !== true && me.fireBubbledEvent('beforeappend', [me, node]) === false) {
+        Ext.resumeLayouts(true);
+        return false;
+      }
+      index = me.childNodes.length;
+      oldParent = node.parentNode;
+      if (oldParent) {
+        if (suppressEvents !== true && node.fireBubbledEvent('beforemove', [node, oldParent, me, index]) === false) {
+          Ext.resumeLayouts(true);
+          return false;
+        }
+        if (oldParent.removeChild(node, false, suppressEvents, oldParent.getTreeStore() === treeStore) === false) {
+          Ext.resumeLayouts(true);
+          return false;
+        }
+      }
+      treeStore && treeStore.beginUpdate();
+      index = me.childNodes.length;
+      if (index === 0) {
+        me.setFirstChild(node);
+      }
+      me.childNodes[index] = node;
+      node.parentNode = me;
+      node.nextSibling = null;
+      me.setLastChild(node);
+      previousSibling = me.childNodes[index - 1];
+      if (previousSibling) {
+        node.previousSibling = previousSibling;
+        previousSibling.nextSibling = node;
+        previousSibling.updateInfo(commit, {isLast:false});
+        if (!bulkUpdate) {
+          previousSibling.triggerUIUpdate();
+        }
+      } else {
+        node.previousSibling = null;
+      }
+      childInfo.isFirst = index === 0;
+      childInfo.index = index;
+      modifiedFields = node.updateInfo(commit, childInfo);
+      if (me.isLeaf()) {
+        me.set('leaf', false);
+      }
+      if (!me.isLoaded()) {
+        if (bulkUpdate) {
+          me.data.loaded = true;
+        } else {
+          me.set('loaded', true);
+        }
+      } else {
+        if (me.childNodes.length === 1 && !bulkUpdate) {
+          me.triggerUIUpdate();
+        }
+      }
+      if (index && me.childNodes[index - 1].isExpanded() && !bulkUpdate) {
+        me.childNodes[index - 1].cascade(me.triggerUIUpdate);
+      }
+      if (treeStore) {
+        treeStore.registerNode(me, !bulkUpdate);
+        if (bulkUpdate) {
+          treeStore.registerNode(node);
+        }
+      }
+      if (suppressEvents !== true) {
+        me.fireBubbledEvent('append', [me, node, index]);
+        if (oldParent) {
+          node.fireBubbledEvent('move', [node, oldParent, me, index]);
+        }
+      }
+      me.callTreeStore('onNodeAppend', [node, index]);
+      if (modifiedFields) {
+        node.callJoined('afterEdit', [modifiedFields]);
+      }
+      result = node;
+      if (treeStore) {
+        treeStore.endUpdate();
+      }
+    }
+    Ext.resumeLayouts(true);
+    return result;
+  }, getOwnerTree:function() {
+    var store = this.getTreeStore();
+    if (store) {
+      return store.ownerTree;
+    }
+  }, getTreeStore:function() {
+    var root = this;
+    while (root && !root.treeStore) {
+      root = root.parentNode;
+    }
+    return root && root.treeStore;
+  }, removeChild:function(node, erase, suppressEvents, isMove) {
+    var me = this, index = me.indexOf(node), i, childCount, previousSibling, treeStore = me.getTreeStore(), bulkUpdate = treeStore && treeStore.bulkUpdate, removeContext, removeRange = [];
+    if (index === -1 || suppressEvents !== true && me.fireBubbledEvent('beforeremove', [me, node, !!isMove]) === false) {
+      return false;
+    }
+    Ext.suspendLayouts();
+    treeStore && treeStore.beginUpdate();
+    Ext.Array.erase(me.childNodes, index, 1);
+    if (me.firstChild === node) {
+      me.setFirstChild(node.nextSibling);
+    }
+    if (me.lastChild === node) {
+      me.setLastChild(node.previousSibling);
+    }
+    previousSibling = node.previousSibling;
+    if (previousSibling) {
+      node.previousSibling.nextSibling = node.nextSibling;
+    }
+    if (node.nextSibling) {
+      node.nextSibling.previousSibling = node.previousSibling;
+      if (index === 0) {
+        node.nextSibling.updateInfo(false, {isFirst:true});
+      }
+      for (i = index, childCount = me.childNodes.length; i < childCount; i++) {
+        me.childNodes[i].updateInfo(false, {index:i});
+      }
+    } else {
+      if (previousSibling) {
+        previousSibling.updateInfo(false, {isLast:true});
+        if (!bulkUpdate) {
+          if (previousSibling.isExpanded()) {
+            previousSibling.cascade(me.triggerUIUpdate);
+          } else {
+            previousSibling.triggerUIUpdate();
+          }
+        }
+      }
+    }
+    if (!me.childNodes.length && !bulkUpdate) {
+      me.triggerUIUpdate();
+    }
+    Ext.resumeLayouts(true);
+    if (suppressEvents !== true) {
+      removeContext = {parentNode:node.parentNode, previousSibling:node.previousSibling, nextSibling:node.nextSibling};
+      me.callTreeStore('beforeNodeRemove', [[node], !!isMove, removeRange]);
+      node.previousSibling = node.nextSibling = node.parentNode = null;
+      me.fireBubbledEvent('remove', [me, node, !!isMove, removeContext]);
+      me.callTreeStore('onNodeRemove', [[node], !!isMove, removeRange]);
+    }
+    if (erase) {
+      node.erase(true);
+    } else {
+      node.clear();
+    }
+    if (!isMove) {
+      node.set({parentId:null, lastParentId:me.getId()}, silently);
+    }
+    if (treeStore) {
+      treeStore.endUpdate();
+    }
+    return node;
+  }, copy:function(newId, session, deep) {
+    var me = this, result, args = [newId], len = me.childNodes ? me.childNodes.length : 0, i;
+    if (session && session.isSession) {
+      args.push(session);
+    } else {
+      if (arguments.length < 3) {
+        deep = session;
+      }
+    }
+    result = me.callParent(args);
+    if (deep) {
+      for (i = 0; i < len; i++) {
+        result.appendChild(me.childNodes[i].copy(undefined, true));
+      }
+    }
+    return result;
+  }, clear:function(erase, resetChildren) {
+    var me = this, data;
+    me.parentNode = me.previousSibling = me.nextSibling = null;
+    if (erase) {
+      me.firstChild = me.lastChild = me.childNodes = null;
+    }
+    if (resetChildren) {
+      me.firstChild = me.lastChild = null;
+      me.childNodes.length = 0;
+      if (me.data) {
+        me.data.children = null;
+      }
+    }
+  }, drop:function() {
+    var me = this, childNodes = me.childNodes, parentNode = me.parentNode, len, i, node, treeStore = me.getTreeStore();
+    me.callParent();
+    if (parentNode) {
+      parentNode.removeChild(me);
+    } else {
+      if (me.get('root')) {
+        treeStore.setRoot(null);
+      }
+    }
+    treeStore && treeStore.beginUpdate();
+    for (i = 0, len = childNodes ? childNodes.length : 0; i < len; i++) {
+      node = childNodes[i];
+      node.clear();
+      node.drop();
+    }
+    treeStore && treeStore.endUpdate();
+  }, erase:function(options) {
+    var me = this, childNodes = me.childNodes, len = childNodes && childNodes.length, i, node;
+    me.remove();
+    me.clear(true);
+    me.callParent([options]);
+    for (i = 0; i < len; i++) {
+      node = childNodes[i];
+      node.parentNode = null;
+      node.erase(options);
+    }
+  }, insertBefore:function(node, refNode, suppressEvents) {
+    var me = this, index = me.indexOf(refNode), oldParent = node.parentNode, refIndex = index, childCount, previousSibling, i, treeStore = me.getTreeStore(), bulkUpdate = treeStore && treeStore.bulkUpdate, modifiedFields, sibling, siblingModifiedFields;
+    if (!refNode) {
+      return me.appendChild(node);
+    }
+    if (node === refNode) {
+      return false;
+    }
+    node = me.createNode(node);
+    if (suppressEvents !== true && me.fireBubbledEvent('beforeinsert', [me, node, refNode]) === false) {
+      return false;
+    }
+    if (oldParent === me && me.indexOf(node) < index) {
+      refIndex--;
+    }
+    if (oldParent) {
+      if (suppressEvents !== true && node.fireBubbledEvent('beforemove', [node, oldParent, me, index, refNode]) === false) {
+        return false;
+      }
+      if (oldParent.removeChild(node, false, suppressEvents, oldParent.getTreeStore() === treeStore) === false) {
+        return false;
+      }
+    }
+    treeStore && treeStore.beginUpdate();
+    if (refIndex === 0) {
+      me.setFirstChild(node);
+    }
+    Ext.Array.splice(me.childNodes, refIndex, 0, node);
+    node.parentNode = me;
+    node.nextSibling = refNode;
+    refNode.previousSibling = node;
+    previousSibling = me.childNodes[refIndex - 1];
+    if (previousSibling) {
+      node.previousSibling = previousSibling;
+      previousSibling.nextSibling = node;
+    } else {
+      node.previousSibling = null;
+    }
+    modifiedFields = node.updateInfo(false, {parentId:me.getId(), index:refIndex, isFirst:refIndex === 0, isLast:false, depth:(me.data.depth || 0) + 1});
+    for (i = refIndex + 1, childCount = me.childNodes.length; i < childCount; i++) {
+      sibling = me.childNodes[i];
+      siblingModifiedFields = sibling.updateInfo(false, {index:i});
+      if (siblingModifiedFields) {
+        sibling.callJoined('afterEdit', [siblingModifiedFields]);
+      }
+    }
+    if (!me.isLoaded()) {
+      if (bulkUpdate) {
+        me.data.loaded = true;
+      } else {
+        me.set('loaded', true);
+      }
+    } else {
+      if (me.childNodes.length === 1 && !bulkUpdate) {
+        me.triggerUIUpdate();
+      }
+    }
+    if (treeStore) {
+      treeStore.registerNode(me, !bulkUpdate);
+    }
+    if (suppressEvents !== true) {
+      me.fireBubbledEvent('insert', [me, node, refNode]);
+      if (oldParent) {
+        node.fireBubbledEvent('move', [node, oldParent, me, refIndex, refNode]);
+      }
+    }
+    me.callTreeStore('onNodeInsert', [node, refIndex]);
+    if (modifiedFields) {
+      node.callJoined('afterEdit', [modifiedFields]);
+    }
+    if (treeStore) {
+      treeStore.endUpdate();
+    }
+    return node;
+  }, insertChild:function(index, node) {
+    var sibling = this.childNodes[index];
+    if (sibling) {
+      return this.insertBefore(node, sibling);
+    } else {
+      return this.appendChild(node);
+    }
+  }, isLastVisible:function() {
+    var me = this, result = me.data.isLast, next = me.nextSibling;
+    if (!result && me.getTreeStore().isFiltered()) {
+      while (next) {
+        if (next.data.visible) {
+          return false;
+        }
+        next = next.nextSibling;
+      }
+      return true;
+    }
+    return result;
+  }, remove:function(erase, suppressEvents) {
+    var me = this, parentNode = me.parentNode;
+    if (parentNode) {
+      parentNode.removeChild(me, erase, suppressEvents);
+    } else {
+      if (erase) {
+        me.erase(true);
+      }
+    }
+    return me;
+  }, removeAll:function(erase, suppressEvents, fromParent) {
+    var me = this, childNodes = me.childNodes, len = childNodes.length, node, treeStore, i, removeRange = [];
+    if (!len) {
+      return;
+    }
+    if (!fromParent) {
+      treeStore = me.getTreeStore();
+      if (treeStore) {
+        treeStore.beginUpdate();
+        treeStore.suspendEvent('remove');
+        me.callTreeStore('beforeNodeRemove', [childNodes, false, removeRange]);
+      }
+    }
+    for (i = 0; i < len; ++i) {
+      node = childNodes[i];
+      node.previousSibling = node.nextSibling = node.parentNode = null;
+      me.fireBubbledEvent('remove', [me, node, false]);
+      if (erase) {
+        node.erase(true);
+      } else {
+        node.removeAll(false, suppressEvents, true);
+      }
+    }
+    if (!fromParent && treeStore) {
+      treeStore.resumeEvent('remove');
+      me.callTreeStore('onNodeRemove', [childNodes, false, removeRange]);
+      treeStore.endUpdate();
+    }
+    me.firstChild = me.lastChild = null;
+    childNodes.length = 0;
+    if (!fromParent) {
+      me.triggerUIUpdate();
+    }
+    return me;
+  }, getChildAt:function(index) {
+    return this.childNodes[index];
+  }, replaceChild:function(newChild, oldChild, suppressEvents) {
+    var s = oldChild ? oldChild.nextSibling : null;
+    this.removeChild(oldChild, false, suppressEvents);
+    this.insertBefore(newChild, s, suppressEvents);
+    return oldChild;
+  }, indexOf:function(child) {
+    return Ext.Array.indexOf(this.childNodes, child);
+  }, indexOfId:function(id) {
+    var childNodes = this.childNodes, len = childNodes.length, i = 0;
+    for (; i < len; ++i) {
+      if (childNodes[i].getId() === id) {
+        return i;
+      }
+    }
+    return -1;
+  }, getPath:function(field, separator) {
+    field = field || this.idProperty;
+    separator = separator || '/';
+    var path = [this.get(field)], parent = this.parentNode;
+    while (parent) {
+      path.unshift(parent.get(field));
+      parent = parent.parentNode;
+    }
+    return separator + path.join(separator);
+  }, getDepth:function() {
+    return this.get('depth');
+  }, bubble:function(fn, scope, args) {
+    var p = this;
+    while (p) {
+      if (fn.apply(scope || p, args || [p]) === false) {
+        break;
+      }
+      p = p.parentNode;
+    }
+  }, cascade:function(before, scope, args, after) {
+    var me = this;
+    if (arguments.length === 1 && !Ext.isFunction(before)) {
+      after = before.after;
+      scope = before.scope;
+      args = before.args;
+      before = before.before;
+    }
+    if (!before || before.apply(scope || me, args || [me]) !== false) {
+      var childNodes = me.childNodes, length = childNodes.length, i;
+      for (i = 0; i < length; i++) {
+        childNodes[i].cascade.call(childNodes[i], before, scope, args, after);
+      }
+      if (after) {
+        after.apply(scope || me, args || [me]);
+      }
+    }
+  }, cascadeBy:function() {
+    return this.cascade.apply(this, arguments);
+  }, eachChild:function(fn, scope, args) {
+    var childNodes = this.childNodes, length = childNodes.length, i;
+    for (i = 0; i < length; i++) {
+      if (fn.apply(scope || this, args || [childNodes[i]]) === false) {
+        break;
+      }
+    }
+  }, findChild:function(attribute, value, deep) {
+    return this.findChildBy(function() {
+      return this.get(attribute) == value;
+    }, null, deep);
+  }, findChildBy:function(fn, scope, deep) {
+    var cs = this.childNodes, len = cs.length, i = 0, n, res;
+    for (; i < len; i++) {
+      n = cs[i];
+      if (fn.call(scope || n, n) === true) {
+        return n;
+      } else {
+        if (deep) {
+          res = n.findChildBy(fn, scope, deep);
+          if (res !== null) {
+            return res;
+          }
+        }
+      }
+    }
+    return null;
+  }, contains:function(node) {
+    return node.isAncestor(this);
+  }, isAncestor:function(node) {
+    var p = this.parentNode;
+    while (p) {
+      if (p === node) {
+        return true;
+      }
+      p = p.parentNode;
+    }
+    return false;
+  }, sort:function(sortFn, recursive, suppressEvent) {
+    var me = this, childNodes = me.childNodes, ln = childNodes.length, i, n, info = {isFirst:true};
+    if (ln > 0) {
+      if (!sortFn) {
+        sortFn = me.getTreeStore().getSortFn();
+      }
+      Ext.Array.sort(childNodes, sortFn);
+      me.setFirstChild(childNodes[0]);
+      me.setLastChild(childNodes[ln - 1]);
+      for (i = 0; i < ln; i++) {
+        n = childNodes[i];
+        n.previousSibling = childNodes[i - 1];
+        n.nextSibling = childNodes[i + 1];
+        info.isLast = i === ln - 1;
+        info.index = i;
+        n.updateInfo(false, info);
+        info.isFirst = false;
+        if (recursive && !n.isLeaf()) {
+          n.sort(sortFn, true, true);
+        }
+      }
+      if (suppressEvent !== true) {
+        me.fireBubbledEvent('sort', [me, childNodes]);
+        me.callTreeStore('onNodeSort', [childNodes]);
+      }
+    }
+  }, isExpanded:function() {
+    return this.get('expanded');
+  }, isLoaded:function() {
+    return this.get('loaded');
+  }, isBranchLoaded:function() {
+    var isBranchLoaded = !this.isLeaf() && this.isLoaded();
+    if (isBranchLoaded) {
+      this.cascade(function(node) {
+        if (!node.isLeaf()) {
+          isBranchLoaded = isBranchLoaded || node.isBranchLoaded();
+        }
+        return isBranchLoaded;
+      });
+    }
+    return isBranchLoaded;
+  }, isLoading:function() {
+    return this.get('loading');
+  }, isRoot:function() {
+    return !this.parentNode;
+  }, isVisible:function() {
+    var parent = this.parentNode;
+    while (parent) {
+      if (!parent.isExpanded()) {
+        return false;
+      }
+      parent = parent.parentNode;
+    }
+    return true;
+  }, expand:function(recursive, callback, scope) {
+    var me = this, treeStore, resumeAddEvent;
+    if (!me.isLeaf()) {
+      if (me.isLoading()) {
+        me.on('expand', function() {
+          me.expand(recursive, callback, scope);
+        }, me, {single:true});
+      } else {
+        if (!me.isExpanded()) {
+          if (me.fireBubbledEvent('beforeexpand', [me]) !== false) {
+            if (recursive) {
+              if (me.parentNode && me.parentNode.isSynchronousRecursiveExpand) {
+                me.isSynchronousRecursiveExpand = true;
+              } else {
+                treeStore = me.getTreeStore();
+                if (treeStore.getProxy().isSynchronous || me.isBranchLoaded()) {
+                  me.isSynchronousRecursiveExpand = true;
+                  treeStore.suspendEvent('add', 'datachanged');
+                  resumeAddEvent = true;
+                }
+              }
+            }
+            me.callTreeStore('onBeforeNodeExpand', [me.onChildNodesAvailable, me, [recursive, callback, scope]]);
+            if (resumeAddEvent) {
+              treeStore.resumeEvent('add', 'datachanged');
+              treeStore.fireEvent('datachanged', treeStore);
+              treeStore.fireEvent('refresh', treeStore);
+            }
+            me.isSynchronousRecursiveExpand = false;
+          }
+        } else {
+          if (recursive) {
+            me.expandChildren(true, callback, scope);
+          } else {
+            Ext.callback(callback, scope || me, [me.childNodes]);
+          }
+        }
+      }
+    } else {
+      Ext.callback(callback, scope || me);
+    }
+  }, onChildNodesAvailable:function(records, recursive, callback, scope) {
+    var me = this, treeStore = me.getTreeStore(), bulkUpdate = treeStore && treeStore.bulkUpdate, ancestor, i, collapsedAncestors;
+    Ext.suspendLayouts();
+    for (ancestor = me.parentNode; ancestor; ancestor = ancestor.parentNode) {
+      if (!ancestor.isExpanded()) {
+        (collapsedAncestors || (collapsedAncestors = [])).unshift(ancestor);
+      }
+    }
+    if (bulkUpdate || !treeStore.isVisible(me)) {
+      me.data.expanded = true;
+    } else {
+      me.set('expanded', true);
+    }
+    if (collapsedAncestors) {
+      for (i = 1; i < collapsedAncestors.length; i++) {
+        ancestor = collapsedAncestors[i];
+        if (bulkUpdate || !treeStore.isVisible(ancestor)) {
+          ancestor.data.expanded = true;
+        } else {
+          ancestor.set('expanded', true);
+        }
+      }
+      collapsedAncestors[0].expand();
+      for (i = 1; i < collapsedAncestors.length; i++) {
+        ancestor = collapsedAncestors[i];
+        ancestor.fireBubbledEvent('expand', [ancestor, ancestor.childNodes]);
+      }
+    } else {
+      me.callTreeStore('onNodeExpand', [records, false]);
+    }
+    me.fireBubbledEvent('expand', [me, records]);
+    if (recursive) {
+      me.expandChildren(true, callback, scope);
+    } else {
+      Ext.callback(callback, scope || me, [me.childNodes]);
+    }
+    Ext.resumeLayouts(true);
+  }, expandChildren:function(recursive, callback, scope, singleExpand) {
+    var me = this, origCallback, i, allNodes, expandNodes, ln, node, treeStore;
+    if (Ext.isBoolean(callback)) {
+      origCallback = callback;
+      callback = scope;
+      scope = singleExpand;
+      singleExpand = origCallback;
+    }
+    if (singleExpand === undefined) {
+      treeStore = me.getTreeStore();
+      singleExpand = treeStore && treeStore.singleExpand;
+    }
+    allNodes = me.childNodes;
+    expandNodes = [];
+    ln = singleExpand ? Math.min(allNodes.length, 1) : allNodes.length;
+    for (i = 0; i < ln; ++i) {
+      node = allNodes[i];
+      if (!node.isLeaf()) {
+        expandNodes[expandNodes.length] = node;
+      }
+    }
+    ln = expandNodes.length;
+    for (i = 0; i < ln; ++i) {
+      expandNodes[i].expand(recursive);
+    }
+    if (callback) {
+      Ext.callback(callback, scope || me, [me.childNodes]);
+    }
+  }, collapse:function(recursive, callback, scope) {
+    var me = this, expanded = me.isExpanded(), treeStore = me.getTreeStore(), bulkUpdate = treeStore && treeStore.bulkUpdate, len = me.childNodes.length, i, collapseChildren;
+    if (!me.isLeaf() && (!expanded && recursive || me.fireBubbledEvent('beforecollapse', [me]) !== false)) {
+      Ext.suspendLayouts();
+      if (me.isExpanded()) {
+        if (recursive) {
+          collapseChildren = function() {
+            for (i = 0; i < len; i++) {
+              me.childNodes[i].setCollapsed(true);
+            }
+          };
+          if (callback) {
+            callback = Ext.Function.createSequence(collapseChildren, Ext.Function.bind(callback, scope, [me.childNodes]));
+          } else {
+            callback = collapseChildren;
+          }
+        } else {
+          if (callback) {
+            callback = Ext.Function.bind(callback, scope, [me.childNodes]);
+          }
+        }
+        if (bulkUpdate || !treeStore.contains(me)) {
+          me.data.expanded = false;
+        } else {
+          me.set('expanded', false);
+        }
+        me.callTreeStore('onNodeCollapse', [me.childNodes, callback, scope]);
+        me.fireBubbledEvent('collapse', [me, me.childNodes]);
+        callback = null;
+      } else {
+        if (recursive) {
+          for (i = 0; i < len; i++) {
+            me.childNodes[i].setCollapsed(true);
+          }
+        }
+      }
+      Ext.resumeLayouts(true);
+    }
+    Ext.callback(callback, scope || me, [me.childNodes]);
+  }, setCollapsed:function(recursive) {
+    var me = this, len = me.childNodes.length, i;
+    if (!me.isLeaf() && me.fireBubbledEvent('beforecollapse', [me]) !== false) {
+      me.data.expanded = false;
+      me.fireBubbledEvent('collapse', [me, me.childNodes]);
+      if (recursive) {
+        for (i = 0; i < len; i++) {
+          me.childNodes[i].setCollapsed(true);
+        }
+      }
+    }
+  }, collapseChildren:function(recursive, callback, scope) {
+    var me = this, i, allNodes = me.childNodes, ln = allNodes.length, collapseNodes = [], node;
+    for (i = 0; i < ln; ++i) {
+      node = allNodes[i];
+      if (!node.isLeaf() && node.isLoaded() && node.isExpanded()) {
+        collapseNodes.push(node);
+      }
+    }
+    ln = collapseNodes.length;
+    if (ln) {
+      for (i = 0; i < ln; ++i) {
+        node = collapseNodes[i];
+        if (i === ln - 1) {
+          node.collapse(recursive, callback, scope);
+        } else {
+          node.collapse(recursive);
+        }
+      }
+    } else {
+      Ext.callback(callback, scope);
+    }
+  }, fireEvent:function(eventName) {
+    return this.fireBubbledEvent(eventName, Ext.Array.slice(arguments, 1));
+  }, fireBubbledEvent:function(eventName, args) {
+    var result, eventSource, topNode;
+    if (bubbledEvents[eventName]) {
+      for (eventSource = this; result !== false && eventSource; eventSource = (topNode = eventSource).parentNode) {
+        result = eventSource.fireEventArgs.call(eventSource, eventName, args);
+      }
+      if (result !== false) {
+        eventSource = topNode.getTreeStore();
+        if (eventSource && eventSource.hasListeners && eventSource.hasListeners[eventName = 'node' + eventName]) {
+          result = eventSource.fireEventArgs(eventName, args);
+        }
+      }
+      return result;
+    } else {
+      return this.fireEventArgs.apply(this, arguments);
+    }
+  }, serialize:function(writerParam) {
+    var writer = writerParam || new Ext.data.writer.Json({writeAllFields:true}), result = writer.getRecordData(this), childNodes = this.childNodes, len = childNodes.length, children, i;
+    if (len > 0) {
+      result.children = children = [];
+      for (i = 0; i < len; i++) {
+        children.push(childNodes[i].serialize(writer));
+      }
+    }
+    return result;
+  }, callTreeStore:function(funcName, args) {
+    var me = this, target = me.getTreeStore(), fn = target && target[funcName];
+    if (target && fn) {
+      args = args || [];
+      if (args[0] !== me) {
+        args.unshift(me);
+      }
+      fn.apply(target, args);
+    }
+  }, addCls:function(cls) {
+    this.replaceCls(null, cls);
+  }, removeCls:function(cls) {
+    this.replaceCls(cls);
+  }, replaceCls:function(oldCls, newCls) {
+    var pieces = this._parseCls(this.data.cls), parts = this._parseCls(oldCls);
+    if (parts.length) {
+      pieces = Ext.Array.difference(pieces, parts);
+    }
+    parts = this._parseCls(newCls);
+    if (parts.length) {
+      pieces = Ext.Array.unique(pieces.concat(parts));
+    }
+    this.set('cls', pieces.join(' '));
+  }, toggleCls:function(cls, state) {
+    if (state === undefined) {
+      var pieces = this._parseCls(this.data.cls), parts = this._parseCls(cls), len = parts.length, i, p;
+      for (i = 0; i < len; ++i) {
+        p = parts[i];
+        if (Ext.Array.contains(pieces, p)) {
+          Ext.Array.remove(pieces, p);
+        } else {
+          pieces.push(p);
+        }
+      }
+      this.set('cls', pieces.join(' '));
+    } else {
+      if (state) {
+        this.addCls(cls);
+      } else {
+        this.removeCls(cls);
+      }
+    }
+  }, privates:{_noCls:[], spacesRe:/\s+/, join:function(store) {
+    if (store.isTreeStore) {
+      if (this.isRoot()) {
+        this.treeStore = this.store = store;
+      }
+    } else {
+      this.callParent([store]);
+    }
+  }, callJoined:function(funcName, args) {
+    this.callParent([funcName, args]);
+    this.callTreeStore(funcName, args);
+  }, _parseCls:function(cls) {
+    if (!cls) {
+      return this._noCls;
+    }
+    if (typeof cls === 'string') {
+      return cls.split(this.spacesRe);
+    }
+    return cls;
+  }}};
+}}});
 Ext.define('Ext.mixin.Queryable', {mixinId:'queryable', isQueryable:true, query:function(selector) {
   selector = selector || '*';
   return Ext.ComponentQuery.query(selector, this.getQueryRoot());
@@ -41232,6 +42175,13 @@ Ext.define('Ext.mixin.Queryable', {mixinId:'queryable', isQueryable:true, query:
   }
   return null;
 }}});
+Ext.define('Ext.data.TreeModel', {extend:Ext.data.Model, mixins:[Ext.mixin.Queryable], getRefItems:function() {
+  return this.childNodes;
+}, getRefOwner:function() {
+  return this.parentNode;
+}, statics:{defaultProxy:'memory'}}, function() {
+  Ext.data.NodeInterface.decorate(this);
+});
 Ext.define('Ext.data.Request', {isDataRequest:true, config:{action:undefined, params:undefined, method:'GET', url:null, operation:null, proxy:null, disableCaching:false, headers:{}, callbackKey:null, rawRequest:null, jsonData:undefined, xmlData:undefined, withCredentials:false, username:null, password:null, binary:false, callback:null, scope:null, timeout:30000, records:null, directFn:null, args:null, useDefaultXhrHeader:null}, constructor:function(config) {
   this.initConfig(config);
 }, getParam:function(key) {
@@ -41245,6 +42195,901 @@ Ext.define('Ext.data.Request', {isDataRequest:true, config:{action:undefined, pa
   params[key] = value;
   this.setParams(params);
 }});
+Ext.define('Ext.data.TreeStore', {extend:Ext.data.Store, alias:'store.tree', isTreeStore:true, config:{root:null, rootVisible:false, defaultRootProperty:'children', parentIdProperty:null, clearOnLoad:true, clearRemovedOnLoad:true, nodeParam:'node', defaultRootId:'root', defaultRootText:'Root', folderSort:false, pageSize:null}, filterer:'topdown', lazyFill:false, fillCount:0, bulkUpdate:0, nodesToUnregister:0, _silentOptions:{silent:true}, implicitModel:'Ext.data.TreeModel', constructor:function(config) {
+  var me = this;
+  me.byIdMap = {};
+  me.callParent([config]);
+  if (Ext.isDefined(me.nodeParameter)) {
+    if (Ext.isDefined(Ext.global.console)) {
+      Ext.global.console.warn('Ext.data.TreeStore: nodeParameter has been deprecated. Please use nodeParam instead.');
+    }
+    me.nodeParam = me.nodeParameter;
+    delete me.nodeParameter;
+  }
+}, applyFields:function(fields, oldFields) {
+  var me = this;
+  if (fields) {
+    if (me.defaultRootProperty !== me.self.prototype.config.defaultRootProperty) {
+      fields = fields.concat({name:me.defaultRootProperty, type:'auto', defaultValue:null, persist:false});
+    }
+  }
+  me.callParent([fields, oldFields]);
+}, onSorterEndUpdate:function() {
+  var me = this, sorterCollection = me.getSorters(), sorters = sorterCollection.getRange(), rootNode = me.getRoot(), folderSort = me.getFolderSort();
+  me.fireEvent('beforesort', me, sorters);
+  if (rootNode && (folderSort || sorters.length)) {
+    if (me.getRemoteSort()) {
+      if (sorters.length) {
+        me.load({callback:function() {
+          me.fireEvent('sort', me, sorters);
+        }});
+      }
+    } else {
+      rootNode.sort(this.getSortFn(), true);
+      me.fireEvent('datachanged', me);
+      me.fireEvent('refresh', me);
+      me.fireEvent('sort', me, sorters);
+    }
+  } else {
+    me.fireEvent('sort', me, sorters);
+  }
+}, updateFolderSort:function(folderSort) {
+  this.needsFolderSort = folderSort;
+  this.onSorterEndUpdate();
+}, getSortFn:function() {
+  return this._sortFn || (this._sortFn = this.createSortFn());
+}, createSortFn:function() {
+  var me = this, sortersSortFn = this.sorters.getSortFn();
+  return function(node1, node2) {
+    var node1FolderOrder, node2FolderOrder, result = 0;
+    if (me.needsFolderSort) {
+      node1FolderOrder = node1.data.leaf ? 1 : 0;
+      node2FolderOrder = node2.data.leaf ? 1 : 0;
+      result = node1FolderOrder - node2FolderOrder;
+    }
+    if (me.needsIndexSort && result === 0) {
+      result = node1.data.index - node2.data.index;
+    }
+    return result || sortersSortFn(node1, node2);
+  };
+}, getTotalCount:function() {
+  return this.getCount();
+}, afterEdit:function(node, modifiedFieldNames) {
+  var me = this, parentNode = node.parentNode, rootVisible = me.getRootVisible(), isHiddenRoot = !parentNode && !rootVisible, prevVisibleNodeIndex, isVisible = node.get('visible'), toAdd, removeStart;
+  if (!isHiddenRoot && isVisible !== me.contains(node)) {
+    if (isVisible) {
+      if (!parentNode || me.isVisible(node)) {
+        toAdd = [node];
+        if (node.isExpanded()) {
+          me.handleNodeExpand(node, node.childNodes, toAdd);
+        }
+        prevVisibleNodeIndex = node.previousSibling ? me.indexOfPreviousVisibleNode(node.previousSibling) : parentNode ? me.indexOf(parentNode) : -1;
+        me.insert(prevVisibleNodeIndex + 1, toAdd);
+      }
+    } else {
+      removeStart = me.indexOf(node);
+      me.removeAt(removeStart, me.indexOfNextVisibleNode(node) - removeStart);
+    }
+  } else {
+    if (me.getRoot() && me.needsLocalFilter()) {
+      me.onFilterEndUpdate(me.getFilters());
+    }
+  }
+  me.callParent([node, modifiedFieldNames]);
+}, afterReject:function(record) {
+  var me = this;
+  if (me.contains(record)) {
+    me.onUpdate(record, Ext.data.Model.REJECT, null);
+    me.fireEvent('update', me, record, Ext.data.Model.REJECT, null);
+  }
+}, afterCommit:function(record, modifiedFieldNames) {
+  var me = this;
+  if (!modifiedFieldNames) {
+    modifiedFieldNames = null;
+  }
+  if (me.contains(record)) {
+    me.onUpdate(record, Ext.data.Model.COMMIT, modifiedFieldNames);
+    me.fireEvent('update', me, record, Ext.data.Model.COMMIT, modifiedFieldNames);
+  }
+}, updateRootVisible:function(rootVisible) {
+  var rootNode = this.getRoot(), data;
+  if (rootNode) {
+    data = this.getData();
+    if (rootVisible) {
+      data.insert(0, rootNode);
+    } else {
+      data.remove(rootNode);
+    }
+  }
+}, updateTrackRemoved:function(trackRemoved) {
+  this.callParent(arguments);
+  this.removedNodes = this.removed;
+  this.removed = null;
+}, onDestroyRecords:function(records, operation, success) {
+  if (success) {
+    this.removedNodes.length = 0;
+  }
+}, updateProxy:function(proxy) {
+  var reader;
+  if (proxy) {
+    if (proxy.setIdParam) {
+      proxy.setIdParam(this.getNodeParam());
+    }
+    reader = proxy.getReader();
+    if (Ext.isEmpty(reader.getRootProperty())) {
+      reader.setRootProperty(this.getDefaultRootProperty());
+    }
+  }
+}, setProxy:function(proxy) {
+  this.changingProxy = true;
+  this.callParent([proxy]);
+  this.changingProxy = false;
+}, updateModel:function(model) {
+  if (model) {
+    var isNode = model.prototype.isNode;
+    Ext.data.NodeInterface.decorate(model);
+    if (!isNode && !this.changingProxy) {
+      this.getProxy().getReader().buildExtractors(true);
+    }
+  }
+}, onCollectionFilter:Ext.emptyFn, onFilterEndUpdate:function(filters) {
+  var me = this, length = filters.length, root = me.getRoot(), childNodes, childNode, filteredNodes, i;
+  if (!me.getRemoteFilter()) {
+    if (length) {
+      me.doFilter(root);
+    } else {
+      root.cascade({after:function(node) {
+        node.set('visible', true, me._silentOptions);
+      }});
+    }
+    if (length) {
+      filteredNodes = [];
+      childNodes = root.childNodes;
+      for (i = 0, length = childNodes.length; i < length; i++) {
+        childNode = childNodes[i];
+        if (childNode.get('visible')) {
+          filteredNodes.push(childNode);
+        }
+      }
+    } else {
+      filteredNodes = root.childNodes;
+    }
+    me.onNodeFilter(root, filteredNodes);
+    root.fireEvent('filterchange', root, filteredNodes);
+    me.suppressNextFilter = true;
+    me.callParent([filters]);
+    me.suppressNextFilter = false;
+  } else {
+    me.callParent([filters]);
+  }
+}, onNodeFilter:function(root, childNodes) {
+  var me = this, data = me.getData(), toAdd = [];
+  if (me.getRootVisible() && root.get('visible')) {
+    toAdd.push(root);
+  }
+  me.handleNodeExpand(root, childNodes, toAdd);
+  me.suspendEvents();
+  data.splice(0, data.getCount(), toAdd);
+  me.resumeEvents();
+  if (!me.suppressNextFilter) {
+    me.fireEvent('datachanged', me);
+    me.fireEvent('refresh', me);
+  }
+}, onBeforeNodeExpand:function(node, callback, scope, args) {
+  var me = this, storeReader, nodeProxy, nodeReader, reader, children, callbackArgs;
+  if (node.isLoaded()) {
+    callbackArgs = [node.childNodes];
+    if (args) {
+      callbackArgs.push.apply(callbackArgs, args);
+    }
+    Ext.callback(callback, scope || node, callbackArgs);
+  } else {
+    if (node.isLoading()) {
+      me.on('load', function() {
+        callbackArgs = [node.childNodes];
+        if (args) {
+          callbackArgs.push.apply(callbackArgs, args);
+        }
+        Ext.callback(callback, scope || node, callbackArgs);
+      }, me, {single:true, priority:1001});
+    } else {
+      storeReader = me.getProxy().getReader();
+      nodeProxy = node.getProxy();
+      nodeReader = nodeProxy ? nodeProxy.getReader() : null;
+      reader = nodeReader && nodeReader.initialConfig.rootProperty ? nodeReader : storeReader;
+      children = reader.getRoot(node.raw || node.data);
+      if (children || node.phantom && !node.isRoot()) {
+        if (children) {
+          me.fillNode(node, reader.extractData(children, {model:node.childType, recordCreator:me.recordCreator}));
+        }
+        callbackArgs = [node.childNodes];
+        if (args) {
+          callbackArgs.push.apply(callbackArgs, args);
+        }
+        Ext.callback(callback, scope || node, callbackArgs);
+      } else {
+        me.read({node:node, onChildNodesAvailable:function() {
+          delete me.lastOptions.onChildNodesAvailable;
+          callbackArgs = [node.childNodes];
+          if (args) {
+            callbackArgs.push.apply(callbackArgs, args);
+          }
+          Ext.callback(callback, scope || node, callbackArgs);
+        }});
+        me.flushLoad();
+      }
+    }
+  }
+}, onNodeExpand:function(parent, records) {
+  var me = this, insertIndex = me.indexOf(parent) + 1, toAdd = [];
+  me.handleNodeExpand(parent, records, toAdd);
+  if (!me.refreshCounter && parent.isRoot() && !parent.get('visible')) {
+    me.loadRecords(toAdd);
+  } else {
+    me.insert(insertIndex, toAdd);
+  }
+}, handleNodeExpand:function(parent, records, toAdd) {
+  var me = this, ln = records ? records.length : 0, i, record;
+  if (parent !== this.getRoot() && !me.isVisible(parent)) {
+    return;
+  }
+  if (ln) {
+    for (i = 0; i < ln; i++) {
+      record = records[i];
+      if (record.get('visible')) {
+        toAdd.push(record);
+        if (record.isExpanded()) {
+          if (record.isLoaded()) {
+            me.handleNodeExpand(record, record.childNodes, toAdd);
+          } else {
+            record.set('expanded', false);
+            record.expand();
+          }
+        }
+      }
+    }
+  }
+}, onNodeCollapse:function(parent, records, callback, scope) {
+  var me = this, collapseIndex = me.indexOf(parent) + 1, lastNodeIndexPlus;
+  if (me.needsLocalFilter()) {
+    records = Ext.Array.filter(records, me.filterVisible);
+  }
+  if (records.length && me.isVisible(parent)) {
+    lastNodeIndexPlus = me.indexOfNextVisibleNode(parent);
+    me.removeAt(collapseIndex, lastNodeIndexPlus - collapseIndex);
+  }
+  Ext.callback(callback, scope);
+}, indexOfNextVisibleNode:function(node) {
+  var result;
+  while (node.parentNode) {
+    for (result = node.nextSibling; result && !result.get('visible'); result = result.nextSibling) {
+    }
+    if (result) {
+      return this.indexOf(result);
+    }
+    node = node.parentNode;
+  }
+  return this.getCount();
+}, indexOfPreviousVisibleNode:function(node) {
+  var result;
+  for (result = node; result && !result.get('visible'); result = result.previousSibling) {
+  }
+  if (result) {
+    if (result.isExpanded() && result.lastChild) {
+      return this.indexOfPreviousVisibleNode(result.lastChild);
+    }
+  } else {
+    result = node.parentNode;
+  }
+  return this.indexOf(result);
+}, filterNew:function(item) {
+  return !item.get('root') && this.callParent([item]);
+}, filterRejects:function(item) {
+  return !item.get('root') && this.callParent([item]);
+}, getNewRecords:function() {
+  return Ext.Array.filter(Ext.Object.getValues(this.byIdMap), this.filterNew, this);
+}, getRejectRecords:function() {
+  return Ext.Array.filter(Ext.Object.getValues(this.byIdMap), this.filterRejects, this);
+}, getUpdatedRecords:function() {
+  return Ext.Array.filter(Ext.Object.getValues(this.byIdMap), this.filterUpdated);
+}, beforeNodeRemove:function(parentNode, childNodes, isMove, removeRange) {
+  if (!Ext.isArray(childNodes)) {
+    childNodes = [childNodes];
+  }
+  var me = this, len = childNodes.length, removed = me.removedNodes, i, startNode;
+  for (i = 0; !startNode && i < len; i++) {
+    if (childNodes[i].get('visible')) {
+      startNode = childNodes[i];
+    }
+  }
+  if (startNode) {
+    removeRange[0] = me.indexOf(childNodes[0]);
+    removeRange[1] = me.indexOfNextVisibleNode(childNodes[childNodes.length - 1]) - removeRange[0];
+  } else {
+    removeRange[0] = -1;
+    removeRange[1] = 0;
+  }
+  for (i = 0; i < len; i++) {
+    childNodes[i].cascade(function(node) {
+      me.unregisterNode(node, true);
+      if (removed && !isMove) {
+        if (!node.phantom && !node.erasing && !me.loading) {
+          node.removedFrom = me.indexOf(node);
+          removed.push(node);
+          me.needsSync = true;
+        }
+      }
+    });
+  }
+}, afterDrop:Ext.emptyFn, onNodeRemove:function(parentNode, childNodes, isMove, removeRange) {
+  var me = this;
+  me.suspendAutoSync();
+  if (removeRange[0] !== -1) {
+    me.removeIsMove = isMove;
+    me.removeAt.apply(me, removeRange);
+    me.removeIsMove = false;
+  }
+  me.resumeAutoSync();
+}, onNodeAppend:function(parent, node, index) {
+  this.onNodeInsert(parent, node, index);
+}, onNodeInsert:function(parent, node, index) {
+  var me = this, data = node.raw || node.data, removed = me.removedNodes, storeReader, nodeProxy, nodeReader, reader, dataRoot, storeInsertionPoint;
+  if (parent && me.needsLocalFilter()) {
+    me.doFilter(parent);
+  }
+  me.beginUpdate();
+  if (me.isVisible(node)) {
+    if (index === 0 || !node.previousSibling) {
+      storeInsertionPoint = me.indexOf(parent);
+    } else {
+      storeInsertionPoint = me.indexOfPreviousVisibleNode(node.previousSibling);
+    }
+    me.insert(storeInsertionPoint + 1, node);
+    if (!node.isLeaf() && node.isExpanded()) {
+      if (node.isLoaded()) {
+        me.onNodeExpand(node, node.childNodes);
+      } else {
+        if (!me.fillCount) {
+          node.set('expanded', false);
+          node.expand();
+        }
+      }
+    }
+  }
+  Ext.Array.remove(removed, node);
+  me.needsSync = me.needsSync || node.phantom || node.dirty;
+  if (!node.isLeaf() && !node.isLoaded() && !me.lazyFill) {
+    storeReader = me.getProxy().getReader();
+    nodeProxy = node.getProxy();
+    nodeReader = nodeProxy ? nodeProxy.getReader() : null;
+    reader = nodeReader && nodeReader.initialConfig.rootProperty ? nodeReader : storeReader;
+    dataRoot = reader.getRoot(data);
+    if (dataRoot) {
+      me.fillNode(node, reader.extractData(dataRoot, {model:node.childType, recordCreator:me.recordCreator}));
+    }
+  }
+  me.endUpdate();
+}, registerNode:function(node, includeChildren) {
+  var me = this, was = me.byIdMap[node.id], children, length, i;
+  me.byIdMap[node.id] = node;
+  if (node.onRegisterTreeNode && node !== was) {
+    node.onRegisterTreeNode(me);
+  }
+  if (node.onUnregisterTreeNode) {
+    me.nodesToUnregister++;
+  }
+  if (includeChildren === true) {
+    children = node.childNodes;
+    length = children.length;
+    for (i = 0; i < length; i++) {
+      me.registerNode(children[i], true);
+    }
+  }
+}, unregisterNode:function(node, includeChildren) {
+  var me = this, was = me.byIdMap[node.id], children, length, i;
+  delete me.byIdMap[node.id];
+  if (includeChildren === true) {
+    children = node.childNodes;
+    length = children.length;
+    for (i = 0; i < length; i++) {
+      me.unregisterNode(children[i], true);
+    }
+  }
+  if (node.onUnregisterTreeNode && node === was) {
+    node.onUnregisterTreeNode(me);
+    me.nodesToUnregister--;
+  }
+}, onNodeSort:function(node, childNodes) {
+  var me = this;
+  me.suspendAutoSync();
+  if (me.indexOf(node) !== -1 && node.isExpanded() || node === me.getRoot() && !me.getRootVisible()) {
+    Ext.suspendLayouts();
+    me.onNodeCollapse(node, childNodes);
+    me.onNodeExpand(node, childNodes);
+    Ext.resumeLayouts(true);
+  }
+  me.resumeAutoSync(me.autoSync);
+}, applyRoot:function(newRoot) {
+  var me = this, Model = me.getModel(), idProperty = Model.prototype.idProperty, defaultRootId = me.getDefaultRootId();
+  if (newRoot && !newRoot.isNode) {
+    newRoot = Ext.apply({text:me.getDefaultRootText(), root:true, isFirst:true, isLast:true, depth:0, index:0, parentId:null, allowDrag:false}, newRoot);
+    if (defaultRootId && newRoot[idProperty] === undefined) {
+      newRoot[idProperty] = defaultRootId;
+    }
+    newRoot = new Model(newRoot);
+  }
+  return newRoot;
+}, updateRoot:function(newRoot, oldRoot) {
+  var me = this, oldOwner, initial = !oldRoot, toRemove, removeRange = [];
+  me.getTrackRemoved();
+  me.suspendEvent('add', 'remove');
+  if (oldRoot && oldRoot.isModel) {
+    if (me.getRootVisible()) {
+      toRemove = [oldRoot];
+    } else {
+      toRemove = oldRoot.childNodes;
+    }
+    me.beforeNodeRemove(null, toRemove, false, removeRange);
+    oldRoot.set('root', false);
+    me.onNodeRemove(null, toRemove, false, removeRange);
+    oldRoot.fireEvent('remove', null, oldRoot, false);
+    oldRoot.fireEvent('rootchange', null);
+    oldRoot.clearListeners();
+    oldRoot.store = oldRoot.treeStore = null;
+    me.unregisterNode(oldRoot);
+  }
+  me.getData().clear();
+  if (newRoot) {
+    if (newRoot.fireEventArgs('beforeappend', [null, newRoot]) === false) {
+      newRoot = null;
+    } else {
+      oldOwner = newRoot.parentNode;
+      if (oldOwner) {
+        if (!oldOwner.removeChild(newRoot, false, false, oldOwner.getTreeStore() === me)) {
+          return;
+        }
+      } else {
+        if ((oldOwner = newRoot.getTreeStore()) && oldOwner !== me && newRoot === oldOwner.getRoot()) {
+          oldOwner.setRoot(null);
+        }
+      }
+      newRoot.store = newRoot.treeStore = me;
+      newRoot.set('root', true);
+      newRoot.updateInfo(true, {isFirst:true, isLast:true, depth:0, index:0, parentId:null});
+      me.registerNode(newRoot, true);
+      newRoot.fireEvent('append', null, newRoot, false);
+      newRoot.fireEvent('rootchange', newRoot);
+      me.onNodeAppend(null, newRoot, 0);
+      newRoot.phantom = true;
+    }
+  }
+  me.fireEvent('rootchange', newRoot, oldRoot);
+  if (newRoot && (me.getAutoLoad() || newRoot.isExpanded())) {
+    if (newRoot.isLoaded()) {
+      me.onNodeExpand(newRoot, newRoot.childNodes);
+      me.fireEvent('datachanged', me);
+      me.fireEvent('refresh', me);
+    } else {
+      newRoot.data.expanded = false;
+      newRoot.expand(false);
+      if (newRoot.isLoaded && !me.getProxy().isSynchronous) {
+        me.fireEvent('datachanged', me);
+        me.fireEvent('refresh', me);
+      }
+    }
+  } else {
+    if (!initial) {
+      me.fireEvent('datachanged', me);
+      me.fireEvent('refresh', me);
+    }
+  }
+  me.resumeEvent('add', 'remove');
+}, doDestroy:function() {
+  var me = this, root = me.getRoot();
+  if (root && me.nodesToUnregister) {
+    root.cascade(function(node) {
+      if (node.onUnregisterTreeNode) {
+        node.onUnregisterTreeNode(me);
+      }
+    });
+  }
+  me.callParent();
+}, each:function(fn, scope, bypassFilters) {
+  var includeCollapsed, i = 0;
+  if (bypassFilters && typeof bypassFilters === 'object') {
+    includeCollapsed = bypassFilters.collapsed;
+    bypassFilters = bypassFilters.filtered;
+  }
+  if (includeCollapsed) {
+    this.getRoot().cascade(function(node) {
+      if (bypassFilters === true || node.get('visible')) {
+        return fn.call(scope || node, node, i++);
+      }
+    });
+  } else {
+    return this.callParent([fn, scope, bypassFilters]);
+  }
+}, collect:function(dataIndex, allowNull, bypassFilters) {
+  var includeCollapsed, map = {}, result = [], strValue, value;
+  if (allowNull && typeof allowNull === 'object') {
+    includeCollapsed = allowNull.collapsed;
+    bypassFilters = allowNull.filtered;
+    allowNull = allowNull.allowNull;
+  }
+  if (includeCollapsed || bypassFilters) {
+    this.getRoot().cascade(function(node) {
+      if (bypassFilters === true || node.get('visible')) {
+        value = node.get(dataIndex);
+        strValue = String(value);
+        if ((allowNull || !Ext.isEmpty(value)) && !map[strValue]) {
+          map[strValue] = 1;
+          result.push(value);
+        }
+      }
+      if (!includeCollapsed && !node.isExpanded()) {
+        return false;
+      }
+    });
+  } else {
+    result = this.callParent([dataIndex, allowNull, bypassFilters]);
+  }
+  return result;
+}, getNodeById:function(id) {
+  return this.byIdMap[id] || null;
+}, findNode:function(property, value, startsWith, endsWith, ignoreCase) {
+  if (Ext.isEmpty(value, false)) {
+    return null;
+  }
+  if (property === this.model.idProperty && arguments.length < 3) {
+    return this.byIdMap[value];
+  }
+  var regex = Ext.String.createRegex(value, startsWith, endsWith, ignoreCase), result = null;
+  Ext.Object.eachValue(this.byIdMap, function(node) {
+    if (node && regex.test(node.get(property))) {
+      result = node;
+      return false;
+    }
+  });
+  return result;
+}, load:function(options) {
+  var node = options && options.node;
+  if (!node & !(node = this.getRoot())) {
+    node = this.setRoot({expanded:true});
+    return;
+  }
+  if (node.isLoading()) {
+    return;
+  }
+  return this.callParent([options]);
+}, reload:function(options) {
+  var o = Ext.apply({}, options, this.lastOptions);
+  o.node = this.getRoot();
+  return this.load(o);
+}, flushLoad:function() {
+  var me = this, options = me.pendingLoadOptions, node, callback, scope, clearOnLoad = me.getClearOnLoad(), isRootLoad, operation, doClear;
+  me.clearLoadTask();
+  if (!options) {
+    return;
+  }
+  node = options.node || me.getRoot();
+  isRootLoad = node && node.isRoot();
+  callback = options.callback;
+  scope = options.scope;
+  options.params = options.params || {};
+  if (node.data.expanded && !isRootLoad) {
+    node.data.loaded = false;
+    if (clearOnLoad) {
+      node.data.expanded = false;
+    }
+    options.callback = function(loadedNodes, operation, success) {
+      if (!clearOnLoad) {
+        node.collapse();
+      }
+      node.expand();
+      Ext.callback(callback, scope, [loadedNodes, operation, success]);
+    };
+  }
+  options.id = node.getId();
+  me.setLoadOptions(options);
+  if (me.getRemoteSort() && options.sorters) {
+    me.fireEvent('beforesort', me, options.sorters);
+  }
+  options = Ext.apply({node:options.node || node, internalScope:me, internalCallback:me.onProxyLoad}, options);
+  me.lastOptions = Ext.apply({}, options);
+  options.isRootLoad = isRootLoad;
+  operation = me.createOperation('read', options);
+  if (me.fireEvent('beforeload', me, operation) !== false) {
+    me.loading = true;
+    if (isRootLoad) {
+      if (me.getClearRemovedOnLoad()) {
+        me.removedNodes.length = 0;
+      }
+      if (clearOnLoad) {
+        me.unregisterNode(node, true);
+        node.clear(false, true);
+        me.registerNode(node);
+        doClear = true;
+      }
+    } else {
+      if (me.getTrackRemoved() && me.getClearRemovedOnLoad()) {
+        me.clearRemoved(node);
+      }
+      if (clearOnLoad) {
+        node.removeAll(false);
+      }
+    }
+    if (me.loading && node) {
+      node.set('loading', true);
+    }
+    if (doClear) {
+      me.clearData(true);
+      if (me.getRootVisible()) {
+        me.suspendEvents();
+        me.add(node);
+        me.resumeEvents();
+      }
+    }
+    operation.execute();
+  }
+  return me;
+}, onProxyLoad:function(operation) {
+  var me = this, options = operation.initialConfig, successful = operation.wasSuccessful(), records = operation.getRecords(), node = options.node, isRootLoad = options.isRootLoad, scope = operation.getScope() || me, args = [records, operation, successful];
+  if (me.destroyed) {
+    return;
+  }
+  me.loading = false;
+  node.set('loading', false);
+  if (successful) {
+    ++me.loadCount;
+    if (!me.getClearOnLoad()) {
+      records = me.cleanRecords(node, records);
+    }
+    if (me.getParentIdProperty()) {
+      records = me.treeify(node, records);
+    }
+    if (isRootLoad) {
+      me.suspendEvent('add', 'update');
+    }
+    records = me.fillNode(node, records);
+  }
+  Ext.callback(options.onChildNodesAvailable, scope, args);
+  if (isRootLoad) {
+    me.resumeEvent('add', 'update');
+    me.callObservers('BeforePopulate');
+    me.fireEvent('datachanged', me);
+    me.fireEvent('refresh', me);
+    me.callObservers('AfterPopulate');
+  }
+  me.fireEvent('load', me, records, successful, operation, node);
+}, clearRemoved:function(node) {
+  var me = this, removed = me.removedNodes, id = node.getId(), removedLength = removed.length, i = removedLength, recordsToClear = {}, newRemoved = [], removedHash = {}, removedNode, targetNode, targetId;
+  if (node === me.getRoot()) {
+    me.removedNodes.length = 0;
+    return;
+  }
+  for (; i--;) {
+    removedNode = removed[i];
+    removedHash[removedNode.getId()] = removedNode;
+  }
+  for (i = removedLength; i--;) {
+    removedNode = removed[i];
+    targetNode = removedNode;
+    while (targetNode && targetNode.getId() !== id) {
+      targetId = targetNode.get('parentId') || targetNode.get('lastParentId');
+      targetNode = targetNode.parentNode || me.getNodeById(targetId) || removedHash[targetId];
+    }
+    if (targetNode) {
+      recordsToClear[removedNode.getId()] = removedNode;
+    }
+  }
+  for (i = 0; i < removedLength; i++) {
+    removedNode = removed[i];
+    if (!recordsToClear[removedNode.getId()]) {
+      newRemoved.push(removedNode);
+    }
+  }
+  me.removedNodes = newRemoved;
+}, fillNode:function(node, newNodes) {
+  var me = this, newNodeCount = newNodes ? newNodes.length : 0;
+  if (++me.bulkUpdate === 1) {
+    me.suspendEvent('datachanged');
+  }
+  if (newNodeCount) {
+    me.setupNodes(newNodes);
+  }
+  if (me.bulkUpdate === 1) {
+    node.set('loaded', true);
+  } else {
+    node.data.loaded = true;
+  }
+  if (newNodes.length) {
+    node.appendChild(newNodes, undefined, true);
+  }
+  if (!--me.bulkUpdate) {
+    me.resumeEvent('datachanged');
+  }
+  return newNodes;
+}, setupNodes:function(newNodes) {
+  var me = this, sorters = me.getSorters(), needsIndexSort = false, newNodeCount = newNodes.length, performLocalSort = me.sortOnLoad && newNodeCount > 1 && !me.getRemoteSort() && me.getFolderSort() || sorters.length, performLocalFilter = me.needsLocalFilter(), node1, node2, i;
+  if (performLocalFilter) {
+    me.doFilter(newNodes[0]);
+  }
+  for (i = 1; i < newNodeCount; i++) {
+    node1 = newNodes[i];
+    node2 = newNodes[i - 1];
+    if (performLocalFilter) {
+      me.doFilter(node1);
+    }
+    needsIndexSort = node1.data.index !== node2.data.index;
+  }
+  if (performLocalSort) {
+    me.needsIndexSort = true;
+    Ext.Array.sort(newNodes, me.getSortFn());
+    me.needsIndexSort = false;
+  } else {
+    if (needsIndexSort) {
+      Ext.Array.sort(newNodes, me.sortByIndex);
+    }
+  }
+}, beginFill:function() {
+  var me = this;
+  if (!me.fillCount++) {
+    me.beginUpdate();
+    me.suspendEvent('add', 'update');
+    me.suspendAutoSync();
+    me.fillArray = [];
+  }
+}, endFill:function(parent, nodes) {
+  var me = this, fillArray = me.fillArray, i, len, index;
+  fillArray.push(nodes);
+  if (!--me.fillCount) {
+    me.resumeAutoSync();
+    me.resumeEvent('add', 'update');
+    for (i = 0, len = fillArray.length; i < len; i++) {
+      index = me.indexOf(fillArray[i][0]);
+      if (index !== -1) {
+        me.fireEvent('add', me, fillArray[i], index);
+      }
+    }
+    me.fillArray = null;
+    me.endUpdate();
+  }
+}, sortByIndex:function(node1, node2) {
+  return node1.data.index - node2.data.index;
+}, onIdChanged:function(node, oldId, newId) {
+  var childNodes = node.childNodes, len = childNodes && childNodes.length, i;
+  this.callParent(arguments);
+  delete this.byIdMap[oldId];
+  this.byIdMap[newId] = node;
+  for (i = 0; i < len; i++) {
+    childNodes[i].set('parentId', newId);
+  }
+}, treeify:function(parentNode, records) {
+  var me = this, loadParentNodeId = parentNode.getId(), parentIdProperty = me.getParentIdProperty(), len = records.length, result = [], nodeMap = {}, i, node, parentId, parent, id, children;
+  for (i = 0; i < len; i++) {
+    node = records[i];
+    node.data.depth = 1;
+    nodeMap[node.id] = node;
+  }
+  for (i = 0; i < len; i++) {
+    node = records[i];
+    parentId = node.data[parentIdProperty];
+    if (!(parentId || parentId === 0) || parentId === loadParentNodeId) {
+      result.push(node);
+    } else {
+      if (!nodeMap[parentId]) {
+        Ext.raise('Ext.data.TreeStore, Invalid parentId "' + parentId + '"');
+      }
+      parent = nodeMap[parentId];
+      parent.$children = parent.$children || [];
+      parent.$children.push(node);
+      node.data.depth = parent.data.depth + 1;
+    }
+  }
+  for (id in nodeMap) {
+    node = nodeMap[id];
+    children = node.$children;
+    if (children) {
+      delete node.$children;
+      me.setupNodes(children);
+      node.appendChild(children);
+    }
+    me.registerNode(node);
+  }
+  me.setupNodes(result);
+  return result;
+}, cleanRecords:function(node, records) {
+  var nodeHash = {}, childNodes = node.childNodes, i = 0, len = childNodes.length, out = [], rec;
+  for (; i < len; ++i) {
+    nodeHash[childNodes[i].getId()] = true;
+  }
+  for (i = 0, len = records.length; i < len; ++i) {
+    rec = records[i];
+    if (!nodeHash[rec.getId()]) {
+      out.push(rec);
+    }
+  }
+  return out;
+}, removeAll:function() {
+  this.suspendEvents();
+  this.setRoot(null);
+  this.resumeEvents();
+  this.callParent();
+}, doSort:function(sorterFn) {
+  var me = this;
+  if (me.getRemoteSort()) {
+    me.load();
+  } else {
+    me.tree.sort(sorterFn, true);
+    me.fireEvent('datachanged', me);
+    me.fireEvent('refresh', me);
+  }
+  me.fireEvent('sort', me, me.sorters.getRange());
+}, filterVisible:function(node) {
+  return node.get('visible');
+}, isVisible:function(node) {
+  var parentNode = node.parentNode, visible = node.data.visible, root = this.getRoot();
+  while (visible && parentNode) {
+    visible = parentNode.data.expanded && parentNode.data.visible;
+    parentNode = parentNode.parentNode;
+  }
+  return visible && !(node === root && !this.getRootVisible());
+}, commitChanges:function() {
+  var removed = this.removedNodes;
+  if (removed) {
+    removed.length = 0;
+  }
+  this.callParent();
+}, getRootNode:function() {
+  return this.getRoot();
+}, setRootNode:function(root) {
+  this.setRoot(root);
+  return this.getRoot();
+}, privates:{fireChangeEvent:function(record) {
+  return !!this.byIdMap[record.id];
+}, getRawRemovedRecords:function() {
+  return this.removedNodes;
+}, createOperation:function(type, options) {
+  var me = this, node = options.node, proxy;
+  if (me.useModelProxy && node && node !== me.getRootNode()) {
+    proxy = node.getProxy();
+  }
+  if (proxy && proxy !== me.getProxy()) {
+    return proxy.createOperation(type, options);
+  } else {
+    return me.callParent([type, options]);
+  }
+}, recordCreator:function(data, Model) {
+  return new Model(data);
+}, doFilter:function(node) {
+  this.filterNodes(node, this.getFilters().getFilterFn(), true);
+}, filterNodes:function(node, filterFn, parentVisible) {
+  var me = this, bottomUpFiltering = me.filterer === 'bottomup', match = filterFn(node) && parentVisible || node.isRoot() && !me.getRootVisible(), childNodes = node.childNodes, len = childNodes && childNodes.length, i, matchingChildren;
+  if (len) {
+    for (i = 0; i < len; ++i) {
+      matchingChildren = me.filterNodes(childNodes[i], filterFn, match || bottomUpFiltering) || matchingChildren;
+    }
+    if (bottomUpFiltering) {
+      match = matchingChildren || match;
+    }
+  }
+  node.set('visible', match, me._silentOptions);
+  return match;
+}, needsLocalFilter:function() {
+  return !this.getRemoteFilter() && this.getFilters().length;
+}, onRemoteFilterSet:function(filters, remoteFilter) {
+  var data = this.getData();
+  data.setFilters(null);
+  if (filters) {
+    filters.on('endupdate', this.onFilterEndUpdate, this);
+  }
+}, onRemoteSortSet:function(sorters, remoteSort) {
+  var data = this.getData();
+  data.setSorters(null);
+  if (sorters) {
+    sorters.on('endupdate', this.onSorterEndUpdate, this);
+  }
+}}, deprecated:{5:{properties:{tree:null}}}});
 Ext.define('Ext.data.Validation', {extend:Ext.data.Model, isValidation:true, syncGeneration:0, attach:function(record) {
   this.record = record;
   this.isBase = record.self === Ext.data.Model;
@@ -43210,6 +45055,665 @@ Ext.define('Ext.fx.runner.CssTransition', {extend:Ext.fx.runner.Css, alternateCl
     }
   }
 }});
+Ext.define('Ext.list.AbstractTreeItem', {extend:Ext.Widget, isTreeListItem:true, cachedConfig:{expandable:false, expanded:false, iconCls:'', leaf:true, loading:false, selected:false, selectedParent:false}, config:{iconClsProperty:'iconCls', indent:null, owner:null, node:null, over:null, parentItem:null, text:{lazy:true, $value:''}, textProperty:'text'}, updateNode:function(node) {
+  if (node) {
+    var me = this, map = me.itemMap, childNodes, owner, len, i, item, child;
+    me.element.dom.setAttribute('data-recordId', node.internalId);
+    if (!map) {
+      childNodes = node.childNodes;
+      owner = me.getOwner();
+      me.itemMap = map = {};
+      for (i = 0, len = childNodes.length; i < len; ++i) {
+        child = childNodes[i];
+        if (child.data.visible) {
+          item = owner.createItem(child, me);
+          map[child.internalId] = item;
+          me.insertItem(item, null);
+        }
+      }
+    }
+    me.setExpanded(node.isExpanded());
+    me.doNodeUpdate(node);
+  }
+}, updateSelected:function(selected) {
+  if (!this.isConfiguring) {
+    var parent = this.getParentItem();
+    while (parent && !parent.isRootListItem) {
+      parent.setSelectedParent(selected);
+      parent = parent.getParentItem();
+    }
+  }
+}, collapse:function() {
+  this.getNode().collapse();
+}, expand:function() {
+  this.getNode().expand();
+}, getToolElement:Ext.emptyFn, insertItem:Ext.emptyFn, isExpanded:function() {
+  return this.getExpanded();
+}, isSelectionEvent:Ext.emptyFn, isToggleEvent:Ext.emptyFn, nodeCollapse:function(node, collapsingForExpand) {
+  var me = this, owner = me.getOwner(), animation = me.preventAnimation ? null : owner.getAnimation();
+  me.nodeCollapseBegin(animation, collapsingForExpand);
+  if (!animation) {
+    me.nodeCollapseEnd(collapsingForExpand);
+  }
+}, nodeCollapseBegin:function(animation, collapsingForExpand) {
+  var me = this, owner = me.getOwner();
+  me.setExpanded(false);
+  owner.fireEvent('itemcollapse', owner, me);
+}, nodeCollapseEnd:function(collapsingForExpand) {
+  if (!collapsingForExpand) {
+    this.getOwner().updateLayout();
+  }
+}, nodeExpand:function(node) {
+  var me = this, owner = me.getOwner(), floated = me.getFloated(), animation = !floated && owner.getAnimation();
+  me.nodeExpandBegin(animation);
+  if (!animation) {
+    me.nodeExpandEnd();
+  }
+}, nodeExpandBegin:function(animation) {
+  var me = this, owner = me.getOwner();
+  me.setExpanded(true);
+  owner.fireEvent('itemexpand', owner, me);
+}, nodeExpandEnd:function() {
+  this.getOwner().updateLayout();
+}, nodeInsert:function(node, refNode) {
+  var me = this, owner = me.getOwner(), map = me.itemMap, id = node.internalId, item = owner.getItem(node), refItem = null, oldParent;
+  if (item) {
+    oldParent = item.getParentItem();
+    oldParent.removeItem(item);
+    if (oldParent !== me) {
+      oldParent.doUpdateExpandable();
+      item.setParentItem(me);
+    }
+  } else {
+    item = me.getOwner().createItem(node, me);
+  }
+  map[id] = item;
+  if (refNode) {
+    refItem = map[refNode.internalId];
+  }
+  me.insertItem(item, refItem);
+  me.doUpdateExpandable();
+  owner.fireEvent('iteminsert', owner, me, item, refItem);
+  owner.updateLayout();
+}, nodeRemove:function(node) {
+  var me = this, map = me.itemMap, owner = me.getOwner(), id = node.internalId, item = map[id];
+  if (item) {
+    delete map[id];
+    me.removeItem(item);
+    item.destroy();
+    me.doUpdateExpandable();
+    owner.fireEvent('itemremove', owner, me, item);
+    owner.updateLayout();
+  }
+}, nodeUpdate:function(node, modifiedFieldNames) {
+  this.doNodeUpdate(node);
+}, removeItem:Ext.emptyFn, destroy:function() {
+  var me = this, map = me.itemMap, owner = me.getOwner(), key;
+  if (map) {
+    for (key in map) {
+      map[key].destroy();
+    }
+    me.itemMap = null;
+  }
+  if (owner) {
+    owner.removeItem(me.getNode());
+  }
+  me.setNode(null);
+  me.setParentItem(null);
+  me.setOwner(null);
+  me.callParent();
+}, privates:{doNodeUpdate:function(node) {
+  var me = this, textProperty = this.getTextProperty(), iconClsProperty = this.getIconClsProperty();
+  if (textProperty) {
+    me.setText(node.data[textProperty]);
+  }
+  if (iconClsProperty) {
+    me.setIconCls(node.data[iconClsProperty]);
+  }
+  me.setLoading(node.isLoading());
+  me.setLeaf(node.isLeaf());
+  me.doUpdateExpandable();
+}, doUpdateExpandable:function() {
+  var node = this.getNode();
+  this.setExpandable(node.isExpandable());
+}, onClick:function(e) {
+  var me = this, owner = me.getOwner(), node = me.getNode(), info = {event:e, item:me, node:node, tree:owner, select:node.get('selectable') !== false && me.isSelectionEvent(e), toggle:me.isToggleEvent(e)};
+  if (owner.fireEvent('itemclick', owner, info) !== false) {
+    if (info.toggle) {
+      me.toggleExpanded();
+      e.preventDefault();
+    }
+    if (info.select) {
+      owner.setSelection(me.getNode());
+    }
+  }
+}, toggleExpanded:function() {
+  if (this.isExpanded()) {
+    this.collapse();
+  } else {
+    this.expand();
+  }
+}, updateIndent:function(value) {
+  var items = this.itemMap, id;
+  for (id in items) {
+    items[id].setIndent(value);
+  }
+}, updateOwner:function(owner) {
+  this.parent = owner;
+}}});
+Ext.define('Ext.list.RootTreeItem', {extend:Ext.list.AbstractTreeItem, isRootListItem:true, element:{reference:'element', tag:'ul', cls:Ext.baseCSSPrefix + 'treelist-root-container'}, insertItem:function(item, refItem) {
+  if (refItem) {
+    item.element.insertBefore(refItem.element);
+  } else {
+    this.element.appendChild(item.element);
+  }
+}, isToggleEvent:function(e) {
+  return false;
+}});
+Ext.define('Ext.list.TreeItem', {extend:Ext.list.AbstractTreeItem, xtype:'treelistitem', collapsedCls:Ext.baseCSSPrefix + 'treelist-item-collapsed', expandedCls:Ext.baseCSSPrefix + 'treelist-item-expanded', floatedCls:[Ext.Widget.prototype.floatedCls, Ext.baseCSSPrefix + 'treelist-item-floated'], floatedToolCls:Ext.baseCSSPrefix + 'treelist-item-tool-floated', leafCls:Ext.baseCSSPrefix + 'treelist-item-leaf', expandableCls:Ext.baseCSSPrefix + 'treelist-item-expandable', hideIconCls:Ext.baseCSSPrefix + 
+'treelist-item-hide-icon', loadingCls:Ext.baseCSSPrefix + 'treelist-item-loading', selectedCls:Ext.baseCSSPrefix + 'treelist-item-selected', selectedParentCls:Ext.baseCSSPrefix + 'treelist-item-selected-parent', withIconCls:Ext.baseCSSPrefix + 'treelist-item-with-icon', hoverCls:Ext.baseCSSPrefix + 'treelist-item-over', rowHoverCls:Ext.baseCSSPrefix + 'treelist-row-over', isTreeListItem:true, config:{rowCls:null}, rowClsProperty:'rowCls', element:{reference:'element', tag:'li', cls:Ext.baseCSSPrefix + 
+'treelist-item', children:[{reference:'rowElement', cls:Ext.baseCSSPrefix + 'treelist-row', children:[{reference:'wrapElement', cls:Ext.baseCSSPrefix + 'treelist-item-wrap', children:[{reference:'iconElement', cls:Ext.baseCSSPrefix + 'treelist-item-icon'}, {reference:'textElement', cls:Ext.baseCSSPrefix + 'treelist-item-text'}, {reference:'expanderElement', cls:Ext.baseCSSPrefix + 'treelist-item-expander'}]}]}, {reference:'itemContainer', tag:'ul', cls:Ext.baseCSSPrefix + 'treelist-container'}, {reference:'toolElement', 
+cls:Ext.baseCSSPrefix + 'treelist-item-tool'}]}, constructor:function(config) {
+  this.callParent([config]);
+  var toolDom = this.toolElement.dom;
+  toolDom.parentNode.removeChild(toolDom);
+}, getToolElement:function() {
+  return this.toolElement;
+}, insertItem:function(item, refItem) {
+  if (refItem) {
+    item.element.insertBefore(refItem.element);
+  } else {
+    this.itemContainer.appendChild(item.element);
+  }
+}, isSelectionEvent:function(e) {
+  var owner = this.getOwner();
+  return !this.isToggleEvent(e) || !owner.getExpanderOnly() || owner.getSelectOnExpander();
+}, isToggleEvent:function(e) {
+  var isExpand = false;
+  if (this.getOwner().getExpanderOnly()) {
+    isExpand = e.target === this.expanderElement.dom;
+  } else {
+    isExpand = !this.itemContainer.contains(e.target);
+  }
+  return isExpand;
+}, nodeCollapseBegin:function(animation, collapsingForExpand) {
+  var me = this, itemContainer = me.itemContainer, height;
+  if (me.expanding) {
+    me.stopAnimation(me.expanding);
+  }
+  height = animation && itemContainer.getHeight();
+  me.callParent([animation, collapsingForExpand]);
+  if (animation) {
+    itemContainer.dom.style.display = 'block';
+    me.collapsingForExpand = collapsingForExpand;
+    me.collapsing = this.runAnimation(Ext.merge({from:{height:height}, to:{height:0}, callback:me.nodeCollapseDone, scope:me}, animation));
+  }
+}, nodeCollapseDone:function(animation) {
+  var me = this, itemContainer = me.itemContainer;
+  me.collapsing = null;
+  itemContainer.dom.style.display = '';
+  itemContainer.setHeight(null);
+  me.nodeCollapseEnd(me.collapsingForExpand);
+}, nodeExpandBegin:function(animation) {
+  var me = this, itemContainer = me.itemContainer, height;
+  if (me.collapsing) {
+    me.stopAnimation(me.collapsing);
+  }
+  me.callParent([animation]);
+  if (animation) {
+    height = itemContainer.getHeight();
+    itemContainer.setHeight(0);
+    me.expanding = me.runAnimation(Ext.merge({to:{height:height}, callback:me.nodeExpandDone, scope:me}, animation));
+  }
+}, nodeExpandDone:function() {
+  this.expanding = null;
+  this.itemContainer.setHeight(null);
+  this.nodeExpandEnd();
+}, removeItem:function(item) {
+  this.itemContainer.removeChild(item.element);
+}, updateNode:function(node, oldNode) {
+  this.syncIndent();
+  this.callParent([node, oldNode]);
+}, updateExpandable:function() {
+  this.updateExpandCls();
+}, updateExpanded:function() {
+  this.updateExpandCls();
+}, updateIconCls:function(iconCls, oldIconCls) {
+  var me = this, el = me.element;
+  me.doIconCls(me.iconElement, iconCls, oldIconCls);
+  me.doIconCls(me.toolElement, iconCls, oldIconCls);
+  el.toggleCls(me.withIconCls, !!iconCls);
+  el.toggleCls(me.hideIconCls, iconCls === null);
+}, updateLeaf:function(leaf) {
+  this.element.toggleCls(this.leafCls, leaf);
+}, updateLoading:function(loading) {
+  this.element.toggleCls(this.loadingCls, loading);
+}, updateOver:function(over) {
+  var me = this;
+  me.element.toggleCls(me.hoverCls, !!over);
+  me.rowElement.toggleCls(me.rowHoverCls, over > 1);
+}, updateRowCls:function(value, oldValue) {
+  this.rowElement.replaceCls(oldValue, value);
+}, updateSelected:function(selected, oldSelected) {
+  var me = this, cls = me.selectedCls, tool = me.getToolElement();
+  me.callParent([selected, oldSelected]);
+  me.element.toggleCls(cls, selected);
+  if (tool) {
+    tool.toggleCls(cls, selected);
+  }
+}, updateSelectedParent:function(selectedParent) {
+  var me = this;
+  me.element.toggleCls(me.selectedParentCls, selectedParent);
+  var tool = me.getToolElement();
+  if (tool) {
+    tool.toggleCls(me.selectedCls, selectedParent);
+  }
+}, updateText:function(text) {
+  this.textElement.update(text);
+}, privates:{doNodeUpdate:function(node) {
+  this.callParent([node]);
+  this.setRowCls(node && node.data[this.rowClsProperty]);
+}, doIconCls:function(element, iconCls, oldIconCls) {
+  if (oldIconCls) {
+    element.removeCls(oldIconCls);
+  }
+  if (iconCls) {
+    element.addCls(iconCls);
+  }
+}, syncIndent:function() {
+  var me = this, indent = me.getIndent(), node = me.getNode(), depth;
+  if (node) {
+    depth = node.data.depth - 1;
+    me.wrapElement.dom.style.marginLeft = depth * indent + 'px';
+  }
+}, updateExpandCls:function() {
+  if (!this.updatingExpandCls) {
+    var me = this, expandable = me.getExpandable(), element = me.element, expanded = me.getExpanded(), expandedCls = me.expandedCls, collapsedCls = me.collapsedCls;
+    me.updatingExpandCls = true;
+    element.toggleCls(me.expandableCls, expandable);
+    if (expandable) {
+      element.toggleCls(expandedCls, expanded);
+      element.toggleCls(collapsedCls, !expanded);
+    } else {
+      element.removeCls([expandedCls, collapsedCls]);
+    }
+    me.updatingExpandCls = false;
+  }
+}, updateIndent:function(value, oldValue) {
+  this.syncIndent();
+  this.callParent([value, oldValue]);
+}}});
+Ext.define('Ext.overrides.list.TreeItem', {override:'Ext.list.TreeItem', config:{floated:null}, setFloated:function(floated) {
+  var me = this, el = me.element, placeholder = me.placeholder, node, wasExpanded;
+  if (me.treeItemFloated !== floated) {
+    if (floated) {
+      placeholder = el.clone(false, true);
+      placeholder.id += '-placeholder';
+      me.placeholder = Ext.get(placeholder);
+      me.wasExpanded = me.getExpanded();
+      me.setExpanded(true);
+      el.addCls(me.floatedCls);
+      el.dom.parentNode.insertBefore(placeholder, el.dom);
+      me.floater = me.createFloater();
+    } else {
+      if (placeholder) {
+        wasExpanded = me.wasExpanded;
+        node = me.getNode();
+        me.setExpanded(wasExpanded);
+        if (!wasExpanded && node.isExpanded()) {
+          me.preventAnimation = true;
+          node.collapse();
+          me.preventAnimation = false;
+        }
+        me.floater.remove(me, false);
+        el.removeCls(me.floatedCls);
+        placeholder.dom.parentNode.insertBefore(el.dom, placeholder.dom);
+        placeholder.destroy();
+        me.floater.destroy();
+        me.placeholder = me.floater = null;
+      }
+    }
+    me.treeItemFloated = floated;
+  }
+}, getFloated:function() {
+  return this.treeItemFloated;
+}, runAnimation:function(animation) {
+  return this.itemContainer.addAnimation(animation);
+}, stopAnimation:function(animation) {
+  animation.jumpToEnd();
+}, privates:{createFloater:function() {
+  var me = this, owner = me.getOwner(), ownerTree = me.up('treelist'), floater, toolElement = me.getToolElement();
+  me.floater = floater = new Ext.container.Container({cls:ownerTree.self.prototype.element.cls + ' ' + ownerTree.uiPrefix + ownerTree.getUi() + ' ' + Ext.baseCSSPrefix + 'treelist-floater', floating:true, width:Ext.isIE8 ? 200 : ownerTree.expandedWidth - toolElement.getWidth(), shadow:false, renderTo:Ext.getBody(), listeners:{element:'el', click:function(e) {
+    return owner.onClick(e);
+  }}});
+  floater.add(me);
+  floater.show();
+  floater.el.alignTo(toolElement, 'tr?');
+  return floater;
+}}});
+Ext.define('Ext.theme.triton.list.TreeItem', {override:'Ext.list.TreeItem', compatibility:Ext.isIE8, setFloated:function(floated, wasFloated) {
+  this.callParent([floated, wasFloated]);
+  this.toolElement.syncRepaint();
+}});
+Ext.define('Ext.list.Tree', {extend:Ext.Widget, xtype:'treelist', expanderFirstCls:Ext.baseCSSPrefix + 'treelist-expander-first', expanderOnlyCls:Ext.baseCSSPrefix + 'treelist-expander-only', highlightPathCls:Ext.baseCSSPrefix + 'treelist-highlight-path', microCls:Ext.baseCSSPrefix + 'treelist-micro', uiPrefix:Ext.baseCSSPrefix + 'treelist-', element:{reference:'element', cls:Ext.baseCSSPrefix + 'treelist ' + Ext.baseCSSPrefix + 'unselectable', listeners:{click:'onClick', mouseenter:'onMouseEnter', 
+mouseleave:'onMouseLeave', mouseover:'onMouseOver'}, children:[{reference:'toolsElement', cls:Ext.baseCSSPrefix + 'treelist-toolstrip', listeners:{click:'onToolStripClick', mouseover:'onToolStripMouseOver'}}]}, cachedConfig:{animation:{duration:500, easing:'ease'}, expanderFirst:true, expanderOnly:true}, config:{defaults:{xtype:'treelistitem'}, highlightPath:null, iconSize:null, indent:null, micro:false, overItem:null, selection:null, selectOnExpander:false, singleExpand:null, store:null, ui:null}, 
+twoWayBindable:{selection:1}, publishes:{selection:1}, defaultBindProperty:'store', constructor:function(config) {
+  var me = this;
+  me.callParent([config]);
+  me.publishState('selection', me.getSelection());
+  if (!Ext.isIE8) {
+    me.el.on({resize:me.onElResize, buffer:300, scope:me});
+  }
+}, beforeLayout:function() {
+  this.syncIconSize();
+}, destroy:function() {
+  var me = this;
+  me.destroying = true;
+  me.unfloatAll();
+  me.activeFloater = null;
+  me.setSelection(null);
+  me.setStore(null);
+  me.callParent();
+}, updateOverItem:function(over, wasOver) {
+  var map = {}, state = 2, c, node;
+  for (c = over; c; c = this.getItem(node.parentNode)) {
+    node = c.getNode();
+    map[node.internalId] = true;
+    c.setOver(state);
+    state = 1;
+  }
+  if (wasOver) {
+    for (c = wasOver; c; c = this.getItem(node.parentNode)) {
+      node = c.getNode();
+      if (map[node.internalId]) {
+        break;
+      }
+      c.setOver(0);
+    }
+  }
+}, applyMicro:function(micro) {
+  return Boolean(micro);
+}, applySelection:function(selection, oldSelection) {
+  var store = this.getStore();
+  if (!store) {
+    selection = null;
+  }
+  if (selection && selection.get('selectable') === false) {
+    selection = oldSelection;
+  }
+  return selection;
+}, updateSelection:function(selection, oldSelection) {
+  var me = this, item;
+  if (!me.destroying) {
+    item = me.getItem(oldSelection);
+    if (item) {
+      item.setSelected(false);
+    }
+    item = me.getItem(selection);
+    if (item) {
+      item.setSelected(true);
+    }
+    me.fireEvent('selectionchange', me, selection);
+  }
+}, applyStore:function(store) {
+  return store && Ext.StoreManager.lookup(store, 'tree');
+}, updateStore:function(store, oldStore) {
+  var me = this, root;
+  if (oldStore) {
+    if (!oldStore.destroyed) {
+      if (oldStore.getAutoDestroy()) {
+        oldStore.destroy();
+      } else {
+        me.storeListeners.destroy();
+      }
+    }
+    me.removeRoot();
+    me.storeListeners = null;
+  }
+  if (store) {
+    me.storeListeners = store.on({destroyable:true, scope:me, filterchange:'onFilterChange', nodeappend:'onNodeAppend', nodecollapse:'onNodeCollapse', nodeexpand:'onNodeExpand', nodeinsert:'onNodeInsert', noderemove:'onNodeRemove', rootchange:'onRootChange', update:'onNodeUpdate'});
+    root = store.getRoot();
+    if (root) {
+      me.createRootItem(root);
+    }
+  }
+  if (!me.destroying) {
+    me.updateLayout();
+  }
+}, updateExpanderFirst:function(expanderFirst) {
+  this.element.toggleCls(this.expanderFirstCls, expanderFirst);
+}, updateExpanderOnly:function(value) {
+  this.element.toggleCls(this.expanderOnlyCls, !value);
+}, updateHighlightPath:function(updatePath) {
+  this.element.toggleCls(this.highlightPathCls, updatePath);
+}, onElResize:function(el, details) {
+  if (!this.getMicro()) {
+    this.expandedWidth = details.width;
+  }
+}, updateMicro:function(micro) {
+  var me = this;
+  if (!micro) {
+    me.unfloatAll();
+    me.activeFloater = null;
+  }
+  me.element.toggleCls(me.microCls, micro);
+}, updateUi:function(ui, oldValue) {
+  var el = this.element, uiPrefix = this.uiPrefix;
+  if (oldValue) {
+    el.removeCls(uiPrefix + oldValue);
+  }
+  if (ui) {
+    el.addCls(uiPrefix + ui);
+  }
+  delete this.iconSize;
+  this.syncIconSize();
+}, getItem:function(node) {
+  var map = this.itemMap, ret;
+  if (node && map) {
+    ret = map[node.internalId];
+  }
+  return ret || null;
+}, getItemConfig:function(node, parent) {
+  return Ext.apply({parentItem:parent.isRootListItem ? null : parent, owner:this, node:node, indent:this.getIndent()}, this.getDefaults());
+}, privates:{checkForOutsideClick:function(e) {
+  var floater = this.activeFloater;
+  if (!floater.element.contains(e.target)) {
+    this.unfloatAll();
+  }
+}, collapsingForExpand:false, createItem:function(node, parent) {
+  var me = this, item = Ext.create(me.getItemConfig(node, parent)), toolsElement = me.toolsElement, toolEl, previousSibling;
+  if (parent.isRootListItem) {
+    toolEl = item.getToolElement();
+    if (toolEl) {
+      previousSibling = me.findVisiblePreviousSibling(node);
+      if (!previousSibling) {
+        toolsElement.insertFirst(toolEl);
+      } else {
+        previousSibling = me.getItem(previousSibling);
+        toolEl.insertAfter(previousSibling.getToolElement());
+      }
+      toolEl.dom.setAttribute('data-recordId', node.internalId);
+      toolEl.isTool = true;
+    }
+  }
+  me.itemMap[node.internalId] = item;
+  return item;
+}, createRootItem:function(root) {
+  var me = this, item;
+  me.itemMap = {};
+  me.rootItem = item = new Ext.list.RootTreeItem({indent:me.getIndent(), node:root, owner:me});
+  me.element.appendChild(item.element);
+  me.itemMap[root.internalId] = item;
+}, findVisiblePreviousSibling:function(node) {
+  var sibling = node.previousSibling;
+  while (sibling) {
+    if (sibling.data.visible) {
+      return sibling;
+    }
+    sibling = sibling.previousSibling;
+  }
+  return null;
+}, floatItem:function(item, byHover) {
+  var me = this, floater;
+  if (item.getFloated()) {
+    return;
+  }
+  if (me.toolMouseListeners) {
+    me.toolMouseListeners.destroy();
+    me.floaterMouseListeners.destroy();
+  }
+  me.unfloatAll();
+  me.activeFloater = floater = item;
+  me.floatedByHover = byHover;
+  item.setFloated(true);
+  if (byHover) {
+    me.toolMouseListeners = item.getToolElement().monitorMouseLeave(300, me.checkForMouseLeave, me);
+    me.floaterMouseListeners = (item.floater || item).el.monitorMouseLeave(300, me.checkForMouseLeave, me);
+  } else {
+    Ext.on('mousedown', 'checkForOutsideClick', me);
+  }
+}, onClick:function(e) {
+  var item = e.getTarget('[data-recordId]'), id;
+  if (item) {
+    id = item.getAttribute('data-recordId');
+    item = this.itemMap[id];
+    if (item) {
+      item.onClick(e);
+    }
+  }
+}, onMouseEnter:function(e) {
+  this.onMouseOver(e);
+}, onMouseLeave:function() {
+  this.setOverItem(null);
+}, onMouseOver:function(e) {
+  var comp = Ext.Component.fromElement(e.getTarget());
+  this.setOverItem(comp && comp.isTreeListItem && comp);
+}, checkForMouseLeave:function(e) {
+  var floater = this.activeFloater, relatedTarget = e.getRelatedTarget();
+  if (floater) {
+    if (relatedTarget !== floater.getToolElement().dom && !floater.element.contains(relatedTarget)) {
+      this.unfloatAll();
+    }
+  }
+}, onFilterChange:function(store) {
+  this.onRootChange(store.getRoot());
+}, onNodeAppend:function(parentNode, node) {
+  if (parentNode) {
+    var item = this.itemMap[parentNode.internalId];
+    if (item) {
+      item.nodeInsert(node, null);
+    }
+  }
+}, onNodeCollapse:function(node) {
+  var item = this.itemMap[node.internalId];
+  if (item) {
+    item.nodeCollapse(node, this.collapsingForExpand);
+  }
+}, onNodeExpand:function(node) {
+  var me = this, item = me.itemMap[node.internalId], childNodes, len, i, parentNode, child;
+  if (item) {
+    if (!item.isRootItem && me.getSingleExpand()) {
+      me.collapsingForExpand = true;
+      parentNode = (item.getParentItem() || me.rootItem).getNode();
+      childNodes = parentNode.childNodes;
+      for (i = 0, len = childNodes.length; i < len; ++i) {
+        child = childNodes[i];
+        if (child !== node) {
+          child.collapse();
+        }
+      }
+      me.collapsing = false;
+    }
+    item.nodeExpand(node);
+  }
+}, onNodeInsert:function(parentNode, node, refNode) {
+  var item = this.itemMap[parentNode.internalId];
+  if (item) {
+    item.nodeInsert(node, refNode);
+  }
+}, onNodeRemove:function(parentNode, node, isMove) {
+  if (parentNode && !isMove) {
+    var item = this.itemMap[parentNode.internalId];
+    if (item) {
+      item.nodeRemove(node);
+    }
+  }
+}, onNodeUpdate:function(store, node, type, modifiedFieldNames) {
+  var item = this.itemMap[node.internalId];
+  if (item) {
+    item.nodeUpdate(node, modifiedFieldNames);
+  }
+}, onRootChange:function(root) {
+  var me = this;
+  me.removeRoot();
+  if (root) {
+    me.createRootItem(root);
+  }
+  me.updateLayout();
+  me.fireEvent('refresh', me);
+}, removeItem:function(node) {
+  var map = this.itemMap, id = node.internalId, item, toolEl;
+  if (map) {
+    item = map[id];
+    if (item.getParentItem() === null) {
+      toolEl = item.getToolElement();
+      if (toolEl) {
+        this.toolsElement.removeChild(toolEl);
+      }
+    }
+    delete map[id];
+  }
+}, removeRoot:function() {
+  var me = this, rootItem = me.rootItem;
+  if (rootItem) {
+    me.element.removeChild(rootItem.element);
+    me.rootItem = me.itemMap = Ext.destroy(rootItem);
+  }
+}, onToolStripClick:function(e) {
+  var item = e.getTarget('[data-recordId]'), id;
+  if (item) {
+    id = item.getAttribute('data-recordId');
+    item = this.itemMap[id];
+    if (item) {
+      if (item === this.activeFloater) {
+        this.unfloatAll();
+      } else {
+        this.floatItem(item, false);
+      }
+    }
+  }
+}, onToolStripMouseOver:function(e) {
+  var item = e.getTarget('[data-recordId]'), id;
+  if (item) {
+    id = item.getAttribute('data-recordId');
+    item = this.itemMap[id];
+    if (item) {
+      this.floatItem(item, true);
+    }
+  }
+}, syncIconSize:function() {
+  var me = this, size = me.iconSize || (me.iconSize = parseInt(me.element.getStyle('background-position'), 10));
+  me.setIconSize(size);
+}, unfloatAll:function() {
+  var me = this, floater = me.activeFloater;
+  if (floater) {
+    floater.setFloated(false);
+    me.activeFloater = null;
+    if (me.floatedByHover) {
+      floater.getToolElement().un('mouseleave', 'checkForMouseLeave', me);
+      floater.element.un({scope:me, mouseleave:'checkForMouseLeave', mouseover:'onMouseOver'});
+    } else {
+      Ext.un('mousedown', 'checkForOutsideClick', me);
+    }
+  }
+}, defaultIconSize:22, updateIconSize:function(value) {
+  this.setIndent(value || this.defaultIconSize);
+}, updateIndent:function(value) {
+  var rootItem = this.rootItem;
+  if (rootItem) {
+    rootItem.setIndent(value);
+  }
+}}});
 Ext.define('Ext.mixin.Container', {extend:Ext.Mixin, mixinConfig:{id:'container'}, isContainer:true, config:{referenceHolder:false}, getReferences:function() {
   Ext.ComponentManager.fixReferences();
   return this.refs || null;
@@ -47500,6 +50004,130 @@ hidefocus:'on', unselectable:'on'}, hasFrameTable:function() {
 }, wrapPrimaryEl:function(dom) {
   this.el = new Ext.dom.ButtonElement(dom);
   this.callParent([dom]);
+}}});
+Ext.define('Ext.button.Split', {extend:Ext.button.Button, alternateClassName:'Ext.SplitButton', alias:'widget.splitbutton', isSplitButton:true, arrowCls:'split', split:true, initComponent:function() {
+  var me = this;
+  if (me.menu && (me.arrowHandler || me.hasListeners.hasOwnProperty('arrowclick'))) {
+    Ext.ariaWarn(me, 'Using both menu and arrowHandler config options in Split buttons ' + 'leads to confusing user experience and conflicts with accessibility ' + 'best practices. See WAI-ARIA 1.0 Authoring guide: ' + 'http://www.w3.org/TR/wai-aria-practices/#menubutton');
+  }
+  me.callParent();
+}, getTemplateArgs:function() {
+  var me = this, ariaAttr, data;
+  data = me.callParent();
+  if (me.disabled) {
+    data.tabIndex = null;
+  }
+  ariaAttr = me.ariaArrowElAttributes || {};
+  ariaAttr['aria-hidden'] = !!me.hidden;
+  ariaAttr['aria-disabled'] = !!me.disabled;
+  if (me.arrowTooltip) {
+    ariaAttr['aria-label'] = me.arrowTooltip;
+  } else {
+    ariaAttr['aria-labelledby'] = me.id;
+  }
+  data.arrowElAttributes = ariaAttr;
+  return data;
+}, onRender:function() {
+  var me = this, el;
+  me.callParent();
+  el = me.getFocusEl();
+  if (el) {
+    el.on({scope:me, focus:me.onMainElFocus, blur:me.onMainElBlur});
+  }
+  el = me.arrowEl;
+  if (el) {
+    el.dom.setAttribute('data-componentid', me.id);
+    el.setVisibilityMode(Ext.dom.Element.DISPLAY);
+    el.on({scope:me, focus:me.onArrowElFocus, blur:me.onArrowElBlur});
+  }
+}, setArrowHandler:function(handler, scope) {
+  this.arrowHandler = handler;
+  this.scope = scope;
+}, onClick:function(e) {
+  var me = this, arrowKeydown = e.type === 'keydown' && e.target === me.arrowEl.dom;
+  me.doPreventDefault(e);
+  if (!me.disabled) {
+    if (arrowKeydown || me.isWithinTrigger(e)) {
+      e.preventDefault();
+      me.maybeShowMenu(e);
+      me.fireEvent('arrowclick', me, e);
+      if (me.arrowHandler) {
+        me.arrowHandler.call(me.scope || me, me, e);
+      }
+    } else {
+      me.doToggle();
+      me.fireHandler(e);
+    }
+  }
+}, enable:function(silent) {
+  var me = this, arrowEl = me.arrowEl;
+  me.callParent([silent]);
+  if (arrowEl) {
+    arrowEl.dom.setAttribute('tabIndex', me.tabIndex);
+    arrowEl.dom.setAttribute('aria-disabled', 'false');
+  }
+}, disable:function(silent) {
+  var me = this, arrowEl = me.arrowEl;
+  me.callParent([silent]);
+  if (arrowEl) {
+    arrowEl.dom.removeAttribute('tabIndex');
+    arrowEl.dom.setAttribute('aria-disabled', 'true');
+  }
+}, afterHide:function(cb, scope) {
+  this.callParent([cb, scope]);
+  this.arrowEl.dom.setAttribute('aria-hidden', 'true');
+}, afterShow:function(animateTarget, cb, scope) {
+  this.callParent([animateTarget, cb, scope]);
+  this.arrowEl.dom.setAttribute('aria-hidden', 'false');
+}, privates:{isFocusing:function(e) {
+  var me = this, from = e.fromElement, to = e.toElement, focusEl = me.focusEl && me.focusEl.dom, arrowEl = me.arrowEl && me.arrowEl.dom;
+  if (me.focusable) {
+    if (to === focusEl) {
+      return from === arrowEl ? false : true;
+    } else {
+      if (to === arrowEl) {
+        return from === focusEl ? false : true;
+      }
+    }
+    return true;
+  }
+  return false;
+}, isBlurring:function(e) {
+  var me = this, from = e.fromElement, to = e.toElement, focusEl = me.focusEl && me.focusEl.dom, arrowEl = me.arrowEl && me.arrowEl.dom;
+  if (me.focusable) {
+    if (from === focusEl) {
+      return to === arrowEl ? false : true;
+    } else {
+      if (from === arrowEl) {
+        return to === focusEl ? false : true;
+      }
+    }
+    return true;
+  }
+  return false;
+}, getFocusClsEl:Ext.privateFn, onMainElFocus:function(e) {
+  this.el.addCls(this._focusCls);
+}, onMainElBlur:function(e) {
+  this.el.removeCls(this._focusCls);
+}, onArrowElFocus:function(e) {
+  this.el.addCls(this._arrowFocusCls);
+}, onArrowElBlur:function() {
+  this.el.removeCls(this._arrowFocusCls);
+}, setTabIndex:function(newTabIndex) {
+  this.callParent([newTabIndex]);
+  if (this.arrowEl) {
+    this.arrowEl.set({tabIndex:newTabIndex});
+  }
+}, _addSplitCls:function() {
+  var arrowEl = this.arrowEl;
+  this.callParent();
+  arrowEl.dom.setAttribute('tabIndex', this.tabIndex);
+  arrowEl.setVisible(true);
+}, _removeSplitCls:function() {
+  var arrowEl = this.arrowEl;
+  this.callParent();
+  arrowEl.dom.removeAttribute('tabIndex');
+  arrowEl.setVisible(false);
 }}});
 Ext.define('Ext.panel.Bar', {extend:Ext.container.Container, vertical:false, _verticalSides:{left:1, right:1}, initComponent:function() {
   var me = this, vertical = me.vertical;
@@ -57816,6 +60444,163 @@ Ext.define('Ext.form.Panel', {extend:Ext.panel.Panel, mixins:{fieldAncestor:Ext.
     fields[f].checkChange();
   }
 }});
+Ext.define('Ext.form.field.Picker', {extend:Ext.form.field.Text, alias:'widget.pickerfield', alternateClassName:'Ext.form.Picker', config:{triggers:{picker:{handler:'onTriggerClick', scope:'this', focusOnMousedown:true}}}, renderConfig:{editable:true}, keyMap:{scope:'this', DOWN:'onDownArrow', ESC:'onEsc'}, keyMapTarget:'inputEl', isPickerField:true, matchFieldWidth:true, pickerAlign:'tl-bl?', openCls:Ext.baseCSSPrefix + 'pickerfield-open', isExpanded:false, applyTriggers:function(triggers) {
+  var me = this, picker = triggers.picker;
+  if (!picker.cls) {
+    picker.cls = me.triggerCls;
+  }
+  return me.callParent([triggers]);
+}, getSubTplData:function(fieldData) {
+  var me = this, data, ariaAttr;
+  data = me.callParent([fieldData]);
+  if (!me.ariaStaticRoles[me.ariaRole]) {
+    ariaAttr = data.ariaElAttributes;
+    if (ariaAttr) {
+      ariaAttr['aria-haspopup'] = true;
+      ariaAttr['aria-expanded'] = false;
+    }
+  }
+  return data;
+}, initEvents:function() {
+  this.callParent();
+  if (Ext.isGecko) {
+    this.inputEl.dom.setAttribute('autocomplete', 'off');
+  }
+}, updateEditable:function(editable, oldEditable) {
+  var me = this;
+  if (!editable) {
+    me.inputEl.on('click', me.onTriggerClick, me);
+  } else {
+    me.inputEl.un('click', me.onTriggerClick, me);
+  }
+  me.callParent([editable, oldEditable]);
+}, onEsc:function(e) {
+  if (Ext.isIE) {
+    e.preventDefault();
+  }
+  if (this.isExpanded) {
+    this.collapse();
+    e.stopEvent();
+  }
+}, onDownArrow:function(e) {
+  var me = this;
+  if (e.time - me.lastDownArrow > 150) {
+    delete me.lastDownArrow;
+  }
+  if (!me.isExpanded) {
+    e.stopEvent();
+    me.onTriggerClick(e);
+    me.lastDownArrow = e.time;
+  } else {
+    if (!e.stopped && e.time - me.lastDownArrow < 150) {
+      delete me.lastDownArrow;
+    }
+  }
+}, expand:function() {
+  var me = this, bodyEl, picker, doc;
+  if (me.rendered && !me.isExpanded && !me.destroyed) {
+    bodyEl = me.bodyEl;
+    picker = me.getPicker();
+    doc = Ext.getDoc();
+    picker.setMaxHeight(picker.initialConfig.maxHeight);
+    if (me.matchFieldWidth) {
+      picker.setWidth(me.bodyEl.getWidth());
+    }
+    picker.show();
+    me.isExpanded = true;
+    me.alignPicker();
+    bodyEl.addCls(me.openCls);
+    if (!me.ariaStaticRoles[me.ariaRole]) {
+      if (!me.ariaEl.dom.hasAttribute('aria-owns')) {
+        me.ariaEl.dom.setAttribute('aria-owns', picker.listEl ? picker.listEl.id : picker.el.id);
+      }
+      me.ariaEl.dom.setAttribute('aria-expanded', true);
+    }
+    me.touchListeners = doc.on({translate:false, touchstart:me.collapseIf, scope:me, delegated:false, destroyable:true});
+    me.scrollListeners = Ext.on({scroll:me.onGlobalScroll, scope:me, destroyable:true});
+    Ext.on('resize', me.alignPicker, me, {buffer:1});
+    me.fireEvent('expand', me);
+    me.onExpand();
+  }
+}, onExpand:Ext.emptyFn, alignPicker:function() {
+  var me = this, picker;
+  if (me.rendered && !me.destroyed) {
+    picker = me.getPicker();
+    if (picker.isVisible() && picker.isFloating()) {
+      me.doAlign();
+    }
+  }
+}, doAlign:function() {
+  var me = this, picker = me.picker, aboveSfx = '-above', newPos, isAbove;
+  picker.el.alignTo(me.triggerWrap, me.pickerAlign, me.pickerOffset);
+  newPos = picker.floatParent ? picker.getOffsetsTo(picker.floatParent.getTargetEl()) : picker.getXY();
+  picker.x = newPos[0];
+  picker.y = newPos[1];
+  isAbove = picker.el.getY() < me.inputEl.getY();
+  me.bodyEl[isAbove ? 'addCls' : 'removeCls'](me.openCls + aboveSfx);
+  picker[isAbove ? 'addCls' : 'removeCls'](picker.baseCls + aboveSfx);
+}, collapse:function() {
+  var me = this;
+  if (me.isExpanded && !me.destroyed && !me.destroying) {
+    var openCls = me.openCls, picker = me.picker, aboveSfx = '-above';
+    picker.hide();
+    me.isExpanded = false;
+    me.bodyEl.removeCls([openCls, openCls + aboveSfx]);
+    picker.el.removeCls(picker.baseCls + aboveSfx);
+    if (!me.ariaStaticRoles[me.ariaRole]) {
+      me.ariaEl.dom.setAttribute('aria-expanded', false);
+    }
+    me.touchListeners.destroy();
+    me.scrollListeners.destroy();
+    Ext.un('resize', me.alignPicker, me);
+    me.fireEvent('collapse', me);
+    me.onCollapse();
+  }
+}, onCollapse:Ext.emptyFn, collapseIf:function(e) {
+  var me = this;
+  if (!me.destroyed && !e.within(me.bodyEl, false, true) && !me.owns(e.target) && !Ext.fly(e.target).isFocusable()) {
+    me.collapse();
+  }
+}, getPicker:function() {
+  var me = this, picker = me.picker;
+  if (!picker) {
+    me.creatingPicker = true;
+    me.picker = picker = me.createPicker();
+    picker.ownerCmp = me;
+    delete me.creatingPicker;
+  }
+  return me.picker;
+}, onFocusLeave:function(e) {
+  this.collapse();
+  this.callParent([e]);
+}, getRefItems:function() {
+  var result = [];
+  if (this.picker) {
+    result[0] = this.picker;
+  }
+  return result;
+}, createPicker:Ext.emptyFn, onTriggerClick:function(e) {
+  var me = this;
+  if (!me.readOnly && !me.disabled) {
+    if (me.isExpanded) {
+      me.collapse();
+    } else {
+      me.expand();
+    }
+  }
+}, doDestroy:function() {
+  var me = this, picker = me.picker;
+  Ext.un('resize', me.alignPicker, me);
+  Ext.destroy(me.keyNav, picker);
+  if (picker) {
+    me.picker = picker.pickerField = null;
+  }
+  me.callParent();
+}, privates:{onGlobalScroll:function(scroller) {
+  if (!this.picker.owns(scroller.getElement())) {
+    this.collapse();
+  }
+}}});
 Ext.define('Ext.selection.Model', {extend:Ext.mixin.Observable, alternateClassName:'Ext.AbstractSelectionModel', alias:'selection.abstract', mixins:[Ext.util.StoreHolder, Ext.mixin.Factoryable], factoryConfig:{defaultType:'dataviewmodel'}, $configPrefixed:false, $configStrict:false, config:{store:null, selected:{}}, isSelectionModel:true, allowDeselect:undefined, toggleOnClick:true, ordered:false, selected:null, pruneRemoved:true, suspendChange:0, ignoreRightMouseSelection:false, constructor:function(cfg) {
   var me = this;
   me.modes = {SINGLE:true, SIMPLE:true, MULTI:true};
@@ -59735,6 +62520,158 @@ onBeforeContainerMouseDown:Ext.emptyFn, onBeforeContainerLongPress:Ext.emptyFn, 
     node.className = node.className;
   }
 }}});
+Ext.define('Ext.view.BoundListKeyNav', {extend:Ext.view.NavigationModel, alias:'view.navigation.boundlist', navigateOnSpace:true, initKeyNav:function(view) {
+  var me = this, field = view.pickerField;
+  if (!me.keyNav) {
+    me.callParent([view]);
+    me.keyNav.map.addBinding({key:Ext.event.Event.ESC, fn:me.onKeyEsc, scope:me});
+  }
+  if (!field) {
+    return;
+  }
+  if (!field.rendered) {
+    field.on('render', Ext.Function.bind(me.initKeyNav, me, [view], 0), me, {single:true});
+    return;
+  }
+  me.fieldKeyNav = new Ext.util.KeyNav({disabled:true, target:field.inputEl, forceKeyDown:true, up:me.onKeyUp, down:me.onKeyDown, right:me.onKeyRight, left:me.onKeyLeft, pageDown:me.onKeyPageDown, pageUp:me.onKeyPageUp, home:me.onKeyHome, end:me.onKeyEnd, tab:me.onKeyTab, space:me.onKeySpace, enter:me.onKeyEnter, A:{ctrl:true, handler:me.onSelectAllKeyPress}, priority:1001, scope:me});
+}, processViewEvent:function(view, record, node, index, event) {
+  if (event.within(view.listWrap)) {
+    return event;
+  }
+  if (event.getKey() === event.ESC) {
+    if (Ext.fly(event.target).isInputField()) {
+      event.target = event.target.parentNode;
+    }
+    return event;
+  }
+}, enable:function() {
+  this.fieldKeyNav.enable();
+  this.callParent();
+}, disable:function() {
+  this.fieldKeyNav.disable();
+  this.callParent();
+}, onItemMouseDown:function(view, record, item, index, event) {
+  this.callParent([view, record, item, index, event]);
+  if (event.pointerType === 'mouse') {
+    event.preventDefault();
+  }
+}, onKeyUp:function(e) {
+  var me = this, boundList = me.view, allItems = boundList.all, oldItem = boundList.highlightedItem, oldItemIdx = oldItem ? boundList.indexOf(oldItem) : -1, newItemIdx = oldItemIdx > 0 ? oldItemIdx - 1 : allItems.getCount() - 1;
+  me.setPosition(newItemIdx);
+  e.preventDefault();
+}, onKeyDown:function(e) {
+  var me = this, boundList = me.view, allItems = boundList.all, oldItem = boundList.highlightedItem, oldItemIdx = oldItem ? boundList.indexOf(oldItem) : -1, newItemIdx = oldItemIdx < allItems.getCount() - 1 ? oldItemIdx + 1 : 0;
+  me.setPosition(newItemIdx);
+  e.preventDefault();
+}, onKeyLeft:Ext.returnTrue, onKeyRight:Ext.returnTrue, onKeyTab:function(e) {
+  var view = this.view, field = view.pickerField;
+  if (view.isVisible()) {
+    if (field.selectOnTab) {
+      this.selectHighlighted(e);
+    }
+    if (field.collapse) {
+      field.collapse();
+    }
+  }
+  return true;
+}, onKeyEnter:function(e) {
+  var view = this.view, selModel = view.getSelectionModel(), field = view.pickerField, count = selModel.getCount();
+  e.stopEvent();
+  this.selectHighlighted(e);
+  if (!field.multiSelect && count === selModel.getCount() && field.collapse) {
+    field.collapse();
+  }
+  field.fireEvent('specialkey', field, e, {fromBoundList:true});
+  return false;
+}, onKeySpace:function() {
+  if (this.navigateOnSpace) {
+    this.callParent(arguments);
+  }
+  return true;
+}, onKeyEsc:function() {
+  if (this.view.pickerField) {
+    this.view.pickerField.collapse();
+  }
+}, focusItem:function(item) {
+  var me = this, boundList = me.view;
+  if (typeof item === 'number') {
+    item = boundList.all.item(item);
+  }
+  if (item) {
+    item = item.dom;
+    boundList.highlightItem(item);
+    boundList.getScrollable().scrollIntoView(item, false);
+  }
+}, selectHighlighted:function(e) {
+  var me = this, boundList = me.view, selModel = boundList.getSelectionModel(), highlightedRec, highlightedPosition = me.recordIndex;
+  if (boundList.all.getCount()) {
+    highlightedRec = me.getRecord();
+    if (highlightedRec) {
+      if (e.getKey() === e.ENTER || !selModel.isSelected(highlightedRec)) {
+        selModel.selectWithEvent(highlightedRec, e);
+        if (!boundList.store.data.contains(highlightedRec)) {
+          me.setPosition(Math.min(highlightedPosition, boundList.store.getCount() - 1));
+        }
+      }
+    }
+  }
+}, destroy:function() {
+  this.fieldKeyNav = Ext.destroy(this.fieldKeyNav);
+  this.callParent();
+}});
+Ext.define('Ext.layout.component.BoundList', {extend:Ext.layout.component.Auto, alias:'layout.boundlist', type:'component', beginLayout:function(ownerContext) {
+  var me = this, owner = me.owner, toolbar = owner.pagingToolbar;
+  me.scrollPos = owner.listWrap.getScroll();
+  me.callParent(arguments);
+  if (owner.floating) {
+    ownerContext.savedXY = owner.getXY();
+    owner.setXY([0, -9999]);
+  }
+  if (toolbar) {
+    ownerContext.toolbarContext = ownerContext.context.getCmp(toolbar);
+  }
+  ownerContext.listContext = ownerContext.getEl('listWrap');
+}, beginLayoutCycle:function(ownerContext) {
+  var owner = this.owner;
+  this.callParent(arguments);
+  if (ownerContext.heightModel.auto) {
+    owner.el.setHeight('auto');
+    owner.listWrap.setHeight('auto');
+  }
+}, getLayoutItems:function() {
+  var toolbar = this.owner.pagingToolbar;
+  return toolbar ? [toolbar] : [];
+}, isValidParent:function() {
+  return true;
+}, finishedLayout:function(ownerContext) {
+  var me = this, xy = ownerContext.savedXY, owner = me.owner, listWrap = owner.listWrap, scrollPos = me.scrollPos;
+  me.callParent(arguments);
+  if (xy) {
+    me.owner.setXY(xy);
+  }
+  listWrap.setScrollLeft(scrollPos.left);
+  listWrap.setScrollTop(scrollPos.top);
+}, measureContentWidth:function(ownerContext) {
+  return this.owner.listWrap.getWidth();
+}, measureContentHeight:function(ownerContext) {
+  return this.owner.listWrap.getHeight();
+}, publishInnerHeight:function(ownerContext, height) {
+  var toolbar = ownerContext.toolbarContext, toolbarHeight = 0;
+  if (toolbar) {
+    toolbarHeight = toolbar.getProp('height');
+  }
+  if (toolbarHeight === undefined) {
+    this.done = false;
+  } else {
+    ownerContext.listContext.setHeight(height - ownerContext.getFrameInfo().height - toolbarHeight);
+  }
+}, calculateOwnerHeightFromContentHeight:function(ownerContext) {
+  var height = this.callParent(arguments), toolbar = ownerContext.toolbarContext;
+  if (toolbar) {
+    height += toolbar.getProp('height');
+  }
+  return height;
+}});
 Ext.define('Ext.toolbar.Item', {extend:Ext.Component, alias:'widget.tbitem', alternateClassName:'Ext.Toolbar.Item', enable:Ext.emptyFn, disable:Ext.emptyFn, focus:Ext.emptyFn});
 Ext.define('Ext.toolbar.TextItem', {extend:Ext.toolbar.Item, alias:'widget.tbtext', alternateClassName:'Ext.Toolbar.TextItem', text:'', baseCls:Ext.baseCSSPrefix + 'toolbar-text', ariaRole:null, beforeRender:function() {
   var text = this.text;
@@ -59744,6 +62681,2464 @@ Ext.define('Ext.toolbar.TextItem', {extend:Ext.toolbar.Item, alias:'widget.tbtex
   }
 }, setText:function(text) {
   this.update(text);
+}});
+Ext.define('Ext.form.trigger.Spinner', {extend:Ext.form.trigger.Trigger, alias:'trigger.spinner', cls:Ext.baseCSSPrefix + 'form-trigger-spinner', spinnerCls:Ext.baseCSSPrefix + 'form-spinner', spinnerUpCls:Ext.baseCSSPrefix + 'form-spinner-up', spinnerDownCls:Ext.baseCSSPrefix + 'form-spinner-down', focusCls:Ext.baseCSSPrefix + 'form-spinner-focus', overCls:Ext.baseCSSPrefix + 'form-spinner-over', clickCls:Ext.baseCSSPrefix + 'form-spinner-click', focusFieldOnClick:true, vertical:true, bodyTpl:'\x3ctpl if\x3d"vertical"\x3e' + 
+'\x3cdiv class\x3d"{spinnerCls} {spinnerCls}-{ui} {spinnerUpCls} {spinnerUpCls}-{ui}' + ' {childElCls} {upDisabledCls}"\x3e\x3c/div\x3e' + '\x3c/tpl\x3e' + '\x3cdiv class\x3d"{spinnerCls} {spinnerCls}-{ui} {spinnerDownCls} {spinnerDownCls}-{ui}' + ' {childElCls} {downDisabledCls}"\x3e\x3c/div\x3e' + '\x3ctpl if\x3d"!vertical"\x3e' + '\x3cdiv class\x3d"{spinnerCls} {spinnerCls}-{ui} {spinnerUpCls} {spinnerUpCls}-{ui}' + ' {childElCls} {upDisabledCls}"\x3e\x3c/div\x3e' + '\x3c/tpl\x3e', destroy:function() {
+  var me = this;
+  if (me.spinnerEl) {
+    me.spinnerEl.destroy();
+    me.spinnerEl = me.upEl = me.downEl = null;
+  }
+  me.callParent();
+}, getBodyRenderData:function() {
+  var me = this;
+  return {vertical:me.vertical, upDisabledCls:me.upEnabled ? '' : me.spinnerUpCls + '-disabled', downDisabledCls:me.downEnabled ? '' : me.spinnerDownCls + '-disabled', spinnerCls:me.spinnerCls, spinnerUpCls:me.spinnerUpCls, spinnerDownCls:me.spinnerDownCls};
+}, getStateEl:function() {
+  return this.spinnerEl;
+}, onClick:function() {
+  var me = this, args = arguments, e = me.clickRepeater ? args[1] : args[0], field = me.field;
+  if (!field.readOnly && !field.disabled) {
+    if (me.upEl.contains(e.target)) {
+      Ext.callback(me.upHandler, me.scope, [field, me, e], 0, field);
+    } else {
+      if (me.downEl.contains(e.target)) {
+        Ext.callback(me.downHandler, me.scope, [field, me, e], 0, field);
+      }
+    }
+  }
+  field.inputEl.focus();
+}, onFieldRender:function() {
+  var me = this, vertical = me.vertical, spinnerEl, elements;
+  me.callParent();
+  spinnerEl = me.spinnerEl = me.el.select('.' + me.spinnerCls, true);
+  elements = spinnerEl.elements;
+  me.upEl = vertical ? elements[0] : elements[1];
+  me.downEl = vertical ? elements[1] : elements[0];
+}, setUpEnabled:function(enabled) {
+  this.upEl[enabled ? 'removeCls' : 'addCls'](this.spinnerUpCls + '-disabled');
+}, setDownEnabled:function(enabled) {
+  this.downEl[enabled ? 'removeCls' : 'addCls'](this.spinnerDownCls + '-disabled');
+}});
+Ext.define('Ext.form.field.Spinner', {extend:Ext.form.field.Text, alias:'widget.spinnerfield', alternateClassName:'Ext.form.Spinner', config:{triggers:{spinner:{type:'spinner', upHandler:'onSpinnerUpClick', downHandler:'onSpinnerDownClick', endHandler:'onSpinEnd', scope:'this'}}}, spinUpEnabled:true, spinDownEnabled:true, keyNavEnabled:true, mouseWheelEnabled:true, repeatTriggerClick:true, onSpinUp:Ext.emptyFn, onSpinDown:Ext.emptyFn, ariaRole:'spinbutton', applyTriggers:function(triggers) {
+  var me = this, spinnerTrigger = triggers.spinner;
+  spinnerTrigger.upEnabled = me.spinUpEnabled;
+  spinnerTrigger.downEnabled = me.spinDownEnabled;
+  return me.callParent([triggers]);
+}, onRender:function() {
+  var me = this, spinnerTrigger = me.getTrigger('spinner');
+  me.callParent();
+  if (me.keyNavEnabled) {
+    me.spinnerKeyNav = new Ext.util.KeyNav(me.inputEl, {scope:me, up:me.spinUp, down:me.spinDown});
+    me.inputEl.on({keyup:me.onInputElKeyUp, scope:me});
+  }
+  if (me.mouseWheelEnabled) {
+    me.mon(me.bodyEl, 'mousewheel', me.onMouseWheel, me);
+  }
+  me.spinUpEl = spinnerTrigger.upEl;
+  me.spinDownEl = spinnerTrigger.downEl;
+}, onSpinnerUpClick:function() {
+  this.spinUp();
+}, onSpinnerDownClick:function() {
+  this.spinDown();
+}, spinUp:function() {
+  var me = this;
+  if (me.spinUpEnabled && !me.disabled) {
+    me.fireEvent('spin', me, 'up');
+    me.fireEvent('spinup', me);
+    me.onSpinUp();
+  }
+}, spinDown:function() {
+  var me = this;
+  if (me.spinDownEnabled && !me.disabled) {
+    me.fireEvent('spin', me, 'down');
+    me.fireEvent('spindown', me);
+    me.onSpinDown();
+  }
+}, setSpinUpEnabled:function(enabled) {
+  var me = this, wasEnabled = me.spinUpEnabled;
+  me.spinUpEnabled = enabled;
+  if (wasEnabled !== enabled && me.rendered) {
+    me.getTrigger('spinner').setUpEnabled(enabled);
+  }
+}, setSpinDownEnabled:function(enabled) {
+  var me = this, wasEnabled = me.spinDownEnabled;
+  me.spinDownEnabled = enabled;
+  if (wasEnabled !== enabled && me.rendered) {
+    me.getTrigger('spinner').setDownEnabled(enabled);
+  }
+}, onMouseWheel:function(e) {
+  var me = this, delta;
+  if (me.hasFocus) {
+    delta = e.getWheelDelta();
+    if (delta > 0) {
+      me.spinUp();
+    } else {
+      if (delta < 0) {
+        me.spinDown();
+      }
+    }
+    e.stopEvent();
+    me.onSpinEnd();
+  }
+}, onInputElKeyUp:function(e) {
+  if (e.keyCode === e.UP || e.keyCode === e.DOWN) {
+    this.onSpinEnd();
+  }
+}, doDestroy:function() {
+  Ext.destroyMembers(this, 'spinnerKeyNav');
+  this.callParent();
+}}, function(Spinner) {
+  Spinner.prototype.onSpinEnd = Ext.Function.createBuffered(function() {
+    this.fireEvent('spinend', this);
+  }, 100);
+});
+Ext.define('Ext.form.field.Number', {extend:Ext.form.field.Spinner, alias:'widget.numberfield', alternateClassName:['Ext.form.NumberField', 'Ext.form.Number'], allowExponential:true, allowDecimals:true, decimalSeparator:null, submitLocaleSeparator:true, decimalPrecision:2, minValue:Number.NEGATIVE_INFINITY, maxValue:Number.MAX_VALUE, step:1, minText:'The minimum value for this field is {0}', maxText:'The maximum value for this field is {0}', nanText:'{0} is not a valid number', negativeText:'The value cannot be negative', 
+baseChars:'0123456789', autoStripChars:false, initComponent:function() {
+  var me = this;
+  if (me.decimalSeparator === null) {
+    me.decimalSeparator = Ext.util.Format.decimalSeparator;
+  }
+  me.callParent();
+  me.setMinValue(me.minValue);
+  me.setMaxValue(me.maxValue);
+}, getSubTplData:function(fieldData) {
+  var me = this, min = me.minValue, max = me.maxValue, data, inputElAttr, value;
+  data = me.callParent([fieldData]);
+  inputElAttr = data.inputElAriaAttributes;
+  if (inputElAttr) {
+    if (min > Number.NEGATIVE_INFINITY) {
+      inputElAttr['aria-valuemin'] = min;
+    }
+    if (max < Number.MAX_VALUE) {
+      inputElAttr['aria-valuemax'] = max;
+    }
+    value = me.getValue();
+    if (value != null && value >= min && value <= max) {
+      inputElAttr['aria-valuenow'] = value;
+    }
+  }
+  return data;
+}, setValue:function(value) {
+  var me = this, bind, valueBind;
+  if (me.hasFocus) {
+    bind = me.getBind();
+    valueBind = bind && bind.value;
+    if (valueBind && valueBind.syncing && value === me.value) {
+      return me;
+    }
+  }
+  return me.callParent([value]);
+}, getErrors:function(value) {
+  value = arguments.length > 0 ? value : this.processRawValue(this.getRawValue());
+  var me = this, errors = me.callParent([value]), format = Ext.String.format, num;
+  if (value.length < 1) {
+    return errors;
+  }
+  value = String(value).replace(me.decimalSeparator, '.');
+  if (isNaN(value)) {
+    errors.push(format(me.nanText, value));
+  }
+  num = me.parseValue(value);
+  if (me.minValue === 0 && num < 0) {
+    errors.push(this.negativeText);
+  } else {
+    if (num < me.minValue) {
+      errors.push(format(me.minText, me.minValue));
+    }
+  }
+  if (num > me.maxValue) {
+    errors.push(format(me.maxText, me.maxValue));
+  }
+  return errors;
+}, rawToValue:function(rawValue) {
+  var value = this.fixPrecision(this.parseValue(rawValue));
+  if (value === null) {
+    value = rawValue || null;
+  }
+  return value;
+}, valueToRaw:function(value) {
+  var me = this, decimalSeparator = me.decimalSeparator;
+  value = me.parseValue(value);
+  value = me.fixPrecision(value);
+  value = Ext.isNumber(value) ? value : parseFloat(String(value).replace(decimalSeparator, '.'));
+  value = isNaN(value) ? '' : String(value).replace('.', decimalSeparator);
+  return value;
+}, getSubmitValue:function() {
+  var me = this, value = me.callParent();
+  if (!me.submitLocaleSeparator) {
+    value = value.replace(me.decimalSeparator, '.');
+  }
+  return value;
+}, onChange:function(newValue) {
+  var ariaDom = this.ariaEl.dom;
+  this.toggleSpinners();
+  this.callParent(arguments);
+  if (ariaDom) {
+    if (Ext.isNumber(newValue) && isFinite(newValue)) {
+      ariaDom.setAttribute('aria-valuenow', newValue);
+    } else {
+      ariaDom.removeAttribute('aria-valuenow');
+    }
+  }
+}, toggleSpinners:function() {
+  var me = this, value = me.getValue(), valueIsNull = value === null, enabled;
+  if (me.spinUpEnabled || me.spinUpDisabledByToggle) {
+    enabled = valueIsNull || value < me.maxValue;
+    me.setSpinUpEnabled(enabled, true);
+  }
+  if (me.spinDownEnabled || me.spinDownDisabledByToggle) {
+    enabled = valueIsNull || value > me.minValue;
+    me.setSpinDownEnabled(enabled, true);
+  }
+}, setMinValue:function(value) {
+  var me = this, ariaDom = me.ariaEl.dom, minValue, allowed, ariaDom;
+  me.minValue = minValue = Ext.Number.from(value, Number.NEGATIVE_INFINITY);
+  me.toggleSpinners();
+  if (ariaDom) {
+    if (minValue > Number.NEGATIVE_INFINITY) {
+      ariaDom.setAttribute('aria-valuemin', minValue);
+    } else {
+      ariaDom.removeAttribute('aria-valuemin');
+    }
+  }
+  if (me.disableKeyFilter !== true) {
+    allowed = me.baseChars + '';
+    if (me.allowExponential) {
+      allowed += me.decimalSeparator + 'e+-';
+    } else {
+      if (me.allowDecimals) {
+        allowed += me.decimalSeparator;
+      }
+      if (me.minValue < 0) {
+        allowed += '-';
+      }
+    }
+    allowed = Ext.String.escapeRegex(allowed);
+    me.maskRe = new RegExp('[' + allowed + ']');
+    if (me.autoStripChars) {
+      me.stripCharsRe = new RegExp('[^' + allowed + ']', 'gi');
+    }
+  }
+}, setMaxValue:function(value) {
+  var ariaDom = this.ariaEl.dom, maxValue;
+  this.maxValue = maxValue = Ext.Number.from(value, Number.MAX_VALUE);
+  if (ariaDom) {
+    if (maxValue < Number.MAX_VALUE) {
+      ariaDom.setAttribute('aria-valuemax', maxValue);
+    } else {
+      ariaDom.removeAttribute('aria-valuemax');
+    }
+  }
+  this.toggleSpinners();
+}, parseValue:function(value) {
+  value = parseFloat(String(value).replace(this.decimalSeparator, '.'));
+  return isNaN(value) ? null : value;
+}, fixPrecision:function(value) {
+  var me = this, nan = isNaN(value), precision = me.decimalPrecision;
+  if (nan || !value) {
+    return nan ? '' : value;
+  } else {
+    if (!me.allowDecimals || precision <= 0) {
+      precision = 0;
+    }
+  }
+  return parseFloat(Ext.Number.toFixed(parseFloat(value), precision));
+}, onBlur:function(e) {
+  var me = this, v = me.rawToValue(me.getRawValue());
+  if (!Ext.isEmpty(v)) {
+    me.setValue(v);
+  }
+  me.callParent([e]);
+}, setSpinUpEnabled:function(enabled, internal) {
+  this.callParent(arguments);
+  if (!internal) {
+    delete this.spinUpDisabledByToggle;
+  } else {
+    this.spinUpDisabledByToggle = !enabled;
+  }
+}, onSpinUp:function() {
+  var me = this;
+  if (!me.readOnly) {
+    me.setSpinValue(Ext.Number.constrain(me.getValue() + me.step, me.minValue, me.maxValue));
+  }
+}, setSpinDownEnabled:function(enabled, internal) {
+  this.callParent(arguments);
+  if (!internal) {
+    delete this.spinDownDisabledByToggle;
+  } else {
+    this.spinDownDisabledByToggle = !enabled;
+  }
+}, onSpinDown:function() {
+  var me = this;
+  if (!me.readOnly) {
+    me.setSpinValue(Ext.Number.constrain(me.getValue() - me.step, me.minValue, me.maxValue));
+  }
+}, setSpinValue:function(value) {
+  var me = this;
+  if (me.enforceMaxLength) {
+    if (me.fixPrecision(value).toString().length > me.maxLength) {
+      return;
+    }
+  }
+  me.setValue(value);
+}});
+Ext.define('Ext.toolbar.Paging', {extend:Ext.toolbar.Toolbar, xtype:'pagingtoolbar', alternateClassName:'Ext.PagingToolbar', mixins:[Ext.util.StoreHolder], displayInfo:false, prependButtons:false, displayMsg:'Displaying {0} - {1} of {2}', emptyMsg:'No data to display', beforePageText:'Page', afterPageText:'of {0}', firstText:'First Page', prevText:'Previous Page', nextText:'Next Page', lastText:'Last Page', refreshText:'Refresh', inputItemWidth:30, emptyPageData:{total:0, currentPage:0, pageCount:0, 
+toRecord:0, fromRecord:0}, defaultBindProperty:'store', getPagingItems:function() {
+  var me = this, inputListeners = {scope:me, blur:me.onPagingBlur};
+  inputListeners[Ext.supports.SpecialKeyDownRepeat ? 'keydown' : 'keypress'] = me.onPagingKeyDown;
+  return [{itemId:'first', tooltip:me.firstText, overflowText:me.firstText, iconCls:Ext.baseCSSPrefix + 'tbar-page-first', disabled:true, handler:me.moveFirst, scope:me}, {itemId:'prev', tooltip:me.prevText, overflowText:me.prevText, iconCls:Ext.baseCSSPrefix + 'tbar-page-prev', disabled:true, handler:me.movePrevious, scope:me}, '-', me.beforePageText, {xtype:'numberfield', itemId:'inputItem', name:'inputItem', cls:Ext.baseCSSPrefix + 'tbar-page-number', allowDecimals:false, minValue:1, hideTrigger:true, 
+  enableKeyEvents:true, keyNavEnabled:false, selectOnFocus:true, submitValue:false, isFormField:false, width:me.inputItemWidth, margin:'-1 2 3 2', listeners:inputListeners}, {xtype:'tbtext', itemId:'afterTextItem', html:Ext.String.format(me.afterPageText, 1)}, '-', {itemId:'next', tooltip:me.nextText, overflowText:me.nextText, iconCls:Ext.baseCSSPrefix + 'tbar-page-next', disabled:true, handler:me.moveNext, scope:me}, {itemId:'last', tooltip:me.lastText, overflowText:me.lastText, iconCls:Ext.baseCSSPrefix + 
+  'tbar-page-last', disabled:true, handler:me.moveLast, scope:me}, '-', {itemId:'refresh', tooltip:me.refreshText, overflowText:me.refreshText, iconCls:Ext.baseCSSPrefix + 'tbar-loading', disabled:me.store.isLoading(), handler:me.doRefresh, scope:me}];
+}, initComponent:function() {
+  var me = this, userItems = me.items || me.buttons || [], pagingItems;
+  me.bindStore(me.store || 'ext-empty-store', true);
+  if (me.store && !me.store.nextPage) {
+    Ext.raise('Store is not compatible with this component (does not support paging)');
+  }
+  pagingItems = me.getPagingItems();
+  if (me.prependButtons) {
+    me.items = userItems.concat(pagingItems);
+  } else {
+    me.items = pagingItems.concat(userItems);
+  }
+  delete me.buttons;
+  if (me.displayInfo) {
+    me.items.push('-\x3e');
+    me.items.push({xtype:'tbtext', itemId:'displayItem'});
+  }
+  me.callParent();
+}, beforeRender:function() {
+  this.callParent(arguments);
+  this.updateBarInfo();
+}, onAdded:function(owner) {
+  var me = this, oldStore = me.store, autoStore = me._autoStore, listener, store;
+  if (autoStore === undefined) {
+    me._autoStore = autoStore = !(oldStore && !oldStore.isEmptyStore);
+  }
+  if (autoStore) {
+    listener = me._storeChangeListener;
+    if (listener) {
+      listener.destroy();
+      listener = null;
+    }
+    store = owner && owner.store;
+    if (store) {
+      listener = owner.on({destroyable:true, scope:me, storechange:'onOwnerStoreChange'});
+    }
+    me._storeChangeListener = listener;
+    me.onOwnerStoreChange(owner, store);
+  }
+  me.callParent(arguments);
+}, onOwnerStoreChange:function(owner, store) {
+  this.setStore(store || Ext.getStore('ext-empty-store'));
+}, updateBarInfo:function() {
+  var me = this;
+  if (!me.store.isLoading()) {
+    me.calledInternal = true;
+    me.onLoad();
+    me.calledInternal = false;
+  }
+}, updateInfo:function() {
+  var me = this, displayItem = me.child('#displayItem'), store = me.store, pageData = me.getPageData(), count, msg;
+  if (displayItem) {
+    count = store.getCount();
+    if (count === 0) {
+      msg = me.emptyMsg;
+    } else {
+      msg = Ext.String.format(me.displayMsg, pageData.fromRecord, pageData.toRecord, pageData.total);
+    }
+    displayItem.setText(msg);
+  }
+}, onLoad:function() {
+  var me = this, pageData, currPage, pageCount, afterText, count, isEmpty, item;
+  count = me.store.getCount();
+  isEmpty = count === 0;
+  if (!isEmpty) {
+    pageData = me.getPageData();
+    currPage = pageData.currentPage;
+    pageCount = pageData.pageCount;
+    if (currPage > pageCount) {
+      if (pageCount > 0) {
+        me.store.loadPage(pageCount);
+      } else {
+        me.getInputItem().reset();
+      }
+      return;
+    }
+    afterText = Ext.String.format(me.afterPageText, isNaN(pageCount) ? 1 : pageCount);
+  } else {
+    currPage = 0;
+    pageCount = 0;
+    afterText = Ext.String.format(me.afterPageText, 0);
+  }
+  Ext.suspendLayouts();
+  item = me.child('#afterTextItem');
+  if (item) {
+    item.update(afterText);
+  }
+  item = me.getInputItem();
+  if (item) {
+    item.setDisabled(isEmpty).setValue(currPage);
+  }
+  me.setChildDisabled('#first', currPage === 1 || isEmpty);
+  me.setChildDisabled('#prev', currPage === 1 || isEmpty);
+  me.setChildDisabled('#next', currPage === pageCount || isEmpty);
+  me.setChildDisabled('#last', currPage === pageCount || isEmpty);
+  me.setChildDisabled('#refresh', false);
+  me.updateInfo();
+  Ext.resumeLayouts(true);
+  if (!me.calledInternal) {
+    me.fireEvent('change', me, pageData || me.emptyPageData);
+  }
+}, setChildDisabled:function(selector, disabled) {
+  var item = this.child(selector);
+  if (item) {
+    item.setDisabled(disabled);
+  }
+}, getPageData:function() {
+  var store = this.store, totalCount = store.getTotalCount(), pageCount = Math.ceil(totalCount / store.pageSize), toRecord = Math.min(store.currentPage * store.pageSize, totalCount);
+  return {total:totalCount, currentPage:store.currentPage, pageCount:Ext.Number.isFinite(pageCount) ? pageCount : 1, fromRecord:(store.currentPage - 1) * store.pageSize + 1, toRecord:toRecord || totalCount};
+}, onLoadError:function() {
+  this.setChildDisabled('#refresh', false);
+}, getInputItem:function() {
+  return this.child('#inputItem');
+}, readPageFromInput:function(pageData) {
+  var inputItem = this.getInputItem(), pageNum = false, v;
+  if (inputItem) {
+    v = inputItem.getValue();
+    pageNum = parseInt(v, 10);
+    if (!v || isNaN(pageNum)) {
+      inputItem.setValue(pageData.currentPage);
+      return false;
+    }
+  }
+  return pageNum;
+}, onPagingBlur:function(e) {
+  var inputItem = this.getInputItem(), curPage;
+  if (inputItem) {
+    curPage = this.getPageData().currentPage;
+    inputItem.setValue(curPage);
+  }
+}, onPagingKeyDown:function(field, e) {
+  this.processKeyEvent(field, e);
+}, processKeyEvent:function(field, e) {
+  var me = this, key = e.getKey(), pageData = me.getPageData(), increment = e.shiftKey ? 10 : 1, pageNum;
+  if (key === e.RETURN) {
+    e.stopEvent();
+    pageNum = me.readPageFromInput(pageData);
+    if (pageNum !== false) {
+      pageNum = Math.min(Math.max(1, pageNum), pageData.pageCount);
+      if (pageNum !== pageData.currentPage && me.fireEvent('beforechange', me, pageNum) !== false) {
+        me.store.loadPage(pageNum);
+      }
+    }
+  } else {
+    if (key === e.HOME || key === e.END) {
+      e.stopEvent();
+      pageNum = key === e.HOME ? 1 : pageData.pageCount;
+      field.setValue(pageNum);
+    } else {
+      if (key === e.UP || key === e.PAGE_UP || key === e.DOWN || key === e.PAGE_DOWN) {
+        e.stopEvent();
+        pageNum = me.readPageFromInput(pageData);
+        if (pageNum) {
+          if (key === e.DOWN || key === e.PAGE_DOWN) {
+            increment *= -1;
+          }
+          pageNum += increment;
+          if (pageNum >= 1 && pageNum <= pageData.pageCount) {
+            field.setValue(pageNum);
+          }
+        }
+      }
+    }
+  }
+}, beforeLoad:function() {
+  this.setChildDisabled('#refresh', true);
+}, moveFirst:function() {
+  if (this.fireEvent('beforechange', this, 1) !== false) {
+    this.store.loadPage(1);
+    return true;
+  }
+  return false;
+}, movePrevious:function() {
+  var me = this, store = me.store, prev = store.currentPage - 1;
+  if (prev > 0) {
+    if (me.fireEvent('beforechange', me, prev) !== false) {
+      store.previousPage();
+      return true;
+    }
+  }
+  return false;
+}, moveNext:function() {
+  var me = this, store = me.store, total = me.getPageData().pageCount, next = store.currentPage + 1;
+  if (next <= total) {
+    if (me.fireEvent('beforechange', me, next) !== false) {
+      store.nextPage();
+      return true;
+    }
+  }
+  return false;
+}, moveLast:function() {
+  var me = this, last = me.getPageData().pageCount;
+  if (me.fireEvent('beforechange', me, last) !== false) {
+    me.store.loadPage(last);
+    return true;
+  }
+  return false;
+}, doRefresh:function() {
+  var me = this, store = me.store, current = store.currentPage;
+  if (me.fireEvent('beforechange', me, current) !== false) {
+    store.loadPage(current);
+    return true;
+  }
+  return false;
+}, getStoreListeners:function() {
+  return {beforeload:this.beforeLoad, load:this.onLoad, exception:this.onLoadError};
+}, onBindStore:function() {
+  if (this.rendered) {
+    this.updateBarInfo();
+  }
+}, doDestroy:function() {
+  var me = this, listener = me._storeChangeListener;
+  if (listener) {
+    listener.destroy();
+    me._storeChangeListener = null;
+  }
+  me.bindStore(null);
+  me.callParent();
+}});
+Ext.define('Ext.theme.neptune.toolbar.Paging', {override:'Ext.toolbar.Paging', defaultButtonUI:'plain-toolbar', inputItemWidth:40});
+Ext.define('Ext.theme.triton.toolbar.Paging', {override:'Ext.toolbar.Paging', inputItemWidth:50});
+Ext.define('Ext.view.BoundList', {extend:Ext.view.View, alias:'widget.boundlist', alternateClassName:'Ext.BoundList', mixins:[Ext.mixin.Queryable], pageSize:0, baseCls:Ext.baseCSSPrefix + 'boundlist', itemCls:Ext.baseCSSPrefix + 'boundlist-item', listItemCls:'', shadow:false, trackOver:true, preserveScrollOnRefresh:true, enableInitialSelection:false, refreshSelmodelOnRefresh:true, componentLayout:'boundlist', navigationModel:'boundlist', scrollable:true, ariaEl:'listEl', tabIndex:-1, childEls:['listWrap', 
+'listEl'], renderTpl:['\x3cdiv id\x3d"{id}-listWrap" data-ref\x3d"listWrap"', ' class\x3d"{baseCls}-list-ct ', Ext.dom.Element.unselectableCls, '"\x3e', '\x3cul id\x3d"{id}-listEl" data-ref\x3d"listEl" class\x3d"', Ext.baseCSSPrefix, 'list-plain"', '\x3ctpl foreach\x3d"ariaAttributes"\x3e {$}\x3d"{.}"\x3c/tpl\x3e', '\x3e', '\x3c/ul\x3e', '\x3c/div\x3e', '{%', 'var pagingToolbar\x3dvalues.$comp.pagingToolbar;', 'if (pagingToolbar) {', 'Ext.DomHelper.generateMarkup(pagingToolbar.getRenderTree(), out);', 
+'}', '%}', {disableFormats:true}], focusOnToFront:false, alignOnScroll:false, initComponent:function() {
+  var me = this, baseCls = me.baseCls, itemCls = me.itemCls;
+  me.selectedItemCls = baseCls + '-selected';
+  if (me.trackOver) {
+    me.overItemCls = baseCls + '-item-over';
+  }
+  me.itemSelector = '.' + itemCls;
+  if (me.floating) {
+    me.addCls(baseCls + '-floating');
+  }
+  if (!me.tpl) {
+    me.generateTpl();
+  } else {
+    if (!me.tpl.isTemplate) {
+      me.tpl = new Ext.XTemplate(me.tpl);
+    }
+  }
+  if (me.pageSize) {
+    me.pagingToolbar = me.createPagingToolbar();
+  }
+  me.callParent();
+}, generateTpl:function() {
+  var me = this;
+  me.tpl = new Ext.XTemplate('\x3ctpl for\x3d"."\x3e', '\x3cli role\x3d"option" unselectable\x3d"on" class\x3d"' + me.itemCls + '"\x3e' + me.getInnerTpl(me.displayField) + '\x3c/li\x3e', '\x3c/tpl\x3e');
+}, setDisplayField:function(displayField) {
+  this.displayField = displayField;
+  this.generateTpl();
+}, getRefOwner:function() {
+  return this.pickerField || this.callParent();
+}, getRefItems:function() {
+  var result = this.callParent(), toolbar = this.pagingToolbar;
+  if (toolbar) {
+    result.push(toolbar);
+  }
+  return result;
+}, createPagingToolbar:function() {
+  var me = this;
+  return new Ext.toolbar.Paging({id:me.id + '-paging-toolbar', pageSize:me.pageSize, store:me.dataSource, border:false, ownerCt:me, ownerLayout:me.getComponentLayout()});
+}, getNodeContainer:function() {
+  return this.listEl;
+}, refresh:function() {
+  var me = this, tpl = me.tpl;
+  tpl.field = me.pickerField;
+  tpl.store = me.store;
+  me.callParent();
+  tpl.field = tpl.store = null;
+  if (!me.ariaStaticRoles[me.ariaRole]) {
+    me.refreshAriaAttributes();
+  }
+}, refreshAriaAttributes:function() {
+  var me = this, store = me.store, selModel = me.getSelectionModel(), multiSelect, totalCount, nodes, node, record, index, i, len;
+  totalCount = store.isFiltered() ? store.getCount() : store.getTotalCount() || store.getCount();
+  nodes = me.getNodes();
+  multiSelect = me.pickerField && me.pickerField.multiSelect;
+  for (i = 0, len = nodes.length; i < len; i++) {
+    node = nodes[i];
+    record = null;
+    if (totalCount !== len) {
+      record = me.getRecord(node);
+      index = store.indexOf(record);
+      node.setAttribute('aria-setsize', totalCount);
+      node.setAttribute('aria-posinset', index);
+    }
+    if (multiSelect) {
+      record = record || me.getRecord(node);
+      node.setAttribute('aria-selected', selModel.isSelected(record));
+    }
+  }
+}, bindStore:function(store, initial) {
+  var toolbar = this.pagingToolbar;
+  this.callParent(arguments);
+  if (toolbar) {
+    toolbar.bindStore(store, initial);
+  }
+}, getInnerTpl:function(displayField) {
+  return '{' + displayField + '}';
+}, onShow:function() {
+  var field = this.pickerField;
+  this.callParent();
+  if (field && field.rendered && !field.hasFocus) {
+    field.focus();
+  }
+}, afterComponentLayout:function(width, height, oldWidth, oldHeight) {
+  var field = this.pickerField;
+  this.callParent([width, height, oldWidth, oldHeight]);
+  if (field && field.alignPicker) {
+    field.alignPicker();
+  }
+}, onItemSelect:function(record) {
+  var me = this, node;
+  node = me.callParent([record]);
+  if (node) {
+    if (me.ariaSelectable) {
+      node.setAttribute('aria-selected', 'true');
+    } else {
+      node.removeAttribute('aria-selected');
+    }
+  }
+  return node;
+}, onItemDeselect:function(record) {
+  var me = this, node;
+  node = me.callParent([record]);
+  if (node && me.ariaSelectable) {
+    if (me.pickerField && me.pickerField.multiSelect) {
+      node.setAttribute('aria-selected', 'false');
+    } else {
+      node.removeAttribute('aria-selected');
+    }
+  }
+  return node;
+}, onItemClick:function(record) {
+  var me = this, field = me.pickerField, valueField, selected;
+  if (!field) {
+    return;
+  }
+  valueField = field.valueField;
+  selected = me.getSelectionModel().getSelection();
+  if (!field.multiSelect && selected.length) {
+    selected = selected[0];
+    if (selected && field.isEqual(record.get(valueField), selected.get(valueField)) && field.collapse) {
+      field.collapse();
+    }
+  }
+}, onContainerClick:function(e) {
+  var toolbar = this.pagingToolbar, clientRegion;
+  if (toolbar && toolbar.rendered && e.within(toolbar.el)) {
+    return false;
+  }
+  if (Ext.isIE10 || Ext.isIE11) {
+    clientRegion = this.listWrap.getClientRegion();
+    if (!e.getPoint().isContainedBy(clientRegion)) {
+      return false;
+    }
+  }
+}, doDestroy:function() {
+  this.pagingToolbar = Ext.destroy(this.pagingToolbar);
+  this.callParent();
+}, privates:{getTargetEl:function() {
+  return this.listEl;
+}, getOverflowEl:function() {
+  return this.listWrap;
+}, finishRenderChildren:function() {
+  var toolbar = this.pagingToolbar;
+  this.callParent(arguments);
+  if (toolbar) {
+    toolbar.finishRender();
+  }
+}}});
+Ext.define('Ext.form.field.ComboBox', {extend:Ext.form.field.Picker, alternateClassName:'Ext.form.ComboBox', alias:['widget.combobox', 'widget.combo'], mixins:[Ext.util.StoreHolder], config:{filters:null, selection:null, valueNotFoundText:null, displayTpl:null, delimiter:', ', displayField:'text'}, publishes:['selection'], twoWayBindable:['selection'], triggerCls:Ext.baseCSSPrefix + 'form-arrow-trigger', hiddenName:'', collapseOnSelect:false, hiddenDataCls:Ext.baseCSSPrefix + 'hidden-display ' + 
+Ext.baseCSSPrefix + 'form-data-hidden', ariaRole:'combobox', autoDestroyBoundStore:true, childEls:{'hiddenDataEl':true}, filtered:false, afterRender:function() {
+  var me = this;
+  me.callParent(arguments);
+  me.setHiddenValue(me.value);
+}, multiSelect:false, triggerAction:'all', allQuery:'', queryParam:'query', queryMode:'remote', queryCaching:true, autoLoadOnValue:false, pageSize:0, anyMatch:false, caseSensitive:false, autoSelect:true, autoSelectLast:true, typeAhead:false, typeAheadDelay:250, selectOnTab:true, forceSelection:false, growToLongestValue:true, clearFilterOnBlur:true, defaultListConfig:{loadingHeight:70, minWidth:70, maxHeight:300, shadow:'sides'}, transformInPlace:true, clearValueOnEmpty:true, newlineRe:/\r?\n/g, getGrowWidth:function() {
+  var me = this, value = me.inputEl.dom.value, field, store, dataLn, currentLongestLength, i, item, itemLn;
+  if (me.growToLongestValue) {
+    field = me.displayField;
+    store = me.store;
+    dataLn = store.data.length;
+    currentLongestLength = 0;
+    for (i = 0; i < dataLn; i++) {
+      item = store.getAt(i).data[field];
+      itemLn = item.length;
+      if (itemLn > currentLongestLength) {
+        currentLongestLength = itemLn;
+        value = item;
+      }
+    }
+  }
+  return value;
+}, initComponent:function() {
+  var me = this, isDefined = Ext.isDefined, store = me.store, transform = me.transform, transformSelect, isLocalMode;
+  if (me.typeAhead && me.multiSelect) {
+    Ext.raise('typeAhead and multiSelect are mutually exclusive options -- please remove one of them.');
+  }
+  if (me.typeAhead && !me.editable) {
+    Ext.raise('If typeAhead is enabled the combo must be editable: true -- please change one of those settings.');
+  }
+  if (me.selectOnFocus && !me.editable) {
+    Ext.raise('If selectOnFocus is enabled the combo must be editable: true -- please change one of those settings.');
+  }
+  if ('pinList' in me) {
+    me.collapseOnSelect = !me.pinList;
+  }
+  if (transform) {
+    transformSelect = Ext.getDom(transform);
+    if (transformSelect) {
+      if (!me.store) {
+        store = Ext.Array.map(Ext.Array.from(transformSelect.options), function(option) {
+          return [option.value, option.text];
+        });
+      }
+      if (!me.name) {
+        me.name = transformSelect.name;
+      }
+      if (!('value' in me)) {
+        me.value = transformSelect.value;
+      }
+    }
+  }
+  if (!me.displayTpl) {
+    me.setDisplayTpl(false);
+  }
+  me.bindStore(store || 'ext-empty-store', true, true);
+  isLocalMode = me.queryMode === 'local';
+  if (!isDefined(me.queryDelay)) {
+    me.queryDelay = isLocalMode ? 10 : 500;
+  }
+  if (!isDefined(me.minChars)) {
+    me.minChars = isLocalMode ? 0 : 4;
+  }
+  me.callParent();
+  me.doQueryTask = new Ext.util.DelayedTask(me.doRawQuery, me);
+  if (transformSelect) {
+    if (me.transformInPlace) {
+      me.render(transformSelect.parentNode, transformSelect);
+      delete me.renderTo;
+    }
+    Ext.removeNode(transformSelect);
+  }
+}, initEvents:function() {
+  var me = this;
+  me.callParent();
+  me.altArrowKeyNav = new Ext.util.KeyNav({target:me.inputEl, forceKeyDown:true, priority:1002, scope:me, down:{alt:true, handler:me.onAltDownArrow}, up:{alt:true, handler:me.onAltUpArrow}});
+}, getSubTplData:function(fieldData) {
+  var me = this, id = me.id, data, ariaAttr;
+  data = me.callParent([fieldData]);
+  if (!me.ariaStaticRoles[me.ariaRole]) {
+    ariaAttr = data.ariaElAttributes;
+    if (ariaAttr) {
+      ariaAttr['aria-owns'] = id + '-inputEl ' + id + '-picker-listEl';
+      ariaAttr['aria-autocomplete'] = 'list';
+    }
+  }
+  return data;
+}, getSubTplMarkup:function(fieldData) {
+  var me = this, hiddenDataElMarkup = '', markup = me.callParent(arguments);
+  if (me.hiddenName) {
+    hiddenDataElMarkup = '\x3cdiv id\x3d"' + fieldData.id + '-hiddenDataEl" data-ref\x3d"hiddenDataEl" class\x3d"' + me.hiddenDataCls + '" role\x3d"presentation"\x3e\x3c/div\x3e';
+  }
+  return hiddenDataElMarkup + markup;
+}, applyDisplayTpl:function(displayTpl) {
+  var me = this;
+  if (!displayTpl) {
+    displayTpl = new Ext.XTemplate('\x3ctpl for\x3d"."\x3e' + '{[typeof values \x3d\x3d\x3d "string" ? values : values["' + me.getDisplayField() + '"]]}' + '\x3ctpl if\x3d"xindex \x3c xcount"\x3e' + me.getDelimiter() + '\x3c/tpl\x3e' + '\x3c/tpl\x3e');
+    displayTpl.auto = true;
+  } else {
+    if (!displayTpl.isTemplate) {
+      displayTpl = new Ext.XTemplate(displayTpl);
+    }
+  }
+  return displayTpl;
+}, applyFilters:function(filters, collection) {
+  var me = this;
+  if (filters === null || filters.isFilterCollection) {
+    return filters;
+  }
+  if (filters) {
+    if (!collection) {
+      collection = this.getFilters();
+    }
+    collection.beginUpdate();
+    collection.splice(0, collection.length, filters);
+    collection.each(function(filter) {
+      filter.ownerId = me.id;
+    });
+    collection.endUpdate();
+  }
+  return collection;
+}, applyValueNotFoundText:function(v) {
+  var me = this, valueNotFoundRecord = me.valueNotFoundRecord || (me.valueNotFoundRecord = new Ext.data.Model);
+  valueNotFoundRecord.set(me.displayField, v);
+  if (me.valueField && me.displayField !== me.valueField) {
+    valueNotFoundRecord.set(me.valueField, v);
+  }
+  return v;
+}, getFilters:function(autoCreate) {
+  var ret = this.filters;
+  if (!ret && autoCreate !== false) {
+    ret = new Ext.util.FilterCollection;
+    this.setFilters(ret);
+  }
+  return ret;
+}, updateFilters:function(newFilters, oldFilters) {
+  var me = this;
+  if (oldFilters) {
+    oldFilters.un('endupdate', 'onEndUpdateFilters', me);
+  }
+  if (newFilters) {
+    newFilters.on('endupdate', 'onEndUpdateFilters', me);
+  }
+  me.onEndUpdateFilters(newFilters);
+}, onEndUpdateFilters:function(filters) {
+  var me = this, was = me.filtered, is = !!filters && filters.length > 0, old, storeFilters;
+  if (was || is) {
+    me.filtered = is;
+    old = [];
+    storeFilters = me.store.getFilters();
+    storeFilters.each(function(filter) {
+      if (filter.ownerId === me.id && !filters.contains(filter)) {
+        old.push(filter);
+      }
+    });
+    storeFilters.splice(0, old, filters.items);
+  }
+}, clearLocalFilter:function() {
+  var me = this, filter = me.queryFilter;
+  if (filter) {
+    me.queryFilter = null;
+    me.changingFilters = true;
+    me.store.removeFilter(filter, true);
+    me.changingFilters = false;
+  }
+}, completeEdit:function(e) {
+  var me = this;
+  this.callParent([e]);
+  me.doQueryTask.cancel();
+  me.assertValue();
+  if (me.queryFilter && me.queryMode === 'local' && me.clearFilterOnBlur) {
+    me.clearLocalFilter();
+  }
+}, onFocus:function(e) {
+  var me = this;
+  me.callParent([e]);
+  if (me.triggerAction !== 'all' && me.queryFilter && me.queryMode === 'local' && me.clearFilterOnBlur) {
+    delete me.lastQuery;
+    me.doRawQuery();
+  }
+}, onAltDownArrow:function(e) {
+  e.stopEvent();
+  if (!this.isExpanded) {
+    this.onDownArrow(e);
+  }
+  return false;
+}, onAltUpArrow:function(e) {
+  e.stopEvent();
+  if (this.isExpanded) {
+    this.onEsc(e);
+  }
+  return false;
+}, assertValue:function() {
+  var me = this, rawValue = me.getRawValue(), displayValue = me.getDisplayValue(), lastRecords = me.lastSelectedRecords, preventChange = false, value, rec;
+  if (me.forceSelection) {
+    if (me.multiSelect) {
+      if (rawValue !== displayValue) {
+        me.setRawValue(displayValue);
+      }
+    } else {
+      rec = me.findRecordByDisplay(rawValue);
+      if (!rec) {
+        if (lastRecords && (!me.allowBlank || me.rawValue)) {
+          rec = lastRecords[0];
+        } else {
+          if (me.displayTplData && me.displayTplData.length) {
+            rec = me.findRecordByValue(me.displayTplData[0][me.valueField]);
+          }
+        }
+      } else {
+        if (me.getDisplayValue([me.getRecordDisplayData(rec)]) === displayValue) {
+          rec = null;
+          preventChange = true;
+        }
+      }
+      if (rec) {
+        me.select(rec, true);
+        me.fireEvent('select', me, rec);
+      } else {
+        if (!preventChange) {
+          if (lastRecords) {
+            delete me.lastSelectedRecords;
+          }
+          me.setRawValue('');
+        }
+      }
+    }
+  } else {
+    if ((value = me.getValue()) && value == rawValue) {
+      rec = me.findRecordByDisplay(value);
+      if (rec && (rec !== (lastRecords && lastRecords[0]) || me.displayField !== me.valueField)) {
+        me.select(rec, true);
+        me.fireEvent('select', me, rec);
+      }
+    }
+  }
+  me.collapse();
+}, onTypeAhead:function() {
+  var me = this, displayField = me.displayField, record = me.store.findRecord(displayField, me.getRawValue()), newValue, len, selStart;
+  if (record) {
+    newValue = record.get(displayField);
+    len = newValue.length;
+    selStart = me.getRawValue().length;
+    if (selStart !== 0 && selStart !== len) {
+      me.lastMutatedValue = newValue;
+      me.setRawValue(newValue);
+      me.selectText(selStart, newValue.length);
+    }
+  }
+}, resetToDefault:Ext.emptyFn, beforeReset:function() {
+  this.callParent();
+  this.clearLocalFilter();
+}, onUnbindStore:function() {
+  var me = this, picker = me.picker;
+  if (me.queryFilter && !me.store.destroyed) {
+    me.clearLocalFilter();
+  }
+  if (picker) {
+    picker.bindStore(null);
+  }
+  me.pickerSelectionModel.destroy();
+}, onBindStore:function(store, initial) {
+  var me = this, picker = me.picker, extraKeySpec, valueCollectionConfig;
+  if (store) {
+    if (store.autoCreated) {
+      me.queryMode = 'local';
+      me.valueField = me.displayField = 'field1';
+      if (!store.expanded) {
+        me.displayField = 'field2';
+      }
+      if (me.getDisplayTpl().auto) {
+        me.setDisplayTpl(null);
+      }
+    }
+    if (!Ext.isDefined(me.valueField)) {
+      me.valueField = me.displayField;
+    }
+    extraKeySpec = {byValue:{rootProperty:'data', unique:false}};
+    extraKeySpec.byValue.property = me.valueField;
+    store.setExtraKeys(extraKeySpec);
+    if (me.displayField === me.valueField) {
+      store.byText = store.byValue;
+    } else {
+      extraKeySpec.byText = {rootProperty:'data', unique:false};
+      extraKeySpec.byText.property = me.displayField;
+      store.setExtraKeys(extraKeySpec);
+    }
+    valueCollectionConfig = {rootProperty:'data', extraKeys:{byInternalId:{property:'internalId'}, byValue:{property:me.valueField, rootProperty:'data'}}, listeners:{beginupdate:me.onValueCollectionBeginUpdate, endupdate:me.onValueCollectionEndUpdate, scope:me}};
+    me.valueCollection = new Ext.util.Collection(valueCollectionConfig);
+    me.pickerSelectionModel = new Ext.selection.DataViewModel({mode:me.multiSelect ? 'SIMPLE' : 'SINGLE', ordered:true, deselectOnContainerClick:false, enableInitialSelection:false, pruneRemoved:false, selected:me.valueCollection, store:store, listeners:{scope:me, lastselectedchanged:me.updateBindSelection}});
+    if (!initial) {
+      me.resetToDefault();
+    }
+    if (picker) {
+      me.pickerSelectionModel.on({scope:me, beforeselect:me.onBeforeSelect, beforedeselect:me.onBeforeDeselect});
+      picker.setSelectionModel(me.pickerSelectionModel);
+      if (picker.getStore() !== store) {
+        picker.bindStore(store);
+      }
+    }
+  }
+}, bindStore:function(store, preventFilter, initial) {
+  var me = this, filter = me.queryFilter;
+  me.mixins.storeholder.bindStore.call(me, store, initial);
+  store = me.getStore();
+  if (store && filter && !preventFilter) {
+    store.getFilters().add(filter);
+  }
+  if (!initial && store && !store.isEmptyStore) {
+    me.setValueOnData();
+  }
+}, getStoreListeners:function(store) {
+  if (!store.isEmptyStore) {
+    var me = this, result = {datachanged:me.onDataChanged, load:me.onLoad, exception:me.onException, update:me.onStoreUpdate, remove:me.checkValueOnChange};
+    if (!store.getRemoteFilter()) {
+      result.filterchange = me.checkValueOnChange;
+    }
+    return result;
+  }
+}, onDataChanged:function() {
+  if (this.grow && this.growToLongestValue) {
+    this.autoSize();
+  }
+}, checkValueOnChange:function() {
+  var me = this;
+  if (!me.destroying && me.getStore().isLoaded()) {
+    if (me.multiSelect) {
+    } else {
+      if (me.forceSelection && !me.changingFilters && !me.findRecordByValue(me.value)) {
+        if (me.queryMode != 'local' && me.hasFocus) {
+          return;
+        }
+        me.setValue(null);
+      }
+    }
+  }
+}, onStoreUpdate:function(store, record) {
+  this.updateValue();
+}, onException:function() {
+  this.collapse();
+}, onLoad:function(store, records, success) {
+  var me = this, needsValueUpdating = !me.valueCollection.byValue.get(me.value);
+  if (success && needsValueUpdating && !(store.lastOptions && 'rawQuery' in store.lastOptions)) {
+    me.setValueOnData();
+  }
+  me.checkValueOnChange();
+}, setValueOnData:function() {
+  var me = this;
+  me.setValue(me.value);
+  if (me.isExpanded && me.getStore().getCount()) {
+    me.doAutoSelect();
+  }
+}, doRawQuery:function() {
+  var me = this, rawValue = me.inputEl.dom.value;
+  if (me.multiSelect) {
+    rawValue = rawValue.split(me.delimiter).pop();
+  }
+  me.doQuery(rawValue, false, true);
+}, doQuery:function(queryString, forceAll, rawQuery) {
+  var me = this, store = me.getStore(), filters = store.getFilters(), queryPlan = me.beforeQuery({lastQuery:me.lastQuery || '', query:queryString || '', rawQuery:rawQuery, forceAll:forceAll, combo:me, cancel:false}), refreshFilters;
+  if (queryPlan !== false && !queryPlan.cancel) {
+    refreshFilters = !!queryString && (!me.queryFilter || me.queryFilter && filters.indexOf(me.queryFilter) < 0);
+    if (me.queryCaching && !refreshFilters && queryPlan.query === me.lastQuery) {
+      me.getPicker().refresh();
+      me.expand();
+      me.afterQuery(queryPlan);
+    } else {
+      me.lastQuery = queryPlan.query;
+      if (me.queryMode === 'local') {
+        me.doLocalQuery(queryPlan);
+      } else {
+        me.doRemoteQuery(queryPlan);
+      }
+    }
+    return true;
+  } else {
+    me.startCheckChangeTask();
+  }
+  return false;
+}, beforeQuery:function(queryPlan) {
+  var me = this;
+  if (me.fireEvent('beforequery', queryPlan) === false) {
+    queryPlan.cancel = true;
+  } else {
+    if (!queryPlan.cancel) {
+      if (queryPlan.query.length < me.minChars && !queryPlan.forceAll) {
+        queryPlan.cancel = true;
+      }
+    }
+  }
+  return queryPlan;
+}, doLocalQuery:function(queryPlan) {
+  var me = this, queryString = queryPlan.query, store = me.getStore(), value = queryString, filter;
+  me.clearLocalFilter();
+  if (queryString) {
+    if (me.enableRegEx) {
+      try {
+        value = new RegExp(value);
+      } catch (e$37) {
+        value = null;
+      }
+    }
+    if (value !== null) {
+      me.changingFilters = true;
+      filter = me.queryFilter = new Ext.util.Filter({id:me.id + '-filter', anyMatch:me.anyMatch, caseSensitive:me.caseSensitive, root:'data', property:me.displayField, value:value});
+      store.addFilter(filter, true);
+      me.changingFilters = false;
+    }
+  }
+  if (me.store.getCount() || me.getPicker().emptyText) {
+    me.getPicker().refresh();
+    me.expand();
+  } else {
+    me.collapse();
+  }
+  me.afterQuery(queryPlan);
+}, doRemoteQuery:function(queryPlan) {
+  var me = this, loadCallback = function() {
+    if (!me.destroyed) {
+      me.afterQuery(queryPlan);
+    }
+  };
+  me.expand();
+  if (me.pageSize) {
+    me.loadPage(1, {rawQuery:queryPlan.rawQuery, callback:loadCallback});
+  } else {
+    me.store.load({params:me.getParams(queryPlan.query), rawQuery:queryPlan.rawQuery, callback:loadCallback});
+  }
+}, afterQuery:function(queryPlan) {
+  var me = this;
+  if (me.store.getCount()) {
+    if (me.typeAhead) {
+      me.doTypeAhead(queryPlan);
+    }
+    if (queryPlan.rawQuery) {
+      if (me.picker && !me.picker.getSelectionModel().hasSelection()) {
+        me.doAutoSelect();
+      }
+    } else {
+      me.doAutoSelect();
+    }
+  }
+  me.startCheckChangeTask();
+}, loadPage:function(pageNum, options) {
+  this.store.loadPage(pageNum, Ext.apply({params:this.getParams(this.lastQuery)}, options));
+}, onPageChange:function(toolbar, newPage) {
+  this.loadPage(newPage);
+  return false;
+}, getParams:function(queryString) {
+  var params = {}, param = this.queryParam;
+  if (param) {
+    params[param] = queryString;
+  }
+  return params;
+}, doAutoSelect:function() {
+  var me = this, store = me.store, picker = me.picker, itemNode = 0, selectionModel, lastSelected;
+  if (picker && me.autoSelect && store.getCount() > 0) {
+    if (me.autoSelectLast) {
+      selectionModel = picker.getSelectionModel();
+      lastSelected = selectionModel.lastSelected;
+      if (lastSelected && selectionModel.selected.length && store.indexOf(lastSelected) > -1) {
+        itemNode = lastSelected;
+      }
+    }
+    picker.getNavigationModel().setPosition(itemNode);
+  }
+}, doTypeAhead:function(queryPlan) {
+  var me = this;
+  if (!me.typeAheadTask) {
+    me.typeAheadTask = new Ext.util.DelayedTask(me.onTypeAhead, me);
+  }
+  if (queryPlan.query.length > queryPlan.lastQuery.length || !Ext.String.startsWith(queryPlan.lastQuery, queryPlan.query)) {
+    me.typeAheadTask.delay(me.typeAheadDelay);
+  }
+}, onTriggerClick:function(e) {
+  var me = this, oldAutoSelect;
+  if (!me.readOnly && !me.disabled) {
+    if (me.isExpanded) {
+      me.collapse();
+    } else {
+      if (e && e.type === 'keydown' && e.altKey) {
+        oldAutoSelect = me.autoSelect;
+        me.autoSelect = false;
+        me.expand();
+        me.autoSelect = oldAutoSelect;
+      } else {
+        if (me.triggerAction === 'all') {
+          me.doQuery(me.allQuery, true);
+        } else {
+          if (me.triggerAction === 'last') {
+            me.doQuery(me.lastQuery, true);
+          } else {
+            me.doQuery(me.getRawValue(), false, true);
+          }
+        }
+      }
+    }
+  }
+}, onFieldMutation:function(e) {
+  var me = this, key = e.getKey(), isDelete = key === e.BACKSPACE || key === e.DELETE, rawValue = me.inputEl.dom.value, len = rawValue.length;
+  if (!me.readOnly && (rawValue !== me.lastMutatedValue || isDelete) && key !== e.TAB) {
+    me.lastMutatedValue = rawValue;
+    me.refreshEmptyText();
+    if (len && (e.type !== 'keyup' || (!e.isSpecialKey() || isDelete))) {
+      me.doQueryTask.delay(me.queryDelay);
+    } else {
+      if (!len && (!key || isDelete)) {
+        ++me.suspendCheckChange;
+        if (!me.multiSelect) {
+          me.value = null;
+          me.displayTplData = undefined;
+        }
+        if (me.clearValueOnEmpty) {
+          me.valueCollection.beginUpdate();
+          me.pickerSelectionModel.deselectAll();
+          me.valueCollection.removeAll();
+          me.valueCollection.endUpdate();
+        }
+        me.collapse();
+        if (me.queryFilter) {
+          me.clearLocalFilter();
+        }
+        me.lastQuery = null;
+        --me.suspendCheckChange;
+      }
+      me.callParent([e]);
+    }
+  }
+}, doDestroy:function() {
+  var me = this;
+  me.doQueryTask.cancel();
+  if (me.typeAheadTask) {
+    me.typeAheadTask.cancel();
+    me.typeAheadTask = null;
+  }
+  me.bindStore(null);
+  Ext.destroy(me.altArrowKeyNav, me.valueCollection);
+  me.callParent();
+}, onAdded:function() {
+  var me = this;
+  me.callParent(arguments);
+  if (me.picker) {
+    me.picker.ownerCt = me.up('[floating]');
+    me.picker.registerWithOwnerCt();
+  }
+}, createPicker:function() {
+  var me = this, picker, pickerCfg = Ext.apply({xtype:'boundlist', id:me.id + '-picker', pickerField:me, selectionModel:me.pickerSelectionModel, floating:true, hidden:true, store:me.getPickerStore(), displayField:me.displayField, preserveScrollOnRefresh:true, pageSize:me.pageSize, tpl:me.tpl, ariaSelectable:me.ariaSelectable}, me.listConfig, me.defaultListConfig);
+  picker = me.picker = Ext.widget(pickerCfg);
+  if (me.pageSize) {
+    picker.pagingToolbar.on('beforechange', me.onPageChange, me);
+  }
+  if (!picker.initialConfig.maxHeight) {
+    picker.on({beforeshow:me.onBeforePickerShow, scope:me});
+  }
+  picker.getSelectionModel().on({beforeselect:me.onBeforeSelect, beforedeselect:me.onBeforeDeselect, focuschange:me.onFocusChange, scope:me});
+  picker.getNavigationModel().navigateOnSpace = false;
+  return picker;
+}, getPickerStore:function() {
+  return this.store;
+}, onBeforePickerShow:function(picker) {
+  var me = this, heightAbove = me.getPosition()[1] - Ext.getBody().getScroll().top, heightBelow = Ext.Element.getViewportHeight() - heightAbove - me.getHeight();
+  picker.maxHeight = Math.max(heightAbove, heightBelow) - 5;
+}, onBeforeSelect:function(list, record, recordIndex) {
+  return this.fireEvent('beforeselect', this, record, recordIndex);
+}, onBeforeDeselect:function(list, record, recordIndex) {
+  return this.fireEvent('beforedeselect', this, record, recordIndex);
+}, onFocusChange:function(selModel, prevRecord, newRecord) {
+  var picker = this.picker, inputEl = this.inputEl, el;
+  if (newRecord) {
+    el = Ext.get(picker.getNodeByRecord(newRecord));
+    if (el) {
+      inputEl.dom.setAttribute('aria-activedescendant', el.id);
+    } else {
+      inputEl.dom.removeAttribute('aria-activedescendant');
+    }
+  }
+}, getSelection:function() {
+  var selModel = this.getPicker().getSelectionModel(), selection = selModel.getSelection();
+  return selection.length ? selModel.getLastSelected() : null;
+}, updateSelection:function(selection) {
+  var me = this, sm;
+  if (!me.ignoreNextSelection) {
+    me.ignoreNextSelection = true;
+    sm = me.getPicker().getSelectionModel();
+    if (selection) {
+      sm.select(selection);
+      me.hasHadSelection = true;
+    } else {
+      sm.deselectAll();
+    }
+    me.ignoreNextSelection = false;
+  }
+}, updateBindSelection:function(selModel, selection) {
+  var me = this, selected = null;
+  if (!me.ignoreNextSelection) {
+    me.ignoreNextSelection = true;
+    if (selection.length) {
+      selected = selModel.getLastSelected();
+      me.hasHadSelection = true;
+    }
+    if (me.hasHadSelection) {
+      me.setSelection(selected);
+    }
+    me.ignoreNextSelection = false;
+  }
+}, onValueCollectionBeginUpdate:Ext.emptyFn, onValueCollectionEndUpdate:function() {
+  var me = this, store = me.store, selectedRecords = me.valueCollection.getRange(), selectedRecord = selectedRecords[0], selectionCount = selectedRecords.length;
+  me.updateBindSelection(me.pickerSelectionModel, selectedRecords);
+  if (me.isSelectionUpdating()) {
+    return;
+  }
+  Ext.suspendLayouts();
+  me.lastSelection = selectedRecords;
+  if (selectionCount) {
+    me.lastSelectedRecords = selectedRecords;
+  }
+  me.updateValue();
+  if (selectionCount && (!me.multiSelect && store.contains(selectedRecord) || me.collapseOnSelect || !store.getCount())) {
+    me.updatingValue = true;
+    me.collapse();
+    me.updatingValue = false;
+  }
+  Ext.resumeLayouts(true);
+  if (!me.suspendCheckChange) {
+    if (!me.multiSelect) {
+      selectedRecords = selectedRecord;
+    }
+    me.fireEvent('select', me, selectedRecords);
+  }
+}, isSelectionUpdating:function() {
+  var selModel = this.pickerSelectionModel;
+  return selModel.deselectingDuringSelect || selModel.refreshing;
+}, onExpand:function() {
+  var me = this, picker = me.getPicker(), keyNav = picker.getNavigationModel(), node;
+  if (keyNav) {
+    keyNav.enable();
+  }
+  me.doAutoSelect();
+  node = Ext.get(picker.highlightedItem);
+  if (node) {
+    me.inputEl.dom.setAttribute('aria-activedescendant', node.id);
+  }
+}, onCollapse:function() {
+  var me = this, keyNav = me.getPicker().getNavigationModel();
+  if (keyNav) {
+    keyNav.disable();
+  }
+  if (me.updatingValue) {
+    me.doQueryTask.cancel();
+  }
+  me.inputEl.dom.removeAttribute('aria-activedescendant');
+}, select:function(r, assert) {
+  var me = this, picker = me.picker, fireSelect;
+  if (r && r.isModel && assert === true && picker) {
+    fireSelect = !picker.getSelectionModel().isSelected(r);
+  }
+  if (!fireSelect) {
+    me.suspendEvent('select');
+  }
+  me.setValue(r);
+  me.resumeEvent('select');
+}, findRecord:function(field, value) {
+  var ds = this.store, idx = ds.findExact(field, value);
+  return idx !== -1 ? ds.getAt(idx) : false;
+}, getSelectedRecord:function() {
+  return this.findRecordByValue(this.value) || null;
+}, findRecordByValue:function(value) {
+  var result = this.store.byValue.get(value), ret = false;
+  if (result) {
+    ret = result[0] || result;
+  }
+  return ret;
+}, findRecordByDisplay:function(value) {
+  var result = this.store.byText.get(value), ret = false;
+  if (result) {
+    ret = result[0] || result;
+  }
+  return ret;
+}, addValue:function(value) {
+  if (value != null) {
+    return this.doSetValue(value, true);
+  }
+}, setValue:function(value) {
+  var me = this, bind, valueBind;
+  if (me.hasFocus) {
+    bind = me.getBind();
+    valueBind = bind && bind.value;
+    if (valueBind && valueBind.syncing) {
+      if (Ext.isEmpty(value) && Ext.isEmpty(me.value) || value === me.value) {
+        return me;
+      } else {
+        if (Ext.isArray(value) && Ext.isArray(me.value) && Ext.Array.equals(value, me.value)) {
+          return me;
+        }
+      }
+    }
+  } else {
+    me.lastSelectedRecords = null;
+  }
+  if (value != null) {
+    me.doSetValue(value);
+  } else {
+    me.suspendEvent('select');
+    me.valueCollection.beginUpdate();
+    me.pickerSelectionModel.deselectAll();
+    me.valueCollection.endUpdate();
+    me.resumeEvent('select');
+  }
+  return me;
+}, setRawValue:function(rawValue) {
+  this.callParent([rawValue]);
+  this.lastMutatedValue = rawValue;
+}, doSetValue:function(value, add) {
+  var me = this, store = me.getStore(), Model = store.getModel(), matchedRecords = [], valueArray = [], autoLoadOnValue = me.autoLoadOnValue, isLoaded = store.getCount() > 0 || store.isLoaded(), pendingLoad = store.hasPendingLoad(), unloaded = autoLoadOnValue && !isLoaded && !pendingLoad, forceSelection = me.forceSelection, selModel = me.pickerSelectionModel, displayIsValue = me.displayField === me.valueField, isEmptyStore = store.isEmptyStore, lastSelection = me.lastSelection, i, len, record, dataObj, 
+  valueChanged, key;
+  if (add && !me.multiSelect) {
+    Ext.raise('Cannot add values to non multiSelect ComboBox');
+  }
+  if (pendingLoad || unloaded || !isLoaded || isEmptyStore) {
+    if (!value.isModel) {
+      if (add) {
+        me.value = Ext.Array.from(me.value).concat(value);
+      } else {
+        me.value = value;
+      }
+      me.setHiddenValue(me.value);
+      me.setRawValue(displayIsValue ? value : '');
+      if (displayIsValue && !Ext.isEmpty(value) && me.inputEl && me.emptyText) {
+        me.inputEl.removeCls(me.emptyUICls);
+      }
+    }
+    if (unloaded && !isEmptyStore) {
+      store.load();
+    }
+    if (!value.isModel || isEmptyStore) {
+      return me;
+    }
+  }
+  value = add ? Ext.Array.from(me.value).concat(value) : Ext.Array.from(value);
+  for (i = 0, len = value.length; i < len; i++) {
+    record = value[i];
+    if (!record || !record.isModel) {
+      record = me.findRecordByValue(key = record);
+      if (!record) {
+        record = me.valueCollection.find(me.valueField, key);
+      }
+    }
+    if (!record) {
+      if (!forceSelection) {
+        if (!record && value[i]) {
+          dataObj = {};
+          dataObj[me.displayField] = value[i];
+          if (me.valueField && me.displayField !== me.valueField) {
+            dataObj[me.valueField] = value[i];
+          }
+          record = new Model(dataObj);
+        }
+      } else {
+        if (me.valueNotFoundRecord) {
+          record = me.valueNotFoundRecord;
+        }
+      }
+    }
+    if (record) {
+      matchedRecords.push(record);
+      valueArray.push(record.get(me.valueField));
+    }
+  }
+  if (lastSelection) {
+    len = lastSelection.length;
+    if (len === matchedRecords.length) {
+      for (i = 0; !valueChanged && i < len; i++) {
+        if (Ext.Array.indexOf(me.lastSelection, matchedRecords[i]) === -1) {
+          valueChanged = true;
+        }
+      }
+    } else {
+      valueChanged = true;
+    }
+  } else {
+    valueChanged = matchedRecords.length;
+  }
+  if (valueChanged) {
+    me.suspendEvent('select');
+    me.valueCollection.beginUpdate();
+    if (matchedRecords.length) {
+      selModel.select(matchedRecords, false);
+    } else {
+      selModel.deselectAll();
+    }
+    me.valueCollection.endUpdate();
+    me.resumeEvent('select');
+  } else {
+    me.updateValue();
+  }
+  return me;
+}, updateValue:function() {
+  var me = this, selectedRecords = me.valueCollection.getRange(), len = selectedRecords.length, valueArray = [], displayTplData = me.displayTplData || (me.displayTplData = []), inputEl = me.inputEl, i, record, displayValue;
+  displayTplData.length = 0;
+  for (i = 0; i < len; i++) {
+    record = selectedRecords[i];
+    displayTplData.push(me.getRecordDisplayData(record));
+    if (record !== me.valueNotFoundRecord) {
+      valueArray.push(record.get(me.valueField));
+    }
+  }
+  me.setHiddenValue(valueArray);
+  me.value = me.multiSelect ? valueArray : valueArray[0];
+  if (!Ext.isDefined(me.value)) {
+    me.value = undefined;
+  }
+  me.displayTplData = displayTplData;
+  displayValue = me.getDisplayValue();
+  me.setRawValue(displayValue);
+  me.refreshEmptyText();
+  me.checkChange();
+  if (inputEl && me.typeAhead && me.hasFocus) {
+    me.selectText(displayValue.length);
+  }
+}, setHiddenValue:function(values) {
+  var me = this, name = me.hiddenName, i, dom, childNodes, input, valueCount, childrenCount;
+  if (!me.hiddenDataEl || !name) {
+    return;
+  }
+  values = Ext.Array.from(values);
+  dom = me.hiddenDataEl.dom;
+  childNodes = dom.childNodes;
+  input = childNodes[0];
+  valueCount = values.length;
+  childrenCount = childNodes.length;
+  if (!input && valueCount > 0) {
+    me.hiddenDataEl.setHtml(Ext.DomHelper.markup({tag:'input', type:'hidden', name:name}));
+    childrenCount = 1;
+    input = dom.firstChild;
+  }
+  while (childrenCount > valueCount) {
+    dom.removeChild(childNodes[0]);
+    --childrenCount;
+  }
+  while (childrenCount < valueCount) {
+    dom.appendChild(input.cloneNode(true));
+    ++childrenCount;
+  }
+  for (i = 0; i < valueCount; i++) {
+    childNodes[i].value = values[i];
+  }
+}, getDisplayValue:function(tplData) {
+  tplData = tplData || this.displayTplData;
+  var s = this.getDisplayTpl().apply(tplData) || '';
+  return s.replace(this.newlineRe, '');
+}, getRecordDisplayData:function(record) {
+  return record.data;
+}, getValue:function() {
+  var me = this, store = me.getStore(), picker = me.picker, rawValue = me.getRawValue(), value = me.value;
+  if (!store.isEmptyStore && me.getDisplayValue() !== rawValue) {
+    me.displayTplData = undefined;
+    if (picker) {
+      me.valueCollection.suspendEvents();
+      picker.getSelectionModel().deselectAll();
+      me.valueCollection.resumeEvents();
+      me.lastSelection = null;
+    }
+    if (store.isLoaded() && (me.multiSelect || me.forceSelection)) {
+      value = me.value = undefined;
+    } else {
+      value = me.value = rawValue;
+    }
+  }
+  me.value = value == null ? null : value;
+  return me.value;
+}, getSubmitValue:function() {
+  var value = this.getValue();
+  if (Ext.isEmpty(value)) {
+    value = '';
+  }
+  return value;
+}, isEqual:function(v1, v2) {
+  var fromArray = Ext.Array.from, i, len;
+  v1 = fromArray(v1);
+  v2 = fromArray(v2);
+  len = v1.length;
+  if (len !== v2.length) {
+    return false;
+  }
+  for (i = 0; i < len; i++) {
+    if (v2[i] !== v1[i]) {
+      return false;
+    }
+  }
+  return true;
+}, clearValue:function() {
+  this.setValue(null);
+}});
+Ext.define('Ext.picker.Month', {extend:Ext.Component, alias:'widget.monthpicker', alternateClassName:'Ext.MonthPicker', isMonthPicker:true, focusable:true, childEls:['bodyEl', 'prevEl', 'nextEl', 'monthEl', 'yearEl'], renderTpl:['\x3cdiv id\x3d"{id}-bodyEl" data-ref\x3d"bodyEl" class\x3d"{baseCls}-body"\x3e', '\x3cdiv id\x3d"{id}-monthEl" data-ref\x3d"monthEl" class\x3d"{baseCls}-months"\x3e', '\x3ctpl for\x3d"months"\x3e', '\x3cdiv class\x3d"{parent.baseCls}-item {parent.baseCls}-month"\x3e', '\x3ca style\x3d"{parent.monthStyle}" role\x3d"button" hidefocus\x3d"on" class\x3d"{parent.baseCls}-item-inner"\x3e{.}\x3c/a\x3e', 
+'\x3c/div\x3e', '\x3c/tpl\x3e', '\x3c/div\x3e', '\x3cdiv id\x3d"{id}-yearEl" data-ref\x3d"yearEl" class\x3d"{baseCls}-years"\x3e', '\x3cdiv class\x3d"{baseCls}-yearnav"\x3e', '\x3cdiv class\x3d"{baseCls}-yearnav-button-ct"\x3e', '\x3ca id\x3d"{id}-prevEl" data-ref\x3d"prevEl" class\x3d"{baseCls}-yearnav-button {baseCls}-yearnav-prev" hidefocus\x3d"on" role\x3d"button"\x3e\x3c/a\x3e', '\x3c/div\x3e', '\x3cdiv class\x3d"{baseCls}-yearnav-button-ct"\x3e', '\x3ca id\x3d"{id}-nextEl" data-ref\x3d"nextEl" class\x3d"{baseCls}-yearnav-button {baseCls}-yearnav-next" hidefocus\x3d"on" role\x3d"button"\x3e\x3c/a\x3e', 
+'\x3c/div\x3e', '\x3c/div\x3e', '\x3ctpl for\x3d"years"\x3e', '\x3cdiv class\x3d"{parent.baseCls}-item {parent.baseCls}-year"\x3e', '\x3ca hidefocus\x3d"on" class\x3d"{parent.baseCls}-item-inner" role\x3d"button"\x3e{.}\x3c/a\x3e', '\x3c/div\x3e', '\x3c/tpl\x3e', '\x3c/div\x3e', '\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'clear"\x3e\x3c/div\x3e', '\x3ctpl if\x3d"showButtons"\x3e', '\x3cdiv class\x3d"{baseCls}-buttons"\x3e{%', 'var me\x3dvalues.$comp, okBtn\x3dme.okBtn, cancelBtn\x3dme.cancelBtn;', 
+'okBtn.ownerLayout \x3d cancelBtn.ownerLayout \x3d me.componentLayout;', 'okBtn.ownerCt \x3d cancelBtn.ownerCt \x3d me;', 'Ext.DomHelper.generateMarkup(okBtn.getRenderTree(), out);', 'Ext.DomHelper.generateMarkup(cancelBtn.getRenderTree(), out);', '%}\x3c/div\x3e', '\x3c/tpl\x3e', '\x3c/div\x3e'], okText:'OK', cancelText:'Cancel', baseCls:Ext.baseCSSPrefix + 'monthpicker', showButtons:true, footerButtonUI:'default', measureWidth:35, measureMaxHeight:20, smallCls:Ext.baseCSSPrefix + 'monthpicker-small', 
+totalYears:10, yearOffset:5, monthOffset:6, alignOnScroll:false, initComponent:function() {
+  var me = this;
+  me.selectedCls = me.baseCls + '-selected';
+  if (me.small) {
+    me.addCls(me.smallCls);
+  }
+  me.setValue(me.value);
+  me.activeYear = me.getYear((new Date).getFullYear() - 4, -4);
+  if (me.showButtons) {
+    me.okBtn = new Ext.button.Button({ui:me.footerButtonUI, text:me.okText, handler:me.onOkClick, scope:me});
+    me.cancelBtn = new Ext.button.Button({ui:me.footerButtonUI, text:me.cancelText, handler:me.onCancelClick, scope:me});
+  }
+  this.callParent();
+}, beforeRender:function() {
+  var me = this, i = 0, months = [], shortName = Ext.Date.getShortMonthName, monthLen = me.monthOffset, margin = me.monthMargin, style = '';
+  if (me.padding && !me.width) {
+    me.cacheWidth();
+  }
+  me.callParent();
+  for (; i < monthLen; ++i) {
+    months.push(shortName(i), shortName(i + monthLen));
+  }
+  if (Ext.isDefined(margin)) {
+    style = 'margin: 0 ' + margin + 'px;';
+  }
+  Ext.apply(me.renderData, {months:months, years:me.getYears(), showButtons:me.showButtons, monthStyle:style});
+}, cacheWidth:function() {
+  var me = this, padding = me.parseBox(me.padding), widthEl = Ext.getBody().createChild({cls:me.baseCls + ' ' + me.borderBoxCls, style:'position:absolute;top:-1000px;left:-1000px;', html:'\x26nbsp;'});
+  me.self.prototype.width = widthEl.getWidth() + padding.left + padding.right;
+  widthEl.destroy();
+}, afterRender:function() {
+  var me = this, body = me.bodyEl;
+  me.callParent();
+  if (me.up('[floating\x3dtrue]')) {
+    me.el.on('mousedown', me.onElClick, me, {translate:false});
+  }
+  body.on({scope:me, click:'onBodyClick', dblclick:'onBodyClick'});
+  me.years = body.select('.' + me.baseCls + '-year a');
+  me.months = body.select('.' + me.baseCls + '-month a');
+  me.backRepeater = new Ext.util.ClickRepeater(me.prevEl, {handler:Ext.Function.bind(me.adjustYear, me, [-me.totalYears])});
+  me.prevEl.addClsOnOver(me.baseCls + '-yearnav-prev-over');
+  me.nextRepeater = new Ext.util.ClickRepeater(me.nextEl, {handler:Ext.Function.bind(me.adjustYear, me, [me.totalYears])});
+  me.nextEl.addClsOnOver(me.baseCls + '-yearnav-next-over');
+  me.updateBody();
+  if (!Ext.isDefined(me.monthMargin)) {
+    Ext.picker.Month.prototype.monthMargin = me.calculateMonthMargin();
+  }
+}, calculateMonthMargin:function() {
+  var me = this, months = me.months, first = months.first(), itemMargin = first.getMargin('l');
+  while (itemMargin && me.getLargest() > me.measureMaxHeight) {
+    --itemMargin;
+    months.setStyle('margin', '0 ' + itemMargin + 'px');
+  }
+  return itemMargin;
+}, getLargest:function(months) {
+  var largest = 0;
+  this.months.each(function(item) {
+    var h = item.getHeight();
+    if (h > largest) {
+      largest = h;
+    }
+  });
+  return largest;
+}, setValue:function(value) {
+  var me = this, active = me.activeYear, year;
+  if (!value) {
+    me.value = [null, null];
+  } else {
+    if (Ext.isDate(value)) {
+      me.value = [value.getMonth(), value.getFullYear()];
+    } else {
+      me.value = [value[0], value[1]];
+    }
+  }
+  if (me.rendered) {
+    year = me.value[1];
+    if (year !== null) {
+      if (year < active || year > active + me.yearOffset) {
+        me.activeYear = year - me.yearOffset + 1;
+      }
+    }
+    me.updateBody();
+  }
+  return me;
+}, getValue:function() {
+  return this.value;
+}, hasSelection:function() {
+  var value = this.value;
+  return value[0] !== null && value[1] !== null;
+}, getYears:function() {
+  var me = this, offset = me.yearOffset, start = me.activeYear, end = start + offset, i = start, years = [];
+  for (; i < end; ++i) {
+    years.push(i, i + offset);
+  }
+  return years;
+}, updateBody:function() {
+  var me = this, years = me.years, months = me.months, yearNumbers = me.getYears(), cls = me.selectedCls, value = me.getYear(null), month = me.value[0], monthOffset = me.monthOffset, year, yearItems, y, yLen, el;
+  if (me.rendered) {
+    years.removeCls(cls);
+    months.removeCls(cls);
+    yearItems = years.elements;
+    yLen = yearItems.length;
+    for (y = 0; y < yLen; y++) {
+      el = Ext.fly(yearItems[y]);
+      year = yearNumbers[y];
+      el.dom.innerHTML = year;
+      if (year === value) {
+        el.addCls(cls);
+      }
+    }
+    if (month !== null) {
+      if (month < monthOffset) {
+        month = month * 2;
+      } else {
+        month = (month - monthOffset) * 2 + 1;
+      }
+      months.item(month).addCls(cls);
+    }
+  }
+}, getYear:function(defaultValue, offset) {
+  var year = this.value[1];
+  offset = offset || 0;
+  return year === null ? defaultValue : year + offset;
+}, onElClick:function(e) {
+  e.stopEvent();
+}, onBodyClick:function(e, t) {
+  var me = this, isDouble = e.type === 'dblclick';
+  if (e.getTarget('.' + me.baseCls + '-month')) {
+    e.stopEvent();
+    me.onMonthClick(t, isDouble);
+  } else {
+    if (e.getTarget('.' + me.baseCls + '-year')) {
+      e.stopEvent();
+      me.onYearClick(t, isDouble);
+    }
+  }
+}, adjustYear:function(offset) {
+  if (typeof offset !== 'number') {
+    offset = this.totalYears;
+  }
+  this.activeYear += offset;
+  this.updateBody();
+}, onOkClick:function() {
+  this.fireEvent('okclick', this, this.value);
+}, onCancelClick:function() {
+  this.fireEvent('cancelclick', this);
+}, onMonthClick:function(target, isDouble) {
+  var me = this;
+  me.value[0] = me.resolveOffset(me.months.indexOf(target), me.monthOffset);
+  me.updateBody();
+  me.fireEvent('month' + (isDouble ? 'dbl' : '') + 'click', me, me.value);
+  me.fireEvent('select', me, me.value);
+}, onYearClick:function(target, isDouble) {
+  var me = this;
+  me.value[1] = me.activeYear + me.resolveOffset(me.years.indexOf(target), me.yearOffset);
+  me.updateBody();
+  me.fireEvent('year' + (isDouble ? 'dbl' : '') + 'click', me, me.value);
+  me.fireEvent('select', me, me.value);
+}, resolveOffset:function(index, offset) {
+  if (index % 2 === 0) {
+    return index / 2;
+  } else {
+    return offset + Math.floor(index / 2);
+  }
+}, doDestroy:function() {
+  Ext.destroy(this.backRepeater, this.nextRepeater, this.okBtn, this.cancelBtn);
+  this.callParent();
+}, privates:{finishRenderChildren:function() {
+  var me = this;
+  this.callParent(arguments);
+  if (this.showButtons) {
+    me.okBtn.finishRender();
+    me.cancelBtn.finishRender();
+  }
+}}});
+Ext.define('Ext.theme.neptune.picker.Month', {override:'Ext.picker.Month', measureMaxHeight:36});
+Ext.define('Ext.theme.triton.picker.Month', {override:'Ext.picker.Month', footerButtonUI:'default-toolbar', calculateMonthMargin:Ext.emptyFn});
+Ext.define('Ext.picker.Date', {extend:Ext.Component, alias:'widget.datepicker', alternateClassName:'Ext.DatePicker', todayText:'Today', ariaTitle:'Date Picker: {0}', ariaTitleDateFormat:'F d', todayTip:'{0} (Spacebar)', minText:'This date is before the minimum date', ariaMinText:'This date is before the minimum date', maxText:'This date is after the maximum date', ariaMaxText:'This date is after the maximum date', disabledDaysText:'Disabled', ariaDisabledDaysText:'This day of week is disabled', disabledDatesText:'Disabled', 
+ariaDisabledDatesText:'This date is disabled', nextText:'Next Month (Control+Right)', prevText:'Previous Month (Control+Left)', monthYearText:'Choose a month (Control+Up/Down to move years)', monthYearFormat:'F Y', startDay:0, showToday:true, disableAnim:false, baseCls:Ext.baseCSSPrefix + 'datepicker', longDayFormat:'F d, Y', footerButtonUI:'default', isDatePicker:true, alignOnScroll:false, ariaRole:'region', focusable:true, childEls:['innerEl', 'eventEl', 'prevEl', 'nextEl', 'middleBtnEl', 'footerEl'], 
+border:true, renderTpl:['\x3cdiv id\x3d"{id}-innerEl" data-ref\x3d"innerEl" role\x3d"presentation"\x3e', '\x3cdiv class\x3d"{baseCls}-header"\x3e', '\x3cdiv id\x3d"{id}-prevEl" data-ref\x3d"prevEl" class\x3d"{baseCls}-prev {baseCls}-arrow" role\x3d"presentation" title\x3d"{prevText}"\x3e\x3c/div\x3e', '\x3cdiv id\x3d"{id}-middleBtnEl" data-ref\x3d"middleBtnEl" class\x3d"{baseCls}-month" role\x3d"heading"\x3e{%this.renderMonthBtn(values, out)%}\x3c/div\x3e', '\x3cdiv id\x3d"{id}-nextEl" data-ref\x3d"nextEl" class\x3d"{baseCls}-next {baseCls}-arrow" role\x3d"presentation" title\x3d"{nextText}"\x3e\x3c/div\x3e', 
+'\x3c/div\x3e', '\x3ctable role\x3d"grid" id\x3d"{id}-eventEl" data-ref\x3d"eventEl" class\x3d"{baseCls}-inner" cellspacing\x3d"0" tabindex\x3d"0" aria-readonly\x3d"true"\x3e', '\x3cthead\x3e', '\x3ctr role\x3d"row"\x3e', '\x3ctpl for\x3d"dayNames"\x3e', '\x3cth role\x3d"columnheader" class\x3d"{parent.baseCls}-column-header" aria-label\x3d"{.}"\x3e', '\x3cdiv role\x3d"presentation" class\x3d"{parent.baseCls}-column-header-inner"\x3e{.:this.firstInitial}\x3c/div\x3e', '\x3c/th\x3e', '\x3c/tpl\x3e', 
+'\x3c/tr\x3e', '\x3c/thead\x3e', '\x3ctbody\x3e', '\x3ctr role\x3d"row"\x3e', '\x3ctpl for\x3d"days"\x3e', '{#:this.isEndOfWeek}', '\x3ctd role\x3d"gridcell"\x3e', '\x3cdiv hidefocus\x3d"on" class\x3d"{parent.baseCls}-date"\x3e\x3c/div\x3e', '\x3c/td\x3e', '\x3c/tpl\x3e', '\x3c/tr\x3e', '\x3c/tbody\x3e', '\x3c/table\x3e', '\x3ctpl if\x3d"showToday"\x3e', '\x3cdiv id\x3d"{id}-footerEl" data-ref\x3d"footerEl" role\x3d"presentation" class\x3d"{baseCls}-footer"\x3e{%this.renderTodayBtn(values, out)%}\x3c/div\x3e', 
+'\x3c/tpl\x3e', '\x3cdiv id\x3d"{id}-todayText" class\x3d"' + Ext.baseCSSPrefix + 'hidden-clip"\x3e{todayText}.\x3c/div\x3e', '\x3cdiv id\x3d"{id}-ariaMinText" class\x3d"' + Ext.baseCSSPrefix + 'hidden-clip"\x3e{ariaMinText}.\x3c/div\x3e', '\x3cdiv id\x3d"{id}-ariaMaxText" class\x3d"' + Ext.baseCSSPrefix + 'hidden-clip"\x3e{ariaMaxText}.\x3c/div\x3e', '\x3cdiv id\x3d"{id}-ariaDisabledDaysText" class\x3d"' + Ext.baseCSSPrefix + 'hidden-clip"\x3e{ariaDisabledDaysText}.\x3c/div\x3e', '\x3cdiv id\x3d"{id}-ariaDisabledDatesText" class\x3d"' + 
+Ext.baseCSSPrefix + 'hidden-clip"\x3e{ariaDisabledDatesText}.\x3c/div\x3e', '\x3c/div\x3e', {firstInitial:function(value) {
+  return Ext.picker.Date.prototype.getDayInitial(value);
+}, isEndOfWeek:function(value) {
+  value--;
+  var end = value % 7 === 0 && value !== 0;
+  return end ? '\x3c/tr\x3e\x3ctr role\x3d"row"\x3e' : '';
+}, renderTodayBtn:function(values, out) {
+  Ext.DomHelper.generateMarkup(values.$comp.todayBtn.getRenderTree(), out);
+}, renderMonthBtn:function(values, out) {
+  Ext.DomHelper.generateMarkup(values.$comp.monthBtn.getRenderTree(), out);
+}}], initHour:12, numDays:42, initComponent:function() {
+  var me = this, clearTime = Ext.Date.clearTime;
+  me.selectedCls = me.baseCls + '-selected';
+  me.disabledCellCls = me.baseCls + '-disabled';
+  me.prevCls = me.baseCls + '-prevday';
+  me.activeCls = me.baseCls + '-active';
+  me.cellCls = me.baseCls + '-cell';
+  me.nextCls = me.baseCls + '-prevday';
+  me.todayCls = me.baseCls + '-today';
+  if (!me.format) {
+    me.format = Ext.Date.defaultFormat;
+  }
+  if (!me.dayNames) {
+    me.dayNames = Ext.Date.dayNames;
+  }
+  me.dayNames = me.dayNames.slice(me.startDay).concat(me.dayNames.slice(0, me.startDay));
+  me.callParent();
+  me.value = me.value ? clearTime(me.value, true) : clearTime(new Date);
+  me.initDisabledDays();
+}, getRefOwner:function() {
+  return this.pickerField || this.callParent();
+}, getRefItems:function() {
+  var results = [], monthBtn = this.monthBtn, todayBtn = this.todayBtn;
+  if (monthBtn) {
+    results.push(monthBtn);
+  }
+  if (todayBtn) {
+    results.push(todayBtn);
+  }
+  return results;
+}, beforeRender:function() {
+  var me = this, encode = Ext.String.htmlEncode, days = new Array(me.numDays), today = Ext.Date.format(new Date, me.format);
+  if (me.padding && !me.width) {
+    me.cacheWidth();
+  }
+  me.monthBtn = new Ext.button.Split({ownerCt:me, ownerLayout:me.getComponentLayout(), text:'', tooltip:me.monthYearText, tabIndex:-1, ariaRole:'presentation', listeners:{click:me.doShowMonthPicker, arrowclick:me.doShowMonthPicker, scope:me}});
+  if (me.showToday) {
+    me.todayBtn = new Ext.button.Button({ui:me.footerButtonUI, ownerCt:me, ownerLayout:me.getComponentLayout(), text:Ext.String.format(me.todayText, today), tooltip:Ext.String.format(me.todayTip, today), tooltipType:'title', tabIndex:-1, ariaRole:'presentation', handler:me.selectToday, scope:me});
+  }
+  me.callParent();
+  Ext.applyIf(me, {renderData:{}});
+  Ext.apply(me.renderData, {dayNames:me.dayNames, showToday:me.showToday, prevText:encode(me.prevText), nextText:encode(me.nextText), todayText:encode(me.todayText), ariaMinText:encode(me.ariaMinText), ariaMaxText:encode(me.ariaMaxText), ariaDisabledDaysText:encode(me.ariaDisabledDaysText), ariaDisabledDatesText:encode(me.ariaDisabledDatesText), days:days});
+  me.protoEl.unselectable();
+}, cacheWidth:function() {
+  var me = this, padding = me.parseBox(me.padding), widthEl = Ext.getBody().createChild({cls:me.baseCls + ' ' + me.borderBoxCls, style:'position:absolute;top:-1000px;left:-1000px;'});
+  me.self.prototype.width = widthEl.getWidth() + padding.left + padding.right;
+  widthEl.destroy();
+}, onRender:function(container, position) {
+  var me = this, dateCellSelector = 'div.' + me.baseCls + '-date';
+  me.callParent(arguments);
+  me.cells = me.eventEl.select('tbody td');
+  me.textNodes = me.eventEl.query(dateCellSelector);
+  me.eventEl.set({'aria-labelledby':me.monthBtn.id});
+  me.mon(me.eventEl, {scope:me, mousewheel:me.handleMouseWheel, click:{fn:me.handleDateClick, delegate:dateCellSelector}});
+}, initEvents:function() {
+  var me = this;
+  me.callParent();
+  if (me.pickerField) {
+    me.el.on('mousedown', me.onMouseDown, me);
+  }
+  me.monthBtn.el.on('mousedown', me.onMouseDown, me);
+  me.prevRepeater = new Ext.util.ClickRepeater(me.prevEl, {handler:me.showPrevMonth, scope:me, mousedownStopEvent:true});
+  me.nextRepeater = new Ext.util.ClickRepeater(me.nextEl, {handler:me.showNextMonth, scope:me, mousedownStopEvent:true});
+  me.keyNav = new Ext.util.KeyNav(me.eventEl, Ext.apply({scope:me, left:function(e) {
+    if (e.ctrlKey) {
+      this.showPrevMonth();
+    } else {
+      this.update(Ext.Date.add(this.activeDate, Ext.Date.DAY, -1));
+    }
+    e.preventDefault();
+  }, right:function(e) {
+    if (e.ctrlKey) {
+      this.showNextMonth();
+    } else {
+      this.update(Ext.Date.add(this.activeDate, Ext.Date.DAY, 1));
+    }
+    e.preventDefault();
+  }, up:function(e) {
+    if (e.ctrlKey) {
+      this.showNextYear();
+    } else {
+      this.update(Ext.Date.add(this.activeDate, Ext.Date.DAY, -7));
+    }
+    e.preventDefault();
+  }, down:function(e) {
+    if (e.ctrlKey) {
+      this.showPrevYear();
+    } else {
+      this.update(Ext.Date.add(this.activeDate, Ext.Date.DAY, 7));
+    }
+    e.preventDefault();
+  }, pageUp:function(e) {
+    if (e.ctrlKey) {
+      this.showPrevYear();
+    } else {
+      this.showPrevMonth();
+    }
+    e.preventDefault();
+  }, pageDown:function(e) {
+    if (e.ctrlKey) {
+      this.showNextYear();
+    } else {
+      this.showNextMonth();
+    }
+    e.preventDefault();
+  }, home:function(e) {
+    this.update(Ext.Date.getFirstDateOfMonth(this.activeDate));
+    e.preventDefault();
+  }, end:function(e) {
+    this.update(Ext.Date.getLastDateOfMonth(this.activeDate));
+    e.preventDefault();
+  }, tab:function(e) {
+    this.handleTabKey(e);
+    return true;
+  }, enter:function(e) {
+    this.handleDateClick(e, this.activeCell.firstChild);
+  }, space:function(e) {
+    var me = this, pickerField = me.pickerField, startValue, value, pickerValue;
+    me.setValue(new Date(me.activeCell.firstChild.dateValue));
+    if (pickerField) {
+      startValue = me.startValue;
+      value = me.value;
+      pickerValue = pickerField.getValue();
+      if (pickerValue && startValue && pickerValue.getTime() === value.getTime()) {
+        pickerField.setValue(startValue);
+      } else {
+        pickerField.setValue(value);
+      }
+    }
+    e.preventDefault();
+  }}, me.keyNavConfig));
+  if (me.disabled) {
+    me.syncDisabled(true, true);
+  }
+  me.update(me.value);
+}, onMouseDown:function(e) {
+  e.preventDefault();
+}, handleTabKey:function(e) {
+  var me = this, t = me.getSelectedDate(me.activeDate), handler = me.handler;
+  if (!me.disabled && t.dateValue && !Ext.fly(t.parentNode).hasCls(me.disabledCellCls)) {
+    me.setValue(new Date(t.dateValue));
+    me.fireEvent('select', me, me.value);
+    if (handler) {
+      Ext.callback(handler, me.scope, [me, me.value], null, me, me);
+    }
+    me.onSelect();
+  } else {
+    me.fireEventArgs('tabout', [me]);
+  }
+}, getSelectedDate:function(date) {
+  var me = this, t = date.getTime(), cells = me.cells, cls = me.selectedCls, cellItems = cells.elements, cLen = cellItems.length, cell, c;
+  cells.removeCls(cls);
+  for (c = 0; c < cLen; c++) {
+    cell = cellItems[c].firstChild;
+    if (cell.dateValue === t) {
+      return cell;
+    }
+  }
+  return null;
+}, initDisabledDays:function() {
+  var me = this, dd = me.disabledDates, re = '(?:', len, d, dLen, dI;
+  if (!me.disabledDatesRE && dd) {
+    len = dd.length - 1;
+    dLen = dd.length;
+    for (d = 0; d < dLen; d++) {
+      dI = dd[d];
+      re += Ext.isDate(dI) ? '^' + Ext.String.escapeRegex(Ext.Date.dateFormat(dI, me.format)) + '$' : dI;
+      if (d !== len) {
+        re += '|';
+      }
+    }
+    me.disabledDatesRE = new RegExp(re + ')');
+  }
+}, setDisabledDates:function(dd) {
+  var me = this;
+  if (Ext.isArray(dd)) {
+    me.disabledDates = dd;
+    me.disabledDatesRE = null;
+  } else {
+    me.disabledDatesRE = dd;
+  }
+  me.initDisabledDays();
+  me.update(me.value, true);
+  return me;
+}, setDisabledDays:function(dd) {
+  this.disabledDays = dd;
+  return this.update(this.value, true);
+}, setMinDate:function(dt) {
+  this.minDate = dt;
+  return this.update(this.value, true);
+}, setMaxDate:function(dt) {
+  this.maxDate = dt;
+  return this.update(this.value, true);
+}, setValue:function(value) {
+  this.value = Ext.Date.clearTime(value || new Date, true);
+  return this.update(this.value);
+}, getValue:function() {
+  return this.value;
+}, getDayInitial:function(value) {
+  return value.substr(0, 1);
+}, onEnable:function() {
+  var me = this;
+  me.callParent();
+  me.syncDisabled(false, true);
+  me.update(me.activeDate);
+}, onShow:function() {
+  var me = this;
+  me.callParent();
+  me.syncDisabled(false);
+  if (me.pickerField) {
+    me.startValue = me.pickerField.getValue();
+  }
+}, onHide:function() {
+  this.callParent();
+  this.syncDisabled(true);
+}, onDisable:function() {
+  this.callParent();
+  this.syncDisabled(true, true);
+}, getActive:function() {
+  return this.activeDate || this.value;
+}, runAnimation:function(isHide) {
+  var picker = this.monthPicker, options = {duration:200, callback:function() {
+    picker.setVisible(!isHide);
+  }};
+  if (isHide) {
+    picker.el.slideOut('t', options);
+  } else {
+    picker.el.slideIn('t', options);
+  }
+}, hideMonthPicker:function(animate) {
+  var me = this, picker = me.monthPicker;
+  if (picker && picker.isVisible()) {
+    if (me.shouldAnimate(animate)) {
+      me.runAnimation(true);
+    } else {
+      picker.hide();
+    }
+  }
+  return me;
+}, doShowMonthPicker:function() {
+  this.showMonthPicker();
+}, doHideMonthPicker:function() {
+  this.hideMonthPicker();
+}, showMonthPicker:function(animate) {
+  var me = this, el = me.el, picker;
+  if (me.rendered && !me.disabled) {
+    picker = me.createMonthPicker();
+    if (!picker.isVisible()) {
+      picker.setValue(me.getActive());
+      picker.setSize(el.getSize());
+      picker.floatParent = null;
+      picker.setPosition(-el.getBorderWidth('l'), -el.getBorderWidth('t'));
+      if (me.shouldAnimate(animate)) {
+        me.runAnimation(false);
+      } else {
+        picker.show();
+      }
+    }
+  }
+  return me;
+}, shouldAnimate:function(animate) {
+  return Ext.isDefined(animate) ? animate : !this.disableAnim;
+}, createMonthPicker:function() {
+  var me = this, picker = me.monthPicker;
+  if (!picker) {
+    me.monthPicker = picker = new Ext.picker.Month({renderTo:me.el, ownerCmp:me, floating:true, padding:me.padding, shadow:false, small:me.showToday === false, footerButtonUI:me.footerButtonUI, listeners:{scope:me, cancelclick:me.onCancelClick, okclick:me.onOkClick, yeardblclick:me.onOkClick, monthdblclick:me.onOkClick}});
+    if (!me.disableAnim) {
+      picker.el.setStyle('display', 'none');
+    }
+    picker.hide();
+    me.on('beforehide', me.doHideMonthPicker, me);
+  }
+  return picker;
+}, onOkClick:function(picker, value) {
+  var me = this, month = value[0], year = value[1], date = new Date(year, month, me.getActive().getDate());
+  if (date.getMonth() !== month) {
+    date = Ext.Date.getLastDateOfMonth(new Date(year, month, 1));
+  }
+  me.setValue(date);
+  me.hideMonthPicker();
+}, onCancelClick:function() {
+  this.selectedUpdate(this.activeDate);
+  this.hideMonthPicker();
+}, showPrevMonth:function(e) {
+  return this.setValue(Ext.Date.add(this.activeDate, Ext.Date.MONTH, -1));
+}, showNextMonth:function(e) {
+  return this.setValue(Ext.Date.add(this.activeDate, Ext.Date.MONTH, 1));
+}, showPrevYear:function() {
+  return this.setValue(Ext.Date.add(this.activeDate, Ext.Date.YEAR, -1));
+}, showNextYear:function() {
+  return this.setValue(Ext.Date.add(this.activeDate, Ext.Date.YEAR, 1));
+}, handleMouseWheel:function(e) {
+  var delta;
+  e.stopEvent();
+  if (!this.disabled) {
+    delta = e.getWheelDelta();
+    if (delta > 0) {
+      this.showPrevMonth();
+    } else {
+      if (delta < 0) {
+        this.showNextMonth();
+      }
+    }
+  }
+}, handleDateClick:function(e, t) {
+  var me = this, handler = me.handler;
+  e.stopEvent();
+  if (!me.disabled && t.dateValue && !Ext.fly(t.parentNode).hasCls(me.disabledCellCls)) {
+    me.setValue(new Date(t.dateValue));
+    me.fireEvent('select', me, me.value);
+    if (handler) {
+      Ext.callback(handler, me.scope, [me, me.value], null, me, me);
+    }
+    me.onSelect();
+  }
+}, onSelect:function() {
+  if (this.hideOnSelect) {
+    this.hide();
+  }
+}, selectToday:function() {
+  var me = this, btn = me.todayBtn, handler = me.handler;
+  if (btn && !btn.disabled) {
+    me.setValue(Ext.Date.clearTime(new Date));
+    me.fireEvent('select', me, me.value);
+    if (handler) {
+      Ext.callback(handler, me.scope, [me, me.value], null, me, me);
+    }
+    me.onSelect();
+  }
+  return me;
+}, selectedUpdate:function(date) {
+  var me = this, t = date.getTime(), cells = me.cells, cls = me.selectedCls, c, cLen = cells.getCount(), cell;
+  me.eventEl.dom.setAttribute('aria-busy', 'true');
+  cell = me.activeCell;
+  if (cell) {
+    Ext.fly(cell).removeCls(cls);
+    cell.setAttribute('aria-selected', false);
+  }
+  for (c = 0; c < cLen; c++) {
+    cell = cells.item(c);
+    if (me.textNodes[c].dateValue === t) {
+      me.activeCell = cell.dom;
+      me.eventEl.dom.setAttribute('aria-activedescendant', cell.dom.id);
+      cell.dom.setAttribute('aria-selected', true);
+      cell.addCls(cls);
+      me.fireEvent('highlightitem', me, cell);
+      break;
+    }
+  }
+  me.eventEl.dom.removeAttribute('aria-busy');
+}, fullUpdate:function(date) {
+  var me = this, cells = me.cells.elements, textNodes = me.textNodes, disabledCls = me.disabledCellCls, eDate = Ext.Date, i = 0, extraDays = 0, newDate = +eDate.clearTime(date, true), today = +eDate.clearTime(new Date), min = me.minDate ? eDate.clearTime(me.minDate, true) : Number.NEGATIVE_INFINITY, max = me.maxDate ? eDate.clearTime(me.maxDate, true) : Number.POSITIVE_INFINITY, ddMatch = me.disabledDatesRE, ddText = me.disabledDatesText, ddays = me.disabledDays ? me.disabledDays.join('') : false, 
+  ddaysText = me.disabledDaysText, format = me.format, days = eDate.getDaysInMonth(date), firstOfMonth = eDate.getFirstDateOfMonth(date), startingPos = firstOfMonth.getDay() - me.startDay, previousMonth = eDate.add(date, eDate.MONTH, -1), ariaTitleDateFormat = me.ariaTitleDateFormat, prevStart, current, disableToday, tempDate, setCellClass, html, cls, formatValue, value;
+  if (startingPos < 0) {
+    startingPos += 7;
+  }
+  days += startingPos;
+  prevStart = eDate.getDaysInMonth(previousMonth) - startingPos;
+  current = new Date(previousMonth.getFullYear(), previousMonth.getMonth(), prevStart, me.initHour);
+  if (me.showToday) {
+    tempDate = eDate.clearTime(new Date);
+    disableToday = tempDate < min || tempDate > max || ddMatch && format && ddMatch.test(eDate.dateFormat(tempDate, format)) || ddays && ddays.indexOf(tempDate.getDay()) !== -1;
+    me.todayDisabled = disableToday;
+    if (!me.disabled) {
+      me.todayBtn.setDisabled(disableToday);
+    }
+  }
+  setCellClass = function(cellIndex, cls) {
+    var cell = cells[cellIndex], describedBy = [];
+    if (!cell.hasAttribute('id')) {
+      cell.setAttribute('id', me.id + '-cell-' + cellIndex);
+    }
+    value = +eDate.clearTime(current, true);
+    cell.firstChild.dateValue = value;
+    cell.setAttribute('aria-label', eDate.format(current, ariaTitleDateFormat));
+    cell.removeAttribute('aria-describedby');
+    cell.removeAttribute('data-qtip');
+    if (value === today) {
+      cls += ' ' + me.todayCls;
+      describedBy.push(me.id + '-todayText');
+    }
+    if (value === newDate) {
+      me.activeCell = cell;
+      me.eventEl.dom.setAttribute('aria-activedescendant', cell.id);
+      cell.setAttribute('aria-selected', true);
+      cls += ' ' + me.selectedCls;
+      me.fireEvent('highlightitem', me, cell);
+    } else {
+      cell.setAttribute('aria-selected', false);
+    }
+    if (value < min) {
+      cls += ' ' + disabledCls;
+      describedBy.push(me.id + '-ariaMinText');
+      cell.setAttribute('data-qtip', me.minText);
+    } else {
+      if (value > max) {
+        cls += ' ' + disabledCls;
+        describedBy.push(me.id + '-ariaMaxText');
+        cell.setAttribute('data-qtip', me.maxText);
+      } else {
+        if (ddays && ddays.indexOf(current.getDay()) !== -1) {
+          cell.setAttribute('data-qtip', ddaysText);
+          describedBy.push(me.id + '-ariaDisabledDaysText');
+          cls += ' ' + disabledCls;
+        } else {
+          if (ddMatch && format) {
+            formatValue = eDate.dateFormat(current, format);
+            if (ddMatch.test(formatValue)) {
+              cell.setAttribute('data-qtip', ddText.replace('%0', formatValue));
+              describedBy.push(me.id + '-ariaDisabledDatesText');
+              cls += ' ' + disabledCls;
+            }
+          }
+        }
+      }
+    }
+    if (describedBy.length) {
+      cell.setAttribute('aria-describedby', describedBy.join(' '));
+    }
+    cell.className = cls + ' ' + me.cellCls;
+  };
+  me.eventEl.dom.setAttribute('aria-busy', 'true');
+  for (; i < me.numDays; ++i) {
+    if (i < startingPos) {
+      html = ++prevStart;
+      cls = me.prevCls;
+    } else {
+      if (i >= days) {
+        html = ++extraDays;
+        cls = me.nextCls;
+      } else {
+        html = i - startingPos + 1;
+        cls = me.activeCls;
+      }
+    }
+    textNodes[i].innerHTML = html;
+    current.setDate(current.getDate() + 1);
+    setCellClass(i, cls);
+  }
+  me.eventEl.dom.removeAttribute('aria-busy');
+  me.monthBtn.setText(Ext.Date.format(date, me.monthYearFormat));
+}, update:function(date, forceRefresh) {
+  var me = this, active = me.activeDate;
+  if (me.rendered) {
+    me.activeDate = date;
+    if (!forceRefresh && active && me.el && active.getMonth() === date.getMonth() && active.getFullYear() === date.getFullYear()) {
+      me.selectedUpdate(date, active);
+    } else {
+      me.fullUpdate(date, active);
+    }
+  }
+  return me;
+}, doDestroy:function() {
+  var me = this;
+  if (me.rendered) {
+    Ext.destroy(me.keyNav, me.monthPicker, me.monthBtn, me.nextRepeater, me.prevRepeater, me.todayBtn, me.todayElSpan);
+  }
+  me.callParent();
+}, privates:{finishRenderChildren:function() {
+  var me = this;
+  me.callParent();
+  me.monthBtn.finishRender();
+  if (me.showToday) {
+    me.todayBtn.finishRender();
+  }
+}, getFocusEl:function() {
+  return this.eventEl;
+}, syncDisabled:function(disabled, doButton) {
+  var me = this, keyNav = me.keyNav, todayBtn = me.todayBtn;
+  if (keyNav) {
+    keyNav.setDisabled(disabled);
+    me.prevRepeater.setDisabled(disabled);
+    me.nextRepeater.setDisabled(disabled);
+  }
+  if (doButton && todayBtn) {
+    todayBtn.setDisabled(me.todayDisabled || disabled);
+  }
+}}});
+Ext.define('Ext.theme.triton.picker.Date', {override:'Ext.picker.Date', footerButtonUI:'default-toolbar'});
+Ext.define('Ext.form.field.Date', {extend:Ext.form.field.Picker, alias:'widget.datefield', alternateClassName:['Ext.form.DateField', 'Ext.form.Date'], format:'m/d/Y', ariaFormat:'M j Y', altFormats:'m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d|n-j|n/j', disabledDaysText:'Disabled', ariaDisabledDaysText:'This day of week is disabled', disabledDatesText:'Disabled', ariaDisabledDatesText:'This date cannot be selected', minText:'The date in this field must be equal to or after {0}', 
+ariaMinText:'The date must be equal to or after {0}', maxText:'The date in this field must be equal to or before {0}', ariaMaxText:'The date must be equal to or before {0}', invalidText:'{0} is not a valid date - it must be in the format {1}', formatText:'Expected date format {0}.', triggerCls:Ext.baseCSSPrefix + 'form-date-trigger', showToday:true, useStrict:undefined, initTime:'12', initTimeFormat:'H', matchFieldWidth:false, startDay:0, valuePublishEvent:['select', 'blur'], componentCls:Ext.baseCSSPrefix + 
+'form-field-date', ariaRole:'combobox', rawDate:null, rawDateText:'', initComponent:function() {
+  var me = this, isString = Ext.isString, min, max;
+  min = me.minValue;
+  max = me.maxValue;
+  if (isString(min)) {
+    me.minValue = me.parseDate(min);
+  }
+  if (isString(max)) {
+    me.maxValue = me.parseDate(max);
+  }
+  me.disabledDatesRE = null;
+  me.initDisabledDays();
+  me.callParent();
+}, getSubTplData:function(fieldData) {
+  var me = this, data, ariaAttr;
+  data = me.callParent([fieldData]);
+  if (!me.ariaStaticRoles[me.ariaRole]) {
+    ariaAttr = data.ariaElAttributes;
+    if (ariaAttr) {
+      ariaAttr['aria-owns'] = me.id + '-inputEl ' + me.id + '-picker-eventEl';
+      ariaAttr['aria-autocomplete'] = 'none';
+    }
+  }
+  return data;
+}, initValue:function() {
+  var me = this, value = me.value;
+  if (Ext.isString(value)) {
+    me.value = me.rawToValue(value);
+    me.rawDate = me.value;
+    me.rawDateText = me.parseDate(me.value);
+  } else {
+    me.value = value || null;
+    me.rawDate = me.value;
+    me.rawDateText = me.value ? me.parseDate(me.value) : '';
+  }
+  me.callParent();
+}, initDisabledDays:function() {
+  if (this.disabledDates) {
+    var dd = this.disabledDates, len = dd.length - 1, re = '(?:', d, dLen = dd.length, date;
+    for (d = 0; d < dLen; d++) {
+      date = dd[d];
+      re += Ext.isDate(date) ? '^' + Ext.String.escapeRegex(date.dateFormat(this.format)) + '$' : date;
+      if (d !== len) {
+        re += '|';
+      }
+    }
+    this.disabledDatesRE = new RegExp(re + ')');
+  }
+}, setDisabledDates:function(disabledDates) {
+  var me = this, picker = me.picker;
+  me.disabledDates = disabledDates;
+  me.initDisabledDays();
+  if (picker) {
+    picker.setDisabledDates(me.disabledDatesRE);
+  }
+}, setDisabledDays:function(disabledDays) {
+  var picker = this.picker;
+  this.disabledDays = disabledDays;
+  if (picker) {
+    picker.setDisabledDays(disabledDays);
+  }
+}, setMinValue:function(value) {
+  var me = this, picker = me.picker, minValue = Ext.isString(value) ? me.parseDate(value) : value;
+  me.minValue = minValue;
+  if (picker) {
+    picker.minText = Ext.String.format(me.minText, me.formatDate(me.minValue));
+    picker.setMinDate(minValue);
+  }
+}, setMaxValue:function(value) {
+  var me = this, picker = me.picker, maxValue = Ext.isString(value) ? me.parseDate(value) : value;
+  me.maxValue = maxValue;
+  if (picker) {
+    picker.maxText = Ext.String.format(me.maxText, me.formatDate(me.maxValue));
+    picker.setMaxDate(maxValue);
+  }
+}, getErrors:function(value) {
+  value = arguments.length > 0 ? value : this.formatDate(this.processRawValue(this.getRawValue()));
+  var me = this, format = Ext.String.format, clearTime = Ext.Date.clearTime, errors = me.callParent([value]), disabledDays = me.disabledDays, disabledDatesRE = me.disabledDatesRE, minValue = me.minValue, maxValue = me.maxValue, len = disabledDays ? disabledDays.length : 0, i = 0, svalue, fvalue, day, time;
+  if (value === null || value.length < 1) {
+    return errors;
+  }
+  svalue = value;
+  value = me.parseDate(value);
+  if (!value) {
+    errors.push(format(me.invalidText, svalue, Ext.Date.unescapeFormat(me.format)));
+    return errors;
+  }
+  time = value.getTime();
+  if (minValue && time < clearTime(minValue).getTime()) {
+    errors.push(format(me.minText, me.formatDate(minValue)));
+  }
+  if (maxValue && time > clearTime(maxValue).getTime()) {
+    errors.push(format(me.maxText, me.formatDate(maxValue)));
+  }
+  if (disabledDays) {
+    day = value.getDay();
+    for (; i < len; i++) {
+      if (day === disabledDays[i]) {
+        errors.push(me.disabledDaysText);
+        break;
+      }
+    }
+  }
+  fvalue = me.formatDate(value);
+  if (disabledDatesRE && disabledDatesRE.test(fvalue)) {
+    errors.push(format(me.disabledDatesText, fvalue));
+  }
+  return errors;
+}, rawToValue:function(rawValue) {
+  var me = this;
+  if (rawValue === me.rawDateText) {
+    return me.rawDate;
+  }
+  return me.parseDate(rawValue) || rawValue || null;
+}, valueToRaw:function(value) {
+  return this.formatDate(this.parseDate(value));
+}, setValue:function(v) {
+  var me = this;
+  me.lastValue = me.rawDateText;
+  me.lastDate = me.rawDate;
+  if (Ext.isDate(v)) {
+    me.rawDate = v;
+    me.rawDateText = me.formatDate(v);
+  } else {
+    me.rawDate = me.rawToValue(v);
+    me.rawDateText = me.formatDate(v);
+    if (me.rawDate === v) {
+      me.rawDate = null;
+      me.rawDateText = '';
+    }
+  }
+  me.callParent(arguments);
+}, checkChange:function() {
+  var me = this, newVal, oldVal, lastDate;
+  if (!me.suspendCheckChange) {
+    newVal = me.getRawValue();
+    oldVal = me.lastValue;
+    lastDate = me.lastDate;
+    if (!me.destroyed && me.didValueChange(newVal, oldVal)) {
+      me.rawDate = me.rawToValue(newVal);
+      me.rawDateText = me.formatDate(newVal);
+      me.lastValue = newVal;
+      me.lastDate = me.rawDate;
+      me.fireEvent('change', me, me.getValue(), lastDate);
+      me.onChange(newVal, oldVal);
+    }
+  }
+}, safeParse:function(value, format) {
+  var me = this, utilDate = Ext.Date, result = null, strict = me.useStrict, parsedDate;
+  if (utilDate.formatContainsHourInfo(format)) {
+    result = utilDate.parse(value, format, strict);
+  } else {
+    parsedDate = utilDate.parse(value + ' ' + me.initTime, format + ' ' + me.initTimeFormat, strict);
+    if (parsedDate) {
+      result = utilDate.clearTime(parsedDate);
+    }
+  }
+  return result;
+}, getSubmitValue:function() {
+  var format = this.submitFormat || this.format, value = this.rawDate;
+  return value ? Ext.Date.format(value, format) : '';
+}, getValue:function() {
+  return this.rawDate || null;
+}, setRawValue:function(value) {
+  var me = this;
+  me.callParent([value]);
+  me.rawDate = Ext.isDate(value) ? value : me.rawToValue(value);
+  me.rawDateText = this.formatDate(value);
+}, parseDate:function(value) {
+  if (!value || Ext.isDate(value)) {
+    return value;
+  }
+  var me = this, val = me.safeParse(value, me.format), altFormats = me.altFormats, altFormatsArray = me.altFormatsArray, i = 0, len;
+  if (!val && altFormats) {
+    altFormatsArray = altFormatsArray || altFormats.split('|');
+    len = altFormatsArray.length;
+    for (; i < len && !val; ++i) {
+      val = me.safeParse(value, altFormatsArray[i]);
+    }
+  }
+  return val;
+}, formatDate:function(date, format) {
+  return Ext.isDate(date) ? Ext.Date.dateFormat(date, format || this.format) : date;
+}, createPicker:function() {
+  var me = this, format = Ext.String.format;
+  return new Ext.picker.Date({id:me.id + '-picker', pickerField:me, floating:true, preventRefocus:true, hidden:true, minDate:me.minValue, maxDate:me.maxValue, disabledDatesRE:me.disabledDatesRE, disabledDatesText:me.disabledDatesText, ariaDisabledDatesText:me.ariaDisabledDatesText, disabledDays:me.disabledDays, disabledDaysText:me.disabledDaysText, ariaDisabledDaysText:me.ariaDisabledDaysText, format:me.format, showToday:me.showToday, startDay:me.startDay, minText:format(me.minText, me.formatDate(me.minValue)), 
+  ariaMinText:format(me.ariaMinText, me.formatDate(me.minValue, me.ariaFormat)), maxText:format(me.maxText, me.formatDate(me.maxValue)), ariaMaxText:format(me.ariaMaxText, me.formatDate(me.maxValue, me.ariaFormat)), listeners:{scope:me, select:me.onSelect, tabout:me.onTabOut}, keyNavConfig:{esc:function() {
+    me.inputEl.focus();
+    me.collapse();
+  }}});
+}, onSelect:function(m, d) {
+  var me = this;
+  me.setValue(d);
+  me.rawDate = d;
+  me.fireEvent('select', me, d);
+  me.onTabOut(m);
+}, onTabOut:function(picker) {
+  this.inputEl.focus();
+  this.collapse();
+}, onExpand:function() {
+  var value = this.rawDate;
+  this.picker.setValue(Ext.isDate(value) ? value : new Date);
+}, onBlur:function(e) {
+  var me = this, v = me.rawToValue(me.getRawValue());
+  if (v === '' || Ext.isDate(v)) {
+    me.setValue(v);
+  }
+  me.callParent([e]);
 }});
 Ext.define('Ext.tip.Tip', {extend:Ext.panel.Panel, xtype:'tip', alternateClassName:'Ext.Tip', minWidth:40, maxWidth:500, shadow:'sides', constrainPosition:true, autoRender:true, hidden:true, baseCls:Ext.baseCSSPrefix + 'tip', focusOnToFront:false, maskOnDisable:false, closeAction:'hide', alwaysFramed:true, frameHeader:false, initComponent:function() {
   var me = this;
@@ -70883,6 +76278,484 @@ Ext.define('Ext.layout.component.Body', {alias:['layout.body'], extend:Ext.layou
   }
   ownerContext.bodyContext.setWidth(innerWidth, !ownerContext.widthModel.natural);
 }});
+Ext.define('Ext.resizer.BorderSplitter', {extend:Ext.resizer.Splitter, alias:'widget.bordersplitter', collapseTarget:null, getTrackerConfig:function() {
+  var trackerConfig = this.callParent();
+  trackerConfig.xclass = 'Ext.resizer.BorderSplitterTracker';
+  return trackerConfig;
+}, onTargetCollapse:function(target) {
+  this.callParent([target]);
+  if (this.performCollapse !== false && target.collapseMode == 'mini') {
+    target.addCls(target.baseCls + '-' + target.collapsedCls + '-mini');
+  }
+}, onTargetExpand:function(target) {
+  this.callParent([target]);
+  if (this.performCollapse !== false && target.collapseMode == 'mini') {
+    target.removeCls(target.baseCls + '-' + target.collapsedCls + '-mini');
+  }
+}});
+Ext.define('Ext.layout.container.Border', {extend:Ext.layout.container.Container, alias:'layout.border', alternateClassName:'Ext.layout.BorderLayout', targetCls:Ext.baseCSSPrefix + 'border-layout-ct', itemCls:[Ext.baseCSSPrefix + 'border-item', Ext.baseCSSPrefix + 'box-item'], type:'border', isBorderLayout:true, padding:undefined, percentageRe:/(\d+)%/, horzPositionProp:'left', padOnContainerProp:'left', padNotOnContainerProp:'right', axisProps:{horz:{borderBegin:'west', borderEnd:'east', horizontal:true, 
+posProp:'x', sizeProp:'width', sizePropCap:'Width'}, vert:{borderBegin:'north', borderEnd:'south', horizontal:false, posProp:'y', sizeProp:'height', sizePropCap:'Height'}}, centerRegion:null, manageMargins:true, panelCollapseAnimate:true, panelCollapseMode:'placeholder', regionWeights:{north:20, south:10, center:0, west:-10, east:-20}, beginAxis:function(ownerContext, regions, name) {
+  var me = this, props = me.axisProps[name], isVert = !props.horizontal, sizeProp = props.sizeProp, totalFlex = 0, childItems = ownerContext.childItems, length = childItems.length, center, i, childContext, centerFlex, comp, region, match, size, type, target, placeholder;
+  for (i = 0; i < length; ++i) {
+    childContext = childItems[i];
+    comp = childContext.target;
+    childContext.layoutPos = {};
+    if (comp.region) {
+      childContext.region = region = comp.region;
+      childContext.isCenter = comp.isCenter;
+      childContext.isHorz = comp.isHorz;
+      childContext.isVert = comp.isVert;
+      childContext.weight = comp.weight || me.regionWeights[region] || 0;
+      comp.weight = childContext.weight;
+      regions[comp.id] = childContext;
+      if (comp.isCenter) {
+        center = childContext;
+        centerFlex = comp.flex;
+        ownerContext.centerRegion = center;
+        continue;
+      }
+      if (isVert !== childContext.isVert) {
+        continue;
+      }
+      childContext.reverseWeighting = region === props.borderEnd;
+      size = comp[sizeProp];
+      type = typeof size;
+      if (!comp.collapsed) {
+        if (type === 'string' && (match = me.percentageRe.exec(size))) {
+          childContext.percentage = parseInt(match[1], 10);
+        } else {
+          if (comp.flex) {
+            totalFlex += childContext.flex = comp.flex;
+          }
+        }
+      }
+    }
+  }
+  if (center) {
+    target = center.target;
+    if (placeholder = target.placeholderFor) {
+      if (!centerFlex && isVert === placeholder.collapsedVertical()) {
+        centerFlex = 0;
+        center.collapseAxis = name;
+      }
+    } else {
+      if (target.collapsed && isVert === target.collapsedVertical()) {
+        centerFlex = 0;
+        center.collapseAxis = name;
+      }
+    }
+  }
+  if (centerFlex == null) {
+    centerFlex = 1;
+  }
+  totalFlex += centerFlex;
+  return Ext.apply({before:isVert ? 'top' : 'left', totalFlex:totalFlex}, props);
+}, beginLayout:function(ownerContext) {
+  var me = this, items = me.getLayoutItems(), pad = me.padding, type = typeof pad, padOnContainer = false, childContext, item, length, i, regions, collapseTarget, doShow, hidden, region;
+  if (ownerContext.heightModel.shrinkWrap) {
+    Ext.raise('Border layout does not currently support shrinkWrap height. ' + 'Please specify a height on component: ' + me.owner.id + ", or use a container layout that sets the component's height.");
+  }
+  if (ownerContext.widthModel.shrinkWrap) {
+    Ext.raise('Border layout does not currently support shrinkWrap width. ' + 'Please specify a width on component: ' + me.owner.id + ", or use a container layout that sets the component's width.");
+  }
+  if (pad) {
+    if (type === 'string' || type === 'number') {
+      pad = Ext.util.Format.parseBox(pad);
+    }
+  } else {
+    pad = ownerContext.getEl('getTargetEl').getPaddingInfo();
+    padOnContainer = true;
+  }
+  ownerContext.outerPad = pad;
+  ownerContext.padOnContainer = padOnContainer;
+  for (i = 0, length = items.length; i < length; ++i) {
+    item = items[i];
+    collapseTarget = me.getSplitterTarget(item);
+    if (collapseTarget) {
+      doShow = undefined;
+      hidden = !!item.hidden;
+      if (!collapseTarget.split) {
+        if (collapseTarget.isCollapsingOrExpanding) {
+          doShow = !!collapseTarget.collapsed;
+        }
+      } else {
+        if (hidden !== collapseTarget.hidden) {
+          doShow = !collapseTarget.hidden;
+        }
+      }
+      if (doShow) {
+        item.show();
+      } else {
+        if (doShow === false) {
+          item.hide();
+        }
+      }
+    }
+  }
+  me.callParent(arguments);
+  items = ownerContext.childItems;
+  length = items.length;
+  regions = {};
+  ownerContext.borderAxisHorz = me.beginAxis(ownerContext, regions, 'horz');
+  ownerContext.borderAxisVert = me.beginAxis(ownerContext, regions, 'vert');
+  for (i = 0; i < length; ++i) {
+    childContext = items[i];
+    collapseTarget = me.getSplitterTarget(childContext.target);
+    if (collapseTarget) {
+      region = regions[collapseTarget.id];
+      if (!region) {
+        region = ownerContext.getEl(collapseTarget.el, me);
+        region.region = collapseTarget.region;
+      }
+      childContext.collapseTarget = collapseTarget = region;
+      childContext.weight = collapseTarget.weight;
+      childContext.reverseWeighting = collapseTarget.reverseWeighting;
+      collapseTarget.splitter = childContext;
+      childContext.isHorz = collapseTarget.isHorz;
+      childContext.isVert = collapseTarget.isVert;
+    }
+  }
+  me.sortWeightedItems(items, 'reverseWeighting');
+  me.setupSplitterNeighbors(items);
+}, calculate:function(ownerContext) {
+  var me = this, containerSize = me.getContainerSize(ownerContext), childItems = ownerContext.childItems, length = childItems.length, horz = ownerContext.borderAxisHorz, vert = ownerContext.borderAxisVert, pad = ownerContext.outerPad, padOnContainer = ownerContext.padOnContainer, i, childContext, childMargins, size, horzPercentTotal, vertPercentTotal;
+  horz.begin = pad[me.padOnContainerProp];
+  vert.begin = pad.top;
+  horzPercentTotal = horz.end = horz.flexSpace = containerSize.width + (padOnContainer ? pad[me.padOnContainerProp] : -pad[me.padNotOnContainerProp]);
+  vertPercentTotal = vert.end = vert.flexSpace = containerSize.height + (padOnContainer ? pad.top : -pad.bottom);
+  for (i = 0; i < length; ++i) {
+    childContext = childItems[i];
+    childMargins = childContext.getMarginInfo();
+    if (childContext.isHorz || childContext.isCenter) {
+      horz.addUnflexed(childMargins.width);
+      horzPercentTotal -= childMargins.width;
+    }
+    if (childContext.isVert || childContext.isCenter) {
+      vert.addUnflexed(childMargins.height);
+      vertPercentTotal -= childMargins.height;
+    }
+    if (!childContext.flex && !childContext.percentage) {
+      if (childContext.isHorz || childContext.isCenter && childContext.collapseAxis === 'horz') {
+        size = childContext.getProp('width');
+        horz.addUnflexed(size);
+        if (childContext.collapseTarget) {
+          horzPercentTotal -= size;
+        }
+      } else {
+        if (childContext.isVert || childContext.isCenter && childContext.collapseAxis === 'vert') {
+          size = childContext.getProp('height');
+          vert.addUnflexed(size);
+          if (childContext.collapseTarget) {
+            vertPercentTotal -= size;
+          }
+        }
+      }
+    }
+  }
+  for (i = 0; i < length; ++i) {
+    childContext = childItems[i];
+    childMargins = childContext.getMarginInfo();
+    if (childContext.percentage) {
+      if (childContext.isHorz) {
+        size = Math.ceil(horzPercentTotal * childContext.percentage / 100);
+        size = childContext.setWidth(size);
+        horz.addUnflexed(size);
+      } else {
+        if (childContext.isVert) {
+          size = Math.ceil(vertPercentTotal * childContext.percentage / 100);
+          size = childContext.setHeight(size);
+          vert.addUnflexed(size);
+        }
+      }
+    }
+  }
+  for (i = 0; i < length; ++i) {
+    childContext = childItems[i];
+    if (!childContext.isCenter) {
+      me.calculateChildAxis(childContext, horz);
+      me.calculateChildAxis(childContext, vert);
+    }
+  }
+  if (me.finishAxis(ownerContext, vert) + me.finishAxis(ownerContext, horz) < 2) {
+    me.done = false;
+  } else {
+    me.finishPositions(childItems);
+  }
+}, calculateChildAxis:function(childContext, axis) {
+  var collapseTarget = childContext.collapseTarget, setSizeMethod = 'set' + axis.sizePropCap, sizeProp = axis.sizeProp, childMarginSize = childContext.getMarginInfo()[sizeProp], region, isBegin, flex, pos, size;
+  if (collapseTarget) {
+    region = collapseTarget.region;
+  } else {
+    region = childContext.region;
+    flex = childContext.flex;
+  }
+  isBegin = region === axis.borderBegin;
+  if (!isBegin && region !== axis.borderEnd) {
+    childContext[setSizeMethod](axis.end - axis.begin - childMarginSize);
+    pos = axis.begin;
+  } else {
+    if (flex) {
+      size = Math.ceil(axis.flexSpace * (flex / axis.totalFlex));
+      size = childContext[setSizeMethod](size);
+    } else {
+      if (childContext.percentage) {
+        size = childContext.peek(sizeProp);
+      } else {
+        size = childContext.getProp(sizeProp);
+      }
+    }
+    size += childMarginSize;
+    if (isBegin) {
+      pos = axis.begin;
+      axis.begin += size;
+    } else {
+      axis.end = pos = axis.end - size;
+    }
+  }
+  childContext.layoutPos[axis.posProp] = pos;
+}, eachItem:function(region, fn, scope) {
+  var me = this, items = me.getLayoutItems(), i = 0, item;
+  if (Ext.isFunction(region)) {
+    fn = region;
+    scope = fn;
+  }
+  for (i; i < items.length; i++) {
+    item = items[i];
+    if (!region || item.region === region) {
+      if (fn.call(scope, item) === false) {
+        break;
+      }
+    }
+  }
+}, finishAxis:function(ownerContext, axis) {
+  var size = axis.end - axis.begin, center = ownerContext.centerRegion;
+  if (center) {
+    center['set' + axis.sizePropCap](size - center.getMarginInfo()[axis.sizeProp]);
+    center.layoutPos[axis.posProp] = axis.begin;
+  }
+  return Ext.isNumber(size) ? 1 : 0;
+}, finishPositions:function(childItems) {
+  var length = childItems.length, index, childContext, marginProp = this.horzPositionProp;
+  for (index = 0; index < length; ++index) {
+    childContext = childItems[index];
+    childContext.setProp('x', childContext.layoutPos.x + childContext.marginInfo[marginProp]);
+    childContext.setProp('y', childContext.layoutPos.y + childContext.marginInfo.top);
+  }
+}, getLayoutItems:function() {
+  var owner = this.owner, ownerItems = owner && owner.items && owner.items.items || [], length = ownerItems.length, items = [], i = 0, ownerItem, placeholderFor;
+  for (; i < length; i++) {
+    ownerItem = ownerItems[i];
+    placeholderFor = ownerItem.placeholderFor;
+    if (ownerItem.hidden || (!ownerItem.floated || ownerItem.isCollapsingOrExpanding === 2) && !(placeholderFor && placeholderFor.isCollapsingOrExpanding === 2)) {
+      items.push(ownerItem);
+    }
+  }
+  return items;
+}, getPlaceholder:function(comp) {
+  return comp.getPlaceholder && comp.getPlaceholder();
+}, getMaxWeight:function(region) {
+  return this.getMinMaxWeight(region);
+}, getMinWeight:function(region) {
+  return this.getMinMaxWeight(region, true);
+}, getMinMaxWeight:function(region, min) {
+  var me = this, weight = null;
+  me.eachItem(region, function(item) {
+    if (item.hasOwnProperty('weight')) {
+      if (weight === null) {
+        weight = item.weight;
+        return;
+      }
+      if (min && item.weight < weight || item.weight > weight) {
+        weight = item.weight;
+      }
+    }
+  }, this);
+  return weight;
+}, getSplitterTarget:function(splitter) {
+  var collapseTarget = splitter.collapseTarget;
+  if (collapseTarget && collapseTarget.collapsed) {
+    return collapseTarget.placeholder || collapseTarget;
+  }
+  return collapseTarget;
+}, isItemBoxParent:function(itemContext) {
+  return true;
+}, isItemShrinkWrap:function(item) {
+  return true;
+}, insertSplitter:function(item, index, hidden, splitterCfg) {
+  var region = item.region, splitter = Ext.apply({xtype:'bordersplitter', collapseTarget:item, id:item.id + '-splitter', hidden:hidden, canResize:item.splitterResize !== false, splitterFor:item, synthetic:true}, splitterCfg), at = index + (region === 'south' || region === 'east' ? 0 : 1);
+  if (item.collapseMode === 'mini') {
+    splitter.collapsedCls = item.collapsedCls;
+  }
+  item.splitter = this.owner.add(at, splitter);
+}, getMoveAfterIndex:function(after) {
+  var index = this.callParent(arguments);
+  if (after.splitter) {
+    index++;
+  }
+  return index;
+}, moveItemBefore:function(item, before) {
+  var beforeRegion;
+  if (before && before.splitter) {
+    beforeRegion = before.region;
+    if (beforeRegion === 'south' || beforeRegion === 'east') {
+      before = before.splitter;
+    }
+  }
+  return this.callParent([item, before]);
+}, onAdd:function(item, index) {
+  var me = this, placeholderFor = item.placeholderFor, region = item.region, isCenter, split, hidden, cfg;
+  me.callParent(arguments);
+  if (region) {
+    Ext.apply(item, me.regionFlags[region]);
+    if (me.owner.isViewport) {
+      item.isViewportBorderChild = true;
+    }
+    if (item.initBorderRegion) {
+      item.initBorderRegion();
+    }
+    isCenter = region === 'center';
+    if (isCenter) {
+      if (me.centerRegion) {
+        Ext.raise('Cannot have multiple center regions in a BorderLayout.');
+      }
+      me.centerRegion = item;
+    } else {
+      split = item.split;
+      hidden = !!item.hidden;
+      if (typeof split === 'object') {
+        cfg = split;
+        split = true;
+      }
+      if ((item.isHorz || item.isVert) && (split || item.collapseMode === 'mini')) {
+        me.insertSplitter(item, index, hidden || !split, cfg);
+      }
+    }
+    if (!isCenter && !item.hasOwnProperty('collapseMode')) {
+      item.collapseMode = me.panelCollapseMode;
+    }
+    if (!item.hasOwnProperty('animCollapse')) {
+      if (item.collapseMode !== 'placeholder') {
+        item.animCollapse = false;
+      } else {
+        item.animCollapse = me.panelCollapseAnimate;
+      }
+    }
+    if (hidden && item.placeholder && item.placeholder.isVisible()) {
+      me.owner.insert(index, item.placeholder);
+    }
+  } else {
+    if (placeholderFor) {
+      Ext.apply(item, me.regionFlags[placeholderFor.region]);
+      item.region = placeholderFor.region;
+      item.weight = placeholderFor.weight;
+    }
+  }
+}, onDestroy:function() {
+  this.centerRegion = null;
+  this.callParent();
+}, onRemove:function(comp, isDestroying) {
+  var me = this, region = comp.region, splitter = comp.splitter, owner = me.owner, destroying = owner.destroying, el;
+  if (region) {
+    if (comp.isCenter) {
+      me.centerRegion = null;
+    }
+    delete comp.isCenter;
+    delete comp.isHorz;
+    delete comp.isVert;
+    if (splitter && !owner.destroying) {
+      owner.doRemove(splitter, true);
+    }
+    delete comp.splitter;
+  }
+  me.callParent(arguments);
+  if (!destroying && !isDestroying && comp.rendered) {
+    el = comp.getEl();
+    if (el) {
+      el.setStyle('top', '');
+      el.setStyle(me.horzPositionProp, '');
+    }
+  }
+}, regionMeta:{center:{splitterDelta:0}, north:{splitterDelta:1}, south:{splitterDelta:-1}, west:{splitterDelta:1}, east:{splitterDelta:-1}}, regionFlags:{center:{isCenter:true, isHorz:false, isVert:false}, north:{isCenter:false, isHorz:false, isVert:true, collapseDirection:'top'}, south:{isCenter:false, isHorz:false, isVert:true, collapseDirection:'bottom'}, west:{isCenter:false, isHorz:true, isVert:false, collapseDirection:'left'}, east:{isCenter:false, isHorz:true, isVert:false, collapseDirection:'right'}}, 
+setupSplitterNeighbors:function(items) {
+  var edgeRegions = {}, length = items.length, touchedRegions = this.touchedRegions, i, j, center, count, edge, comp, region, splitter, touched;
+  for (i = 0; i < length; ++i) {
+    comp = items[i].target;
+    region = comp.region;
+    if (comp.isCenter) {
+      center = comp;
+    } else {
+      if (region) {
+        touched = touchedRegions[region];
+        for (j = 0, count = touched.length; j < count; ++j) {
+          edge = edgeRegions[touched[j]];
+          if (edge) {
+            edge.neighbors.push(comp);
+          }
+        }
+        if (comp.placeholderFor) {
+          splitter = comp.placeholderFor.splitter;
+        } else {
+          splitter = comp.splitter;
+        }
+        if (splitter) {
+          splitter.neighbors = [];
+        }
+        edgeRegions[region] = splitter;
+      }
+    }
+  }
+  if (center) {
+    touched = touchedRegions.center;
+    for (j = 0, count = touched.length; j < count; ++j) {
+      edge = edgeRegions[touched[j]];
+      if (edge) {
+        edge.neighbors.push(center);
+      }
+    }
+  }
+}, touchedRegions:{center:['north', 'south', 'east', 'west'], north:['north', 'east', 'west'], south:['south', 'east', 'west'], east:['east', 'north', 'south'], west:['west', 'north', 'south']}, sizePolicies:{vert:{readsWidth:0, readsHeight:1, setsWidth:1, setsHeight:0}, horz:{readsWidth:1, readsHeight:0, setsWidth:0, setsHeight:1}, flexAll:{readsWidth:0, readsHeight:0, setsWidth:1, setsHeight:1}}, getItemSizePolicy:function(item) {
+  var me = this, policies = this.sizePolicies, collapseTarget, size, policy, placeholderFor;
+  if (item.isCenter) {
+    placeholderFor = item.placeholderFor;
+    if (placeholderFor) {
+      if (placeholderFor.collapsedVertical()) {
+        return policies.vert;
+      }
+      return policies.horz;
+    }
+    if (item.collapsed) {
+      if (item.collapsedVertical()) {
+        return policies.vert;
+      }
+      return policies.horz;
+    }
+    return policies.flexAll;
+  }
+  collapseTarget = item.collapseTarget;
+  if (collapseTarget) {
+    return collapseTarget.isVert ? policies.vert : policies.horz;
+  }
+  if (item.region) {
+    if (item.isVert) {
+      size = item.height;
+      policy = policies.vert;
+    } else {
+      size = item.width;
+      policy = policies.horz;
+    }
+    if (item.flex || typeof size === 'string' && me.percentageRe.test(size)) {
+      return policies.flexAll;
+    }
+    return policy;
+  }
+  return me.autoSizePolicy;
+}}, function() {
+  var methods = {addUnflexed:function(px) {
+    this.flexSpace = Math.max(this.flexSpace - px, 0);
+  }}, props = this.prototype.axisProps;
+  Ext.apply(props.horz, methods);
+  Ext.apply(props.vert, methods);
+});
 Ext.define('Ext.layout.container.Card', {extend:Ext.layout.container.Fit, alternateClassName:'Ext.layout.CardLayout', alias:'layout.card', type:'card', hideInactive:true, deferredRender:false, getRenderTree:function() {
   var me = this, activeItem = me.getActiveItem();
   if (activeItem) {
@@ -71054,6 +76927,89 @@ Ext.define('Ext.plugin.Manager', {alternateClassName:['Ext.PluginManager', 'Ext.
     result.setCmpCalled = true;
   }
   return result;
+}});
+Ext.define('Ext.resizer.BorderSplitterTracker', {extend:Ext.resizer.SplitterTracker, getPrevCmp:null, getNextCmp:null, calculateConstrainRegion:function() {
+  var me = this, splitter = me.splitter, collapseTarget = splitter.collapseTarget, defaultSplitMin = splitter.defaultSplitMin, sizePropCap = splitter.vertical ? 'Width' : 'Height', minSizeProp = 'min' + sizePropCap, maxSizeProp = 'max' + sizePropCap, getSizeMethod = 'get' + sizePropCap, neighbors = splitter.neighbors, length = neighbors.length, box = collapseTarget.el.getBox(), left = box.x, top = box.y, right = box.right, bottom = box.bottom, size = splitter.vertical ? right - left : bottom - top, 
+  i, neighbor, neighborMaxSize, minRange, maxRange, maxGrowth, maxShrink, targetSize;
+  minRange = (collapseTarget[minSizeProp] || Math.min(size, defaultSplitMin)) - size;
+  maxRange = collapseTarget[maxSizeProp];
+  if (!maxRange) {
+    maxRange = 1000000000;
+  } else {
+    maxRange -= size;
+  }
+  targetSize = size;
+  for (i = 0; i < length; ++i) {
+    neighbor = neighbors[i];
+    size = neighbor[getSizeMethod]();
+    neighborMaxSize = neighbor[maxSizeProp];
+    if (neighborMaxSize === null) {
+      neighborMaxSize = undefined;
+    }
+    maxGrowth = size - neighborMaxSize;
+    maxShrink = size - (neighbor[minSizeProp] || Math.min(size, defaultSplitMin));
+    if (!isNaN(maxGrowth)) {
+      if (minRange < maxGrowth) {
+        minRange = maxGrowth;
+      }
+    }
+    if (maxRange > maxShrink) {
+      maxRange = maxShrink;
+    }
+  }
+  if (maxRange - minRange < 2) {
+    return null;
+  }
+  box = new Ext.util.Region(top, right, bottom, left);
+  me.constraintAdjusters[me.getCollapseDirection()](box, minRange, maxRange, splitter);
+  me.dragInfo = {minRange:minRange, maxRange:maxRange, targetSize:targetSize};
+  return box;
+}, constraintAdjusters:{left:function(box, minRange, maxRange, splitter) {
+  box[0] = box.x = box.left = box.right + minRange;
+  box.right += maxRange + splitter.getWidth();
+}, top:function(box, minRange, maxRange, splitter) {
+  box[1] = box.y = box.top = box.bottom + minRange;
+  box.bottom += maxRange + splitter.getHeight();
+}, bottom:function(box, minRange, maxRange, splitter) {
+  box.bottom = box.top - minRange;
+  box.top -= maxRange + splitter.getHeight();
+}, right:function(box, minRange, maxRange, splitter) {
+  box.right = box.left - minRange;
+  box[0] = box.x = box.left = box.x - maxRange + splitter.getWidth();
+}}, onBeforeStart:function(e) {
+  var me = this, splitter = me.splitter, collapseTarget = splitter.collapseTarget, neighbors = splitter.neighbors, length = neighbors.length, i, neighbor;
+  if (collapseTarget.collapsed) {
+    return false;
+  }
+  for (i = 0; i < length; ++i) {
+    neighbor = neighbors[i];
+    if (neighbor.collapsed && neighbor.isHorz === collapseTarget.isHorz) {
+      return false;
+    }
+  }
+  if (!(me.constrainTo = me.calculateConstrainRegion())) {
+    return false;
+  }
+  return true;
+}, performResize:function(e, offset) {
+  var me = this, splitter = me.splitter, collapseDirection = splitter.getCollapseDirection(), collapseTarget = splitter.collapseTarget, adjusters = me.splitAdjusters[splitter.vertical ? 'horz' : 'vert'], delta = offset[adjusters.index], dragInfo = me.dragInfo, owner;
+  if (collapseDirection === 'right' || collapseDirection === 'bottom') {
+    delta = -delta;
+  }
+  delta = Math.min(Math.max(dragInfo.minRange, delta), dragInfo.maxRange);
+  if (delta) {
+    (owner = splitter.ownerCt).suspendLayouts();
+    adjusters.adjustTarget(collapseTarget, dragInfo.targetSize, delta);
+    owner.resumeLayouts(true);
+  }
+}, splitAdjusters:{horz:{index:0, adjustTarget:function(target, size, delta) {
+  target.flex = null;
+  target.setSize(size + delta);
+}}, vert:{index:1, adjustTarget:function(target, targetSize, delta) {
+  target.flex = null;
+  target.setSize(undefined, targetSize + delta);
+}}}, getCollapseDirection:function() {
+  return this.splitter.getCollapseDirection();
 }});
 Ext.define('Ext.resizer.ResizeTracker', {extend:Ext.dd.DragTracker, dynamic:true, preserveRatio:false, preventDefault:false, constrainTo:null, proxyCls:Ext.baseCSSPrefix + 'resizable-proxy', constructor:function(config) {
   var me = this, widthRatio, heightRatio, throttledResizeFn;
@@ -72627,9 +78583,44 @@ Ext.define('Ext.tab.Panel', {extend:Ext.panel.Panel, alias:'widget.tabpanel', al
 }}});
 Ext.define('Ext.toolbar.Fill', {extend:Ext.Component, alias:'widget.tbfill', alternateClassName:'Ext.Toolbar.Fill', ariaRole:'presentation', isFill:true, flex:1});
 Ext.define('Ext.toolbar.Spacer', {extend:Ext.Component, alias:'widget.tbspacer', alternateClassName:'Ext.Toolbar.Spacer', baseCls:Ext.baseCSSPrefix + 'toolbar-spacer', ariaRole:'presentation'});
-Ext.define('GrupoBruce.Application', {extend:Ext.app.Application, name:'GrupoBruce', quickTips:false, platformConfig:{desktop:{quickTips:true}}, stores:[], launch:function() {
-  var loggedIn;
-  loggedIn = localStorage.getItem('sesionUsuario');
+Ext.define('GrupoBruce.model.Comisionrp', {extend:Ext.data.Model, idProperty:'idComisionrp', fields:[{name:'comision', type:'float'}, {name:'descripcion', type:'string'}, {name:'fondo', type:'float'}, {name:'idComisionrp', type:'int'}, {name:'seguro', type:'float'}, {name:'idRpensionario', type:'string'}]});
+Ext.define('GrupoBruce.store.Comisionrp', {extend:Ext.data.Store, model:'GrupoBruce.model.Comisionrp', alias:'store.Scomisionrp', proxy:{type:'ajax', api:{read:'comisionrpAll'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.ContratoTrabajador', {extend:Ext.data.Model, idProperty:'idTrabajador', fields:[{name:'idTrabajador', type:'string'}, {name:'idContrato', type:'int'}, {name:'fechaCese', type:'date'}, {name:'fechaFin', type:'date'}, {name:'fechaInicio', type:'date'}, {name:'idTcontrato', type:'string'}, {name:'idEcontrato', type:'int'}, {name:'idTiempo', type:'int'}], proxy:{type:'ajax', api:{read:'contratoByTrabajador', create:'insertContrato', update:'updateContrato', 'delete':'deleteContrato'}, 
+reader:{type:'json', rootProperty:'data', totalProperty:'total'}, writer:{type:'json', writeAllFields:true}}});
+Ext.define('GrupoBruce.store.ContratoTrabajador', {extend:Ext.data.Store, model:'GrupoBruce.model.ContratoTrabajador', alias:'store.ScontratoTrabajador', pageSize:15, remoteSort:true, remoteFilter:true});
+Ext.define('GrupoBruce.model.Ecivil', {extend:Ext.data.Model, idProperty:'idEcivil', fields:[{name:'descripcion', type:'string'}, {name:'idEcivil', type:'int'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.Ecivil', {extend:Ext.data.Store, model:'GrupoBruce.model.Ecivil', alias:'store.Secivil', proxy:{type:'ajax', api:{read:'ecivilBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.Empresa', {extend:Ext.data.Model, idProperty:'idEmpresa', fields:[{name:'descripcion', type:'string'}, {name:'idEmpresa', type:'string'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.Empresa', {extend:Ext.data.Store, model:'GrupoBruce.model.Empresa', alias:'store.Sempresa', proxy:{type:'ajax', api:{read:'empresaBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.EntidadFinanciera', {extend:Ext.data.Model, idProperty:'idEfinanciera', fields:[{name:'codigo', type:'string'}, {name:'idEfinanciera', type:'string'}, {name:'nombre', type:'string'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.EntidadFinanciera', {extend:Ext.data.Store, model:'GrupoBruce.model.EntidadFinanciera', alias:'store.SentidadFinanciera', proxy:{type:'ajax', api:{read:'entidadFinancieraBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.EstadoTrabajador', {extend:Ext.data.Model, idProperty:'idEtrabajador', fields:[{name:'codigo', type:'int'}, {name:'descripcion', type:'string'}, {name:'idEtrabajador', type:'int'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.EstadoTrabajador', {extend:Ext.data.Store, model:'GrupoBruce.model.EstadoTrabajador', alias:'store.SestadoTrabajador', proxy:{type:'ajax', api:{read:'estadoTrabajadorBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.FormaPago', {extend:Ext.data.Model, idProperty:'idFpago', fields:[{name:'descripcion', type:'string'}, {name:'idFpago', type:'int'}, {name:'hasnrocuenta', type:'boolean'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.FormaPago', {extend:Ext.data.Store, model:'GrupoBruce.model.FormaPago', alias:'store.SformaPago', proxy:{type:'ajax', api:{read:'formaPagoBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.Genero', {extend:Ext.data.Model, alias:'model.Mgenero', idProperty:'idGenero', fields:[{name:'descripcion', type:'string'}, {name:'idGenero', type:'int'}, {name:'situacion', type:'boolean'}], proxy:{type:'ajax', api:{read:'generoBySituacion', create:'insertGenero', update:'iupdateGenero', 'delete':'deleteGenero'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.store.Genero', {extend:Ext.data.Store, model:'GrupoBruce.model.Genero', alias:'store.Sgenero'});
+Ext.define('GrupoBruce.model.Nacionalidad', {extend:Ext.data.Model, idProperty:'idNacionalidad', fields:[{name:'codigo', type:'int'}, {name:'descripcion', type:'string'}, {name:'idNacionalidad', type:'int'}, {name:'situacion', type:'boolean'}], proxy:{type:'ajax', api:{read:'nacionalidadBySituacion', create:'insertNacionalidad', update:'updateNacionalidad', 'delete':'deleteNacionalidad'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.store.Nacionalidad', {extend:Ext.data.Store, model:'GrupoBruce.model.Nacionalidad', alias:'store.Snacionalidad'});
+Ext.define('GrupoBruce.model.Periocidad', {extend:Ext.data.Model, idProperty:'idPeriocidad', fields:[{name:'descripcion', type:'string'}, {name:'idPeriocidad', type:'int'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.Periocidad', {extend:Ext.data.Store, model:'GrupoBruce.model.Periocidad', alias:'store.Speriocidad', proxy:{type:'ajax', api:{read:'periocidadBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.RegimenPensionario', {extend:Ext.data.Model, idProperty:'idRpensionario', fields:[{name:'codigo', type:'string'}, {name:'cuspp', type:'boolean'}, {name:'descripcion', type:'string'}, {name:'idRpensionario', type:'string'}, {name:'situacion', type:'boolean'}]});
+Ext.define('GrupoBruce.store.RegimenPensionario', {extend:Ext.data.Store, model:'GrupoBruce.model.RegimenPensionario', alias:'store.SregimenPensionario', proxy:{type:'ajax', api:{read:'regimenPensionarioBySituacion'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.Sucursal', {extend:Ext.data.Model, idProperty:'idSucursal', fields:[{name:'direccion', type:'string'}, {name:'idSucursal', type:'string'}, {name:'situacion', type:'boolean'}, {name:'idEmpresa', type:'string'}]});
+Ext.define('GrupoBruce.store.Sucursal', {extend:Ext.data.Store, model:'GrupoBruce.model.Sucursal', alias:'store.Ssucursal', pageSize:0, proxy:{type:'ajax', api:{read:'sucursalAll'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.model.Trabajador', {extend:Ext.data.Model, alias:'model.Mtrabajador', idProperty:'idTrabajador', fields:[{name:'apMaterno', type:'string'}, {name:'apPaterno', type:'string'}, {name:'codigo', type:'string'}, {name:'direccion', type:'string'}, {name:'foto', type:'string'}, {name:'fotoB64', type:'string'}, {name:'idTrabajador', type:'string'}, {name:'montoBase', type:'float'}, {name:'montoPasaje', type:'float'}, {name:'nacimiento', type:'date', dateFormat:'c'}, {name:'nombres', 
+type:'string'}, {name:'nrocuentaCts', type:'string'}, {name:'nrocusppAfiliacion', type:'string'}, {name:'nroHijos', type:'int'}, {name:'nrocuentaSueldo', type:'string'}, {name:'referencia', type:'string'}, {name:'telefono', type:'string'}, {name:'idNacionalidad', type:'int'}, {name:'idTdocumento', type:'string'}, {name:'idGenero', type:'int'}, {name:'idEcivil', type:'int'}, {name:'idTtrabajador', type:'int'}, {name:'idEtrabajador', type:'int'}, {name:'idFpago', type:'int'}, {name:'idPeriocidad', 
+type:'int'}, {name:'idEmpresa', type:'string'}, {name:'idSucursal', type:'string'}, {name:'idEfSueldo', type:'string'}, {name:'idEfCts', type:'string'}, {name:'idRpensionario', type:'string'}, {name:'idComisionrp', type:'int'}], proxy:{type:'ajax', api:{read:'trabajadores', create:'insertTrabajador', update:'updateTrabajador', 'delete':'deleteTrabajador'}, reader:{type:'json', rootProperty:'data', totalProperty:'total'}, writer:{type:'json', writeAllFields:true}}, validators:{idTrabajador:['presence', 
+{type:'length', min:8, max:8}], nroHijos:{type:'range', min:0, max:10}}});
+Ext.define('GrupoBruce.store.Trabajador', {extend:Ext.data.Store, model:'GrupoBruce.model.Trabajador', alias:'store.Strabajador', pageSize:15, remoteSort:true, remoteFilter:true, sorters:[{property:'idTrabajador', direction:'ASC'}]});
+Ext.define('GrupoBruce.model.TipoDocumento', {extend:Ext.data.Model, alias:'model.MtipoDocumento', idProperty:'idTdocumento', fields:[{name:'codigo', type:'string'}, {name:'descripcion', type:'string'}, {name:'descripcionAbreviada', type:'string'}, {name:'idTdocumento', type:'string'}, {name:'situacion', type:'boolean'}], proxy:{type:'ajax', api:{read:'tipoDocumentoBySituacion', create:'insertTipoDocumento', update:'updateTipoDocumento', 'delete':'deleteTipoDocumento'}, reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.store.TipoDocumento', {extend:Ext.data.Store, model:'GrupoBruce.model.TipoDocumento', alias:'store.StipoDocumento'});
+Ext.define('GrupoBruce.model.TipoTrabajador', {extend:Ext.data.Model, alias:'model.MtipoTrabajador', idProperty:'idTtrabajador', fields:[{name:'codigo', type:'string'}, {name:'descripcion', type:'string'}, {name:'idTtrabajador', type:'int'}, {name:'hasctacts', type:'boolean'}, {name:'hasrpensionario', type:'boolean'}, {name:'situacion', type:'boolean'}], proxy:{type:'ajax', api:{read:'tipoTrabajadorBySituacion', create:'insertTipoTrabajador', updte:'updateTipoTrabajador', 'delete':'deleteTipoTrabajador'}, 
+reader:{type:'json', rootProperty:'data'}}});
+Ext.define('GrupoBruce.store.TipoTrabajador', {extend:Ext.data.Store, model:'GrupoBruce.model.TipoTrabajador', alias:'store.StipoTrabajador'});
+Ext.define('GrupoBruce.Application', {extend:Ext.app.Application, name:'GrupoBruce', quickTips:false, platformConfig:{desktop:{quickTips:true}}, stores:['GrupoBruce.store.Comisionrp', 'GrupoBruce.store.ContratoTrabajador', 'GrupoBruce.store.Ecivil', 'GrupoBruce.store.Empresa', 'GrupoBruce.store.EntidadFinanciera', 'GrupoBruce.store.EstadoTrabajador', 'GrupoBruce.store.FormaPago', 'GrupoBruce.store.Genero', 'GrupoBruce.store.Nacionalidad', 'GrupoBruce.store.Periocidad', 'GrupoBruce.store.RegimenPensionario', 
+'GrupoBruce.store.Sucursal', 'GrupoBruce.store.Trabajador', 'GrupoBruce.store.TipoDocumento', 'GrupoBruce.store.TipoTrabajador'], launch:function() {
+  var loggedIn = Ext.decode(localStorage.getItem('sesionEstado'));
   Ext.create({xtype:loggedIn ? 'app-main' : 'login'});
 }, onAppUpdate:function() {
   Ext.Msg.confirm('Application Update', 'This application has an update, reload?', function(choice) {
@@ -72638,9 +78629,18 @@ Ext.define('GrupoBruce.Application', {extend:Ext.app.Application, name:'GrupoBru
     }
   });
 }});
-Ext.define('GrupoBruce.store.Personnel', {extend:Ext.data.Store, alias:'store.personnel', fields:['name', 'email', 'phone'], data:{items:[{name:'Jean Luc', email:'jeanluc.picard@enterprise.com', phone:'555-111-1111'}, {name:'Worf', email:'worf.moghsson@enterprise.com', phone:'555-222-2222'}, {name:'Deanna', email:'deanna.troi@enterprise.com', phone:'555-333-3333'}, {name:'Data', email:'mr.data@enterprise.com', phone:'555-444-4444'}]}, proxy:{type:'memory', reader:{type:'json', rootProperty:'items'}}});
-Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewController, alias:'controller.login', inicioSesion:function() {
-  var formLogin = this.lookupReference('formLogin');
+Ext.define('GrupoBruce.view.contrato.ContratoController', {extend:Ext.app.ViewController, alias:'controller.CcontratoTrabajador', addContrato:function() {
+  var dada = this.lookupReference('id_trabajador');
+  Ext.Msg.alert('Totle', 'Dada: ' + dada.value);
+}});
+Ext.define('GrupoBruce.view.contrato.ContratoModel', {extend:Ext.app.ViewModel, alias:'viewmodel.VMcontratoTrabajador', data:{recordTrabajador:null, my_idTrabajador:'46099060'}, stores:{contratos:{type:'ScontratoTrabajador', listeners:{beforeload:function(store) {
+  var idTrabajador = '{my_idTrabajador}';
+  store.getProxy().setExtraParam('idTrabajador', idTrabajador);
+}}, autoLoad:true}}});
+Ext.define('GrupoBruce.view.contrato.Contrato', {extend:Ext.window.Window, reference:'panel_contrato', viewModel:{type:'VMcontratoTrabajador'}, controller:'CcontratoTrabajador', height:400, width:600, resizable:false, modal:true, closable:true, autoShow:true, items:[{xtype:'form', items:[{reference:'id_trabajador', xtype:'textfield', fieldLabel:'Codigo trabajador', bind:'{my_idTrabajador.idTrabajador}'}]}, {xtype:'grid', reference:'list_contrato', bind:{store:'{contratos}'}, style:'border: solid rgb(234,234,236) 1px', 
+columns:[{text:'Fecha Inicio', dataIndex:'fechaInicio', flex:1}, {text:'Fecha fin', dataIndex:'fechaFin', flex:1}, {text:'Tipo contrato', flex:1}, {text:'Estado contrato', flex:1}]}], tbar:{items:[{iconCls:'x-fa fa-plus', text:'Nuevo', handler:'addContrato'}, {iconCls:'x-fa fa-edit', disabled:true, text:'Modificar'}]}, dockedItems:[{xtype:'pagingtoolbar', dock:'bottom', bind:{store:'{contratos}'}, displayInfo:true, displayMsg:'Mostrando registros {0} - {1} de {2}', emptyMsg:'No hay registros que mostrar'}]});
+Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewController, alias:'controller.login', validaSesion:function() {
+  var formLogin = this.lookupReference('formSesion');
   if (!formLogin.isDirty()) {
     Ext.Msg.alert('Status', 'No hay informacion que guardar.');
     return;
@@ -72650,31 +78650,170 @@ Ext.define('GrupoBruce.view.login.LoginController', {extend:Ext.app.ViewControll
       return;
     }
   }
-  formLogin.submit({url:'validate', method:'POST', jsonData:formLogin.getForm().getValues(), waitMsg:'Accediendo al servidor..', headers:{'Content-Type':'application/json'}, clientValidation:true, submitEmptyText:true, success:function(form, action) {
-    Ext.Msg.alert('Status', action.result.msg);
-    localStorage.setItem('sesionUsuario', true);
+  Ext.Ajax.request({url:'validate', jsonData:formLogin.getForm().getFieldValues(), method:'POST', scope:this, success:this.onLoginSuccess, failurer:this.onLoginFailure});
+}, onLoginSuccess:function(response, opts) {
+  var responseText = Ext.decode(response.responseText);
+  localStorage.setItem('sesionEstado', responseText.success);
+  localStorage.setItem('sesionUsuario', Ext.JSON.encode(responseText.data));
+  if (responseText.success) {
     this.getView().destroy();
     Ext.create({xtype:'app-main'});
-  }, failurer:function(form, action) {
-    Ext.Msg.alert('Status', action.result.msg);
-  }});
+  } else {
+    Ext.Msg.show({title:'Error', msg:responseText.message, icon:Ext.Msg.ERROR, botones:Ext.Msg.OK});
+  }
+}, onLoginFailure:function(response, opts) {
+  Ext.Msg.alert('Status', response.status);
 }});
 Ext.define('GrupoBruce.view.login.LoginModel', {extend:Ext.app.ViewModel, alias:'viewmodel.login', data:{name:'GrupoBruce', titLogin:'Bienvenido a Grupo Bruce'}});
-Ext.define('GrupoBruce.view.login.Login', {extend:Ext.panel.Panel, xtype:'login', controller:'login', viewModel:{type:'login'}, bind:{title:'{titLogin}'}, bodyPadding:20, closable:false, autoShow:true, resizable:false, items:[{xtype:'form', reference:'formLogin', items:[{xtype:'textfield', name:'usu', fieldLabel:'Usuario', emptyText:'Número de DNI', allowBlank:false}, {xtype:'textfield', name:'clave', fieldLabel:'Contraseña', inputType:'password', emptyText:'Caracteres alfanuméricos', allowBlank:false}], 
-buttons:[{text:'Ingresar', formBind:true, listeners:{click:'inicioSesion'}}]}]});
-Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController, alias:'controller.main', onItemSelected:function(sender, record) {
-  Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-}, onConfirm:function(choice) {
+Ext.define('GrupoBruce.view.login.Login', {extend:Ext.window.Window, xtype:'login', controller:'login', viewModel:{type:'login'}, bind:{title:'{titLogin}'}, bodyPadding:20, closable:false, autoShow:true, resizable:false, items:[{xtype:'form', reference:'formSesion', items:[{xtype:'textfield', name:'usu', fieldLabel:'Usuario', emptyText:'Número de DNI', allowBlank:false}, {xtype:'textfield', name:'deClave', fieldLabel:'Contraseña', inputType:'password', emptyText:'Caracteres alfanuméricos', allowBlank:false}], 
+buttons:[{text:'Ingresar', formBind:true, listeners:{click:'validaSesion'}}]}]});
+Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController, alias:'controller.main', onConfirm:function(choice) {
   if (choice === 'yes') {
   }
-}, onClickButton:function() {
+}, onCerrarSesion:function() {
+  localStorage.removeItem('sesionEstado');
   localStorage.removeItem('sesionUsuario');
   this.getView().destroy();
   Ext.create({xtype:'login'});
+}, onShowBody:function() {
+  Ext.Msg.alert('Titulo', 'Cuerpo');
+}, onToggleNav:function(button, pressed) {
+  var treelist = this.lookupReference('treelist'), ct = this.lookupReference('treelistContainer');
+  treelist.setExpanderFirst(!pressed);
+}, repaintList:function(treelist, microMode) {
+  treelist.getStore().getRoot().cascade(function(node) {
+    var item, toolElement;
+    item = treelist.getItem(node);
+    if (item && item.isTreeListItem) {
+      if (microMode) {
+        toolElement = item.getToolElement();
+        if (toolElement && toolElement.isVisible(true)) {
+          toolElement.syncRepaint();
+        }
+      } else {
+        if (item.element.isVisible(true)) {
+          item.iconElement.syncRepaint();
+          item.expanderElement.syncRepaint();
+        }
+      }
+    }
+  });
 }});
-Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benites', name:'Grupo Bruce', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}});
-Ext.define('GrupoBruce.view.main.List', {extend:Ext.grid.Panel, xtype:'mainlist', title:'Trabajadores', store:{type:'personnel'}, columns:[{text:'Name', dataIndex:'name'}, {text:'Email', dataIndex:'email', flex:1}, {text:'Phone', dataIndex:'phone', flex:1}], listeners:{select:'onItemSelected'}});
-Ext.define('GrupoBruce.view.main.Main', {extend:Ext.tab.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', ui:'navigation', tabBarHeaderPosition:1, titleRotation:0, tabRotation:0, header:{layout:{align:'stretchmax'}, title:{bind:{text:'{name}'}, flex:0}, items:[{xtype:'button', iconCls:'fa fa-user', bind:{text:'{usuario}'}, menu:[{text:'Mi perfil'}, {text:'Cerrar sesión', handler:'onClickButton'}]}]}, tabBar:{flex:1, scrollable:true, layout:{align:'stretch', overflowHandler:'none'}}, 
-responsiveConfig:{tall:{headerPosition:'top'}, wide:{headerPosition:'left'}}, defaults:{bodyPadding:10, tabConfig:{plugins:'responsive', responsiveConfig:{wide:{iconAlign:'left', textAlign:'left'}, tall:{iconAlign:'top', textAlign:'center', width:60}}}}, items:[{title:' Recursos Humanos', iconCls:'fa-male', items:[{xtype:'MiMenu', items:[{title:'Mantenimiento', html:'hola'}, {title:'Personal', html:'hola 2'}, {title:'Contrato', html:'hola 2'}]}]}, {title:'Logistica', iconCls:'fa-folder-o', items:[{xtype:'mainlist'}]}, 
-{title:'Ingeniería y diseño', iconCls:'fa-crop', items:[{title:'jojode', html:'dadada', closable:true, iconCls:'fa fa-home'}]}, {title:'Producción', iconCls:'fa-cog', bind:{html:'{loremIpsum}'}}, {title:'Control de calidad', iconCls:'fa-check-square-o'}, {title:'Sistemas', iconCls:'fa-code', bind:{html:'{loremIpsum}'}}, {title:'Reportes', iconCls:'fa-bar-chart-o'}]});
+Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benitessss', appname:'Grupo Bruce', title_rrhh:'Lista de Trabajadores', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}, stores:{navItems:{type:'tree', root:{expanded:true, children:[{text:'Recursos Humanos', iconCls:'x-fa fa-users', children:[{text:'Mantenimientos', iconCls:null, children:[{text:'Áreas de trabajo', iconCls:null, leaf:true}, {text:'Tipos trabajador', 
+iconCls:null, leaf:true}, {text:'Estados trabajador', iconCls:null, leaf:true}, {text:'Regimen pensionario', iconCls:null, leaf:true}, {text:'Entidades bancarias', iconCls:null, leaf:true}, {text:'Afiliación trabajador', iconCls:null, leaf:true}]}, {text:'Trabajador', iconCls:'x-fa fa-male', leaf:true, handler:'onShowBody'}]}, {text:'Logistica', iconCls:'x-fa fa-folder-o', children:[{text:'Ordenes de compra', iconCls:null, leaf:true}, {text:'Ordenes de trabajo', iconCls:null, leaf:true}]}, {text:'Almacén', 
+iconCls:'x-fa fa-folder', children:[{text:'Operaciones', iconCls:null, leaf:true}, {text:'Guias de remisión', iconCls:null, leaf:true}]}, {text:'Ingeniería y Diseño', iconCls:'x-fa fa-crop', children:[{text:'Gestión de planos', iconCls:null, leaf:true}, {text:'Modelos de carrocería', iconCls:null, leaf:true}]}, {text:'Producción', iconCls:'x-fa fa-bus', children:[{text:'Mantenimientos', iconCls:null, children:[{text:'Etapas de proceso', iconCls:null, leaf:true}, {text:'Actividades', iconCls:null, 
+leaf:true}]}, {text:'Estandares', iconCls:null, leaf:true}, {text:'Vales de salida', iconCls:null, leaf:true}]}, {text:'Control de calidad', iconCls:'x-fa fa-check-square-o', children:[{text:'Calidad de materiales', iconCls:null, leaf:true}, {text:'Calidad de producción', iconCls:null, leaf:true}]}, {text:'Sistemas', iconCls:'x-fa fa-code', children:[{text:'Dispositivos', iconCls:null, leaf:true}]}]}}}, formulas:{thisUsuario:function() {
+  return Ext.JSON.decode(localStorage.getItem('sesionUsuario'));
+}, thisName:function(get) {
+  var usuario = get('thisUsuario');
+  return usuario.nombres + ' ' + usuario.apPaterno + ' ' + usuario.apMaterno;
+}, thisAvatar:function(get) {
+  return get('thisUsuario').avatarB64;
+}}});
+Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {extend:Ext.window.Window, alias:'widget.wformTrabajador', reference:'form_trabajador', viewModel:{type:'VMtrabajador'}, controller:'Ctrabajador', height:575, width:550, resizable:false, modal:true, closable:false, autoShow:true, items:[{xtype:'form', reference:'form_trabajador', items:[{xtype:'tabpanel', border:false, defaults:{bodyPadding:4, scrollable:true, border:false}, items:[{title:'Información personal', iconCls:'fa fa-user', items:[{defaults:{xtype:'container', 
+layout:'hbox', defaults:{allowBlank:false, labelAlign:'top', padding:5}}, items:[{items:[{xtype:'combobox', name:'idNacionalidad', fieldLabel:'Nacionalidad:', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idNacionalidad', bind:{store:'{nacionalidads}'}}, {xtype:'combobox', name:'idTdocumento', fieldLabel:'Tipo documento:', editable:false, emptyText:'Seleccionar', displayField:'descripcionAbreviada', valueField:'idTdocumento', bind:{store:'{tipoDocumentos}'}}, {xtype:'textfield', 
+name:'idTrabajador', fieldLabel:'Número DNI:'}]}, {items:[{xtype:'textfield', name:'apPaterno', fieldLabel:'Apellido Paterno'}, {xtype:'textfield', name:'apMaterno', fieldLabel:'Apellido Materno'}, {xtype:'textfield', name:'nombres', fieldLabel:'Nombres'}]}, {items:[{xtype:'combobox', name:'idGenero', fieldLabel:'Genero :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idGenero', bind:{store:'{generos}'}}, {xtype:'datefield', name:'nacimiento', fieldLabel:'Fecha nacimiento :', 
+maxValue:'01/01/2000', format:'d/m/Y'}, {xtype:'combobox', name:'idEcivil', fieldLabel:'Estado civil :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idEcivil', bind:{store:'{ecivils}'}}]}, {items:[{xtype:'numberfield', allowDecimals:false, hideTrigger:true, minValue:0, maxValue:8, name:'nroHijos', fieldLabel:'Número hijos :'}, {xtype:'textfield', name:'telefono', fieldLabel:'Teléfono :'}]}, {items:[{xtype:'textfield', name:'referencia', fieldLabel:'Referencia :', 
+flex:3}]}, {items:[{xtype:'textfield', name:'direccion', fieldLabel:'Dirección :', flex:3}]}]}]}, {title:'Datos laborales', iconCls:'fa fa-file-text', items:[{defaults:{xtype:'container', layout:'hbox', defaults:{labelAlign:'top', allowBlank:false, padding:5}}, items:[{items:[{xtype:'combobox', name:'idEtrabajador', fieldLabel:'Situación trabajador :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idEtrabajador', bind:{store:'{estadoTrabajadors}'}}, {xtype:'combobox', 
+name:'idTtrabajador', fieldLabel:'Tipo trabajador :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idTtrabajador', bind:{store:'{tipoTrabajadors}', selection:'{selectTTrabajador}'}}, {xtype:'textfield', name:'codigo', fieldLabel:'Codigo trabajador :', allowBlank:true}]}, {items:[{xtype:'combobox', name:'idEfCts', fieldLabel:'Banco CTS :', editable:false, emptyText:'Seleccionar', displayField:'nombre', valueField:'idEfinanciera', disabled:true, bind:{store:'{entidadFinancieras}', 
+disabled:'{!selectTTrabajador.hasctacts}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}, {xtype:'textfield', name:'nrocuentaCts', fieldLabel:'Cuenta CTS :', disabled:true, bind:{disabled:'{!selectTTrabajador.hasctacts}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}]}, {items:[{xtype:'combobox', name:'idFpago', fieldLabel:'Forma Pago :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idFpago', bind:{store:'{formaPagos}', selection:'{selectFPago}'}}, {xtype:'combobox', name:'idPeriocidad', fieldLabel:'Periocidad de Pago :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idPeriocidad', bind:{store:'{periocidads}'}}, {xtype:'numberfield', name:'montoPasaje', hideTrigger:true, minValue:0, fieldLabel:'Monto pasaje :'}]}, 
+{items:[{xtype:'combobox', name:'idEfSueldo', fieldLabel:'Banco sueldo :', editable:false, emptyText:'Seleccionar', displayField:'nombre', valueField:'idEfinanciera', disabled:true, bind:{store:'{entidadFinancieras}', disabled:'{!selectFPago.hasnrocuenta}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}, {xtype:'textfield', name:'nrocuentaSueldo', fieldLabel:'Cuenta sueldo :', disabled:true, bind:{disabled:'{!selectFPago.hasnrocuenta}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}, {xtype:'numberfield', allowDecimals:true, hideTrigger:true, minValue:0, name:'montoBase', fieldLabel:'Monto sueldo :'}]}, {items:[{xtype:'combobox', name:'idRpensionario', fieldLabel:'Regimen pensionario :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idRpensionario', reference:'cboRPensionario', publishes:['value'], disabled:true, bind:{store:'{regimenPensionarios}', selection:'{selectRPensionario}', disabled:'{!selectTTrabajador.hasctacts}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}, {xtype:'combobox', name:'idComisionrp', fieldLabel:'Comisión :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idComisionrp', forceSelection:true, disabled:true, bind:{store:'{comisionrps}', filters:{property:'idRpensionario', value:'{cboRPensionario.value}'}, disabled:'{!selectRPensionario} ' && '{!selectRPensionario.cuspp}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}, {xtype:'textfield', name:'nrocusppAfiliacion', fieldLabel:'Nro CUSPP :', disabled:true, bind:{disabled:'{!selectRPensionario} ' && '{!selectRPensionario.cuspp}'}, listeners:{disable:function() {
+  this.setValue('');
+  this.up('form').getRecord().set(this.name, this.value);
+}}}]}, {items:[{xtype:'combobox', name:'idEmpresa', fieldLabel:'Empresa :', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idEmpresa', forceSelection:true, reference:'cboEmpresa', publishes:'value', bind:{store:'{empresas}', selection:'{selectEmpresa}'}}, {xtype:'combobox', name:'idSucursal', editable:false, emptyText:'Seleccionar', displayField:'direccion', valueField:'idSucursal', fieldLabel:'Lugar de trabajo :', flex:2, disabled:true, bind:{disabled:'{!selectEmpresa}', 
+store:'{sucursals}', filters:{property:'idEmpresa', value:'{cboEmpresa.value}'}}}]}]}]}]}], buttons:[{text:'Cancelar', listeners:{click:function() {
+  this.up('form').reset();
+  this.up('window').close();
+}}}, {text:'Restablecer', listeners:{click:function() {
+  this.up('form').reset();
+}}}, {text:'Grabar', iconCls:'fa fa-save', formBind:true, listeners:{click:'onSaveTrabajador'}}]}]});
+Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {extend:Ext.grid.Panel, alias:'widget.WlistTrabajador', reference:'list_trabajador', plugins:['gridfilters'], bind:{store:'{trabajadors}', selection:'{selectTrabajador}'}, allowDeselect:true, style:'border: solid rgb(234,234,236) 1px', columns:[{text:'DNI', dataIndex:'idTrabajador', align:'left'}, {text:'A. Paterno', dataIndex:'apPaterno', width:130, align:'left'}, {text:'A. Materno', dataIndex:'apMaterno', width:130, align:'left'}, {text:'Nombres', 
+dataIndex:'nombres', width:160, align:'left'}, {text:'Teléfono', dataIndex:'telefono'}, {text:'Dirección', dataIndex:'direccion', flex:2, align:'left'}, {text:'Tipo', dataIndex:'idTtrabajador', sortable:false, renderer:function(val) {
+  switch(val) {
+    case 19:
+      return 'Ejecutivo';
+    case 20:
+      return 'Obrero';
+    case 22:
+      return 'Empleado';
+    case 23:
+      return 'Practicante';
+  }
+}, align:'left'}, {text:'Estado', dataIndex:'idEtrabajador', sortable:false, renderer:function(val) {
+  switch(val) {
+    case 0:
+      return '\x3cspan style\x3d"background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"\x3e INACTIVO \x3c/span\x3e';
+    case 1:
+      return '\x3cspan style\x3d"background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"\x3e ACTIVO \x3c/span\x3e';
+    case 2:
+      return 'Sin vinculo laboral';
+  }
+}, align:'left'}], tbar:[{text:'Nuevo', iconCls:'x-fa fa-plus', bind:{disabled:'{selectTrabajador}'}, listeners:{click:'addTrabajador'}}, {text:'Editar', iconCls:'x-fa fa-edit', disabled:true, bind:{disabled:'{!selectTrabajador}'}, listeners:{click:'editTrabajador'}}, {text:'Ver', iconCls:'x-fa fa-search', disabled:true, bind:{disabled:'{!selectTrabajador}'}}, '-', {text:'Contratos', iconCls:'x-fa fa-files-o', hidden:true, bind:{hidden:'{!selectTrabajador}'}, handler:'onContratosTrabajador'}, {text:'Vacaciones', 
+iconCls:'x-fa fa-gamepad', hidden:true, bind:{hidden:'{!selectTrabajador}'}}, {text:'Hijos', iconCls:'x-fa fa-child', hidden:true, bind:{hidden:'{hasChild}'}}], dockedItems:[{xtype:'pagingtoolbar', dock:'bottom', displayInfo:true, displayMsg:'Mostrando registros {0} - {1} de {2}', emptyMsg:'No hay registros que mostrar', items:['-', {iconCls:'fa fa-file-excel-o'}]}]});
+Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {extend:Ext.app.ViewController, alias:'controller.Ctrabajador', addTrabajador:function() {
+  var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
+  trabajadorModel.set('idTrabajador', '');
+  var window = new GrupoBruce.view.trabajador.FormTrabajador;
+  window.setTitle('Registrar Trabajador');
+  window.down('form').loadRecord(trabajadorModel);
+}, editTrabajador:function() {
+  var grid = this.lookupReference('list_trabajador');
+  var trabajadorModel = grid.getSelection()[0];
+  var window = new GrupoBruce.view.trabajador.FormTrabajador;
+  window.setTitle('Editar Trabajador');
+  window.down('form').loadRecord(trabajadorModel);
+}, onSaveTrabajador:function(btn) {
+  var form = btn.up('form');
+  var window = btn.up('window');
+  var trabajadorModel = form.getRecord();
+  if (form.isValid()) {
+    form.updateRecord(trabajadorModel);
+    trabajadorModel.save({success:function(user, operation) {
+      window.destroy();
+      Ext.Msg.alert('Success', 'Operación exitosa.');
+    }, failure:function(user, operation) {
+      Ext.Msg.alert('Failure', 'Operacion fallada.');
+    }});
+  } else {
+    Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
+  }
+}, onBodyTrabajador:function() {
+  var panel = this.lookupReference('body_trabajador');
+  console.log(Ext.data.StoreManager.lookup('Strabajador'));
+  var gridTrabajador = Ext.create('GrupoBruce.view.trabajador.ListTrabajador', {height:530});
+  panel.add(gridTrabajador);
+}, onContratosTrabajador:function() {
+  var grid = this.lookupReference('list_trabajador');
+  var trabajadorModel = grid.getSelection()[0];
+  var panelContratos = new GrupoBruce.view.contrato.Contrato;
+  panelContratos.setTitle('Lista de contratos');
+  panelContratos.getViewModel().set('recordTrabajador', trabajadorModel);
+}});
+Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {extend:Ext.app.ViewModel, alias:'viewmodel.VMtrabajador', data:{name:'GrupoBruce'}, stores:{trabajadors:{type:'Strabajador', autoLoad:true}, nacionalidads:{type:'Snacionalidad', autoLoad:true}, tipoDocumentos:{type:'StipoDocumento', autoLoad:true}, generos:{type:'Sgenero', autoLoad:true}, ecivils:{type:'Secivil', autoLoad:true}, estadoTrabajadors:{type:'SestadoTrabajador', autoLoad:true}, tipoTrabajadors:{type:'StipoTrabajador', autoLoad:true}, 
+entidadFinancieras:{type:'SentidadFinanciera', autoLoad:true}, formaPagos:{type:'SformaPago', autoLoad:true}, periocidads:{type:'Speriocidad', autoLoad:true}, regimenPensionarios:{type:'SregimenPensionario', autoLoad:true}, comisionrps:{type:'Scomisionrp', autoLoad:true}, empresas:{type:'Sempresa', autoLoad:true}, sucursals:{type:'Ssucursal', autoLoad:true}}, formulas:{hasChild:function(get) {
+  var select = get('selectTrabajador');
+  return select ? select.get('nroHijos') === 0 : true;
+}}});
+Ext.define('GrupoBruce.view.trabajador.Trabajador', {extend:Ext.panel.Panel, xtype:'trabajadors', controller:'Ctrabajador', viewModel:{type:'VMtrabajador'}, items:[{xtype:'menubar', ignoreParentClicks:true, items:[{text:'Mantenimientos', menu:{items:[{text:'Áreas de funcionales', iconCls:null}, {text:'Tipos trabajador', iconCls:null}, {text:'Estados trabajador', iconCls:null}, {text:'Regimen pensionario', iconCls:null}, {text:'Entidades bancarias', iconCls:'x-fa fa-bank'}, {text:'Afiliación trabajador', 
+iconCls:null}]}}, {text:'Gestión de trabajadores', menu:{items:[{text:'Trabajadores', iconCls:'x-fa fa-male', handler:'onBodyTrabajador'}]}}]}, {bodyPadding:'30 10 0 10', reference:'body_trabajador'}]});
+Ext.define('GrupoBruce.view.main.Main', {extend:Ext.panel.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', title:'GRUPO BRUCE S.A.', iconCls:'x-fa fa-bus', header:{items:[{xtype:'button', text:'Nav', enableToggle:true, reference:'navBtn', toggleHandler:'onToggleNav'}, {xtype:'button', iconCls:'x-fa fa-list', text:'Mi cuenta', menu:{items:[{text:'Mi perfil', checkHandler:'onItemCheck'}, {text:'Cerrar sesión', handler:'onCerrarSesion'}]}}]}, layout:'border', items:[{region:'west', 
+width:200, split:false, reference:'treelistContainer', border:false, scrollable:'y', layout:{type:'vbox', align:'stretch'}, items:[{xtype:'treelist', reference:'treelist', bind:'{navItems}'}]}, {region:'center', bodyPadding:0, layout:'border', border:true, items:[{region:'center', bodyPadding:0}]}, {region:'north', border:true}]});
 Ext.application({name:'GrupoBruce', extend:GrupoBruce.Application});

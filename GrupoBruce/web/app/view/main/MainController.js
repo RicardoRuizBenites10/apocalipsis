@@ -37,38 +37,28 @@ Ext.define('GrupoBruce.view.main.MainController', {
         var treelist = this.lookupReference('treelist'),
             ct = this.lookupReference('treelistContainer');
 
-        treelist.setExpanderFirst(!pressed);
-//        treelist.setUi(pressed ? 'nav' : null);
-//        treelist.setHighlightPath(pressed);
-//        ct[pressed ? 'addCls' : 'removeCls']('treelist-with-nav');
-
-//        if (Ext.isIE8) {
-//            this.repaintList(treelist);
-//        }
+        treelist.setUi(pressed ? 'nav' : null);
+        ct[pressed ? 'addCls' : 'removeCls']('treelist-with-nav');
+        
     },
+    
+    onToggleMicro: function (button, pressed) {
+        var treelist = this.lookupReference('treelist'),
+            navBtn = this.lookupReference('navBtn'),
+            target = this.lookupReference('tarjeta'),
+            ct = treelist.ownerCt;
 
-    repaintList: function(treelist, microMode) {
-        treelist.getStore().getRoot().cascade(function(node) {
-            var item, toolElement;
-
-            item = treelist.getItem(node);
-
-            if (item && item.isTreeListItem) {
-                if (microMode) {
-                    toolElement = item.getToolElement();
-
-                    if (toolElement && toolElement.isVisible(true)) {
-                        toolElement.syncRepaint();
-                    }
-                }
-                else {
-                    if (item.element.isVisible(true)) {
-                        item.iconElement.syncRepaint();
-                        item.expanderElement.syncRepaint();
-                    }
-                }
-            }
-        });
+        treelist.setMicro(pressed);
+        target.setHidden(pressed);
+        if (pressed) {
+            navBtn.setPressed(true);
+            navBtn.disable();
+            this.oldWidth = ct.width;
+            ct.setWidth(44);
+        } else {
+            ct.setWidth(this.oldWidth);
+            navBtn.enable();
+        }
     }
     
 });

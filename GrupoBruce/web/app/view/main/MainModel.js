@@ -22,7 +22,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                         iconCls: 'x-fa fa-users',
                         children: [{
                                 text: 'Mantenimientos',
-                                iconCls: null,
+                                iconCls: 'x-fa fa-wrench',
                                 children: [{
                                         text: 'Áreas de trabajo',
                                         iconCls: null,
@@ -56,7 +56,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                             }]
                     }, {
                         text: 'Logistica',
-                        iconCls: 'x-fa fa-folder-o',
+                        iconCls: 'x-fa fa-folder',
                         children: [{
                                 text: 'Ordenes de compra',
                                 iconCls: null,
@@ -68,7 +68,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                             }]
                     }, {
                         text: 'Almacén',
-                        iconCls: 'x-fa fa-folder',
+                        iconCls: 'x-fa fa-folder-open',
                         children: [{
                                 text: 'Operaciones',
                                 iconCls: null,
@@ -150,7 +150,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
         },
 
         thisAvatar: function (get) {
-            return get('thisUsuario').avatarB64;
+            return get('thisUsuario').fotoB64;
         }
     }
 

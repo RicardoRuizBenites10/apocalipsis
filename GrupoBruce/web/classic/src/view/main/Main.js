@@ -19,9 +19,13 @@ Ext.define('GrupoBruce.view.main.Main', {
     header: {
         items: [{
                 xtype: 'button',
-                text: 'Nav',
+                text: 'MIN',
                 enableToggle: true,
-                reference: 'navBtn',
+                toggleHandler: 'onToggleMicro'
+            }, {
+                xtype: 'button',
+                iconCls: 'x-fa fa-envelope-o',
+                text: '(4)',
                 toggleHandler: 'onToggleNav'
             }, {
                 xtype: 'button',
@@ -42,32 +46,60 @@ Ext.define('GrupoBruce.view.main.Main', {
     layout: 'border',
     items: [{
             region: 'west',
-            width: 200,
-            split: false,
             reference: 'treelistContainer',
-//            collapsible: true,
-            border: false,
+            width: 210,
+            split: false,
+            border: true,
             scrollable: 'y',
             layout: {
                 type: 'vbox',
                 align: 'stretch'
             },
             items: [{
+                    xtype: 'panel',
+                    reference: 'tarjeta',
+                    height: 90,
+                    bodyPadding: 10,
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
+                    items: [{
+                            xtype: 'image',
+                            style: 'border: 2px solid #fafafa; border-radius: 50px;',
+                            width: 70,
+                            bind: {
+                                src: '{thisAvatar}'
+                            },
+                            flex: 1
+                        }, {
+                            xtype: 'panel',
+                            style: 'padding: 2px 10px',
+                            flex: 2,
+                            bind: {
+                                html: '<span> Bienvenido, </span> <h4>{thisName}</h4>'
+                            }
+                        }]
+                }, {
                     xtype: 'treelist',
                     reference: 'treelist',
+                    ui: 'nav',
+                    expanderOnly: false,
+                    singleExpand: true,
+                    expanderFirst: false,
                     bind: '{navItems}'
                 }]
 
         }, {
             region: 'center',
-            bodyPadding: 0,
             layout: 'border',
             border: true,
             items: [{
                     region: 'center',
                     bodyPadding: 0
                 }]
-        }, {
+        }
+        , {
             region: 'north',
             border: true
         }
