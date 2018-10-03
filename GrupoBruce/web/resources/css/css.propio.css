@@ -1,9 +1,0 @@
-
-
-.nav-tabs>li.active>a, 
-.nav-tabs>li.active>a:hover, 
-.nav-tabs>li.active>a:focus{
-    color: #1479B8;
-    font-weight: bold;
-    border-bottom: 0;
-}

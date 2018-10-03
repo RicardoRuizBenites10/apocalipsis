@@ -19,6 +19,12 @@ Ext.define('GrupoBruce.view.main.Main', {
     header: {
         items: [{
                 xtype: 'button',
+                text: 'Nav',
+                enableToggle: true,
+                reference: 'navBtn',
+                toggleHandler: 'onToggleNav'
+            }, {
+                xtype: 'button',
                 iconCls: 'x-fa fa-list',
                 text: 'Mi cuenta',
                 menu: {
@@ -36,12 +42,12 @@ Ext.define('GrupoBruce.view.main.Main', {
     layout: 'border',
     items: [{
             region: 'west',
-            width: 250,
+            width: 200,
             split: false,
+            reference: 'treelistContainer',
 //            collapsible: true,
-            border: true,
+            border: false,
             scrollable: 'y',
-            cls: 'treelist-with-nav',
             layout: {
                 type: 'vbox',
                 align: 'stretch'

@@ -105,7 +105,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
 
             return obj;
         },
-        _getKeys = (typeof Object.keys === 'function') ?
+        _getKeys = (typeof Object.keys == 'function') ?
             function(object){
                 if (!object) {
                     return [];
@@ -1303,7 +1303,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 if (me.isCss()) {
                     tag = tag || "link";
                     el = doc.createElement(tag);
-                    if(tag === "link") {
+                    if(tag == "link") {
                         el.rel = 'stylesheet';
                         me.prop = 'href';
                     } else {
@@ -1775,9 +1775,9 @@ Ext.getResourcePath = function (path, poolName, packageName) {
         poolPath = paths[poolName],
         output = [];
 
-    if (poolPath === null) {
+    if (poolPath == null) {
         poolPath = paths.path;
-        if (poolPath === null) {
+        if (poolPath == null) {
             poolPath = 'resources';
         }
     }
@@ -1916,7 +1916,7 @@ Ext.Microloader = Ext.Microloader || (function () {
             },
 
             is: function (asset) {
-                return (!!asset && this.assetConfig && asset.assetConfig && (this.assetConfig.hash === asset.assetConfig.hash));
+                return (!!asset && this.assetConfig && asset.assetConfig && (this.assetConfig.hash === asset.assetConfig.hash))
             },
 
             cache: function(content) {
