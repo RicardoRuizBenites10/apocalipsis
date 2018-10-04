@@ -14,7 +14,7 @@ Ext.define('GrupoBruce.view.main.MainController', {
             //
         }
     },
-    
+
     onCerrarSesion: function () {
         // Remove the localStorage key/value
         localStorage.removeItem('sesionEstado');
@@ -28,39 +28,36 @@ Ext.define('GrupoBruce.view.main.MainController', {
             xtype: 'login'
         });
     },
-    
-    onShowBody: function(){
+
+    onShowBody: function () {
         Ext.Msg.alert('Titulo', 'Cuerpo');
     },
-    
-    onToggleNav: function (button, pressed) {
-        var treelist = this.lookupReference('treelist'),
-            ct = this.lookupReference('treelistContainer');
 
-        treelist.setExpanderFirst(!pressed);
-        treelist.setUi(pressed ? 'nav' : null);
-        treelist.setHighlightPath(pressed);
-        ct[pressed ? 'addCls' : 'removeCls']('treelist-with-nav');
+    onToggleNav: function (button, pressed) {
         
+
     },
-    
+
     onToggleMicro: function (button, pressed) {
         var treelist = this.lookupReference('treelist'),
-            navBtn = this.lookupReference('navBtn'),
-            target = this.lookupReference('tarjeta'),
-            ct = treelist.ownerCt;
+                navBtn = this.lookupReference('navBtn'),
+                target = this.lookupReference('tarjeta'),
+                ct = treelist.ownerCt;
 
         treelist.setMicro(pressed);
         target.setHidden(pressed);
         if (pressed) {
-            navBtn.setPressed(true);
-            navBtn.disable();
             this.oldWidth = ct.width;
-            ct.setWidth(44);
+            ct.setWidth(36);
         } else {
             ct.setWidth(this.oldWidth);
             navBtn.enable();
         }
+    },
+
+    treeNodeSelect: function (tree, record, ndx, opts) {
+        //Do Something Here With The Selected Node
+        Ext.Msg.alert('Hola', 'Que tal');
     }
-    
+
 });

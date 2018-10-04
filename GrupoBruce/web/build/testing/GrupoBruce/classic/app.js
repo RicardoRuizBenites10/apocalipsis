@@ -48219,6 +48219,118 @@ detachOnRemove:true, items:undefined, layout:'auto', suspendLayout:false, tabGua
   this.callParent(arguments);
   this.getLayout().setupRenderTpl(renderTpl);
 }}});
+Ext.define('Ext.Img', {extend:Ext.Component, alias:['widget.image', 'widget.imagecomponent'], autoEl:'img', baseCls:Ext.baseCSSPrefix + 'img', config:{src:null, glyph:null}, alt:'', title:'', imgCls:'', maskOnDisable:false, applySrc:function(src) {
+  return src && Ext.resolveResource(src);
+}, getElConfig:function() {
+  var me = this, autoEl = me.autoEl, config = me.callParent(), glyph = me.glyph, img;
+  if (glyph) {
+    config.tag = 'div';
+    config.html = glyph.character;
+    config.style = config.style || {};
+    config.style.fontFamily = glyph.fontFamily;
+    config.role = 'img';
+  } else {
+    if (autoEl === 'img' || Ext.isObject(autoEl) && autoEl.tag === 'img') {
+      img = config;
+    } else {
+      config.cn = [img = {tag:'img', id:me.id + '-img'}];
+    }
+  }
+  if (img) {
+    if (me.imgCls) {
+      img.cls = (img.cls ? img.cls + ' ' : '') + me.imgCls;
+    }
+    img.src = me.src || Ext.BLANK_IMAGE_URL;
+  }
+  if (me.alt) {
+    (img || config).alt = me.alt;
+  } else {
+    (img || config).alt = '';
+    Ext.log.warn('For WAI-ARIA compliance, IMG elements SHOULD have an alt attribute.');
+  }
+  if (me.title) {
+    (img || config).title = me.title;
+  }
+  return config;
+}, onRender:function() {
+  var me = this, autoEl = me.autoEl, el;
+  me.callParent(arguments);
+  el = me.el;
+  if (autoEl === 'img' || Ext.isObject(autoEl) && autoEl.tag === 'img') {
+    me.imgEl = el;
+  } else {
+    me.imgEl = el.getById(me.id + '-img');
+  }
+}, doDestroy:function() {
+  var me = this, imgEl = me.imgEl;
+  if (imgEl && me.el !== imgEl) {
+    imgEl.destroy();
+  }
+  me.imgEl = null;
+  me.callParent();
+}, getTitle:function() {
+  return this.title;
+}, setTitle:function(title) {
+  var me = this, imgEl = me.imgEl;
+  me.title = title || '';
+  if (imgEl) {
+    imgEl.dom.title = title || '';
+  }
+}, afterComponentLayout:function(width, height, oldWidth, oldHeight) {
+  var heightModel = this.getSizeModel().height, h;
+  if ((heightModel.calculated || heightModel.configured) && height && this.glyph) {
+    h = height + 'px';
+    this.setStyle({'line-height':h, 'font-size':h});
+  }
+  this.callParent([width, height, oldWidth, oldHeight]);
+}, getAlt:function() {
+  return this.alt;
+}, setAlt:function(alt) {
+  var me = this, imgEl = me.imgEl;
+  me.alt = alt || '';
+  if (imgEl) {
+    imgEl.dom.alt = alt || '';
+  }
+}, _naturalSize:null, getNaturalSize:function() {
+  var me = this, img = me.imgEl, naturalSize = me._naturalSize, style, w, h;
+  if (img && !naturalSize) {
+    img = img.dom;
+    me._naturalSize = naturalSize = {width:w = img.naturalWidth, height:img.naturalHeight};
+    if (!w) {
+      style = img.style;
+      w = style.width;
+      h = style.height;
+      style.width = style.height = 'auto';
+      naturalSize.width = img.width;
+      naturalSize.height = img.height;
+      style.width = w;
+      style.height = h;
+    }
+    naturalSize.aspect = naturalSize.width / naturalSize.height;
+  }
+  return naturalSize;
+}, updateSrc:function(src) {
+  var imgEl = this.imgEl;
+  if (imgEl) {
+    imgEl.dom.src = src || Ext.BLANK_IMAGE_URL;
+  }
+}, applyGlyph:function(glyph, oldGlyph) {
+  if (glyph) {
+    if (!glyph.isGlyph) {
+      glyph = new Ext.Glyph(glyph);
+    }
+    if (glyph.isEqual(oldGlyph)) {
+      glyph = undefined;
+    }
+  }
+  return glyph;
+}, updateGlyph:function(glyph, oldGlyph) {
+  var el = this.el;
+  if (el) {
+    el.dom.innerHTML = glyph.character;
+    el.setStyle(glyph.getStyle());
+  }
+}});
 Ext.define('Ext.util.StoreHolder', {mixinId:'storeholder', autoDestroyBoundStore:false, bindStore:function(store, initial, propertyName) {
   propertyName = propertyName || 'store';
   var me = this, oldStore = initial ? null : me[propertyName];
@@ -78678,37 +78790,28 @@ Ext.define('GrupoBruce.view.main.MainController', {extend:Ext.app.ViewController
 }, onShowBody:function() {
   Ext.Msg.alert('Titulo', 'Cuerpo');
 }, onToggleNav:function(button, pressed) {
-  var treelist = this.lookupReference('treelist'), ct = this.lookupReference('treelistContainer');
-  treelist.setExpanderFirst(!pressed);
-}, repaintList:function(treelist, microMode) {
-  treelist.getStore().getRoot().cascade(function(node) {
-    var item, toolElement;
-    item = treelist.getItem(node);
-    if (item && item.isTreeListItem) {
-      if (microMode) {
-        toolElement = item.getToolElement();
-        if (toolElement && toolElement.isVisible(true)) {
-          toolElement.syncRepaint();
-        }
-      } else {
-        if (item.element.isVisible(true)) {
-          item.iconElement.syncRepaint();
-          item.expanderElement.syncRepaint();
-        }
-      }
-    }
-  });
+}, onToggleMicro:function(button, pressed) {
+  var treelist = this.lookupReference('treelist'), navBtn = this.lookupReference('navBtn'), target = this.lookupReference('tarjeta'), ct = treelist.ownerCt;
+  treelist.setMicro(pressed);
+  target.setHidden(pressed);
+  if (pressed) {
+    this.oldWidth = ct.width;
+    ct.setWidth(36);
+  } else {
+    ct.setWidth(this.oldWidth);
+    navBtn.enable();
+  }
 }});
-Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benitessss', appname:'Grupo Bruce', title_rrhh:'Lista de Trabajadores', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}, stores:{navItems:{type:'tree', root:{expanded:true, children:[{text:'Recursos Humanos', iconCls:'x-fa fa-users', children:[{text:'Mantenimientos', iconCls:null, children:[{text:'Áreas de trabajo', iconCls:null, leaf:true}, {text:'Tipos trabajador', 
-iconCls:null, leaf:true}, {text:'Estados trabajador', iconCls:null, leaf:true}, {text:'Regimen pensionario', iconCls:null, leaf:true}, {text:'Entidades bancarias', iconCls:null, leaf:true}, {text:'Afiliación trabajador', iconCls:null, leaf:true}]}, {text:'Trabajador', iconCls:'x-fa fa-male', leaf:true, handler:'onShowBody'}]}, {text:'Logistica', iconCls:'x-fa fa-folder-o', children:[{text:'Ordenes de compra', iconCls:null, leaf:true}, {text:'Ordenes de trabajo', iconCls:null, leaf:true}]}, {text:'Almacén', 
-iconCls:'x-fa fa-folder', children:[{text:'Operaciones', iconCls:null, leaf:true}, {text:'Guias de remisión', iconCls:null, leaf:true}]}, {text:'Ingeniería y Diseño', iconCls:'x-fa fa-crop', children:[{text:'Gestión de planos', iconCls:null, leaf:true}, {text:'Modelos de carrocería', iconCls:null, leaf:true}]}, {text:'Producción', iconCls:'x-fa fa-bus', children:[{text:'Mantenimientos', iconCls:null, children:[{text:'Etapas de proceso', iconCls:null, leaf:true}, {text:'Actividades', iconCls:null, 
-leaf:true}]}, {text:'Estandares', iconCls:null, leaf:true}, {text:'Vales de salida', iconCls:null, leaf:true}]}, {text:'Control de calidad', iconCls:'x-fa fa-check-square-o', children:[{text:'Calidad de materiales', iconCls:null, leaf:true}, {text:'Calidad de producción', iconCls:null, leaf:true}]}, {text:'Sistemas', iconCls:'x-fa fa-code', children:[{text:'Dispositivos', iconCls:null, leaf:true}]}]}}}, formulas:{thisUsuario:function() {
+Ext.define('GrupoBruce.view.main.MainModel', {extend:Ext.app.ViewModel, alias:'viewmodel.main', data:{usuario:'Oscar Ricardo Ruiz Benitessss', appname:'Grupo Bruce', title_rrhh:'Lista de Trabajadores', loremIpsum:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'}, stores:{navItems:{type:'tree', root:{expanded:true, children:[{text:'Recursos Humanos', iconCls:'x-fa fa-users', children:[{text:'Mantenimientos', iconCls:'x-fa fa-wrench', children:[{text:'Áreas de trabajo', iconCls:null, leaf:true}, 
+{text:'Tipos trabajador', iconCls:null, leaf:true}, {text:'Estados trabajador', iconCls:null, leaf:true}, {text:'Regimen pensionario', iconCls:null, leaf:true}, {text:'Entidades bancarias', iconCls:null, leaf:true}, {text:'Afiliación trabajador', iconCls:null, leaf:true}]}, {text:'Trabajador', iconCls:'x-fa fa-male', leaf:true, handler:'onShowBody'}]}, {text:'Logistica', iconCls:'x-fa fa-folder', children:[{text:'Ordenes de compra', iconCls:null, leaf:true}, {text:'Ordenes de trabajo', iconCls:null, 
+leaf:true}]}, {text:'Almacén', iconCls:'x-fa fa-folder-open', children:[{text:'Operaciones', iconCls:null, leaf:true}, {text:'Guias de remisión', iconCls:null, leaf:true}]}, {text:'Ingeniería y Diseño', iconCls:'x-fa fa-crop', children:[{text:'Gestión de planos', iconCls:null, leaf:true}, {text:'Modelos de carrocería', iconCls:null, leaf:true}]}, {text:'Producción', iconCls:'x-fa fa-bus', children:[{text:'Mantenimientos', iconCls:null, children:[{text:'Etapas de proceso', iconCls:null, leaf:true}, 
+{text:'Actividades', iconCls:null, leaf:true}]}, {text:'Estandares', iconCls:null, leaf:true}, {text:'Vales de salida', iconCls:null, leaf:true}]}, {text:'Control de calidad', iconCls:'x-fa fa-check-square-o', children:[{text:'Calidad de materiales', iconCls:null, leaf:true}, {text:'Calidad de producción', iconCls:null, leaf:true}]}, {text:'Sistemas', iconCls:'x-fa fa-code', children:[{text:'Dispositivos', iconCls:null, leaf:true}]}]}}}, formulas:{thisUsuario:function() {
   return Ext.JSON.decode(localStorage.getItem('sesionUsuario'));
 }, thisName:function(get) {
   var usuario = get('thisUsuario');
   return usuario.nombres + ' ' + usuario.apPaterno + ' ' + usuario.apMaterno;
 }, thisAvatar:function(get) {
-  return get('thisUsuario').avatarB64;
+  return get('thisUsuario').fotoB64;
 }}});
 Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {extend:Ext.window.Window, alias:'widget.wformTrabajador', reference:'form_trabajador', viewModel:{type:'VMtrabajador'}, controller:'Ctrabajador', height:575, width:550, resizable:false, modal:true, closable:false, autoShow:true, items:[{xtype:'form', reference:'form_trabajador', items:[{xtype:'tabpanel', border:false, defaults:{bodyPadding:4, scrollable:true, border:false}, items:[{title:'Información personal', iconCls:'fa fa-user', items:[{defaults:{xtype:'container', 
 layout:'hbox', defaults:{allowBlank:false, labelAlign:'top', padding:5}}, items:[{items:[{xtype:'combobox', name:'idNacionalidad', fieldLabel:'Nacionalidad:', editable:false, emptyText:'Seleccionar', displayField:'descripcion', valueField:'idNacionalidad', bind:{store:'{nacionalidads}'}}, {xtype:'combobox', name:'idTdocumento', fieldLabel:'Tipo documento:', editable:false, emptyText:'Seleccionar', displayField:'descripcionAbreviada', valueField:'idTdocumento', bind:{store:'{tipoDocumentos}'}}, {xtype:'textfield', 
@@ -78814,6 +78917,7 @@ entidadFinancieras:{type:'SentidadFinanciera', autoLoad:true}, formaPagos:{type:
 }}});
 Ext.define('GrupoBruce.view.trabajador.Trabajador', {extend:Ext.panel.Panel, xtype:'trabajadors', controller:'Ctrabajador', viewModel:{type:'VMtrabajador'}, items:[{xtype:'menubar', ignoreParentClicks:true, items:[{text:'Mantenimientos', menu:{items:[{text:'Áreas de funcionales', iconCls:null}, {text:'Tipos trabajador', iconCls:null}, {text:'Estados trabajador', iconCls:null}, {text:'Regimen pensionario', iconCls:null}, {text:'Entidades bancarias', iconCls:'x-fa fa-bank'}, {text:'Afiliación trabajador', 
 iconCls:null}]}}, {text:'Gestión de trabajadores', menu:{items:[{text:'Trabajadores', iconCls:'x-fa fa-male', handler:'onBodyTrabajador'}]}}]}, {bodyPadding:'30 10 0 10', reference:'body_trabajador'}]});
-Ext.define('GrupoBruce.view.main.Main', {extend:Ext.panel.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', title:'GRUPO BRUCE S.A.', iconCls:'x-fa fa-bus', header:{items:[{xtype:'button', text:'Nav', enableToggle:true, reference:'navBtn', toggleHandler:'onToggleNav'}, {xtype:'button', iconCls:'x-fa fa-list', text:'Mi cuenta', menu:{items:[{text:'Mi perfil', checkHandler:'onItemCheck'}, {text:'Cerrar sesión', handler:'onCerrarSesion'}]}}]}, layout:'border', items:[{region:'west', 
-width:200, split:false, reference:'treelistContainer', border:false, scrollable:'y', layout:{type:'vbox', align:'stretch'}, items:[{xtype:'treelist', reference:'treelist', bind:'{navItems}'}]}, {region:'center', bodyPadding:0, layout:'border', border:true, items:[{region:'center', bodyPadding:0}]}, {region:'north', border:true}]});
+Ext.define('GrupoBruce.view.main.Main', {extend:Ext.panel.Panel, xtype:'app-main', controller:'main', viewModel:'main', plugins:'viewport', title:'GRUPO BRUCE S.A.', iconCls:'x-fa fa-bus', header:{items:[{xtype:'button', iconCls:'x-fa fa-envelope-o', tooltip:'Revisar correos', enableToggle:true, reference:'navBtn', toggleHandler:'onToggleNav'}, {xtype:'button', iconCls:'x-fa fa-list', text:'Mi cuenta', menu:{items:[{text:'Mi perfil', checkHandler:'onItemCheck'}, {text:'Cerrar sesión', handler:'onCerrarSesion'}]}}]}, 
+layout:'border', items:[{region:'west', reference:'treelistContainer', width:230, split:false, border:true, scrollable:'y', cls:'treelist-with-nav', layout:{type:'vbox', align:'stretch'}, items:[{xtype:'panel', reference:'tarjeta', height:90, bodyPadding:10, layout:{type:'hbox', align:'stretch'}, items:[{xtype:'image', style:'border: 4px solid #fafafa; border-radius: 50%;', width:70, bind:{src:'{thisAvatar}'}, flex:1}, {xtype:'panel', style:'padding: 2px 10px', flex:2, bind:{html:'\x3cspan\x3e Bienvenido, \x3c/span\x3e \x3ch4\x3e{thisName}\x3c/h4\x3e'}}]}, 
+{xtype:'treelist', reference:'treelist', ui:'nav', expanderOnly:false, singleExpand:true, expanderFirst:false, bind:'{navItems}'}]}, {region:'center', layout:'border', border:true, items:[{region:'center', reference:'mainBody'}]}, {region:'north', border:true}]});
 Ext.application({name:'GrupoBruce', extend:GrupoBruce.Application});
