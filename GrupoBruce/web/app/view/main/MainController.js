@@ -37,7 +37,9 @@ Ext.define('GrupoBruce.view.main.MainController', {
         var treelist = this.lookupReference('treelist'),
             ct = this.lookupReference('treelistContainer');
 
+        treelist.setExpanderFirst(!pressed);
         treelist.setUi(pressed ? 'nav' : null);
+        treelist.setHighlightPath(pressed);
         ct[pressed ? 'addCls' : 'removeCls']('treelist-with-nav');
         
     },

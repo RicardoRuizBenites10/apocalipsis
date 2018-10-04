@@ -16,16 +16,21 @@ Ext.define('GrupoBruce.view.main.Main', {
 
     title: 'GRUPO BRUCE S.A.',
     iconCls: 'x-fa fa-bus',
+
     header: {
         items: [{
                 xtype: 'button',
-                text: 'MIN',
+                text: 'Min',
                 enableToggle: true,
                 toggleHandler: 'onToggleMicro'
             }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-envelope-o',
                 text: '(4)',
+                tooltip: 'Revisar correos',
+
+                enableToggle: true,
+                reference: 'navBtn',
                 toggleHandler: 'onToggleNav'
             }, {
                 xtype: 'button',
@@ -47,10 +52,11 @@ Ext.define('GrupoBruce.view.main.Main', {
     items: [{
             region: 'west',
             reference: 'treelistContainer',
-            width: 210,
+            width: 230,
             split: false,
-            border: true,
+            border: false,
             scrollable: 'y',
+            cls: 'treelist-with-nav',
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -66,7 +72,7 @@ Ext.define('GrupoBruce.view.main.Main', {
                     },
                     items: [{
                             xtype: 'image',
-                            style: 'border: 2px solid #fafafa; border-radius: 50px;',
+                            style: 'border: 4px solid #fafafa; border-radius: 50%;',
                             width: 70,
                             bind: {
                                 src: '{thisAvatar}'
