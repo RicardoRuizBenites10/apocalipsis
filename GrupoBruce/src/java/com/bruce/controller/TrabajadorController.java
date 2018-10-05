@@ -36,7 +36,7 @@ public class TrabajadorController {
 //        return "rrhh/empleados";
 //    }
     @ResponseBody
-    @RequestMapping(value = "/trabajadores", method = RequestMethod.GET)
+    @RequestMapping(value = "/trabajadors", method = RequestMethod.GET)
     public Map<String, Object> getAllEmployes(
             @RequestParam("page") int page,
             @RequestParam("start") int start,

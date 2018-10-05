@@ -4,19 +4,23 @@ Ext.define('GrupoBruce.view.contrato.ContratoModel', {
     
     data: {
         recordTrabajador: null,
-        my_idTrabajador: '46099060'
+        dada: 1525
     },
 
     stores: {
         contratos: {
-            type: 'ScontratoTrabajador',
-            listeners: {
-                beforeload: function (store) {
-                    var idTrabajador = '{my_idTrabajador}';//Ext.getCmp('filterText').value;
-                    store.getProxy().setExtraParam("idTrabajador", idTrabajador);
-                }
-            }
-            , autoLoad: true
+            type: 'ScontratoTrabajador', 
+            autoLoad: true,
+            filters: [{
+                property: 'idTrabajador',
+                value: '{recordTrabajador.idTrabajador}'
+            }]
+        }
+    },
+    
+    formulas: {
+        thisTrabajador: function(get){
+            return get('recordTrabajador').idTrabajador;
         }
     }
 

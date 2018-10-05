@@ -44,10 +44,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     onContratosTrabajador: function () {
         var grid = this.lookupReference('list_trabajador');
         var trabajadorModel = grid.getSelection()[0];
-        var panelContratos = new GrupoBruce.view.contrato.Contrato(); //Ext.create('GrupoBruce.view.contrato.Contrato').setTitle('Lista de contratos');
+        var panelContratos = Ext.create('GrupoBruce.view.contrato.Contrato');
         panelContratos.setTitle('Lista de contratos');
         panelContratos.getViewModel().set('recordTrabajador', trabajadorModel);
-//        panelContratos.down('form').loadRecord(trabajadorModel);
     }
 
 });

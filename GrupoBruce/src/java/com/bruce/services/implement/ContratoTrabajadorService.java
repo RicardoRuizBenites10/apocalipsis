@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
+import com.bruce.util.FilterPage;
 
 /**
  *
@@ -23,8 +24,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     private IContratoTrabajadorDAO dao;
 
     @Override
-    public List<ContratoTrabajador> findByTrabajador(String idTrabajador) {
-        return dao.filterByTrabajador(idTrabajador);
+    public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters) {
+        return dao.filterByTrabajador(start,limit,filters);
     }
 
     @Override
@@ -50,6 +51,11 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Override
     public List<ContratoTrabajador> findAll() {
         return dao.findAll();
+    }
+
+    @Override
+    public int totalCount(List<FilterPage> filters) {
+        return dao.getCountContratos(filters);
     }
 
 

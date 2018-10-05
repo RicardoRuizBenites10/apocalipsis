@@ -12,5 +12,4 @@ Ext.define('GrupoBruce.store.Trabajador', {
         {property: 'idTrabajador', direction: 'ASC'}
     ]
 
-
 });

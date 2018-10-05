@@ -17,7 +17,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
 
     items: [{
             xtype: 'form',
-            reference: 'form_trabajador',
             items: [{
                     xtype: 'tabpanel',
                     border: false,

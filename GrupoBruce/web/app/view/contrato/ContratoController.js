@@ -3,9 +3,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoController', {
     alias: 'controller.CcontratoTrabajador',
 
     addContrato: function () {
-
-        var dada = this.lookupReference('id_trabajador');
-        Ext.Msg.alert('Totle', 'Dada: ' + dada.value);
+        var form = Ext.create('GrupoBruce.view.contrato.FormContratoTrabajador');
     }
 
 });
