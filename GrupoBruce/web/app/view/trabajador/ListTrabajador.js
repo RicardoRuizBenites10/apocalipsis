@@ -14,7 +14,8 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     allowDeselect: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
-
+    title: 'Lista de trabajadores',
+    
     columns: [
         {
             text: 'DNI', dataIndex: 'idTrabajador',

@@ -83,7 +83,7 @@ Ext.define('GrupoBruce.view.main.Main', {
                     bind: {
                         store: '{navItems}'
                     }
-                    ,listeners: {
+                    , listeners: {
 //                        itemclick: function (treelist, ctx) {
 //                            console.log("click");
 //                        },
@@ -109,14 +109,24 @@ Ext.define('GrupoBruce.view.main.Main', {
 //                }],
             items: [{
                     region: 'center',
-                    reference: 'mainBody',
-                    bodyPadding: 15,
-                    bind: {
-                        html: '<b> {rootSelection} </b>'
-                    }
+                    layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                    },
+                    items: [
+//                        {
+//                            bodyPadding: '15 15 0 15',
+//                            bind: {
+//                                html: '<b> {rootSelection} </b>'
+//                            }
+//                        }, 
+                        {
+                            reference: 'mainBody',
+                            bodyPadding: 15
+                        }]
+
                 }]
-        }
-        , {
+        }, {
             region: 'north',
             border: true
         }

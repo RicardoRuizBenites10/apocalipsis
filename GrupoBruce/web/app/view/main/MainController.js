@@ -56,9 +56,11 @@ Ext.define('GrupoBruce.view.main.MainController', {
     },
 
     treeNodeSelect: function (tree, node, opts) {
-        if (node.get('handler') !== undefined) {
+        var handler = node.get('handler');
+        if (handler !== undefined) {
             var panel = this.lookupReference('mainBody');
-            var panelView = Ext.create('GrupoBruce.view.trabajador.Trabajador');
+            var panelView = Ext.create(handler);
+            panel.removeAll();
             panel.add(panelView);
         }
     }
