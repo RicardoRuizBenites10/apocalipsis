@@ -78,10 +78,17 @@ Ext.define('GrupoBruce.view.main.Main', {
                     reference: 'treelist',
                     ui: 'nav',
                     expanderOnly: false,
-                    singleExpand: true,
                     expanderFirst: false,
+                    singleExpand: true,
                     bind: {
                         store: '{navItems}'
+                    }
+                    ,listeners: {
+//                        itemclick: function (treelist, ctx) {
+//                            console.log("click");
+//                        },
+                        selectionchange: 'treeNodeSelect'
+
                     }
                 }]
 
@@ -103,8 +110,9 @@ Ext.define('GrupoBruce.view.main.Main', {
             items: [{
                     region: 'center',
                     reference: 'mainBody',
+                    bodyPadding: 15,
                     bind: {
-                        html : '{rootSelect}'
+                        html: '<b> {rootSelection} </b>'
                     }
                 }]
         }

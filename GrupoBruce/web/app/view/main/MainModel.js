@@ -153,21 +153,12 @@ Ext.define('GrupoBruce.view.main.MainModel', {
             return get('thisUsuario').fotoB64;
         },
 
-        rootSelect: function (get) {
-            var selection = get('treelist.selection'),
-                    path,
-                    array,
-                    accion;
+        rootSelection: function (get) {
+            var selection = get('treelist.selection'), path, array, accion;
             if (selection) {
-                path = selection.getPath('handler');
-//                path = path.replace(/^\/Root/, '');
-                array = path.split('/');
-                accion = array[array.length - 1];
-                if(accion!==''){
-                    return 'Action success';
-                }else{
-                    return 'It does not handler';
-                }
+                path = selection.getPath('text');
+                path = path.replace(/^\/Root/, '');
+                return 'Seleccionado: ' + path;
             } else {
                 return 'No node selected';
             }

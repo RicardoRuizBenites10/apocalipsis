@@ -34,7 +34,7 @@ Ext.define('GrupoBruce.view.main.MainController', {
     },
 
     onToggleNav: function (button, pressed) {
-        
+
 
     },
 
@@ -55,9 +55,12 @@ Ext.define('GrupoBruce.view.main.MainController', {
         }
     },
 
-    treeNodeSelect: function (tree, record, ndx, opts) {
-        //Do Something Here With The Selected Node
-        Ext.Msg.alert('Hola', 'Que tal');
+    treeNodeSelect: function (tree, node, opts) {
+        if (node.get('handler') !== undefined) {
+            var panel = this.lookupReference('mainBody');
+            var panelView = Ext.create('GrupoBruce.view.trabajador.Trabajador');
+            panel.add(panelView);
+        }
     }
 
 });
