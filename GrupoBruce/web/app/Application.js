@@ -16,6 +16,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Ecivil',
         'GrupoBruce.store.Empresa',
         'GrupoBruce.store.EntidadFinanciera',
+        'GrupoBruce.store.EstadoContrato',
         'GrupoBruce.store.EstadoTrabajador',
         'GrupoBruce.store.FormaPago',
         'GrupoBruce.store.Genero',
@@ -24,6 +25,8 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Sucursal',
         'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.TiempoContrato',
+        'GrupoBruce.store.TipoContrato',
         'GrupoBruce.store.TipoDocumento',
         'GrupoBruce.store.TipoTrabajador'
     ],

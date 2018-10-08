@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.ContratoTrabajador', {
     extend: 'Ext.data.Model',
+    alias: 'model.McontratoTrabajador',
 
     idProperty: 'idContrato',
     fields: [

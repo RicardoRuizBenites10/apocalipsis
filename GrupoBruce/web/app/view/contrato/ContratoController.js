@@ -1,9 +1,0 @@
-Ext.define('GrupoBruce.view.contrato.ContratoController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.CcontratoTrabajador',
-
-    addContrato: function () {
-        var form = Ext.create('GrupoBruce.view.contrato.FormContratoTrabajador');
-    }
-
-});

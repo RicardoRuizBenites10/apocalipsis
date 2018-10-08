@@ -3,9 +3,27 @@ Ext.define('GrupoBruce.model.TipoContrato', {
     
     idProperty: 'idTcontrato',
     fields: [
-        { name: 'codigo', type: 'string' },
         { name: 'idTcontrato', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'tipo', type: 'string' }
-    ]
+        { name: 'descripcion', type: 'string' }
+    ],
+    
+    proxy: {
+        type: 'ajax',
+        api: {
+            read: 'tipoContratos',
+            create: 'insertTipoContrato',
+            update: 'updateTipoContrato',
+            delete: 'deleteTipoContrato'
+        },
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+            totalProperty: 'total'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true 
+        }
+    }
 });

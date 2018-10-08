@@ -1,18 +1,19 @@
 Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
     extend: 'Ext.window.Window',
-    alias: 'widget.wformContratoTrabajador',
+    alias: 'widget.WformContratoTrabajador',
     reference: 'form_contratoTrabajador',
 
-    viewModel: {
-        type: 'VMcontratoTrabajador'
-    },
-    controller: 'CcontratoTrabajador',
+//    viewModel: {
+//        type: 'VMcontratoTrabajador'
+//    },
+//    controller: 'CcontratoTrabajador',
 
-    autoShow: true,
-    height: 400,
-    width: 600,
-    closable: true,
+    bind:{
+        title: '{title}'
+    },
+    width: 550,
     resizable: false,
+    closable: true,
     modal: true,
 
     items: [{
@@ -29,9 +30,9 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
             items: [{
                     items: [{
                             xtype: 'textfield',
-//                            name: 'idTrabajador',
-                            bind:{
-                                value: '{thisTrabajador}'
+                            name: 'idTrabajador',
+                            bind: {
+                                value: '{recordTrabajador.idTrabajador}'
                             },
                             fieldLabel: 'Documento'
                         }]
@@ -39,21 +40,81 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                     items: [{
                             xtype: 'combobox',
                             name: 'idTcontrato',
-                            fieldLabel: 'Tipo contrato:'
+                            fieldLabel: 'Tipo contrato:',
+                            editable: false,
+                            emptyText: 'Seleccionar',
+                            displayField: 'descripcion',
+                            valueField: 'idTcontrato',
+                            bind: {
+                                store: '{tipoContratos}'
+                            },
+                            flex: 2
                         }, {
                             xtype: 'combobox',
                             name: 'idEcontrato',
-                            fieldLabel: 'Estado contrato:'
+                            fieldLabel: 'Estado contrato:',
+                            editable: false,
+                            emptyText: 'Seleccionar',
+                            displayField: 'descripcion',
+                            valueField: 'idEcontrato',
+                            bind: {
+                                store: '{estadoContratos}'
+                            },
+                            flex: 1
                         }]
                 }, {
                     items: [{
                             xtype: 'datefield',
                             name: 'fechaInicio',
                             fieldLabel: 'Inicio contrato:',
-                            format: 'd/m/Y'
+                            format: 'd/m/Y',
+                            bind: '{inicio}'
+                        }, {
+                            xtype: 'combo',
+                            name: 'idTiempo',
+                            fieldLabel: 'Tiempo',
+                            editable: false,
+                            emptyText: 'Seleccionar',
+                            displayField: 'descripcion',
+                            valueField: 'idTiempo',
+                            bind: {
+                                store: '{tiempoCotratos}',
+                                selection: '{selectTiempo}'
+                            }
+                        }, {
+                            xtype: 'textfield',
+                            allowBlank: true,
+                            editable: false,
+                            name: 'fechaFin',
+                            fieldLabel: 'Fin de contrato',
+                            format: 'd/m/Y',
+                            bind: '{fin}'
                         }]
-                }]
+                }],
 
+            buttons: [{
+                    text: 'Cancelar',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                            this.up('window').close();
+                        }
+                    }
+                }, {
+                    text: 'Restablecer',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                        }
+                    }
+                }, {
+                    text: 'Grabar',
+                    iconCls: 'fa fa-save',
+                    formBind: true,
+                    listeners: {
+                        click: 'onSaveContrato'
+                    }
+                }]
         }]
 
 

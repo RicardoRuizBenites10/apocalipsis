@@ -14,11 +14,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author RICARDO
  */
+@Repository
 public class TipoContratoDAO implements ITipoContratoDAO{
     
     private final SessionFactory sf = HibernateUtil.getSessionFactory();

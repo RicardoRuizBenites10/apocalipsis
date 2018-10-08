@@ -1,10 +1,9 @@
 Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     extend: 'Ext.window.Window',
-    alias: 'widget.wformTrabajador',
-    reference: 'form_trabajador',
+    alias: 'widget.WformTrabajador',
 
     viewModel: {
-        type: 'VMtrabajador'
+        type: 'VMformTrabajador'
     },
     controller: 'Ctrabajador',
 
