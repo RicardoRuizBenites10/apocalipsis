@@ -16,4 +16,5 @@ import java.util.List;
 public interface IContratoTrabajadorDAO extends IEntidadDAO<ContratoTrabajador>{
     public List<ContratoTrabajador> filterByTrabajador(int start, int limit, List<FilterPage> filters);
     public int getCountContratos(List<FilterPage> filters);
+    public ContratoTrabajador filterLastContrato(String idTrabajador);
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,18 +20,18 @@ import com.bruce.util.FilterPage;
  */
 @Service
 public class ContratoTrabajadorService implements IContratoTrabajadorService {
-    
+
     @Autowired
     private IContratoTrabajadorDAO dao;
 
     @Override
     public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters) {
-        return dao.filterByTrabajador(start,limit,filters);
+        return dao.filterByTrabajador(start, limit, filters);
     }
 
     @Override
-    public void insert(ContratoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insert(ContratoTrabajador newContrato) {
+        dao.create(newContrato);
     }
 
     @Override
@@ -57,6 +58,5 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     public int totalCount(List<FilterPage> filters) {
         return dao.getCountContratos(filters);
     }
-
 
 }

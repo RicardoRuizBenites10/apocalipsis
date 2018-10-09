@@ -13,13 +13,13 @@ Ext.define('GrupoBruce.view.contrato.ListContratoTrabajador', {
     columns: [{
             text: 'Fecha Inicio',
             dataIndex: 'fechaInicio',
-            formatter: 'date("m/d/Y")',
+            formatter: 'date("d/m/Y")',
             sortable: false,
             flex: 1
         }, {
             text: 'Fecha Fin',
             dataIndex: 'fechaFin',
-            formatter: 'date("m/d/Y")',
+            formatter: 'date("d/m/Y")',
             sortable: false,
             flex: 1
         }, {

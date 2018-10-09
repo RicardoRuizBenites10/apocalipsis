@@ -14,9 +14,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.ArrayList;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -31,12 +33,19 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
 
     @Override
-    public void create(ContratoTrabajador t) {
+    public void create(ContratoTrabajador newContrato) {
         Session session = sf.openSession();
         Transaction tx = null;
+        ContratoTrabajador lastContrato = filterLastContrato(newContrato.getIdTrabajador());
+        if (lastContrato.getIdEcontrato() == Constante.ESTADOCONTRATO_VIGENTE) {
+            lastContrato.setIdEcontrato(Constante.ESTADOCONTRATO_RENOVADO);
+        }
+        newContrato.setIdContrato(lastContrato.getIdContrato() + 1);
+        newContrato.setIdEcontrato(Constante.ESTADOCONTRATO_VIGENTE);
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.update(lastContrato);
+            session.save(newContrato);
             tx.commit();
         } catch (HibernateException he) {
             if (tx != null) {
@@ -83,7 +92,26 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
 
     @Override
     public ContratoTrabajador find(Object idT) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.openSession();
+        Transaction tx = null;
+        ContratoTrabajador result = null;
+        List<FilterPage> filters = (List<FilterPage>) idT;
+        try {
+            tx = session.beginTransaction();
+            Criteria cr = session.createCriteria(ContratoTrabajador.class);
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+            result = (ContratoTrabajador) cr.list();
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
     @Override
@@ -153,6 +181,31 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
             session.close();
         }
         return ((Long) result.get(0)).intValue();
+    }
+
+    @Override
+    public ContratoTrabajador filterLastContrato(String idTrabajador) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        ContratoTrabajador contrato = null;
+        try {
+            tx = session.beginTransaction();
+            Criteria cr = session.createCriteria(ContratoTrabajador.class);
+            cr.add(Restrictions.eq("idTrabajador", idTrabajador));
+            cr.addOrder(Order.desc("idContrato"));
+            cr.setFirstResult(0);
+
+            List result = cr.list();
+            contrato = (ContratoTrabajador) result.get(0);
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return contrato;
     }
 
 }

@@ -13,6 +13,10 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
         {name: 'idEcontrato', type: 'int'},
         {name: 'idTiempo', type: 'int'}
     ],
+    
+    identifier: {
+      type: 'sequential'  
+    },
 
     proxy: {
         type: 'ajax',

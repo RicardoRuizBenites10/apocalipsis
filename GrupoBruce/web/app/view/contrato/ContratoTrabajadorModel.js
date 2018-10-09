@@ -4,8 +4,9 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
 
     data: {
         recordTrabajador: null,
+        selectContrato: null,
         selectTiempo: null,
-        inicio: new Date()
+        currentDate: new Date()
     },
 
     stores: {
@@ -32,15 +33,30 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
     },
 
     formulas: {
+        inicio: {
+            get: function (get) {
+                var contrato = get('selectContrato');
+                return contrato ? contrato.get('fechaInicio') : get('currentDate');
+            },
+            set: function(value){
+                this.set({currentDate: value});
+            }
+        },
         fin: {
             get: function (get) {
-                var cantMeses = get('cantMeses'), inicio = get('inicio'), fecha = '';
-                if (cantMeses > 0) {
-                    fecha = Ext.Date.add(inicio, Ext.Date.MONTH, cantMeses);
-                    fecha = Ext.Date.add(fecha, Ext.Date.DAY, -1);
-                    fecha = Ext.Date.format(fecha, 'd/m/Y')
+                var meses, inicio, fecha = '';
+                meses = get('cantMeses');
+                inicio = get('inicio');
+                if (inicio !== '') {
+                    if (meses > 0) {
+                        fecha = Ext.Date.add(inicio, Ext.Date.MONTH, meses);
+                        fecha = Ext.Date.add(fecha, Ext.Date.DAY, -1);
+                    }
                 }
                 return fecha;
+            },
+            set: function (value) {
+
             }
         },
         cantMeses: function (get) {

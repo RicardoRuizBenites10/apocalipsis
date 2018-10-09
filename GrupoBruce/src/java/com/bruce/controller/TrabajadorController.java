@@ -77,7 +77,6 @@ public class TrabajadorController {
     @ResponseBody
     @RequestMapping(value = "/insertTrabajador", method = RequestMethod.POST)
     public Map<String,Object> insert(@RequestBody Trabajador trabajador){
-        System.err.println("Entro a insert trabajador.");
         Map<String, Object> map = new HashMap<>();
         st.insert(trabajador);
         map.put("success", true);

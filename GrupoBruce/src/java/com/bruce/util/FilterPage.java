@@ -15,6 +15,11 @@ public class FilterPage {
     private String property;
     private String value;
 
+    public FilterPage(String property, String value) {
+        this.property = property;
+        this.value = value;
+    }
+
     public FilterPage() {
     }
 

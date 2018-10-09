@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,6 +73,17 @@ public class ContratoTrabajadorController {
         map.put("message", "Datos encontrados");
         map.put("data", lista);
         map.put("total", 1);
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/insertContrato", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody ContratoTrabajador contrato) {
+        Map<String, Object> map = new HashMap<>();
+        sct.insert(contrato);
+        map.put("success", true);
+        map.put("data", contrato);
+        map.put("message", "Actualización exitosa.");
         return map;
     }
 

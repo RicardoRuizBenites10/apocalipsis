@@ -3,17 +3,12 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
     alias: 'widget.WformContratoTrabajador',
     reference: 'form_contratoTrabajador',
 
-//    viewModel: {
-//        type: 'VMcontratoTrabajador'
-//    },
-//    controller: 'CcontratoTrabajador',
-
-    bind:{
+    bind: {
         title: '{title}'
     },
     width: 550,
     resizable: false,
-    closable: true,
+    closable: false,
     modal: true,
 
     items: [{
@@ -29,19 +24,9 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
             },
             items: [{
                     items: [{
-                            xtype: 'textfield',
-                            name: 'idTrabajador',
-                            bind: {
-                                value: '{recordTrabajador.idTrabajador}'
-                            },
-                            fieldLabel: 'Documento'
-                        }]
-                }, {
-                    items: [{
                             xtype: 'combobox',
                             name: 'idTcontrato',
                             fieldLabel: 'Tipo contrato:',
-                            editable: false,
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
                             valueField: 'idTcontrato',
@@ -49,26 +34,29 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                                 store: '{tipoContratos}'
                             },
                             flex: 2
-                        }, {
-                            xtype: 'combobox',
-                            name: 'idEcontrato',
-                            fieldLabel: 'Estado contrato:',
-                            editable: false,
-                            emptyText: 'Seleccionar',
-                            displayField: 'descripcion',
-                            valueField: 'idEcontrato',
-                            bind: {
-                                store: '{estadoContratos}'
-                            },
-                            flex: 1
-                        }]
+                        }
+//                        , {
+//                            xtype: 'combobox',
+//                            name: 'idEcontrato',
+//                            fieldLabel: 'Estado contrato:',
+//                            editable: false,
+//                            emptyText: 'Seleccionar',
+//                            displayField: 'descripcion',
+//                            valueField: 'idEcontrato',
+//                            bind: {
+//                                store: '{estadoContratos}'
+//                            },
+//                            flex: 1
+//                        }
+                    ]
                 }, {
                     items: [{
                             xtype: 'datefield',
                             name: 'fechaInicio',
                             fieldLabel: 'Inicio contrato:',
                             format: 'd/m/Y',
-                            bind: '{inicio}'
+                            bind: '{inicio}',
+                            flex: 1
                         }, {
                             xtype: 'combo',
                             name: 'idTiempo',
@@ -80,15 +68,16 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             bind: {
                                 store: '{tiempoCotratos}',
                                 selection: '{selectTiempo}'
-                            }
+                            },
+                            flex: 1
                         }, {
-                            xtype: 'textfield',
-                            allowBlank: true,
-                            editable: false,
+                            xtype: 'datefield',
                             name: 'fechaFin',
+                            allowBlank: true,
                             fieldLabel: 'Fin de contrato',
                             format: 'd/m/Y',
-                            bind: '{fin}'
+                            bind: '{fin}',
+                            flex: 1
                         }]
                 }],
 
