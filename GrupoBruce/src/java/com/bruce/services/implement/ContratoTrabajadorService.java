@@ -35,8 +35,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     }
 
     @Override
-    public void update(ContratoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(ContratoTrabajador oldContrato) {
+        dao.update(oldContrato);
     }
 
     @Override

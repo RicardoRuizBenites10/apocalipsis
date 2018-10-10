@@ -122,13 +122,10 @@ Ext.define('GrupoBruce.view.main.Main', {
 //                        }, 
                         {
                             reference: 'mainBody',
-                            bodyPadding: 15
+                            bodyPadding: 10
                         }]
 
                 }]
-        }, {
-            region: 'north',
-            border: true
         }
     ]
 

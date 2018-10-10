@@ -86,5 +86,16 @@ public class ContratoTrabajadorController {
         map.put("message", "Actualización exitosa.");
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/updateContrato", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody ContratoTrabajador contrato) {
+        Map<String, Object> map = new HashMap<>();
+        sct.update(contrato);
+        map.put("success", true);
+        map.put("data", contrato);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
 
 }

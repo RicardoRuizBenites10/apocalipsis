@@ -2,6 +2,37 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctrabajador',
 
+    createDialog: function(record) {
+        var view = this.getView().up('panel');
+
+        this.dialog = view.add({
+            xtype: 'WformTrabajador',
+            viewModel: {
+                data: {
+                    title: record ? 'Editar trabajador ' : 'Registrar trabajador'
+                }
+            }
+        });
+        if(record){
+            this.dialog.down('form').loadRecord(record);
+        }else{
+            var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
+            trabajadorModel.set('idTrabajador', '');
+            this.dialog.down('form').loadRecord(trabajadorModel);
+        }
+        this.dialog.show();
+    },
+    
+//    addTrabajador: function () {
+//        this.createDialog(null);
+//    },
+//    
+//    editTrabajador: function () {
+//        var grid = this.lookupReference('list_trabajador');
+//        var trabajadorModel = grid.getSelection()[0];
+//        this.createDialog(trabajadorModel);
+//    },
+    
     addTrabajador: function () {
         var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
         trabajadorModel.set('idTrabajador', '');
@@ -39,6 +70,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+        
+        var grid = this.lookupReference('list_trabajador');
+        grid.getStore().reload();
     },
 
     onContratosTrabajador: function () {

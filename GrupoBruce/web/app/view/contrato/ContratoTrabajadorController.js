@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
             xtype: 'WformContratoTrabajador',
             viewModel: {
                 data: {
-                    title: record ? 'Editar contrato: ' : 'Nuevo contrato'
+                    title: record ? 'Editar contrato ' : 'Registrar contrato'
                 }
             }
         });
@@ -53,6 +53,8 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+        var grid = this.lookupReference('list_contratoTrabajador');
+        grid.getStore().reload();
     }
 
 });

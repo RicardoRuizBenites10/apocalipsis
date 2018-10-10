@@ -36,15 +36,22 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     public void create(ContratoTrabajador newContrato) {
         Session session = sf.openSession();
         Transaction tx = null;
+        
+        int idCLast = 0;
         ContratoTrabajador lastContrato = filterLastContrato(newContrato.getIdTrabajador());
-        if (lastContrato.getIdEcontrato() == Constante.ESTADOCONTRATO_VIGENTE) {
+        if (lastContrato != null && lastContrato.getIdEcontrato() == Constante.ESTADOCONTRATO_VIGENTE) {
             lastContrato.setIdEcontrato(Constante.ESTADOCONTRATO_RENOVADO);
+            idCLast = lastContrato.getIdContrato();
         }
-        newContrato.setIdContrato(lastContrato.getIdContrato() + 1);
+        
+        newContrato.setIdContrato(idCLast + 1);
         newContrato.setIdEcontrato(Constante.ESTADOCONTRATO_VIGENTE);
+        
         try {
             tx = session.beginTransaction();
-            session.update(lastContrato);
+            if (lastContrato != null) {
+                session.update(lastContrato);
+            }
             session.save(newContrato);
             tx.commit();
         } catch (HibernateException he) {
@@ -145,6 +152,7 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
+            cr.addOrder(Order.desc("idContrato"));
             cr.setFirstResult(start);
             cr.setMaxResults(limit);
             result = cr.list();
@@ -196,7 +204,9 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
             cr.setFirstResult(0);
 
             List result = cr.list();
-            contrato = (ContratoTrabajador) result.get(0);
+            if (result.size() > 0) {
+                contrato = (ContratoTrabajador) result.get(0);
+            }
             tx.commit();
         } catch (HibernateException he) {
             if (tx != null) {
