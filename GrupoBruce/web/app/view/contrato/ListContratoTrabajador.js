@@ -88,7 +88,7 @@ Ext.define('GrupoBruce.view.contrato.ListContratoTrabajador', {
         items: [{
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
-                text: 'Registrar',
+                text: 'Nuevo',
                 handler: 'addContrato'
             }, {
                 iconCls: 'x-fa fa-edit',

@@ -119,7 +119,8 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             hidden: true,
             bind: {
                 hidden: '{hasChild}'
-            }
+            },
+            handler: 'onHijosTrabajador'
         }],
 
     dockedItems: [{

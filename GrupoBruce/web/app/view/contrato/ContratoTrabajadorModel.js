@@ -3,6 +3,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
     alias: 'viewmodel.VMcontratoTrabajador',
 
     data: {
+        title: 'Lista de contratos',
         recordTrabajador: null,
         selectContrato: null,
         selectTiempo: null,
@@ -17,10 +18,6 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
                     property: 'idTrabajador',
                     value: '{recordTrabajador.idTrabajador}'
                 }]
-        },
-        estadoContratos: {
-            type: 'SestadoContrato',
-            autoLoad: true
         },
         tiempoCotratos: {
             type: 'StiempoContrato',
@@ -46,7 +43,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
             get: function (get) {
                 var meses, inicio, fecha = '';
                 meses = get('cantMeses');
-                inicio = get('inicio');
+                inicio = get('currentDate');
                 if (inicio !== '') {
                     if (meses > 0) {
                         fecha = Ext.Date.add(inicio, Ext.Date.MONTH, meses);

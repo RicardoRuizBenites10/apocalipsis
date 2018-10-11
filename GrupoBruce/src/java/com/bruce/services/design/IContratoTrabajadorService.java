@@ -8,6 +8,7 @@ package com.bruce.services.design;
 import com.bruce.dao.to.ContratoTrabajador;
 import com.bruce.util.FilterPage;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -16,4 +17,5 @@ import java.util.List;
 public interface IContratoTrabajadorService extends IEntidadService<ContratoTrabajador>{
     public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters);
     public int totalCount(List<FilterPage> filters);
+    public Map<String, Object>  last(String idTrabajador);
 }

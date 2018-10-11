@@ -55,7 +55,7 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             name: 'fechaInicio',
                             fieldLabel: 'Inicio contrato:',
                             format: 'd/m/Y',
-                            bind: '{inicio}',
+                            bind: '{currentDate}',
                             flex: 1
                         }, {
                             xtype: 'combo',

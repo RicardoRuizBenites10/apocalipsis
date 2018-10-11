@@ -21,6 +21,9 @@ Ext.define('GrupoBruce.view.contrato.Contrato', {
     modal: true,
     closable: true,
     autoShow: true,
+    bind: {
+        title: '{title}'
+    },
 
     items: [{
             xtype: 'WcontratoTrabajador',

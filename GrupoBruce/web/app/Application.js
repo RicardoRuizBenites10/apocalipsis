@@ -20,6 +20,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.EstadoTrabajador',
         'GrupoBruce.store.FormaPago',
         'GrupoBruce.store.Genero',
+        'GrupoBruce.store.Hijo',
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.Periocidad',
         'GrupoBruce.store.RegimenPensionario',

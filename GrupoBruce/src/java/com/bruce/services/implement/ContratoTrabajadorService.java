@@ -11,8 +11,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -57,6 +60,22 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Override
     public int totalCount(List<FilterPage> filters) {
         return dao.getCountContratos(filters);
+    }
+
+    @Override
+    public Map<String, Object> last(String idTrabajador) {
+        Map<String, Object> map = new HashMap<>();
+        ContratoTrabajador lastContrato = dao.filterLastContrato(idTrabajador);
+        boolean success = true;
+        Date inicio = null;
+        if (lastContrato != null) {
+            success = lastContrato.getIdEcontrato() != Constante.CONTRATO_ESTADO_VIGENTE || (lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE && lastContrato.getFechaFin() != null);
+            inicio = lastContrato.getFechaFin();
+        }
+        map.put("success", success);
+        map.put("inicio", inicio);
+        map.put("message", "Validación exitosa.");
+        return map;
     }
 
 }
