@@ -2,6 +2,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistTrabajador',
     reference: 'list_trabajador',
+    id: 'id_ltrabajador',
 
     plugins: [
         'gridfilters'

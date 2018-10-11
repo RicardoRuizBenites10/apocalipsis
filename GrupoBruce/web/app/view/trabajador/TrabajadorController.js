@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     alias: 'controller.Ctrabajador',
 
     createDialog: function(record) {
-        var view = this.getView().up('panel');
+        var view = this.getView().up('panel').up('panel');
 
         this.dialog = view.add({
             xtype: 'WformTrabajador',
@@ -60,6 +60,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             form.updateRecord(trabajadorModel); // update the record with the form data
             trabajadorModel.save({// save the record to the server
                 success: function (user, operation) {
+                    form.reset();
                     window.destroy();
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
@@ -71,7 +72,7 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
         
-        var grid = this.lookupReference('list_trabajador');
+        var grid = Ext.getCmp('id_ltrabajador');
         grid.getStore().reload();
     },
 

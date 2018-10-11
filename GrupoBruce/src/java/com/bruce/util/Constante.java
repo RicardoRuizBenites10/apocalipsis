@@ -26,11 +26,15 @@ public class Constante {
     public static final int TIPOTRABAJADOR_PRACTICANTE = 4;
     //Tipo de contrato
     public static final int TIPOCONTRATO_CONVENIO = 4;
+    //Estado trabajador
+    public static final int TRABAJADOR_ESTADO_BAJA = 0;
+    public static final int TRABAJADOR_ESTADO_ACTIVO = 1;
+    public static final int TRABAJADOR_ESTADO_SINVINCULO = 2;
     //Estado contrato
-    public static final int ESTADOCONTRATO_VIGENTE = 1;
-    public static final int ESTADOCONTRATO_RENOVADO = 2;
-    public static final int ESTADOCONTRATO_TERMINADO = 3;
-    public static final int ESTADOCONTRATO_CANCELADO = 4;
+    public static final int CONTRATO_ESTADO_VIGENTE = 1;
+    public static final int CONTRATO_ESTADO_RENOVADO = 2;
+    public static final int CONTRATO_ESTADO_TERMINADO = 3;
+    public static final int CONTRATO_ESTADO_CANCELADO = 4;
     //Forma de pago
     public static final int FORMAPAGO_EFECTIVO = 1;
 

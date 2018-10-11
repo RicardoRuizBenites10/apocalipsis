@@ -43,6 +43,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
             form.updateRecord(contratoModel); // update the record with the form data
             contratoModel.save({// save the record to the server
                 success: function (contrato, operation) {
+                    form.reset();
                     window.destroy();
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },

@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
         type: 'VMformTrabajador'
     },
     controller: 'Ctrabajador',
-
+    
     height: 575,
     width: 550,
     resizable: false,
@@ -160,18 +160,20 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                         }
                                     },
                                     items: [{
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idEtrabajador',
-                                                    fieldLabel: 'Situación trabajador :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idEtrabajador',
-                                                    bind: {
-                                                        store: '{estadoTrabajadors}'
-                                                    }
-                                                }, {
+                                            items: [
+//                                                {
+//                                                    xtype: 'combobox',
+//                                                    name: 'idEtrabajador',
+//                                                    fieldLabel: 'Situación trabajador :',
+//                                                    editable: false,
+//                                                    emptyText: 'Seleccionar',
+//                                                    displayField: 'descripcion',
+//                                                    valueField: 'idEtrabajador',
+//                                                    bind: {
+//                                                        store: '{estadoTrabajadors}'
+//                                                    }
+//                                                }, 
+                                                {
                                                     xtype: 'combobox',
                                                     name: 'idTtrabajador',
                                                     fieldLabel: 'Tipo trabajador :',

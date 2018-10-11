@@ -39,13 +39,13 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
         
         int idCLast = 0;
         ContratoTrabajador lastContrato = filterLastContrato(newContrato.getIdTrabajador());
-        if (lastContrato != null && lastContrato.getIdEcontrato() == Constante.ESTADOCONTRATO_VIGENTE) {
-            lastContrato.setIdEcontrato(Constante.ESTADOCONTRATO_RENOVADO);
+        if (lastContrato != null && lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE) {
+            lastContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_RENOVADO);
             idCLast = lastContrato.getIdContrato();
         }
         
         newContrato.setIdContrato(idCLast + 1);
-        newContrato.setIdEcontrato(Constante.ESTADOCONTRATO_VIGENTE);
+        newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
         
         try {
             tx = session.beginTransaction();

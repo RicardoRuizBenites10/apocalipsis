@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.Constante;
 import com.bruce.util.Metodo;
 import com.bruce.util.QuerySQL;
 import java.util.ArrayList;
@@ -33,12 +34,13 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
 
     @Override
-    public void create(Trabajador t) {
+    public void create(Trabajador newTrabajador) {
         Session session = sf.openSession();
         Transaction tx = null;
+        newTrabajador.setIdEtrabajador(Constante.TRABAJADOR_ESTADO_ACTIVO);
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.save(newTrabajador);
             tx.commit();
         } catch (HibernateException he) {
             if (tx != null) {

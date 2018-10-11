@@ -1,12 +1,14 @@
 Ext.define('GrupoBruce.view.main.Main', {
     extend: 'Ext.panel.Panel',
     xtype: 'app-main',
+    
     requires: [
         'Ext.plugin.Viewport',
         'GrupoBruce.view.main.MainController',
         'GrupoBruce.view.main.MainModel',
         'GrupoBruce.view.trabajador.Trabajador'
     ],
+    
     controller: 'main',
     viewModel: 'main',
     plugins: 'viewport',
@@ -62,7 +64,8 @@ Ext.define('GrupoBruce.view.main.Main', {
                             style: 'border: 4px solid #fafafa; border-radius: 50%;',
                             width: 70,
                             bind: {
-                                src: '{thisAvatar}'
+                                src: '{thisAvatar}',
+                                alt: '{altAvatar}'
                             },
                             flex: 1
                         }, {

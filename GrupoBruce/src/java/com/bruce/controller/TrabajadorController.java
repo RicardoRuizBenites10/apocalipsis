@@ -46,11 +46,12 @@ public class TrabajadorController {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         try {
-            sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() { });
+            sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+            });
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Map<String, Object> map = new HashMap<>();
         List<Trabajador> lista = st.findPagination(start, limit, sorts);
 
@@ -59,13 +60,11 @@ public class TrabajadorController {
         map.put("data", lista);
         map.put("total", st.totalCount());
         return map;
-
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/updateTrabajador", method = RequestMethod.POST)
-    public Map<String,Object> update(@RequestBody Trabajador trabajador){
-        System.err.println("Entro a update trabajador.");
+    public Map<String, Object> update(@RequestBody Trabajador trabajador) {
         Map<String, Object> map = new HashMap<>();
         st.update(trabajador);
         map.put("success", true);
@@ -73,10 +72,10 @@ public class TrabajadorController {
         map.put("message", "Actualización exitosa.");
         return map;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/insertTrabajador", method = RequestMethod.POST)
-    public Map<String,Object> insert(@RequestBody Trabajador trabajador){
+    public Map<String, Object> insert(@RequestBody Trabajador trabajador) {
         Map<String, Object> map = new HashMap<>();
         st.insert(trabajador);
         map.put("success", true);

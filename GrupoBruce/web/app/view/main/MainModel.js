@@ -152,6 +152,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
         thisAvatar: function (get) {
             return get('thisUsuario').fotoB64;
         },
+        
+        altAvatar: function(get){
+            return get('thisUsuario').foto;
+        },
 
         rootSelection: function (get) {
             var selection = get('treelist.selection'), path, array, accion;
