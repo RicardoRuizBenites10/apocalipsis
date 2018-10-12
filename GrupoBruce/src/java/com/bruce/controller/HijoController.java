@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.ContratoTrabajador;
-import com.bruce.services.design.IContratoTrabajadorService;
+import com.bruce.dao.to.Hijo;
+import com.bruce.services.design.IHijoService;
 import com.bruce.util.FilterPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-public class ContratoTrabajadorController {
+public class HijoController {
 
     @Autowired
-    private IContratoTrabajadorService sct;
+    private IHijoService sct;
 
     @ResponseBody
-    @RequestMapping(value = "/contratos", method = RequestMethod.GET)
+    @RequestMapping(value = "/hijos", method = RequestMethod.GET)
     public Map<String, Object> getByTrabajador(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
@@ -53,40 +53,46 @@ public class ContratoTrabajadorController {
         }
 
         Map<String, Object> map = new HashMap<>();
-        List<ContratoTrabajador> lista = sct.findByTrabajador(start,limit,filters);
+        List<Hijo> lista = sct.getByFilter(start, limit, filters);
 
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
-        map.put("total", sct.totalCount(filters));
+        map.put("total", sct.countFilter(filters));
         return map;
     }
-    
+
     @ResponseBody
-    @RequestMapping(value = "/insertContrato", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody ContratoTrabajador contrato) {
+    @RequestMapping(value = "/insertHijo", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Hijo hijo) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(contrato);
+        sct.insert(hijo);
         map.put("success", true);
-        map.put("data", contrato);
+        map.put("data", hijo);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateHijo", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Hijo hijo) {
+        Map<String, Object> map = new HashMap<>();
+        sct.update(hijo);
+        map.put("success", true);
+        map.put("data", hijo);
         map.put("message", "Actualización exitosa.");
         return map;
     }
-    
+
     @ResponseBody
-    @RequestMapping(value = "/updateContrato", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody ContratoTrabajador contrato) {
+    @RequestMapping(value = "/deleteHijo", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Hijo hijo) {
         Map<String, Object> map = new HashMap<>();
-        sct.update(contrato);
+        sct.delete(hijo);
         map.put("success", true);
-        map.put("data", contrato);
-        map.put("message", "Actualización exitosa.");
+        map.put("data", hijo);
+        map.put("message", "Eliminación exitosa");
         return map;
     }
-    
-    @ResponseBody
-    @RequestMapping(value = "/validaRContrato", method = RequestMethod.POST)
-    public Map<String, Object> last(@RequestBody ContratoTrabajador contrato) {
-        return sct.last(contrato.getIdTrabajador());
-    }
+
 }

@@ -2,41 +2,9 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctrabajador',
 
-//    createDialog: function(record) {
-//        var view = this.getView().up('panel').up('panel');
-//
-//        this.dialog = view.add({
-//            xtype: 'WformTrabajador',
-//            viewModel: {
-//                data: {
-//                    title: record ? 'Editar trabajador ' : 'Registrar trabajador'
-//                }
-//            }
-//        });
-//        if(record){
-//            this.dialog.down('form').loadRecord(record);
-//        }else{
-//            var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
-//            trabajadorModel.set('idTrabajador', '');
-//            this.dialog.down('form').loadRecord(trabajadorModel);
-//        }
-//        this.dialog.show();
-//    },
-
-//    addTrabajador: function () {
-//        this.createDialog(null);
-//    },
-//    
-//    editTrabajador: function () {
-//        var grid = this.lookupReference('list_trabajador');
-//        var trabajadorModel = grid.getSelection()[0];
-//        this.createDialog(trabajadorModel);
-//    },
-
     addTrabajador: function () {
         var trabajadorModel = Ext.create('GrupoBruce.model.Trabajador');
         trabajadorModel.set('idTrabajador', '');
-//        this.lookupReference('list_trabajador').getStore().add(trabajadorModel);
 
         var window = new GrupoBruce.view.trabajador.FormTrabajador();
         window.setTitle('Registrar Trabajador');
@@ -76,17 +44,17 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     onContratosTrabajador: function () {
-        var grid = this.lookupReference('list_trabajador');
-        var trabajadorModel = grid.getSelection()[0];
-        var panelContratos = Ext.create('GrupoBruce.view.contrato.Contrato');
-        panelContratos.getViewModel().set('recordTrabajador', trabajadorModel);
+        this.createWindow('GrupoBruce.view.contrato.Contrato');
     },
-    
-    onHijosTrabajador: function(){
+
+    onHijosTrabajador: function () {
+        this.createWindow('GrupoBruce.view.hijo.Hijo');
+    },
+
+    createWindow: function (view) {
         var grid = this.lookupReference('list_trabajador');
         var trabajadorModel = grid.getSelection()[0];
-        var panelHijos = Ext.create('GrupoBruce.view.hijo.Hijo');
-        panelHijos.setTitle('Lista de Hijos');
+        var panelHijos = Ext.create(view);
         panelHijos.getViewModel().set('recordTrabajador', trabajadorModel);
     }
 

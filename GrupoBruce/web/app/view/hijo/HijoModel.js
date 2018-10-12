@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.hijo.HijoModel', {
         recordTrabajador: null
     },
 
-    store: {
+    stores: {
         hijos: {
             type: 'Shijo',
             autoLoad: true,

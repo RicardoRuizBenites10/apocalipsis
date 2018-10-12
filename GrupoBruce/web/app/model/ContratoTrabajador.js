@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
     proxy: {
         type: 'ajax',
         api: {
-            read: 'contratoByTrabajador',
+            read: 'contratos',
             create: 'insertContrato',
             update: 'updateContrato',
             delete: 'deleteContrato'
