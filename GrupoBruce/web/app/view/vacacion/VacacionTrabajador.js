@@ -1,5 +1,5 @@
 
-Ext.define('GrupoBruce.view.vacacion.VacacionTrabajador',{
+Ext.define('GrupoBruce.view.vacacion.VacacionTrabajador', {
     extend: 'Ext.panel.Panel',
 
     requires: [
@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajador',{
     viewModel: {
         type: 'VMvacacionTrabajador'
     },
-
-    html: 'Hello, World!!'
+    items: [{
+            xtype: 'WlistHijoTrabajador'
+        }]
 });
