@@ -127,6 +127,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'telefono',
+                                                    allowBlank: true,
                                                     fieldLabel: 'Teléfono :'
                                                 }
                                             ]

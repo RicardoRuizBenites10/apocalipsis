@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.contrato.Contrato', {
+Ext.define('GrupoBruce.view.contrato.ContratoTrabajador', {
     extend: 'Ext.window.Window',
     reference: 'panel_contrato',
 

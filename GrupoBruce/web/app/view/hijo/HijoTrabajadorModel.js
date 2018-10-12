@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.hijo.HijoModel', {
+Ext.define('GrupoBruce.view.hijo.HijoTrabajadorModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMhijo',
     data: {

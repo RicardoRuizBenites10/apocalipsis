@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.hijo.HijoController', {
+Ext.define('GrupoBruce.view.hijo.HijoTrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Chijo',
 

@@ -1,10 +1,10 @@
-Ext.define('GrupoBruce.view.hijo.Hijo', {
+Ext.define('GrupoBruce.view.hijo.HijoTrabajador', {
     extend: 'Ext.window.Window',
     reference: 'panel_hijo',
 
     requires: [
-        'GrupoBruce.view.hijo.HijoController',
-        'GrupoBruce.view.hijo.HijoModel',
+        'GrupoBruce.view.hijo.HijoTrabajadorController',
+        'GrupoBruce.view.hijo.HijoTrabajadorModel',
         
         'GrupoBruce.view.hijo.ListHijoTrabajador',
         'GrupoBruce.view.hijo.FormHijoTrabajador'

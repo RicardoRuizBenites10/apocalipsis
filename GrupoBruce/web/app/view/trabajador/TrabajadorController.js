@@ -44,11 +44,11 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     },
 
     onContratosTrabajador: function () {
-        this.createWindow('GrupoBruce.view.contrato.Contrato');
+        this.createWindow('GrupoBruce.view.contrato.ContratoTrabajador');
     },
 
     onHijosTrabajador: function () {
-        this.createWindow('GrupoBruce.view.hijo.Hijo');
+        this.createWindow('GrupoBruce.view.hijo.HijoTrabajador');
     },
 
     createWindow: function (view) {
