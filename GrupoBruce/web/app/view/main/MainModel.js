@@ -36,13 +36,15 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                         iconCls: null,
                                         leaf: true
                                     }, {
-                                        text: 'Regimen pensionario',
+                                        text: 'Tipos de periodo',
                                         iconCls: null,
-                                        leaf: true
+                                        leaf: true,
+                                        handler: 'GrupoBruce.view.tipoperiodo.TipoPeriodo'
                                     }, {
-                                        text: 'Entidades bancarias',
+                                        text: 'Periodos',
                                         iconCls: null,
-                                        leaf: true
+                                        leaf: true,
+                                        handler: 'GrupoBruce.view.periodo.Periodo'
                                     }, {
                                         text: 'Afiliación trabajador',
                                         iconCls: null,
@@ -152,8 +154,8 @@ Ext.define('GrupoBruce.view.main.MainModel', {
         thisAvatar: function (get) {
             return get('thisUsuario').fotoB64;
         },
-        
-        altAvatar: function(get){
+
+        altAvatar: function (get) {
             return get('thisUsuario').foto;
         },
 
