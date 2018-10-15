@@ -50,6 +50,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     onHijosTrabajador: function () {
         this.createWindow('GrupoBruce.view.hijo.HijoTrabajador');
     },
+    
+    onVacacionsTrabajador: function () {
+        this.createWindow('GrupoBruce.view.vacacion.VacacionTrabajador');
+    },
 
     createWindow: function (view) {
         var grid = this.lookupReference('list_trabajador');

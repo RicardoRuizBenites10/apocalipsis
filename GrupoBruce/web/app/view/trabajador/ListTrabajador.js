@@ -111,6 +111,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             text: 'Vacaciones',
             iconCls: 'x-fa fa-gamepad',
             hidden: true,
+            handler: 'onVacacionsTrabajador',
             bind: {
                 hidden: '{!selectTrabajador}'
             }
