@@ -7,13 +7,11 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IComisionrpDAO;
 import com.bruce.dao.to.Comisionrp;
-import com.bruce.persistence.HibernateUtil;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,9 +19,11 @@ import org.springframework.stereotype.Repository;
  * @author RICARDO
  */
 @Repository
-public class ComisionrpDAO implements IComisionrpDAO{
-    
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+public class ComisionrpDAO implements IComisionrpDAO {
+
+//    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+    @Autowired(required = true)
+    private SessionFactory sf;
 
     @Override
     public void create(Comisionrp t) {
@@ -32,32 +32,14 @@ public class ComisionrpDAO implements IComisionrpDAO{
 
     @Override
     public void update(Comisionrp t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        Session session = sf.getCurrentSession();
+        session.update(t);
     }
 
     @Override
     public void delete(Comisionrp t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        Session session = sf.getCurrentSession();
+        session.delete(t);
     }
 
     @Override
@@ -67,39 +49,17 @@ public class ComisionrpDAO implements IComisionrpDAO{
 
     @Override
     public List<Comisionrp> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Comisionrp ");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        Session session = sf.getCurrentSession();
+        List result = session.createQuery("FROM Comisionrp").list();
         return result;
     }
-    
+
     @Override
     public List<Comisionrp> findByRPensionario(String idRPensionario) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Comisionrp WHERE idRpensionario :idRPensionario");
-            query.setParameter("idRPensionario", idRPensionario);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM Comisionrp WHERE idRpensionario :idRPensionario");
+        query.setParameter("idRPensionario", idRPensionario);
+        return query.list();
     }
-    
+
 }

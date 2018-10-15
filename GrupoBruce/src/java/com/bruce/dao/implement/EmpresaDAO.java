@@ -8,12 +8,10 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IEmpresaDAO;
 import com.bruce.dao.to.Empresa;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,72 +19,32 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class EmpresaDAO implements IEmpresaDAO{
-    
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+public class EmpresaDAO implements IEmpresaDAO {
+
+    @Autowired
+    private SessionFactory sf;
+
     @Override
     public List<Empresa> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Empresa E WHERE E.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM Empresa E WHERE E.situacion = :situacion");
+        query.setParameter("situacion", situacion);
+        return query.list();
     }
 
     @Override
     public void create(Empresa t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().save(t);
     }
 
     @Override
     public void update(Empresa t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().update(t);
     }
 
     @Override
     public void delete(Empresa t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().delete(t);
     }
 
     @Override
@@ -96,20 +54,9 @@ public class EmpresaDAO implements IEmpresaDAO{
 
     @Override
     public List<Empresa> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Empresa");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM Empresa");
+        return query.list();
     }
-    
+
 }

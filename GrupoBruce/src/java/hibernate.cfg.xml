@@ -41,16 +41,17 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
+    <!--
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost\toHibernate:1433;databaseName=BDBRUCE</property>
     <property name="hibernate.connection.username">sa</property>
-    <property name="hibernate.connection.password">anteromariano</property>
+    <property name="hibernate.connection.password">Nakamas</property>
+    
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <property name="hibernate.connection.pool_size">1</property>
     <property name="hibernate.show_sql">true</property>
-    <!-- Inicializa dependencia de hibernate para to
-    <property name="hibernate.enable_lazy_load_no_trans">true</property>
-      -->
+    <property name="hibernate.format_sql">true</property>-->
+    
     <mapping class="com.bruce.dao.to.Cargo"/>
     <mapping class="com.bruce.dao.to.EstadoContrato"/>
     <mapping class="com.bruce.dao.to.AsistenciaId"/>

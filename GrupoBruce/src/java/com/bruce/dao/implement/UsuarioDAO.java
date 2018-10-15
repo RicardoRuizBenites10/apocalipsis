@@ -40,19 +40,6 @@ public class UsuarioDAO implements IUsuarioDAO {
             Iterator iterator = result.iterator();
             if(iterator.hasNext()){
                 usuario =  (Usuario) iterator.next();
-//                Hibernate.initialize(usuario.getTrabajador());
-//                Hibernate.initialize(usuario.getTrabajador().getEstadoTrabajador().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getFormaPago().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getNacionalidad().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getPeriocidad().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getPersona().getEcivil().getPersonas());
-//                Hibernate.initialize(usuario.getTrabajador().getPersona().getGenero().getPersonas());
-//                Hibernate.initialize(usuario.getTrabajador().getPersona().getTipoDocumento().getPersonas());
-//                Hibernate.initialize(usuario.getTrabajador().getSucursal().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getSucursal().getEmpresa().getSucursals());
-//                Hibernate.initialize(usuario.getTrabajador().getTipoTrabajador().getTrabajadors());
-//                Hibernate.initialize(usuario.getTrabajador().getTipoTrabajador().getPeriodos());
-//                Hibernate.initialize(usuario.getAccesos());
             }
         } catch (HibernateException he) {
             throw he;

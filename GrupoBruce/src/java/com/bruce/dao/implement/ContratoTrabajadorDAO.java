@@ -21,6 +21,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,7 +31,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
 
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+//    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sf;
 
     @Override
     public void create(ContratoTrabajador newContrato) {
