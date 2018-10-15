@@ -64,14 +64,6 @@ public class Metodo {
         return listaPalabras;
     }
 
-    public static Gson getGSON() {
-        GsonBuilder gbuilder = new GsonBuilder();
-//        gbuilder.registerTypeAdapter(PackedJsonTypeAdapterFactory.class, new PackedJsonTypeAdapterFactory());
-        gbuilder.registerTypeAdapter(Date.class, new BidirectionalDateSerializer());
-        gbuilder.registerTypeAdapter(byte[].class, new BidirectionalByteSerializer());
-        return gbuilder.create();
-    }
-
     /*Abrir una imagen*/
     public static byte[] OpenFile(String directory, String nameFile, String extentionFile) {
         byte[] bytesImg = null;

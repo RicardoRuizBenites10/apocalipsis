@@ -11,6 +11,7 @@ import com.bruce.services.design.ITipoDocumentoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,32 +24,38 @@ public class TipoDocumentoService implements ITipoDocumentoService{
     private ITipoDocumentoDAO dao;
 
     @Override
+    @Transactional
     public void insert(TipoDocumento t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void delete(TipoDocumento t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public TipoDocumento find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<TipoDocumento> findAll() {
         return dao.findAll();
     }
     
     @Override
+    @Transactional
     public List<TipoDocumento> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
     }
 
     @Override
+    @Transactional
     public void update(TipoDocumento t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 }

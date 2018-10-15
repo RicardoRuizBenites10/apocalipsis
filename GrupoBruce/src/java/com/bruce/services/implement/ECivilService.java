@@ -11,6 +11,7 @@ import com.bruce.services.design.IECivilService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,33 +24,39 @@ public class ECivilService implements IECivilService {
     private IECivilDAO dao;
 
     @Override
+    @Transactional
     public void insert(Ecivil t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void delete(Ecivil t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public Ecivil find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<Ecivil> findAll() {
         return dao.findAll();
     }
     
     @Override
+    @Transactional
     public List<Ecivil> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
     }
 
     @Override
+    @Transactional
     public void update(Ecivil t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
     
 }

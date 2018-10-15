@@ -87,6 +87,6 @@ public class ContratoTrabajadorController {
     @ResponseBody
     @RequestMapping(value = "/validaRContrato", method = RequestMethod.POST)
     public Map<String, Object> last(@RequestBody ContratoTrabajador contrato) {
-        return sct.last(contrato.getIdTrabajador());
+        return sct.validaAdd(contrato.getIdTrabajador());
     }
 }

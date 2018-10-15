@@ -11,6 +11,7 @@ import com.bruce.services.design.IGeneroService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,32 +24,38 @@ public class GeneroService implements IGeneroService {
     private IGeneroDAO dao;
 
     @Override
+    @Transactional
     public void insert(Genero t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void delete(Genero t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public Genero find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<Genero> findAll() {
         return dao.findAll();
     }
     
     @Override
+    @Transactional
     public List<Genero> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
     }
 
     @Override
+    @Transactional
     public void update(Genero t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 }

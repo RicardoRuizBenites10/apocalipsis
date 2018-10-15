@@ -8,12 +8,9 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IECivilDAO;
 import com.bruce.dao.to.Ecivil;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +21,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ECivilDAO implements IECivilDAO {
 
-//    private final SessionFactory sf = HibernateUtil.getSessionFactory();
     @Autowired
     private SessionFactory sf;
 

@@ -11,6 +11,7 @@ import com.bruce.services.design.IEstadoTrabajadorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,33 +24,39 @@ public class EstadoTrabajadorService implements IEstadoTrabajadorService {
     private IEstadoTrabajadorDAO dao;
 
     @Override
+    @Transactional
     public void insert(EstadoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void delete(EstadoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public EstadoTrabajador find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<EstadoTrabajador> findAll() {
         return dao.findAll();
     }
 
     @Override
+    @Transactional
     public List<EstadoTrabajador> findBySituacion(boolean situacion) {
         return dao.filterBySituacion(situacion);
     }
 
     @Override
+    @Transactional
     public void update(EstadoTrabajador t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
     
 }

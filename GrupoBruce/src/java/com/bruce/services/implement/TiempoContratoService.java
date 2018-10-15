@@ -11,6 +11,7 @@ import com.bruce.services.design.ITiempoContratoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,26 +24,31 @@ public class TiempoContratoService implements ITiempoContratoService{
     private ITiempoContratoDAO dao;
     
     @Override
+    @Transactional
     public void insert(TiempoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void update(TiempoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 
     @Override
+    @Transactional
     public void delete(TiempoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public TiempoContrato find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<TiempoContrato> findAll() {
         return dao.findAll();
     }

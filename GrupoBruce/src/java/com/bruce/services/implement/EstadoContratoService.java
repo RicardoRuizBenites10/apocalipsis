@@ -11,6 +11,7 @@ import com.bruce.services.design.IEstadoContratoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,26 +24,31 @@ public class EstadoContratoService implements IEstadoContratoService{
     private IEstadoContratoDAO dao;
     
     @Override
+    @Transactional
     public void insert(EstadoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.create(t);
     }
 
     @Override
+    @Transactional
     public void update(EstadoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 
     @Override
+    @Transactional
     public void delete(EstadoContrato t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
+    @Transactional
     public EstadoContrato find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<EstadoContrato> findAll() {
         return dao.findAll();
     }

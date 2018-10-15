@@ -6,7 +6,9 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IContratoTrabajadorDAO;
+import com.bruce.dao.design.ISituacionDAO;
 import com.bruce.dao.to.ContratoTrabajador;
+import com.bruce.dao.to.Situacion;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import com.bruce.util.FilterPage;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,46 +29,70 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
 
     @Autowired
     private IContratoTrabajadorDAO dao;
+    @Autowired
+    private ISituacionDAO dao2;
 
     @Override
+    @Transactional
     public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters) {
         return dao.filterByTrabajador(start, limit, filters);
     }
 
     @Override
+    @Transactional
     public void insert(ContratoTrabajador newContrato) {
+        int idCLast = 0;
+        ContratoTrabajador lastContrato = dao.last(newContrato.getIdTrabajador());
+        if (lastContrato != null) {
+            if (lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE) {
+                lastContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_RENOVADO);
+            }
+            idCLast = lastContrato.getIdContrato();
+        }
+        newContrato.setIdContrato(idCLast + 1);
+        newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
+        if (lastContrato != null) {
+            dao.update(lastContrato);
+        }
         dao.create(newContrato);
+        dao2.create(new Situacion(newContrato.getIdTrabajador(), newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
     }
 
     @Override
+    @Transactional
     public void update(ContratoTrabajador oldContrato) {
         dao.update(oldContrato);
     }
 
     @Override
+    @Transactional
     public void delete(ContratoTrabajador t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public ContratoTrabajador find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<ContratoTrabajador> findAll() {
         return dao.findAll();
     }
 
     @Override
+    @Transactional
     public int totalCount(List<FilterPage> filters) {
         return dao.getCountContratos(filters);
     }
 
     @Override
-    public Map<String, Object> last(String idTrabajador) {
+    @Transactional
+    public Map<String, Object> validaAdd(String idTrabajador) {
         Map<String, Object> map = new HashMap<>();
-        ContratoTrabajador lastContrato = dao.filterLastContrato(idTrabajador);
+        ContratoTrabajador lastContrato = dao.last(idTrabajador);
         boolean success = true;
         Date inicio = null;
         if (lastContrato != null) {

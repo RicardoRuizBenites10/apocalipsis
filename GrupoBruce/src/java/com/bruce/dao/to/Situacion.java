@@ -44,6 +44,13 @@ public class Situacion implements java.io.Serializable {
         this.activa = activa;
     }
 
+    public Situacion(String idTrabajador, Date fechaAlta, int contratoAlta, boolean activa) {
+        this.idTrabajador = idTrabajador;
+        this.fechaAlta = fechaAlta;
+        this.contratoAlta = contratoAlta;
+        this.activa = activa;
+    }
+
     @Id
     @Column(name = "ID_TRABAJADOR", length = 15, nullable = false)
     public String getIdTrabajador() {
@@ -93,7 +100,7 @@ public class Situacion implements java.io.Serializable {
         this.fechaBaja = fechaBaja;
     }
 
-    @Column(name = "CONTRATO_BAJA")
+    @Column(name = "CONTRATO_BAJA",nullable = true)
     public int getContratoBaja() {
         return contratoBaja;
     }
