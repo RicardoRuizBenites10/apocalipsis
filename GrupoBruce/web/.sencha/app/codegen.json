@@ -791,6 +791,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Comisionrp"
       }
+    },
+    "app/model/PeriodoVacacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cerrado:boolean:null,idPVacacion:int:null,limFin:date:null,limInicio:date:null,situacion:boolean:null",
+        "modelFileName": "PeriodoVacacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "PeriodoVacacion"
+      }
     }
   }
 }

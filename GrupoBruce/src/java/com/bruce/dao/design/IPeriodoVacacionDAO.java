@@ -5,12 +5,13 @@
  */
 package com.bruce.dao.design;
 
-import com.bruce.dao.to.TipoPeriodo;
+import com.bruce.dao.to.PeriodoVacacion;
+import java.util.List;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
-public interface ITipoPeriodoDAO extends IEntidadDAO<TipoPeriodo>{
-    
+public interface IPeriodoVacacionDAO extends IEntidadDAO<PeriodoVacacion>{
+    public List<PeriodoVacacion> getBySituacion(boolean situacion);
 }

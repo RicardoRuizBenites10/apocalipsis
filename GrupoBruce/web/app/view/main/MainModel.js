@@ -36,15 +36,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                         iconCls: null,
                                         leaf: true
                                     }, {
-                                        text: 'Tipos de periodo',
+                                        text: 'Periodo Vacacion',
                                         iconCls: null,
                                         leaf: true,
-                                        handler: 'GrupoBruce.view.tipoperiodo.TipoPeriodo'
-                                    }, {
-                                        text: 'Periodos',
-                                        iconCls: null,
-                                        leaf: true,
-                                        handler: 'GrupoBruce.view.periodo.Periodo'
+                                        handler: 'GrupoBruce.view.periodovacacion.PeriodoVacacion'
                                     }, {
                                         text: 'Afiliación trabajador',
                                         iconCls: null,

@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
-import com.bruce.dao.to.Periodo;
+import com.bruce.dao.to.PeriodoVacacion;
 import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
-public interface IPeriodoDAO extends IEntidadDAO<Periodo>{
-    public List<Periodo> filterBySituacion(boolean situacion);
-    public List<Periodo> filterByTipo(int id_tperiodo);
+public interface IPeriodoVacacionService extends IEntidadService<PeriodoVacacion>{
+    public List<PeriodoVacacion> getBySituacion(boolean situacion);
 }

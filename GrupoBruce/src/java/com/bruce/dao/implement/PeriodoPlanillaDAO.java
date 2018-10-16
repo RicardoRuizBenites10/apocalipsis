@@ -5,8 +5,7 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.ITipoPeriodoDAO;
-import com.bruce.dao.to.TipoPeriodo;
+import com.bruce.dao.to.PeriodoPlanilla;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -14,17 +13,42 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.dao.design.IPeriodoPlanillaDAO;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
-public class TipoPeriodoDAO implements ITipoPeriodoDAO{
+public class PeriodoPlanillaDAO implements IPeriodoPlanillaDAO{
     
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
     
     @Override
-    public void create(TipoPeriodo t) {
+    public List<PeriodoPlanilla> filterBySituacion(boolean situacion) {
+        Session session = sf.openSession();
+        Transaction tx = null;
+        List result = null;
+        try{
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Periodo P WHERE P.situacion = :situacion");
+            query.setParameter("situacion", situacion);
+            result = query.list();
+            tx.commit();
+        }catch(HibernateException he){
+            if(tx!=null) tx.rollback();
+        }finally{
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public List<PeriodoPlanilla> filterByTipo(int id_tperiodo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void create(PeriodoPlanilla t) {
         Session session = sf.openSession();
         Transaction tx = null;
         try{
@@ -39,7 +63,7 @@ public class TipoPeriodoDAO implements ITipoPeriodoDAO{
     }
 
     @Override
-    public void update(TipoPeriodo t) {
+    public void update(PeriodoPlanilla t) {
         Session session = sf.openSession();
         Transaction tx = null;
         try{
@@ -54,7 +78,7 @@ public class TipoPeriodoDAO implements ITipoPeriodoDAO{
     }
 
     @Override
-    public void delete(TipoPeriodo t) {
+    public void delete(PeriodoPlanilla t) {
         Session session = sf.openSession();
         Transaction tx = null;
         try{
@@ -69,18 +93,18 @@ public class TipoPeriodoDAO implements ITipoPeriodoDAO{
     }
 
     @Override
-    public TipoPeriodo find(Object idT) {
+    public PeriodoPlanilla find(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<TipoPeriodo> findAll() {
+    public List<PeriodoPlanilla> findAll() {
         Session session = sf.openSession();
         Transaction tx = null;
         List result = null;
         try{
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM TipoPeriodo");
+            Query query = session.createQuery("FROM Periodo");
             result = query.list();
             tx.commit();
         }catch(HibernateException he){
