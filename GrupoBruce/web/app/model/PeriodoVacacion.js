@@ -6,9 +6,9 @@ Ext.define('GrupoBruce.model.PeriodoVacacion', {
     fields: [
         {name: 'cerrado', type: 'boolean'},
         {name: 'idPVacacion', type: 'int'},
-        {name: 'limFin', type: 'date'},
-        {name: 'limInicio', type: 'date'},
-        {name: 'situacion', type: 'boolean'}
+        {name: 'limFin', type: 'date', dateFormat: 'c'},
+        {name: 'limInicio', type: 'date', dateFormat: 'c'},
+        {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
     
     proxy: {

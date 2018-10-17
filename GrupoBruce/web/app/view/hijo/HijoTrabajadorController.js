@@ -40,6 +40,7 @@ Ext.define('GrupoBruce.view.hijo.HijoTrabajadorController', {
         var hijo = grid.getSelection()[0];
         hijo.erase({
             success: function (hijo, operation) {
+                grid.getStore().reload();
                 Ext.Msg.alert('Success', 'Eliminación exitosa.')
             },
             failure: function (hijo, operation) {

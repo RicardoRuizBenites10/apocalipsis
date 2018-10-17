@@ -24,26 +24,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                 text: 'Mantenimientos',
                                 iconCls: 'x-fa fa-wrench',
                                 children: [{
-                                        text: 'Áreas de trabajo',
-                                        iconCls: null,
-                                        leaf: true
-                                    }, {
-                                        text: 'Tipos trabajador',
-                                        iconCls: null,
-                                        leaf: true
-                                    }, {
-                                        text: 'Estados trabajador',
-                                        iconCls: null,
-                                        leaf: true
-                                    }, {
                                         text: 'Periodo Vacacion',
                                         iconCls: null,
                                         leaf: true,
                                         handler: 'GrupoBruce.view.periodovacacion.PeriodoVacacion'
-                                    }, {
-                                        text: 'Afiliación trabajador',
-                                        iconCls: null,
-                                        leaf: true
                                     }]
                             }, {
                                 text: 'Trabajador',

@@ -3,7 +3,9 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
 
     requires: [
         'GrupoBruce.view.periodovacacion.PeriodoVacacionController',
-        'GrupoBruce.view.periodovacacion.PeriodoVacacionModel'
+        'GrupoBruce.view.periodovacacion.PeriodoVacacionModel',
+
+        'GrupoBruce.view.periodovacacion.FormPeriodoVacacion'
     ],
 
     controller: 'CperiodoVacacion',
@@ -17,18 +19,30 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
 
     items: [{
             xtype: 'grid',
+            reference: 'list_pvacacion',
+            id: 'id_lpvacacion',
             bind: {
                 store: '{periodosVacacion}',
                 selection: '{selectPVacacion}'
             },
+            allowDeselect: true,
             columns: [{
-                    text: 'Periodo'
+                    text: 'Periodo',
+                    dataIndex: 'idPVacacion'
                 }, {
-                    text: 'Inicio'
+                    text: 'Inicio',
+                    formatter: 'date("d/m/Y")',
+                    dataIndex: 'limInicio'
                 }, {
-                    text: 'Fin'
+                    text: 'Fin',
+                    formatter: 'date("d/m/Y")',
+                    dataIndex: 'limFin'
                 }, {
-                    text: 'Situacion'
+                    text: 'Situacion',
+                    dataIndex: 'cerrado',
+                    renderer: function (val) {
+                        return val ? 'Cerrado' : 'Abierto';
+                    }
                 }]
         }],
 
@@ -44,8 +58,8 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
-                text: 'Modificar',
                 bind: {
+                    text: '{selectPVacacion ? selectPVacacion.cerrado ? "Abrir" : "Cerrar" : "Cerrar" }',
                     disabled: '{!selectPVacacion}'
                 },
                 handler: 'editPVacacion'
