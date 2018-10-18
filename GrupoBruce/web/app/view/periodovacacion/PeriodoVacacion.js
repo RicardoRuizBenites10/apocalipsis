@@ -58,13 +58,13 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
+                text: 'Editar',
                 bind: {
-                    text: '{selectPVacacion ? selectPVacacion.cerrado ? "Abrir" : "Cerrar" : "Cerrar" }',
                     disabled: '{!selectPVacacion}'
                 },
                 handler: 'editPVacacion'
             }, {
-                iconCls: 'x-fa fa-edit',
+                iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {

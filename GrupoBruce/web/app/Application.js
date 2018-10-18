@@ -30,7 +30,8 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TiempoContrato',
         'GrupoBruce.store.TipoContrato',
         'GrupoBruce.store.TipoDocumento',
-        'GrupoBruce.store.TipoTrabajador'
+        'GrupoBruce.store.TipoTrabajador',
+        'Grupobruce.store.Vacacion'
     ],
 
     launch: function () {

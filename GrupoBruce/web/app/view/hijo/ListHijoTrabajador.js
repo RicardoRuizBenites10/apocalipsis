@@ -70,7 +70,7 @@ Ext.define('GrupoBruce.view.hijo.ListHijoTrabajador', {
                 },
                 handler: 'editHijo'
             }, {
-                iconCls: 'x-fa fa-edit',
+                iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {

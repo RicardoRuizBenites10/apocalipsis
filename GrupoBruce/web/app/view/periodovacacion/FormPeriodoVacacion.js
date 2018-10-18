@@ -34,6 +34,11 @@ Ext.define('GrupoBruce.view.periodovacacion.FormPeriodoVacacion', {
                             maxValue: 2100,
                             fieldLabel: 'Año',
                             bind: '{anio}'
+                        },{
+                            xtype: 'checkbox',
+                            name: 'cerrado',
+                            reference: 'cerrar_periodo',
+                            fieldLabel: 'Cerrar'
                         }]
                 }, {
                     items: [ {

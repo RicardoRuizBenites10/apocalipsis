@@ -23,7 +23,6 @@ import javax.persistence.TemporalType;
 )
 public class Remuneracion  implements java.io.Serializable {
 
-
      private RemuneracionId id;
      private Date fecha;
      private BigDecimal monto;
@@ -71,10 +70,6 @@ public class Remuneracion  implements java.io.Serializable {
     public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
-
-
-
-
 }
 
 

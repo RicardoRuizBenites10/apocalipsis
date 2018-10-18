@@ -803,6 +803,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "PeriodoVacacion"
       }
+    },
+    "app/model/Vacacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "diasComprados:int:null,diasTomados:int:null,fechaBase:date:null,fechaRetorno:date:null,fechaSalida:date:null,idPVacacion:int:null,idTrabajador:string:null",
+        "modelFileName": "Vacacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Vacacion"
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 Ext.define('GrupoBruce.view.hijo.HijoTrabajadorModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMhijo',
+    
     data: {
         title: 'Lista de hijos',
         recordTrabajador: null

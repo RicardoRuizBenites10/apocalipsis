@@ -14,21 +14,20 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacionController', {
     editPVacacion: function () {
         var grid = this.lookupReference('list_pvacacion');
         var periodoModel = grid.getSelection()[0];
+        var window = new GrupoBruce.view.periodovacacion.FormPeriodoVacacion();
+        window.setTitle('Editar periodo vacación');
+        window.down('form').loadRecord(periodoModel);
 
-//        var window = new GrupoBruce.view.periodovacacion.FormPeriodoVacacion();
-//        window.setTitle('Editar periodo vacación');
-//        window.down('form').loadRecord(periodoModel);
-
-        periodoModel.set('cerrado',true);
-        periodoModel.save({
-            success: function (hijo, operation) {
-                Ext.Msg.alert('Success', 'Cierre de vacaciones exitoso.');
-                grid.getStore().reload();
-            },
-            failure: function (hijo, operation) {
-                Ext.Msg.alert('Failure', 'No se pudo realizar cierre.');
-            }
-        });
+//        periodoModel.set('cerrado',true);
+//        periodoModel.save({
+//            success: function (hijo, operation) {
+//                Ext.Msg.alert('Success', 'Cierre de vacaciones exitoso.');
+//                grid.getStore().reload();
+//            },
+//            failure: function (hijo, operation) {
+//                Ext.Msg.alert('Failure', 'No se pudo realizar cierre.');
+//            }
+//        });
     },
 
     deletePVacacion: function () {
@@ -52,19 +51,21 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacionController', {
         var periodoVacacion = form.getRecord();
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(periodoVacacion); // update the record with the form data
+            var check = this.lookupReference('cerrar_periodo');
+            periodoVacacion.set('cerrado',check.checked)
             periodoVacacion.save({// save the record to the server
                 success: function (periodo, operation) {
                     form.reset();
                     window.destroy();
                     grid.getStore().reload();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                    Ext.Msg.alert('Success', 'Operación exitosa.');
                 },
                 failure: function (periodo, operation) {
-                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.')
+                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
                 }
             });
         } else { // display error alert if the data is invalid
-            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
     }
 

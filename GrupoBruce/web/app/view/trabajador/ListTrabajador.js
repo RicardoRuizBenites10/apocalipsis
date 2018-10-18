@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
     style: 'border: solid rgb(234,234,236) 1px',
     title: 'Lista de trabajadores',
     closable: true,
-    
+
     columns: [{
             text: 'DNI', dataIndex: 'idTrabajador',
             align: 'left'
@@ -73,59 +73,61 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
         }
     ],
 
-    tbar: [{
-            text: 'Nuevo',
-            iconCls: 'x-fa fa-plus',
-            bind: {
-                disabled: '{selectTrabajador}'
-            },
-            listeners: {
-                click: 'addTrabajador'
-            }
-        }, {
-            text: 'Editar',
-            iconCls: 'x-fa fa-edit',
-            disabled: true,
-            bind: {
-                disabled: '{!selectTrabajador}'
-            },
-            listeners: {
-                click: 'editTrabajador'
-            }
-        }, {
-            text: 'Ver',
-            iconCls: 'x-fa fa-search',
-            disabled: true,
-            bind: {
-                disabled: '{!selectTrabajador}'
-            }
-        }, '-', {
-            text: 'Contratos',
-            iconCls: 'x-fa fa-files-o',
-            hidden: true,
-            bind: {
-                hidden: '{!selectTrabajador}'
-            },
-            handler: 'onContratosTrabajador'
-        }, {
-            text: 'Vacaciones',
-            iconCls: 'x-fa fa-gamepad',
-            hidden: true,
-            handler: 'onVacacionsTrabajador',
-            bind: {
-                hidden: '{!selectTrabajador}'
-            }
-        }, {
-            text: 'Hijos',
-            iconCls: 'x-fa fa-child',
-            hidden: true,
-            bind: {
-                hidden: '{hasChild}'
-            },
-            handler: 'onHijosTrabajador'
-        }],
-
     dockedItems: [{
+            xtype: 'toolbar',
+            overflowHandler: 'scroller',
+            items: [{
+                    text: 'Nuevo',
+                    iconCls: 'x-fa fa-plus',
+                    bind: {
+                        disabled: '{selectTrabajador}'
+                    },
+                    listeners: {
+                        click: 'addTrabajador'
+                    }
+                }, {
+                    text: 'Editar',
+                    iconCls: 'x-fa fa-edit',
+                    disabled: true,
+                    bind: {
+                        disabled: '{!selectTrabajador}'
+                    },
+                    listeners: {
+                        click: 'editTrabajador'
+                    }
+                }, {
+                    text: 'Ver',
+                    iconCls: 'x-fa fa-search',
+                    disabled: true,
+                    bind: {
+                        disabled: '{!selectTrabajador}'
+                    }
+                }, '-', {
+                    text: 'Contratos',
+                    iconCls: 'x-fa fa-files-o',
+                    hidden: true,
+                    bind: {
+                        hidden: '{!selectTrabajador}'
+                    },
+                    handler: 'onContratosTrabajador'
+                }, {
+                    text: 'Vacaciones',
+                    iconCls: 'x-fa fa-gamepad',
+                    hidden: true,
+                    handler: 'onVacacionsTrabajador',
+                    bind: {
+                        hidden: '{!selectTrabajador}'
+                    }
+                }, {
+                    text: 'Hijos',
+                    iconCls: 'x-fa fa-child',
+                    hidden: true,
+                    bind: {
+                        hidden: '{hasChild}'
+                    },
+                    handler: 'onHijosTrabajador'
+                }]
+        }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             displayInfo: true,
@@ -133,7 +135,8 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             emptyMsg: "No hay registros que mostrar",
             items: ['-', {
                     iconCls: 'fa fa-file-excel-o'
-                }]
+                }],
+            overflowHandler: 'scroller'
         }]
 
 });

@@ -26,7 +26,7 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
                 bind: {
                     disabled: '{selectVacacion}'
                 },
-                handler: 'addHijo'
+                handler: 'addVacacion'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
@@ -34,7 +34,7 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
                 bind: {
                     disabled: '{!selectVacacion}'
                 },
-                handler: 'editHijo'
+                handler: 'editVacacion'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
@@ -42,7 +42,7 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
                 bind: {
                     disabled: '{!selectVacacion}'
                 },
-                handler: 'deleteHijo'
+                handler: 'deleteVacacion'
             }]
     },
 

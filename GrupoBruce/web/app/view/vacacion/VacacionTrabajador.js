@@ -1,7 +1,6 @@
-
 Ext.define('GrupoBruce.view.vacacion.VacacionTrabajador', {
     extend: 'Ext.window.Window',
-    reference: 'panel-vacacion',
+    reference: 'panel_vacacion',
 
     requires: [
         'GrupoBruce.view.vacacion.VacacionTrabajadorController',
