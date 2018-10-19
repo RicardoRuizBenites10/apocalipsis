@@ -31,6 +31,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TipoContrato',
         'GrupoBruce.store.TipoDocumento',
         'GrupoBruce.store.TipoTrabajador',
+        'GrupoBruce.store.TipoVacacion',
         'Grupobruce.store.Vacacion'
     ],
 

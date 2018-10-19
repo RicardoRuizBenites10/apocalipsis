@@ -13,9 +13,9 @@ public class FilterPage {
 
     private String operator;
     private String property;
-    private String value;
+    private Object value;
 
-    public FilterPage(String property, String value) {
+    public FilterPage(String property, Object value) {
         this.property = property;
         this.value = value;
     }
@@ -39,11 +39,11 @@ public class FilterPage {
         this.property = property;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 }

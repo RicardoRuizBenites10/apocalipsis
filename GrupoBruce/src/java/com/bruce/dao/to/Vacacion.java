@@ -25,12 +25,12 @@ public class Vacacion implements java.io.Serializable {
     private Date fechaRetorno;
     private Integer diasTomados;
     private Integer diasComprados;
-    private boolean parcial;
+    private int idTVacacion;
 
     public Vacacion() {
     }
 
-    public Vacacion(String idTrabajador, int idPVacacion, Date fechaBase, Date fechaSalida, Date fechaRetorno, Integer diasTomados, Integer diasComprados, boolean parcial) {
+    public Vacacion(String idTrabajador, int idPVacacion, Date fechaBase, Date fechaSalida, Date fechaRetorno, Integer diasTomados, Integer diasComprados, int idTVacacion) {
         this.idTrabajador = idTrabajador;
         this.idPVacacion = idPVacacion;
         this.fechaBase = fechaBase;
@@ -38,7 +38,7 @@ public class Vacacion implements java.io.Serializable {
         this.fechaRetorno = fechaRetorno;
         this.diasTomados = diasTomados;
         this.diasComprados = diasComprados;
-        this.parcial = parcial;
+        this.idTVacacion = idTVacacion;
     }
 
     @Id
@@ -108,14 +108,14 @@ public class Vacacion implements java.io.Serializable {
     public void setDiasComprados(Integer diasComprados) {
         this.diasComprados = diasComprados;
     }
-
-    @Column(name = "PARCIAL", nullable = false)
-    public boolean isParcial() {
-        return parcial;
+    
+    @Column(name = "ID_TVACACION", nullable = false)
+    public int getIdTVacacion() {
+        return idTVacacion;
     }
 
-    public void setParcial(boolean parcial) {
-        this.parcial = parcial;
+    public void setIdTVacacion(int idTVacacion) {
+        this.idTVacacion = idTVacacion;
     }
 
 }

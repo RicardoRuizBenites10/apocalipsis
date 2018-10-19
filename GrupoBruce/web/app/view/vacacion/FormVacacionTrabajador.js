@@ -7,11 +7,11 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
     resizable: false,
     closable: false,
     modal: true,
-    
+
     bind: {
         title: '{title}'
     },
-    
+
     items: [{
             xtype: 'form',
             defaults: {
@@ -26,7 +26,7 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
             items: [{
                     items: [{
                             xtype: 'combobox',
-//                            name: 'idPVacacion',
+                            name: 'idPVacacion',
                             editable: false,
                             emptyText: 'Seleccionar',
                             fieldLabel: 'Periodo',
@@ -35,21 +35,30 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                             },
                             displayField: 'idPVacacion',
                             valueField: 'idPVacacion'
-                        }]
-                },{
-                    items: [{
-                            xtype: 'checkbox',
-                            name: 'parcial',
-                            reference: 'check_parcial',
-                            boxLabel: 'Parciales'
+                        },{
+                            xtype: 'combobox',
+                            name: 'idTVacacion',
+                            editable: false,
+                            emptyText: 'Seleccionar',
+                            fieldLabel: 'Tipo vacación',
+                            bind: {
+                                store: '{tipos}',
+                                selection: '{selectTipo}'
+                            },
+                            displayField: 'descripcion',
+                            valueField: 'idTVacacion'
                         }]
                 }, {
                     items: [{
-                            xtype: 'textfield',
+                            xtype: 'numberfield',
                             fieldLabel: 'Dias a tomar',
+                            allowDecimals: false,
+                            hideTrigger: true,
+                            minValue: 7,
+                            maxValue: 30,
                             hidden: true,
                             bind: {
-                                hidden: '{!check_parcial.checked}'
+                                hidden: '{selectTipo ? !selectTipo.pagar : true}'
                             },
                             allowBlank: true
                         }]
@@ -57,15 +66,16 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                     items: [{
                             xtype: 'datefield',
                             fieldLabel: 'Fecha inicio',
-                            reference: 'fecha_salida',
                             name: 'fechaSalida',
                             format: 'd/m/Y',
+                            bind: '{salida}',
                             minValue: new Date()
                         }, {
                             xtype: 'datefield',
                             fieldLabel: 'Fecha retorno',
-                            name: 'fechaRetorno',
-                            format: 'd/m/Y'
+//                            name: 'fechaRetorno',
+                            format: 'd/m/Y',
+                            bind: '{retorno}'
                         }]
                 }],
 

@@ -17,9 +17,9 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorController', {
             this.dialog.down('form').loadRecord(record);
         } else {
             var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
-            var newcontrato = Ext.create('GrupoBruce.model.Vacacion', {
-                idTrabajador: idTrabajador
-            });
+            var newcontrato = new GrupoBruce.model.Vacacion();
+            newcontrato.set('idTrabajador',idTrabajador);
+            newcontrato.set('idPVacacion',);
             this.dialog.down('form').loadRecord(newcontrato);
         }
         this.dialog.show();

@@ -37,6 +37,7 @@ public class Trabajador implements java.io.Serializable {
     private String nrocuentaSueldo;
     private String nrocuentaCts;
     private String nrocusppAfiliacion;
+    private Date ultimaAlta;
 
     private int idNacionalidad;
     private String idTdocumento;
@@ -81,7 +82,7 @@ public class Trabajador implements java.io.Serializable {
         this.idSucursal = idSucursal;
     }
 
-    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
+    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, Date ultimaAlta, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
         this.idTrabajador = idTrabajador;
         this.foto = foto;
         this.apPaterno = apPaterno;
@@ -98,6 +99,7 @@ public class Trabajador implements java.io.Serializable {
         this.nrocuentaSueldo = nrocuentaSueldo;
         this.nrocuentaCts = nrocuentaCts;
         this.nrocusppAfiliacion = nrocusppAfiliacion;
+        this.ultimaAlta = ultimaAlta;
         this.idNacionalidad = idNacionalidad;
         this.idTdocumento = idTdocumento;
         this.idGenero = idGenero;
@@ -267,6 +269,16 @@ public class Trabajador implements java.io.Serializable {
 
     public void setNrocusppAfiliacion(String nrocusppAfiliacion) {
         this.nrocusppAfiliacion = nrocusppAfiliacion;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "ULTIMA_ALTA", length = 10)
+    public Date getUltimaAlta() {
+        return ultimaAlta;
+    }
+
+    public void setUltimaAlta(Date ultimaAlta) {
+        this.ultimaAlta = ultimaAlta;
     }
 
     @Column(name = "ID_NACIONALIDAD", nullable = false)
