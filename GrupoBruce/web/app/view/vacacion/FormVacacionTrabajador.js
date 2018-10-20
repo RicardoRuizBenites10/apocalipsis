@@ -68,7 +68,7 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                             hidden: true,
                             bind: {
                                 hidden: '{selectTipo ? !selectTipo.pagar : true}',
-                                value: '{nro_dias}'
+                                value: '{nroDias}'
                             },
                             allowBlank: true
                         }]
