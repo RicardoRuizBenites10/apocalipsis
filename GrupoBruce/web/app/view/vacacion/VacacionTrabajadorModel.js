@@ -5,8 +5,11 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
         title: 'Lista de vacaciones',
         recordTrabajador: null,
         selectVacacion: null,
+        selectPeriodo: null,
         selectTipo: null,
-        salida: new Date()
+        salida: new Date(),
+        fecha_base: null,
+        nro_dias: 15
     },
 
     stores: {
@@ -33,22 +36,36 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
     },
 
     formulas: {
+        tiempo_servicio: {
+            get: function (get) {
+                var alta = get('recordTrabajador').get('ultimaAlta'), periodo = get('selectPeriodo'), servicio = 0, base;
+                if (periodo) {
+                    servicio = periodo.get('idPVacacion') - alta.getFullYear();
+                    base = Ext.Date.add(alta, Ext.Date.YEAR, servicio - 1);
+                this.set({fecha_base: base});
+                }
+                return servicio;
+            }
+        },
         retorno: {
             get: function (get) {
-                var date = get('inicio'), vacacion = get('selectVacacion');
-//                date = Ext.Date.add(date, Ext.Date.DAY, get('dias'));
-                
-                console.log('get de retorno');
-                return vacacion ? vacacion.fechaRetorno : new Date();
+                var dias = get('dias'), salida = get('salida'), fecha;
+                fecha = Ext.Date.add(salida, Ext.Date.DAY, dias + 1);
+                return fecha;
             },
             set: function (value) {
-                console.log('Set de retorno');
+
             }
         },
         dias: function (get) {
             var tipo = get('selectTipo'), numero;
-            numero = tipo ? (tipo.pagar ? 1 : 30) : 10;
+            numero = tipo ? tipo.get('pagar') ? get('nroDias') : 30 : 0;
             return numero;
+        },
+        nroDias: function (get) {
+            var nro = get('nro_dias');
+            nro = nro === "" || nro < 0 ? 0 : nro > 30 ? 30 : nro;
+            return nro;
         }
     }
 

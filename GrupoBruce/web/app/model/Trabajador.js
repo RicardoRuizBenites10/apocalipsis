@@ -21,6 +21,7 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'nrocuentaSueldo', type: 'string' },
         { name: 'referencia', type: 'string' },
         { name: 'telefono', type: 'string' },
+        { name: 'ultimaAlta', type: 'date' },
         
         { name: 'idNacionalidad', type:'int' },
         { name: 'idTdocumento', type:'string' },

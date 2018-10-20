@@ -34,11 +34,11 @@ public class VacacionService implements IVacacionService{
     @Override
     @Transactional
     public void insert(Vacacion currentVacacion) {
-        List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idTrabajador",currentVacacion.getIdTrabajador()));
-        Vacacion last = last(filters);
-        int idLast = last == null ? 1 : last.getIdPVacacion() + 1;
-        currentVacacion.setIdPVacacion(idLast);
+//        List<FilterPage> filters = new ArrayList<>();
+//        filters.add(new FilterPage("idTrabajador",currentVacacion.getIdTrabajador()));
+//        Vacacion last = last(filters);
+//        int idLast = last == null ? 1 : last.getIdPVacacion() + 1;
+//        currentVacacion.setIdPVacacion(idLast);
         dao.create(currentVacacion);
     }
 

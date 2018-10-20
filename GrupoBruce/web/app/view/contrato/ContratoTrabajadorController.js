@@ -36,7 +36,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                 var responseText = Ext.decode(response.responseText);
                 var fechaInicio = responseText.inicio !== null ? Ext.Date.add(new Date(responseText.inicio), Ext.Date.DAY, 2) : new Date();
                 if (responseText.success) {
-                    this.getViewModel().set('currentDate',fechaInicio);
+                    this.getViewModel().set('currentDate', fechaInicio);
                     this.createDialog(null);
                 } else {
                     Ext.Msg.show({
@@ -57,13 +57,14 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
     editContrato: function () {
         var grid = this.lookupReference('list_contratoTrabajador');
         var contrato = grid.getSelection()[0];
-        this.getViewModel().set('currentDate',contrato.get('fechaInicio'));
+        this.getViewModel().set('currentDate', contrato.get('fechaInicio'));
         this.createDialog(contrato);
     },
 
     onSaveContrato: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
+        var grid = this.lookupReference('list_contratoTrabajador');
         var contratoModel = form.getRecord();
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(contratoModel); // update the record with the form data
@@ -71,6 +72,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                 success: function (contrato, operation) {
                     form.reset();
                     window.destroy();
+                    grid.getStore().reload();
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
                 failure: function (contrato, operation) {
@@ -80,8 +82,6 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
-        var grid = this.lookupReference('list_contratoTrabajador');
-        grid.getStore().reload();
     }
 
 });

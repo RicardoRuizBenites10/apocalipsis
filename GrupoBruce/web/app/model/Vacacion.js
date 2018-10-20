@@ -4,14 +4,13 @@ Ext.define('GrupoBruce.model.Vacacion', {
 
     idProperty: 'idPVacacion',
     fields: [
-        {name: 'diasComprados', type: 'int'},
         {name: 'diasTomados', type: 'int'},
         {name: 'fechaBase', type: 'date', dateFormat: 'c'},
         {name: 'fechaRetorno', type: 'date', dateFormat: 'c'},
         {name: 'fechaSalida', type: 'date', dateFormat: 'c'},
         {name: 'idPVacacion', type: 'int'},
         {name: 'idTrabajador', type: 'string'},
-        {name: 'parcial', type: 'boolean', defaultValue: false}
+        {name: 'idTVacacion', type: 'int'}
     ],
 
     proxy: {

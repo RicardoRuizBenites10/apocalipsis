@@ -24,20 +24,18 @@ public class Vacacion implements java.io.Serializable {
     private Date fechaSalida;
     private Date fechaRetorno;
     private Integer diasTomados;
-    private Integer diasComprados;
     private int idTVacacion;
 
     public Vacacion() {
     }
 
-    public Vacacion(String idTrabajador, int idPVacacion, Date fechaBase, Date fechaSalida, Date fechaRetorno, Integer diasTomados, Integer diasComprados, int idTVacacion) {
+    public Vacacion(String idTrabajador, int idPVacacion, Date fechaBase, Date fechaSalida, Date fechaRetorno, Integer diasTomados, int idTVacacion) {
         this.idTrabajador = idTrabajador;
         this.idPVacacion = idPVacacion;
         this.fechaBase = fechaBase;
         this.fechaSalida = fechaSalida;
         this.fechaRetorno = fechaRetorno;
         this.diasTomados = diasTomados;
-        this.diasComprados = diasComprados;
         this.idTVacacion = idTVacacion;
     }
 
@@ -99,15 +97,6 @@ public class Vacacion implements java.io.Serializable {
     public void setDiasTomados(Integer diasTomados) {
         this.diasTomados = diasTomados;
     }
-
-    @Column(name = "DIAS_COMPRADOS", nullable = false)
-    public Integer getDiasComprados() {
-        return diasComprados;
-    }
-
-    public void setDiasComprados(Integer diasComprados) {
-        this.diasComprados = diasComprados;
-    }
     
     @Column(name = "ID_TVACACION", nullable = false)
     public int getIdTVacacion() {
@@ -116,6 +105,11 @@ public class Vacacion implements java.io.Serializable {
 
     public void setIdTVacacion(int idTVacacion) {
         this.idTVacacion = idTVacacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Vacacion{" + "idTrabajador=" + idTrabajador + ", idPVacacion=" + idPVacacion + ", fechaBase=" + fechaBase + ", fechaSalida=" + fechaSalida + ", fechaRetorno=" + fechaRetorno + ", diasTomados=" + diasTomados + ", idTVacacion=" + idTVacacion + '}';
     }
 
 }

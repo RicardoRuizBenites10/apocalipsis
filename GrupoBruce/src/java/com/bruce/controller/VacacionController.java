@@ -65,7 +65,7 @@ public class VacacionController {
     @ResponseBody
     @RequestMapping(value = "/insertVacacion", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody Vacacion vacacion) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();        
         serv.insert(vacacion);
         map.put("success", true);
         map.put("data", vacacion);

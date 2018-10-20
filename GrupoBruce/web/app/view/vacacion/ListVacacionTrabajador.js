@@ -11,11 +11,32 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Periodo'
+            text: 'Periodo',
+            dataIndex: 'idPVacacion',
+            align: 'center'
+        },{
+            text: 'Fecha base',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaBase'
+        },{
+            text: 'Fecha inicio',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaSalida'
+        },{
+            text: 'Fecha retorno',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaRetorno'
         }, {
-            text: 'Usado'
+            text: 'Usado',
+            dataIndex: 'diasTomados',
+            align: 'center'
         }, {
-            text: 'Vendido'
+            text: 'Vendido',
+            dataIndex: 'diasTomados',
+            renderer: function(val){
+                return 30- val;
+            },
+            align: 'center'
         }],
 
     tbar: {
@@ -36,7 +57,7 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
                 },
                 handler: 'editVacacion'
             }, {
-                iconCls: 'x-fa fa-edit',
+                iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
