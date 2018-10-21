@@ -14,58 +14,37 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.FilterPage;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
-public class FormacionDAO implements IFormacionDAO{
-    
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+@Repository
+public class FormacionDAO implements IFormacionDAO {
+
+    @Autowired
+    private SessionFactory sf;
+
     @Override
     public void create(Formacion t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().save(t);
     }
 
     @Override
     public void update(Formacion t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().update(t);
     }
 
     @Override
     public void delete(Formacion t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(t);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().delete(t);
     }
 
     @Override
@@ -75,20 +54,57 @@ public class FormacionDAO implements IFormacionDAO{
 
     @Override
     public List<Formacion> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Formacion");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM Formacion");
+        return query.list();
     }
-    
+
+    @Override
+    public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Formacion.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setFirstResult(start);
+        cr.setMaxResults(limit);
+        return cr.list();
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Formacion.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
+    }
+
+    @Override
+    public Formacion lastByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Formacion formacion = null;
+        Criteria cr = session.createCriteria(Formacion.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idFormacion"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            formacion = (Formacion) result.get(0);
+        }
+        return formacion;
+    }
+
 }

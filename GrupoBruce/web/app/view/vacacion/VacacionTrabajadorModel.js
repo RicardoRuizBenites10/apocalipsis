@@ -9,6 +9,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
         selectTipo: null,
         salida: new Date(),
         fecha_base: null,
+        initialDay: 30,
         initialValue: 1
     },
 
@@ -49,36 +50,34 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
         },
         retorno: {
             get: function (get) {
-                var dias = get('dias'), salida = get('salida'), fecha, vacacion = get('selectVacacion');
+                var dias = get('diasTipo'), salida = get('salida'), fecha, vacacion = get('selectVacacion');
                 fecha = get('initialValue') > 0 && vacacion ? vacacion.get('fechaRetorno') : Ext.Date.add(salida, Ext.Date.DAY, dias + 1);
-                console.log('getRetorno : ' + get('initialValue') + ' -- dias : ' + get('dias'));
                 return fecha;
             },
             set: function (value) {
                 this.set({initialValue: this.get('initialValue') - 1});
             }
         },
-        dias: {
+        diasTipo: {
             get: function (get) {
-                var tipo = get('selectTipo'), numero;
-                numero = tipo ? tipo.get('pagar') ? get('nroDias') : 30 : 0;
-                console.log('getDias : ' + get('initialValue'));
+                var tipo = get('selectTipo'), numero = 0;
+                if (tipo) {
+                    numero = tipo.get('pagar') ? get('nroDias') : 30;
+                }
                 return numero;
-            },
-            set: function (value) {
-                this.set({initialValue: this.get('initialValue') - 1});
             }
         },
         nroDias: {
             get: function (get) {
                 var vacacion = get('selectVacacion'), nro;
-                
-                nro = get('initialValue') > 0 && vacacion ? vacacion.get('diasTomados') : 15;
-                console.log('getNroDias : ' + get('initialValue'));
+                nro = get('initialValue') > 0 && vacacion ? vacacion.get('diasTomados') : get('initialDay');
                 return nro;
             },
             set: function (value) {
-                this.set({initialValue: this.get('initialValue') - 1});
+                this.set({
+                    initialValue: this.get('initialValue') - 1,
+                    initialDay: value
+                });
             }
         }
     }

@@ -52,7 +52,7 @@ public class HijoService implements IHijoService {
             idLast = lastHijo.getIdHijo();
         }
         currentHijo.setIdHijo(idLast + 1);
-        dao.create(lastHijo);
+        dao.create(currentHijo);
     }
 
     @Override

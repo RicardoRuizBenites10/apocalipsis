@@ -103,6 +103,14 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                         disabled: '{!selectTrabajador}'
                     }
                 }, '-', {
+                    text: 'Estudios',
+                    iconCls: 'x-fa fa-graduation-cap',
+                    hidden: true,
+                    bind: {
+                        hidden: '{!selectTrabajador}'
+                    },
+                    handler: 'onEstudiosTrabajador'
+                }, {
                     text: 'Contratos',
                     iconCls: 'x-fa fa-files-o',
                     hidden: true,

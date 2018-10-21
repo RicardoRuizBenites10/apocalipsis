@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.Formacion;
 import com.bruce.util.FilterPage;
@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  *
- * @author SISTEMAS
+ * @author RICARDO
  */
-public interface IFormacionDAO extends IEntidadDAO<Formacion> {
+public interface IFormacionService extends IEntidadService<Formacion>{
     public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
     public Formacion lastByFilter(List<FilterPage> filters);

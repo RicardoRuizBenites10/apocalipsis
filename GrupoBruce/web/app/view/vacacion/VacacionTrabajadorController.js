@@ -13,6 +13,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorController', {
                 }
             }
         });
+        this.getViewModel().set('initialValue',1);
         if (record) {
             this.dialog.down('form').loadRecord(record);
         } else {
@@ -33,6 +34,20 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorController', {
         var grid = this.lookupReference('list_vacacionTrabajador');
         var vacacion = grid.getSelection()[0];
         this.createDialog(vacacion);
+    },
+    
+    deleteVacacion: function(){
+        var grid = this.lookupReference('list_vacacionTrabajador');
+        var vacacion = grid.getSelection()[0];
+        vacacion.erase({
+            success: function (vacacion, operation) {
+                grid.getStore().reload();
+                Ext.Msg.alert('Success', 'Eliminación exitosa.')
+            },
+            failure: function (vacacion, operation) {
+                Ext.Msg.alert('Failure', 'Operacion fallada.')
+            }
+        });
     },
     
     onSaveVacacion: function(btn){

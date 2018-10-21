@@ -8,83 +8,45 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.ITipoEstudioDAO;
 import com.bruce.dao.to.TipoEstudio;
 import java.util.List;
-import org.hibernate.HibernateException;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class TipoEstudioDAO implements ITipoEstudioDAO {
-    
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+
+    @Autowired
+    private SessionFactory sf;
+
     @Override
     public List<TipoEstudio> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM TipoEstudio TE WHERE TE.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(TipoEstudio.class);
+        cr.add(Restrictions.eq("situacion", situacion));
+        return cr.list();
     }
 
     @Override
     public void create(TipoEstudio t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(t);
-            tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().save(t);
     }
 
     @Override
     public void update(TipoEstudio t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(t);
-            tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().update(t);
     }
 
     @Override
     public void delete(TipoEstudio t) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(t);
-            tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().delete(t);
     }
 
     @Override
@@ -94,20 +56,9 @@ public class TipoEstudioDAO implements ITipoEstudioDAO {
 
     @Override
     public List<TipoEstudio> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM TipoEstudio");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he ){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM TipoEstudio");
+        return query.list();
     }
-    
+
 }
