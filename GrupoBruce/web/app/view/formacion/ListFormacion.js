@@ -12,13 +12,13 @@ Ext.define('GrupoBruce.view.formacion.ListFormacion', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Tipo',
-            dataIndex: 'idTestudio',
+            dataIndex: 'idTformacion',
             renderer: function(val){
                 switch (val){
-                    case 1: return 'Primaria';
-                    case 2: return 'Secundaria';
-                    case 3: return 'Técnico';
-                    case 4: return 'Universitario';
+                    case 1: return 'Taller';
+                    case 2: return 'Diplomado';
+                    case 3: return 'Maestría';
+                    case 4: return 'Doctorado';
                 }
             },
             align: 'left'

@@ -26,11 +26,11 @@ Ext.define('GrupoBruce.view.formacion.FormFormacion', {
             items: [{
                     items: [{
                             xtype: 'combo',
-                            name: 'idTestudio',
-                            fieldLabel: 'Nivel estudios',
+                            name: 'idTformacion',
+                            fieldLabel: 'Tipo estudios',
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
-                            valueField: 'idTestudio',
+                            valueField: 'idTformacion',
                             bind: {
                                 store: '{tiposFormacion}'
                             }

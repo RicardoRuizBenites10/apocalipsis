@@ -827,6 +827,54 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "TipoVacacion"
       }
+    },
+    "app/model/TipoFormacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTformacion:int:null,situacion:boolean:null",
+        "modelFileName": "TipoFormacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoFormacion"
+      }
+    },
+    "app/model/TipoAusencia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descrpcion:string:null,idTausencia:int:null,situacion:boolean:null",
+        "modelFileName": "TipoAusencia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoAusencia"
+      }
+    },
+    "app/model/TiempoAusencia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTausencia:int:null,situacion:boolean:null",
+        "modelFileName": "TiempoAusencia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TiempoAusencia"
+      }
+    },
+    "app/model/Ausencia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "detalle:string:null,fechaFin:date:null,fechaInicio:date:null,horaFin:date:null,horaInicio:date:null,idAusencia:int:null,idTausencia:int:null,idTmausencia:int:null,idTrabajador:string:null",
+        "modelFileName": "Ausencia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Ausencia"
+      }
     }
   }
 }

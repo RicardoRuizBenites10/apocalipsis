@@ -19,18 +19,18 @@ public class Formacion implements java.io.Serializable {
     private int idFormacion;
     private String institucion;
     private String descripcion;
-    private int idTestudio;
+    private int idTformacion;
     private int idEestudio;
 
     public Formacion() {
     }
 
-    public Formacion(String idTrabajador, int idFormacion, String institucion, String descripcion, int idTestudio, int idEestudio) {
+    public Formacion(String idTrabajador, int idFormacion, String institucion, String descripcion, int idTformacion, int idEestudio) {
         this.idTrabajador = idTrabajador;
         this.idFormacion = idFormacion;
         this.institucion = institucion;
         this.descripcion = descripcion;
-        this.idTestudio = idTestudio;
+        this.idTformacion = idTformacion;
         this.idEestudio = idEestudio;
     }
 
@@ -72,13 +72,13 @@ public class Formacion implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "ID_TESTUDIO", nullable = false)
-    public int getIdTestudio() {
-        return this.idTestudio;
+    @Column(name = "ID_TFORMACION", nullable = false)
+    public int getIdTformacion() {
+        return this.idTformacion;
     }
 
-    public void setIdTestudio(int idTestudio) {
-        this.idTestudio = idTestudio;
+    public void setIdTformacion(int idTformacion) {
+        this.idTformacion = idTformacion;
     }
 
     @Column(name = "ID_EESTUDIO", nullable = false)

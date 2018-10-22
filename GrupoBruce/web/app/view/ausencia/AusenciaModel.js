@@ -1,28 +1,27 @@
-Ext.define('GrupoBruce.view.formacion.FormacionModel', {
+Ext.define('GrupoBruce.view.ausencia.AusenciaModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.VMformacion',
-
+    alias: 'viewmodel.VMausencia',
     data: {
-        title: 'Lista de estudios',
+        title: 'Lista de contratos',
         recordTrabajador: null,
-        selectFormacion: null
+        selectAusencia: null
     },
-
+    
     stores: {
-        formacions: {
-            type: 'Sformacion',
+        ausencias: {
+            type: 'Sausencia',
             autoLoad: true,
             filters: [{
                     property: 'idTrabajador',
                     value: '{recordTrabajador.idTrabajador}'
                 }]
         },
-        tiposFormacion: {
-            type: 'StipoFormacion',
+        tiemposAusencia: {
+            type: 'StiempoAusencia',
             autoLoad: true
         },
-        estadosFormacion: {
-            type: 'SestadoEstudio',
+        tiposAusencia: {
+            type: 'StipoAusencia',
             autoLoad: true
         }
     }

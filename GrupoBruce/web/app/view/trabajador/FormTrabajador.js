@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
         type: 'VMformTrabajador'
     },
     controller: 'Ctrabajador',
-    
+
     height: 575,
     width: 550,
     resizable: false,
@@ -207,9 +207,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: '{!selectTTrabajador.hasctacts}'
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }, {
@@ -221,9 +221,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: '{!selectTTrabajador.hasctacts}'
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }]
@@ -273,9 +273,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: '{!selectFPago.hasnrocuenta}'
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }, {
@@ -287,9 +287,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: '{!selectFPago.hasnrocuenta}'
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }, {
@@ -318,9 +318,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: '{!selectTTrabajador.hasctacts}'
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }, {
@@ -342,9 +342,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }, {
@@ -356,9 +356,9 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
                                                     },
                                                     listeners: {
-                                                        disable: function(){
+                                                        disable: function () {
                                                             this.setValue('');
-                                                            this.up('form').getRecord().set(this.name,this.value);
+                                                            this.up('form').getRecord().set(this.name, this.value);
                                                         }
                                                     }
                                                 }]
@@ -399,9 +399,62 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                 }]
                                         }]
                                 }]
+                        }, {
+                            title: 'Formación profesional',
+                            iconCls: 'fa fa-graduation-cap',
+                            items: [{
+                                    defaults: {
+                                        xtype: 'container',
+                                        layout: 'hbox',
+                                        defaults: {
+                                            allowBlank: false,
+                                            labelAlign: 'top',
+                                            padding: 5
+                                        }
+                                    },
+                                    items: [{
+                                            items: [{
+                                                    xtype: 'combo',
+                                                    name: 'idTestudio',
+                                                    fieldLabel: 'Nivel estudios',
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idTestudio',
+                                                    bind: {
+                                                        store: '{tiposEstudio}'
+                                                    }
+                                                }, {
+                                                    xtype: 'combo',
+                                                    name: 'idEestudio',
+                                                    fieldLabel: 'Estado estudios',
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idEestudio',
+                                                    bind: {
+                                                        store: '{estadosEstudio}'
+                                                    }
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'textfield',
+                                                    name: 'institucion',
+                                                    allowBlank: true,
+                                                    fieldLabel: 'Institución',
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'textfield',
+                                                    name: 'profesion',
+                                                    allowBlank: true,
+                                                    fieldLabel: 'Profesión',
+                                                    flex: 1
+                                                }]
+                                        }]
+                                }]
                         }]
                 }],
-
+            
             buttons: [{
                     text: 'Cancelar',
                     listeners: {

@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.model.Formacion', {
         { name: 'idFormacion', type: 'int' },
         { name: 'descripcion', type: 'string' },
         { name: 'institucion', type: 'string' },
-        { name: 'idTestudio', type: 'int' },
+        { name: 'idTformacion', type: 'int' },
         { name: 'idEestudio', type: 'int' }
     ],
     

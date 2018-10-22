@@ -22,6 +22,8 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'referencia', type: 'string' },
         { name: 'telefono', type: 'string' },
         { name: 'ultimaAlta', type: 'date' },
+        { name: 'institucion', type: 'string' },
+        { name: 'profesion', type: 'string' },
         
         { name: 'idNacionalidad', type:'int' },
         { name: 'idTdocumento', type:'string' },
@@ -36,7 +38,9 @@ Ext.define('GrupoBruce.model.Trabajador', {
         { name: 'idEfSueldo', type:'string' },
         { name: 'idEfCts', type:'string' },
         { name: 'idRpensionario', type:'string' },
-        { name: 'idComisionrp', type:'int' }
+        { name: 'idComisionrp', type:'int' },
+        { name: 'idTestudio', type:'int' },
+        { name: 'idEestudio', type:'int' }
     ],
     
     proxy: {

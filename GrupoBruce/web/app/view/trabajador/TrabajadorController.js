@@ -46,6 +46,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     onContratosTrabajador: function () {
         this.createWindow('GrupoBruce.view.contrato.ContratoTrabajador');
     },
+    
+    onAusenciasTrabajador: function () {
+        this.createWindow('GrupoBruce.view.ausencia.Ausencia');
+    },
 
     onHijosTrabajador: function () {
         this.createWindow('GrupoBruce.view.hijo.HijoTrabajador');

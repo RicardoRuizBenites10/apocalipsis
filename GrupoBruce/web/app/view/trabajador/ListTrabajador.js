@@ -103,13 +103,21 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                         disabled: '{!selectTrabajador}'
                     }
                 }, '-', {
-                    text: 'Estudios',
-                    iconCls: 'x-fa fa-graduation-cap',
+                    text: 'Desarrollo profesional',
+                    iconCls: 'x-fa fa-bookmark-o',
                     hidden: true,
                     bind: {
                         hidden: '{!selectTrabajador}'
                     },
                     handler: 'onEstudiosTrabajador'
+                }, {
+                    text: 'Ausencias',
+                    iconCls: 'x-fa fa-calendar-o',
+                    hidden: true,
+                    bind: {
+                        hidden: '{!selectTrabajador}'
+                    },
+                    handler: 'onAusenciasTrabajador'
                 }, {
                     text: 'Contratos',
                     iconCls: 'x-fa fa-files-o',

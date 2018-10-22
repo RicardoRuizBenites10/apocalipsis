@@ -67,6 +67,4 @@ public class FormacionId implements java.io.Serializable {
         return true;
     }
 
-    
-
 }

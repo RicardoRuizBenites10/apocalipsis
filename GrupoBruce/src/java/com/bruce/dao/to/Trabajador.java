@@ -38,6 +38,8 @@ public class Trabajador implements java.io.Serializable {
     private String nrocuentaCts;
     private String nrocusppAfiliacion;
     private Date ultimaAlta;
+    private String institucion;
+    private String profesion;
 
     private int idNacionalidad;
     private String idTdocumento;
@@ -53,6 +55,8 @@ public class Trabajador implements java.io.Serializable {
     private String idEfCts;
     private String idRpensionario;
     private Integer idComisionrp;
+    private int idTestudio;
+    private int idEestudio;
 
     private String fotoB64; //quitado hasta terminar de mapear clases para json
 
@@ -281,6 +285,24 @@ public class Trabajador implements java.io.Serializable {
         this.ultimaAlta = ultimaAlta;
     }
 
+    @Column(name = "INSTITUCION")
+    public String getInstitucion() {
+        return institucion;
+    }
+
+    public void setInstitucion(String institucion) {
+        this.institucion = institucion;
+    }
+
+    @Column(name = "PROFESION")
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
     @Column(name = "ID_NACIONALIDAD", nullable = false)
     public int getIdNacionalidad() {
         return this.idNacionalidad;
@@ -405,6 +427,24 @@ public class Trabajador implements java.io.Serializable {
 
     public void setIdComisionrp(Integer idComisionrp) {
         this.idComisionrp = idComisionrp;
+    }
+
+    @Column(name = "ID_TESTUDIO", nullable = false)
+    public int getIdTestudio() {
+        return idTestudio;
+    }
+
+    public void setIdTestudio(int idTestudio) {
+        this.idTestudio = idTestudio;
+    }
+
+    @Column(name = "ID_EESTUDIO", nullable = false)
+    public int getIdEestudio() {
+        return idEestudio;
+    }
+
+    public void setIdEestudio(int idEestudio) {
+        this.idEestudio = idEestudio;
     }
 
 }

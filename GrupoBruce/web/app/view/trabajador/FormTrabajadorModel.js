@@ -58,6 +58,14 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
         sucursals: {
             type: 'Ssucursal',
             autoLoad: true
+        },
+        tiposEstudio: {
+            type: 'StipoEstudio',
+            autoLoad: true
+        },
+        estadosEstudio: {
+            type: 'SestadoEstudio',
+            autoLoad: true
         }
     }
 

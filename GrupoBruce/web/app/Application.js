@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
+        'GrupoBruce.store.Ausencia',
         'GrupoBruce.store.Comisionrp',
         'GrupoBruce.store.ContratoTrabajador',
         'GrupoBruce.store.Ecivil',
@@ -29,10 +30,13 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Sucursal',
         'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.TiempoAusencia',
         'GrupoBruce.store.TiempoContrato',
+        'GrupoBruce.store.TipoAusencia',
         'GrupoBruce.store.TipoContrato',
-        'GrupoBruce.store.TipoEstudio',
         'GrupoBruce.store.TipoDocumento',
+        'GrupoBruce.store.TipoEstudio',
+        'GrupoBruce.store.TipoFormacion',
         'GrupoBruce.store.TipoTrabajador',
         'GrupoBruce.store.TipoVacacion',
         'Grupobruce.store.Vacacion'
