@@ -5,15 +5,19 @@ Ext.define('GrupoBruce.model.Ausencia', {
     idProperty: 'idAusencia',
     fields: [
         { name: 'detalle', type: 'string' },
-        { name: 'fechaFin', type: 'date' },
-        { name: 'fechaInicio', type: 'date' },
-        { name: 'horaFin', type: 'date' },
-        { name: 'horaInicio', type: 'date' },
+        { name: 'fechaFin', type: 'date', dateFormat: 'c' },
+        { name: 'fechaInicio', type: 'date', dateFormat: 'c'},
+        { name: 'horaFin', type: 'date', dateFormat: 'c' },
+        { name: 'horaInicio', type: 'date', dateFormat: 'c' },
         { name: 'idAusencia', type: 'int' },
         { name: 'idTausencia', type: 'int' },
         { name: 'idTmausencia', type: 'int' },
         { name: 'idTrabajador', type: 'string' }
     ],
+    
+    identifier: {
+        type: 'sequential'
+    },
     
     proxy: {
         type: 'ajax',

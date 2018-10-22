@@ -40,20 +40,21 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                             xtype: 'textareafield',
                             name: 'detalle',
                             fieldLabel: 'Descripcion',
-                            maxRows: 3,
+                            allowBlank: true,
+//                            maxRows: 3,
                             flex: 1
                         }]
                 }, {
                     items: [{
                             xtype: 'combobox',
-                            reference: 'tiempo_ausencia',
                             name: 'idTmausencia',
                             fieldLabel: 'Tiempo ausencia',
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
                             valueField: 'idTmausencia',
                             bind: {
-                                store: '{tiemposAusencia}'
+                                store: '{tiemposAusencia}',
+                                selection: '{selectTiempo}'
                             },
                             flex: 1
                         }]
@@ -61,29 +62,35 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                     items: [{
                             xtype: 'datefield',
                             name: 'fechaInicio',
-                            fieldLabel: 'Empezado desde'
+                            fieldLabel: 'Empezado desde',
+                            format: 'd/m/Y'
                         }, {
                             xtype: 'datefield',
                             name: 'fechaFin',
-                            fieldLabel: 'Acabado en'
+                            fieldLabel: 'Acabado en',
+                            format: 'd/m/Y'
                         }]
                 }, {
                     items: [{
                             xtype: 'timefield',
                             name: 'horaInicio',
                             fieldLabel: 'Hora inicio',
-                            hidden: true,
+                            disabled: true,
                             bind: {
-                                hidden: '{!tiempo_ausencia.soloHoras}'
-                            }
+                                disabled: '{selectTiempo ? !selectTiempo.horas : true}'
+                            },
+                            minValue: '7:30 AM',
+                            maxValue: '4:30 PM'
                         }, {
                             xtype: 'timefield',
                             name: 'horaFin',
                             fieldLabel: 'Hora fin',
-                            hidden: true,
+                            disabled: true,
                             bind: {
-                                hidden: '{!tiempo_ausencia.soloHoras}'
-                            }
+                                disabled: '{selectTiempo ? !selectTiempo.horas : true}'
+                            },
+                            minValue: '7:30 AM',
+                            maxValue: '4:30 PM'
                         }]
                 }],
 

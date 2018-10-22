@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.model.TiempoAusencia', {
         { name: 'descripcion', type: 'string' },
         { name: 'idTmausencia', type: 'int' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'soloHoras', type: 'boolean' }
+        { name: 'horas', type: 'boolean' }
     ],
     
     proxy: {

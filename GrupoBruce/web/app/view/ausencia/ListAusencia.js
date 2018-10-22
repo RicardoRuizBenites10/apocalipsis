@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.view.ausencia.ListAusencia', {
     alias: 'widget.WlistAusencia',
     reference: 'list_ausencia',
 
-    bind:{
+    bind: {
         store: '{ausencias}',
         selection: '{selectAusencia}'
     },
@@ -12,16 +12,51 @@ Ext.define('GrupoBruce.view.ausencia.ListAusencia', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Fecha inicio',
-            dataIndex: 'fechaInicio'
-        },{
+            dataIndex: 'fechaInicio',
+            formatter: 'date("d/m/Y")'
+        }, {
             text: 'Fecha fin',
-            dataIndex: 'fechaFin'
+            dataIndex: 'fechaFin',
+            formatter: 'date("d/m/Y")'
+        }, {
+            text: 'H.Inicio',
+            dataIndex: 'horaInicdio'
+        }, {
+            text: 'H.Fin',
+            dataIndex: 'horaFin',
+            formatter: 'date("H:i:s")'
+        }, {
+            text: 'Tiempo',
+            dataIndex: 'idTmausencia',
+            width: 80,
+            align: 'left',
+            renderer: function (val) {
+                switch (val) {
+                    case 1:
+                        return 'Dia(s)';
+                    case 2:
+                        return 'Horas';
+                }
+            }
         }, {
             text: 'Tipo ausencia',
-            dataIndex: 'idTausencia'
-        }, {
-            text: 'Tiempo ausencia',
-            dataIndex: 'idTmausencia'
+            dataIndex: 'idTausencia',
+            align: 'left',
+            renderer: function (val) {
+                switch (val) {
+                    case 1:
+                        return 'Vacaciones';
+                    case 2:
+                        return 'Enfermedad';
+                    case 3:
+                        return 'Enfermedad de familiar';
+                    case 4:
+                        return 'Paternidad / Maternidad';
+                    case 5:
+                        return 'Otro';
+                }
+            },
+            flex: 1
         }],
 
     tbar: {

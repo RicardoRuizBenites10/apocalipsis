@@ -20,16 +20,16 @@ public class TiempoAusencia implements java.io.Serializable {
 
     private int idTmausencia;
     private String descripcion;
-    private boolean soloHoras;
+    private boolean horas;
     private boolean situacion;
 
     public TiempoAusencia() {
     }
 
-    public TiempoAusencia(int idTmausencia, String descripcion, boolean soloHoras, boolean situacion) {
+    public TiempoAusencia(int idTmausencia, String descripcion, boolean horas, boolean situacion) {
         this.idTmausencia = idTmausencia;
         this.descripcion = descripcion;
-        this.soloHoras = soloHoras;
+        this.horas = horas;
         this.situacion = situacion;
     }
 
@@ -52,13 +52,13 @@ public class TiempoAusencia implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "SOLO_HORAS", nullable = false)
-    public boolean isSoloHoras() {
-        return soloHoras;
+    @Column(name = "HORAS", nullable = false)
+    public boolean isHoras() {
+        return horas;
     }
 
-    public void setSoloHoras(boolean soloHoras) {
-        this.soloHoras = soloHoras;
+    public void setHoras(boolean horas) {
+        this.horas = horas;
     }
 
     @Column(name = "SITUACION", nullable = false)

@@ -7,8 +7,10 @@ package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAusenciaDAO;
 import com.bruce.dao.to.Ausencia;
+import com.bruce.dao.to.Formacion;
 import com.bruce.services.design.IAusenciaService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,11 @@ public class AusenciaService implements IAusenciaService{
     @Override
     @Transactional
     public void insert(Ausencia t) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTrabajador", t.getIdTrabajador()));
+        Ausencia last = lastByFilter(filters);
+        int idLast = last != null ? last.getIdAusencia(): 0;
+        t.setIdAusencia(idLast + 1);
         dao.create(t);
     }
 
