@@ -7,8 +7,8 @@ Ext.define('GrupoBruce.model.Ausencia', {
         { name: 'detalle', type: 'string' },
         { name: 'fechaFin', type: 'date', dateFormat: 'c' },
         { name: 'fechaInicio', type: 'date', dateFormat: 'c'},
-        { name: 'horaFin', type: 'date', dateFormat: 'c' },
-        { name: 'horaInicio', type: 'date', dateFormat: 'c' },
+        { name: 'horaFin', type: 'date', dateFormat: 'h:i A' },
+        { name: 'horaInicio', type: 'date', dateFormat: 'h:i A' },
         { name: 'idAusencia', type: 'int' },
         { name: 'idTausencia', type: 'int' },
         { name: 'idTmausencia', type: 'int' },
@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.model.Ausencia', {
             read: 'ausencias',
             create: 'insertAusencia',
             update: 'updateAusencia',
-            delete: 'deleteAusencia'
+            destroy: 'deleteAusencia'
         },
         reader: {
             type: 'json',

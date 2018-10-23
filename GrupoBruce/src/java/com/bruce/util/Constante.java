@@ -40,7 +40,7 @@ public class Constante {
     //Directorios para manejo de archivos
     public static final String DIRECTORY_AVATAR = "D:\\PRUEBA_AVATAR\\";
     public static final String DIRECTORY_CHAT = "D:\\CHAT\\";
-    public static final String FPERFIL_DEFAULT = "./resources/img/img1.jpg";
+    public static final String FPERFIL_DEFAULT = "./resources/img/guest.png";
     //Tipos de periodo
     public static final int TIPO_PERIODO_VACACION = 1;
     public static final int TIPO_PERIODO_PAGO = 2;

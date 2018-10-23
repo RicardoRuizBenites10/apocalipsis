@@ -28,6 +28,7 @@ Ext.define('GrupoBruce.view.hijo.FormHijoTrabajador', {
                             name: 'dni',
                             fieldLabel: 'DNI',
                             allowBlank: true,
+                            maxLength: 8,
                             flex: 1
                         }, {
                             xtype: 'datefield',

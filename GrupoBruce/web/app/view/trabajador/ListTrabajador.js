@@ -75,7 +75,7 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
 
     dockedItems: [{
             xtype: 'toolbar',
-            overflowHandler: 'scroller',
+            overflowHandler: 'menu',
             items: [{
                     text: 'Nuevo',
                     iconCls: 'x-fa fa-plus',
@@ -103,43 +103,43 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                         disabled: '{!selectTrabajador}'
                     }
                 }, '-', {
-                    text: 'Desarrollo profesional',
-                    iconCls: 'x-fa fa-bookmark-o',
-                    hidden: true,
+                    text: 'Capacitación',
+                    iconCls: 'x-fa fa-bookmark',
+                    disabled: true,
                     bind: {
-                        hidden: '{!selectTrabajador}'
+                        disabled: '{!selectTrabajador}'
                     },
                     handler: 'onEstudiosTrabajador'
                 }, {
                     text: 'Ausencias',
                     iconCls: 'x-fa fa-calendar-o',
-                    hidden: true,
+                    disabled: true,
                     bind: {
-                        hidden: '{!selectTrabajador}'
+                        disabled: '{!selectTrabajador}'
                     },
                     handler: 'onAusenciasTrabajador'
                 }, {
                     text: 'Contratos',
                     iconCls: 'x-fa fa-files-o',
-                    hidden: true,
+                    disabled: true,
                     bind: {
-                        hidden: '{!selectTrabajador}'
+                        disabled: '{!selectTrabajador}'
                     },
                     handler: 'onContratosTrabajador'
                 }, {
                     text: 'Vacaciones',
                     iconCls: 'x-fa fa-gamepad',
-                    hidden: true,
+                    disabled: true,
                     handler: 'onVacacionsTrabajador',
                     bind: {
-                        hidden: '{!selectTrabajador}'
+                        disabled: '{!selectTrabajador}'
                     }
                 }, {
                     text: 'Hijos',
                     iconCls: 'x-fa fa-child',
-                    hidden: true,
+                    disabled: true,
                     bind: {
-                        hidden: '{hasChild}'
+                        disabled: '{hasChild}'
                     },
                     handler: 'onHijosTrabajador'
                 }]

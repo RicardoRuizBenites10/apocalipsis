@@ -11,34 +11,6 @@ Ext.define('GrupoBruce.view.ausencia.ListAusencia', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Fecha inicio',
-            dataIndex: 'fechaInicio',
-            formatter: 'date("d/m/Y")'
-        }, {
-            text: 'Fecha fin',
-            dataIndex: 'fechaFin',
-            formatter: 'date("d/m/Y")'
-        }, {
-            text: 'H.Inicio',
-            dataIndex: 'horaInicdio'
-        }, {
-            text: 'H.Fin',
-            dataIndex: 'horaFin',
-            formatter: 'date("H:i:s")'
-        }, {
-            text: 'Tiempo',
-            dataIndex: 'idTmausencia',
-            width: 80,
-            align: 'left',
-            renderer: function (val) {
-                switch (val) {
-                    case 1:
-                        return 'Dia(s)';
-                    case 2:
-                        return 'Horas';
-                }
-            }
-        }, {
             text: 'Tipo ausencia',
             dataIndex: 'idTausencia',
             align: 'left',
@@ -57,6 +29,37 @@ Ext.define('GrupoBruce.view.ausencia.ListAusencia', {
                 }
             },
             flex: 1
+        }, {
+            text: 'Tiempo',
+            dataIndex: 'idTmausencia',
+            width: 80,
+            align: 'left',
+            renderer: function (val) {
+                switch (val) {
+                    case 1:
+                        return 'Dia(s)';
+                    case 2:
+                        return 'Horas';
+                }
+            }
+        },{
+            text: 'Fecha inicio',
+            dataIndex: 'fechaInicio',
+            formatter: 'date("d/m/Y")'
+        }, {
+            text: 'Fecha fin',
+            dataIndex: 'fechaFin',
+            formatter: 'date("d/m/Y")'
+        }, {
+            text: 'H.Inicio',
+            dataIndex: 'horaInicio',
+            formatter: 'date("h:i A")',
+            align: 'center'
+        }, {
+            text: 'H.Fin',
+            dataIndex: 'horaFin',
+            formatter: 'date("h:i A")',
+            align: 'center'
         }],
 
     tbar: {

@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.view.ausencia.Ausencia',{
     },
 
     height: 400,
-    width: 600,
+    width: 700,
     resizable: false,
     modal: true,
     closable: true,

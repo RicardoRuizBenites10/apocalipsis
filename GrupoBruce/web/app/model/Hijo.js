@@ -33,5 +33,11 @@ Ext.define('GrupoBruce.model.Hijo', {
             type: 'json',
             writeAllFields: true
         }
+    },
+    
+    validators:{
+        idHijo: [
+            { type: 'length', min: 8, max: 8 }
+        ]
     }
 });

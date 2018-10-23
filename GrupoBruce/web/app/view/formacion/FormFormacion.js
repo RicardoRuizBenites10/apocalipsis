@@ -49,12 +49,16 @@ Ext.define('GrupoBruce.view.formacion.FormFormacion', {
                     items: [{
                             xtype: 'textfield',
                             name: 'institucion',
-                            fieldLabel: 'Institución'
-                        }, {
-                            xtype: 'textfield',
+                            fieldLabel: 'Institución',
+                            flex: 1
+                        }]
+                },{
+                    items: [{
+                            xtype: 'textareafield',
                             name: 'descripcion',
                             allowBlank: true,
-                            fieldLabel: 'descripcion'
+                            fieldLabel: 'descripcion',
+                            flex: 1
                         }]
                 }],
 

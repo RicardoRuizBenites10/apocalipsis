@@ -41,7 +41,7 @@ Ext.define('GrupoBruce.view.main.Main', {
     items: [{
             region: 'west',
             reference: 'treelistContainer',
-            width: 230,
+            width: 240,
             split: false,
             border: true,
             scrollable: 'y',
@@ -51,9 +51,10 @@ Ext.define('GrupoBruce.view.main.Main', {
                 align: 'stretch'
             },
             items: [{
-                    xtype: 'panel',
+                    xtype: 'container',
                     reference: 'tarjeta',
-                    height: 90,
+                    style: 'background-color: #f7f7f7 !important;padding: 10px;border-bottom:1px solid rgba(0, 0, 0, 0.1) !important;',
+                    height: 92,
                     bodyPadding: 10,
                     layout: {
                         type: 'hbox',
@@ -61,19 +62,19 @@ Ext.define('GrupoBruce.view.main.Main', {
                     },
                     items: [{
                             xtype: 'image',
-                            style: 'border: 4px solid #fafafa; border-radius: 50%;',
-                            width: 70,
+                            style: 'border: 4px solid #f2f2f2; border-radius: 50%;',
+                            height: 80,
                             bind: {
                                 src: '{thisAvatar}',
                                 alt: '{altAvatar}'
                             },
                             flex: 1
                         }, {
-                            xtype: 'panel',
-                            style: 'padding: 2px 10px',
+                            xtype: 'container',
+                            style: 'padding: 10px',
                             flex: 2,
                             bind: {
-                                html: '<span> Bienvenido, </span> <h4>{thisName}</h4>'
+                                html: ' Bienvenido,  <br> <b>{thisName}</b>'
                             }
                         }]
                 }, {

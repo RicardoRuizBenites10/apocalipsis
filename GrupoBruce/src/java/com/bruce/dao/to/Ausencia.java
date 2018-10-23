@@ -27,8 +27,8 @@ public class Ausencia implements java.io.Serializable{
     private int idAusencia;
     private Date fechaInicio;
     private Date fechaFin;
-    private Date horaInicio;
-    private Date horaFin;
+    private String horaInicio;
+    private String horaFin;
     private String detalle;
     private int idTausencia;
     private int idTmausencia;
@@ -36,7 +36,7 @@ public class Ausencia implements java.io.Serializable{
     public Ausencia() {
     }
 
-    public Ausencia(String idTrabajador, int idAusencia, Date fechaInicio, Date fechaFin, Date horaInicio, Date horaFin, String detalle, int idTausencia, int idTmausencia) {
+    public Ausencia(String idTrabajador, int idAusencia, Date fechaInicio, Date fechaFin, String horaInicio, String horaFin, String detalle, int idTausencia, int idTmausencia) {
         this.idTrabajador = idTrabajador;
         this.idAusencia = idAusencia;
         this.fechaInicio = fechaInicio;
@@ -88,23 +88,21 @@ public class Ausencia implements java.io.Serializable{
         this.fechaFin = fechaFin;
     }
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "HORA_INICIO", length = 10)
-    public Date getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "HORA_FIN", length = 10)
-    public Date getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Date horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
