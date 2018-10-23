@@ -7,131 +7,97 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IAreaDAO;
 import com.bruce.dao.to.Area;
-import java.util.Iterator;
+import com.bruce.dao.to.Formacion;
 import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.FilterPage;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class AreaDAO implements IAreaDAO{
     
-    SessionFactory sf = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sf;
     
     @Override
-    public List<Area> filterByNombre(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Area> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Area A WHERE A.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
+    public List<Area> getByFilter(int start, int limit, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Area.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
         }
-        return result;
+        return cr.list();
     }
 
     @Override
-    public void create(Area area) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(area);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
+    public int countByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Area.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
         }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
     }
 
     @Override
-    public void update(Area area) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(area);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-    }
-
-    @Override
-    public void delete(Area area) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(area);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-    }
-
-    @Override
-    public Area find(Object idArea) {
-        Session session = sf.openSession();
-        Transaction tx = null;
+    public Area lastByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
         Area area = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Area A WHERE A.idArea = :idarea");
-            query.setParameter("idarea", idArea);
-            List result = query.list();
-            Iterator iterator = result.iterator();
-            if(iterator.hasNext()){
-                area = (Area)iterator.next();
-            }
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
+        Criteria cr = session.createCriteria(Area.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idArea"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            area = (Area) result.get(0);
         }
         return area;
     }
 
     @Override
-    public List<Area> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Area");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
-        return result;
+    public void create(Area t) {
+        sf.getCurrentSession().save(t);
     }
-    
+
+    @Override
+    public void update(Area t) {
+        sf.getCurrentSession().update(t);
+    }
+
+    @Override
+    public void delete(Area t) {
+        sf.getCurrentSession().delete(t);
+    }
+
+    @Override
+    public Area find(Object idT) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Area> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

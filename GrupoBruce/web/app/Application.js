@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
+        'GrupoBruce.store.Area',
         'GrupoBruce.store.Ausencia',
         'GrupoBruce.store.Comisionrp',
         'GrupoBruce.store.ContratoTrabajador',
