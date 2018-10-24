@@ -4,36 +4,50 @@ Ext.define('GrupoBruce.view.area.ListArea', {
     reference: 'list_area',
     
     bind:{
-        store: '{areas}'
+        store: '{areas}',
+        title: '{title}'
     },
-    rootVisible: false,
-    animate: false,
-    frame: true,
+    allowDeselect: true,
+
     reserveScrollbar: true,
+    rootVisible: false,
+    multiSelect: true,
+    singleExpand: true,
+    style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             xtype: 'treecolumn',
             text: 'Nombre',
             dataIndex: 'nombre',
-            sortable: true
-        }, {
-            text: 'Type',
-            renderer: function (v, cellValues, record) {
-                return record.entityName;
-            }
-        }, {
-            xtype: 'actioncolumn',
-            iconCls: 'x-fa fa-info',
-            width: 25,
-            getTip: function (value, meta, rec, rowIdx, colIdx, store, view) {
-                // Go up from the view to the owning TreePanel
-                var panel = view.up('');
-                return panel.getActionTip.apply(panel, arguments);
-            },
-            handler: function (view) {
-                // Go up from the view to the owning TreePanel
-                var panel = view.up('');
-                panel.onDrillAction.apply(panel, arguments);
-            }
-        }]
+            sortable: false,
+            flex: 1
+        }],
+    
+    tbar: {
+        items: [{
+                xtype: 'button',
+                iconCls: 'x-fa fa-plus',
+                text: 'Nuevo',
+                bind: {
+                    disabled: '{selectHijo}'
+                },
+                handler: 'addHijo'
+            }, {
+                iconCls: 'x-fa fa-edit',
+                disabled: true,
+                text: 'Modificar',
+                bind: {
+                    disabled: '{!selectHijo}'
+                },
+                handler: 'editHijo'
+            }, {
+                iconCls: 'x-fa fa-trash',
+                disabled: true,
+                text: 'Eliminar',
+                bind: {
+                    disabled: '{!selectHijo}'
+                },
+                handler: 'deleteHijo'
+            }]
+    }
 
 });

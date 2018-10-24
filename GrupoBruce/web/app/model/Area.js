@@ -2,13 +2,12 @@ Ext.define('GrupoBruce.model.Area', {
     extend: 'Ext.data.Model',
     alias: 'model.Marea',
     
+    idProperty: 'idArea',
     fields: [
-        { name: 'idArea', type: 'int' },
+        { name: 'idArea', type: 'string' },
         { name: 'nombre', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'idSuparea', type: 'int' },
-        { name: 'mtype', type: 'string' },
-        { name: 'parentId', type: 'string' }
+        { name: 'idSuparea', type: 'string' }
     ],
     
     identifier: {
@@ -25,8 +24,7 @@ Ext.define('GrupoBruce.model.Area', {
         },
         reader: {
             type: 'json',
-            rootProperty: 'data',
-            typeProperty: 'mtype'
+            rootProperty: 'data'
         },
         writer: {
             type: 'json',
