@@ -43,6 +43,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
         }
     },
 
+    createWindow: function (view) {
+        var grid = this.lookupReference('list_trabajador');
+        var trabajadorModel = grid.getSelection()[0];
+        var panelHijos = Ext.create(view);
+        panelHijos.getViewModel().set('recordTrabajador', trabajadorModel);
+    },
+
     onContratosTrabajador: function () {
         this.createWindow('GrupoBruce.view.contrato.ContratoTrabajador');
     },
@@ -61,13 +68,6 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     
     onEstudiosTrabajador: function(){
         this.createWindow('GrupoBruce.view.formacion.Formacion');
-    },
-
-    createWindow: function (view) {
-        var grid = this.lookupReference('list_trabajador');
-        var trabajadorModel = grid.getSelection()[0];
-        var panelHijos = Ext.create(view);
-        panelHijos.getViewModel().set('recordTrabajador', trabajadorModel);
     }
 
 });

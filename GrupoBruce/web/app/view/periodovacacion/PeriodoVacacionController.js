@@ -17,17 +17,6 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacionController', {
         var window = new GrupoBruce.view.periodovacacion.FormPeriodoVacacion();
         window.setTitle('Editar periodo vacación');
         window.down('form').loadRecord(periodoModel);
-
-//        periodoModel.set('cerrado',true);
-//        periodoModel.save({
-//            success: function (hijo, operation) {
-//                Ext.Msg.alert('Success', 'Cierre de vacaciones exitoso.');
-//                grid.getStore().reload();
-//            },
-//            failure: function (hijo, operation) {
-//                Ext.Msg.alert('Failure', 'No se pudo realizar cierre.');
-//            }
-//        });
     },
 
     deletePVacacion: function () {

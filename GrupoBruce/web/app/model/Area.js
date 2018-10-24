@@ -6,12 +6,14 @@ Ext.define('GrupoBruce.model.Area', {
     fields: [
         { name: 'idArea', type: 'string' },
         { name: 'nombre', type: 'string' },
-        { name: 'situacion', type: 'boolean' },
+        { name: 'descripcion', type: 'string' },
+        { name: 'situacion', type: 'boolean', defaultValue: true },
         { name: 'idSuparea', type: 'string' }
     ],
     
     identifier: {
-        type: 'sequential'
+        type: 'sequential',
+        prefix: '00'
     },
     
     proxy: {

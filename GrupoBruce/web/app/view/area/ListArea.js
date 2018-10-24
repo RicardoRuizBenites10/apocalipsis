@@ -2,51 +2,66 @@ Ext.define('GrupoBruce.view.area.ListArea', {
     extend: 'Ext.tree.Panel',
     alias: 'widget.WlistArea',
     reference: 'list_area',
-    
-    bind:{
-        store: '{areas}',
-        title: '{title}'
-    },
-    allowDeselect: true,
+    id: 'id_larea',
 
-    reserveScrollbar: true,
+    bind: {
+        title: '{title}',
+        store: '{areas}',
+        selection: '{selectArea}'
+    },
+    allowDeselect: false,
+
     rootVisible: false,
-    multiSelect: true,
     singleExpand: true,
+    closable: true,
+
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Código',
+            dataIndex: 'idArea',
+            align: 'center'
+        }, {
             xtype: 'treecolumn',
             text: 'Nombre',
             dataIndex: 'nombre',
             sortable: false,
-            flex: 1
+            flex: 1,
+            align: 'left'
+        }, {
+            text: 'Situacion',
+            dataIndex: 'situacion',
+            renderer: function (val) {
+                return val ? 'Activo' : 'Desactivado';
+            },
+            align: 'center'
         }],
-    
+
     tbar: {
         items: [{
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
+                disabled: true,
                 text: 'Nuevo',
                 bind: {
-                    disabled: '{selectHijo}'
+                    disabled: '{!selectArea}'
                 },
-                handler: 'addHijo'
+                handler: 'addArea'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
                 text: 'Modificar',
                 bind: {
-                    disabled: '{!selectHijo}'
+                    disabled: '{!selectArea}'
                 },
-                handler: 'editHijo'
+                handler: 'editArea'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
-                    disabled: '{!selectHijo}'
+                    disabled: '{!selectArea}'
                 },
-                handler: 'deleteHijo'
+                handler: 'deleteArea'
             }]
     }
 

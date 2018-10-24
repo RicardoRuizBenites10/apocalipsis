@@ -19,11 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class AreaService implements IAreaService{
-    
+public class AreaService implements IAreaService {
+
     @Autowired
     private IAreaDAO dao;
-    
+
     @Override
     @Transactional
     public List<Area> getByFilter(int start, int limit, List<FilterPage> filters) {
@@ -45,6 +45,9 @@ public class AreaService implements IAreaService{
     @Override
     @Transactional
     public void insert(Area t) {
+        Area last = lastByFilter(null);
+        int idLast = last != null ? Integer.parseInt(last.getIdArea()) : 0;
+        t.setIdArea(String.format("%05d", idLast + 1));
         dao.create(t);
     }
 
@@ -71,5 +74,5 @@ public class AreaService implements IAreaService{
     public List<Area> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

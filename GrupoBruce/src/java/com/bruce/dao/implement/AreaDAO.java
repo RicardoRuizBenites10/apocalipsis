@@ -7,7 +7,6 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IAreaDAO;
 import com.bruce.dao.to.Area;
-import com.bruce.dao.to.Formacion;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
