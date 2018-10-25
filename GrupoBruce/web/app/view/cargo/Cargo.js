@@ -18,8 +18,6 @@ Ext.define('GrupoBruce.view.cargo.Cargo', {
     resizable: false,
     modal: true,
     autoShow: true,
-    height: 400,
-    width: 620,
 
     bind: {
         title: '{title}'
@@ -27,6 +25,7 @@ Ext.define('GrupoBruce.view.cargo.Cargo', {
 
     items: [{
             xtype: 'WlistCargo',
-            height: 355
+            width: 600,
+            height: 400
         }]
 });
