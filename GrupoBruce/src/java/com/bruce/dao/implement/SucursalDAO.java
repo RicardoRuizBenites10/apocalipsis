@@ -7,10 +7,15 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.Sucursal;
+import com.bruce.util.FilterPage;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,11 +57,49 @@ public class SucursalDAO implements ISucursalDAO {
     }
 
     @Override
-    public List<Sucursal> filterByEmpresa(String idEmpresa) {
+    public List<Sucursal> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Sucursal S WHERE S.idEmpresa = :empresa");
-        query.setParameter("empresa", idEmpresa);
-        return query.list();
+        Criteria cr = session.createCriteria(Sucursal.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        return cr.list();
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Sucursal.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue(); 
+    }
+
+    @Override
+    public Sucursal lastByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Sucursal function = null;
+        Criteria cr = session.createCriteria(Sucursal.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idSucursal"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            function = (Sucursal) result.get(0);
+        }
+        return function; 
     }
 
 }

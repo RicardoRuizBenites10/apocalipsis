@@ -22,12 +22,12 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                 text: 'Mantenimientos',
                                 iconCls: 'x-fa fa-wrench',
                                 children: [{
-                                        text: 'Áreas',
+                                        text: 'Organigrama',
                                         iconCls: null,
                                         leaf: true,
                                         handler: 'GrupoBruce.view.area.Area'
                                     },{
-                                        text: 'Periodo Vacacion',
+                                        text: 'Periodo Vacación',
                                         iconCls: null,
                                         leaf: true,
                                         handler: 'GrupoBruce.view.periodovacacion.PeriodoVacacion'

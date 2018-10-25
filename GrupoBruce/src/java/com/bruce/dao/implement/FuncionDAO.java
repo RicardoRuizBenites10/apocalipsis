@@ -42,7 +42,7 @@ public class FuncionDAO implements IFuncionDAO{
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
-     Session session = sf.getCurrentSession();
+        Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Funcion.class);
         if(filters!=null){
             filters.forEach(item -> {

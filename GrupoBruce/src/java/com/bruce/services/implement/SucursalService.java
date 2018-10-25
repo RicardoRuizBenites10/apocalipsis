@@ -8,6 +8,7 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.Sucursal;
 import com.bruce.services.design.ISucursalService;
+import com.bruce.util.FilterPage;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,14 +50,26 @@ public class SucursalService implements ISucursalService{
 
     @Override
     @Transactional
-    public List<Sucursal> findByEmpresa(String idEmpresa) {
-        return dao.filterByEmpresa(idEmpresa);
+    public void update(Sucursal t) {
+        dao.update(t);
     }
 
     @Override
     @Transactional
-    public void update(Sucursal t) {
-        dao.update(t);
+    public List<Sucursal> getByFilter(int start, int limit, List<FilterPage> filters) {
+        return dao.getByFilter(start, limit, filters);
+    }
+
+    @Override
+    @Transactional
+    public int countByFilter(List<FilterPage> filters) {
+        return dao.countByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public Sucursal lastByFilter(List<FilterPage> filters) {
+        return dao.lastByFilter(filters);
     }
     
 }

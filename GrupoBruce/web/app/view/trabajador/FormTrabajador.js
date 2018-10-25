@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                         border: false
                     },
                     items: [{
-                            title: 'Información personal',
+                            title: 'Personal',
                             iconCls: 'fa fa-user',
                             items: [{
                                     defaults: {
@@ -144,6 +144,59 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     name: 'direccion',
                                                     fieldLabel: 'Dirección :',
                                                     flex: 3
+                                                }]
+                                        }]
+                                }]
+                        }, {
+                            title: 'Formación',
+                            iconCls: 'fa fa-graduation-cap',
+                            items: [{
+                                    defaults: {
+                                        xtype: 'container',
+                                        layout: 'hbox',
+                                        defaults: {
+                                            allowBlank: false,
+                                            labelAlign: 'top',
+                                            padding: 5
+                                        }
+                                    },
+                                    items: [{
+                                            items: [{
+                                                    xtype: 'combo',
+                                                    name: 'idTestudio',
+                                                    fieldLabel: 'Nivel estudios',
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idTestudio',
+                                                    bind: {
+                                                        store: '{tiposEstudio}'
+                                                    }
+                                                }, {
+                                                    xtype: 'combo',
+                                                    name: 'idEestudio',
+                                                    fieldLabel: 'Estado estudios',
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idEestudio',
+                                                    bind: {
+                                                        store: '{estadosEstudio}'
+                                                    }
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'textfield',
+                                                    name: 'institucion',
+                                                    allowBlank: true,
+                                                    fieldLabel: 'Institución',
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'textfield',
+                                                    name: 'profesion',
+                                                    allowBlank: true,
+                                                    fieldLabel: 'Profesión',
+                                                    flex: 1
                                                 }]
                                         }]
                                 }]
@@ -362,11 +415,27 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         }
                                                     }
                                                 }]
-                                        }, {
+                                        }
+                                    ]
+                                }]
+                        }, {
+                            title: 'Puesto de trabajo',
+                            iconCls: 'fa fa-sitemap',
+                            items: [{
+                                    defaults: {
+                                        xtype: 'container',
+                                        layout: 'hbox',
+                                        defaults: {
+                                            labelAlign: 'top',
+                                            allowBlank: false,
+                                            padding: 5
+                                        }
+                                    },
+                                    items: [{
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idEmpresa',
-                                                    fieldLabel: 'Empresa :',
+                                                    fieldLabel: 'Empresa ',
                                                     editable: false,
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
@@ -377,16 +446,19 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     bind: {
                                                         store: '{empresas}',
                                                         selection: '{selectEmpresa}'
-                                                    }
-                                                }, {
+                                                    },
+                                                    flex: 1
+                                                }]
+                                        },{
+                                            items: [{
                                                     xtype: 'combobox',
                                                     name: 'idSucursal',
                                                     editable: false,
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'direccion',
                                                     valueField: 'idSucursal',
-                                                    fieldLabel: 'Lugar de trabajo :',
-                                                    flex: 2,
+                                                    fieldLabel: 'Lugar de trabajo',
+                                                    flex: 1,
                                                     disabled: true,
                                                     bind: {
                                                         disabled: '{!selectEmpresa}',
@@ -396,65 +468,13 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             value: '{cboEmpresa.value}'
                                                         }
                                                     }
-                                                }]
-                                        }]
-                                }]
-                        }, {
-                            title: 'Formación profesional',
-                            iconCls: 'fa fa-graduation-cap',
-                            items: [{
-                                    defaults: {
-                                        xtype: 'container',
-                                        layout: 'hbox',
-                                        defaults: {
-                                            allowBlank: false,
-                                            labelAlign: 'top',
-                                            padding: 5
-                                        }
-                                    },
-                                    items: [{
-                                            items: [{
-                                                    xtype: 'combo',
-                                                    name: 'idTestudio',
-                                                    fieldLabel: 'Nivel estudios',
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idTestudio',
-                                                    bind: {
-                                                        store: '{tiposEstudio}'
-                                                    }
-                                                }, {
-                                                    xtype: 'combo',
-                                                    name: 'idEestudio',
-                                                    fieldLabel: 'Estado estudios',
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idEestudio',
-                                                    bind: {
-                                                        store: '{estadosEstudio}'
-                                                    }
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'textfield',
-                                                    name: 'institucion',
-                                                    allowBlank: true,
-                                                    fieldLabel: 'Institución',
-                                                    flex: 1
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'textfield',
-                                                    name: 'profesion',
-                                                    allowBlank: true,
-                                                    fieldLabel: 'Profesión',
-                                                    flex: 1
-                                                }]
+                                                }
+                                            ]
                                         }]
                                 }]
                         }]
                 }],
-            
+
             buttons: [{
                     text: 'Cancelar',
                     listeners: {
