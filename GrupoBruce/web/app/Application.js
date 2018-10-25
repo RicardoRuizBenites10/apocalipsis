@@ -13,6 +13,7 @@ Ext.define('GrupoBruce.Application', {
     stores: [
         'GrupoBruce.store.Area',
         'GrupoBruce.store.Ausencia',
+        'GrupoBruce.store.Cargo',
         'GrupoBruce.store.Comisionrp',
         'GrupoBruce.store.ContratoTrabajador',
         'GrupoBruce.store.Ecivil',
@@ -23,6 +24,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.EstadoTrabajador',
         'GrupoBruce.store.Formacion',
         'GrupoBruce.store.FormaPago',
+        'GrupoBruce.store.Funcion',
         'GrupoBruce.store.Genero',
         'GrupoBruce.store.Hijo',
         'GrupoBruce.store.Nacionalidad',

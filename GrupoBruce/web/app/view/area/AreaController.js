@@ -57,6 +57,17 @@ Ext.define('GrupoBruce.view.area.AreaController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
+    },
+    
+    createWindow: function (view) {
+        var grid = this.lookupReference('list_area');
+        var areaModel = grid.getSelection()[0];
+        var window = Ext.create(view);
+        window.getViewModel().set('recordArea', areaModel);
+    },
+    
+    onCargos: function(){
+        this.createWindow('GrupoBruce.view.cargo.Cargo');
     }
     
 });

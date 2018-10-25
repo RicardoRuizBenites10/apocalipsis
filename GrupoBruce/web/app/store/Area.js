@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.store.Area', {
     model: 'GrupoBruce.model.Area',
 
     parentIdProperty: 'idSuparea',
-    
+    expanded: true,
     folderSort: true,
     remoteSort: true,
     remoteFilters: true

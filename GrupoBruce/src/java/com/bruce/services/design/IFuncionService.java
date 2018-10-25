@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
-import com.bruce.dao.to.Cargo;
+import com.bruce.dao.to.Funcion;
 import com.bruce.util.FilterPage;
 import java.util.List;
 
 /**
  *
- * @author SISTEMAS
+ * @author RICARDO
  */
-public interface ICargoDAO extends IEntidadDAO<Cargo>{
-    public List<Cargo> getByFilter(int start, int limit, List<FilterPage> filters);
+public interface IFuncionService extends IEntidadService<Funcion>{
+    public List<Funcion> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
-    public Cargo lastByFilter(List<FilterPage> filters);
+    public Funcion lastByFilter(List<FilterPage> filters);
+    
 }

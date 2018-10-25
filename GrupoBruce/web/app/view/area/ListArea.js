@@ -9,10 +9,10 @@ Ext.define('GrupoBruce.view.area.ListArea', {
         store: '{areas}',
         selection: '{selectArea}'
     },
-    allowDeselect: false,
+    allowDeselect: true,
 
     rootVisible: false,
-    singleExpand: true,
+//    singleExpand: true,
     closable: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
@@ -22,9 +22,14 @@ Ext.define('GrupoBruce.view.area.ListArea', {
             align: 'center'
         }, {
             xtype: 'treecolumn',
-            text: 'Nombre',
+            text: 'Área funcional',
             dataIndex: 'nombre',
-            sortable: false,
+            sortable: true,
+            flex: 1,
+            align: 'left'
+        },{
+            text: 'Descripción',
+            dataIndex: 'descripcion',
             flex: 1,
             align: 'left'
         }, {
@@ -56,12 +61,20 @@ Ext.define('GrupoBruce.view.area.ListArea', {
                 handler: 'editArea'
             }, {
                 iconCls: 'x-fa fa-trash',
-                disabled: true,
                 text: 'Eliminar',
+                disabled: true,
                 bind: {
                     disabled: '{!selectArea}'
                 },
                 handler: 'deleteArea'
+            },'-',{
+                iconCls: 'x-fa fa-briefcase',
+                text: 'Cargos',
+                disabled: true,
+                bind: {
+                    disabled: '{!selectArea}'
+                },
+                handler: 'onCargos'
             }]
     }
 

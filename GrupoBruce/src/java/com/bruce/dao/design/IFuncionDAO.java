@@ -6,6 +6,7 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Funcion;
+import com.bruce.util.FilterPage;
 import java.util.List;
 
 /**
@@ -13,5 +14,7 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface IFuncionDAO extends IEntidadDAO<Funcion>{
-    public List<Funcion> filterBySituacion(boolean situacion);
+    public List<Funcion> getByFilter(int start, int limit, List<FilterPage> filters);
+    public int countByFilter(List<FilterPage> filters);
+    public Funcion lastByFilter(List<FilterPage> filters);
 }

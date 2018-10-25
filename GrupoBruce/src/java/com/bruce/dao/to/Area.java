@@ -26,6 +26,7 @@ public class Area implements java.io.Serializable {
     
     private String parentId;
     private String lastParentId;
+    private boolean expanded;
 
     public Area() {
     }
@@ -108,5 +109,14 @@ public class Area implements java.io.Serializable {
 
     public void setLastParentId(String lastParentId) {
         this.lastParentId = lastParentId;
+    }
+    
+    @Transient
+    public boolean isExpanded() {
+        return true;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 }

@@ -46,8 +46,8 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     createWindow: function (view) {
         var grid = this.lookupReference('list_trabajador');
         var trabajadorModel = grid.getSelection()[0];
-        var panelHijos = Ext.create(view);
-        panelHijos.getViewModel().set('recordTrabajador', trabajadorModel);
+        var window = Ext.create(view);
+        window.getViewModel().set('recordTrabajador', trabajadorModel);
     },
 
     onContratosTrabajador: function () {

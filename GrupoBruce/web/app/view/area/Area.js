@@ -22,7 +22,7 @@ Ext.define('GrupoBruce.view.area.Area', {
     items: [{
             xtype: 'WlistArea',
             height: 520,
-            width: 650
+            width: 800
         }]
 
 });
