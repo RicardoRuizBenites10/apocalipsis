@@ -165,22 +165,28 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     xtype: 'combo',
                                                     name: 'idTestudio',
                                                     fieldLabel: 'Nivel estudios',
+                                                    editable: false,
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idTestudio',
                                                     bind: {
                                                         store: '{tiposEstudio}'
-                                                    }
-                                                }, {
+                                                    },
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
                                                     xtype: 'combo',
                                                     name: 'idEestudio',
                                                     fieldLabel: 'Estado estudios',
+                                                    editable: false,
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idEestudio',
                                                     bind: {
                                                         store: '{estadosEstudio}'
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }]
                                         }, {
                                             items: [{
@@ -238,12 +244,14 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     bind: {
                                                         store: '{tipoTrabajadors}',
                                                         selection: '{selectTTrabajador}'
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'codigo',
                                                     fieldLabel: 'Codigo trabajador :',
-                                                    allowBlank: true
+                                                    allowBlank: true,
+                                                    flex: 1
                                                 }]
                                         }, {
                                             items: [{
@@ -264,7 +272,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaCts',
@@ -278,7 +287,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }]
                                         }, {
                                             items: [{
@@ -292,7 +302,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     bind: {
                                                         store: '{formaPagos}',
                                                         selection: '{selectFPago}'
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idPeriocidad',
@@ -303,13 +314,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     valueField: 'idPeriocidad',
                                                     bind: {
                                                         store: '{periocidads}'
-                                                    }
-                                                }, {
-                                                    xtype: 'numberfield',
-                                                    name: 'montoPasaje',
-                                                    hideTrigger: true,
-                                                    minValue: 0,
-                                                    fieldLabel: 'Monto pasaje :'
+                                                    },
+                                                    flex: 1
                                                 }]
                                         }, {
                                             items: [{
@@ -330,7 +336,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaSueldo',
@@ -344,14 +351,25 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
-                                                }, {
+                                                    },
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
                                                     xtype: 'numberfield',
                                                     allowDecimals: true,
                                                     hideTrigger: true,
                                                     minValue: 0,
                                                     name: 'montoBase',
-                                                    fieldLabel: 'Monto sueldo :'
+                                                    fieldLabel: 'Monto sueldo :',
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'numberfield',
+                                                    name: 'montoPasaje',
+                                                    hideTrigger: true,
+                                                    minValue: 0,
+                                                    fieldLabel: 'Monto pasaje :',
+                                                    flex: 1
                                                 }]
                                         }, {
                                             items: [{
@@ -362,8 +380,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',
                                                     valueField: 'idRpensionario',
-                                                    reference: 'cboRPensionario',
-                                                    publishes: ['value'],
                                                     disabled: true,
                                                     bind: {
                                                         store: '{regimenPensionarios}',
@@ -388,10 +404,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     disabled: true,
                                                     bind: {
                                                         store: '{comisionrps}',
-                                                        filters: {
-                                                            property: 'idRpensionario',
-                                                            value: '{cboRPensionario.value}'
-                                                        },
                                                         disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
                                                     },
                                                     listeners: {
@@ -441,15 +453,13 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     displayField: 'descripcion',
                                                     valueField: 'idEmpresa',
                                                     forceSelection: true,
-                                                    reference: 'cboEmpresa',
-                                                    publishes: 'value',
                                                     bind: {
                                                         store: '{empresas}',
                                                         selection: '{selectEmpresa}'
                                                     },
                                                     flex: 1
                                                 }]
-                                        },{
+                                        }, {
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idSucursal',
@@ -462,11 +472,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     disabled: true,
                                                     bind: {
                                                         disabled: '{!selectEmpresa}',
-                                                        store: '{sucursals}',
-                                                        filters: {
-                                                            property: 'idEmpresa',
-                                                            value: '{cboEmpresa.value}'
-                                                        }
+                                                        store: '{sucursals}'
                                                     }
                                                 }
                                             ]

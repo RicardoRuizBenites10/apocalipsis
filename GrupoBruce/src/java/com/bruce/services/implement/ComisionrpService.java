@@ -8,6 +8,7 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IComisionrpDAO;
 import com.bruce.dao.to.Comisionrp;
 import com.bruce.services.design.IComisionrpService;
+import com.bruce.util.FilterPage;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,16 +47,28 @@ public class ComisionrpService implements IComisionrpService{
     public List<Comisionrp> findAll() {
         return dao.findAll();
     }
-    
-    @Override
-    @Transactional
-    public List<Comisionrp> findByRPensionario(String idRPensionario) {
-        return dao.findByRPensionario(idRPensionario);
-    }
 
     @Override
     @Transactional
     public void update(Comisionrp t) {
         dao.update(t);
+    }
+
+    @Override
+    @Transactional
+    public List<Comisionrp> getByFilter(int start, int limit, List<FilterPage> filters) {
+        return dao.getByFilter(start, limit, filters);
+    }
+
+    @Override
+    @Transactional
+    public int countByFilter(List<FilterPage> filters) {
+        return dao.countByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public Comisionrp lastByFilter(List<FilterPage> filters) {
+        return dao.lastByFilter(filters);
     }
 }

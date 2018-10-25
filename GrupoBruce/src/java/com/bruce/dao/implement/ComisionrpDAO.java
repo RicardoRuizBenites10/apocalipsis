@@ -7,10 +7,14 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IComisionrpDAO;
 import com.bruce.dao.to.Comisionrp;
+import com.bruce.util.FilterPage;
 import java.util.List;
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +25,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ComisionrpDAO implements IComisionrpDAO {
 
-//    private final SessionFactory sf = HibernateUtil.getSessionFactory();
     @Autowired(required = true)
     private SessionFactory sf;
 
@@ -55,11 +58,49 @@ public class ComisionrpDAO implements IComisionrpDAO {
     }
 
     @Override
-    public List<Comisionrp> findByRPensionario(String idRPensionario) {
+    public List<Comisionrp> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Comisionrp WHERE idRpensionario :idRPensionario");
-        query.setParameter("idRPensionario", idRPensionario);
-        return query.list();
+        Criteria cr = session.createCriteria(Comisionrp.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        return cr.list();
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Comisionrp.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue(); 
+    }
+
+    @Override
+    public Comisionrp lastByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Comisionrp comisionrp = null;
+        Criteria cr = session.createCriteria(Comisionrp.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idComisionrp"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            comisionrp = (Comisionrp) result.get(0);
+        }
+        return comisionrp; 
     }
 
 }
