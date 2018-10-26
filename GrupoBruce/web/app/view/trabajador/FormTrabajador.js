@@ -467,7 +467,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'direccion',
                                                     valueField: 'idSucursal',
-                                                    fieldLabel: 'Lugar de trabajo',
+                                                    fieldLabel: 'Sucursal',
                                                     flex: 1,
                                                     disabled: true,
                                                     bind: {

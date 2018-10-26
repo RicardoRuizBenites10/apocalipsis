@@ -51,6 +51,37 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                     ]
                 }, {
                     items: [{
+                            xtype: 'combobox',
+                            fieldLabel: 'Área de trabajo',
+                            valueField: 'idArea',
+                            displayField: 'nombre',
+                            name: 'idArea',
+                            editable: false,
+                            forceSelection: true,
+                            emptyText: 'Seleccionar',
+                            bind: {
+                                store: '{areas}',
+                                selection: '{selectArea}'
+                            },
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
+                            xtype: 'combobox',
+                            fieldLabel: 'Cargo a desempeñar',
+                            valueField: 'idCargo',
+                            displayField: 'nombre',
+                            name: 'idCargoa',
+                            editable: false,
+                            forceSelection: true,
+                            emptyText: 'Seleccionar',
+                            bind: {
+                                store: '{cargos}'
+                            },
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
                             xtype: 'datefield',
                             name: 'fechaInicio',
                             fieldLabel: 'Inicio contrato:',

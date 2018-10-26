@@ -9,6 +9,7 @@ import com.bruce.dao.design.IAreaDAO;
 import com.bruce.dao.to.Area;
 import com.bruce.services.design.IAreaService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,9 +46,13 @@ public class AreaService implements IAreaService {
     @Override
     @Transactional
     public void insert(Area t) {
-        Area last = lastByFilter(null);
+        Area last = dao.lastByFilter(null), sup = dao.find(t.getIdSuparea());
         int idLast = last != null ? Integer.parseInt(last.getIdArea()) : 0;
         t.setIdArea(String.format("%05d", idLast + 1));
+        if (sup != null) {
+            sup.setLeaf(false);
+            dao.update(sup);
+        }
         dao.create(t);
     }
 
@@ -60,13 +65,26 @@ public class AreaService implements IAreaService {
     @Override
     @Transactional
     public void delete(Area t) {
-        dao.delete(t);
+        List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
+        Area sup = dao.find(t.getIdSuparea());
+        filters.add(new FilterPage("idSuparea", t.getIdArea()));
+        filters2.add(new FilterPage("idSuparea", t.getIdSuparea()));
+        int childs = dao.countByFilter(filters);
+        if (childs > 0) {
+            throw new RuntimeException("El área no debe contener subareas.");
+        } else {
+            dao.delete(t);
+            if (sup != null) {
+                sup.setLeaf(dao.countByFilter(filters2)==0);
+                dao.update(sup);
+            }
+        }
     }
 
     @Override
     @Transactional
     public Area find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.find(id);
     }
 
     @Override

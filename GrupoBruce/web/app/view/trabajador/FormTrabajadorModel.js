@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMformTrabajador',
-    
+
     data: {
         name: 'GrupoBruce',
         selectRPensionario: null,
@@ -55,7 +55,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
             filters: [{
                     property: 'idRpensionario',
                     value: '{selectRPensionario.idRpensionario}'
-            }]
+                }]
         },
         empresas: {
             type: 'Sempresa',
@@ -71,7 +71,12 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
         },
         tiposEstudio: {
             type: 'StipoEstudio',
-            autoLoad: true
+            autoLoad: true,
+            filters: [{
+                    property: 'situacion',
+                    value: true,
+                    operator: 'eq'
+                }]
         },
         estadosEstudio: {
             type: 'SestadoEstudio',

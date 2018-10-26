@@ -8,6 +8,7 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.ITipoEstudioDAO;
 import com.bruce.dao.to.TipoEstudio;
 import com.bruce.services.design.ITipoEstudioService;
+import com.bruce.util.FilterPage;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,6 @@ public class TipoEstudioService implements ITipoEstudioService{
     
     @Autowired
     private ITipoEstudioDAO dao;
-
-    @Override
-    @Transactional
-    public List<TipoEstudio> getBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
-    }
 
     @Override
     @Transactional
@@ -57,6 +52,24 @@ public class TipoEstudioService implements ITipoEstudioService{
     @Transactional
     public List<TipoEstudio> findAll() {
         return dao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<TipoEstudio> getByFilter(int start, int limit, List<FilterPage> filters) {
+        return dao.getByFilter(start, limit, filters);
+    }
+
+    @Override
+    @Transactional
+    public int countByFilter(List<FilterPage> filters) {
+        return dao.countByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public TipoEstudio lastByFilter(List<FilterPage> filters) {
+        return dao.lastByFilter(filters);
     }
     
 }

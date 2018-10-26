@@ -7,6 +7,8 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.Area;
 import com.bruce.services.design.IAreaService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +33,11 @@ public class AreaController {
     @ResponseBody
     @RequestMapping(value = "/areas", method = RequestMethod.GET)
     public Map<String, Object> getByFilters() {
-
         Map<String, Object> map = new HashMap<>();
-        List<Area> lista = sct.getByFilter(0, 100, null);
-        
-        map.put("data", lista);
-//        map.put("total", sct.countByFilter(null));
+        map.put("success", true);
+        map.put("message", "Lista de áreas");
+        map.put("data", sct.getByFilter(0, 100, null));
+        map.put("total", sct.countByFilter(null));
         return map;
     }
 
@@ -66,10 +67,17 @@ public class AreaController {
     @RequestMapping(value = "/ddArea", method = RequestMethod.POST)
     public Map<String, Object> delete(@RequestBody Area area) {
         Map<String, Object> map = new HashMap<>();
-        sct.delete(area);
-        map.put("success", true);
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            sct.delete(area);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
         map.put("data", area);
-        map.put("message", "Eliminación exitosa");
+        map.put("message", msg);
         return map;
     }
 

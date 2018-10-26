@@ -446,5 +446,4 @@ public class Trabajador implements java.io.Serializable {
     public void setIdEestudio(int idEestudio) {
         this.idEestudio = idEestudio;
     }
-
 }

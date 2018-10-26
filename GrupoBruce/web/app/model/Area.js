@@ -26,7 +26,8 @@ Ext.define('GrupoBruce.model.Area', {
         },
         reader: {
             type: 'json',
-            rootProperty: 'data'
+            rootProperty: 'data',
+            successProperty: 'success'
         },
         writer: {
             type: 'json',

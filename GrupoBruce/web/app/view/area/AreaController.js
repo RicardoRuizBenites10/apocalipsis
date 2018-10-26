@@ -25,15 +25,21 @@ Ext.define('GrupoBruce.view.area.AreaController', {
     deleteArea: function () {
         var grid = this.lookupReference('list_area');
         var areaModel = grid.getSelection()[0];
-        areaModel.erase({
-            success: function (area, operation) {
-                grid.getStore().reload();
-                Ext.Msg.alert('Success', 'Eliminación exitosa.');
-            },
-            failure: function (area, operation) {
-                Ext.Msg.alert('Failure', 'No se pudo eliminar.');
-            }
-        });
+        
+        if(areaModel.get('leaf')){
+            areaModel.erase({
+                success: function (area, operation) {
+                    grid.getStore().reload();
+                    Ext.Msg.alert('Success', 'Eliminación exitosa.');
+                },
+                failure: function (area, operation) {
+                    Ext.Msg.alert('Failure', 'No se pudo eliminar.');
+                }
+            });
+        }else{
+            Ext.Msg.alert('Message', 'Área a eliminar no debe contener subarea.');
+        }
+            
     },
 
     onSaveArea: function (btn) {

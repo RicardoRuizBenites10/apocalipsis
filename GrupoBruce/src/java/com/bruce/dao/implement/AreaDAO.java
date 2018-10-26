@@ -10,6 +10,7 @@ import com.bruce.dao.to.Area;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import java.io.Serializable;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -23,16 +24,16 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class AreaDAO implements IAreaDAO{
-    
+public class AreaDAO implements IAreaDAO {
+
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public List<Area> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Area.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
@@ -44,7 +45,7 @@ public class AreaDAO implements IAreaDAO{
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Area.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
@@ -91,7 +92,7 @@ public class AreaDAO implements IAreaDAO{
 
     @Override
     public Area find(Object idT) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Area) sf.getCurrentSession().get(Area.class, (Serializable) idT);
     }
 
     @Override

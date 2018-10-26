@@ -20,6 +20,12 @@ public class FilterPage {
         this.value = value;
     }
 
+    public FilterPage(String operator, String property, Object value) {
+        this.operator = operator;
+        this.property = property;
+        this.value = value;
+    }
+
     public FilterPage() {
     }
 

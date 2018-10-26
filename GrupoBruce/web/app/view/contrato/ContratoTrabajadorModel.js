@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
         title: 'Lista de contratos',
         recordTrabajador: null,
         selectContrato: null,
+        selectArea: null,
         selectTiempo: null,
         currentDate: new Date()
     },
@@ -26,6 +27,19 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
         tipoContratos: {
             type: 'StipoContrato',
             autoLoad: true
+        },
+        areas: {
+            type: 'Sarea',
+            autoLoad: true,
+            folderSort: true
+        },
+        cargos: {
+            type: 'Scargo',
+            autoLoad: true,
+            filters: [{
+                    property: 'idArea',
+                    value: '{selectArea}'
+            }]
         }
     },
 
