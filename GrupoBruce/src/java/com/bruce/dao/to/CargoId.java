@@ -15,12 +15,12 @@ import javax.persistence.Column;
 public class CargoId implements java.io.Serializable {
 
     private String idArea;
-    private int idCargo;
+    private String idCargo;
 
     public CargoId() {
     }
 
-    public CargoId(String idArea, int idCargo) {
+    public CargoId(String idArea, String idCargo) {
         this.idArea = idArea;
         this.idCargo = idCargo;
     }
@@ -35,19 +35,19 @@ public class CargoId implements java.io.Serializable {
     }
 
     @Column(name = "ID_CARGO", nullable = false)
-    public int getIdCargo() {
+    public String getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(int idCargo) {
+    public void setIdCargo(String idCargo) {
         this.idCargo = idCargo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.idArea);
-        hash = 89 * hash + this.idCargo;
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.idArea);
+        hash = 97 * hash + Objects.hashCode(this.idCargo);
         return hash;
     }
 
@@ -63,10 +63,10 @@ public class CargoId implements java.io.Serializable {
             return false;
         }
         final CargoId other = (CargoId) obj;
-        if (this.idCargo != other.idCargo) {
+        if (!Objects.equals(this.idArea, other.idArea)) {
             return false;
         }
-        if (!Objects.equals(this.idArea, other.idArea)) {
+        if (!Objects.equals(this.idCargo, other.idCargo)) {
             return false;
         }
         return true;

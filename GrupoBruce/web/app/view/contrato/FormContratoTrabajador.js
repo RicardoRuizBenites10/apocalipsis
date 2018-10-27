@@ -30,35 +30,23 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
                             valueField: 'idTcontrato',
+                            editable: false,
+                            forceSelection: true,
                             bind: {
                                 store: '{tipoContratos}'
                             },
                             flex: 2
                         }
-//                        , {
-//                            xtype: 'combobox',
-//                            name: 'idEcontrato',
-//                            fieldLabel: 'Estado contrato:',
-//                            editable: false,
-//                            emptyText: 'Seleccionar',
-//                            displayField: 'descripcion',
-//                            valueField: 'idEcontrato',
-//                            bind: {
-//                                store: '{estadoContratos}'
-//                            },
-//                            flex: 1
-//                        }
                     ]
                 }, {
                     items: [{
                             xtype: 'combobox',
-                            fieldLabel: 'Área de trabajo',
-                            valueField: 'idArea',
-                            displayField: 'nombre',
                             name: 'idArea',
+                            fieldLabel: 'Área de trabajo',
                             editable: false,
-                            forceSelection: true,
                             emptyText: 'Seleccionar',
+                            displayField: 'nombre',
+                            valueField: 'idArea',
                             bind: {
                                 store: '{areas}',
                                 selection: '{selectArea}'
@@ -68,15 +56,14 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                 }, {
                     items: [{
                             xtype: 'combobox',
-                            fieldLabel: 'Cargo a desempeñar',
-                            valueField: 'idCargo',
-                            displayField: 'nombre',
                             name: 'idCargo',
                             editable: false,
-                            forceSelection: true,
                             emptyText: 'Seleccionar',
+                            displayField: 'nombre',
+                            valueField: 'idCargo',
+                            fieldLabel: 'Cargo a desempeñar',
                             bind: {
-                                store: '{cargos}'
+                                store: '{s_cargo}'
                             },
                             flex: 1
                         }]

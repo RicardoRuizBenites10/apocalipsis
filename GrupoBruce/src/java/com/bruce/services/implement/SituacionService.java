@@ -38,11 +38,8 @@ public class SituacionService implements ISituacionService{
 
     @Override
     @Transactional
-    public void insert(Situacion currentSituacion) {
-        Situacion lastSituacion = dao.last(currentSituacion.getIdTrabajador());
-        int idLast = lastSituacion!= null ? lastSituacion.getIdSituacion() : 0;
-        currentSituacion.setIdSituacion(idLast + 1);
-        dao.create(currentSituacion);
+    public void insert(Situacion t) {
+        dao.create(t);
     }
 
     @Override

@@ -70,9 +70,9 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
             form.updateRecord(contratoModel); // update the record with the form data
             contratoModel.save({// save the record to the server
                 success: function (contrato, operation) {
+                    grid.getStore().reload();
                     form.reset();
                     window.destroy();
-                    grid.getStore().reload();
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
                 failure: function (contrato, operation) {

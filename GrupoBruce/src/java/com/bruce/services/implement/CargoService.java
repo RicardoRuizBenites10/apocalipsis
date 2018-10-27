@@ -49,8 +49,8 @@ public class CargoService implements ICargoService{
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idArea", t.getIdArea()));
         Cargo last = lastByFilter(filters);
-        int idLast = last != null ? last.getIdCargo() : 0;
-        t.setIdCargo(idLast + 1);
+        int idLast = last != null ? Integer.parseInt(last.getIdCargo()) : 0;
+        t.setIdCargo(String.format("%05d", idLast + 1));
         dao.create(t);
     }
 

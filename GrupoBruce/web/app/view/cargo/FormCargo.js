@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.cargo.FormCargo', {
     closable: false,
     resizable: false,
     width: 400,
-    
+
     bind: {
         title: '{title}'
     },
@@ -36,6 +36,7 @@ Ext.define('GrupoBruce.view.cargo.FormCargo', {
                             xtype: 'textareafield',
                             fieldLabel: 'Descripcion',
                             name: 'descripcion',
+                            allowBlank: true,
                             flex: 1
                         }]
                 }],

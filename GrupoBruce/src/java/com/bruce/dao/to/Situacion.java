@@ -43,6 +43,14 @@ public class Situacion implements java.io.Serializable {
         this.contratoBaja = contratoBaja;
         this.activa = activa;
     }
+    
+    public Situacion(String idTrabajador, int idSituacion, Date fechaAlta, int contratoAlta, boolean activa) {
+        this.idTrabajador = idTrabajador;
+        this.idSituacion = idSituacion;
+        this.fechaAlta = fechaAlta;
+        this.contratoAlta = contratoAlta;
+        this.activa = activa;
+    }
 
     public Situacion(String idTrabajador, Date fechaAlta, int contratoAlta, boolean activa) {
         this.idTrabajador = idTrabajador;

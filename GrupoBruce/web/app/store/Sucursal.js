@@ -1,9 +1,8 @@
-Ext.define('GrupoBruce.store.Sucursal',{
+Ext.define('GrupoBruce.store.Sucursal', {
     extend: 'Ext.data.Store',
-    model: 'GrupoBruce.model.Sucursal',
     alias: 'store.Ssucursal',
-    
+    model: 'GrupoBruce.model.Sucursal',
+
     remoteSort: true,
     remoteFilter: true
-    
 });

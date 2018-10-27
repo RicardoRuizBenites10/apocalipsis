@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.model.Cargo', {
     fields: [
         { name: 'descripcion', type: 'string' },
         { name: 'idArea', type: 'string' },
-        { name: 'idCargo', type: 'int' },
+        { name: 'idCargo', type: 'string' },
         { name: 'nombre', type: 'string' },
         { name: 'situacion', type: 'boolean', defaultValue: true }
     ],

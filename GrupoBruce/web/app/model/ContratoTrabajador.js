@@ -6,27 +6,27 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
     fields: [
         {name: 'idTrabajador', type: 'string'},
         {name: 'idContrato', type: 'int'},
-        {name: 'fechaCese', type: 'date', dateFormat:'c'},
-        {name: 'fechaFin', type: 'date', dateFormat:'c'},
-        {name: 'fechaInicio', type: 'date', dateFormat:'c'},
+        {name: 'fechaCese', type: 'date', dateFormat: 'c'},
+        {name: 'fechaFin', type: 'date', dateFormat: 'c'},
+        {name: 'fechaInicio', type: 'date', dateFormat: 'c'},
         {name: 'idTcontrato', type: 'string'},
         {name: 'idEcontrato', type: 'int'},
         {name: 'idTiempo', type: 'int'},
         {name: 'idArea', type: 'string'},
         {name: 'idCargo', type: 'int'}
     ],
-    
+
     identifier: {
-      type: 'sequential'  
+        type: 'sequential'
     },
 
     proxy: {
         type: 'ajax',
         api: {
             read: 'contratos',
-            create: 'insertContrato',
-            update: 'updateContrato',
-            delete: 'deleteContrato'
+            create: 'iiContrato',
+            update: 'uuContrato',
+            destroy: 'ddContrato'
         },
         reader: {
             type: 'json',

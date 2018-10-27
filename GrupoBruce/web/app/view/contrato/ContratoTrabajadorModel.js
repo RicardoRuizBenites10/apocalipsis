@@ -30,10 +30,9 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
         },
         areas: {
             type: 'Sarea',
-            autoLoad: true,
-            folderSort: true
+            autoLoad: true
         },
-        cargos: {
+        s_cargo: {
             type: 'Scargo',
             autoLoad: true,
             filters: [{

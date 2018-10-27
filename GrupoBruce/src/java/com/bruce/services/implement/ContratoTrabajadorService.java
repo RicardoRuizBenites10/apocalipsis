@@ -31,7 +31,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Autowired
     private IContratoTrabajadorDAO dao;
     @Autowired
-    private ISituacionService dao2;
+    private ISituacionDAO dao2;
 
     @Override
     @Transactional
@@ -45,19 +45,22 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         int idCLast = 0;
         ContratoTrabajador lastContrato = dao.last(newContrato.getIdTrabajador());
         if (lastContrato != null) {
+            idCLast = lastContrato.getIdContrato();
             if (lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE) {
                 lastContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_RENOVADO);
-            }else{
-                dao2.insert(new Situacion(newContrato.getIdTrabajador(), newContrato.getFechaInicio(), newContrato.getIdContrato(), true));  
+                dao.update(lastContrato);
             }
-            idCLast = lastContrato.getIdContrato();
         }
         newContrato.setIdContrato(idCLast + 1);
         newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
-        if (lastContrato != null) {
-            dao.update(lastContrato);
-        }
         dao.create(newContrato);
+        /*---situacion----*/
+        Situacion lastSituacion = dao2.last(newContrato.getIdTrabajador());
+        int idSLast = lastSituacion != null ? lastSituacion.getIdSituacion() : 0;
+        if (lastSituacion == null || (!lastSituacion.isActiva())) {
+            dao2.create(new Situacion(newContrato.getIdTrabajador(), idSLast + 1, newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
+        }
+
     }
 
     @Override

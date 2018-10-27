@@ -63,7 +63,7 @@ public class ContratoTrabajadorController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/insertContrato", method = RequestMethod.POST)
+    @RequestMapping(value = "/iiContrato", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody ContratoTrabajador contrato) {
         Map<String, Object> map = new HashMap<>();
         sct.insert(contrato);
@@ -74,7 +74,7 @@ public class ContratoTrabajadorController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/updateContrato", method = RequestMethod.POST)
+    @RequestMapping(value = "/uuContrato", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody ContratoTrabajador contrato) {
         Map<String, Object> map = new HashMap<>();
         sct.update(contrato);
