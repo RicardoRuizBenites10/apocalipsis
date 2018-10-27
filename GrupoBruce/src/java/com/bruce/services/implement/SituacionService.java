@@ -40,10 +40,7 @@ public class SituacionService implements ISituacionService{
     @Transactional
     public void insert(Situacion currentSituacion) {
         Situacion lastSituacion = dao.last(currentSituacion.getIdTrabajador());
-        int idLast = 0;
-        if (lastSituacion != null) {
-            idLast = lastSituacion.getIdSituacion();
-        }
+        int idLast = lastSituacion!= null ? lastSituacion.getIdSituacion() : 0;
         currentSituacion.setIdSituacion(idLast + 1);
         dao.create(currentSituacion);
     }

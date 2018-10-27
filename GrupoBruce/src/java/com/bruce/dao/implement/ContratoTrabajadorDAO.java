@@ -89,12 +89,13 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
 
     @Override
     public ContratoTrabajador last(String idTrabajador) {
-        Session session = sf.getCurrentSession();
         ContratoTrabajador contrato = null;
+        Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(ContratoTrabajador.class);
         cr.add(Restrictions.eq("idTrabajador", idTrabajador));
         cr.addOrder(Order.desc("idContrato"));
         cr.setFirstResult(0);
+        
         List result = cr.list();
         if (result.size() > 0) {
             contrato = (ContratoTrabajador) result.get(0);

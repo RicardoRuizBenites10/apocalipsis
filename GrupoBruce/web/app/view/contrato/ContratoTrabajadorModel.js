@@ -38,7 +38,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
             autoLoad: true,
             filters: [{
                     property: 'idArea',
-                    value: '{selectArea}'
+                    value: '{selectArea.idArea}'
             }]
         }
     },

@@ -71,7 +71,7 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             fieldLabel: 'Cargo a desempeñar',
                             valueField: 'idCargo',
                             displayField: 'nombre',
-                            name: 'idCargoa',
+                            name: 'idCargo',
                             editable: false,
                             forceSelection: true,
                             emptyText: 'Seleccionar',

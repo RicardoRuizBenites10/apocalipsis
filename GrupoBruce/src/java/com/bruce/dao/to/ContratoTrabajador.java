@@ -28,6 +28,8 @@ public class ContratoTrabajador implements java.io.Serializable {
     private String idTcontrato;
     private int idEcontrato;
     private int idTiempo;
+    private String idArea;
+    private int idCargo;
 
     public ContratoTrabajador() {
     }
@@ -41,7 +43,7 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.idTiempo = idTiempo;
     }
 
-    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo) {
+    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo, String idArea, int idCargo) {
         this.idTrabajador = idTrabajador;
         this.idContrato = idContrato;
         this.fechaInicio = fechaInicio;
@@ -50,6 +52,8 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.idTcontrato = idTcontrato;
         this.idEcontrato = idEcontrato;
         this.idTiempo = idTiempo;
+        this.idArea = idArea;
+        this.idCargo = idCargo;
     }
 
     @Id
@@ -127,6 +131,24 @@ public class ContratoTrabajador implements java.io.Serializable {
 
     public void setIdTiempo(int idTiempo) {
         this.idTiempo = idTiempo;
+    }
+
+    @Column(name = "ID_AREA", nullable = false, length = 5)
+    public String getIdArea() {
+        return idArea;
+    }
+
+    public void setIdArea(String idArea) {
+        this.idArea = idArea;
+    }
+
+    @Column(name = "ID_CARGO", nullable = false)
+    public int getIdCargo() {
+        return idCargo;
+    }
+
+    public void setIdCargo(int idCargo) {
+        this.idCargo = idCargo;
     }
 
 }

@@ -11,7 +11,9 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
         {name: 'fechaInicio', type: 'date', dateFormat:'c'},
         {name: 'idTcontrato', type: 'string'},
         {name: 'idEcontrato', type: 'int'},
-        {name: 'idTiempo', type: 'int'}
+        {name: 'idTiempo', type: 'int'},
+        {name: 'idArea', type: 'string'},
+        {name: 'idCargo', type: 'int'}
     ],
     
     identifier: {

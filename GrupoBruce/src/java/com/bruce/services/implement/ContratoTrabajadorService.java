@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
+import com.bruce.services.design.ISituacionService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Autowired
     private IContratoTrabajadorDAO dao;
     @Autowired
-    private ISituacionDAO dao2;
+    private ISituacionService dao2;
 
     @Override
     @Transactional
@@ -46,6 +47,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         if (lastContrato != null) {
             if (lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE) {
                 lastContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_RENOVADO);
+            }else{
+                dao2.insert(new Situacion(newContrato.getIdTrabajador(), newContrato.getFechaInicio(), newContrato.getIdContrato(), true));  
             }
             idCLast = lastContrato.getIdContrato();
         }
@@ -55,7 +58,6 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             dao.update(lastContrato);
         }
         dao.create(newContrato);
-        dao2.create(new Situacion(newContrato.getIdTrabajador(), newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
     }
 
     @Override
