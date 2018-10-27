@@ -25,10 +25,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
             type: 'Secivil',
             autoLoad: true
         },
-        estadoTrabajadors: {
-            type: 'SestadoTrabajador',
-            autoLoad: true
-        },
         tipoTrabajadors: {
             type: 'StipoTrabajador',
             autoLoad: true

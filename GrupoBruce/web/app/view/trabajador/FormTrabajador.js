@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                         border: false
                     },
                     items: [{
-                            title: 'Personal',
+                            title: 'Información personal',
                             iconCls: 'fa fa-user',
                             items: [{
                                     defaults: {
@@ -148,7 +148,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                         }]
                                 }]
                         }, {
-                            title: 'Formación',
+                            title: 'Formación educacional',
                             iconCls: 'fa fa-graduation-cap',
                             items: [{
                                     defaults: {
@@ -221,18 +221,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                     },
                                     items: [{
                                             items: [
-//                                                {
-//                                                    xtype: 'combobox',
-//                                                    name: 'idEtrabajador',
-//                                                    fieldLabel: 'Situación trabajador :',
-//                                                    editable: false,
-//                                                    emptyText: 'Seleccionar',
-//                                                    displayField: 'descripcion',
-//                                                    valueField: 'idEtrabajador',
-//                                                    bind: {
-//                                                        store: '{estadoTrabajadors}'
-//                                                    }
-//                                                }, 
                                                 {
                                                     xtype: 'combobox',
                                                     name: 'idTtrabajador',
@@ -244,14 +232,12 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     bind: {
                                                         store: '{tipoTrabajadors}',
                                                         selection: '{selectTTrabajador}'
-                                                    },
-                                                    flex: 1
+                                                    }
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'codigo',
                                                     fieldLabel: 'Codigo trabajador :',
-                                                    allowBlank: true,
-                                                    flex: 1
+                                                    allowBlank: true
                                                 }]
                                         }, {
                                             items: [{
@@ -272,8 +258,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    },
-                                                    flex: 1
+                                                    }
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocuentaCts',
@@ -287,8 +272,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    },
-                                                    flex: 1
+                                                    }
                                                 }]
                                         }, {
                                             items: [{
@@ -315,6 +299,13 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     bind: {
                                                         store: '{periocidads}'
                                                     },
+                                                    flex: 1
+                                                },{
+                                                    xtype: 'numberfield',
+                                                    name: 'montoPasaje',
+                                                    hideTrigger: true,
+                                                    minValue: 0,
+                                                    fieldLabel: 'Monto pasaje :',
                                                     flex: 1
                                                 }]
                                         }, {
@@ -353,22 +344,13 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         }
                                                     },
                                                     flex: 1
-                                                }]
-                                        }, {
-                                            items: [{
+                                                },{
                                                     xtype: 'numberfield',
                                                     allowDecimals: true,
                                                     hideTrigger: true,
                                                     minValue: 0,
                                                     name: 'montoBase',
                                                     fieldLabel: 'Monto sueldo :',
-                                                    flex: 1
-                                                }, {
-                                                    xtype: 'numberfield',
-                                                    name: 'montoPasaje',
-                                                    hideTrigger: true,
-                                                    minValue: 0,
-                                                    fieldLabel: 'Monto pasaje :',
                                                     flex: 1
                                                 }]
                                         }, {
@@ -391,7 +373,8 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'combobox',
                                                     name: 'idComisionrp',
@@ -411,12 +394,14 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                             this.setValue('');
                                                             this.up('form').getRecord().set(this.name, this.value);
                                                         }
-                                                    }
+                                                    },
+                                                    flex: 1
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'nrocusppAfiliacion',
                                                     fieldLabel: 'Nro CUSPP :',
                                                     disabled: true,
+                                                    flex: 1,
                                                     bind: {
                                                         disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
                                                     },
@@ -427,23 +412,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         }
                                                     }
                                                 }]
-                                        }
-                                    ]
-                                }]
-                        }, {
-                            title: 'Puesto de trabajo',
-                            iconCls: 'fa fa-sitemap',
-                            items: [{
-                                    defaults: {
-                                        xtype: 'container',
-                                        layout: 'hbox',
-                                        defaults: {
-                                            labelAlign: 'top',
-                                            allowBlank: false,
-                                            padding: 5
-                                        }
-                                    },
-                                    items: [{
+                                        },{
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idEmpresa',
@@ -458,9 +427,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                         selection: '{selectEmpresa}'
                                                     },
                                                     flex: 1
-                                                }]
-                                        }, {
-                                            items: [{
+                                                },{
                                                     xtype: 'combobox',
                                                     name: 'idSucursal',
                                                     editable: false,
@@ -468,15 +435,13 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     displayField: 'direccion',
                                                     valueField: 'idSucursal',
                                                     fieldLabel: 'Sucursal',
-                                                    flex: 1,
-                                                    disabled: true,
                                                     bind: {
-                                                        disabled: '{!selectEmpresa}',
                                                         store: '{sucursals}'
-                                                    }
-                                                }
-                                            ]
-                                        }]
+                                                    },
+                                                    flex: 2
+                                                }]
+                                        }
+                                    ]
                                 }]
                         }]
                 }],
