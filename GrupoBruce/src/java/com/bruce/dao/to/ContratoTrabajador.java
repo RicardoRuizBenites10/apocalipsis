@@ -27,7 +27,7 @@ public class ContratoTrabajador implements java.io.Serializable {
     private int idEcontrato;
     private int idTiempo;
     private String idArea;
-    private int idCargo;
+    private String idCargo;
 
     public ContratoTrabajador() {
     }
@@ -41,7 +41,7 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.idTiempo = idTiempo;
     }
 
-    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo, String idArea, int idCargo) {
+    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo, String idArea, String idCargo) {
         this.idTrabajador = idTrabajador;
         this.idContrato = idContrato;
         this.fechaInicio = fechaInicio;
@@ -131,7 +131,7 @@ public class ContratoTrabajador implements java.io.Serializable {
         this.idTiempo = idTiempo;
     }
 
-    @Column(name = "ID_AREA", nullable = false, length = 5)
+    @Column(name = "ID_AREA", nullable = false)
     public String getIdArea() {
         return idArea;
     }
@@ -141,11 +141,11 @@ public class ContratoTrabajador implements java.io.Serializable {
     }
 
     @Column(name = "ID_CARGO", nullable = false)
-    public int getIdCargo() {
+    public String getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(int idCargo) {
+    public void setIdCargo(String idCargo) {
         this.idCargo = idCargo;
     }
 

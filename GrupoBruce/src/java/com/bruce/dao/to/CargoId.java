@@ -25,7 +25,7 @@ public class CargoId implements java.io.Serializable {
         this.idCargo = idCargo;
     }
 
-    @Column(name = "ID_AREA", nullable = false, length = 5)
+    @Column(name = "ID_AREA", nullable = false)
     public String getIdArea() {
         return idArea;
     }

@@ -3,13 +3,17 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
     alias: 'widget.WformContratoTrabajador',
     reference: 'form_contratoTrabajador',
 
-    bind: {
-        title: '{title}'
+    viewModel: {
+        type: 'VMcontratoTrabajador'
     },
-    width: 550,
+    controller: 'CcontratoTrabajador',
+
+    width: 600,
     resizable: false,
     closable: false,
     modal: true,
+    autoShow: true,
+    title: 'Editar contrato',
 
     items: [{
             xtype: 'form',
@@ -57,13 +61,15 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                     items: [{
                             xtype: 'combobox',
                             name: 'idCargo',
+                            reference: 'cargo_desempenar',
+                            fieldLabel: 'Cargo a desempeñar',
                             editable: false,
                             emptyText: 'Seleccionar',
                             displayField: 'nombre',
                             valueField: 'idCargo',
-                            fieldLabel: 'Cargo a desempeñar',
+                            forceSelection: true,
                             bind: {
-                                store: '{s_cargo}'
+                                store: '{cargos}'
                             },
                             flex: 1
                         }]

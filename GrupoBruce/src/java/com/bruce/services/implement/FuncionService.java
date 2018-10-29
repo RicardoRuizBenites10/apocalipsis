@@ -21,28 +21,28 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class FuncionService implements IFuncionService {
-    
+
     @Autowired
     private IFuncionDAO dao;
-    
+
     @Override
     @Transactional
     public List<Funcion> getByFilter(int start, int limit, List<FilterPage> filters) {
         return dao.getByFilter(start, limit, filters);
     }
-    
+
     @Override
     @Transactional
     public int countByFilter(List<FilterPage> filters) {
         return dao.countByFilter(filters);
     }
-    
+
     @Override
     @Transactional
     public Funcion lastByFilter(List<FilterPage> filters) {
         return dao.lastByFilter(filters);
     }
-    
+
     @Override
     @Transactional
     public void insert(Funcion t) {
@@ -50,33 +50,33 @@ public class FuncionService implements IFuncionService {
         filters.add(new FilterPage("idArea", t.getIdArea()));
         filters.add(new FilterPage("idCargo", t.getIdCargo()));
         Funcion last = lastByFilter(filters);
-        int idLast = last != null ? last.getIdFuncion() : 0;
-        t.setIdFuncion(idLast + 1);
+        int idLast = last != null ? Integer.parseInt(last.getIdFuncion().substring(4)) : 0;
+        t.setIdFuncion(t.getIdCargo() + String.format("%03d", idLast + 1));
         dao.create(t);
     }
-    
+
     @Override
     @Transactional
     public void update(Funcion t) {
         dao.update(t);
     }
-    
+
     @Override
     @Transactional
     public void delete(Funcion t) {
         dao.delete(t);
     }
-    
+
     @Override
     @Transactional
     public Funcion find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     @Transactional
     public List<Funcion> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

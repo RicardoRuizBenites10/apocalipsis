@@ -1,4 +1,3 @@
-
 Ext.define('GrupoBruce.view.formacion.Formacion',{
     extend: 'Ext.window.Window',
 
@@ -6,7 +5,8 @@ Ext.define('GrupoBruce.view.formacion.Formacion',{
         'GrupoBruce.view.formacion.FormacionController',
         'GrupoBruce.view.formacion.FormacionModel',
         
-        'GrupoBruce.view.formacion.ListFormacion'
+        'GrupoBruce.view.formacion.ListFormacion',
+        'GrupoBruce.view.formacion.FormFormacion'
     ],
 
     controller: 'Cformacion',
@@ -26,6 +26,7 @@ Ext.define('GrupoBruce.view.formacion.Formacion',{
 
     items: [{
             xtype: 'WlistFormacion',
+            id: 'id_wformacion',
             height: 360
     }]
 });

@@ -48,7 +48,7 @@ public class AreaService implements IAreaService {
     public void insert(Area t) {
         Area last = dao.lastByFilter(null), sup = dao.find(t.getIdSuparea());
         int idLast = last != null ? Integer.parseInt(last.getIdArea()) : 0;
-        t.setIdArea(String.format("%05d", idLast + 1));
+        t.setIdArea(String.format("%04d", idLast + 1));
         if (sup != null) {
             sup.setLeaf(false);
             dao.update(sup);

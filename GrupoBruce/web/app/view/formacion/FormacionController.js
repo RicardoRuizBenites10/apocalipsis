@@ -1,40 +1,29 @@
 Ext.define('GrupoBruce.view.formacion.FormacionController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Cformacion',
-    
-    createDialog: function (record) {
-        var view = this.getView();
 
-        this.dialog = view.add({
-            xtype: 'WformFormacion',
-            viewModel: {
-                data: {
-                    title: record ? 'Editar estudio ' : 'Registrar estudio'
-                }
-            }
-        });
-        if (record) {
-            this.dialog.down('form').loadRecord(record);
-        } else {
+    createDialog: function (record) {
+        var window = new GrupoBruce.view.formacion.FormFormacion();
+        if (!record) {
+            window.setTitle('Registrar estudio');
             var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
-            var nuevo = Ext.create('GrupoBruce.model.Formacion', {
+            var record = Ext.create('GrupoBruce.model.Formacion', {
                 idTrabajador: idTrabajador
             });
-            this.dialog.down('form').loadRecord(nuevo);
         }
-        this.dialog.show();
+        window.down('form').loadRecord(record);
     },
-    
-    addFormacion: function(){
+
+    addFormacion: function () {
         this.createDialog(null);
     },
-    
-    editFormacion: function(){
+
+    editFormacion: function () {
         var grid = this.lookupReference('list_formacion');
         var formacion = grid.getSelection()[0];
         this.createDialog(formacion);
     },
-    
+
     deleteFormacion: function () {
         var grid = this.lookupReference('list_formacion');
         var model = grid.getSelection()[0];
@@ -48,13 +37,13 @@ Ext.define('GrupoBruce.view.formacion.FormacionController', {
             }
         });
     },
-    
-    onSaveFormacion : function (btn) {
+
+    onSaveFormacion: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = this.lookupReference('list_formacion');
+        var grid = Ext.getCmp('id_wformacion');
         var model = form.getRecord();
-        
+
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             model.save({// save the record to the server
@@ -72,5 +61,5 @@ Ext.define('GrupoBruce.view.formacion.FormacionController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
     }
-    
+
 });

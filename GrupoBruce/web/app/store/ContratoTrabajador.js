@@ -1,9 +1,8 @@
 Ext.define('GrupoBruce.store.ContratoTrabajador', {
     extend: 'Ext.data.Store',
-    model: 'GrupoBruce.model.ContratoTrabajador',
     alias: 'store.ScontratoTrabajador',
+    model: 'GrupoBruce.model.ContratoTrabajador',
     
-    pageSize: 15,
     remoteSort: true,
     remoteFilter: true
 });

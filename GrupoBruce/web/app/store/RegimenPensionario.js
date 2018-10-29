@@ -1,17 +1,9 @@
 Ext.define('GrupoBruce.store.RegimenPensionario',{
     extend: 'Ext.data.Store',
-    model: 'GrupoBruce.model.RegimenPensionario',
     alias: 'store.SregimenPensionario',
+    model: 'GrupoBruce.model.RegimenPensionario',
     
-    proxy: {
-        type: 'ajax',
-        api:{
-            read: 'regimenPensionarioBySituacion'
-        },
-        reader: {
-            type: 'json',
-            rootProperty: 'data'
-        }
-    }
+    remoteSort: true,
+    remoteFilter: true
 });
 

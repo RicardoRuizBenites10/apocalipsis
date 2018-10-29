@@ -21,8 +21,8 @@ public class Area implements java.io.Serializable {
     private String nombre;
     private String descripcion;
     private boolean situacion;
-    private String idSuparea;
     private boolean leaf;
+    private String idSuparea;
     
     private String parentId;
     private String lastParentId;

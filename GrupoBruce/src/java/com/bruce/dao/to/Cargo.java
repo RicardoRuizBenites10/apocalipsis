@@ -33,7 +33,7 @@ public class Cargo implements java.io.Serializable {
     }
 
     @Id
-    @Column(name = "ID_AREA", nullable = false, length = 5)
+    @Column(name = "ID_AREA", nullable = false)
     public String getIdArea() {
         return idArea;
     }

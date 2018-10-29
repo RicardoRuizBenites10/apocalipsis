@@ -16,8 +16,8 @@ import javax.persistence.Table;
 public class Funcion implements java.io.Serializable {
 
     private String idArea;
-    private int idCargo;
-    private int idFuncion;
+    private String idCargo;
+    private String idFuncion;
     private String nombre;
     private String detalle;
     private boolean situacion;
@@ -25,7 +25,7 @@ public class Funcion implements java.io.Serializable {
     public Funcion() {
     }
 
-    public Funcion(String idArea, int idCargo, int idFuncion, String nombre, String detalle, boolean situacion) {
+    public Funcion(String idArea, String idCargo, String idFuncion, String nombre, String detalle, boolean situacion) {
         this.idArea = idArea;
         this.idCargo = idCargo;
         this.idFuncion = idFuncion;
@@ -35,7 +35,7 @@ public class Funcion implements java.io.Serializable {
     }
 
     @Id
-    @Column(name = "ID_AREA", nullable = false, length = 5)
+    @Column(name = "ID_AREA", nullable = false)
     public String getIdArea() {
         return idArea;
     }
@@ -46,21 +46,21 @@ public class Funcion implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_CARGO", nullable = false)
-    public int getIdCargo() {
+    public String getIdCargo() {
         return this.idCargo;
     }
 
-    public void setIdCargo(int idCargo) {
+    public void setIdCargo(String idCargo) {
         this.idCargo = idCargo;
     }
 
     @Id
     @Column(name = "ID_FUNCION", nullable = false)
-    public int getIdFuncion() {
+    public String getIdFuncion() {
         return this.idFuncion;
     }
 
-    public void setIdFuncion(int idFuncion) {
+    public void setIdFuncion(String idFuncion) {
         this.idFuncion = idFuncion;
     }
 

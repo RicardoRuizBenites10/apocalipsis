@@ -10,8 +10,7 @@ Ext.define('GrupoBruce.model.Empresa', {
     ],
     
     identifier: {
-        type: 'sequential',
-        prefix: '00'
+        type: 'sequential'
     },
     
     proxy: {
@@ -25,6 +24,7 @@ Ext.define('GrupoBruce.model.Empresa', {
         reader: {
             type: 'json',
             rootProperty: 'data',
+            totalProperty: 'total',
             successProperty: 'success'
         },
         writer: {

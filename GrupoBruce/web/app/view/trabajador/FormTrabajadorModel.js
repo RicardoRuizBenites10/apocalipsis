@@ -3,7 +3,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajadorModel', {
     alias: 'viewmodel.VMformTrabajador',
 
     data: {
-        name: 'GrupoBruce',
         selectRPensionario: null,
         selectEmpresa: null
     },

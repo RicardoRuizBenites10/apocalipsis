@@ -12,8 +12,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "COMISIONRP",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Comisionrp implements java.io.Serializable {
 
@@ -37,7 +37,6 @@ public class Comisionrp implements java.io.Serializable {
     }
 
     @Id
-
     @Column(name = "ID_COMISIONRP", unique = true, nullable = false)
     public int getIdComisionrp() {
         return this.idComisionrp;

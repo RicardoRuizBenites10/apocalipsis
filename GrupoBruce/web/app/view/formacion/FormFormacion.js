@@ -3,13 +3,17 @@ Ext.define('GrupoBruce.view.formacion.FormFormacion', {
     alias: 'widget.WformFormacion',
     reference: 'form_formacion',
 
-    bind: {
-        title: '{title}'
+    controller: 'Cformacion',
+    viewModel: {
+        type: 'VMformacion'
     },
+
     width: 370,
     resizable: false,
     closable: false,
     modal: true,
+    autoShow: true,
+    title: 'Editar estudio',
 
     items: [{
             xtype: 'form',
@@ -52,7 +56,7 @@ Ext.define('GrupoBruce.view.formacion.FormFormacion', {
                             fieldLabel: 'Institución',
                             flex: 1
                         }]
-                },{
+                }, {
                     items: [{
                             xtype: 'textareafield',
                             name: 'descripcion',

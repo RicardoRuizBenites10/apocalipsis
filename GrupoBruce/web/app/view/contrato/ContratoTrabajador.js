@@ -27,6 +27,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajador', {
 
     items: [{
             xtype: 'WcontratoTrabajador',
+            id: 'id_wcontratotrabajador',
             height: 355
         }]
 });

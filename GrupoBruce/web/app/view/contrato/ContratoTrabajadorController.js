@@ -2,27 +2,17 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.CcontratoTrabajador',
 
-    createDialog: function (record) {
-        var view = this.getView();
-
-        this.dialog = view.add({
-            xtype: 'WformContratoTrabajador',
-            viewModel: {
-                data: {
-                    title: record ? 'Editar contrato ' : 'Registrar contrato'
-                }
-            }
-        });
-        if (record) {
-            this.dialog.down('form').loadRecord(record);
-        } else {
+    createDialog: function (record, inicio) {
+        var window = new GrupoBruce.view.contrato.FormContratoTrabajador();
+        window.getViewModel().set('currentDate', inicio);
+        if (!record) {
+            window.setTitle('Registrar contrato');
             var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
-            var newcontrato = Ext.create('GrupoBruce.model.ContratoTrabajador', {
+            var record = Ext.create('GrupoBruce.model.ContratoTrabajador', {
                 idTrabajador: idTrabajador
             });
-            this.dialog.down('form').loadRecord(newcontrato);
         }
-        this.dialog.show();
+        window.down('form').loadRecord(record);
     },
 
     addContrato: function () {
@@ -36,8 +26,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                 var responseText = Ext.decode(response.responseText);
                 var fechaInicio = responseText.inicio !== null ? Ext.Date.add(new Date(responseText.inicio), Ext.Date.DAY, 2) : new Date();
                 if (responseText.success) {
-                    this.getViewModel().set('currentDate', fechaInicio);
-                    this.createDialog(null);
+                    this.createDialog(null, fechaInicio);
                 } else {
                     Ext.Msg.show({
                         title: 'Error',
@@ -56,15 +45,14 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
 
     editContrato: function () {
         var grid = this.lookupReference('list_contratoTrabajador');
-        var contrato = grid.getSelection()[0];
-        this.getViewModel().set('currentDate', contrato.get('fechaInicio'));
-        this.createDialog(contrato);
+        var model = grid.getSelection()[0];
+        this.createDialog(model, model.get('fechaInicio'));
     },
 
     onSaveContrato: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = this.lookupReference('list_contratoTrabajador');
+        var grid = Ext.getCmp('id_wcontratotrabajador');
         var contratoModel = form.getRecord();
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(contratoModel); // update the record with the form data

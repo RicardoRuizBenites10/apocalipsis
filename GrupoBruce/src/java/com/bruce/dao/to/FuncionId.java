@@ -15,19 +15,19 @@ import javax.persistence.Column;
 public class FuncionId implements java.io.Serializable {
 
     private String idArea;
-    private int idCargo;
-    private int idFuncion;
+    private String idCargo;
+    private String idFuncion;
 
     public FuncionId() {
     }
 
-    public FuncionId(String idArea, int idCargo, int idFuncion) {
+    public FuncionId(String idArea, String idCargo, String idFuncion) {
         this.idArea = idArea;
         this.idCargo = idCargo;
         this.idFuncion = idFuncion;
     }
 
-    @Column(name = "ID_AREA", nullable = false, length = 5)
+    @Column(name = "ID_AREA", nullable = false)
     public String getIdArea() {
         return idArea;
     }
@@ -37,29 +37,29 @@ public class FuncionId implements java.io.Serializable {
     }
 
     @Column(name = "ID_CARGO", nullable = false)
-    public int getIdCargo() {
+    public String getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(int idCargo) {
+    public void setIdCargo(String idCargo) {
         this.idCargo = idCargo;
     }
 
     @Column(name = "ID_FUNCION", nullable = false)
-    public int getIdFuncion() {
+    public String getIdFuncion() {
         return idFuncion;
     }
 
-    public void setIdFuncion(int idFuncion) {
+    public void setIdFuncion(String idFuncion) {
         this.idFuncion = idFuncion;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.idArea);
-        hash = 37 * hash + this.idCargo;
-        hash = 37 * hash + this.idFuncion;
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.idArea);
+        hash = 71 * hash + Objects.hashCode(this.idCargo);
+        hash = 71 * hash + Objects.hashCode(this.idFuncion);
         return hash;
     }
 
@@ -75,13 +75,13 @@ public class FuncionId implements java.io.Serializable {
             return false;
         }
         final FuncionId other = (FuncionId) obj;
-        if (this.idCargo != other.idCargo) {
-            return false;
-        }
-        if (this.idFuncion != other.idFuncion) {
-            return false;
-        }
         if (!Objects.equals(this.idArea, other.idArea)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCargo, other.idCargo)) {
+            return false;
+        }
+        if (!Objects.equals(this.idFuncion, other.idFuncion)) {
             return false;
         }
         return true;

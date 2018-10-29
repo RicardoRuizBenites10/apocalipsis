@@ -8,8 +8,8 @@ Ext.define('GrupoBruce.model.Funcion', {
         { name: 'nombre', type: 'string' },
         { name: 'situacion', type: 'boolean', defaultValue: true },
         { name: 'idArea', type: 'string' },
-        { name: 'idCargo', type: 'int' },
-        { name: 'idFuncion', type: 'int' }
+        { name: 'idCargo', type: 'string' },
+        { name: 'idFuncion', type: 'string' }
     ],
     
     identifier: {
