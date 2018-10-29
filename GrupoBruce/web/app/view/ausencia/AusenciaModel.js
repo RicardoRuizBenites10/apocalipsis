@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.view.ausencia.AusenciaModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMausencia',
     data: {
-        title: 'Lista de contratos',
+        title: 'Lista de ausencias',
         recordTrabajador: null,
         selectAusencia: null
     },

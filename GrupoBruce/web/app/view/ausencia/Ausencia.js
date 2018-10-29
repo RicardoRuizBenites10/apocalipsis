@@ -27,6 +27,7 @@ Ext.define('GrupoBruce.view.ausencia.Ausencia',{
     
     items: [{
             xtype: 'WlistAusencia',
+            id: 'id_wausencia',
             height: 355
     }]
 });

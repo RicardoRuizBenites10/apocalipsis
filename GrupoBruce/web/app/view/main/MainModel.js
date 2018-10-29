@@ -33,10 +33,15 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                         handler: 'GrupoBruce.view.periodovacacion.PeriodoVacacion'
                                     }]
                             }, {
-                                text: 'Trabajador',
+                                text: 'Manejo de trabajadores',
                                 iconCls: 'x-fa fa-male',
                                 leaf: true,
                                 handler: 'GrupoBruce.view.trabajador.Trabajador'
+                            },{
+                                text: 'Control de asistencias',
+                                iconCls: 'x-fa fa-calendar',
+                                leaf: true,
+                                handler: 'GrupoBruce.view.asistencia.Asistencia'
                             }]
                     }, {
                         text: 'Logistica',

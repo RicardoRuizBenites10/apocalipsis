@@ -3,38 +3,27 @@ Ext.define('GrupoBruce.view.ausencia.AusenciaController', {
     alias: 'controller.Causencia',
 
     createDialog: function (record) {
-        var view = this.getView();
-
-        this.dialog = view.add({
-            xtype: 'WformAusencia',
-            viewModel: {
-                data: {
-                    title: record ? 'Editar ausencia ' : 'Registrar ausencia'
-                }
-            }
-        });
-        if (record) {
-            this.dialog.down('form').loadRecord(record);
-        } else {
+        var window = new GrupoBruce.view.ausencia.FormAusencia();
+        if (!record) {
+            window.setTitle('Registrar ausencia');
             var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
-            var nuevo = Ext.create('GrupoBruce.model.Ausencia', {
+            var record = Ext.create('GrupoBruce.model.Ausencia', {
                 idTrabajador: idTrabajador
             });
-            this.dialog.down('form').loadRecord(nuevo);
         }
-        this.dialog.show();
+        window.down('form').loadRecord(record);
     },
-    
-    addAusencia: function(){
+
+    addAusencia: function () {
         this.createDialog(null);
     },
-    
-    editAusencia: function(){
+
+    editAusencia: function () {
         var grid = this.lookupReference('list_ausencia');
         var ausencia = grid.getSelection()[0];
         this.createDialog(ausencia);
     },
-    
+
     deleteAusencia: function () {
         var grid = this.lookupReference('list_ausencia');
         var model = grid.getSelection()[0];
@@ -48,13 +37,13 @@ Ext.define('GrupoBruce.view.ausencia.AusenciaController', {
             }
         });
     },
-    
-    onSaveAusencia : function (btn) {
+
+    onSaveAusencia: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = this.lookupReference('list_ausencia');
+        var grid = Ext.getCmp('id_wausencia');
         var model = form.getRecord();
-        
+
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             model.save({// save the record to the server
@@ -72,5 +61,5 @@ Ext.define('GrupoBruce.view.ausencia.AusenciaController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
     }
-    
+
 });

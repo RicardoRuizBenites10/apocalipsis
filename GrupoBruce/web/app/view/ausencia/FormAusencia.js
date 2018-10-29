@@ -3,13 +3,17 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
     alias: 'widget.WformAusencia',
     reference: 'form_ausencia',
 
-    bind: {
-        title: '{title}'
+    controller: 'Causencia',
+    viewModel: {
+        type: 'VMausencia'
     },
-    width: 370,
+
+    width: 400,
     resizable: false,
     closable: false,
     modal: true,
+    autoShow: true,
+    title: 'Editar ausencia',
 
     items: [{
             xtype: 'form',
@@ -27,6 +31,7 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                             xtype: 'combobox',
                             name: 'idTausencia',
                             fieldLabel: 'Tipo ausencia',
+                            editable: false,
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
                             valueField: 'idTausencia',
@@ -52,6 +57,7 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                             emptyText: 'Seleccionar',
                             displayField: 'descripcion',
                             valueField: 'idTmausencia',
+                            editable: false,
                             bind: {
                                 store: '{tiemposAusencia}',
                                 selection: '{selectTiempo}'
@@ -63,12 +69,18 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                             xtype: 'datefield',
                             name: 'fechaInicio',
                             fieldLabel: 'Empezado desde',
-                            format: 'd/m/Y'
+                            format: 'd/m/Y',
+                            flex: 1
                         }, {
                             xtype: 'datefield',
                             name: 'fechaFin',
                             fieldLabel: 'Acabado en',
-                            format: 'd/m/Y'
+                            format: 'd/m/Y',
+                            flex: 1,
+                            disabled: true,
+                            bind: {
+                                disabled: '{selectTiempo.horas}'
+                            }
                         }]
                 }, {
                     items: [{
@@ -80,7 +92,8 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                                 disabled: '{selectTiempo ? !selectTiempo.horas : true}'
                             },
                             minValue: '7:30 AM',
-                            maxValue: '4:30 PM'
+                            maxValue: '4:30 PM',
+                            flex: 1
                         }, {
                             xtype: 'timefield',
                             name: 'horaFin',
@@ -90,7 +103,8 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                                 disabled: '{selectTiempo ? !selectTiempo.horas : true}'
                             },
                             minValue: '7:30 AM',
-                            maxValue: '4:30 PM'
+                            maxValue: '4:30 PM',
+                            flex: 1
                         }]
                 }],
 

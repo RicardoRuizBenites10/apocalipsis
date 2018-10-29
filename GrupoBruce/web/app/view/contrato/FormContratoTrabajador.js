@@ -40,6 +40,14 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                                 store: '{tipoContratos}'
                             },
                             flex: 2
+                        }, {
+                            xtype: 'numberfield',
+                            name: 'montoContrato',
+                            fieldLabel: 'Remuneración',
+                            allowDecimals: true,
+                            hideTrigger: true,
+                            minValue: 0,
+                            flex: 1
                         }
                     ]
                 }, {
@@ -61,7 +69,6 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                     items: [{
                             xtype: 'combobox',
                             name: 'idCargo',
-                            reference: 'cargo_desempenar',
                             fieldLabel: 'Cargo a desempeñar',
                             editable: false,
                             emptyText: 'Seleccionar',

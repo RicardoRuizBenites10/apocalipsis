@@ -7,8 +7,10 @@ package com.bruce.services.implement;
 
 import com.bruce.dao.design.IContratoTrabajadorDAO;
 import com.bruce.dao.design.ISituacionDAO;
+import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.ContratoTrabajador;
 import com.bruce.dao.to.Situacion;
+import com.bruce.dao.to.Trabajador;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     private IContratoTrabajadorDAO dao;
     @Autowired
     private ISituacionDAO dao2;
+    @Autowired
+    private ITrabajadorDAO dao3;
 
     @Override
     @Transactional
@@ -54,12 +58,16 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         newContrato.setIdContrato(idCLast + 1);
         newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
         dao.create(newContrato);
-        /*---situacion----*/
+        /*---actualizacion en situacion y trabajador----*/
         Situacion lastSituacion = dao2.last(newContrato.getIdTrabajador());
+        Trabajador trabajador = dao3.find(newContrato.getIdTrabajador());
         int idSLast = lastSituacion != null ? lastSituacion.getIdSituacion() : 0;
         if (lastSituacion == null || (!lastSituacion.isActiva())) {
             dao2.create(new Situacion(newContrato.getIdTrabajador(), idSLast + 1, newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
+            trabajador.setUltimaAlta(newContrato.getFechaInicio());
         }
+        trabajador.setMontoBase(newContrato.getMontoContrato());
+        dao3.update(trabajador);     
 
     }
 

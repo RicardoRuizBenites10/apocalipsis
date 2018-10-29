@@ -21,6 +21,7 @@ public class ContratoTrabajador implements java.io.Serializable {
     private String idTrabajador;
     private int idContrato;
     private Date fechaInicio;
+    private double montoContrato;
     private Date fechaFin;
     private Date fechaCese;
     private String idTcontrato;
@@ -32,19 +33,21 @@ public class ContratoTrabajador implements java.io.Serializable {
     public ContratoTrabajador() {
     }
 
-    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, String idTcontrato, int idEcontrato, int idTiempo) {
+    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, double montoContrato, String idTcontrato, int idEcontrato, int idTiempo) {
         this.idTrabajador = idTrabajador;
         this.idContrato = idContrato;
         this.fechaInicio = fechaInicio;
+        this.montoContrato = montoContrato;
         this.idTcontrato = idTcontrato;
         this.idEcontrato = idEcontrato;
         this.idTiempo = idTiempo;
     }
 
-    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo, String idArea, String idCargo) {
+    public ContratoTrabajador(String idTrabajador, int idContrato, Date fechaInicio, double montoContrato, Date fechaFin, Date fechaCese, String idTcontrato, int idEcontrato, int idTiempo, String idArea, String idCargo) {
         this.idTrabajador = idTrabajador;
         this.idContrato = idContrato;
         this.fechaInicio = fechaInicio;
+        this.montoContrato = montoContrato;
         this.fechaFin = fechaFin;
         this.fechaCese = fechaCese;
         this.idTcontrato = idTcontrato;
@@ -82,6 +85,15 @@ public class ContratoTrabajador implements java.io.Serializable {
 
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
+    }
+    
+    @Column(name="MONTO_CONTRATO", nullable = false)
+    public double getMontoContrato() {
+        return montoContrato;
+    }
+
+    public void setMontoContrato(double montoContrato) {
+        this.montoContrato = montoContrato;
     }
 
     @Temporal(TemporalType.DATE)

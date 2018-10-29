@@ -25,245 +25,6 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                         border: false
                     },
                     items: [{
-                            title: 'Datos laborales',
-                            iconCls: 'fa fa-file-text',
-                            items: [{
-                                    defaults: {
-                                        xtype: 'container',
-                                        layout: 'hbox',
-                                        defaults: {
-                                            labelAlign: 'top',
-                                            allowBlank: false,
-                                            padding: 5
-                                        }
-                                    },
-                                    items: [{
-                                            items: [
-                                                {
-                                                    xtype: 'combobox',
-                                                    name: 'idTtrabajador',
-                                                    fieldLabel: 'Tipo trabajador :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idTtrabajador',
-                                                    bind: {
-                                                        store: '{tipoTrabajadors}',
-                                                        selection: '{selectTTrabajador}'
-                                                    }
-                                                }, {
-                                                    xtype: 'textfield',
-                                                    name: 'codigo',
-                                                    fieldLabel: 'Codigo trabajador :',
-                                                    allowBlank: true
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idEfCts',
-                                                    fieldLabel: 'Banco CTS :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'nombre',
-                                                    valueField: 'idEfinanciera',
-                                                    disabled: true,
-                                                    bind: {
-                                                        store: '{entidadFinancieras}',
-                                                        disabled: '{!selectTTrabajador.hasctacts}'
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    }
-                                                }, {
-                                                    xtype: 'textfield',
-                                                    name: 'nrocuentaCts',
-                                                    fieldLabel: 'Cuenta CTS :',
-                                                    disabled: true,
-                                                    bind: {
-                                                        disabled: '{!selectTTrabajador.hasctacts}'
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    }
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idFpago',
-                                                    fieldLabel: 'Forma Pago :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idFpago',
-                                                    bind: {
-                                                        store: '{formaPagos}',
-                                                        selection: '{selectFPago}'
-                                                    },
-                                                    flex: 1
-                                                }, {
-                                                    xtype: 'combobox',
-                                                    name: 'idPeriocidad',
-                                                    fieldLabel: 'Periocidad de Pago :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idPeriocidad',
-                                                    bind: {
-                                                        store: '{periocidads}'
-                                                    },
-                                                    flex: 1
-                                                },{
-                                                    xtype: 'numberfield',
-                                                    name: 'montoPasaje',
-                                                    hideTrigger: true,
-                                                    minValue: 0,
-                                                    fieldLabel: 'Monto pasaje :',
-                                                    flex: 1
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idEfSueldo',
-                                                    fieldLabel: 'Banco sueldo :',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'nombre',
-                                                    valueField: 'idEfinanciera',
-                                                    disabled: true,
-                                                    bind: {
-                                                        store: '{entidadFinancieras}',
-                                                        disabled: '{!selectFPago.hasnrocuenta}'
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    },
-                                                    flex: 1
-                                                }, {
-                                                    xtype: 'textfield',
-                                                    name: 'nrocuentaSueldo',
-                                                    fieldLabel: 'Cuenta sueldo :',
-                                                    disabled: true,
-                                                    bind: {
-                                                        disabled: '{!selectFPago.hasnrocuenta}'
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    },
-                                                    flex: 1
-                                                },{
-                                                    xtype: 'numberfield',
-                                                    allowDecimals: true,
-                                                    hideTrigger: true,
-                                                    minValue: 0,
-                                                    name: 'montoBase',
-                                                    fieldLabel: 'Monto sueldo :',
-                                                    flex: 1
-                                                }]
-                                        }, {
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idRpensionario',
-                                                    fieldLabel: 'Regimen pensionario',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idRpensionario',
-                                                    forceSelection: true,
-                                                    disabled: true,
-                                                    bind: {
-                                                        store: '{regimenPensionarios}',
-                                                        selection: '{selectRPensionario}',
-                                                        disabled: '{!selectTTrabajador.hasctacts}'
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    },
-                                                    flex: 1
-                                                }, {
-                                                    xtype: 'combobox',
-                                                    name: 'idComisionrp',
-                                                    fieldLabel: 'Comisión',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idComisionrp',
-                                                    forceSelection: true,
-                                                    disabled: true,
-                                                    bind: {
-                                                        store: '{comisionrps}',
-                                                        disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    },
-                                                    flex: 1
-                                                }, {
-                                                    xtype: 'textfield',
-                                                    name: 'nrocusppAfiliacion',
-                                                    fieldLabel: 'Nro CUSPP :',
-                                                    disabled: true,
-                                                    flex: 1,
-                                                    bind: {
-                                                        disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
-                                                    },
-                                                    listeners: {
-                                                        disable: function () {
-                                                            this.setValue('');
-                                                            this.up('form').getRecord().set(this.name, this.value);
-                                                        }
-                                                    }
-                                                }]
-                                        },{
-                                            items: [{
-                                                    xtype: 'combobox',
-                                                    name: 'idEmpresa',
-                                                    fieldLabel: 'Empresa ',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'descripcion',
-                                                    valueField: 'idEmpresa',
-                                                    forceSelection: true,
-                                                    bind: {
-                                                        store: '{empresas}',
-                                                        selection: '{selectEmpresa}'
-                                                    },
-                                                    flex: 1
-                                                },{
-                                                    xtype: 'combobox',
-                                                    name: 'idSucursal',
-                                                    editable: false,
-                                                    emptyText: 'Seleccionar',
-                                                    displayField: 'direccion',
-                                                    valueField: 'idSucursal',
-                                                    fieldLabel: 'Sucursal',
-                                                    forceSelection: true,
-                                                    bind: {
-                                                        store: '{sucursals}'
-                                                    },
-                                                    flex: 2
-                                                }]
-                                        }
-                                    ]
-                                }]
-                        },{
                             title: 'Información personal',
                             iconCls: 'fa fa-user',
                             items: [{
@@ -444,6 +205,246 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     flex: 1
                                                 }]
                                         }]
+                                }]
+                        }, {
+                            title: 'Datos laborales',
+                            iconCls: 'fa fa-file-text',
+                            items: [{
+                                    defaults: {
+                                        xtype: 'container',
+                                        layout: 'hbox',
+                                        defaults: {
+                                            labelAlign: 'top',
+                                            allowBlank: false,
+                                            padding: 5
+                                        }
+                                    },
+                                    items: [{
+                                            items: [
+                                                {
+                                                    xtype: 'combobox',
+                                                    name: 'idTtrabajador',
+                                                    fieldLabel: 'Tipo trabajador :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idTtrabajador',
+                                                    bind: {
+                                                        store: '{tipoTrabajadors}',
+                                                        selection: '{selectTTrabajador}'
+                                                    }
+                                                }, {
+                                                    xtype: 'textfield',
+                                                    name: 'codigo',
+                                                    fieldLabel: 'Codigo trabajador :',
+                                                    allowBlank: true
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'combobox',
+                                                    name: 'idEfCts',
+                                                    fieldLabel: 'Banco CTS :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'nombre',
+                                                    valueField: 'idEfinanciera',
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{entidadFinancieras}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    }
+                                                }, {
+                                                    xtype: 'textfield',
+                                                    name: 'nrocuentaCts',
+                                                    fieldLabel: 'Cuenta CTS :',
+                                                    disabled: true,
+                                                    bind: {
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    }
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'combobox',
+                                                    name: 'idFpago',
+                                                    fieldLabel: 'Forma Pago :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idFpago',
+                                                    bind: {
+                                                        store: '{formaPagos}',
+                                                        selection: '{selectFPago}'
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'combobox',
+                                                    name: 'idPeriocidad',
+                                                    fieldLabel: 'Periocidad de Pago :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idPeriocidad',
+                                                    bind: {
+                                                        store: '{periocidads}'
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'numberfield',
+                                                    name: 'montoPasaje',
+                                                    hideTrigger: true,
+                                                    minValue: 0,
+                                                    fieldLabel: 'Monto pasaje :',
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'combobox',
+                                                    name: 'idEfSueldo',
+                                                    fieldLabel: 'Banco sueldo :',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'nombre',
+                                                    valueField: 'idEfinanciera',
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{entidadFinancieras}',
+                                                        disabled: '{!selectFPago.hasnrocuenta}'
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'textfield',
+                                                    name: 'nrocuentaSueldo',
+                                                    fieldLabel: 'Cuenta sueldo :',
+                                                    disabled: true,
+                                                    bind: {
+                                                        disabled: '{!selectFPago.hasnrocuenta}'
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'numberfield',
+                                                    allowDecimals: true,
+                                                    hideTrigger: true,
+                                                    editable: false,
+                                                    minValue: 0,
+                                                    name: 'montoBase',
+                                                    fieldLabel: 'Monto sueldo :',
+                                                    flex: 1
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'combobox',
+                                                    name: 'idRpensionario',
+                                                    fieldLabel: 'Regimen pensionario',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idRpensionario',
+                                                    forceSelection: true,
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{regimenPensionarios}',
+                                                        selection: '{selectRPensionario}',
+                                                        disabled: '{!selectTTrabajador.hasctacts}'
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'combobox',
+                                                    name: 'idComisionrp',
+                                                    fieldLabel: 'Comisión',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idComisionrp',
+                                                    forceSelection: true,
+                                                    disabled: true,
+                                                    bind: {
+                                                        store: '{comisionrps}',
+                                                        disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'textfield',
+                                                    name: 'nrocusppAfiliacion',
+                                                    fieldLabel: 'Nro CUSPP :',
+                                                    disabled: true,
+                                                    flex: 1,
+                                                    bind: {
+                                                        disabled: ('{!selectRPensionario} ' && '{!selectRPensionario.cuspp}')
+                                                    },
+                                                    listeners: {
+                                                        disable: function () {
+                                                            this.setValue('');
+                                                            this.up('form').getRecord().set(this.name, this.value);
+                                                        }
+                                                    }
+                                                }]
+                                        }, {
+                                            items: [{
+                                                    xtype: 'combobox',
+                                                    name: 'idEmpresa',
+                                                    fieldLabel: 'Empresa ',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idEmpresa',
+                                                    forceSelection: true,
+                                                    bind: {
+                                                        store: '{empresas}',
+                                                        selection: '{selectEmpresa}'
+                                                    },
+                                                    flex: 1
+                                                }, {
+                                                    xtype: 'combobox',
+                                                    name: 'idSucursal',
+                                                    editable: false,
+                                                    emptyText: 'Seleccionar',
+                                                    displayField: 'direccion',
+                                                    valueField: 'idSucursal',
+                                                    fieldLabel: 'Sucursal',
+                                                    forceSelection: true,
+                                                    bind: {
+                                                        store: '{sucursals}'
+                                                    },
+                                                    flex: 2
+                                                }]
+                                        }
+                                    ]
                                 }]
                         }]
                 }],
