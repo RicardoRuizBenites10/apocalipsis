@@ -5,8 +5,7 @@ Ext.define('GrupoBruce.view.main.Main', {
     requires: [
         'Ext.plugin.Viewport',
         'GrupoBruce.view.main.MainController',
-        'GrupoBruce.view.main.MainModel',
-        'GrupoBruce.view.trabajador.Trabajador'
+        'GrupoBruce.view.main.MainModel'
     ],
     
     controller: 'main',
@@ -14,6 +13,7 @@ Ext.define('GrupoBruce.view.main.Main', {
     plugins: 'viewport',
     title: 'GRUPO BRUCE S.A.',
     iconCls: 'x-fa fa-bus',
+    
     header: {
         items: [{
                 xtype: 'button',

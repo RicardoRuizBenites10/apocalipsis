@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.asistencia-asistencia',
+    alias: 'viewmodel.VMasistencia',
     data: {
         name: 'GrupoBruce'
     }
