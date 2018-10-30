@@ -875,6 +875,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Ausencia"
       }
+    },
+    "app/model/Asistencia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,hasistencia:string:null,idAsistencia:string:null,idTrabajador:string:null",
+        "modelFileName": "Asistencia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Asistencia"
+      }
+    },
+    "app/model/Archivo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "extension:string:null,idDirectorio:int:null,idFile:int:null,nombre:string:null",
+        "modelFileName": "Archivo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Archivo"
+      }
     }
   }
 }

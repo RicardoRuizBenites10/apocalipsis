@@ -44,7 +44,7 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'uploadFile'
+                        click: 'onImportacionFile'
                     }
                 }]
 
