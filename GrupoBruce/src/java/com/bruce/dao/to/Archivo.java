@@ -20,17 +20,18 @@ import javax.persistence.Transient;
 public class Archivo implements java.io.Serializable {
 
     private int idArchivo;
-    private String extencion;
+    private String extension;
     private int idDirectorio;
+    private String nombre;
     
     private String fileB64;
 
     public Archivo() {
     }
 
-    public Archivo(int idArchivo, String extencion, int idDirectorio) {
+    public Archivo(int idArchivo, String extension, int idDirectorio) {
         this.idArchivo = idArchivo;
-        this.extencion = extencion;
+        this.extension = extension;
         this.idDirectorio = idDirectorio;
     }
 
@@ -45,12 +46,12 @@ public class Archivo implements java.io.Serializable {
     }
 
     @Column(name = "EXTENCION", nullable = false)
-    public String getExtencion() {
-        return extencion;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setExtencion(String extencion) {
-        this.extencion = extencion;
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     @Column(name = "ID_DIRECTORIO", nullable = false)
@@ -60,6 +61,15 @@ public class Archivo implements java.io.Serializable {
 
     public void setIdDirectorio(int idDirectorio) {
         this.idDirectorio = idDirectorio;
+    }
+    
+    @Column(name="NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     @Transient

@@ -28,11 +28,9 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
             items: [{
                     items: [{
                             xtype: 'filefield',
-                            name: 'fileB64',
-                            reference: 'dododo',
                             emptyText: 'Seleccionar archivo',
                             fieldLabel: 'Archivo excel',
-                            accept: 'image',
+                            accept: ".xlsx",
                             buttonConfig: {
                                 text: '',
                                 iconCls: 'fa fa-file-excel-o'

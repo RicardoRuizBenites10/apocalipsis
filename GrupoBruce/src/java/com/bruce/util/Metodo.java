@@ -5,22 +5,33 @@
  */
 package com.bruce.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.bruce.dao.to.Asistencia;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
 import static com.bruce.util.Constante.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 /**
  *
@@ -116,5 +127,129 @@ public class Metodo {
             nomAvatar = Constante.FPERFIL_DEFAULT;
         }
         return nomAvatar;
+    }
+    
+    public static List<Asistencia> Importar(File archivo) {
+        
+        Workbook wb;
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"), formatoHora = new SimpleDateFormat("hh:mm:ss");
+        List<Asistencia> lista = new ArrayList<>();
+        String dni="", nombres="", fecha="", hora="";
+                
+        try {
+            wb = WorkbookFactory.create(new FileInputStream(archivo));//CREAMOS UNA REPRESENTACIÓN DE HOJA EXCEL
+            FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();//CREAMOS EVALUADOR DE FORMULAS
+            Sheet hoja = wb.getSheetAt(0);//SELECCIONAMOS LA HOJA DE LA POSICIÓN -> 0 DEL LIBRO
+            Row rowSelect;//OBJETO QUE PERMITIRA RECORRER UNA FILA
+            Cell cellSelect;//OBJETO QUE PERMITE RECORRER UNA CELDA
+            int nroFNN = hoja.getLastRowNum();//NÚMERO DE ULTIMA FILA NO VACIA
+            int nroCFNN = 0;//NÚMERO DE LA ULTIMA COLUMNA NO VACIA DE UNA FILA
+            int contFNN = 0;//CONTADOR DE FILA NO NULLA
+
+            for (int ir = 0; ir <= nroFNN; ir++) {
+                
+                rowSelect = hoja.getRow(ir);
+                if (rowSelect != null) {
+                    contFNN++;
+                    nroCFNN = rowSelect.getLastCellNum();
+                    
+//                    Object[] listaColumna = new Object[100];
+                    
+                    int indiceCTabla, nroOcultos = 0;
+                    boolean oculto = false;
+                    for (int ic = 0; ic < nroCFNN; ic++) {
+                        indiceCTabla = ic;
+                        cellSelect = rowSelect.getCell(ic);
+                        if (contFNN == 1) {
+                            if (cellSelect != null) {
+                                if (hoja.isColumnHidden(cellSelect.getColumnIndex())) {// CABECERA CELL OCULTA
+                                    System.out.println("fil[" + ir + "] col[" + ic + "]: Dato oculta");
+                                } else {
+                                    if (indiceCTabla == 3) {
+                                        System.out.print("Fecha");
+                                        System.out.print("Hora marcación");
+                                        
+//                                        modeloT.addColumn(" Fecha ");
+//                                        modeloT.addColumn(" Hora marcación ");
+                                    } else {
+                                        System.out.print(cellSelect.getStringCellValue());
+//                                        modeloT.addColumn(cellSelect.getStringCellValue());
+                                    }
+                                }
+                            } else {
+                                System.out.print(" Title " + ic);
+//                                modeloT.addColumn("Title " + ic);
+                            }
+                        } else {
+                            if (cellSelect != null) {
+                                if (hoja.isColumnHidden(cellSelect.getColumnIndex())) {// CABECERA CELL OCULTA
+                                    nroOcultos++;
+                                    oculto = true;
+                                } else {// COLUMNA VISIBLE
+                                    if (oculto) {
+                                        indiceCTabla = indiceCTabla - nroOcultos;
+                                    } else {
+                                        oculto = false;
+                                    }
+                                    switch (evaluator.evaluateInCell(cellSelect).getCellType()) {//EVALUA SI CELDA ES DE TIPO CELL_TYPE_FORMULA (SI NO LO ES, NO HACE NADA. SI LO ES, ETONCES FORMULA SE EVALUA Y SE REEMPLAZA EN VEZ DE LA FORMULA) LUEGO DEVUELVE EL TIPO DE CELDA 
+                                        case Cell.CELL_TYPE_STRING:
+                                            
+                                            switch(indiceCTabla){
+                                                case 1:
+                                                    nombres = cellSelect.getStringCellValue();
+                                                    break;
+                                                case 2:
+                                                    dni = cellSelect.getStringCellValue();
+                                                    break;
+                                                case 3:
+                                                    fecha = (cellSelect.getStringCellValue()).substring(0, 10);
+                                                    hora = (cellSelect.getStringCellValue()).substring(11);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            
+                                            
+//                                            if (indiceCTabla == 3) {
+//                                                listaColumna[indiceCTabla] = (cellSelect.getStringCellValue()).substring(0, 10);
+//                                                listaColumna[indiceCTabla + 1] = (cellSelect.getStringCellValue()).substring(11);
+//                                            } else {
+//                                                listaColumna[indiceCTabla] = cellSelect.getStringCellValue();
+//                                            }
+                                            break;
+                                        case Cell.CELL_TYPE_NUMERIC:
+                                            if (DateUtil.isCellDateFormatted(cellSelect)) {
+//                                                listaColumna[indiceCTabla] = formatoFecha.format(cellSelect.getDateCellValue());
+                                            } else {
+//                                                listaColumna[indiceCTabla] = (int) Math.round(cellSelect.getNumericCellValue());
+                                            }
+                                            break;
+                                        case Cell.CELL_TYPE_BOOLEAN:
+//                                            listaColumna[indiceCTabla] = cellSelect.getBooleanCellValue();
+                                            break;
+                                        case Cell.CELL_TYPE_BLANK:
+//                                            listaColumna[indiceCTabla] = ""; //"BLANK";  CELDA QUE TUBO CONTENIDO Y LUEGO LO ELIMINAMOS
+                                            break;
+                                        case Cell.CELL_TYPE_ERROR:
+//                                            listaColumna[indiceCTabla] = "ERROR";
+                                            break;
+                                    }
+                                }
+                            } else {
+//                                listaColumna[indiceCTabla] = "";
+                            }
+                        }
+                    }
+                    if (contFNN > 1) {
+                        lista.add(new Asistencia(dni, new Date(), hora, nombres));
+//                        modeloT.addRow(listaColumna);
+                    }
+                }
+            }
+//            respuesta = "Carga exitosa";
+        } catch (IOException | InvalidFormatException | EncryptedDocumentException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return lista;
     }
 }

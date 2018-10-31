@@ -26,6 +26,7 @@ public class Constante {
     //Directorios para manejo de archivos
     public static final String DIRECTORY_AVATAR = "D:\\PRUEBA_AVATAR\\";
     public static final String DIRECTORY_CHAT = "D:\\CHAT\\";
+    public static final String DIRECTORY_ASISTENCIA = "D:\\ASISTENCIA\\";
     public static final String FPERFIL_DEFAULT = "./resources/img/guest.png";
     //Forma de pago
     public static final int FORMAPAGO_EFECTIVO = 1;
