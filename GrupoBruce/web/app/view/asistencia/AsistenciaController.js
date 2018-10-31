@@ -1,34 +1,43 @@
 Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Casistencia',
-    
-    createDialog: function(){
+
+    createDialog: function (record) {
         var window = new GrupoBruce.view.asistencia.ListMarcas();
+        if (!record) {
+            record = Ext.create('GrupoBruce.model.Archivo');
+        }
+        window.down('form').loadRecord(record);
     },
-    
-    onImportacionMarcas: function(){
-        this.createDialog();
+
+    onImportacionMarcas: function () {
+        this.createDialog(null);
     },
-    
-    onImportacionFile: function(btn){
+
+    onImportacionFile: function (btn) {
         var form = btn.up('form');
         var model = form.getRecord();
-        if (form.isValid()) { // make sure the form contains valid data before submitting
-            form.updateRecord(model); // update the record with the form data
-            model.save({// save the record to the server
-                success: function (contrato, operation) {
-                    grid.getStore().reload();
-                    form.reset();
-                    window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
-                },
-                failure: function (contrato, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
-                }
-            });
-        } else { // display error alert if the data is invalid
-            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
+
+        var file = form.down('filefield').dom.files[0];
+
+        if (file !== null) {
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function (e) {
+                alert(e.target.result);
+            };
+
+
+//            var reader = new FileReader();
+//            reader.onload = function (e) {
+//                $img_avatar.data({"avatarB64": e.target.result, "avatarNombre": avatar_name});
+//                $img_avatar.attr({src: e.target.result, title: avatar_name});
+//            };
+//            reader.readAsDataURL(this.files[0]);
         }
+
+        console.log('Mi archivo: ' + file.getReference());
+
     }
 
 });

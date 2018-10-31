@@ -7,7 +7,8 @@ Ext.define('GrupoBruce.model.Archivo', {
         {name: 'extension', type: 'string'},
         {name: 'idDirectorio', type: 'int'},
         {name: 'idFile', type: 'int'},
-        {name: 'nombre', type: 'string'}
+        {name: 'nombre', type: 'string'},
+        {name: 'fileB64', type: 'string'}
     ],
 
     proxy: {
