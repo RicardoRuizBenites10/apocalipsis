@@ -4,10 +4,6 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.asistencia.ListMarcas();
-        if (!record) {
-            record = Ext.create('GrupoBruce.model.Archivo');
-        }
-        window.down('form').loadRecord(record);
     },
 
     onImportacionMarcas: function () {
@@ -17,26 +13,27 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     onImportacionFile: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var file, name_file, extension_file;
+        var file, name_file;
 
         if (form.isValid()) {
-
             file = form.down('filefield').getEl().down('input[type=file]').dom.files[0];
             name_file = form.down('filefield').value.split('\\').pop();
-            extension_file = name_file.split('\.').pop();
-            
+
             if (file !== null) {
                 this.getBase64(file).then(data => {
+                    var base64 = data.split(',');
                     var mooo = new GrupoBruce.model.Archivo({
-                        fileB64: data,
                         nombre: name_file,
-                        extension: extension_file
+                        beforeB64: base64[0],
+                        afterB64: base64[1]
                     });
                     mooo.save({// save the record to the server
                         success: function (response, operation) {
 //                            var data = Ext.decode(response.data);
-                            console.log(response.data);
-                            Ext.Msg.alert('Success', response.data.nombre)
+                            name_file = response.data.nombre;
+                            window.getViewModel().set('nameFile', name_file);
+                            console.log(name_file);
+//                            Ext.Msg.alert('Success', response.data.nombre)
                         },
                         failure: function (model, operation) {
                             Ext.Msg.alert('Failure', 'Operacion fallada.')

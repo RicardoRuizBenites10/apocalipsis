@@ -7,7 +7,6 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IAsistenciaDAO;
 import com.bruce.dao.to.Asistencia;
-import com.bruce.dao.to.Asistencia;
 import com.bruce.util.FilterPage;
 import java.util.List;
 import org.hibernate.Criteria;

@@ -22,25 +22,25 @@ public class Asistencia implements java.io.Serializable {
     private String idTrabajador;
     private String idAsistencia;
     private Date fecha;
-    private String hMarca;
-    
+    private String hmarca;
+
     private String trabajador;
 
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, Date fecha, String hMarca, String trabajador) {
+    public Asistencia(String idTrabajador, Date fecha, String hmarca, String trabajador) {
         this.idTrabajador = idTrabajador;
         this.fecha = fecha;
-        this.hMarca = hMarca;
+        this.hmarca = hmarca;
         this.trabajador = trabajador;
     }
 
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String hMarca) {
+    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String hmarca) {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
-        this.hMarca = hMarca;
+        this.hmarca = hmarca;
     }
 
     @Id
@@ -74,14 +74,14 @@ public class Asistencia implements java.io.Serializable {
     }
 
     @Column(name = "HMARCA", nullable = false, length = 10)
-    public String gethMarca() {
-        return hMarca;
+    public String getHmarca() {
+        return hmarca;
     }
 
-    public void sethMarca(String hMarca) {
-        this.hMarca = hMarca;
+    public void setHmarca(String hmarca) {
+        this.hmarca = hmarca;
     }
-    
+
     @Transient
     public String getTrabajador() {
         return trabajador;

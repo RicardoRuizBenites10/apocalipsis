@@ -4,11 +4,11 @@ Ext.define('GrupoBruce.model.Archivo', {
 
     idProperty: 'idArchivo',
     fields: [
-        {name: 'extension', type: 'string'},
         {name: 'idDirectorio', type: 'int'},
         {name: 'idArchivo', type: 'int'},
         {name: 'nombre', type: 'string'},
-        {name: 'fileB64', type: 'string'}
+        {name: 'afterB64', type: 'string'},
+        {name: 'beforeB64', type: 'string'}
     ],
 
     identifier: {

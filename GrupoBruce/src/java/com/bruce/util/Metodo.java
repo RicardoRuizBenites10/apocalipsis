@@ -21,8 +21,6 @@ import static com.bruce.util.Constante.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -65,7 +63,7 @@ public class Metodo {
         } else {
             return texto_original;
         }
-
+        
     }
 
     //Array de palabras de un texto separado por cadena
@@ -93,11 +91,11 @@ public class Metodo {
     }
 
     /*Guardar imagen*/
-    public static boolean SaveFile(String directory, String nameFile, String extentionFile, byte[] bytes) {
+    public static boolean SaveFile(String directory, String nameFile, byte[] bytes) {
         boolean respuesta = false;
         BufferedOutputStream salida;
         try {
-            File f = new File(directory + nameFile.trim() + "." + extentionFile);
+            File f = new File(directory + nameFile.trim());
             salida = new BufferedOutputStream(new FileOutputStream(f));
             salida.write(bytes);
             salida.close();
@@ -107,17 +105,17 @@ public class Metodo {
         }
         return respuesta;
     }
-
+    
     public static boolean CheckFile(String directory, String nameFile, String extentionFile) {
         File f = new File(directory + nameFile.trim() + "." + extentionFile);
         return f.exists();
     }
-
+    
     public static boolean RemoveFile(String directory, String nameFile, String extentionFile) {
         File f = new File(directory + nameFile.trim() + "." + extentionFile);
         return f.delete();
     }
-
+    
     public static String getAvatarB64(String codAvatar, String nomAvatar) {
         if (nomAvatar != null && !nomAvatar.equalsIgnoreCase("") && Metodo.CheckFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
             byte[] bytes = OpenFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
@@ -128,15 +126,15 @@ public class Metodo {
         }
         return nomAvatar;
     }
-
+    
     public static List<Asistencia> Importar(File archivo) {
-
+        
         Workbook wb;
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"), formatoHora = new SimpleDateFormat("hh:mm:ss");
         List<Asistencia> lista = new ArrayList<>();
         Object valueTem = null;
         String fcha;
-
+        
         try {
             wb = WorkbookFactory.create(new FileInputStream(archivo));//CREAMOS UNA REPRESENTACIÓN DE HOJA EXCEL
             FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();//CREAMOS EVALUADOR DE FORMULAS
@@ -149,11 +147,12 @@ public class Metodo {
 
             for (int ir = 0; ir <= nroFNN; ir++) {
                 Asistencia asistencia = new Asistencia();
+                asistencia.setIdAsistencia(String.valueOf(ir));
                 rowSelect = hoja.getRow(ir);
                 if (rowSelect != null) {
                     contFNN++;
                     nroCFNN = rowSelect.getLastCellNum();
-
+                    
                     int indiceCTabla, nroOcultos = 0;
                     boolean oculto = false;
                     for (int ic = 0; ic < nroCFNN; ic++) {
@@ -216,7 +215,7 @@ public class Metodo {
                                 case 3:
                                     fcha = (String) valueTem;
                                     asistencia.setFecha(new Date(fcha.substring(0, 10)));
-                                    asistencia.sethMarca(fcha.substring(11));
+                                    asistencia.setHmarca(fcha.substring(11));
                                     break;
                                 default:
                                     break;

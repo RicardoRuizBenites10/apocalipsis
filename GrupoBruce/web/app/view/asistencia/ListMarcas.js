@@ -2,16 +2,17 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
     extend: 'Ext.window.Window',
     alias: 'widget.WlistMarcas',
     reference: 'list_marcas',
-    
+
     controller: 'Casistencia',
     viewModel: {
         type: 'VMasistencia'
     },
-    
+
     autoShow: true,
     modal: true,
     closable: true,
-    width: 600,
+    rezisable: false,
+    width: 650,
     height: 500,
     title: 'Registrar marcas',
 
@@ -52,12 +53,62 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
             xtype: 'grid',
             title: 'Lista de marcas de trabajadores',
             collapsible: true,
-            colums: [{
-                    text: 'DNI'
+            bind: {
+                store: '{importacions}'
+            },
+            height: 337,
+            style: 'border: solid rgb(234,234,236) 1px',
+            columns: [{
+                    text: 'idAsistencia',
+                    dataIndex: 'idAsistencia',
+                    flex: 1,
+                    align: 'left'
+                },{
+                    text: 'Dni',
+                    dataIndex: 'idTrabajador',
+                    flex: 1,
+                    renderer: function(val){
+                        console.log("idTrabajador" + val);
+                    },
+                    align: 'left'
                 }, {
-                    text: 'Trabajador'
+                    text: 'Trabajador',
+                    dataIndex: 'tarabajador',
+                    flex: 2,
+                    align: 'left'
                 }, {
-                    text: 'Fecha/Hora de marcación'
+                    text: 'Fecha',
+                    dataIndex: 'fecha',
+                    flex: 1,
+                    align: 'left'
+                }, {
+                    text: 'Hora',
+                    dataIndex: 'hmarca',
+                    align: 'center'
+                }],
+
+            tbar: {
+                items: [{
+                        xtype: 'button',
+                        iconCls: 'x-fa fa-save',
+                        text: 'Guardar indormación',
+                        disabled: true,
+                        bind: {
+                            disabled: '{selectCargo}'
+                        },
+                        handler: 'addCargo'
+                    }]
+            },
+
+            dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    bind: {
+                        store: '{importacions}'
+                    },
+                    displayInfo: true,
+                    displayMsg: 'Mostrando registros {0} - {1} de {2}',
+                    emptyMsg: "No hay registros que mostrar"
                 }]
         }]
 });

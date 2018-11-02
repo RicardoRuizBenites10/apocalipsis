@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -37,19 +36,19 @@ public class ArchivoController {
 
         Map<String, Object> map = new HashMap<>();
         List<Asistencia> lista = new ArrayList<>();
-        
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-        System.err.println("Fecha: " + formatoFecha.format(new Date()));
-        boolean rpta;
-        if (archivo.getFileB64().length() > 0) {
-            byte[] fileArray = Base64.getDecoder().decode(archivo.getFileB64().split(",")[1]); //extraemos la parte que representa b64 y luego decodificamos a bytes[]
-            rpta = Metodo.SaveFile(Constante.DIRECTORY_ASISTENCIA, archivo.getNombre().split("[.]")[0], archivo.getExtension(), fileArray);
-            if (rpta) {
-                lista = Metodo.Importar(new File(Constante.DIRECTORY_ASISTENCIA + archivo.getNombre()));
-            }
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd hh:mm a");
+        String name[] = archivo.getNombre().split("[.]");
+        String newName = formatoFecha.format(new Date()).substring(0, 10).replace("/", "") + "." + name[name.length - 1];
+
+        boolean rpta = false;
+        if (archivo.getAfterB64().length() > 0) {
+            byte[] fileArray = Base64.getDecoder().decode(archivo.getAfterB64()); //extraemos la parte que representa b64 y luego decodificamos a bytes[]
+            rpta = Metodo.SaveFile(Constante.DIRECTORY_ASISTENCIA, newName, fileArray);
+            archivo.setNombre(newName);
         }
-        
-        map.put("success", true);
+
+        map.put("success", rpta);
         map.put("message", "Registro exitoso");
         map.put("data", archivo);
         return map;

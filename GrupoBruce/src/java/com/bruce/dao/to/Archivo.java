@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -20,21 +19,22 @@ import javax.persistence.Transient;
 public class Archivo implements java.io.Serializable {
 
     private int idArchivo;
-    private String extension;
-    private int idDirectorio;
     private String nombre;
-    
-    private String fileB64;
+    private String afterB64;
+    private String beforeB64;
+    private int idDirectorio;
 
     public Archivo() {
     }
 
-    public Archivo(int idArchivo, String extension, int idDirectorio) {
+    public Archivo(int idArchivo, String nombre, String afterB64, String beforeB64, int idDirectorio) {
         this.idArchivo = idArchivo;
-        this.extension = extension;
+        this.nombre = nombre;
+        this.afterB64 = afterB64;
+        this.beforeB64 = beforeB64;
         this.idDirectorio = idDirectorio;
     }
-
+    
     @Id
     @Column(name = "ID_ARCHIVO", nullable = false)
     public int getIdArchivo() {
@@ -43,15 +43,6 @@ public class Archivo implements java.io.Serializable {
 
     public void setIdArchivo(int idArchivo) {
         this.idArchivo = idArchivo;
-    }
-
-    @Column(name = "EXTENCION", nullable = false)
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
     }
 
     @Column(name = "ID_DIRECTORIO", nullable = false)
@@ -72,13 +63,22 @@ public class Archivo implements java.io.Serializable {
         this.nombre = nombre;
     }
     
-    @Transient
-    public String getFileB64() {
-        return fileB64;
+    @Column(name="AFTERB64")
+    public String getAfterB64() {
+        return afterB64;
     }
 
-    public void setFileB64(String fileB64) {
-        this.fileB64 = fileB64;
+    public void setAfterB64(String afterB64) {
+        this.afterB64 = afterB64;
+    }
+    
+    @Column(name="BEFOREB64", nullable = false)
+    public String getBeforeB64() {
+        return beforeB64;
+    }
+
+    public void setBeforeB64(String beforeB64) {
+        this.beforeB64 = beforeB64;
     }
 
 }
