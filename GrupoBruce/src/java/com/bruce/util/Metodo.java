@@ -150,7 +150,7 @@ public class Metodo {
 
             for (int ir = 0; ir <= nroFNN; ir++) {
                 Asistencia asistencia = new Asistencia();
-                asistencia.setIdAsistencia(String.valueOf(ir));
+//                asistencia.setIdAsistencia(String.valueOf(ir));
                 rowSelect = hoja.getRow(ir);
                 if (rowSelect != null) {
                     contFNN++;
@@ -223,6 +223,9 @@ public class Metodo {
                                         } catch (ParseException ex) {
                                             Logger.getLogger(Metodo.class.getName()).log(Level.SEVERE, null, ex);
                                         }
+                                        asistencia.setDia(Integer.parseInt(fcha.substring(0, 2)));
+                                        asistencia.setMes(Integer.parseInt(fcha.substring(3, 5)));
+                                        asistencia.setAnio(Integer.parseInt(fcha.substring(6, 10)));
                                         asistencia.setHmarca(fcha.substring(11));
                                     }
                                     break;

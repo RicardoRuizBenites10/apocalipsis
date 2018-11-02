@@ -24,9 +24,11 @@ public class Asistencia implements java.io.Serializable {
     private String idAsistencia;
     private Date fecha;
     private String hmarca;
+    private int anio;
+    private int mes;
+    private int dia;
     
     private String fechaTemp;
-
     private String trabajador;
 
     public Asistencia() {
@@ -93,6 +95,33 @@ public class Asistencia implements java.io.Serializable {
 
     public void setHmarca(String hmarca) {
         this.hmarca = hmarca;
+    }
+    
+    @Column(name="ANIO", nullable = false)
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    @Column(name="MES", nullable = false)
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    @Column(name="DIA", nullable = false)
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
     }
 
     @Transient

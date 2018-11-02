@@ -30,8 +30,8 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                     mooo.save({// save the record to the server
                         success: function (response, operation) {
                             name_file = response.data.nombre;
+                            Ext.Msg.alert('Success', 'Importación exitosa');
                             window.getViewModel().set('nameFile', name_file);
-//                            Ext.Msg.alert('Success', response.data.nombre);
                         },
                         failure: function (model, operation) {
                             Ext.Msg.alert('Failure', 'Operacion fallada.')
@@ -56,6 +56,43 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     saveImport: function (btn) {
         var store = btn.up('grid').getStore();
+//        store.each(function (rec) {
+//            var asistencia = new GrupoBruce.model.Asistencia();
+//            asistencia.set('fecha',rec.get('fechaTemp'));
+//            asistencia.set('hmarca',rec.get('hmarca'));
+//            asistencia.set('idTrabajador',rec.get('idTrabajador'));
+//            asistencia.set('anio',rec.get('anio'));
+//            asistencia.set('mes',rec.get('mes'));
+//            asistencia.set('dia',rec.get('dia'));
+//            asistencia.save();
+//        });
+        
+        Ext.Ajax.request({
+            url: 'iiAsistenciaList',
+            jsonData: {"lista": "store.getData()"},
+            method: 'POST',
+            scope: this,
+            success: function (response, opts) {
+//                var responseText = Ext.decode(response.responseText);
+//                var fechaInicio = responseText.inicio !== null ? Ext.Date.add(new Date(responseText.inicio), Ext.Date.DAY, 2) : new Date();
+//                if (responseText.success) {
+//                    this.createDialog(null, fechaInicio);
+//                } else {
+//                    Ext.Msg.show({
+//                        title: 'Error',
+//                        msg: "No se puede registrar nuevo contrato",
+//                        icon: Ext.Msg.ERROR,
+//                        botones: Ext.Msg.OK
+//                    });
+//                }
+
+            },
+            failurer: function (response, opts) {
+                Ext.Msg.alert('Status', response.status);
+            }
+        });
+        
+        
     }
 
 });
