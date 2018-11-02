@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     onImportacionFile: function (btn) {
         var form = btn.up('form');
-        var model = form.getRecord();
+        var window = btn.up('window');
         var file, name_file, extension_file;
 
         if (form.isValid()) {
@@ -24,6 +24,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             file = form.down('filefield').getEl().down('input[type=file]').dom.files[0];
             name_file = form.down('filefield').value.split('\\').pop();
             extension_file = name_file.split('\.').pop();
+            
             if (file !== null) {
                 this.getBase64(file).then(data => {
                     var mooo = new GrupoBruce.model.Archivo({
@@ -32,8 +33,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                         extension: extension_file
                     });
                     mooo.save({// save the record to the server
-                        success: function (model, operation) {
-                            Ext.Msg.alert('Success', 'Operación exitosa.')
+                        success: function (response, operation) {
+//                            var data = Ext.decode(response.data);
+                            console.log(response.data);
+                            Ext.Msg.alert('Success', response.data.nombre)
                         },
                         failure: function (model, operation) {
                             Ext.Msg.alert('Failure', 'Operacion fallada.')

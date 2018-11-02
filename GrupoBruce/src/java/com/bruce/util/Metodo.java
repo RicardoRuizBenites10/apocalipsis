@@ -119,23 +119,24 @@ public class Metodo {
     }
 
     public static String getAvatarB64(String codAvatar, String nomAvatar) {
-        if (nomAvatar != null && !nomAvatar.equalsIgnoreCase("") && Metodo.CheckFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
-            byte[] bytes = OpenFile(Constante.DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
+        if (nomAvatar != null && !nomAvatar.equalsIgnoreCase("") && Metodo.CheckFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
+            byte[] bytes = OpenFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
 //            nomAvatar = nomAvatar + ";" + "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
             nomAvatar = "data:image/" + nomAvatar.split("[.]")[1] + ";" + "base64," + Base64.getEncoder().encodeToString(bytes);
         } else {
-            nomAvatar = Constante.FPERFIL_DEFAULT;
+            nomAvatar = FPERFIL_DEFAULT;
         }
         return nomAvatar;
     }
-    
+
     public static List<Asistencia> Importar(File archivo) {
-        
+
         Workbook wb;
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"), formatoHora = new SimpleDateFormat("hh:mm:ss");
         List<Asistencia> lista = new ArrayList<>();
-        String dni="", nombres="", fecha="", hora="";
-                
+        Object valueTem = null;
+        String fcha;
+
         try {
             wb = WorkbookFactory.create(new FileInputStream(archivo));//CREAMOS UNA REPRESENTACIÓN DE HOJA EXCEL
             FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();//CREAMOS EVALUADOR DE FORMULAS
@@ -147,14 +148,12 @@ public class Metodo {
             int contFNN = 0;//CONTADOR DE FILA NO NULLA
 
             for (int ir = 0; ir <= nroFNN; ir++) {
-                
+                Asistencia asistencia = new Asistencia();
                 rowSelect = hoja.getRow(ir);
                 if (rowSelect != null) {
                     contFNN++;
                     nroCFNN = rowSelect.getLastCellNum();
-                    
-//                    Object[] listaColumna = new Object[100];
-                    
+
                     int indiceCTabla, nroOcultos = 0;
                     boolean oculto = false;
                     for (int ic = 0; ic < nroCFNN; ic++) {
@@ -168,17 +167,12 @@ public class Metodo {
                                     if (indiceCTabla == 3) {
                                         System.out.print("Fecha");
                                         System.out.print("Hora marcación");
-                                        
-//                                        modeloT.addColumn(" Fecha ");
-//                                        modeloT.addColumn(" Hora marcación ");
                                     } else {
                                         System.out.print(cellSelect.getStringCellValue());
-//                                        modeloT.addColumn(cellSelect.getStringCellValue());
                                     }
                                 }
                             } else {
                                 System.out.print(" Title " + ic);
-//                                modeloT.addColumn("Title " + ic);
                             }
                         } else {
                             if (cellSelect != null) {
@@ -193,60 +187,47 @@ public class Metodo {
                                     }
                                     switch (evaluator.evaluateInCell(cellSelect).getCellType()) {//EVALUA SI CELDA ES DE TIPO CELL_TYPE_FORMULA (SI NO LO ES, NO HACE NADA. SI LO ES, ETONCES FORMULA SE EVALUA Y SE REEMPLAZA EN VEZ DE LA FORMULA) LUEGO DEVUELVE EL TIPO DE CELDA 
                                         case Cell.CELL_TYPE_STRING:
-                                            
-                                            switch(indiceCTabla){
-                                                case 1:
-                                                    nombres = cellSelect.getStringCellValue();
-                                                    break;
-                                                case 2:
-                                                    dni = cellSelect.getStringCellValue();
-                                                    break;
-                                                case 3:
-                                                    fecha = (cellSelect.getStringCellValue()).substring(0, 10);
-                                                    hora = (cellSelect.getStringCellValue()).substring(11);
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                            
-                                            
-//                                            if (indiceCTabla == 3) {
-//                                                listaColumna[indiceCTabla] = (cellSelect.getStringCellValue()).substring(0, 10);
-//                                                listaColumna[indiceCTabla + 1] = (cellSelect.getStringCellValue()).substring(11);
-//                                            } else {
-//                                                listaColumna[indiceCTabla] = cellSelect.getStringCellValue();
-//                                            }
+                                            valueTem = cellSelect.getStringCellValue();
                                             break;
                                         case Cell.CELL_TYPE_NUMERIC:
-                                            if (DateUtil.isCellDateFormatted(cellSelect)) {
-//                                                listaColumna[indiceCTabla] = formatoFecha.format(cellSelect.getDateCellValue());
-                                            } else {
-//                                                listaColumna[indiceCTabla] = (int) Math.round(cellSelect.getNumericCellValue());
-                                            }
+                                            valueTem = DateUtil.isCellDateFormatted(cellSelect) ? formatoFecha.format(cellSelect.getDateCellValue()) : (int) Math.round(cellSelect.getNumericCellValue());
                                             break;
                                         case Cell.CELL_TYPE_BOOLEAN:
-//                                            listaColumna[indiceCTabla] = cellSelect.getBooleanCellValue();
+                                            valueTem = cellSelect.getBooleanCellValue();
                                             break;
                                         case Cell.CELL_TYPE_BLANK:
-//                                            listaColumna[indiceCTabla] = ""; //"BLANK";  CELDA QUE TUBO CONTENIDO Y LUEGO LO ELIMINAMOS
+                                            valueTem = ""; //"BLANK";  CELDA QUE TUBO CONTENIDO Y LUEGO LO ELIMINAMOS
                                             break;
                                         case Cell.CELL_TYPE_ERROR:
-//                                            listaColumna[indiceCTabla] = "ERROR";
+                                            valueTem = "ERROR";
                                             break;
                                     }
                                 }
                             } else {
 //                                listaColumna[indiceCTabla] = "";
                             }
+                            switch (indiceCTabla) {
+                                case 1:
+                                    asistencia.setTrabajador(String.valueOf(valueTem));
+                                    break;
+                                case 2:
+                                    asistencia.setIdTrabajador(String.valueOf(valueTem));
+                                    break;
+                                case 3:
+                                    fcha = (String) valueTem;
+                                    asistencia.setFecha(new Date(fcha.substring(0, 10)));
+                                    asistencia.sethMarca(fcha.substring(11));
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                     if (contFNN > 1) {
-                        lista.add(new Asistencia(dni, new Date(), hora, nombres));
-//                        modeloT.addRow(listaColumna);
+                        lista.add(asistencia);
                     }
                 }
             }
-//            respuesta = "Carga exitosa";
         } catch (IOException | InvalidFormatException | EncryptedDocumentException e) {
             System.err.println("Error: " + e.getMessage());
         }

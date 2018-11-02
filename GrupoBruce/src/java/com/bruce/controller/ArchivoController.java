@@ -10,8 +10,10 @@ import com.bruce.dao.to.Asistencia;
 import com.bruce.util.Constante;
 import com.bruce.util.Metodo;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +37,10 @@ public class ArchivoController {
 
         Map<String, Object> map = new HashMap<>();
         List<Asistencia> lista = new ArrayList<>();
-
-        boolean rpta = false;
+        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+        System.err.println("Fecha: " + formatoFecha.format(new Date()));
+        boolean rpta;
         if (archivo.getFileB64().length() > 0) {
             byte[] fileArray = Base64.getDecoder().decode(archivo.getFileB64().split(",")[1]); //extraemos la parte que representa b64 y luego decodificamos a bytes[]
             rpta = Metodo.SaveFile(Constante.DIRECTORY_ASISTENCIA, archivo.getNombre().split("[.]")[0], archivo.getExtension(), fileArray);
@@ -44,11 +48,10 @@ public class ArchivoController {
                 lista = Metodo.Importar(new File(Constante.DIRECTORY_ASISTENCIA + archivo.getNombre()));
             }
         }
-        System.err.println("Respuesta: " + rpta);
+        
         map.put("success", true);
-        map.put("message", "Datos encontrados");
-        map.put("data", lista);
-        map.put("total", 100);
+        map.put("message", "Registro exitoso");
+        map.put("data", archivo);
         return map;
     }
 

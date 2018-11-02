@@ -41,7 +41,7 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacionController', {
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(periodoVacacion); // update the record with the form data
             var check = this.lookupReference('cerrar_periodo');
-            periodoVacacion.set('cerrado',check.checked)
+            periodoVacacion.set('cerrado',check.checked);
             periodoVacacion.save({// save the record to the server
                 success: function (periodo, operation) {
                     form.reset();

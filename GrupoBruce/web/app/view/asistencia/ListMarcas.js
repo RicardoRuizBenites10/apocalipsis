@@ -2,11 +2,12 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
     extend: 'Ext.window.Window',
     alias: 'widget.WlistMarcas',
     reference: 'list_marcas',
+    
     controller: 'Casistencia',
-
     viewModel: {
         type: 'VMasistencia'
     },
+    
     autoShow: true,
     modal: true,
     closable: true,
