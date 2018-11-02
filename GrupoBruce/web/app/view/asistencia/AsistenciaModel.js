@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMasistencia',
-    
+
     data: {
         nameFile: null
     },
@@ -11,9 +11,17 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
             type: 'Sasistencia',
             proxy: {
                 type: 'ajax',
-                url: 'imports'
+                url: 'imports',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: 'total'
+                },
+                writer: {
+                    type: 'json',
+                    writeAllFields: true
+                }
             },
-            autoLoad: true,
             filters: [{
                     property: 'nameFile',
                     value: '{nameFile}'

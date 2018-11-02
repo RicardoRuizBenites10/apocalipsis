@@ -4,13 +4,18 @@ Ext.define('GrupoBruce.model.Asistencia', {
 
     idProperty: 'idAsistencia',
     fields: [
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'hmarca', type: 'string'},
         {name: 'idAsistencia', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
-        {name: 'trabajador', type: 'string'}
+        {name: 'trabajador', type: 'string'},
+        {name: 'fechaTemp', type: 'date', dateFormat: 'c'}
     ],
-
+    
+    identifier: {
+        type: 'sequential'
+    },
+    
     proxy: {
         type: 'ajax',
         api: {

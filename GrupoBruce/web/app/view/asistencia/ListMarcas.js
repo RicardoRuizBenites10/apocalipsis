@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
     autoShow: true,
     modal: true,
     closable: true,
-    rezisable: false,
+    resizable: false,
     width: 650,
     height: 500,
     title: 'Registrar marcas',
@@ -42,7 +42,6 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                 }],
             buttons: [{
                     text: 'Importar marcaciones',
-                    iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
                         click: 'onImportacionFile'
@@ -59,26 +58,22 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
             height: 337,
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
-                    text: 'idAsistencia',
+                    text: '#',
                     dataIndex: 'idAsistencia',
-                    flex: 1,
                     align: 'left'
-                },{
+                }, {
                     text: 'Dni',
                     dataIndex: 'idTrabajador',
-                    flex: 1,
-                    renderer: function(val){
-                        console.log("idTrabajador" + val);
-                    },
                     align: 'left'
                 }, {
                     text: 'Trabajador',
-                    dataIndex: 'tarabajador',
+                    dataIndex: 'trabajador',
                     flex: 2,
                     align: 'left'
                 }, {
                     text: 'Fecha',
-                    dataIndex: 'fecha',
+                    dataIndex: 'fechaTemp',
+                    formatter: 'date("d/m/Y")',
                     flex: 1,
                     align: 'left'
                 }, {
@@ -94,21 +89,10 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                         text: 'Guardar indormación',
                         disabled: true,
                         bind: {
-                            disabled: '{selectCargo}'
+                            disabled: '{importacions.data.length===0}'
                         },
-                        handler: 'addCargo'
+                        handler: 'saveImport'
                     }]
-            },
-
-            dockedItems: [{
-                    xtype: 'pagingtoolbar',
-                    dock: 'bottom',
-                    bind: {
-                        store: '{importacions}'
-                    },
-                    displayInfo: true,
-                    displayMsg: 'Mostrando registros {0} - {1} de {2}',
-                    emptyMsg: "No hay registros que mostrar"
-                }]
+            }
         }]
 });

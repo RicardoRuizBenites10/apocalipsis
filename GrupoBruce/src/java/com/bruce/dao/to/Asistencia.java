@@ -1,6 +1,7 @@
 package com.bruce.dao.to;
 // Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,8 @@ public class Asistencia implements java.io.Serializable {
     private String idAsistencia;
     private Date fecha;
     private String hmarca;
+    
+    private String fechaTemp;
 
     private String trabajador;
 
@@ -64,13 +67,23 @@ public class Asistencia implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false)
+    @Column(name = "FECHA", nullable = false, length = 10)
     public Date getFecha() {
         return fecha;
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    @Transient
+    public String getFechaTemp() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(this.fecha);
+    }
+
+    public void setFechaTemp(String fechaTemp) {
+        this.fechaTemp = fechaTemp;
     }
 
     @Column(name = "HMARCA", nullable = false, length = 10)

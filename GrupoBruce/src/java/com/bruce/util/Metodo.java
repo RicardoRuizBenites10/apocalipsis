@@ -18,8 +18,11 @@ import java.util.Base64;
 import java.util.List;
 
 import static com.bruce.util.Constante.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -63,7 +66,7 @@ public class Metodo {
         } else {
             return texto_original;
         }
-        
+
     }
 
     //Array de palabras de un texto separado por cadena
@@ -105,17 +108,17 @@ public class Metodo {
         }
         return respuesta;
     }
-    
+
     public static boolean CheckFile(String directory, String nameFile, String extentionFile) {
         File f = new File(directory + nameFile.trim() + "." + extentionFile);
         return f.exists();
     }
-    
+
     public static boolean RemoveFile(String directory, String nameFile, String extentionFile) {
         File f = new File(directory + nameFile.trim() + "." + extentionFile);
         return f.delete();
     }
-    
+
     public static String getAvatarB64(String codAvatar, String nomAvatar) {
         if (nomAvatar != null && !nomAvatar.equalsIgnoreCase("") && Metodo.CheckFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1])) {
             byte[] bytes = OpenFile(DIRECTORY_AVATAR, codAvatar, nomAvatar.split("[.]")[1]);
@@ -126,15 +129,15 @@ public class Metodo {
         }
         return nomAvatar;
     }
-    
+
     public static List<Asistencia> Importar(File archivo) {
-        
+
         Workbook wb;
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"), formatoHora = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"), formatoHora = new SimpleDateFormat("hh:mm:ss a");
         List<Asistencia> lista = new ArrayList<>();
         Object valueTem = null;
         String fcha;
-        
+
         try {
             wb = WorkbookFactory.create(new FileInputStream(archivo));//CREAMOS UNA REPRESENTACIÓN DE HOJA EXCEL
             FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();//CREAMOS EVALUADOR DE FORMULAS
@@ -152,7 +155,7 @@ public class Metodo {
                 if (rowSelect != null) {
                     contFNN++;
                     nroCFNN = rowSelect.getLastCellNum();
-                    
+
                     int indiceCTabla, nroOcultos = 0;
                     boolean oculto = false;
                     for (int ic = 0; ic < nroCFNN; ic++) {
@@ -214,8 +217,14 @@ public class Metodo {
                                     break;
                                 case 3:
                                     fcha = (String) valueTem;
-                                    asistencia.setFecha(new Date(fcha.substring(0, 10)));
-                                    asistencia.setHmarca(fcha.substring(11));
+                                    if (fcha != null) {
+                                        try {
+                                            asistencia.setFecha(formatoFecha.parse(fcha.substring(0, 10)));
+                                        } catch (ParseException ex) {
+                                            Logger.getLogger(Metodo.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        asistencia.setHmarca(fcha.substring(11));
+                                    }
                                     break;
                                 default:
                                     break;

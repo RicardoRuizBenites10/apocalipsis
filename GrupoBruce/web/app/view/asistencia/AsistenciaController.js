@@ -29,11 +29,9 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                     });
                     mooo.save({// save the record to the server
                         success: function (response, operation) {
-//                            var data = Ext.decode(response.data);
                             name_file = response.data.nombre;
                             window.getViewModel().set('nameFile', name_file);
-                            console.log(name_file);
-//                            Ext.Msg.alert('Success', response.data.nombre)
+//                            Ext.Msg.alert('Success', response.data.nombre);
                         },
                         failure: function (model, operation) {
                             Ext.Msg.alert('Failure', 'Operacion fallada.')
@@ -41,7 +39,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                     });
                 });
             }
-        } else { // display error alert if the data is invalid
+        } else {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
 
@@ -54,6 +52,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             reader.onload = () => resolve(reader.result);
             reader.onerror = error => reject(error);
         });
+    },
+
+    saveImport: function (btn) {
+        var store = btn.up('grid').getStore();
     }
 
 });

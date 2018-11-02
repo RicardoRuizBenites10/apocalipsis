@@ -6,16 +6,12 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Archivo;
-import com.bruce.dao.to.Asistencia;
 import com.bruce.util.Constante;
 import com.bruce.util.Metodo;
-import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +31,6 @@ public class ArchivoController {
     public Map<String, Object> getByFilters(@RequestBody Archivo archivo) {
 
         Map<String, Object> map = new HashMap<>();
-        List<Asistencia> lista = new ArrayList<>();
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd hh:mm a");
         String name[] = archivo.getNombre().split("[.]");
