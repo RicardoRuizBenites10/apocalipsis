@@ -58,10 +58,6 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
             height: 337,
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
-                    text: '#',
-                    dataIndex: 'idAsistencia',
-                    align: 'left'
-                }, {
                     text: 'Dni',
                     dataIndex: 'idTrabajador',
                     align: 'left'

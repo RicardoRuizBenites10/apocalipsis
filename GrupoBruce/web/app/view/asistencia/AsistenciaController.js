@@ -30,8 +30,8 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                     mooo.save({// save the record to the server
                         success: function (response, operation) {
                             name_file = response.data.nombre;
-                            Ext.Msg.alert('Success', 'Importación exitosa');
                             window.getViewModel().set('nameFile', name_file);
+                            Ext.Msg.alert('Success', 'Importación exitosa');
                         },
                         failure: function (model, operation) {
                             Ext.Msg.alert('Failure', 'Operacion fallada.')
@@ -56,9 +56,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     saveImport: function (btn) {
         var store = btn.up('grid').getStore();
-        
+
         var jsonData = [];
         store.each(function (model) {
+            model.set('fecha', model.get('fechaTemp'));
             jsonData.push(model.data);
         });
 
@@ -68,7 +69,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             method: 'POST',
             scope: this,
             success: function (response, opts) {
-                Ext.Msg.alert('Status', response.status);
+                Ext.Msg.alert('Status', response.responseText.message);
             },
             failurer: function (response, opts) {
                 Ext.Msg.alert('Status', response.status);

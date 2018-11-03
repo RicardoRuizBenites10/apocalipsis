@@ -52,7 +52,8 @@ public class TrabajadorDAO implements ITrabajadorDAO {
         Query query = session.createQuery("FROM Trabajador T WHERE T.idTrabajador = :idTrabajador");
         query.setParameter("idTrabajador", (String) idT);
         List result = query.list();
-        return (Trabajador) result.get(0);
+        Trabajador trabajador = result.size() > 0 ? (Trabajador) result.get(0) : null;
+        return trabajador;
     }
 
     @Override

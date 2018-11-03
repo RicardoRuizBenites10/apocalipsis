@@ -6,12 +6,11 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAsistenciaDAO;
+import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.services.design.IAsistenciaService;
 import com.bruce.util.FilterPage;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,22 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class AsistenciaService implements IAsistenciaService {
-    
+
     @Autowired
     private IAsistenciaDAO dao;
-    
+    @Autowired
+    private ITrabajadorDAO daoT;
+
     @Override
     @Transactional
     public List<Asistencia> getByFilter(int start, int limit, List<FilterPage> filters) {
         return dao.getByFilter(start, limit, filters);
     }
-    
+
     @Override
     @Transactional
     public int countByFilter(List<FilterPage> filters) {
         return dao.countByFilter(filters);
     }
-    
+
     @Override
     @Transactional
     public Asistencia lastByFilter(List<FilterPage> filters) {
@@ -48,52 +49,54 @@ public class AsistenciaService implements IAsistenciaService {
     @Override
     @Transactional
     public List<Asistencia> insertList(List<Asistencia> list) {
+        List<Asistencia> notFound = new ArrayList<>();
         list.forEach(item -> {
-            insert(item);
+            if (daoT.find(item.getIdTrabajador()) != null) {
+                insert(item);
+            } else {
+                notFound.add(item);
+            }
         });
-        return list;
+        return notFound;
     }
-    
+
     @Override
     @Transactional
     public void insert(Asistencia t) {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
-        String prefix = formatoFecha.format(new Date()).replace("/", "");
-        
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("anio", Integer.parseInt(prefix.substring(0, 4))));
-        filters.add(new FilterPage("mes", Integer.parseInt(prefix.substring(4, 6))));
-        filters.add(new FilterPage("dia", Integer.parseInt(prefix.substring(6, 8))));
+        filters.add(new FilterPage("anio", t.getAnio()));
+        filters.add(new FilterPage("mes", t.getMes()));
+        filters.add(new FilterPage("dia", t.getDia()));
         Asistencia last = dao.lastByFilter(filters);
-        
+
         int idLast = last != null ? Integer.parseInt(last.getIdAsistencia().substring(8)) : 0;
-        t.setIdAsistencia(prefix + String.format("%04d", idLast + 1));
-        
+        String idAsistencia = String.valueOf(t.getAnio()) + String.format("%02d", t.getMes()) + String.format("%02d", t.getDia()) + String.format("%04d", idLast + 1);
+        t.setIdAsistencia(idAsistencia);
         dao.create(t);
     }
-    
+
     @Override
     @Transactional
     public void update(Asistencia t) {
         dao.update(t);
     }
-    
+
     @Override
     @Transactional
     public void delete(Asistencia t) {
         dao.delete(t);
     }
-    
+
     @Override
     @Transactional
     public Asistencia find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     @Transactional
     public List<Asistencia> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

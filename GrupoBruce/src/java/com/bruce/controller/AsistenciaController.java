@@ -109,10 +109,8 @@ public class AsistenciaController {
         Map<String, Object> map = new HashMap<>();
         
         asistencia = sct.insertList(asistencia);
-        System.err.println("dada: " + asistencia.size());
-        
         map.put("success", true);
-        map.put("data", null);
+        map.put("data", asistencia);
         map.put("message", "Registro exitoso.");
         return map;
     }
