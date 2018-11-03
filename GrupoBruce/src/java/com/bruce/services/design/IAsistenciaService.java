@@ -17,4 +17,5 @@ public interface IAsistenciaService extends IEntidadService<Asistencia>{
     public List<Asistencia> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
     public Asistencia lastByFilter(List<FilterPage> filters);
+    public List<Asistencia> insertList(List<Asistencia> list);
 }

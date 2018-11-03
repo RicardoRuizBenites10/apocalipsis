@@ -102,6 +102,20 @@ public class AsistenciaController {
         map.put("message", "Registro exitoso.");
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/iiAsistenciaList", method = RequestMethod.POST)
+    public Map<String, Object> insertList(@RequestBody List<Asistencia> asistencia) {
+        Map<String, Object> map = new HashMap<>();
+        
+        asistencia = sct.insertList(asistencia);
+        System.err.println("dada: " + asistencia.size());
+        
+        map.put("success", true);
+        map.put("data", null);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/uuAsistencia", method = RequestMethod.POST)

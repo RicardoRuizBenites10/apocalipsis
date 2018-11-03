@@ -56,43 +56,26 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     saveImport: function (btn) {
         var store = btn.up('grid').getStore();
-//        store.each(function (rec) {
-//            var asistencia = new GrupoBruce.model.Asistencia();
-//            asistencia.set('fecha',rec.get('fechaTemp'));
-//            asistencia.set('hmarca',rec.get('hmarca'));
-//            asistencia.set('idTrabajador',rec.get('idTrabajador'));
-//            asistencia.set('anio',rec.get('anio'));
-//            asistencia.set('mes',rec.get('mes'));
-//            asistencia.set('dia',rec.get('dia'));
-//            asistencia.save();
-//        });
         
+        var jsonData = [];
+        store.each(function (model) {
+            jsonData.push(model.data);
+        });
+
         Ext.Ajax.request({
             url: 'iiAsistenciaList',
-            jsonData: {"lista": "store.getData()"},
+            jsonData: jsonData,
             method: 'POST',
             scope: this,
             success: function (response, opts) {
-//                var responseText = Ext.decode(response.responseText);
-//                var fechaInicio = responseText.inicio !== null ? Ext.Date.add(new Date(responseText.inicio), Ext.Date.DAY, 2) : new Date();
-//                if (responseText.success) {
-//                    this.createDialog(null, fechaInicio);
-//                } else {
-//                    Ext.Msg.show({
-//                        title: 'Error',
-//                        msg: "No se puede registrar nuevo contrato",
-//                        icon: Ext.Msg.ERROR,
-//                        botones: Ext.Msg.OK
-//                    });
-//                }
-
+                Ext.Msg.alert('Status', response.status);
             },
             failurer: function (response, opts) {
                 Ext.Msg.alert('Status', response.status);
             }
         });
-        
-        
+
+
     }
 
 });

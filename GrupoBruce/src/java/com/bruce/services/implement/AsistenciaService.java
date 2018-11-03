@@ -44,6 +44,15 @@ public class AsistenciaService implements IAsistenciaService {
     public Asistencia lastByFilter(List<FilterPage> filters) {
         return dao.lastByFilter(filters);
     }
+
+    @Override
+    @Transactional
+    public List<Asistencia> insertList(List<Asistencia> list) {
+        list.forEach(item -> {
+            insert(item);
+        });
+        return list;
+    }
     
     @Override
     @Transactional
