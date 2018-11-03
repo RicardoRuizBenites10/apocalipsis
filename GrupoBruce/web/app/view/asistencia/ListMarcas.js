@@ -73,6 +73,15 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                     flex: 1,
                     align: 'left'
                 }, {
+                    text: 'Fecha',
+                    dataIndex: 'fecha',
+//                    formatter: 'date("d/m/Y")',
+                    renderer: function(value){
+                        console.log(value);
+                    },
+                    flex: 1,
+                    align: 'left'
+                }, {
                     text: 'Hora',
                     dataIndex: 'hmarca',
                     align: 'center'

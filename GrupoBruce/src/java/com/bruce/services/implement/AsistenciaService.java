@@ -68,6 +68,8 @@ public class AsistenciaService implements IAsistenciaService {
         filters.add(new FilterPage("mes", t.getMes()));
         filters.add(new FilterPage("dia", t.getDia()));
         Asistencia last = dao.lastByFilter(filters);
+        System.err.println("Fecha 1: " + t.getFecha());
+        System.err.println("Fecha 2: " + t.getFechaTemp());
 
         int idLast = last != null ? Integer.parseInt(last.getIdAsistencia().substring(8)) : 0;
         String idAsistencia = String.valueOf(t.getAnio()) + String.format("%02d", t.getMes()) + String.format("%02d", t.getDia()) + String.format("%04d", idLast + 1);

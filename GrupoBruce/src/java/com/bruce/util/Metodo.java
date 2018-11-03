@@ -20,7 +20,6 @@ import java.util.List;
 import static com.bruce.util.Constante.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
