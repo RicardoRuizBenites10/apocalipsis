@@ -51,10 +51,10 @@ Ext.define('GrupoBruce.view.ausencia.AusenciaController', {
                     grid.getStore().reload();
                     form.reset();
                     window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                    Ext.Msg.alert('Success', 'Operación exitosa.');
                 },
                 failure: function (ausencia, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
+                    Ext.Msg.alert('Failure', 'Operacion fallada.');
                 }
             });
         } else { // display error alert if the data is invalid

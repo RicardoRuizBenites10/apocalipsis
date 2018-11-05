@@ -225,7 +225,7 @@ public class Metodo {
                                         asistencia.setDia(Integer.parseInt(fcha.substring(0, 2)));
                                         asistencia.setMes(Integer.parseInt(fcha.substring(3, 5)));
                                         asistencia.setAnio(Integer.parseInt(fcha.substring(6, 10)));
-                                        asistencia.setHmarca(fcha.substring(11));
+                                        asistencia.setHmarca(fcha.substring(11, 16) + fcha.substring(19).replace(".", ""));
                                     }
                                     break;
                                 default:

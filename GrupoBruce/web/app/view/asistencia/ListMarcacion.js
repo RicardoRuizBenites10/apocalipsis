@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
+Ext.define('GrupoBruce.view.asistencia.ListMarcacion', {
     extend: 'Ext.window.Window',
     alias: 'widget.WlistMarcas',
     reference: 'list_marcas',
@@ -75,8 +75,8 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                 }, {
                     text: 'Fecha',
                     dataIndex: 'fecha',
-//                    formatter: 'date("d/m/Y")',
-                    renderer: function(value){
+                    formatter: 'date("d/m/Y")',
+                    renderer: function (value) {
                         console.log(value);
                     },
                     flex: 1,
@@ -84,6 +84,7 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcas', {
                 }, {
                     text: 'Hora',
                     dataIndex: 'hmarca',
+                    formatter: 'date("h:i a")',
                     align: 'center'
                 }],
 

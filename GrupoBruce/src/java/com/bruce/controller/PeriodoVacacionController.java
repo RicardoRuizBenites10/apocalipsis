@@ -56,7 +56,6 @@ public class PeriodoVacacionController {
     public Map<String, Object> edit(@RequestBody PeriodoVacacion pvacacion){
         Map<String, Object> map = new HashMap<>();
         String msg = "Operación exitosa.";
-        System.err.println("Jooder: " + pvacacion.toString());
         serv.update(pvacacion);
         map.put("success", true);
         map.put("message", msg);

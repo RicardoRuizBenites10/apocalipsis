@@ -4,8 +4,8 @@ Ext.define('GrupoBruce.model.Asistencia', {
 
     idProperty: 'idAsistencia',
     fields: [
-        {name: 'fecha', type: 'date'},
-        {name: 'hmarca', type: 'string'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'hmarca', type: 'date', dateFormat: 'h:i a'},
         {name: 'idAsistencia', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
         {name: 'anio', type: 'int'},
