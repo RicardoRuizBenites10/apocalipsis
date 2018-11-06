@@ -89,11 +89,12 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     },
 
     saveImport: function (btn) {
-        var store = btn.up('grid').getStore();
+        var grid = btn.up('grid');
+        var store = grid.getStore();
         var jsonData = [];
         store.each(function (model) {
-            model.get('hmarca').getDateFormat();
-            console.log(model.data);
+            model.data.fecha = Ext.Date.format(model.get('fechaTemp'), 'c');
+            model.data.hmarca = Ext.Date.format(model.get('hmarca'), 'h:i a');
             jsonData.push(model.data);
         });
 
@@ -103,6 +104,8 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             method: 'POST',
             scope: this,
             success: function (response, opts) {
+//                console.log(response.responseText);
+                store.removeAll();
                 Ext.Msg.alert('Status', response.responseText.message);
             },
             failurer: function (response, opts) {
