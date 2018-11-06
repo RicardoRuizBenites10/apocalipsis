@@ -20,11 +20,12 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
             header: {
                 items: [{
                         xtype: 'button',
+                        iconCls: 'fa fa-plus',
                         text: 'Marcaciones',
                         handler: 'onImportacionMarcas',
                         tooltip: {
-                            title: 'Importar marcaciones',
-                            text: 'Formato debe ser el indicado'
+                            title: 'Archivo excel con formato:',
+                            text: 'Dpto | Nombres | Dni | Fecha/hora'
                         }
                     }]
             },

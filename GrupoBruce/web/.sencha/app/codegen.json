@@ -899,6 +899,102 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Archivo"
       }
+    },
+    "app/model/EstadoEquipo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idEequipo:boolean:null,situacion:boolean:null",
+        "modelFileName": "EstadoEquipo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EstadoEquipo"
+      }
+    },
+    "app/model/TipoEquipo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTequipo:int:null,situacion:boolean:null",
+        "modelFileName": "TipoEquipo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoEquipo"
+      }
+    },
+    "app/model/TipoMantenimiento.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTmantenimiento:int:null,situacion:boolean:null",
+        "modelFileName": "TipoMantenimiento",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoMantenimiento"
+      }
+    },
+    "app/model/EquipoInformatico.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "denominacion:string:null,fechaCreate:date:null,fechaUpdate:date:null,idEequipo:int:null,idEinformatico:int:null,idTequipo:int:null,serie:string:null",
+        "modelFileName": "EquipoInformatico",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EquipoInformatico"
+      }
+    },
+    "app/model/AsignacionEquipo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,idAequipo:int:null,idAsignador:string:null,idRecepcionador:string:null,nomUsu:string:null,nroIp:string:null,pasUsu:string:null",
+        "modelFileName": "AsignacionEquipo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "AsignacionEquipo"
+      }
+    },
+    "app/model/AsignacionDetalle.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "asignado:boolean:null,cantidad:int:null,fecha:date:null,idAequipo:int:null,idEinformatico:int:null",
+        "modelFileName": "AsignacionDetalle",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "AsignacionDetalle"
+      }
+    },
+    "app/model/Mantenimiento.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "atendido:boolean:null,costo:float:null,fecha:date:null,fechaAtendido:date:null,fechaProgramada:date:null,idAequipo:int:null,idMantenimiento:string:null,idTmantenimiento:float:null,observacion:string:null",
+        "modelFileName": "Mantenimiento",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Mantenimiento"
+      }
+    },
+    "app/model/MantenimientoDetalle.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "idAequipo:int:null,idEinformatico:int:null,idMantenimiento:string:null,minterno:boolean:null,observacion:string:null",
+        "modelFileName": "MantenimientoDetalle",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "MantenimientoDetalle"
+      }
     }
   }
 }

@@ -59,31 +59,35 @@ Ext.define('GrupoBruce.view.asistencia.ListMarcacion', {
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
                     text: 'Dni',
+                    sortable: false,
                     dataIndex: 'idTrabajador',
                     align: 'left'
                 }, {
                     text: 'Trabajador',
                     dataIndex: 'trabajador',
+                    sortable: false,
                     flex: 2,
                     align: 'left'
                 }, {
                     text: 'Fecha',
                     dataIndex: 'fechaTemp',
+                    sortable: false,
                     formatter: 'date("d/m/Y")',
                     flex: 1,
                     align: 'left'
                 }, {
                     text: 'Hora',
                     dataIndex: 'hmarca',
-                    formatter: 'date("h:i a")',
+                    sortable: false,
+                    formatter: 'date("h:i A")',
                     align: 'center'
                 }],
 
             tbar: {
                 items: [{
                         xtype: 'button',
-                        iconCls: 'x-fa fa-save',
-                        text: 'Guardar indormación',
+                        iconCls: 'x-fa fa-repeat',
+                        text: 'Procesar marcas',
                         disabled: true,
                         bind: {
                             disabled: '{importacions.data.length===0}'
