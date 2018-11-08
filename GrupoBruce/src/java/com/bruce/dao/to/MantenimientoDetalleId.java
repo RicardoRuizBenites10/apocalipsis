@@ -16,12 +16,12 @@ public class MantenimientoDetalleId implements java.io.Serializable {
 
     private int idAequipo;
     private String idMantenimiento;
-    private int idEinformatico;
+    private String idEinformatico;
 
     public MantenimientoDetalleId() {
     }
 
-    public MantenimientoDetalleId(int idAequipo, String idMantenimiento, int idEinformatico) {
+    public MantenimientoDetalleId(int idAequipo, String idMantenimiento, String idEinformatico) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
         this.idEinformatico = idEinformatico;
@@ -46,20 +46,20 @@ public class MantenimientoDetalleId implements java.io.Serializable {
     }
 
     @Column(name = "ID_EINFORMATICO", nullable = false)
-    public int getIdEinformatico() {
+    public String getIdEinformatico() {
         return idEinformatico;
     }
 
-    public void setIdEinformatico(int idEinformatico) {
+    public void setIdEinformatico(String idEinformatico) {
         this.idEinformatico = idEinformatico;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.idAequipo;
-        hash = 53 * hash + Objects.hashCode(this.idMantenimiento);
-        hash = 53 * hash + this.idEinformatico;
+        int hash = 7;
+        hash = 79 * hash + this.idAequipo;
+        hash = 79 * hash + Objects.hashCode(this.idMantenimiento);
+        hash = 79 * hash + Objects.hashCode(this.idEinformatico);
         return hash;
     }
 
@@ -78,10 +78,10 @@ public class MantenimientoDetalleId implements java.io.Serializable {
         if (this.idAequipo != other.idAequipo) {
             return false;
         }
-        if (this.idEinformatico != other.idEinformatico) {
+        if (!Objects.equals(this.idMantenimiento, other.idMantenimiento)) {
             return false;
         }
-        if (!Objects.equals(this.idMantenimiento, other.idMantenimiento)) {
+        if (!Objects.equals(this.idEinformatico, other.idEinformatico)) {
             return false;
         }
         return true;

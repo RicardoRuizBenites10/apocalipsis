@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "EQUIPO_INFORMATICO", schema = "dbo", catalog = "BDBRUCE")
 public class EquipoInformatico implements java.io.Serializable {
 
-    private int idEinformatico;
+    private String idEinformatico;
     private String denominacion;
     private String serie;
     private Date fechaCreate;
@@ -32,7 +32,7 @@ public class EquipoInformatico implements java.io.Serializable {
     public EquipoInformatico() {
     }
 
-    public EquipoInformatico(int idEinformatico, String denominacion, String serie, Date fechaCreate, Date fechaUpdate, int idTequipo, int idEequipo) {
+    public EquipoInformatico(String idEinformatico, String denominacion, String serie, Date fechaCreate, Date fechaUpdate, int idTequipo, int idEequipo) {
         this.idEinformatico = idEinformatico;
         this.denominacion = denominacion;
         this.serie = serie;
@@ -44,11 +44,11 @@ public class EquipoInformatico implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_EINFORMATICO", nullable = false)
-    public int getIdEinformatico() {
+    public String getIdEinformatico() {
         return idEinformatico;
     }
 
-    public void setIdEinformatico(int idEinformatico) {
+    public void setIdEinformatico(String idEinformatico) {
         this.idEinformatico = idEinformatico;
     }
 

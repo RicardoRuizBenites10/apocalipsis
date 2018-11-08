@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.model.AsignacionDetalle', {
         {name: 'cantidad', type: 'int'},
         {name: 'fecha', type: 'date'},
         {name: 'idAequipo', type: 'int'},
-        {name: 'idEinformatico', type: 'int'}
+        {name: 'idEinformatico', type: 'string'}
 
     ],
 

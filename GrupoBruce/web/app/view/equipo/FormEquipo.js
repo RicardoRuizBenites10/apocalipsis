@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
     resizable: false,
     autoShow: true,
     width: 400,
-    
+
     title: 'Editar equipo informatico',
     items: [{
             xtype: 'form',
@@ -28,8 +28,21 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
             },
             items: [{
                     items: [{
-                            xtype: 'textfield',
-                            fieldLabel: 'Nombre',
+                            xtype: 'combobox',
+                            name: 'idTequipo',
+                            fieldLabel: 'Tipo equipo',
+                            displayField: 'descripcion',
+                            valueField: 'idTequipo',
+                            editable: false,
+                            bind: {
+                                store: '{tiposEquipo}'
+                            },
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Descripción',
                             name: 'denominacion',
                             flex: 1
                         }]
@@ -40,42 +53,29 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
                             name: 'serie',
                             flex: 1
                         }]
-                }, {
-                    items: [{
-                            xtype: 'combobox',
-                            name: 'tipoEquipo',
-                            fieldLabel: 'Tipo equipo',
-                            displayLabel: 'descripcion',
-                            displayValue: 'tipoEquipo',
-                            editable: false,
-                            bind: {
-                                store: '{tiposEquipo}'
-                            },
-                            flex: 1
-                        }]
                 }],
-                    buttons: [{
-                            text: 'Cancelar',
-                            listeners: {
-                                click: function () {
-                                    this.up('form').reset();
-                                    this.up('window').close();
-                                }
-                            }
-                        }, {
-                            text: 'Restablecer',
-                            listeners: {
-                                click: function () {
-                                    this.up('form').reset();
-                                }
-                            }
-                        }, {
-                            text: 'Grabar',
-                            iconCls: 'fa fa-save',
-                            formBind: true,
-                            listeners: {
-                                click: 'onSaveEquipo'
-                            }
-                        }]
+            buttons: [{
+                    text: 'Cancelar',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                            this.up('window').close();
+                        }
+                    }
+                }, {
+                    text: 'Restablecer',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                        }
+                    }
+                }, {
+                    text: 'Grabar',
+                    iconCls: 'fa fa-save',
+                    formBind: true,
+                    listeners: {
+                        click: 'onSaveEquipo'
+                    }
+                }]
         }]
 });

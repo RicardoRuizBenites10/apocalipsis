@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 public class AsignacionDetalle implements java.io.Serializable {
 
     private int idAequipo;
-    private int idEinformatico;
+    private String idEinformatico;
     private Date fecha;
     private int cantidad;
     private boolean asignado;
@@ -32,7 +32,7 @@ public class AsignacionDetalle implements java.io.Serializable {
     public AsignacionDetalle() {
     }
 
-    public AsignacionDetalle(int idAequipo, int idEinformatico, Date fecha, int cantidad, boolean asignado) {
+    public AsignacionDetalle(int idAequipo, String idEinformatico, Date fecha, int cantidad, boolean asignado) {
         this.idAequipo = idAequipo;
         this.idEinformatico = idEinformatico;
         this.fecha = fecha;
@@ -52,11 +52,11 @@ public class AsignacionDetalle implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_EINFORMATICO", nullable = false)
-    public int getIdEinformatico() {
+    public String getIdEinformatico() {
         return idEinformatico;
     }
 
-    public void setIdEinformatico(int idEinformatico) {
+    public void setIdEinformatico(String idEinformatico) {
         this.idEinformatico = idEinformatico;
     }
 

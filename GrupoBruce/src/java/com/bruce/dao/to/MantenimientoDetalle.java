@@ -22,14 +22,14 @@ public class MantenimientoDetalle implements java.io.Serializable {
 
     private int idAequipo;
     private String idMantenimiento;
-    private int idEinformatico;
+    private String idEinformatico;
     private boolean minterno;
     private String observacion;
 
     public MantenimientoDetalle() {
     }
 
-    public MantenimientoDetalle(int idAequipo, String idMantenimiento, int idEinformatico, boolean minterno, String observacion) {
+    public MantenimientoDetalle(int idAequipo, String idMantenimiento, String idEinformatico, boolean minterno, String observacion) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
         this.idEinformatico = idEinformatico;
@@ -59,11 +59,11 @@ public class MantenimientoDetalle implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_EINFORMATICO", nullable = false)
-    public int getIdEinformatico() {
+    public String getIdEinformatico() {
         return idEinformatico;
     }
 
-    public void setIdEinformatico(int idEinformatico) {
+    public void setIdEinformatico(String idEinformatico) {
         this.idEinformatico = idEinformatico;
     }
 

@@ -8,7 +8,10 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IEquipoInformaticoService;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class EquipoInformaticoService implements IEquipoInformaticoService{
-    
+public class EquipoInformaticoService implements IEquipoInformaticoService {
+
     @Autowired
     private IEquipoInformaticoDAO dao;
-    
+
     @Override
     @Transactional
     public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters) {
@@ -45,6 +48,10 @@ public class EquipoInformaticoService implements IEquipoInformaticoService{
     @Override
     @Transactional
     public void insert(EquipoInformatico t) {
+        EquipoInformatico last = dao.lastByFilter(null);
+        int idLast = last != null ? Integer.parseInt(last.getIdEinformatico()) : 0;
+        t.setIdEinformatico(String.format("%06d", idLast + 1));
+        t.setFechaCreate(new Date());
         dao.create(t);
     }
 
@@ -71,5 +78,5 @@ public class EquipoInformaticoService implements IEquipoInformaticoService{
     public List<EquipoInformatico> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

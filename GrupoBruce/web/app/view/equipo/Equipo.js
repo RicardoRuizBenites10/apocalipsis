@@ -19,6 +19,7 @@ Ext.define('GrupoBruce.view.equipo.Equipo', {
     },
     items: [{
             xtype: 'WlistEquipo',
-            height: 520
+            id: 'id_wequipo',
+            height: 500
         }]
 });

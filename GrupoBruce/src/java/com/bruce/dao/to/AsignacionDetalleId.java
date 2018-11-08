@@ -5,6 +5,7 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Objects;
 import javax.persistence.Column;
 
 /**
@@ -14,12 +15,12 @@ import javax.persistence.Column;
 public class AsignacionDetalleId implements java.io.Serializable {
 
     private int idAequipo;
-    private int idEinformatico;
+    private String idEinformatico;
 
     public AsignacionDetalleId() {
     }
 
-    public AsignacionDetalleId(int idAequipo, int idEinformatico) {
+    public AsignacionDetalleId(int idAequipo, String idEinformatico) {
         this.idAequipo = idAequipo;
         this.idEinformatico = idEinformatico;
     }
@@ -34,19 +35,19 @@ public class AsignacionDetalleId implements java.io.Serializable {
     }
 
     @Column(name = "ID_EINFORMATICO", nullable = false)
-    public int getIdEinformatico() {
+    public String getIdEinformatico() {
         return idEinformatico;
     }
 
-    public void setIdEinformatico(int idEinformatico) {
+    public void setIdEinformatico(String idEinformatico) {
         this.idEinformatico = idEinformatico;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.idAequipo;
-        hash = 47 * hash + this.idEinformatico;
+        int hash = 3;
+        hash = 97 * hash + this.idAequipo;
+        hash = 97 * hash + Objects.hashCode(this.idEinformatico);
         return hash;
     }
 
@@ -65,7 +66,7 @@ public class AsignacionDetalleId implements java.io.Serializable {
         if (this.idAequipo != other.idAequipo) {
             return false;
         }
-        if (this.idEinformatico != other.idEinformatico) {
+        if (!Objects.equals(this.idEinformatico, other.idEinformatico)) {
             return false;
         }
         return true;
