@@ -1,6 +1,7 @@
 Ext.define('GrupoBruce.model.EquipoInformatico', {
     extend: 'Ext.data.Model',
     alias: 'model.MequipoInformatico',
+    
     idProperty: 'idEinformatico',
     fields: [
         { name: 'denominacion', type: 'string' },

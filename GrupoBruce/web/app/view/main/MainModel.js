@@ -119,9 +119,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                         text: 'Sistemas',
                         iconCls: 'x-fa fa-code',
                         children: [{
-                                text: 'Dispositivos',
+                                text: 'Equipos informaticos',
                                 iconCls: null,
-                                leaf: true
+                                leaf: true,
+                                handler: 'GrupoBruce.view.equipo.Equipo'
                             }]
                     }]
             }
