@@ -18,14 +18,14 @@ import javax.persistence.Table;
 @Table(name = "TIPO_EQUIPO", schema = "dbo", catalog = "BDBRUCE")
 public class TipoEquipo implements java.io.Serializable {
 
-    private int idTequipo;
+    private String idTequipo;
     private String descripcion;
     private boolean situacion;
 
     public TipoEquipo() {
     }
 
-    public TipoEquipo(int idTequipo, String descripcion, boolean situacion) {
+    public TipoEquipo(String idTequipo, String descripcion, boolean situacion) {
         this.idTequipo = idTequipo;
         this.descripcion = descripcion;
         this.situacion = situacion;
@@ -33,11 +33,11 @@ public class TipoEquipo implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_TEQUIPO", nullable = false)
-    public int getIdTequipo() {
+    public String getIdTequipo() {
         return idTequipo;
     }
 
-    public void setIdTequipo(int idTequipo) {
+    public void setIdTequipo(String idTequipo) {
         this.idTequipo = idTequipo;
     }
 

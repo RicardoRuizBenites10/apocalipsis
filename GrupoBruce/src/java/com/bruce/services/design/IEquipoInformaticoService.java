@@ -17,4 +17,5 @@ public interface IEquipoInformaticoService extends IEntidadService<EquipoInforma
     public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
     public EquipoInformatico lastByFilter(List<FilterPage> filters);
+    public String getSerie(String tipo);
 }

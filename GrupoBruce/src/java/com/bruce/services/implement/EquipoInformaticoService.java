@@ -8,9 +8,9 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IEquipoInformaticoService;
-import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +77,20 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
     @Transactional
     public List<EquipoInformatico> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public String getSerie(String tipo) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTequipo", tipo));
+        EquipoInformatico last = dao.lastByFilter(filters);
+        Calendar cal = Calendar.getInstance();
+        String after, before;
+        int idLast = last != null ? Integer.parseInt(last.getIdEinformatico()) : 0;
+        after = String.format("%04d", idLast + 1);
+        before = String.valueOf(cal.get(Calendar.YEAR)).substring(2) + String.format("%02d", cal.get(Calendar.MONTH) + 1);
+        return before + after;
     }
 
 }

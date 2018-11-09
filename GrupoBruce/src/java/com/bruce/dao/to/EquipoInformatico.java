@@ -26,13 +26,13 @@ public class EquipoInformatico implements java.io.Serializable {
     private String serie;
     private Date fechaCreate;
     private Date fechaUpdate;
-    private int idTequipo;
+    private String idTequipo;
     private int idEequipo;
 
     public EquipoInformatico() {
     }
 
-    public EquipoInformatico(String idEinformatico, String denominacion, String serie, Date fechaCreate, Date fechaUpdate, int idTequipo, int idEequipo) {
+    public EquipoInformatico(String idEinformatico, String denominacion, String serie, Date fechaCreate, Date fechaUpdate, String idTequipo, int idEequipo) {
         this.idEinformatico = idEinformatico;
         this.denominacion = denominacion;
         this.serie = serie;
@@ -91,11 +91,11 @@ public class EquipoInformatico implements java.io.Serializable {
     }
 
     @Column(name = "ID_TEQUIPO", nullable = false)
-    public int getIdTequipo() {
+    public String getIdTequipo() {
         return idTequipo;
     }
 
-    public void setIdTequipo(int idTequipo) {
+    public void setIdTequipo(String idTequipo) {
         this.idTequipo = idTequipo;
     }
 

@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.model.EquipoInformatico', {
         { name: 'fechaUpdate', type: 'date' },
         { name: 'idEequipo', type: 'int' },
         { name: 'idEinformatico', type: 'string' },
-        { name: 'idTequipo', type: 'int' },
+        { name: 'idTequipo', type: 'string' },
         { name: 'serie', type: 'string' }
     ],
     

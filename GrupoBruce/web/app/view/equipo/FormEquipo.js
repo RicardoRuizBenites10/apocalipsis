@@ -37,6 +37,17 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
                             bind: {
                                 store: '{tiposEquipo}'
                             },
+                            listeners: {
+                                change: 'generateSerie'
+                            },
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Serie',
+                            editable: false,
+                            name: 'serie',
                             flex: 1
                         }]
                 }, {
@@ -44,13 +55,6 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
                             xtype: 'textarea',
                             fieldLabel: 'Descripción',
                             name: 'denominacion',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'textfield',
-                            fieldLabel: 'Serie',
-                            name: 'serie',
                             flex: 1
                         }]
                 }],

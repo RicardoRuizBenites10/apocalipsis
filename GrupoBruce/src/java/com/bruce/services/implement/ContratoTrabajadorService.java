@@ -15,7 +15,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
-import com.bruce.services.design.ISituacionService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.Date;
