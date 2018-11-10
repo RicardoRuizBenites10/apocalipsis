@@ -8,6 +8,7 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IEquipoInformaticoService;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,13 +52,15 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
         EquipoInformatico last = dao.lastByFilter(null);
         int idLast = last != null ? Integer.parseInt(last.getIdEinformatico()) : 0;
         t.setIdEinformatico(String.format("%06d", idLast + 1));
-        t.setFechaCreate(new Date());
+        t.setFechaUpdate(new Date());
+        t.setIdEequipo(Constante.ESTADO_EQUIPO_PORASIGNAR);
         dao.create(t);
     }
 
     @Override
     @Transactional
     public void update(EquipoInformatico t) {
+        t.setFechaUpdate(new Date());
         dao.update(t);
     }
 
@@ -90,7 +93,7 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
         int idLast = last != null ? Integer.parseInt(last.getIdEinformatico()) : 0;
         after = String.format("%04d", idLast + 1);
         before = String.valueOf(cal.get(Calendar.YEAR)).substring(2) + String.format("%02d", cal.get(Calendar.MONTH) + 1);
-        return before + after;
+        return before + tipo + after;
     }
 
 }

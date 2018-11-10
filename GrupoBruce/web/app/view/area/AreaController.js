@@ -18,7 +18,7 @@ Ext.define('GrupoBruce.view.area.AreaController', {
         var grid = this.lookupReference('list_area');
         var areaModel = grid.getSelection()[0];
         var window = new GrupoBruce.view.area.FormArea();
-        window.setTitle('Editar area area');
+        window.setTitle('Editar área');
         window.down('form').loadRecord(areaModel);
     },
 

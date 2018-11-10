@@ -24,7 +24,7 @@ public class EquipoInformatico implements java.io.Serializable {
     private String idEinformatico;
     private String denominacion;
     private String serie;
-    private Date fechaCreate;
+    private Date fechaBase;
     private Date fechaUpdate;
     private String idTequipo;
     private int idEequipo;
@@ -32,11 +32,11 @@ public class EquipoInformatico implements java.io.Serializable {
     public EquipoInformatico() {
     }
 
-    public EquipoInformatico(String idEinformatico, String denominacion, String serie, Date fechaCreate, Date fechaUpdate, String idTequipo, int idEequipo) {
+    public EquipoInformatico(String idEinformatico, String denominacion, String serie, Date fechaBase, Date fechaUpdate, String idTequipo, int idEequipo) {
         this.idEinformatico = idEinformatico;
         this.denominacion = denominacion;
         this.serie = serie;
-        this.fechaCreate = fechaCreate;
+        this.fechaBase = fechaBase;
         this.fechaUpdate = fechaUpdate;
         this.idTequipo = idTequipo;
         this.idEequipo = idEequipo;
@@ -71,13 +71,13 @@ public class EquipoInformatico implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA_CREATE", nullable = false)
-    public Date getFechaCreate() {
-        return fechaCreate;
+    @Column(name = "FECHA_BASE", nullable = false)
+    public Date getFechaBase() {
+        return fechaBase;
     }
 
-    public void setFechaCreate(Date fechaCreate) {
-        this.fechaCreate = fechaCreate;
+    public void setFechaBase(Date fechaBase) {
+        this.fechaBase = fechaBase;
     }
 
     @Temporal(TemporalType.DATE)

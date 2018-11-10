@@ -28,6 +28,11 @@ public class Constante {
     public static final String DIRECTORY_CHAT = "D:\\CHAT\\";
     public static final String DIRECTORY_ASISTENCIA = "D:\\ASISTENCIA\\";
     public static final String FPERFIL_DEFAULT = "./resources/img/guest.png";
+    //Estados equipo
+    public static final int ESTADO_EQUIPO_PORASIGNAR = 1;
+    public static final int ESTADO_EQUIPO_ASIGNADO = 1;
+    public static final int ESTADO_EQUIPO_ENMANTENIMIENTO = 1;
+    public static final int ESTADO_EQUIPO_BAJA = 1;
     //Forma de pago
     public static final int FORMAPAGO_EFECTIVO = 1;
     //Tamaño de archivos

@@ -4,7 +4,8 @@ Ext.define('GrupoBruce.view.equipo.EquipoModel', {
 
     data: {
         title: 'Lista de equipos informaticos',
-        selectEquipo: null
+        selectEquipo: null,
+        serie: ''
     },
 
     stores: {

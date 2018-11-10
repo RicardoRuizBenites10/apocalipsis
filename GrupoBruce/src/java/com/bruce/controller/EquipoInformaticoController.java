@@ -6,23 +6,15 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.EquipoInformatico;
+import com.bruce.dao.to.TipoEquipo;
 import com.bruce.services.design.IEquipoInformaticoService;
-import com.bruce.util.FilterPage;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -88,11 +80,11 @@ public class EquipoInformaticoController {
     
     @ResponseBody
     @RequestMapping(value = "/generateSerie", method = RequestMethod.POST)
-    public Map<String, Object> generateSerie(@RequestParam("tipo")String tipo) {
+    public Map<String, Object> generateSerie(@RequestBody TipoEquipo tipo) {
 
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("serie", sct.getSerie(tipo));
+        map.put("serie", sct.getSerie(tipo.getIdTequipo()));
         map.put("message", "Validación exitosa.");
         
         return map;

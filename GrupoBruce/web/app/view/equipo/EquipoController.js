@@ -15,6 +15,15 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
         this.createDialog(null);
     },
 
+    editEquipo: function () {
+        var grid = this.lookupReference('list_equipo');
+        var model = grid.getSelection()[0];
+        var window = new GrupoBruce.view.equipo.FormEquipo();
+        window.getViewModel().set('selectEquipo', model);
+        window.setTitle('Editar equipo informatico');
+        window.down('form').loadRecord(model);
+    },
+
     onSaveEquipo: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
@@ -43,12 +52,14 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
         if (newValue) {
             Ext.Ajax.request({
                 url: 'generateSerie',
-                jsonData: {tipo: newValue},
+                jsonData: {idTequipo: newValue},
                 method: 'POST',
                 scope: this,
                 success: function (response, opts) {
                     var responseText = Ext.decode(response.responseText);
-                    var serie = responseText.serie;
+                    var select = this.getViewModel().get('selectEquipo');
+                    var serie = select ? select.get('serie') : responseText.serie;
+                    this.getViewModel().set('serie', serie);
                 },
                 failurer: function (response, opts) {
                     Ext.Msg.alert('Status', response.status);

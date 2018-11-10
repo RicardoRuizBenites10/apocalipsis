@@ -28,6 +28,13 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
             },
             items: [{
                     items: [{
+                            xtype: 'datefield',
+                            name: 'fechaBase',
+                            format: 'd/m/Y',
+                            fieldLabel: 'Inicio de uso'
+                        }]
+                }, {
+                    items: [{
                             xtype: 'combobox',
                             name: 'idTequipo',
                             fieldLabel: 'Tipo equipo',
@@ -45,9 +52,10 @@ Ext.define('GrupoBruce.view.equipo.FormEquipo', {
                 }, {
                     items: [{
                             xtype: 'textfield',
+                            name: 'serie',
                             fieldLabel: 'Serie',
                             editable: false,
-                            name: 'serie',
+                            bind: '{serie}',
                             flex: 1
                         }]
                 }, {

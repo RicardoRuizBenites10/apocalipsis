@@ -123,6 +123,11 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                 iconCls: null,
                                 leaf: true,
                                 handler: 'GrupoBruce.view.equipo.Equipo'
+                            },{
+                                text: 'Asignacion de equipos',
+                                iconCls: null,
+                                leaf: true,
+                                handler: 'GrupoBruce.view.asignacion.Asignacion'
                             }]
                     }]
             }
