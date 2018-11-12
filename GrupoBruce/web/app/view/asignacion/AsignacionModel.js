@@ -10,6 +10,10 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionModel', {
         asignacions: {
             type: 'SasignacionEquipo',
             autoLoad: true
+        },
+        trabajadors: {
+            type: 'Strabajador',
+            autoLoad: true
         }
     }
 

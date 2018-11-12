@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMtrabajador',
-    
+
     data: {
         name: 'GrupoBruce'
     },
@@ -9,12 +9,13 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
     stores: {
         trabajadors: {
             type: 'Strabajador',
-            autoLoad: true
+            autoLoad: true,
+            pageSize: 15
         }
     },
-    
+
     formulas: {
-        hasChild: function(get){
+        hasChild: function (get) {
             var select = get('selectTrabajador');
             return select ? select.get('nroHijos') === 0 : true;
         }

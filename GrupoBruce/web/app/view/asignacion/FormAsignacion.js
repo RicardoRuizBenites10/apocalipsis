@@ -28,15 +28,32 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                     items: [{
                             xtype: 'datefield',
                             name: 'fecha',
-                            fieldLabel: 'Fecha'
+                            fieldLabel: 'Inicio de asignación'
                         }]
                 }, {
                     items: [{
                             xtype: 'combo',
                             name: 'idRecepcionador',
-                            displayField: 'apellidos',
+                            displayField: 'nombres',
                             valueField: 'idTrabajador',
-                            fieldLabel: 'Custodio'
+                            queryMode: 'local',
+                            fieldLabel: 'Custodio',
+                            bind: {
+                                store: '{trabajadors}'
+                            },
+                            tpl: [
+                                '<ul class="x-list-plain">',
+                                '<tpl for=".">',
+                                '<li class="',
+                                Ext.baseCSSPrefix, 'grid-group-hd ',
+                                Ext.baseCSSPrefix, 'grid-group-title">{idTrabajador}</li>',
+                                '<li class="x-boundlist-item">',
+                                '{apPaterno} {apMaterno}, {nombres}',
+                                '</li>',
+                                '</tpl>',
+                                '</ul>'
+                            ],
+                            flex: 1
                         }]
                 }, {
                     items: [{
@@ -46,7 +63,8 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                         }, {
                             xtype: 'textfield',
                             name: 'nomUsu',
-                            fieldLabel: 'Nombre usuario'
+                            fieldLabel: 'Nombre usuario',
+                            flex: 1
                         }]
                 }, {
                     items: [{
@@ -56,7 +74,8 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                         }, {
                             xtype: 'textfield',
                             name: 'nomUsu',
-                            fieldLabel: 'Repetir contraseña'
+                            fieldLabel: 'Repetir contraseña',
+                            flex: 1
                         }]
                 }],
             buttons: [{
