@@ -36,7 +36,7 @@ Ext.define('GrupoBruce.view.equipo.ListEquipo', {
             text: 'Nombre',
             dataIndex: 'denominacion',
             align: 'left',
-            flex: 2
+            flex: 1
         }, {
             text: 'Serie',
             dataIndex: 'serie',
