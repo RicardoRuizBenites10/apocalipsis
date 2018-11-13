@@ -51,6 +51,8 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                                 '</tpl>',
                                 '</ul>'
                             ],
+                            minChars: 0,
+                            hideTrigger: true,
                             flex: 1
                         }]
                 }, {
@@ -67,11 +69,12 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                 }, {
                     items: [{
                             xtype: 'textfield',
-                            name: 'nroIp',
+                            name: 'pasUsu',
+                            inputType: 'password',
                             fieldLabel: 'Contraseña'
                         }, {
                             xtype: 'textfield',
-                            name: 'nomUsu',
+                            inputType: 'password',
                             fieldLabel: 'Repetir contraseña',
                             flex: 1
                         }]

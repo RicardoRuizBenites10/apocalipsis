@@ -11,16 +11,21 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'IP'
+            text: 'IP',
+            dataIndex: 'nroIp',
+            align: 'left'
         }, {
             text: 'Trabajador',
             flex: 1
         }, {
-            text: 'Usuario'
+            text: 'Usuario',
+            dataIndex: 'nomUsu'
         }, {
             text: 'Contraseña'
         }, {
-            text: 'Fecha'
+            text: 'Fecha',
+            dataIndex: 'fecha',
+            formatter: 'date("d/m/Y")'
         }],
 
     tbar: {

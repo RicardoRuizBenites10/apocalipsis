@@ -27,19 +27,19 @@ public class AsignacionEquipo implements java.io.Serializable {
     private String nomUsu;
     private String pasUsu;
     private String idAsignador;
-    private String ideRecepcionador;
+    private String idRecepcionador;
 
     public AsignacionEquipo() {
     }
 
-    public AsignacionEquipo(int idAequipo, Date fecha, String nroIp, String nomUsu, String pasUsu, String idAsignador, String ideRecepcionador) {
+    public AsignacionEquipo(int idAequipo, Date fecha, String nroIp, String nomUsu, String pasUsu, String idAsignador, String idRecepcionador) {
         this.idAequipo = idAequipo;
         this.fecha = fecha;
         this.nroIp = nroIp;
         this.nomUsu = nomUsu;
         this.pasUsu = pasUsu;
         this.idAsignador = idAsignador;
-        this.ideRecepcionador = ideRecepcionador;
+        this.idRecepcionador = idRecepcionador;
     }
 
     @Id
@@ -99,11 +99,11 @@ public class AsignacionEquipo implements java.io.Serializable {
     }
 
     @Column(name = "ID_RECEPCIONADOR", nullable = false)
-    public String getIdeRecepcionador() {
-        return ideRecepcionador;
+    public String getIdRecepcionador() {
+        return idRecepcionador;
     }
 
-    public void setIdeRecepcionador(String ideRecepcionador) {
-        this.ideRecepcionador = ideRecepcionador;
+    public void setIdRecepcionador(String idRecepcionador) {
+        this.idRecepcionador = idRecepcionador;
     }
 }

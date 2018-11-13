@@ -85,7 +85,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
 //        return result;
 //    }
     @Override
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters, String query) {
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Trabajador.class);
         filters.forEach(item -> {

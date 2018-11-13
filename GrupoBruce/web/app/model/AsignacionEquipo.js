@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.model.AsignacionEquipo', {
     alias: 'model.MasignacionEquipo',
     idProperty: 'idAequipo',
     fields: [
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'idAequipo', type: 'int'},
         {name: 'idAsignador', type: 'string'},
         {name: 'idRecepcionador', type: 'string'},
@@ -11,6 +11,8 @@ Ext.define('GrupoBruce.model.AsignacionEquipo', {
         {name: 'nroIp', type: 'string'},
         {name: 'pasUsu', type: 'string'}
     ],
+    
+    identifier: 'sequential',
 
     proxy: {
         type: 'ajax',

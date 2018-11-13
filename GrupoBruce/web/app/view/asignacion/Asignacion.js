@@ -19,6 +19,7 @@ Ext.define('GrupoBruce.view.asignacion.Asignacion',{
     },
     items: [{
             xtype: 'WlistAsignacion',
+            id: 'id_wasignacion',
             height: 500
     }]
 });

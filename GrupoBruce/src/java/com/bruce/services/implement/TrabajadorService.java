@@ -60,7 +60,7 @@ public class TrabajadorService implements ITrabajadorService {
 
     @Override
     @Transactional
-    public List<Trabajador> findPagination(int start, int limit, String sort, String filter, String query) { 
+    public List<Trabajador> findPagination(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -72,12 +72,13 @@ public class TrabajadorService implements ITrabajadorService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nombres", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return dao.getTrabajadorsPagination(start, limit, sorts, filters, query);
+        return dao.getTrabajadorsPagination(start, limit, sorts, filters);
     }
 
     @Override

@@ -15,6 +15,6 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ITrabajadorDAO extends IEntidadDAO<Trabajador>{
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters, String query);
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
 }
