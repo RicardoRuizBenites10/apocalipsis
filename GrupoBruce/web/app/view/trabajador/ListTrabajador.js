@@ -20,8 +20,8 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
 
     columns: [{
             text: 'DNI', dataIndex: 'idTrabajador',
-            align: 'left'
-//            ,filter: {type: 'string', value: ''}
+            align: 'left',
+            filter: true
         },
 //        {
 //            text: 'A. Paterno', dataIndex: 'persona.apPaterno',

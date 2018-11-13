@@ -36,7 +36,6 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                             name: 'idRecepcionador',
                             displayField: 'nombres',
                             valueField: 'idTrabajador',
-                            queryMode: 'local',
                             fieldLabel: 'Custodio',
                             bind: {
                                 store: '{trabajadors}'
@@ -45,8 +44,7 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                                 '<ul class="x-list-plain">',
                                 '<tpl for=".">',
                                 '<li class="',
-                                Ext.baseCSSPrefix, 'grid-group-hd ',
-                                Ext.baseCSSPrefix, 'grid-group-title">{idTrabajador}</li>',
+                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">{idTrabajador}</li>',
                                 '<li class="x-boundlist-item">',
                                 '{apPaterno} {apMaterno}, {nombres}',
                                 '</li>',

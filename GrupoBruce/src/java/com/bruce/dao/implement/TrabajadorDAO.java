@@ -7,6 +7,7 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Trabajador;
+import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Query;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -83,9 +85,19 @@ public class TrabajadorDAO implements ITrabajadorDAO {
 //        return result;
 //    }
     @Override
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts) {
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters, String query) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Trabajador.class);
+        filters.forEach(item -> {
+            switch (item.getOperator()) {
+                case "like":
+                    cr.add(Restrictions.like(item.getProperty(), item.getValue() + "%"));
+                    break;
+                default:
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                    break;
+            }
+        });
         sorts.forEach(item -> {
             ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
             if (propiedad.size() > 1) {
@@ -100,9 +112,19 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public int getTrabajadorCount() {
+    public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Trabajador.class);
+        filters.forEach(item -> {
+            switch (item.getOperator()) {
+                case "like":
+                    cr.add(Restrictions.like(item.getProperty(), item.getValue() + "%"));
+                    break;
+                default:
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                    break;
+            }
+        });
         cr.setProjection(Projections.rowCount());
         return ((Long) cr.list().get(0)).intValue();
     }

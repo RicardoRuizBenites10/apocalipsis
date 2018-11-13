@@ -6,7 +6,6 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Trabajador;
-import com.bruce.util.SortPage;
 import java.util.List;
 
 /**
@@ -14,6 +13,6 @@ import java.util.List;
  * @author RICARDO
  */
 public interface ITrabajadorService extends IEntidadService<Trabajador>{
-    public List<Trabajador> findPagination(int start, int limit, List<SortPage> sorts);
-    public int  totalCount();
+    public List<Trabajador> findPagination(int start, int limit, String sort, String filter, String query);
+    public int  countByFilter(String filter);
 }

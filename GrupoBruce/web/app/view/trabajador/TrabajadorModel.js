@@ -10,7 +10,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
         trabajadors: {
             type: 'Strabajador',
             autoLoad: true,
-            pageSize: 15
+            pageSize: 15,
+            sorters: [
+                {property: 'idTrabajador', direction: 'ASC'}
+            ]
         }
     },
 

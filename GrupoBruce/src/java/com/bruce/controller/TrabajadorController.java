@@ -3,6 +3,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Trabajador;
 import com.bruce.util.SortPage;
 import com.bruce.services.design.ITrabajadorService;
+import com.bruce.util.FilterPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -41,24 +42,17 @@ public class TrabajadorController {
             @RequestParam("page") int page,
             @RequestParam("start") int start,
             @RequestParam("limit") int limit,
-            @RequestParam("sort") String sort) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        List<SortPage> sorts = new ArrayList<>();
-        try {
-            sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
 
         Map<String, Object> map = new HashMap<>();
-        List<Trabajador> lista = st.findPagination(start, limit, sorts);
+        List<Trabajador> lista = st.findPagination(start, limit, sort, filter, query);
 
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
-        map.put("total", st.totalCount());
+        map.put("total", st.countByFilter(filter));
         return map;
     }
 

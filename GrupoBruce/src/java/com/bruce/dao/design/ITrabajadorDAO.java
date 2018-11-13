@@ -6,6 +6,7 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Trabajador;
+import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ITrabajadorDAO extends IEntidadDAO<Trabajador>{
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts);
-    public int getTrabajadorCount();
+    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters, String query);
+    public int countByFilter(List<FilterPage> filters);
 }
