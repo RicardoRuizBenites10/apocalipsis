@@ -83,13 +83,15 @@ public class TrabajadorService implements ITrabajadorService {
 
     @Override
     @Transactional
-    public int countByFilter(String filter) {
+    public int countByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nombres", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);

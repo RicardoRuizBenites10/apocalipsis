@@ -52,7 +52,7 @@ public class TrabajadorController {
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
-        map.put("total", st.countByFilter(filter));
+        map.put("total", st.countByFilter(filter, query));
         return map;
     }
 

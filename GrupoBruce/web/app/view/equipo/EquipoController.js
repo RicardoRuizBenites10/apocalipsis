@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.equipo.FormEquipo();
+        window.getViewModel().set('selectEquipo', record);
         if (!record) {
             window.setTitle('Registrar equipo informatico');
             record = new GrupoBruce.model.EquipoInformatico();
@@ -18,10 +19,7 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
     editEquipo: function () {
         var grid = this.lookupReference('list_equipo');
         var model = grid.getSelection()[0];
-        var window = new GrupoBruce.view.equipo.FormEquipo();
-        window.getViewModel().set('selectEquipo', model);
-        window.setTitle('Editar equipo informatico');
-        window.down('form').loadRecord(model);
+        this.createDialog(model);
     },
 
     onSaveEquipo: function (btn) {

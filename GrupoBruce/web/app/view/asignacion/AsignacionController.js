@@ -15,6 +15,12 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
         this.createDialog(null);
     },
     
+    editAsignacion: function(){
+        var grid = this.lookupReference('list_asignacion');
+        var model = grid.getSelection()[0];
+        this.createDialog(model);
+    },
+    
     onSaveAsignacion: function(btn){
         var form = btn.up('form');
         var window = btn.up('window');

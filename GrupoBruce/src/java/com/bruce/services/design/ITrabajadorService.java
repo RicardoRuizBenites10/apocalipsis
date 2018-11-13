@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface ITrabajadorService extends IEntidadService<Trabajador>{
     public List<Trabajador> findPagination(int start, int limit, String sort, String filter, String query);
-    public int  countByFilter(String filter);
+    public int  countByFilter(String filter, String query);
 }

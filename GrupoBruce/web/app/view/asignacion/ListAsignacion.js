@@ -13,19 +13,24 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
     columns: [{
             text: 'IP',
             dataIndex: 'nroIp',
-            align: 'left'
+            align: 'left',
+            width: 130 
         }, {
             text: 'Trabajador',
-            flex: 1
+            flex: 2
         }, {
             text: 'Usuario',
-            dataIndex: 'nomUsu'
+            dataIndex: 'nomUsu',
+            align: 'left'
         }, {
-            text: 'Contraseña'
+            text: 'Contraseña',
+            dataIndex: 'pasUsu',
+            align: 'left'
         }, {
             text: 'Fecha',
             dataIndex: 'fecha',
-            formatter: 'date("d/m/Y")'
+            formatter: 'date("d/m/Y")',
+            align: 'center'
         }],
 
     tbar: {

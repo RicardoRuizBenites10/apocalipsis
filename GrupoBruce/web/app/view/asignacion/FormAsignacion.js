@@ -34,9 +34,11 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                     items: [{
                             xtype: 'combo',
                             name: 'idRecepcionador',
-                            displayField: 'nombres',
                             valueField: 'idTrabajador',
+                            displayField: 'nombres',
                             fieldLabel: 'Custodio',
+                            emptyText: 'Buscar..',
+//                            forceSelection: true,
                             bind: {
                                 store: '{trabajadors}'
                             },
@@ -44,15 +46,17 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                                 '<ul class="x-list-plain">',
                                 '<tpl for=".">',
                                 '<li class="',
-                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">{idTrabajador}</li>',
+                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
                                 '<li class="x-boundlist-item">',
-                                '{apPaterno} {apMaterno}, {nombres}',
+                                '{nombres} {apPaterno}, {apMaterno}',
                                 '</li>',
                                 '</tpl>',
                                 '</ul>'
                             ],
                             minChars: 0,
+                            pageSize: true,
                             hideTrigger: true,
+                            triggerAction: 'query',
                             flex: 1
                         }]
                 }, {
@@ -60,23 +64,17 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                             xtype: 'textfield',
                             name: 'nroIp',
                             fieldLabel: 'Dirección IP'
-                        }, {
-                            xtype: 'textfield',
-                            name: 'nomUsu',
-                            fieldLabel: 'Nombre usuario',
-                            flex: 1
                         }]
                 }, {
                     items: [{
                             xtype: 'textfield',
-                            name: 'pasUsu',
-                            inputType: 'password',
-                            fieldLabel: 'Contraseña'
+                            name: 'nomUsu',
+                            fieldLabel: 'Nombre usuario',
+                            flex: 1
                         }, {
                             xtype: 'textfield',
-                            inputType: 'password',
-                            fieldLabel: 'Repetir contraseña',
-                            flex: 1
+                            name: 'pasUsu',
+                            fieldLabel: 'Contraseña'
                         }]
                 }],
             buttons: [{
