@@ -58,7 +58,8 @@ public class Trabajador implements java.io.Serializable {
     private int idTestudio;
     private int idEestudio;
 
-    private String fotoB64; //quitado hasta terminar de mapear clases para json
+    private String fotoB64;
+    private String nombresCompletos;
 
     public Trabajador() {
     }
@@ -146,6 +147,15 @@ public class Trabajador implements java.io.Serializable {
 
     public void setFotoB64(String fotoB64) {
         this.fotoB64 = fotoB64;
+    }
+
+    @Transient
+    public String getNombresCompletos() {
+        return this.apPaterno + " " + this.apMaterno + ", " + this.nombres;
+    }
+
+    public void setNombresCompletos(String nombresCompletos) {
+        this.nombresCompletos = nombresCompletos;
     }
 
     @Column(name = "AP_PATERNO", nullable = false, length = 25)

@@ -68,6 +68,17 @@ public class Metodo {
 
     }
 
+    //Comprobar si es numerico o no
+    public static boolean isNumeric(String cadena) {
+        boolean rpta = false;
+        try {
+            Integer.parseInt(cadena);
+            rpta = true;
+        } catch (NumberFormatException excepcion) {
+        }
+        return rpta;
+    }
+
     //Array de palabras de un texto separado por cadena
     public static List<String> getSplit(String texto, String delimitador) {
         List<String> listaPalabras = new ArrayList<>();

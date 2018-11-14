@@ -16,8 +16,10 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
             align: 'left',
             width: 130 
         }, {
-            text: 'Trabajador',
-            flex: 2
+            text: 'Custodio',
+            dataIndex: 'recepcionador',
+            align: 'left',
+            width: 350 
         }, {
             text: 'Usuario',
             dataIndex: 'nomUsu',

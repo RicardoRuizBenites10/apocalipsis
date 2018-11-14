@@ -33,14 +33,15 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                 }, {
                     items: [{
                             xtype: 'combo',
+                            id: 'id_recepcionador',
                             name: 'idRecepcionador',
                             valueField: 'idTrabajador',
                             displayField: 'nombres',
                             fieldLabel: 'Custodio',
                             emptyText: 'Buscar..',
-//                            forceSelection: true,
                             bind: {
-                                store: '{trabajadors}'
+                                store: '{trabajadors}',
+                                selection: '{selectRecepcionador}'
                             },
                             tpl: [
                                 '<ul class="x-list-plain">',
@@ -48,12 +49,12 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                                 '<li class="',
                                 Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
                                 '<li class="x-boundlist-item">',
-                                '{nombres} {apPaterno}, {apMaterno}',
+                                '{nombresCompletos} ',
                                 '</li>',
                                 '</tpl>',
                                 '</ul>'
                             ],
-                            minChars: 0,
+                            minChars: 1,
                             pageSize: true,
                             hideTrigger: true,
                             triggerAction: 'query',
@@ -69,12 +70,12 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                     items: [{
                             xtype: 'textfield',
                             name: 'nomUsu',
-                            fieldLabel: 'Nombre usuario',
-                            flex: 1
+                            fieldLabel: 'Nombre usuario'
                         }, {
                             xtype: 'textfield',
                             name: 'pasUsu',
-                            fieldLabel: 'Contraseña'
+                            fieldLabel: 'Contraseña',
+                            flex: 1
                         }]
                 }],
             buttons: [{

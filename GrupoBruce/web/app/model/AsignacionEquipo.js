@@ -9,7 +9,8 @@ Ext.define('GrupoBruce.model.AsignacionEquipo', {
         {name: 'idRecepcionador', type: 'string'},
         {name: 'nomUsu', type: 'string'},
         {name: 'nroIp', type: 'string'},
-        {name: 'pasUsu', type: 'string'}
+        {name: 'pasUsu', type: 'string'},
+        {name: 'recepcionador', type: 'string'}
     ],
     
     identifier: 'sequential',

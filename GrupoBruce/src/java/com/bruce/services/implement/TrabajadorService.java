@@ -12,6 +12,7 @@ import com.bruce.util.SortPage;
 import com.bruce.services.design.ITrabajadorService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
+import com.bruce.util.Metodo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class TrabajadorService implements ITrabajadorService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombres", "%" + query));
+                filters.add(new FilterPage("like", Metodo.isNumeric(query) ? "idTrabajador" : "nombres", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);

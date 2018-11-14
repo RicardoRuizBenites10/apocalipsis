@@ -3,7 +3,9 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionModel', {
     alias: 'viewmodel.VMasignacion',
 
     data: {
-        title: 'Lista de asignación de equipos'
+        title: 'Lista de asignación de equipos',
+        selectAsignacion: null,
+        selectRecepcionador: null
     },
 
     stores: {
@@ -18,7 +20,18 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionModel', {
                 {property: 'apPaterno', direction: 'ASC'},
                 {property: 'apMaterno', direction: 'ASC'},
                 {property: 'nombres', direction: 'ASC'}
-            ]
+            ],
+            baseParams: {
+                foo: "bar",
+                bar: 'foo'
+            },
+            listeners: {
+                beforeload: function (store) {
+                    var query = Ext.getCmp('id_recepcionador');
+                    console.log('Jiirds: ' + store);
+//                    store.getProxy().setExtraParam("query", query);
+                }
+            }
         }
     }
 
