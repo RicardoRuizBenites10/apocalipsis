@@ -7,7 +7,6 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.to.AsignacionDetalle;
-import com.bruce.dao.to.AsignacionDetalle;
 import com.bruce.util.FilterPage;
 import java.io.Serializable;
 import java.util.List;
