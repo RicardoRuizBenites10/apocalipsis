@@ -74,7 +74,7 @@ public class TrabajadorService implements ITrabajadorService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", Metodo.isNumeric(query) ? "idTrabajador" : "nombres", "%" + query));
+                filters.add(new FilterPage("like", Metodo.isNumeric(query.trim()) ? "idTrabajador" : "nombres", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);

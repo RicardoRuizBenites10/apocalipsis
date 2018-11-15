@@ -45,6 +45,17 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+    },
+    
+    createWindow: function (view) {
+        var grid = this.lookupReference('list_asignacion');
+        var model = grid.getSelection()[0];
+        var window = Ext.create(view);
+        window.getViewModel().set('recordAsignacion', model);
+    },
+
+    onAsignacion: function () {
+        this.createWindow('GrupoBruce.view.asignaciondetalle.AsignacionDetalle');
     }
     
 });

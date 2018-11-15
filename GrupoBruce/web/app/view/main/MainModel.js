@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                         iconCls: 'x-fa fa-users',
                         children: [{
                                 text: 'Mantenimientos',
-                                iconCls: 'x-fa fa-wrench',
+                                iconCls: 'x-fa fa-gear',
                                 children: [{
                                         text: 'Organigrama',
                                         iconCls: null,
@@ -33,7 +33,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                         handler: 'GrupoBruce.view.periodovacacion.PeriodoVacacion'
                                     }]
                             }, {
-                                text: 'Manejo de trabajadores',
+                                text: 'Trabajadores',
                                 iconCls: 'x-fa fa-male',
                                 leaf: true,
                                 handler: 'GrupoBruce.view.trabajador.Trabajador'
@@ -120,12 +120,12 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                         iconCls: 'x-fa fa-code',
                         children: [{
                                 text: 'Equipos informaticos',
-                                iconCls: null,
+                                iconCls: 'fa fa-desktop',
                                 leaf: true,
                                 handler: 'GrupoBruce.view.equipo.Equipo'
                             },{
-                                text: 'Asignacion de equipos',
-                                iconCls: null,
+                                text: 'Custodios de equipos',
+                                iconCls: 'fa fa-user',
                                 leaf: true,
                                 handler: 'GrupoBruce.view.asignacion.Asignacion'
                             }]

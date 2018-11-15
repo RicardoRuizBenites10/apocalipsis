@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.hijo.HijoTrabajador', {
     requires: [
         'GrupoBruce.view.hijo.HijoTrabajadorController',
         'GrupoBruce.view.hijo.HijoTrabajadorModel',
-        
+
         'GrupoBruce.view.hijo.ListHijoTrabajador',
         'GrupoBruce.view.hijo.FormHijoTrabajador'
     ],
@@ -15,19 +15,18 @@ Ext.define('GrupoBruce.view.hijo.HijoTrabajador', {
     },
     controller: 'Chijo',
 
-    height: 400,
-    width: 600,
     resizable: false,
     modal: true,
     closable: true,
     autoShow: true,
-    
+
     bind: {
         title: '{title}'
     },
 
     items: [{
             xtype: 'WhijoTrabajador',
-            height: 355
+            height: 400,
+            width: 600
         }]
 });

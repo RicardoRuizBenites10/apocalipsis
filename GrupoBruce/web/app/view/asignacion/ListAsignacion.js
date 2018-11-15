@@ -14,12 +14,12 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
             text: 'IP',
             dataIndex: 'nroIp',
             align: 'left',
-            width: 130 
+            width: 130
         }, {
             text: 'Custodio',
             dataIndex: 'recepcionador',
             align: 'left',
-            width: 350 
+            width: 350
         }, {
             text: 'Usuario',
             dataIndex: 'nomUsu',
@@ -60,6 +60,14 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
                     disabled: '{!selectAsignacion}'
                 },
                 handler: 'deleteAsignacion'
+            }, '-', {
+                text: 'Asignación',
+                iconCls: 'x-fa fa-check-square',
+                disabled: true,
+                bind: {
+                    disabled: '{!selectAsignacion}'
+                },
+                handler: 'onAsignacion'
             }]
     },
 

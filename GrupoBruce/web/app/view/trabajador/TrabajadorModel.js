@@ -13,7 +13,12 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
             pageSize: 15,
             sorters: [
                 {property: 'idTrabajador', direction: 'ASC'}
-            ]
+            ],
+            listeners: {
+                beforeload: function (store) {
+                    store.getProxy().setExtraParams({});
+                }
+            }
         }
     },
 
