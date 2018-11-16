@@ -8,7 +8,6 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IAsignacionEquipoDAO;
 import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.AsignacionEquipo;
-import com.bruce.dao.to.Trabajador;
 import com.bruce.services.design.IAsignacionEquipoService;
 import com.bruce.util.FilterPage;
 import java.util.List;
@@ -25,17 +24,11 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     
     @Autowired
     private IAsignacionEquipoDAO dao;
-    @Autowired
-    private ITrabajadorDAO dao2;
 
     @Override
     @Transactional
     public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
-        List<AsignacionEquipo> list = dao.getByFilter(start, limit, filters);
-        list.forEach(item -> {
-            item.setRecepcionador((dao2.find(item.getIdRecepcionador())).getNombresCompletos());
-        });
-        return list;
+        return dao.getByFilter(start, limit, filters);
     }
 
     @Override

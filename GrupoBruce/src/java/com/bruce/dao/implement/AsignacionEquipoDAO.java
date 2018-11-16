@@ -32,7 +32,7 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
     @Override
     public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(AsignacionEquipo.class);
+        Criteria cr = session.createCriteria(AsignacionEquipo.class, "aseq");
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));

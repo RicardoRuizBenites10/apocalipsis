@@ -8,6 +8,8 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
     resizable: false,
     closable: false,
     width: 400,
+    
+    title: 'Editar asignación de equipo',
 
     items: [{
             xtype: 'form',
@@ -20,7 +22,11 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                 }
             },
             items: [{
-                    xtype: 'combobox'
+                    items: [{
+                            xtype: 'combobox',
+                            fieldLabel: 'Equipo informático',
+                            flex: 1
+                        }]
                 }],
             buttons: [{
                     text: 'Cancelar',

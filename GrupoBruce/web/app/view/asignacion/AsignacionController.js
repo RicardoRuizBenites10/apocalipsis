@@ -31,6 +31,7 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
             model.set('idAsignador',loggedIn.idTrabajador);
+            model.set('recepcionador',window.getViewModel().get('selectRecepcionador').get('nombresCompletos'));
             model.save({// save the record to the server
                 success: function (response, operation) {
                     grid.getStore().reload();

@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  *
@@ -110,7 +109,7 @@ public class AsignacionEquipo implements java.io.Serializable {
         this.idRecepcionador = idRecepcionador;
     }
 
-    @Transient
+    @Column(name="RECEPCIONADOR", nullable = false)
     public String getRecepcionador() {
         return recepcionador;
     }
