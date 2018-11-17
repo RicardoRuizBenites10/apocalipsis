@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalleController', {
     createDialog: function(record){
         var window = new GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle();
         if(!record){
-            window.setTitle('Registrar asignación de equipo');
+            window.setTitle('Asignar equipo informático');
             record = new GrupoBruce.model.AsignacionDetalle();
         }
         window.down('form').loadRecord(record);

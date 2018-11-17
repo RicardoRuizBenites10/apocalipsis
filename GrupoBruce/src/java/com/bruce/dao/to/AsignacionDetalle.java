@@ -26,17 +26,16 @@ public class AsignacionDetalle implements java.io.Serializable {
     private int idAequipo;
     private String idEinformatico;
     private Date fecha;
-    private int cantidad;
     private boolean asignado;
+    private String einformatico;
 
     public AsignacionDetalle() {
     }
 
-    public AsignacionDetalle(int idAequipo, String idEinformatico, Date fecha, int cantidad, boolean asignado) {
+    public AsignacionDetalle(int idAequipo, String idEinformatico, Date fecha, boolean asignado) {
         this.idAequipo = idAequipo;
         this.idEinformatico = idEinformatico;
         this.fecha = fecha;
-        this.cantidad = cantidad;
         this.asignado = asignado;
     }
 
@@ -70,15 +69,6 @@ public class AsignacionDetalle implements java.io.Serializable {
         this.fecha = fecha;
     }
 
-    @Column(name = "CANTIDAD", nullable = false)
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
     @Column(name = "ASIGNADO", nullable = false)
     public boolean isAsignado() {
         return asignado;
@@ -86,5 +76,14 @@ public class AsignacionDetalle implements java.io.Serializable {
 
     public void setAsignado(boolean asignado) {
         this.asignado = asignado;
+    }
+
+    @Column(name = "EINFORMATICO", nullable = false)
+    public String getEinformatico() {
+        return einformatico;
+    }
+
+    public void setEinformatico(String einformatico) {
+        this.einformatico = einformatico;
     }
 }

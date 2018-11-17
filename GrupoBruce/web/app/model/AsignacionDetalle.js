@@ -5,10 +5,10 @@ Ext.define('GrupoBruce.model.AsignacionDetalle', {
     idProperty: 'idAequipo',
     fields: [
         {name: 'asignado', type: 'boolean'},
-        {name: 'cantidad', type: 'int'},
         {name: 'fecha', type: 'date'},
         {name: 'idAequipo', type: 'int'},
-        {name: 'idEinformatico', type: 'string'}
+        {name: 'idEinformatico', type: 'string'},
+        {name: 'einformatico', type: 'string'}
     ],
 
     proxy: {
