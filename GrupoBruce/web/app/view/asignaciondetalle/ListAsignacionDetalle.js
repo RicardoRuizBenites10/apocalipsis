@@ -2,21 +2,31 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WasignacionDetalle',
     reference: 'list_asignacionDetalle',
-    
+
     bind: {
-        store: '{asignacionsDetalle}'
+        store: '{asignacionsDetalle}',
+        selection: '{selectAsignacionDetalle}'
     },
     allowDeselect: true,
-    
+
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Tipo'
+            text: 'Nombre',
+            dataIndex: 'einformatico',
+            width: 400,
+            align: 'left'
         }, {
-            text: 'Nombre'
+            text: 'Fecha',
+            dataIndex: 'fecha',
+            formatter: 'date("d/m/Y")',
+            align: 'center'
         }, {
-            text: 'Fecha'
-        }, {
-            text: 'Estado'
+            text: 'Estado',
+            dataIndex: 'asignado',
+            renderer: function (val) {
+                return val ? 'Asignado' : 'Desasignado';
+            },
+            align: 'center'
         }],
     tbar: {
         items: [{

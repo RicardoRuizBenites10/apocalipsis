@@ -9,6 +9,8 @@ import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.to.AsignacionDetalle;
 import com.bruce.services.design.IAsignacionDetalleService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class AsignacionDetalleService implements IAsignacionDetalleService{
+public class AsignacionDetalleService implements IAsignacionDetalleService {
 
     @Autowired
     private IAsignacionDetalleDAO dao;
-    
+
     @Override
     @Transactional
     public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters) {
@@ -45,6 +47,14 @@ public class AsignacionDetalleService implements IAsignacionDetalleService{
     @Override
     @Transactional
     public void insert(AsignacionDetalle t) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idAequipo", t.getIdAequipo()));
+        filters.add(new FilterPage("idEinformatico", t.getEinformatico()));
+        AsignacionDetalle last = lastByFilter(filters);
+        int idLast = last != null ? Integer.parseInt(last.getIdAdetalle().substring(4)) : 0;
+        t.setIdAdetalle(t.getIdAequipo() + String.format("%04d", idLast + 1));
+        t.setFecha(new Date());
+        t.setAsignado(true);
         dao.create(t);
     }
 
@@ -71,5 +81,5 @@ public class AsignacionDetalleService implements IAsignacionDetalleService{
     public List<AsignacionDetalle> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

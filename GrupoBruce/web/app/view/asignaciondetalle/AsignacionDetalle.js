@@ -25,6 +25,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalle', {
 
     items: [{
             xtype: 'WasignacionDetalle',
+            id: 'id_wasignacionDetalle',
             width: 600,
             height: 400
         }]

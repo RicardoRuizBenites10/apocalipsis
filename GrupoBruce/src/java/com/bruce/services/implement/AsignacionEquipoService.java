@@ -6,7 +6,6 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAsignacionEquipoDAO;
-import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.AsignacionEquipo;
 import com.bruce.services.design.IAsignacionEquipoService;
 import com.bruce.util.FilterPage;
@@ -47,8 +46,8 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     @Transactional
     public void insert(AsignacionEquipo t) {
         AsignacionEquipo last = dao.lastByFilter(null);
-        int idLast = last != null ? last.getIdAequipo() : 0;
-        t.setIdAequipo(idLast + 1);
+        int idLast = last != null ? Integer.parseInt(last.getIdAequipo()) : 0;
+        t.setIdAequipo(String.format("%04d", idLast + 1));
         dao.create(t);
     }
 

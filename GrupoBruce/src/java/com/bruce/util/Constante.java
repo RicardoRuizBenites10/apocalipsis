@@ -29,10 +29,10 @@ public class Constante {
     public static final String DIRECTORY_ASISTENCIA = "D:\\ASISTENCIA\\";
     public static final String FPERFIL_DEFAULT = "./resources/img/guest.png";
     //Estados equipo
-    public static final int ESTADO_EQUIPO_PORASIGNAR = 1;
-    public static final int ESTADO_EQUIPO_ASIGNADO = 1;
-    public static final int ESTADO_EQUIPO_ENMANTENIMIENTO = 1;
-    public static final int ESTADO_EQUIPO_BAJA = 1;
+    public static final int EQUIPO_ESTADO_PORASIGNAR = 1;
+    public static final int EQUIPO_ESTADO_ASIGNADO = 2;
+    public static final int EQUIPO_ESTADO_ENMANTENIMIENTO = 3;
+    public static final int EQUIPO_ESTADO_BAJA = 4;
     //Forma de pago
     public static final int FORMAPAGO_EFECTIVO = 1;
     //Tamaño de archivos

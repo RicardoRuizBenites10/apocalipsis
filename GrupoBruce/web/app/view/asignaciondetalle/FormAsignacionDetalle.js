@@ -9,6 +9,11 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
     closable: false,
     width: 400,
     
+    controller: 'Casignaciondetalle',
+    viewModel: {
+        type: 'VMasignaciondetalle'
+    },
+    
     title: 'Editar asignación de equipo',
 
     items: [{
@@ -24,7 +29,30 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
             items: [{
                     items: [{
                             xtype: 'combobox',
+                            name: 'idEinformatico',
                             fieldLabel: 'Equipo informático',
+                            valueField: 'idEinformatico',
+                            displayField: 'denominacion',
+                            bind: {
+                                store: '{equiposInformatico}',
+                                selection: '{selectEquipo}'
+                            },
+                            tpl: [
+                                '<ul class="x-list-plain">',
+                                '<tpl for=".">',
+                                '<li class="', Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">' +
+                                    'Serie : {idEinformatico}' +
+                                '</li>',
+                                '<li class="x-boundlist-item">',
+                                '{denominacion} ',
+                                '</li>',
+                                '</tpl>',
+                                '</ul>'
+                            ],
+                            minChars: 1,
+                            pageSize: true,
+                            hideTrigger: true,
+                            triggerAction: 'query',
                             flex: 1
                         }]
                 }],

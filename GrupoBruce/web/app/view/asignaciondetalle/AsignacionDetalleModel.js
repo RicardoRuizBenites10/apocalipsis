@@ -15,6 +15,24 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalleModel', {
                     property: 'idAequipo',
                     value: '{recordAsignacion.idAequipo}'
                 }]
+        },
+        equiposInformatico: {
+            type: 'SequipoInformatico',
+            autoLoad: true,
+            proxy: {
+                type: 'ajax',
+                url: 'equiposPorAsignar',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: 'total',
+                    successProperty: 'success'
+                },
+                writer: {
+                    type: 'json',
+                    writeAllFields: true
+                }
+            }
         }
     }
 

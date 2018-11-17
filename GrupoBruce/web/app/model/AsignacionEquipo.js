@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.AsignacionEquipo', {
     idProperty: 'idAequipo',
     fields: [
         {name: 'fecha', type: 'date', dateFormat: 'c'},
-        {name: 'idAequipo', type: 'int'},
+        {name: 'idAequipo', type: 'string'},
         {name: 'idAsignador', type: 'string'},
         {name: 'idRecepcionador', type: 'string'},
         {name: 'nomUsu', type: 'string'},

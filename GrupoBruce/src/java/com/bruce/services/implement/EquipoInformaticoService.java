@@ -33,6 +33,12 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
     public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters) {
         return dao.getByFilter(start, limit, filters);
     }
+    
+    @Override
+    public List<EquipoInformatico> getByPorAsignar(int start, int limit, List<FilterPage> filters) {
+        filters.add(new FilterPage("idEequipo", Constante.EQUIPO_ESTADO_PORASIGNAR));
+        return dao.getByFilter(start, limit, filters);
+    }
 
     @Override
     @Transactional
@@ -53,7 +59,7 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
         int idLast = last != null ? Integer.parseInt(last.getIdEinformatico()) : 0;
         t.setIdEinformatico(String.format("%06d", idLast + 1));
         t.setFechaUpdate(new Date());
-        t.setIdEequipo(Constante.ESTADO_EQUIPO_PORASIGNAR);
+        t.setIdEequipo(Constante.EQUIPO_ESTADO_PORASIGNAR);
         dao.create(t);
     }
 

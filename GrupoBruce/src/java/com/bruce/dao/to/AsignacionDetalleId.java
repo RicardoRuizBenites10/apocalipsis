@@ -14,40 +14,40 @@ import javax.persistence.Column;
  */
 public class AsignacionDetalleId implements java.io.Serializable {
 
-    private int idAequipo;
-    private String idEinformatico;
+    private String idAequipo;
+    private String idAdetalle;
 
     public AsignacionDetalleId() {
     }
 
-    public AsignacionDetalleId(int idAequipo, String idEinformatico) {
+    public AsignacionDetalleId(String idAequipo, String idAdetalle) {
         this.idAequipo = idAequipo;
-        this.idEinformatico = idEinformatico;
+        this.idAdetalle = idAdetalle;
     }
 
     @Column(name = "ID_AEQUIPO", nullable = false)
-    public int getIdAequipo() {
+    public String getIdAequipo() {
         return idAequipo;
     }
 
-    public void setIdAequipo(int idAequipo) {
+    public void setIdAequipo(String idAequipo) {
         this.idAequipo = idAequipo;
     }
 
-    @Column(name = "ID_EINFORMATICO", nullable = false)
-    public String getIdEinformatico() {
-        return idEinformatico;
+    @Column(name = "ID_ADETALLE", nullable = false)
+    public String getIdAdetalle() {
+        return idAdetalle;
     }
 
-    public void setIdEinformatico(String idEinformatico) {
-        this.idEinformatico = idEinformatico;
+    public void setIdAdetalle(String idAdetalle) {
+        this.idAdetalle = idAdetalle;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.idAequipo;
-        hash = 97 * hash + Objects.hashCode(this.idEinformatico);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.idAequipo);
+        hash = 79 * hash + Objects.hashCode(this.idAdetalle);
         return hash;
     }
 
@@ -63,12 +63,13 @@ public class AsignacionDetalleId implements java.io.Serializable {
             return false;
         }
         final AsignacionDetalleId other = (AsignacionDetalleId) obj;
-        if (this.idAequipo != other.idAequipo) {
+        if (!Objects.equals(this.idAequipo, other.idAequipo)) {
             return false;
         }
-        if (!Objects.equals(this.idEinformatico, other.idEinformatico)) {
+        if (!Objects.equals(this.idAdetalle, other.idAdetalle)) {
             return false;
         }
         return true;
     }
+
 }

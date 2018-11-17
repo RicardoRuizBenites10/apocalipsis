@@ -37,6 +37,17 @@ public class EquipoInformaticoController {
         map.put("total", sct.countByFilter(null));
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/equiposPorAsignar", method = RequestMethod.GET)
+    public Map<String, Object> getByPorAsignar() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("message", "Lista de áreas");
+        map.put("data", sct.getByFilter(0, 100, null));
+        map.put("total", sct.countByFilter(null));
+        return map;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/iiEquipoInformatico", method = RequestMethod.POST)
