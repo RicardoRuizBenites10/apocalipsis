@@ -6,8 +6,11 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAsignacionDetalleDAO;
+import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.AsignacionDetalle;
+import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IAsignacionDetalleService;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +28,8 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
 
     @Autowired
     private IAsignacionDetalleDAO dao;
+    @Autowired
+    private IEquipoInformaticoDAO dao2;
 
     @Override
     @Transactional
@@ -52,10 +57,15 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
         filters.add(new FilterPage("idEinformatico", t.getEinformatico()));
         AsignacionDetalle last = lastByFilter(filters);
         int idLast = last != null ? Integer.parseInt(last.getIdAdetalle().substring(4)) : 0;
+        System.out.println("Ptmr: " + t.getIdAequipo());
         t.setIdAdetalle(t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setFecha(new Date());
         t.setAsignado(true);
         dao.create(t);
+        
+        EquipoInformatico equipo = dao2.find(t.getIdEinformatico());
+        equipo.setIdEequipo(Constante.EQUIPO_ESTADO_ASIGNADO);
+        dao2.update(equipo);
     }
 
     @Override

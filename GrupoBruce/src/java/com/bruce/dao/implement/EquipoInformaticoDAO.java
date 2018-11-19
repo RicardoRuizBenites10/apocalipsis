@@ -94,7 +94,7 @@ public class EquipoInformaticoDAO implements IEquipoInformaticoDAO{
 
     @Override
     public EquipoInformatico find(Object idT) {
-        return (EquipoInformatico) sf.getCurrentSession().get(EquipoInformatico.class, (Serializable) sf);
+        return (EquipoInformatico) sf.getCurrentSession().get(EquipoInformatico.class, (Serializable) idT);
     }
 
     @Override

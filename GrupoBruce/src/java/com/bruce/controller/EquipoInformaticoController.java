@@ -44,7 +44,7 @@ public class EquipoInformaticoController {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de áreas");
-        map.put("data", sct.getByFilter(0, 100, null));
+        map.put("data", sct.getByPorAsignar(0, 100, null));
         map.put("total", sct.countByFilter(null));
         return map;
     }

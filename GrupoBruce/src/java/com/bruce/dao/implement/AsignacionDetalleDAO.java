@@ -11,6 +11,7 @@ import com.bruce.util.FilterPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -39,6 +40,18 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO{
             });
         }
         return cr.list();
+    }
+
+    @Override
+    public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle) {
+        boolean rpta = false;
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("");
+        List result = query.list();
+        if(result.size()>0){
+            rpta = (boolean) result.get(0);
+        }
+        return rpta;
     }
 
     @Override

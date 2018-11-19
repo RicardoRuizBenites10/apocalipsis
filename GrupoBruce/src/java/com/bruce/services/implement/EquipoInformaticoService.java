@@ -33,9 +33,13 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
     public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters) {
         return dao.getByFilter(start, limit, filters);
     }
-    
+
     @Override
+    @Transactional
     public List<EquipoInformatico> getByPorAsignar(int start, int limit, List<FilterPage> filters) {
+        if (filters == null) {
+            filters = new ArrayList<>();
+        }
         filters.add(new FilterPage("idEequipo", Constante.EQUIPO_ESTADO_PORASIGNAR));
         return dao.getByFilter(start, limit, filters);
     }

@@ -60,6 +60,8 @@ Contributor(s):
     <mapping class="com.bruce.dao.to.ContratoTrabajador"/>
     <mapping class="com.bruce.dao.to.Menu"/>
     <mapping class="com.bruce.dao.to.Area"/>
+    <mapping class="com.bruce.dao.to.AsignacionEquipo"/>
+    <mapping class="com.bruce.dao.to.AsignacionDetalle"/>
     <mapping class="com.bruce.dao.to.CargoContratoId"/>
     <mapping class="com.bruce.dao.to.Usuario"/>
     <mapping class="com.bruce.dao.to.TiempoContrato"/>

@@ -45,6 +45,8 @@ Contributor(s):
   <table-filter match-name="ACCESO"/>
   <table-filter match-name="PERIODO"/>
   <table-filter match-name="TIPO_DOCUMENTO"/>
+  <table-filter match-name="ASIGNACION_EQUIPO"/>
+  <table-filter match-name="ASIGNACION_DETALLE"/>
   <table-filter match-name="AREA"/>
   <table-filter match-name="TIPO_TEXTRA"/>
   <table-filter match-name="MENU"/>

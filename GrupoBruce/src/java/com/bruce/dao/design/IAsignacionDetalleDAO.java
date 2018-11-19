@@ -17,4 +17,5 @@ public interface IAsignacionDetalleDAO extends IEntidadDAO<AsignacionDetalle>{
     public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
     public AsignacionDetalle lastByFilter(List<FilterPage> filters);
+    public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle);
 }
