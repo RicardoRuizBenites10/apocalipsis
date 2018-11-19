@@ -54,10 +54,9 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     public void insert(AsignacionDetalle t) {
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idAequipo", t.getIdAequipo()));
-        filters.add(new FilterPage("idEinformatico", t.getEinformatico()));
         AsignacionDetalle last = lastByFilter(filters);
         int idLast = last != null ? Integer.parseInt(last.getIdAdetalle().substring(4)) : 0;
-        System.out.println("Ptmr: " + t.getIdAequipo());
+        System.out.println("Ptmr: " + t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setIdAdetalle(t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setFecha(new Date());
         t.setAsignado(true);
@@ -78,6 +77,9 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Transactional
     public void delete(AsignacionDetalle t) {
         dao.delete(t);
+        EquipoInformatico equipo = dao2.find(t.getIdEinformatico());
+        equipo.setIdEequipo(Constante.EQUIPO_ESTADO_PORASIGNAR);
+        dao2.update(equipo);
     }
 
     @Override
@@ -90,6 +92,12 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Transactional
     public List<AsignacionDetalle> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle) {
+        return dao.validaREquipoAsignacion(asignacionDetalle);
     }
 
 }

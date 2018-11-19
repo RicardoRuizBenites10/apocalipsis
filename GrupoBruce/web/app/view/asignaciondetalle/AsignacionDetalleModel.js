@@ -4,7 +4,8 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalleModel', {
 
     data: {
         title: 'Equipos asignados',
-        recordAsignacion: null
+        recordAsignacion: null,
+        selectAsignacionDetalle: null
     },
 
     stores: {

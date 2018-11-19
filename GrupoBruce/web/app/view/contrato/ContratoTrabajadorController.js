@@ -35,7 +35,6 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                         botones: Ext.Msg.OK
                     });
                 }
-
             },
             failurer: function (response, opts) {
                 Ext.Msg.alert('Status', response.status);

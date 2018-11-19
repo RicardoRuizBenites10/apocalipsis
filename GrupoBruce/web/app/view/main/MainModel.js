@@ -4,10 +4,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        usuario: 'Oscar Ricardo Ruiz Benitessss',
-        appname: 'Grupo Bruce',
-
-        title_rrhh: 'Lista de Trabajadores',
+        appname: 'Grupo Bruce'
     },
 
     stores: {
@@ -128,6 +125,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                                 iconCls: 'fa fa-user',
                                 leaf: true,
                                 handler: 'GrupoBruce.view.asignacion.Asignacion'
+                            },{
+                                text: 'Mantenimiento de equipos',
+                                iconCls: 'fa fa-wrench',
+                                leaf: true
                             }]
                     }]
             }

@@ -34,7 +34,6 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                     items: [{
                             xtype: 'combo',
                             id: 'id_recepcionador',
-                            reference: 'dodone',
                             name: 'idRecepcionador',
                             valueField: 'idTrabajador',
                             displayField: 'nombres',
@@ -55,7 +54,7 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
                                 '</tpl>',
                                 '</ul>'
                             ],
-                            minChars: 1,
+                            minChars: 3,
                             pageSize: true,
                             hideTrigger: true,
                             triggerAction: 'query',

@@ -15,32 +15,33 @@ import javax.persistence.Table;
  * @author SISTEMAS
  */
 @Entity
-@Table(name="TIPO_MANTENIMIENTO", schema="dbo", catalog="BDBRUCE")
-public class TipoMantenimiento implements java.io.Serializable{
-    private String idTmantenimiento;
+@Table(name = "ESTADO_MANTENIMIENTO", schema = "dbo", catalog = "BDBRUCE")
+public class EstadoMantenimiento implements java.io.Serializable {
+
+    private String idEmantenimiento;
     private String descripcion;
     private boolean situacion;
 
-    public TipoMantenimiento() {
+    public EstadoMantenimiento() {
     }
 
-    public TipoMantenimiento(String idTmantenimiento, String descripcion, boolean situacion) {
-        this.idTmantenimiento = idTmantenimiento;
+    public EstadoMantenimiento(String idEmantenimiento, String descripcion, boolean situacion) {
+        this.idEmantenimiento = idEmantenimiento;
         this.descripcion = descripcion;
         this.situacion = situacion;
     }
-    
+
     @Id
-    @Column(name="ID_TMANTENIMIENTO", nullable=false)
-    public String getIdTmantenimiento() {
-        return idTmantenimiento;
+    @Column(name = "ID_EMANTENIMIENTO", nullable = false)
+    public String getIdEmantenimiento() {
+        return idEmantenimiento;
     }
 
-    public void setIdTmantenimiento(String idTmantenimiento) {
-        this.idTmantenimiento = idTmantenimiento;
+    public void setIdEmantenimiento(String idEmantenimiento) {
+        this.idEmantenimiento = idEmantenimiento;
     }
 
-    @Column(name="DESCRIPCION", nullable=false)
+    @Column(name = "DESCRIPCION", nullable = false)
     public String getDescripcion() {
         return descripcion;
     }
@@ -49,7 +50,7 @@ public class TipoMantenimiento implements java.io.Serializable{
         this.descripcion = descripcion;
     }
 
-    @Column(name="SITUACION", nullable=false)
+    @Column(name = "SITUACION", nullable = false)
     public boolean isSituacion() {
         return situacion;
     }

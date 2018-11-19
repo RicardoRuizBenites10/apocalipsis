@@ -68,6 +68,14 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
                     disabled: '{!selectAsignacion}'
                 },
                 handler: 'onAsignacion'
+            }, {
+                text: 'Mantenimiento',
+                iconCls: 'x-fa fa-wrench',
+                disabled: true,
+                bind: {
+                    disabled: '{!selectAsignacion}'
+                },
+                handler: 'onMantenimiento'
             }]
     },
 

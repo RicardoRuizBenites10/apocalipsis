@@ -5,14 +5,12 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IAsignacionDetalleDAO;
-import com.bruce.dao.to.AsignacionDetalle;
+import com.bruce.dao.design.IEstadoMantenimientoDAO;
+import com.bruce.dao.to.EstadoMantenimiento;
 import com.bruce.util.FilterPage;
-import com.bruce.util.QuerySQL;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -23,18 +21,18 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
 @Repository
-public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
+public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
 
     @Autowired
     private SessionFactory sf;
 
     @Override
-    public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<EstadoMantenimiento> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(AsignacionDetalle.class);
+        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
@@ -44,21 +42,9 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     }
 
     @Override
-    public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle) {
-        boolean rpta;
-        Session session = sf.getCurrentSession();
-        Query query = session.createSQLQuery(QuerySQL.ASIGNACION_DETALLE_VALIDA);
-        query.setParameter("IDEINFORMATICO", asignacionDetalle.getIdEinformatico());
-        query.setParameter("IDASIGNACION", asignacionDetalle.getIdAequipo());
-        List result = query.list();
-        rpta = result.isEmpty();
-        return rpta;
-    }
-
-    @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(AsignacionDetalle.class);
+        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
@@ -70,47 +56,47 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     }
 
     @Override
-    public AsignacionDetalle lastByFilter(List<FilterPage> filters) {
+    public EstadoMantenimiento lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        AsignacionDetalle asigancionDetalle = null;
-        Criteria cr = session.createCriteria(AsignacionDetalle.class);
+        EstadoMantenimiento estadoMantenimiento = null;
+        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
         }
-        cr.addOrder(Order.desc("idEinformatico"));
+        cr.addOrder(Order.desc("idEmantenimiento"));
         cr.setFirstResult(0);
 
         List result = cr.list();
         if (result.size() > 0) {
-            asigancionDetalle = (AsignacionDetalle) result.get(0);
+            estadoMantenimiento = (EstadoMantenimiento) result.get(0);
         }
-        return asigancionDetalle;
+        return estadoMantenimiento;
     }
 
     @Override
-    public void create(AsignacionDetalle t) {
+    public void create(EstadoMantenimiento t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(AsignacionDetalle t) {
+    public void update(EstadoMantenimiento t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(AsignacionDetalle t) {
+    public void delete(EstadoMantenimiento t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public AsignacionDetalle find(Object idT) {
-        return (AsignacionDetalle) sf.getCurrentSession().get(AsignacionDetalle.class, (Serializable) sf);
+    public EstadoMantenimiento find(Object idT) {
+        return (EstadoMantenimiento) sf.getCurrentSession().get(EstadoMantenimiento.class, (Serializable) idT);
     }
 
     @Override
-    public List<AsignacionDetalle> findAll() {
+    public List<EstadoMantenimiento> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

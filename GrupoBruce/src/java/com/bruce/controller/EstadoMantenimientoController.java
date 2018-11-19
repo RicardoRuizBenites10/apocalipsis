@@ -5,7 +5,7 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Area;
+import com.bruce.dao.to.EstadoMantenimiento;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.bruce.services.design.IAreaService;
+import com.bruce.services.design.IEstadoMantenimientoService;
 
 /**
  *
  * @author SISTEMAS
  */
 @Controller
-public class AreaController {
+public class EstadoMantenimientoController {
 
     @Autowired
-    private IAreaService sct;
+    private IEstadoMantenimientoService sct;
 
     @ResponseBody
-    @RequestMapping(value = "/areas", method = RequestMethod.GET)
+    @RequestMapping(value = "/estadosMantenimiento", method = RequestMethod.GET)
     public Map<String, Object> getByFilters() {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
@@ -38,41 +38,41 @@ public class AreaController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiArea", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody Area area) {
+    @RequestMapping(value = "/iiEstadoMantenimiento", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody EstadoMantenimiento estadoMantenimiento) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(area);
+        sct.insert(estadoMantenimiento);
         map.put("success", true);
-        map.put("data", area);
+        map.put("data", estadoMantenimiento);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuArea", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody Area area) {
+    @RequestMapping(value = "/uuEstadoMantenimiento", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody EstadoMantenimiento estadoMantenimiento) {
         Map<String, Object> map = new HashMap<>();
-        sct.update(area);
+        sct.update(estadoMantenimiento);
         map.put("success", true);
-        map.put("data", area);
+        map.put("data", estadoMantenimiento);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddArea", method = RequestMethod.POST)
-    public Map<String, Object> delete(@RequestBody Area area) {
+    @RequestMapping(value = "/ddEstadoMantenimiento", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody EstadoMantenimiento estadoMantenimiento) {
         Map<String, Object> map = new HashMap<>();
         boolean success = false;
         String msg = "Operacion exitosa";
         try {
-            sct.delete(area);
+            sct.delete(estadoMantenimiento);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();
         }
         map.put("success", success);
-        map.put("data", area);
+        map.put("data", estadoMantenimiento);
         map.put("message", msg);
         return map;
     }

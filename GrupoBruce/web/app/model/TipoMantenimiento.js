@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.TipoMantenimiento', {
     idProperty: 'idTmantenimiento',
     fields: [
         { name: 'descripcion', type: 'string' },
-        { name: 'idTmantenimiento', type: 'int' },
+        { name: 'idTmantenimiento', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ],
     

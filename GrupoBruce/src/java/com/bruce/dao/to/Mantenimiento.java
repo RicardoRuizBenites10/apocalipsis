@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @IdClass(value = MantenimientoId.class)
 public class Mantenimiento implements java.io.Serializable {
 
-    private int idAequipo;
+    private String idAequipo;
     private String idMantenimiento;
     private Date fecha;
     private Date fechaProgramada;
@@ -31,12 +31,13 @@ public class Mantenimiento implements java.io.Serializable {
     private boolean atendido;
     private String observacion;
     private float costo;
-    private int idTmantenimiento;
+    private String idTmantenimiento;
+    private String idEmantenimiento;
 
     public Mantenimiento() {
     }
 
-    public Mantenimiento(int idAequipo, String idMantenimiento, Date fecha, Date fechaProgramada, Date fechaAtendido, boolean atendido, String observacion, float costo, int idTmantenimiento) {
+    public Mantenimiento(String idAequipo, String idMantenimiento, Date fecha, Date fechaProgramada, Date fechaAtendido, boolean atendido, String observacion, float costo, String idEmantenimiento, String idTmantenimiento) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
         this.fecha = fecha;
@@ -46,15 +47,16 @@ public class Mantenimiento implements java.io.Serializable {
         this.observacion = observacion;
         this.costo = costo;
         this.idTmantenimiento = idTmantenimiento;
+        this.idEmantenimiento = idEmantenimiento;
     }
 
     @Id
     @Column(name = "ID_AEQUIPO", nullable = false)
-    public int getIdAequipo() {
+    public String getIdAequipo() {
         return idAequipo;
     }
 
-    public void setIdAequipo(int idAequipo) {
+    public void setIdAequipo(String idAequipo) {
         this.idAequipo = idAequipo;
     }
 
@@ -126,11 +128,20 @@ public class Mantenimiento implements java.io.Serializable {
     }
 
     @Column(name = "ID_TMANTENIMIENTO", nullable = false)
-    public int getIdTmantenimiento() {
+    public String getIdTmantenimiento() {
         return idTmantenimiento;
     }
 
-    public void setIdTmantenimiento(int idTmantenimiento) {
+    public void setIdTmantenimiento(String idTmantenimiento) {
         this.idTmantenimiento = idTmantenimiento;
+    }
+
+    @Column(name = "ID_EMANTENIMIENTO", nullable = false)
+    public String getIdEmantenimiento() {
+        return idEmantenimiento;
+    }
+
+    public void setIdEmantenimiento(String idEmantenimiento) {
+        this.idEmantenimiento = idEmantenimiento;
     }
 }

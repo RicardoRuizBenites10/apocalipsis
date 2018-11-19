@@ -30,5 +30,4 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionModel', {
             }
         }
     }
-
 });

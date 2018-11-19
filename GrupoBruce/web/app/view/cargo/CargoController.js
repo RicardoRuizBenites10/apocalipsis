@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.cargo.CargoController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ccargo',
-    
+
     createDialog: function (record) {
         var view = this.getView();
 
@@ -13,15 +13,13 @@ Ext.define('GrupoBruce.view.cargo.CargoController', {
                 }
             }
         });
-        if (record) {
-            this.dialog.down('form').loadRecord(record);
-        } else {
+        if (!record) {
             var idArea = this.getViewModel().get('recordArea').get('idArea');
-            var newcargo = Ext.create('GrupoBruce.model.Cargo', {
+            var record = Ext.create('GrupoBruce.model.Cargo', {
                 idArea: idArea
             });
-            this.dialog.down('form').loadRecord(newcargo);
         }
+        this.dialog.down('form').loadRecord(record);
         this.dialog.show();
     },
 
@@ -40,7 +38,7 @@ Ext.define('GrupoBruce.view.cargo.CargoController', {
         var window = btn.up('window');
         var grid = this.lookupReference('list_cargo');
         var cargoModel = form.getRecord();
-        
+
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(cargoModel); // update the record with the form data
             cargoModel.save({// save the record to the server
@@ -72,16 +70,16 @@ Ext.define('GrupoBruce.view.cargo.CargoController', {
             }
         });
     },
-    
-    onFunciones: function(){
+
+    onFunciones: function () {
         this.createWindow('GrupoBruce.view.funcion.Funcion');
     },
-    
-    createWindow : function(view){
+
+    createWindow: function (view) {
         var grid = this.lookupReference('list_cargo');
         var cargo = grid.getSelection()[0];
         var window = Ext.create(view);
-        window.getViewModel().set('recordCargo',cargo);
+        window.getViewModel().set('recordCargo', cargo);
     }
 
 });

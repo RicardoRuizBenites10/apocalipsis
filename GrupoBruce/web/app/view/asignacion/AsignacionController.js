@@ -57,6 +57,10 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
 
     onAsignacion: function () {
         this.createWindow('GrupoBruce.view.asignaciondetalle.AsignacionDetalle');
+    },
+    
+    onMantenimiento: function(){
+        this.createWindow('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformatico');
     }
     
 });

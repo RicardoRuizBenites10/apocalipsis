@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
             align: 'left'
         }, {
             text: 'Fecha',
-            dataIndex: 'fecha',
+            dataIndex: 'fechaAsignado',
             formatter: 'date("d/m/Y")',
             align: 'center'
         }, {
@@ -37,14 +37,6 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
                     disabled: '{selectAsignacionDetalle}'
                 },
                 handler: 'addAsignacionDetalle'
-            }, {
-                iconCls: 'x-fa fa-edit',
-                disabled: true,
-                text: 'Modificar',
-                bind: {
-                    disabled: '{!selectAsignacionDetalle}'
-                },
-                handler: 'editAsignacionDetalle'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,

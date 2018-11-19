@@ -41,9 +41,8 @@ public class AsignacionDetalleController {
     @RequestMapping(value = "/validaRAsignacionEquipo", method = RequestMethod.POST)
     public Map<String, Object> validaRAsignacion(@RequestBody AsignacionDetalle asignacionDetalle) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(asignacionDetalle);
         map.put("success", true);
-        map.put("data", asignacionDetalle);
+        map.put("validado", sct.validaREquipoAsignacion(asignacionDetalle));
         map.put("message", "Registro exitoso.");
         return map;
     }

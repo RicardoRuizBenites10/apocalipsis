@@ -27,17 +27,19 @@ public class AsignacionDetalle implements java.io.Serializable {
     private String idEinformatico;
     private String idAdetalle;
     private Date fecha;
+    private Date fechaAsignado;
     private boolean asignado;
     private String einformatico;
 
     public AsignacionDetalle() {
     }
 
-    public AsignacionDetalle(String idAequipo, String idEinformatico, String idAdetalle, Date fecha, boolean asignado, String einformatico) {
+    public AsignacionDetalle(String idAequipo, String idEinformatico, String idAdetalle, Date fecha,Date fechaAsignado, boolean asignado, String einformatico) {
         this.idAequipo = idAequipo;
         this.idEinformatico = idEinformatico;
         this.idAdetalle = idAdetalle;
         this.fecha = fecha;
+        this.fechaAsignado = fechaAsignado;
         this.asignado = asignado;
         this.einformatico = einformatico;
     }
@@ -79,6 +81,16 @@ public class AsignacionDetalle implements java.io.Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_ASIGNADO", nullable = false)
+    public Date getFechaAsignado() {
+        return fechaAsignado;
+    }
+
+    public void setFechaAsignado(Date fechaAsignado) {
+        this.fechaAsignado = fechaAsignado;
     }
 
     @Column(name = "ASIGNADO", nullable = false)

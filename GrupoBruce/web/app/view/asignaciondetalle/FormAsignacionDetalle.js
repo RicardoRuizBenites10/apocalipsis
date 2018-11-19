@@ -28,11 +28,20 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
             },
             items: [{
                     items: [{
+                            xtype: 'datefield',
+                            name: 'fechaAsignado',
+                            fieldLabel: 'Fecha asignado',
+                            flex: 1
+                    }]
+            },{
+                    items: [{
                             xtype: 'combobox',
+                            id: 'id_equipo',
                             name: 'idEinformatico',
-                            fieldLabel: 'Equipo informático',
                             valueField: 'idEinformatico',
                             displayField: 'denominacion',
+                            fieldLabel: 'Equipo informático',
+                            emptyText: 'Buscar..',
                             bind: {
                                 store: '{equiposInformatico}',
                                 selection: '{selectEquipo}'
@@ -49,7 +58,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                                 '</tpl>',
                                 '</ul>'
                             ],
-                            minChars: 1,
+                            minChars: 3,
                             pageSize: true,
                             hideTrigger: true,
                             triggerAction: 'query',

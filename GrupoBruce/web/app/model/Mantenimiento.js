@@ -8,9 +8,10 @@ Ext.define('GrupoBruce.model.Mantenimiento', {
         {name: 'fecha', type: 'date'},
         {name: 'fechaAtendido', type: 'date'},
         {name: 'fechaProgramada', type: 'date'},
-        {name: 'idAequipo', type: 'int'},
+        {name: 'idAequipo', type: 'string'},
         {name: 'idMantenimiento', type: 'string'},
-        {name: 'idTmantenimiento', type: 'float'},
+        {name: 'idTmantenimiento', type: 'string'},
+        {name: 'idEmantenimiento', type: 'string'},
         {name: 'observacion', type: 'string'}
     ],
 

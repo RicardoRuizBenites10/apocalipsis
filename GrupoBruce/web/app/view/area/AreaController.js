@@ -16,18 +16,17 @@ Ext.define('GrupoBruce.view.area.AreaController', {
 
     editArea: function () {
         var grid = this.lookupReference('list_area');
-        var areaModel = grid.getSelection()[0];
+        var model = grid.getSelection()[0];
         var window = new GrupoBruce.view.area.FormArea();
         window.setTitle('Editar área');
-        window.down('form').loadRecord(areaModel);
+        window.down('form').loadRecord(model);
     },
 
     deleteArea: function () {
         var grid = this.lookupReference('list_area');
-        var areaModel = grid.getSelection()[0];
-        
-        if(areaModel.get('leaf')){
-            areaModel.erase({
+        var model = grid.getSelection()[0];
+        if(model.get('leaf')){
+            model.erase({
                 success: function (area, operation) {
                     grid.getStore().reload();
                     Ext.Msg.alert('Success', 'Eliminación exitosa.');
