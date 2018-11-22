@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.MantenimientoProceso', {
     extend: 'Ext.data.Model',
+    alias: 'model.MmantenimientoProceso',
     
     idProperty: 'idMproceso',
     fields: [
