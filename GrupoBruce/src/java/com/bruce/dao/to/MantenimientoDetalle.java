@@ -20,30 +20,32 @@ import javax.persistence.Table;
 @IdClass(value = MantenimientoDetalleId.class)
 public class MantenimientoDetalle implements java.io.Serializable {
 
-    private int idAequipo;
+    private String idAequipo;
     private String idMantenimiento;
     private String idEinformatico;
     private boolean minterno;
     private String observacion;
+    private float costo;
 
     public MantenimientoDetalle() {
     }
 
-    public MantenimientoDetalle(int idAequipo, String idMantenimiento, String idEinformatico, boolean minterno, String observacion) {
+    public MantenimientoDetalle(String idAequipo, String idMantenimiento, String idEinformatico, boolean minterno, String observacion, float costo) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
         this.idEinformatico = idEinformatico;
         this.minterno = minterno;
         this.observacion = observacion;
+        this.costo = costo;
     }
 
     @Id
     @Column(name = "ID_AEQUIPO", nullable = false)
-    public int getIdAequipo() {
+    public String getIdAequipo() {
         return idAequipo;
     }
 
-    public void setIdAequipo(int idAequipo) {
+    public void setIdAequipo(String idAequipo) {
         this.idAequipo = idAequipo;
     }
 
@@ -83,6 +85,15 @@ public class MantenimientoDetalle implements java.io.Serializable {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+    
+    @Column(name="COSTO")
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
 
 }

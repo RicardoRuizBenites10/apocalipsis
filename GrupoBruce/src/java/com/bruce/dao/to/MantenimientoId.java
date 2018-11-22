@@ -14,23 +14,23 @@ import javax.persistence.Column;
  */
 public class MantenimientoId implements java.io.Serializable {
 
-    private int idAequipo;
+    private String idAequipo;
     private String idMantenimiento;
 
     public MantenimientoId() {
     }
 
-    public MantenimientoId(int idAequipo, String idMantenimiento) {
+    public MantenimientoId(String idAequipo, String idMantenimiento) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
     }
 
     @Column(name = "ID_AEQUIPO", nullable = false)
-    public int getIdAequipo() {
+    public String getIdAequipo() {
         return idAequipo;
     }
 
-    public void setIdAequipo(int idAequipo) {
+    public void setIdAequipo(String idAequipo) {
         this.idAequipo = idAequipo;
     }
 
@@ -45,9 +45,9 @@ public class MantenimientoId implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.idAequipo;
-        hash = 29 * hash + Objects.hashCode(this.idMantenimiento);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.idAequipo);
+        hash = 47 * hash + Objects.hashCode(this.idMantenimiento);
         return hash;
     }
 
@@ -63,7 +63,7 @@ public class MantenimientoId implements java.io.Serializable {
             return false;
         }
         final MantenimientoId other = (MantenimientoId) obj;
-        if (this.idAequipo != other.idAequipo) {
+        if (!Objects.equals(this.idAequipo, other.idAequipo)) {
             return false;
         }
         if (!Objects.equals(this.idMantenimiento, other.idMantenimiento)) {

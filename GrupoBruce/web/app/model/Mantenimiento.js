@@ -3,7 +3,6 @@ Ext.define('GrupoBruce.model.Mantenimiento', {
     alias: 'model.Mmantenimiento',
     idProperty: 'idMantenimiento',
     fields: [
-        {name: 'atendido', type: 'boolean'},
         {name: 'costo', type: 'float'},
         {name: 'fecha', type: 'date'},
         {name: 'fechaAtendido', type: 'date'},

@@ -12,19 +12,19 @@ import javax.persistence.Column;
  *
  * @author SISTEMAS
  */
-public class MantenimientoDetalleId implements java.io.Serializable {
+public class MantenimientoProcesoId implements java.io.Serializable {
 
     private String idAequipo;
     private String idMantenimiento;
-    private String idEinformatico;
+    private String idMproceso;
 
-    public MantenimientoDetalleId() {
+    public MantenimientoProcesoId() {
     }
 
-    public MantenimientoDetalleId(String idAequipo, String idMantenimiento, String idEinformatico) {
+    public MantenimientoProcesoId(String idAequipo, String idMantenimiento, String idMproceso) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
-        this.idEinformatico = idEinformatico;
+        this.idMproceso = idMproceso;
     }
 
     @Column(name = "ID_AEQUIPO", nullable = false)
@@ -45,21 +45,21 @@ public class MantenimientoDetalleId implements java.io.Serializable {
         this.idMantenimiento = idMantenimiento;
     }
 
-    @Column(name = "ID_EINFORMATICO", nullable = false)
-    public String getIdEinformatico() {
-        return idEinformatico;
+    @Column(name = "ID_MPROCESO", nullable = false)
+    public String getIdMproceso() {
+        return idMproceso;
     }
 
-    public void setIdEinformatico(String idEinformatico) {
-        this.idEinformatico = idEinformatico;
+    public void setIdMproceso(String idMproceso) {
+        this.idMproceso = idMproceso;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.idAequipo);
-        hash = 17 * hash + Objects.hashCode(this.idMantenimiento);
-        hash = 17 * hash + Objects.hashCode(this.idEinformatico);
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.idAequipo);
+        hash = 71 * hash + Objects.hashCode(this.idMantenimiento);
+        hash = 71 * hash + Objects.hashCode(this.idMproceso);
         return hash;
     }
 
@@ -74,14 +74,14 @@ public class MantenimientoDetalleId implements java.io.Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MantenimientoDetalleId other = (MantenimientoDetalleId) obj;
+        final MantenimientoProcesoId other = (MantenimientoProcesoId) obj;
         if (!Objects.equals(this.idAequipo, other.idAequipo)) {
             return false;
         }
         if (!Objects.equals(this.idMantenimiento, other.idMantenimiento)) {
             return false;
         }
-        if (!Objects.equals(this.idEinformatico, other.idEinformatico)) {
+        if (!Objects.equals(this.idMproceso, other.idMproceso)) {
             return false;
         }
         return true;

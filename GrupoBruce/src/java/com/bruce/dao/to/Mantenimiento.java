@@ -28,7 +28,6 @@ public class Mantenimiento implements java.io.Serializable {
     private Date fecha;
     private Date fechaProgramada;
     private Date fechaAtendido;
-    private boolean atendido;
     private String observacion;
     private float costo;
     private String idTmantenimiento;
@@ -37,13 +36,12 @@ public class Mantenimiento implements java.io.Serializable {
     public Mantenimiento() {
     }
 
-    public Mantenimiento(String idAequipo, String idMantenimiento, Date fecha, Date fechaProgramada, Date fechaAtendido, boolean atendido, String observacion, float costo, String idEmantenimiento, String idTmantenimiento) {
+    public Mantenimiento(String idAequipo, String idMantenimiento, Date fecha, Date fechaProgramada, Date fechaAtendido, String observacion, float costo, String idTmantenimiento, String idEmantenimiento) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
         this.fecha = fecha;
         this.fechaProgramada = fechaProgramada;
         this.fechaAtendido = fechaAtendido;
-        this.atendido = atendido;
         this.observacion = observacion;
         this.costo = costo;
         this.idTmantenimiento = idTmantenimiento;
@@ -98,15 +96,6 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setFechaAtendido(Date fechaAtendido) {
         this.fechaAtendido = fechaAtendido;
-    }
-
-    @Column(name = "ATENDIDO", nullable = false)
-    public boolean isAtendido() {
-        return atendido;
-    }
-
-    public void setAtendido(boolean atendido) {
-        this.atendido = atendido;
     }
 
     @Column(name = "OBSERVACION")

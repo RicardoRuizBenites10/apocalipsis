@@ -1,16 +1,17 @@
 Ext.define('GrupoBruce.model.MantenimientoDetalle', {
     extend: 'Ext.data.Model',
     alias: 'model.MmantenimientoDetalle',
-    
-    idProperty: 'idAinformatico',
+
+    idProperty: 'idEinformatico',
     fields: [
-        { name: 'idAequipo', type: 'int' },
-        { name: 'idEinformatico', type: 'string' },
-        { name: 'idMantenimiento', type: 'string' },
-        { name: 'minterno', type: 'boolean' },
-        { name: 'observacion', type: 'string' }
+        {name: 'idAequipo', type: 'int'},
+        {name: 'idEinformatico', type: 'string'},
+        {name: 'idMantenimiento', type: 'string'},
+        {name: 'minterno', type: 'boolean'},
+        {name: 'observacion', type: 'string'},
+        {name: 'costo', type: 'float'}
     ],
-    
+
     proxy: {
         type: 'ajax',
         api: {
