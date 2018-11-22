@@ -10,6 +10,7 @@ package com.bruce.util;
  * @author SISTEMAS
  */
 public class Constante {
+
     //Tiempo ausencia
     public static final int AUSENCIA_TIEMPO_DIAS = 1;
     public static final int AUSENCIA_TIEMPO_HORAS = 2;
@@ -35,6 +36,13 @@ public class Constante {
     public static final int EQUIPO_ESTADO_BAJA = 4;
     //Forma de pago
     public static final int FORMAPAGO_EFECTIVO = 1;
+    //Estados de mantenimiento
+    public static final String MANTENIMIENTO_ESTADO_REQUERIDO = "01";
+    public static final String MANTENIMIENTO_ESTADO_ASIGNADO = "02";
+    public static final String MANTENIMIENTO_ESTADO_ENPROCESO = "03";
+    public static final String MANTENIMIENTO_ESTADO_TERMINADO = "04";
+    public static final String MANTENIMIENTO_ESTADO_ENENTREGA = "05";
+    public static final String MANTENIMIENTO_ESTADO_RECEPCIONADO = "06";
     //Tamaño de archivos
     public static final int MEMORY_THRESHOLD = 1024 * 1024 * 3;  // 3MB
     public static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB

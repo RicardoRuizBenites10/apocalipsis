@@ -3,10 +3,15 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformaticoM
     alias: 'viewmodel.VMmantenimientoeinformatico',
     data: {
         title: 'Lista de mantenimientos',
-        recordAsignacion: null
+        recordAsignacion: null,
+        selectMantenimientoEinformatico: null
     },
     
     stores: {
+        tiposMantenimiento : {
+            type: 'StipoMantenimiento',
+            autoLoad: true
+        },
         mantenimientosEinformatico: {
             type: 'Smantenimiento',
             autoLoad: true

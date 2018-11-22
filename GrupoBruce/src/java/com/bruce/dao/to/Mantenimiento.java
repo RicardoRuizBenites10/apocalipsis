@@ -32,6 +32,7 @@ public class Mantenimiento implements java.io.Serializable {
     private float costo;
     private String idTmantenimiento;
     private String idEmantenimiento;
+    private String idGenerador;
 
     public Mantenimiento() {
     }
@@ -132,5 +133,14 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setIdEmantenimiento(String idEmantenimiento) {
         this.idEmantenimiento = idEmantenimiento;
+    }
+
+    @Column(name = "ID_GENERADOR", nullable = false)
+    public String getIdGenerador() {
+        return idGenerador;
+    }
+
+    public void setIdGenerador(String idGenerador) {
+        this.idGenerador = idGenerador;
     }
 }

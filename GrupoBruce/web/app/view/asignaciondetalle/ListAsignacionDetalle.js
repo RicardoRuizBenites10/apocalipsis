@@ -11,6 +11,10 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Serie',
+            dataIndex: 'idEinformatico',
+            align: 'center'
+        }, {
             text: 'Nombre',
             dataIndex: 'einformatico',
             width: 400,

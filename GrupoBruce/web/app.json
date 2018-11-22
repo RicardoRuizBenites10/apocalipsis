@@ -4,65 +4,65 @@
     "version": "1.0.0.0",
     "framework": "ext",
 
-            "requires": [
-                "font-awesome",
-                "charts"
-            ],
-            
-            "indexHtmlPath": "welcome.html",
+    "requires": [
+        "font-awesome",
+        "charts"
+    ],
 
-            "classpath": [
-                "app",
-                "${toolkit.name}/src"
-            ],
+    "indexHtmlPath": "welcome.html",
 
-            "overrides": [
-                "overrides",
-                "${toolkit.name}/overrides"
-            ],
+    "classpath": [
+        "app",
+        "${toolkit.name}/src"
+    ],
 
-            "fashion": {
+    "overrides": [
+        "overrides",
+        "${toolkit.name}/overrides"
+    ],
 
-                "inliner": {
-                            "enable": false
-                }
-            },
+    "fashion": {
 
-            "sass": {
-                        "namespace": "GrupoBruce",
+        "inliner": {
+            "enable": true
+        }
+    },
 
-                        "etc": [
-                            "sass/etc/all.scss",
-                            "${toolkit.name}/sass/etc/all.scss"
-                        ],
-                        
-                        "var": [
-                            "sass/var/all.scss",
-                            "sass/var",
-                            "${toolkit.name}/sass/var/all.scss",
-                            "${toolkit.name}/sass/var"
-                        ],
+    "sass": {
+        "namespace": "GrupoBruce",
 
-                        "src": [
-                            "sass/src",
-                            "${toolkit.name}/sass/src"
-                        ]
-            },
+        "etc": [
+            "sass/etc/all.scss",
+            "${toolkit.name}/sass/etc/all.scss"
+        ],
 
-            "js": [
-                {
-                    "path": "app.js",
-                    "bundle": true
-                }
-            ],
+        "var": [
+            "sass/var/all.scss",
+            "sass/var",
+            "${toolkit.name}/sass/var/all.scss",
+            "${toolkit.name}/sass/var"
+        ],
 
-            "classic": {
-                "js": [
-                            {
-                                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
-                            }
-                ]
-            },
+        "src": [
+            "sass/src",
+            "${toolkit.name}/sass/src"
+        ]
+    },
+
+    "js": [
+        {
+            "path": "app.js",
+            "bundle": true
+        }
+    ],
+
+    "classic": {
+        "js": [
+            {
+                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
+            }
+        ]
+    },
 
     "modern": {
         "js": [
@@ -71,17 +71,17 @@
             }
         ]
     },
-            "css": [
-                {
-                    "path": "${build.out.css.path}",
-                    "bundle": true,
-                    "exclude": ["fashion"]
-                }
-            ],
+    "css": [
+        {
+            "path": "${build.out.css.path}",
+            "bundle": true,
+            "exclude": ["fashion"]
+        }
+    ],
 
     "loader": {
-                "cache": false,
-                "cacheParam": "_dc"
+        "cache": false,
+        "cacheParam": "_dc"
     },
 
     "production": {
@@ -102,82 +102,81 @@
         }
     },
 
-            "testing": {
-            },
+    "testing": {
+    },
 
-            "development": {
-                "watch": {
-                    "delay": 250
+    "development": {
+        "watch": {
+            "delay": 250
+        }
+    },
+
+    "bootstrap": {
+        "base": "${app.dir}",
+
+        "manifest": "${build.id}.json",
+
+        "microloader": "bootstrap.js",
+        "css": "bootstrap.css"
+    },
+
+    "output": {
+        "base": "${workspace.build.dir}/${build.environment}/${app.name}",
+        "page": "welcome.html",
+        "manifest": "${build.id}.json",
+        "js": "${build.id}/app.js",
+        "appCache": {
+            "enable": false
+        },
+        "resources": {
+            "path": "${build.id}/resources",
+            "shared": "resources"
+        }
+    },
+
+    "cache": {
+        "enable": false,
+        "deltas": "${build.id}/deltas"
+    },
+
+    "appCache": {
+        "cache": [
+            "welcome.html"
+        ],
+
+        "network": [
+            "*"
+        ],
+        "fallback": []
+    },
+
+    "resources": [
+        {
+            "path": "resources",
+            "output": "shared"
+        },
+        {
+            "path": "${toolkit.name}/resources"
+        },
+        {
+            "path": "${build.id}/resources"
+        }
+    ],
+
+    "archivePath": "archive/${build.id}",
+
+    "builds": {
+        "classic": {
+            "toolkit": "classic",
+            "theme": "theme-triton",
+            "sass": {
+                "generated": {
+                    "var": "classic/sass/save.scss",
+                    "src": "classic/sass/save"
                 }
-            },
-
-            "bootstrap": {
-                "base": "${app.dir}",
-
-                "manifest": "${build.id}.json",
-
-                "microloader": "bootstrap.js",
-                "css": "bootstrap.css"
-            },
-            
-
-            "output": {
-                "base": "${workspace.build.dir}/${build.environment}/${app.name}",
-                "page": "welcome.html",
-                "manifest": "${build.id}.json",
-                "js": "${build.id}/app.js",
-                "appCache": {
-                    "enable": false
-                },
-                "resources": {
-                    "path": "${build.id}/resources",
-                    "shared": "resources"
-                }
-            },
-
-            "cache": {
-                "enable": false,
-                "deltas": "${build.id}/deltas"
-            },
-
-            "appCache": {
-                        "cache": [
-                            "welcome.html"
-                        ],
-
-                        "network": [
-                            "*"
-                        ],
-                        "fallback": []
-            },
-
-            "resources": [
-                {
-                    "path": "resources",
-                    "output": "shared"
-                },
-                {
-                    "path": "${toolkit.name}/resources"
-                },
-                {
-                    "path": "${build.id}/resources"
-                }
-            ],
-
-            "archivePath": "archive/${build.id}",
-
-            "builds": {
-                "classic": {
-                    "toolkit": "classic",
-                    "theme": "theme-triton",
-                    "sass": {
-                        "generated": {
-                            "var": "classic/sass/save.scss",
-                            "src": "classic/sass/save"
-                        }
-                    }
-                }    
-            },
+            }
+        }    
+    },
     "ignore": [
         "(^|/)CVS(/?$|/.*?$)"
     ],

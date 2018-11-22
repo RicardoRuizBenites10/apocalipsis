@@ -11,9 +11,38 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.ListMantenimientoEinformat
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'F.Programada'
+            text: 'Programado',
+            dataIndex: 'fechaProgramada',
+            formatter: 'date("d/m/Y")'
         }, {
-            text: 'F.Atendido'
+            text: 'Detalle',
+            dataIndex: 'observacion',
+            align: 'left',
+            flex: 1
+        },{
+            text: 'Estado',
+            dataIndex: 'idEmantenimiento',
+            align: 'left',
+            renderer: function(val){
+                switch(val){
+                    case '01':
+                        return 'Requerido';
+                    case '02':
+                        return 'Asignado';
+                    case '03':
+                        return 'En preceso';
+                    case '04':
+                        return 'Terminado';
+                    case '05':
+                        return 'En entrega';
+                    case '06':
+                        return 'Recepcionado';
+                }
+            }
+        },{
+            text: 'Atendido',
+            dataIndex: 'fechaAtendido',
+            formatter: 'date("d/m/Y")'
         }],
     tbar: {
         items: [{
