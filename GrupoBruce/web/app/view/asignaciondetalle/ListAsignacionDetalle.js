@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
         }, {
             text: 'Nombre',
             dataIndex: 'einformatico',
-            width: 400,
+            width: 300,
             align: 'left'
         }, {
             text: 'Fecha',

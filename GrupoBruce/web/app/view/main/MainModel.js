@@ -128,7 +128,8 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                             },{
                                 text: 'Mantenimiento de equipos',
                                 iconCls: 'fa fa-wrench',
-                                leaf: true
+                                leaf: true,
+                                handler: 'GrupoBruce.view.mantenimientoproceso.MantenimientoProceso'
                             }]
                     }]
             }
