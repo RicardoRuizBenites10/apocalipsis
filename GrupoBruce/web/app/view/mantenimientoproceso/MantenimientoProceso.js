@@ -19,6 +19,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProceso', {
     },
     items: [{
             xtype: 'WlistMantenimientoProceso',
+            id: 'id_wmantenimientoProceso',
             height: 450
         }]
 });

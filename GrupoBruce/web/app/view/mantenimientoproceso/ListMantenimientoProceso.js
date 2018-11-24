@@ -11,29 +11,43 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Fecha'
+            text: 'Fecha',
+            dataIndex: 'fecha',
+            formatter: 'date("d/m/Y")',
+            align: 'center'
         }, {
             text: 'Observación',
+            dataIndex: 'observacion',
+            align: 'left',
             flex: 1
         }, {
-            text: 'Generador'
+            text: 'Generador',
+            flex: 1
         }],
-    tbar: {
-        items: [{
-                xtype: 'combobox',
-                editable: false
-            }, '-', {
-                xtype: 'button',
-                iconCls: 'x-fa fa-plus',
-                text: 'Nuevo',
-                bind: {
-                    disabled: '{!selectMantenimientoProceso}'
-                },
-                handler: 'addMantenimientoProceso'
-            }]
-    },
 
     dockedItems: [{
+            xtype: 'toolbar',
+            overflowHandler: 'menu',
+            items: [{
+                    xtype: 'combobox',
+                    fieldLabel: 'Mantenimiento',
+                    valueField: 'idEmantenimiento',
+                    displayField: 'descripcion',
+                    editable: false,
+                    bind: {
+                        store: '{estadosMantenimiento}',
+                        selection: '{selectEstadoMantenimiento}'
+                    }
+                }, '-', {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-circle-o-notch',
+                    text: 'Siguiente etapa',
+                    bind: {
+                        disabled: '{!selectMantenimientoProceso}'
+                    },
+                    handler: 'addMantenimientoProceso'
+                }]
+        }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {

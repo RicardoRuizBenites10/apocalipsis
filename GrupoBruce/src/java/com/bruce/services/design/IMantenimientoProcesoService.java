@@ -14,7 +14,7 @@ import java.util.List;
  * @author RICARDO
  */
 public interface IMantenimientoProcesoService extends IEntidadService<MantenimientoProceso>{
-    public List<MantenimientoProceso> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
+    public List<MantenimientoProceso> getByFilter(int start, int limit, String sort, String filter, String query);
+    public int countByFilter(String filter, String query);
     public MantenimientoProceso lastByFilter(List<FilterPage> filters);
 }

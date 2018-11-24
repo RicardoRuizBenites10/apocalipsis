@@ -27,6 +27,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.EstadoContrato',
         'GrupoBruce.store.EstadoEquipo',
         'GrupoBruce.store.EstadoEstudio',
+        'GrupoBruce.store.EstadoMantenimiento',
         'GrupoBruce.store.EstadoTrabajador',
         'GrupoBruce.store.Formacion',
         'GrupoBruce.store.FormaPago',

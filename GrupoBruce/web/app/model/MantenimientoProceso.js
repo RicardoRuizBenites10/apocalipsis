@@ -1,18 +1,20 @@
 Ext.define('GrupoBruce.model.MantenimientoProceso', {
     extend: 'Ext.data.Model',
     alias: 'model.MmantenimientoProceso',
-    
+
     idProperty: 'idMproceso',
     fields: [
-        { name: 'fecha', type: 'date' },
-        { name: 'idAequipo', type: 'string' },
-        { name: 'idEmantenimiento', type: 'string' },
-        { name: 'idGenerador', type: 'string' },
-        { name: 'idMantenimiento', type: 'string' },
-        { name: 'idMproceso', type: 'string' },
-        { name: 'idSolucionador', type: 'string' },
-        { name: 'observacion', type: 'string' }
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'idAequipo', type: 'string'},
+        {name: 'idEmantenimiento', type: 'string'},
+        {name: 'idGenerador', type: 'string'},
+        {name: 'idMantenimiento', type: 'string'},
+        {name: 'idMproceso', type: 'string'},
+        {name: 'idSolucionador', type: 'string'},
+        {name: 'observacion', type: 'string'}
     ],
+    
+    identifier: 'sequential',
 
     proxy: {
         type: 'ajax',

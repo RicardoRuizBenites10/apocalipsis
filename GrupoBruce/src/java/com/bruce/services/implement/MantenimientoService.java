@@ -60,7 +60,6 @@ public class MantenimientoService implements IMantenimientoService {
         MantenimientoProceso mp = new MantenimientoProceso();
         mp.setIdAequipo(t.getIdAequipo());
         mp.setIdMantenimiento(t.getIdMantenimiento());
-        mp.setIdMproceso(t.getIdMantenimiento() + Constante.MANTENIMIENTO_ESTADO_REQUERIDO);
         mp.setFecha(new Date());
         mp.setObservacion(t.getObservacion());
         mp.setIdGenerador(t.getIdGenerador());

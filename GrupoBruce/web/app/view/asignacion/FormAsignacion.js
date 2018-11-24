@@ -10,6 +10,7 @@ Ext.define('GrupoBruce.view.asignacion.FormAsignacion', {
 
     modal: true,
     resizable: false,
+    closable: false,
     autoShow: true,
     width: 400,
 

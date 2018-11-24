@@ -19,8 +19,12 @@ import javax.persistence.Table;
 public class EstadoMantenimiento implements java.io.Serializable {
 
     private String idEmantenimiento;
+    private int orden;
     private String descripcion;
+    private boolean solucionador;
     private boolean situacion;
+    private boolean ultimo;
+    private String idPosterior;
 
     public EstadoMantenimiento() {
     }
@@ -41,6 +45,15 @@ public class EstadoMantenimiento implements java.io.Serializable {
         this.idEmantenimiento = idEmantenimiento;
     }
 
+    @Column(name = "ORDEN", nullable = false)
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
     @Column(name = "DESCRIPCION", nullable = false)
     public String getDescripcion() {
         return descripcion;
@@ -50,6 +63,15 @@ public class EstadoMantenimiento implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
+    @Column(name = "SOLUCIONADOR", nullable = false)
+    public boolean isSolucionador() {
+        return solucionador;
+    }
+
+    public void setSolucionador(boolean solucionador) {
+        this.solucionador = solucionador;
+    }
+
     @Column(name = "SITUACION", nullable = false)
     public boolean isSituacion() {
         return situacion;
@@ -57,5 +79,23 @@ public class EstadoMantenimiento implements java.io.Serializable {
 
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
+    }
+    
+    @Column(name = "ULTIMO", nullable = false)
+    public boolean isUltimo() {
+        return ultimo;
+    }
+
+    public void setUltimo(boolean ultimo) {
+        this.ultimo = ultimo;
+    }
+
+    @Column(name = "ID_POSTERIOR", nullable = false)
+    public String getIdPosterior() {
+        return idPosterior;
+    }
+
+    public void setIdPosterior(String idPosterior) {
+        this.idPosterior = idPosterior;
     }
 }

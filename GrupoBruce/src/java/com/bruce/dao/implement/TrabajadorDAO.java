@@ -88,24 +88,28 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Trabajador.class);
-        filters.forEach(item -> {
-            switch (item.getOperator()) {
-                case "like":
-                    cr.add(Restrictions.like(item.getProperty(), item.getValue() + "%"));
-                    break;
-                default:
-                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                    break;
-            }
-        });
-        sorts.forEach(item -> {
-            ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
-            if (propiedad.size() > 1) {
-                cr.createCriteria(propiedad.get(0)).addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(propiedad.get(1)) : Order.desc(propiedad.get(1)));
-            } else {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            }
-        });
+        if (filters != null) {
+            filters.forEach(item -> {
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue() + "%"));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
+                if (propiedad.size() > 1) {
+                    cr.createCriteria(propiedad.get(0)).addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(propiedad.get(1)) : Order.desc(propiedad.get(1)));
+                } else {
+                    cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+                }
+            });
+        }
         cr.setFirstResult(start);
         cr.setMaxResults(limit);
         return cr.list();
