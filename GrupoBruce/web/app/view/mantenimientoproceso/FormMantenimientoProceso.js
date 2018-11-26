@@ -43,9 +43,11 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso', {
                             displayField: 'nombres',
                             fieldLabel: 'Brinda solución',
                             emptyText: 'Buscar..',
+                            disabled: true,
                             bind: {
                                 store: '{trabajadors}',
-                                selection: '{selectSolucionador}'
+                                selection: '{selectSolucionador}',
+                                disabled: '{!nextEstadoMantenimiento.solucionador}'
                             },
                             tpl: [
                                 '<ul class="x-list-plain">',

@@ -6,7 +6,10 @@
 package com.bruce.services.implement;
 
 import com.bruce.controller.TrabajadorController;
+import com.bruce.dao.design.IMantenimientoDAO;
 import com.bruce.dao.design.IMantenimientoProcesoDAO;
+import com.bruce.dao.to.Mantenimiento;
+import com.bruce.dao.to.MantenimientoId;
 import com.bruce.dao.to.MantenimientoProceso;
 import com.bruce.util.FilterPage;
 import java.util.List;
@@ -32,6 +35,8 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     
     @Autowired
     private IMantenimientoProcesoDAO dao;
+    @Autowired
+    private IMantenimientoDAO dao2;
 
     @Override
     @Transactional
@@ -85,6 +90,9 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     public void insert(MantenimientoProceso t) {
         t.setIdMproceso(t.getIdMantenimiento() + t.getIdEmantenimiento());
         dao.create(t);
+        Mantenimiento mantenimiento = dao2.find(new MantenimientoId(t.getIdAequipo(),t.getIdMantenimiento()));
+        mantenimiento.setIdEmantenimiento(t.getIdEmantenimiento());
+        dao2.update(mantenimiento);
     }
 
     @Override

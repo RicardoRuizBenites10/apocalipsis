@@ -30,6 +30,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
             overflowHandler: 'menu',
             items: [{
                     xtype: 'combobox',
+                    reference: 'cbo_estadoMantenimiento',
                     fieldLabel: 'Mantenimiento',
                     valueField: 'idEmantenimiento',
                     displayField: 'descripcion',

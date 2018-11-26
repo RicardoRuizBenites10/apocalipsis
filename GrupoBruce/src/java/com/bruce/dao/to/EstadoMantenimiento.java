@@ -21,6 +21,7 @@ public class EstadoMantenimiento implements java.io.Serializable {
     private String idEmantenimiento;
     private int orden;
     private String descripcion;
+    private String accion;
     private boolean solucionador;
     private boolean situacion;
     private boolean ultimo;
@@ -63,6 +64,15 @@ public class EstadoMantenimiento implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
+    @Column(name = "ACCION", nullable = false)
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+
     @Column(name = "SOLUCIONADOR", nullable = false)
     public boolean isSolucionador() {
         return solucionador;
@@ -80,7 +90,7 @@ public class EstadoMantenimiento implements java.io.Serializable {
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
     }
-    
+
     @Column(name = "ULTIMO", nullable = false)
     public boolean isUltimo() {
         return ultimo;

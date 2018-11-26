@@ -37,17 +37,11 @@ public class Mantenimiento implements java.io.Serializable {
     public Mantenimiento() {
     }
 
-    public Mantenimiento(String idAequipo, String idMantenimiento, Date fecha, Date fechaProgramada, Date fechaAtendido, String observacion, float costo, String idTmantenimiento, String idEmantenimiento) {
+    public Mantenimiento(String idAequipo, String idMantenimiento) {
         this.idAequipo = idAequipo;
         this.idMantenimiento = idMantenimiento;
-        this.fecha = fecha;
-        this.fechaProgramada = fechaProgramada;
-        this.fechaAtendido = fechaAtendido;
-        this.observacion = observacion;
-        this.costo = costo;
-        this.idTmantenimiento = idTmantenimiento;
-        this.idEmantenimiento = idEmantenimiento;
     }
+
 
     @Id
     @Column(name = "ID_AEQUIPO", nullable = false)

@@ -7,7 +7,8 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
         fechaHoy: new Date(),
         selectSolucionador: null,
         selectMantenimientoProceso: null,
-        selectEstadoMantenimiento: null
+        selectEstadoMantenimiento: null,
+        nextEstadoMantenimiento: null
     },
 
     stores: {

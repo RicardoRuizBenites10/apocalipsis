@@ -7,10 +7,12 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IMantenimientoDAO;
 import com.bruce.dao.to.Mantenimiento;
+import com.bruce.dao.to.MantenimientoId;
 import com.bruce.util.FilterPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -92,7 +94,14 @@ public class MantenimientoDAO implements IMantenimientoDAO{
 
     @Override
     public Mantenimiento find(Object idT) {
-        return (Mantenimiento) sf.getCurrentSession().get(Mantenimiento.class, (Serializable) sf);
+        Session session = sf.getCurrentSession();
+        MantenimientoId mm = (MantenimientoId) idT;
+        Query query = session.createQuery("FROM Mantenimiento WHERE idAequipo = :idAequipo AND idMantenimiento = :idMantenimiento");
+        query.setParameter("idAequipo", mm.getIdAequipo());
+        query.setParameter("idMantenimiento", mm.getIdMantenimiento());
+        List result = query.list();
+        Mantenimiento mantenimiento = result.size()>0 ? (Mantenimiento) result.get(0) : null;
+        return mantenimiento;//(Mantenimiento) sf.getCurrentSession().get(Mantenimiento.class, (Serializable) sf);
     }
 
     @Override

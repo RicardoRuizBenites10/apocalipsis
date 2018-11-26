@@ -45,9 +45,9 @@ public class MantenimientoId implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.idAequipo);
-        hash = 47 * hash + Objects.hashCode(this.idMantenimiento);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.idAequipo);
+        hash = 79 * hash + Objects.hashCode(this.idMantenimiento);
         return hash;
     }
 

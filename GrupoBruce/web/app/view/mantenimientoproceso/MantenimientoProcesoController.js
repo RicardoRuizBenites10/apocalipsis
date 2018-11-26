@@ -3,15 +3,24 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
     alias: 'controller.Cmantenimientoproceso',
 
     createDialog: function (record) {
+        var storeEM = this.lookupReference('cbo_estadoMantenimiento').getStore();
         var window = new GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso();
+        var idPosterior = this.getViewModel().get('selectEstadoMantenimiento').get('idPosterior');
+        
         window.setTitle('Registrar mantenimiento');
         window.getViewModel().set('selectEstadoMantenimiento', this.getViewModel().get('selectEstadoMantenimiento'));
+        storeEM.each(function (model) {
+            if (model.data.idEmantenimiento === idPosterior) {
+                window.getViewModel().set('nextEstadoMantenimiento', model);
+                window.setTitle(model.data.accion);
+            }
+        });
 
         var newRecord = new GrupoBruce.model.MantenimientoProceso();
-        newRecord.set('idAequipo',record.get('idAequipo'));
-        newRecord.set('idMantenimiento',record.get('idMantenimiento'));
-        newRecord.set('idPosterior',this.getViewModel().get('selectEstadoMantenimiento').get('idPosterior'));
-        
+        newRecord.set('idAequipo', record.get('idAequipo'));
+        newRecord.set('idMantenimiento', record.get('idMantenimiento'));
+        newRecord.set('idEmantenimiento', idPosterior);
+
         window.down('form').loadRecord(newRecord);
     },
 
@@ -20,8 +29,8 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         var model = grid.getSelection()[0];
         this.createDialog(model);
     },
-    
-    onSaveMantenimientoProceso: function(btn){
+
+    onSaveMantenimientoProceso: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wmantenimientoProceso');
@@ -30,7 +39,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            model.set('idGenerador',loggedIn.idTrabajador);
+            model.set('idGenerador', loggedIn.idTrabajador);
             model.save({// save the record to the server
                 success: function (response, operation) {
                     grid.getStore().reload();
