@@ -1,5 +1,7 @@
 Ext.define('GrupoBruce.view.equipo.Equipo', {
     extend: 'Ext.panel.Panel',
+    alias: 'widget.Wequipo',
+    reference: 'equipo',
 
     requires: [
         'GrupoBruce.view.equipo.EquipoController',

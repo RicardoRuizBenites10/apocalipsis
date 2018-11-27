@@ -6,7 +6,6 @@
 package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IMantenimientoProcesoDAO;
-import com.bruce.dao.to.Mantenimiento;
 import com.bruce.dao.to.MantenimientoProceso;
 import com.bruce.util.FilterPage;
 import java.io.Serializable;
@@ -33,7 +32,7 @@ public class MantenimientoProcesoDAO implements IMantenimientoProcesoDAO{
     @Override
     public List<MantenimientoProceso> getByFilter(int start, int limit, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Mantenimiento.class);
+        Criteria cr = session.createCriteria(MantenimientoProceso.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
@@ -45,7 +44,7 @@ public class MantenimientoProcesoDAO implements IMantenimientoProcesoDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Mantenimiento.class);
+        Criteria cr = session.createCriteria(MantenimientoProceso.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));

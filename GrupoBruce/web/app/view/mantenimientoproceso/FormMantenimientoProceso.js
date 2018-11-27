@@ -15,6 +15,9 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso', {
     width: 400,
     
     title: 'Editar Proceso mantenimiento',
+    bind: {
+      title: '{nextEstadoMantenimiento.accion}'  
+    },
     items: [{
             xtype: 'form',
             defaults: {
@@ -44,10 +47,12 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso', {
                             fieldLabel: 'Brinda solución',
                             emptyText: 'Buscar..',
                             disabled: true,
+                            hidden: true,
                             bind: {
                                 store: '{trabajadors}',
                                 selection: '{selectSolucionador}',
-                                disabled: '{!nextEstadoMantenimiento.solucionador}'
+                                disabled: '{!nextEstadoMantenimiento.solucionador}',
+                                hidden: '{!nextEstadoMantenimiento.solucionador}'
                             },
                             tpl: [
                                 '<ul class="x-list-plain">',

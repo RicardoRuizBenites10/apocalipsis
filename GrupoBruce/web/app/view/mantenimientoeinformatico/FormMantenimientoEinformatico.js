@@ -29,7 +29,8 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.FormMantenimientoEinformat
                     items: [{
                             xtype: 'datefield',
                             name: 'fechaProgramada',
-                            fieldLabel: 'Fecha programada'
+                            fieldLabel: 'Fecha programada',
+                            format: 'd/m/Y'
                         }, {
                             xtype: 'combobox',
                             name: 'idTmantenimiento',

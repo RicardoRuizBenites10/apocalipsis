@@ -31,6 +31,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                             xtype: 'datefield',
                             name: 'fechaAsignado',
                             fieldLabel: 'Fecha asignado',
+                            format: 'd/m/Y',
                             flex: 1
                     }]
             },{

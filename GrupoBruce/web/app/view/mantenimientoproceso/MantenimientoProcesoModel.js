@@ -6,18 +6,29 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
         title: 'Proceso de Mantenimiento de Equipos Informaticos',
         fechaHoy: new Date(),
         selectSolucionador: null,
-        selectMantenimientoProceso: null,
+        selectMantenimiento: null,
         selectEstadoMantenimiento: null,
         nextEstadoMantenimiento: null
     },
 
     stores: {
-        mantenimientosProceso: {
-            type: 'SmantenimientoProceso',
+        mantenimientos: {
+            type: 'Smantenimiento',
             autoLoad: true,
             filters: [{
                     property: 'idEmantenimiento',
                     value: '{selectEstadoMantenimiento.idEmantenimiento}'
+                }]
+        },
+        mantenimientosProceso: {
+            type: 'SmantenimientoProceso',
+            autoLoad: true,
+            filters: [{
+                    property: 'idAequipo',
+                    value: '{selectMantenimiento.idAequipo}'
+                },{
+                    property: 'idMantenimiento',
+                    value: '{selectMantenimiento.idMantenimiento}'
                 }]
         },
         estadosMantenimiento: {

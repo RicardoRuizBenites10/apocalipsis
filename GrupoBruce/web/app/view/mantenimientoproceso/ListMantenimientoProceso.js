@@ -4,8 +4,8 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
     reference: 'list_mantenimientoProceso',
 
     bind: {
-        store: '{mantenimientosProceso}',
-        selection: '{selectMantenimientoProceso}'
+        store: '{mantenimientos}',
+        selection: '{selectMantenimiento}'
     },
     allowDeselect: true,
 
@@ -47,15 +47,24 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
                     iconCls: 'x-fa fa-circle-o-notch',
                     text: 'Siguiente etapa',
                     bind: {
-                        disabled: '{!selectMantenimientoProceso}'
+                        disabled: '{!selectMantenimiento}',
+                        text: '{nextEstadoMantenimiento.accion}'
                     },
                     handler: 'addMantenimientoProceso'
+                }, {
+                    iconCls: 'x-fa fa-eye',
+                    disabled: true,
+                    text: 'Seguimiento',
+                    bind: {
+                        disabled: '{!selectMantenimiento}'
+                    },
+                    handler: 'seguimientoMantenimientoProceso'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{mantenimientosProceso}'
+                store: '{mantenimientos}'
             },
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',

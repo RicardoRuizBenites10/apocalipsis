@@ -10,6 +10,7 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
             record = new GrupoBruce.model.EquipoInformatico();
         }
         window.down('form').loadRecord(record);
+        window.show();
     },
 
     addEquipo: function () {

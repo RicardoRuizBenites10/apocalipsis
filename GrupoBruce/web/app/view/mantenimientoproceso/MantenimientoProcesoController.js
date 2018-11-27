@@ -3,18 +3,11 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
     alias: 'controller.Cmantenimientoproceso',
 
     createDialog: function (record) {
-        var storeEM = this.lookupReference('cbo_estadoMantenimiento').getStore();
         var window = new GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso();
         var idPosterior = this.getViewModel().get('selectEstadoMantenimiento').get('idPosterior');
 
-        window.setTitle('Registrar mantenimiento');
         window.getViewModel().set('selectEstadoMantenimiento', this.getViewModel().get('selectEstadoMantenimiento'));
-        storeEM.each(function (model) {
-            if (model.data.idEmantenimiento === idPosterior) {
-                window.getViewModel().set('nextEstadoMantenimiento', model);
-                window.setTitle(model.data.accion);
-            }
-        });
+        window.getViewModel().set('nextEstadoMantenimiento', this.getViewModel().get('nextEstadoMantenimiento'));
 
         var newRecord = new GrupoBruce.model.MantenimientoProceso();
         newRecord.set('idAequipo', record.get('idAequipo'));
@@ -59,13 +52,20 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
     verificaProcesoMantenimiento: function (combo, newValue, oldValue) {
         var storeEM = combo.getStore();
         var selection = combo.getSelection();
-        var grid = this.lookupReference('list_mantenimientoProceso');
+        var panel = combo.up('WmantenimientoProceso');
         storeEM.each(function (model) {
             if (model.data.idEmantenimiento === selection.get('idPosterior')) {
-                grid.getViewModel();//.set('nextEstadoMantenimiento', model);
-                console.log(grid.getReference());
+                panel.getViewModel().set('nextEstadoMantenimiento', model);
             }
         });
+    },
+    
+    seguimientoMantenimientoProceso: function(btn){
+        var window = new GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso();
+        var panel = btn.up('WmantenimientoProceso');
+        window.setController(panel.getController());
+        window.setViewModel(panel.getViewModel());
+        window.show();
     }
 
 });

@@ -5,6 +5,7 @@
  */
 package com.bruce.services.implement;
 
+import com.bruce.controller.TrabajadorController;
 import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.AsignacionDetalle;
@@ -12,9 +13,16 @@ import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IAsignacionDetalleService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
+import com.bruce.util.Metodo;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +41,42 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
 
     @Override
     @Transactional
-    public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<AsignacionDetalle> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", Metodo.isNumeric(query.trim()) ? "idAequipo" : "einformatico", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return dao.getByFilter(start, limit, filters);
     }
 
     @Override
     @Transactional
-    public int countByFilter(List<FilterPage> filters) {
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "einformatico", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return dao.countByFilter(filters);
     }
 

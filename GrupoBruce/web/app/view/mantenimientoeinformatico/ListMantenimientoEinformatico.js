@@ -61,6 +61,14 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.ListMantenimientoEinformat
                     disabled: '{!selectMantenimientoEinformatico}'
                 },
                 handler: 'deleteMantenimientoEinformatico'
+            }, {
+                iconCls: 'x-fa fa-eye',
+                disabled: true,
+                text: 'Seguimiento',
+                bind: {
+                    disabled: '{!selectMantenimientoEinformatico}'
+                },
+                handler: 'seguimientoMantenimientoEinformatico'
             }]
     },
 
