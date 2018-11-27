@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         var storeEM = this.lookupReference('cbo_estadoMantenimiento').getStore();
         var window = new GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso();
         var idPosterior = this.getViewModel().get('selectEstadoMantenimiento').get('idPosterior');
-        
+
         window.setTitle('Registrar mantenimiento');
         window.getViewModel().set('selectEstadoMantenimiento', this.getViewModel().get('selectEstadoMantenimiento'));
         storeEM.each(function (model) {
@@ -54,6 +54,18 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+    },
+
+    verificaProcesoMantenimiento: function (combo, newValue, oldValue) {
+        var storeEM = combo.getStore();
+        var selection = combo.getSelection();
+        var grid = this.lookupReference('list_mantenimientoProceso');
+        storeEM.each(function (model) {
+            if (model.data.idEmantenimiento === selection.get('idPosterior')) {
+                grid.getViewModel();//.set('nextEstadoMantenimiento', model);
+                console.log(grid.getReference());
+            }
+        });
     }
 
 });

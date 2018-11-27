@@ -38,6 +38,9 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
                     bind: {
                         store: '{estadosMantenimiento}',
                         selection: '{selectEstadoMantenimiento}'
+                    },
+                    listeners: {
+                        change: 'verificaProcesoMantenimiento'
                     }
                 }, '-', {
                     xtype: 'button',
