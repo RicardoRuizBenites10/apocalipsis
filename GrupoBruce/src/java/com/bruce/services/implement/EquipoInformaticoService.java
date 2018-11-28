@@ -5,15 +5,27 @@
  */
 package com.bruce.services.implement;
 
+import com.bruce.controller.TrabajadorController;
+import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
+import com.bruce.dao.design.IMantenimientoDetalleDAO;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IEquipoInformaticoService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
+import com.bruce.util.Metodo;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,26 +39,73 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
 
     @Autowired
     private IEquipoInformaticoDAO dao;
+    @Autowired
+    private IAsignacionDetalleDAO daoAD;
+    @Autowired
+    private IMantenimientoDetalleDAO daoMD;
 
     @Override
     @Transactional
-    public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
-    }
-
-    @Override
-    @Transactional
-    public List<EquipoInformatico> getByPorAsignar(int start, int limit, List<FilterPage> filters) {
-        if (filters == null) {
-            filters = new ArrayList<>();
+    public List<EquipoInformatico> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        filters.add(new FilterPage("idEequipo", Constante.EQUIPO_ESTADO_PORASIGNAR));
         return dao.getByFilter(start, limit, filters);
     }
 
     @Override
     @Transactional
-    public int countByFilter(List<FilterPage> filters) {
+    public List<EquipoInformatico> getByPorAsignar(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        filters.add(new FilterPage("eq", "idEequipo", Constante.EQUIPO_ESTADO_PORASIGNAR));
+        return dao.getByFilter(start, limit, filters);
+    }
+
+    @Override
+    @Transactional
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return dao.countByFilter(filters);
     }
 
@@ -104,6 +163,24 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
         after = String.format("%04d", idLast + 1);
         before = String.valueOf(cal.get(Calendar.YEAR)).substring(2) + String.format("%02d", cal.get(Calendar.MONTH) + 1);
         return before + tipo + after;
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> validaRelacion(EquipoInformatico equipo) {
+        List<FilterPage> filters = new ArrayList<>(), filtersMD = new ArrayList<>();
+        filters.add(new FilterPage("idEinformatico", equipo.getIdEinformatico()));
+        boolean validacion = false;
+        String mensage = "No se puede eliminar ya que tiene registros relacionados";
+        Map<String, Object> map = new HashMap<>();
+        if (daoAD.lastByFilter(filters) == null && daoMD.lastByFilter(filters) == null) {
+            mensage = "Equipo eliminado";
+            validacion = true;
+        }
+        map.put("success", true);
+        map.put("validacion", validacion);
+        map.put("message", mensage);
+        return map;
     }
 
 }

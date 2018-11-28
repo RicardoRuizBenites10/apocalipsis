@@ -33,14 +33,14 @@ Ext.define('GrupoBruce.view.equipo.ListEquipo', {
             },
             align: 'center'
         }, {
-            text: 'Nombre',
-            dataIndex: 'denominacion',
-            align: 'left',
-            flex: 1
-        }, {
             text: 'Serie',
             dataIndex: 'serie',
             align: 'center'
+        }, {
+            text: 'Nombre',
+            dataIndex: 'denominacion',
+            align: 'left',
+            width: 600
         }, {
             text: 'Inicio de uso',
             dataIndex: 'fechaBase',
@@ -59,13 +59,13 @@ Ext.define('GrupoBruce.view.equipo.ListEquipo', {
             renderer: function (val) {
                 switch (val) {
                     case 1:
-                        return 'Por asignar';
+                        return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR ASIGNAR </span>';
                     case 2:
-                        return 'Asignado';
+                        return '<span style="background:#2980B9;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ASIGNADO </span>';
                     case 3:
                         return 'En mantenimiento';
                     case 4:
-                        return 'De baja';
+                        return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> DE BAJA </span>';
                 }
             },
             align: 'center'

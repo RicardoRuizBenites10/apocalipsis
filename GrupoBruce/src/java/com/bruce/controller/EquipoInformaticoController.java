@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -29,24 +30,42 @@ public class EquipoInformaticoController {
 
     @ResponseBody
     @RequestMapping(value = "/equiposInformatico", method = RequestMethod.GET)
-    public Map<String, Object> getByFilters() {
+    public Map<String, Object> getByFilters(
+            @RequestParam("page") int page,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de áreas");
-        map.put("data", sct.getByFilter(0, 100, null));
-        map.put("total", sct.countByFilter(null));
+        map.put("data", sct.getByFilter(start, limit, sort, filter, query));
+        map.put("total", sct.countByFilter(filter, query));
         return map;
     }
     
     @ResponseBody
     @RequestMapping(value = "/equiposPorAsignar", method = RequestMethod.GET)
-    public Map<String, Object> getByPorAsignar() {
+    public Map<String, Object> getByPorAsignar(
+            @RequestParam("page") int page,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de áreas");
-        map.put("data", sct.getByPorAsignar(0, 100, null));
-        map.put("total", sct.countByFilter(null));
+        map.put("data", sct.getByPorAsignar(start, limit, sort, filter, query));
+        map.put("total", sct.countByFilter(filter, query));
         return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/relacionEinformatico", method = RequestMethod.POST)
+    public Map<String, Object> validaRelacion(@RequestBody EquipoInformatico equipoInformatico) {
+        return sct.validaRelacion(equipoInformatico);
     }
 
     @ResponseBody

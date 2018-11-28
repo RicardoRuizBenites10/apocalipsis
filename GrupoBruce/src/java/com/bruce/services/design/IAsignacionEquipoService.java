@@ -8,6 +8,7 @@ package com.bruce.services.design;
 import com.bruce.dao.to.AsignacionEquipo;
 import com.bruce.util.FilterPage;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,4 +18,5 @@ public interface IAsignacionEquipoService extends IEntidadService<AsignacionEqui
     public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters);
     public int countByFilter(List<FilterPage> filters);
     public AsignacionEquipo lastByFilter(List<FilterPage> filters);
+    public Map<String, Object> validaRelacion(AsignacionEquipo asignacion);
 }

@@ -44,11 +44,12 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
                     }
                 }, '-', {
                     xtype: 'button',
-                    iconCls: 'x-fa fa-circle-o-notch',
+                    iconCls: 'x-fa fa-tasks',
                     text: 'Siguiente etapa',
                     bind: {
                         disabled: '{!selectMantenimiento}',
-                        text: '{nextEstadoMantenimiento.accion}'
+                        text: '{nextEstadoMantenimiento.accion}',
+                        hidden: '{!selectEstadoMantenimiento.idPosterior}'
                     },
                     handler: 'addMantenimientoProceso'
                 }, {

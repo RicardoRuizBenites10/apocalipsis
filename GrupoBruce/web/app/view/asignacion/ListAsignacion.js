@@ -35,51 +35,50 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
             align: 'center'
         }],
 
-    tbar: {
-        items: [{
-                xtype: 'button',
-                iconCls: 'x-fa fa-plus',
-                text: 'Nuevo',
-                bind: {
-                    disabled: '{selectAsignacion}'
-                },
-                handler: 'addAsignacion'
-            }, {
-                iconCls: 'x-fa fa-edit',
-                disabled: true,
-                text: 'Modificar',
-                bind: {
-                    disabled: '{!selectAsignacion}'
-                },
-                handler: 'editAsignacion'
-            }, {
-                iconCls: 'x-fa fa-trash',
-                disabled: true,
-                text: 'Eliminar',
-                bind: {
-                    disabled: '{!selectAsignacion}'
-                },
-                handler: 'deleteAsignacion'
-            }, '-', {
-                text: 'Asignación',
-                iconCls: 'x-fa fa-check-square',
-                disabled: true,
-                bind: {
-                    disabled: '{!selectAsignacion}'
-                },
-                handler: 'onAsignacion'
-            }, {
-                text: 'Mantenimiento',
-                iconCls: 'x-fa fa-wrench',
-                disabled: true,
-                bind: {
-                    disabled: '{!selectAsignacion}'
-                },
-                handler: 'onMantenimiento'
-            }]
-    },
-
     dockedItems: [{
+            xtype: 'toolbar',
+            overflowHandler: 'menu',
+            items: [{
+                    iconCls: 'x-fa fa-plus',
+                    text: 'Nuevo',
+                    bind: {
+                        disabled: '{selectAsignacion}'
+                    },
+                    handler: 'addAsignacion'
+                }, {
+                    iconCls: 'x-fa fa-edit',
+                    disabled: true,
+                    text: 'Modificar',
+                    bind: {
+                        disabled: '{!selectAsignacion}'
+                    },
+                    handler: 'editAsignacion'
+                }, {
+                    iconCls: 'x-fa fa-trash',
+                    disabled: true,
+                    text: 'Eliminar',
+                    bind: {
+                        disabled: '{!selectAsignacion}'
+                    },
+                    handler: 'deleteAsignacion'
+                }, '-', {
+                    text: 'Asignación',
+                    iconCls: 'x-fa fa-check-square',
+                    disabled: true,
+                    bind: {
+                        disabled: '{!selectAsignacion}'
+                    },
+                    handler: 'onAsignacion'
+                }, {
+                    text: 'Mantenimiento',
+                    iconCls: 'x-fa fa-wrench',
+                    disabled: true,
+                    bind: {
+                        disabled: '{!selectAsignacion}'
+                    },
+                    handler: 'onMantenimiento'
+                }]
+        }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {

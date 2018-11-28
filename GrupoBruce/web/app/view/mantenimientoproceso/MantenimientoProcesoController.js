@@ -60,11 +60,9 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         });
     },
     
-    seguimientoMantenimientoProceso: function(btn){
+    seguimientoMantenimientoProceso: function(){
         var window = new GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso();
-        var panel = btn.up('WmantenimientoProceso');
-        window.setController(panel.getController());
-        window.setViewModel(panel.getViewModel());
+        window.getViewModel().set('selectMantenimiento',this.getViewModel().get('selectMantenimiento'));
         window.show();
     }
 

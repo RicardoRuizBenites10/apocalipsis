@@ -20,17 +20,17 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
                     value: '{selectEstadoMantenimiento.idEmantenimiento}'
                 }]
         },
-        mantenimientosProceso: {
-            type: 'SmantenimientoProceso',
-            autoLoad: true,
-            filters: [{
-                    property: 'idAequipo',
-                    value: '{selectMantenimiento.idAequipo}'
-                },{
-                    property: 'idMantenimiento',
-                    value: '{selectMantenimiento.idMantenimiento}'
-                }]
-        },
+//        mantenimientosProceso: {
+//            type: 'SmantenimientoProceso',
+//            autoLoad: true,
+//            filters: [{
+//                    property: 'idAequipo',
+//                    value: '{selectMantenimiento.idAequipo}'
+//                },{
+//                    property: 'idMantenimiento',
+//                    value: '{selectMantenimiento.idMantenimiento}'
+//                }]
+//        },
         estadosMantenimiento: {
             type: 'SestadoMantenimiento',
             autoLoad: true

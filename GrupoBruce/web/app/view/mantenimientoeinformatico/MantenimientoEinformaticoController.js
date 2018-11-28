@@ -40,6 +40,12 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformaticoC
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+    },
+    
+    seguimientoMantenimientoEinformatico: function(){
+        var window = new GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso();
+        window.getViewModel().set('selectMantenimiento',this.getViewModel().get('selectMantenimientoEinformatico'));
+        window.show();
     }
     
 });

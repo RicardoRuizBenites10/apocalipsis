@@ -61,6 +61,42 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
     
     onMantenimiento: function(){
         this.createWindow('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformatico');
+    },
+    
+    deleteAsignacion: function(){
+        var grid = this.lookupReference('list_asignacion');
+        var model = grid.getSelection()[0];
+        Ext.Ajax.request({
+            url: 'relacionAsignacionEquipo',
+            jsonData: model.data,
+            method: 'POST',
+            scope: this,
+            success: function (response, opts) {
+                var responseText = Ext.decode(response.responseText);
+                if (responseText.validacion) {
+                    model.erase({
+                        success: function (response, operation) {
+                            grid.getStore().reload();
+                            Ext.Msg.alert('Success', 'Eliminación exitosa.');
+                        },
+                        failure: function (response, operation) {
+                            Ext.Msg.alert('Failure', 'No se pudo eliminar.');
+                        }
+                    });
+                    Ext.Msg.alert('Message', responseText.message);
+                } else {
+                    Ext.Msg.show({
+                        title: 'Error',
+                        msg: responseText.message,
+                        icon: Ext.Msg.ERROR,
+                        botones: Ext.Msg.OK
+                    });
+                }
+            },
+            failurer: function (response, opts) {
+                Ext.Msg.alert('Status', response.status);
+            }
+        });
     }
     
 });

@@ -6,7 +6,8 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformatico'
         'GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformaticoModel',
         
         'GrupoBruce.view.mantenimientoeinformatico.ListMantenimientoEinformatico',
-        'GrupoBruce.view.mantenimientoeinformatico.FormMantenimientoEinformatico'
+        'GrupoBruce.view.mantenimientoeinformatico.FormMantenimientoEinformatico',
+        'GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso'
     ],
 
     controller: 'Cmantenimientoeinformatico',

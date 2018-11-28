@@ -8,6 +8,25 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso', {
     closable: true,
     title: 'Seguimiento de manteniminiento de equipo',
 
+    viewModel: {
+        data: {
+            selectMantenimiento: null
+        },
+        stores: {
+            mantenimientosProceso: {
+                type: 'SmantenimientoProceso',
+                autoLoad: true,
+                filters: [{
+                        property: 'idAequipo',
+                        value: '{selectMantenimiento.idAequipo}'
+                    }, {
+                        property: 'idMantenimiento',
+                        value: '{selectMantenimiento.idMantenimiento}'
+                    }]
+            }
+        }
+    },
+
     items: [{
             xtype: 'grid',
             width: 600,
@@ -19,15 +38,6 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso', {
 
             style: 'border: solid rgb(234,234,236) 1px',
             columns: [{
-                    text: 'Fecha',
-                    dataIndex: 'fecha',
-                    formatter: 'date("d/m/Y")'
-                }, {
-                    text: 'Detalle',
-                    dataIndex: 'observacion',
-                    align: 'left',
-                    flex: 1
-                }, {
                     text: 'Etapa',
                     dataIndex: 'idEmantenimiento',
                     align: 'left',
@@ -47,6 +57,15 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso', {
                                 return 'Recepcionado';
                         }
                     }
+                }, {
+                    text: 'Fecha',
+                    dataIndex: 'fecha',
+                    formatter: 'date("d/m/Y")'
+                }, {
+                    text: 'Detalle',
+                    dataIndex: 'observacion',
+                    align: 'left',
+                    flex: 1
                 }],
 
             dockedItems: [{

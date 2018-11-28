@@ -36,6 +36,12 @@ public class AsignacionEquipoController {
         map.put("total", sct.countByFilter(null));
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/relacionAsignacionEquipo", method = RequestMethod.POST)
+    public Map<String, Object> validaRelacion(@RequestBody AsignacionEquipo asignacionEquipo) {
+        return sct.validaRelacion(asignacionEquipo);
+    }
 
     @ResponseBody
     @RequestMapping(value = "/iiAsignacionEquipo", method = RequestMethod.POST)

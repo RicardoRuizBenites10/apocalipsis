@@ -44,7 +44,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.ListAsignacionDetalle', {
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
-                text: 'Eliminar',
+                text: 'Desasignar',
                 bind: {
                     disabled: '{!selectAsignacionDetalle}'
                 },

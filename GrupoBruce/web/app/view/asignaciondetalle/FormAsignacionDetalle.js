@@ -8,12 +8,12 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
     resizable: false,
     closable: false,
     width: 400,
-    
+
     controller: 'Casignaciondetalle',
     viewModel: {
         type: 'VMasignaciondetalle'
     },
-    
+
     title: 'Editar asignación de equipo',
 
     items: [{
@@ -33,8 +33,8 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                             fieldLabel: 'Fecha asignado',
                             format: 'd/m/Y',
                             flex: 1
-                    }]
-            },{
+                        }]
+                }, {
                     items: [{
                             xtype: 'combobox',
                             id: 'id_equipo',
@@ -42,7 +42,8 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                             valueField: 'idEinformatico',
                             displayField: 'denominacion',
                             fieldLabel: 'Equipo informático',
-                            emptyText: 'Buscar..',
+                            emptyText: 'Buscar equipo..',
+                            forceSelection: true,
                             bind: {
                                 store: '{equiposInformatico}',
                                 selection: '{selectEquipo}'
@@ -51,8 +52,8 @@ Ext.define('GrupoBruce.view.asignaciondetalle.FormAsignacionDetalle', {
                                 '<ul class="x-list-plain">',
                                 '<tpl for=".">',
                                 '<li class="', Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">' +
-                                    'Serie : {idEinformatico}' +
-                                '</li>',
+                                        'Serie : {idEinformatico}' +
+                                        '</li>',
                                 '<li class="x-boundlist-item">',
                                 '{denominacion} ',
                                 '</li>',

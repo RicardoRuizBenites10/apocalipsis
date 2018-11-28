@@ -5,11 +5,16 @@
  */
 package com.bruce.services.implement;
 
+import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.design.IAsignacionEquipoDAO;
+import com.bruce.dao.design.IMantenimientoDAO;
 import com.bruce.dao.to.AsignacionEquipo;
 import com.bruce.services.design.IAsignacionEquipoService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +28,10 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     
     @Autowired
     private IAsignacionEquipoDAO dao;
+    @Autowired
+    private IAsignacionDetalleDAO daoAD;
+    @Autowired
+    private IMantenimientoDAO daoM;
 
     @Override
     @Transactional
@@ -73,5 +82,23 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     @Transactional
     public List<AsignacionEquipo> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> validaRelacion(AsignacionEquipo asignacion) {
+        List<FilterPage> filters = new ArrayList<>(), filtersMD = new ArrayList<>();
+        filters.add(new FilterPage("idAequipo", asignacion.getIdAequipo()));
+        boolean validacion = false;
+        String mensage = "No se puede eliminar ya que tiene registros relacionados";
+        Map<String, Object> map = new HashMap<>();
+        if (daoAD.lastByFilter(filters) == null && daoM.lastByFilter(filters) == null) {
+            mensage = "Asignacion eliminado";
+            validacion = true;
+        }
+        map.put("success", true);
+        map.put("validacion", validacion);
+        map.put("message", mensage);
+        return map;
     }
 }

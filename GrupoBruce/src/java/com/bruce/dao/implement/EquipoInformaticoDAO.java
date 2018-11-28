@@ -5,9 +5,7 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IEntidadDAO;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
-import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.util.FilterPage;
 import java.io.Serializable;
@@ -37,7 +35,14 @@ public class EquipoInformaticoDAO implements IEquipoInformaticoDAO{
         Criteria cr = session.createCriteria(EquipoInformatico.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue() + "%"));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         return cr.list();
