@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.model.Usuario', {
         { name: 'usu', type: 'string' },
         { name: 'clave', type: 'string' },
         { name: 'estado', type: 'boolean' },
-        { name: 'acceder', type: 'boolean' }
+        { name: 'idRol', type: 'string' }
     ],
     
     proxy: {

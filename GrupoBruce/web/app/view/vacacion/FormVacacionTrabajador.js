@@ -7,11 +7,8 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
     resizable: false,
     closable: false,
     modal: true,
-
-    bind: {
-        title: '{title}'
-    },
-
+    
+    title: 'Registrar vacación',
     items: [{
             xtype: 'form',
             defaults: {

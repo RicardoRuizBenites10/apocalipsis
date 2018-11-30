@@ -22,19 +22,18 @@ public class Usuario implements java.io.Serializable {
     private String usu;
     private byte[] clave;
     private boolean estado;
-    private boolean acceder;
+    private String idRol;
 
     private String deClave;
 
     public Usuario() {
     }
 
-    public Usuario(String idUsuario, String usu, byte[] clave, boolean estado, boolean acceder) {
+    public Usuario(String idUsuario, String usu, byte[] clave, boolean estado) {
         this.idUsuario = idUsuario;
         this.usu = usu;
         this.clave = clave;
         this.estado = estado;
-        this.acceder = acceder;
     }
 
     @Id
@@ -84,14 +83,14 @@ public class Usuario implements java.io.Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    @Column(name = "ACCEDER", nullable = false)
-    public boolean isAcceder() {
-        return this.acceder;
+    
+    @Column(name="ID_ROL", nullable=false)
+    public String getIdRol() {
+        return idRol;
     }
 
-    public void setAcceder(boolean acceder) {
-        this.acceder = acceder;
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
     }
 
 }
