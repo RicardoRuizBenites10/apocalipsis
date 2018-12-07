@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.Menu;
 import com.bruce.util.FilterPage;
@@ -13,8 +13,8 @@ import java.util.List;
  *
  * @author SISTEMAS
  */
-public interface IMenuDAO extends IEntidadDAO<Menu>{
-    public List<Menu> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
+public interface IMenuService extends IEntidadService<Menu>{
+    public List<Menu> getByFilter(int start, int limit, String sort, String filter, String query);
+    public int countByFilter(String filter, String query);
     public Menu lastByFilter(List<FilterPage> filters);
 }

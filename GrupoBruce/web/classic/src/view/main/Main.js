@@ -85,7 +85,7 @@ Ext.define('GrupoBruce.view.main.Main', {
                     expanderFirst: false,
                     singleExpand: true,
                     bind: {
-                        store: '{navItems}'
+                        store: '{navRemote}'
                     }
                     , listeners: {
 //                        itemclick: function (treelist, ctx) {

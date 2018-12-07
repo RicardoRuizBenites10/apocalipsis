@@ -8,12 +8,12 @@ Ext.define('GrupoBruce.view.main.MainModel', {
     },
 
     stores: {
-        navItems: {
+        navLocal: {
             type: 'tree',
             root: {
                 expanded: true,
                 children: [{
-                        text: 'Recursos Humanos',
+                        text: 'Gestión de personal',
                         iconCls: 'x-fa fa-users',
                         children: [{
                                 text: 'Mantenimientos',
@@ -133,6 +133,11 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                             }]
                     }]
             }
+        },
+        
+        navRemote: {
+            type: 'Smenu',
+            autoLoad: true
         }
     },
 

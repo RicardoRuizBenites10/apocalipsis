@@ -8,105 +8,98 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IMenuDAO;
 import com.bruce.dao.to.Menu;
 import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.FilterPage;
+import java.io.Serializable;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class MenuDAO implements IMenuDAO{
+
+    @Autowired
+    private SessionFactory sf;
     
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
     @Override
-    public List<Menu> filterBySituacion(boolean situacion) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Menu M WHERE M.situacion = :situacion");
-            query.setParameter("situacion", situacion);
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null)tx.rollback();
-        }finally{
-            session.close();
+    public List<Menu> getByFilter(int start, int limit, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Menu.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
         }
-        return result;
+        return cr.list();
     }
 
     @Override
-    public void create(Menu menu) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(menu);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
+    public int countByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Menu.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
         }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
     }
 
     @Override
-    public void update(Menu menu) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(menu);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
+    public Menu lastByFilter(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Menu menu = null;
+        Criteria cr = session.createCriteria(Menu.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
         }
+        cr.addOrder(Order.desc("idMenu"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            menu = (Menu) result.get(0);
+        }
+        return menu;
     }
 
     @Override
-    public void delete(Menu menu) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(menu);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+    public void create(Menu t) {
+        sf.getCurrentSession().save(t);
+    }
+
+    @Override
+    public void update(Menu t) {
+        sf.getCurrentSession().update(t);
+    }
+
+    @Override
+    public void delete(Menu t) {
+        sf.getCurrentSession().delete(t);
     }
 
     @Override
     public Menu find(Object idT) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Menu)sf.getCurrentSession().get(Menu.class, (Serializable) idT);
     }
 
     @Override
     public List<Menu> findAll() {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        List result = null;
-        try{
-            tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Menu");
-            result = query.list();
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null)tx.rollback();
-        }finally{
-            session.close();
-        }
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Menu.class);
+        List result = cr.list();
         return result;
     }
     
