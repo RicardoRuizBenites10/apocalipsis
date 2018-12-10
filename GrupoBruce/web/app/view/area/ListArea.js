@@ -25,12 +25,12 @@ Ext.define('GrupoBruce.view.area.ListArea', {
             text: 'Área funcional',
             dataIndex: 'nombre',
             sortable: true,
-            flex: 1,
+            width: 400,
             align: 'left'
         },{
             text: 'Descripción',
             dataIndex: 'descripcion',
-            flex: 1,
+            width: 450,
             align: 'left'
         }, {
             text: 'Situacion',

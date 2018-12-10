@@ -15,8 +15,7 @@ Ext.define('GrupoBruce.view.area.AreaController', {
     },
 
     editArea: function () {
-        var grid = this.lookupReference('list_area');
-        var model = grid.getSelection()[0];
+        var model = this.getViewModel().get('selectArea');
         var window = new GrupoBruce.view.area.FormArea();
         window.setTitle('Editar área');
         window.down('form').loadRecord(model);
@@ -44,8 +43,8 @@ Ext.define('GrupoBruce.view.area.AreaController', {
     onSaveArea: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_larea');
         var area = form.getRecord();
+        var grid = Ext.getCmp('id_larea');
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(area); // update the record with the form data
             area.save({// save the record to the server

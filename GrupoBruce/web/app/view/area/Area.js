@@ -1,28 +1,22 @@
 Ext.define('GrupoBruce.view.area.Area', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
 
     requires: [
         'GrupoBruce.view.area.AreaController',
         'GrupoBruce.view.area.AreaModel',
 
-        'GrupoBruce.view.area.FormArea',
-        'GrupoBruce.view.area.ListArea'
+        'GrupoBruce.view.area.ListArea',
+        'GrupoBruce.view.area.FormArea'
     ],
 
     controller: 'Carea',
     viewModel: {
         type: 'VMarea'
     },
-
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
-
+    
     items: [{
             xtype: 'WlistArea',
-            height: 520,
-            width: 800
+            height: 520
         }]
 
 });

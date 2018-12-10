@@ -46,7 +46,8 @@ Ext.define('GrupoBruce.view.menu.FormMenu',{
                             xtype: 'textfield',
                             name: 'handler',
                             fieldLabel: 'Handler',
-                            flex: 1
+                            flex: 1,
+                            allowBlank: true
                         }]
                 }],
 

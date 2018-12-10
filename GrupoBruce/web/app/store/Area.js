@@ -1,11 +1,10 @@
 Ext.define('GrupoBruce.store.Area', {
     extend: 'Ext.data.TreeStore',
-    alias: 'store.Sarea',
     model: 'GrupoBruce.model.Area',
+    alias: 'store.Sarea',
 
     parentIdProperty: 'idSuparea',
     
     remoteSort: true,
     remoteFilter: true
-
 });

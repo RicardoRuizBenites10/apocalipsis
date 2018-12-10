@@ -1,25 +1,49 @@
-Ext.define('GrupoBruce.view.menu.MenuList',{
-    extend: 'Ext.grid.Panel',
-    alias: 'widget.WmenuList',
-    reference: 'menu_list',
+Ext.define('GrupoBruce.view.menu.ListMenu', {
+    extend: 'Ext.tree.Panel',
+    alias: 'widget.WlistMenu',
+    reference: 'list_menu',
+    id: 'id_lmenu',
+
+    viewConfig: {
+        plugins: {
+            ptype: 'treeviewdragdrop'
+        }
+//        ,listeners: {
+//            drop: function (node, data, overModel, dropPosition) {
+//                alert('Node: ' + node + ' Data: ' + dropPosition);
+//            }
+//        }
+    },
 
     bind: {
         title: '{title}',
-        store: '{areas}',
-        selection: '{selectArea}'
+        store: '{menus}',
+        selection: '{selectMenu}'
     },
     allowDeselect: true,
 
     rootVisible: false,
 //    singleExpand: true,
     closable: true,
+    useArrows: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
-    columns:[{
-            text: 'Codigo'
-    },{
-        text: 'Descripción'
-    }],
+    columns: [{
+            text: 'Codigo',
+            dataIndex: 'idMenu',
+            align: 'left'
+        }, {
+            xtype: 'treecolumn',
+            text: 'Nombre',
+            dataIndex: 'text',
+            flex: 1,
+            align: 'left'
+        }, {
+            text: 'handler',
+            dataIndex: 'handler',
+            flex: 1,
+            align: 'left'
+        }],
 
     tbar: {
         items: [{
@@ -47,14 +71,6 @@ Ext.define('GrupoBruce.view.menu.MenuList',{
                     disabled: '{!selectMenu}'
                 },
                 handler: 'deleteMenu'
-            },'-',{
-                iconCls: 'x-fa fa-briefcase',
-                text: 'Cargos',
-                disabled: true,
-                bind: {
-                    disabled: '{!selectMenu}'
-                },
-                handler: 'onCargos'
             }]
     }
 });
