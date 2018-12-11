@@ -50,13 +50,13 @@ public class TrabajadorService implements ITrabajadorService {
     @Override
     @Transactional
     public Trabajador find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override
     @Transactional
     public List<Trabajador> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class TrabajadorService implements ITrabajadorService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getTrabajadorsPagination(start, limit, sorts, filters);
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override

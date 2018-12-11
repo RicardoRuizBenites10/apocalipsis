@@ -13,14 +13,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.bruce.persistence.HibernateUtil;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author SISTEMAS
  */
+@Repository
 public class AccesoDAO implements IAccesoDAO{
     
-    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sf;
     
     @Override
     public Acceso filterByID(String idUsuario, int idMenu) {
@@ -29,56 +35,41 @@ public class AccesoDAO implements IAccesoDAO{
 
     @Override
     public void create(Acceso acceso) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.save(acceso);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().save(acceso);
     }
 
     @Override
     public void update(Acceso acceso) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(acceso);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().update(acceso);
     }
 
     @Override
     public void delete(Acceso acceso) {
-        Session session = sf.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(acceso);
-            tx.commit();
-        }catch(HibernateException he){
-            if(tx!=null) tx.rollback();
-        }finally{
-            session.close();
-        }
+        sf.getCurrentSession().delete(acceso);
     }
 
     @Override
-    public Acceso find(Object idT) {
+    public Acceso get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Acceso> findAll() {
+    public Acceso lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Acceso> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Acceso> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

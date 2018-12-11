@@ -49,11 +49,11 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
         items: [{
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
-                disabled: true,
+//                disabled: true,
                 text: 'Nuevo',
-                bind: {
-                    disabled: '{!selectMenu}'
-                },
+//                bind: {
+//                    disabled: '{!selectMenu}'
+//                },
                 handler: 'addMenu'
             }, {
                 iconCls: 'x-fa fa-edit',

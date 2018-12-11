@@ -26,11 +26,11 @@ Ext.define('GrupoBruce.view.area.AreaController', {
         var model = grid.getSelection()[0];
         if(model.get('leaf')){
             model.erase({
-                success: function (area, operation) {
+                success: function (model, operation) {
                     grid.getStore().reload();
                     Ext.Msg.alert('Success', 'Eliminación exitosa.');
                 },
-                failure: function (area, operation) {
+                failure: function (model, operation) {
                     Ext.Msg.alert('Failure', 'No se pudo eliminar.');
                 }
             });

@@ -1019,6 +1019,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "MantenimientoProceso"
       }
+    },
+    "app/model/Rol.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "denominacion:string:null,idRol:string:null,situacion:boolean:null",
+        "modelFileName": "Rol",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Rol"
+      }
     }
   }
 }

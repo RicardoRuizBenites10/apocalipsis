@@ -7,12 +7,14 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IUsuarioDAO;
 import com.bruce.dao.to.Usuario;
+import com.bruce.util.FilterPage;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.QuerySQL;
+import com.bruce.util.SortPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -57,15 +59,28 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario find(Object idT) {
+    public Usuario get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Usuario> findAll() {
-        Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Usuario");
-        return query.list();
+    public Usuario lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Usuario> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Usuario> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

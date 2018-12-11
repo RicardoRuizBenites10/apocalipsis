@@ -1,19 +1,21 @@
 Ext.define('GrupoBruce.view.main.Main', {
     extend: 'Ext.panel.Panel',
     xtype: 'app-main',
-    
+
     requires: [
         'Ext.plugin.Viewport',
         'GrupoBruce.view.main.MainController',
-        'GrupoBruce.view.main.MainModel'
+        'GrupoBruce.view.main.MainModel',
+
+        'GrupoBruce.view.main.MainMenu'
     ],
-    
+
     controller: 'main',
     viewModel: 'main',
     plugins: 'viewport',
-    title: 'GRUPO BRUCE S.A.',
     iconCls: 'x-fa fa-bus',
-    
+    title: 'GRUPO BRUCE S.A.',
+
     header: {
         items: [{
                 xtype: 'button',
@@ -39,63 +41,11 @@ Ext.define('GrupoBruce.view.main.Main', {
     },
     layout: 'border',
     items: [{
+            xtype: 'WmainMenu',
             region: 'west',
-            reference: 'treelistContainer',
-            width: 240,
             split: false,
             border: true,
-            scrollable: 'y',
-            cls: 'treelist-with-nav',
-            layout: {
-                type: 'vbox',
-                align: 'stretch'
-            },
-            items: [{
-                    xtype: 'container',
-                    reference: 'tarjeta',
-                    style: 'background-color: #f7f7f7 !important;padding: 10px;border-bottom:1px solid rgba(0, 0, 0, 0.1) !important;',
-                    height: 92,
-                    bodyPadding: 10,
-                    layout: {
-                        type: 'hbox',
-                        align: 'stretch'
-                    },
-                    items: [{
-                            xtype: 'image',
-                            style: 'border: 4px solid #f2f2f2; border-radius: 50%;',
-                            height: 80,
-                            bind: {
-                                src: '{thisAvatar}',
-                                alt: '{altAvatar}'
-                            },
-                            flex: 1
-                        }, {
-                            xtype: 'container',
-                            style: 'padding: 10px',
-                            flex: 2,
-                            bind: {
-                                html: ' Bienvenido,  <br> <b>{thisName}</b>'
-                            }
-                        }]
-                }, {
-                    xtype: 'treelist',
-                    reference: 'treelist',
-                    ui: 'nav',
-                    expanderOnly: false,
-                    expanderFirst: false,
-                    singleExpand: true,
-                    bind: {
-                        store: '{navRemote}'
-                    }
-                    , listeners: {
-//                        itemclick: function (treelist, ctx) {
-//                            console.log("click");
-//                        },
-                        selectionchange: 'treeNodeSelect'
-
-                    }
-                }]
-
+            scrollable: 'y'
         }, {
             region: 'center',
             layout: 'border',

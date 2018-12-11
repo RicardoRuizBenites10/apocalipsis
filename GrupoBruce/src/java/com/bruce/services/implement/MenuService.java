@@ -82,7 +82,14 @@ public class MenuService implements IMenuService{
     @Override
     @Transactional
     public void insert(Menu t) {
+        Menu last = dao.lastByFilter(null), sup = dao.find(t.getIdSupmenu());
+        int idLast = last == null ? 0 : Integer.parseInt(last.getIdMenu());
+        t.setIdMenu(String.format("%04d", idLast + 1));
         dao.create(t);
+        if (sup != null) {
+            sup.setLeaf(false);
+            dao.update(sup);
+        }
     }
 
     @Override
@@ -94,7 +101,20 @@ public class MenuService implements IMenuService{
     @Override
     @Transactional
     public void delete(Menu t) {
-        dao.delete(t);
+        List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
+        Menu sup = dao.find(t.getIdSupmenu());
+        filters.add(new FilterPage("idSupmenu", t.getIdMenu()));
+        filters2.add(new FilterPage("idSupmenu", t.getIdSupmenu()));
+        int childs = dao.countByFilter(filters);
+        if (childs > 0) {
+            throw new RuntimeException("El menú no debe contener submenus.");
+        } else {
+            dao.delete(t);
+            if (sup != null) {
+                sup.setLeaf(dao.countByFilter(filters2)==0);
+                dao.update(sup);
+            }
+        }
     }
 
     @Override

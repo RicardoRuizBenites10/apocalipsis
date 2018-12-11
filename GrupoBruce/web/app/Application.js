@@ -42,6 +42,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Periocidad',
         'GrupoBruce.store.PeriodoVacacion',
         'GrupoBruce.store.RegimenPensionario',
+        'GrupoBruce.store.Rol',
         'GrupoBruce.store.Sucursal',
         'GrupoBruce.store.Trabajador',
         'GrupoBruce.store.TiempoAusencia',

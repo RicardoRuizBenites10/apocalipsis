@@ -5,6 +5,8 @@
  */
 package com.bruce.dao.design;
 
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 
 /**
@@ -15,6 +17,9 @@ public interface IEntidadDAO<T> {
     public void create(T t);
     public void update(T t);
     public void delete(T t);
-    public T find(Object idT);
-    public List<T> findAll();
+    public T get(Object idT);
+    public T lastByFilter(List<FilterPage> filters);
+    public List<T> getAll();
+    public List<T> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters);
+    public int countByFilter(List<FilterPage> filters);
 }

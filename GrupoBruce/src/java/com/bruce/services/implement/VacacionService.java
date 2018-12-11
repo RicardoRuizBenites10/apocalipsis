@@ -9,7 +9,6 @@ import com.bruce.dao.design.IVacacionDAO;
 import com.bruce.dao.to.Vacacion;
 import com.bruce.services.design.IVacacionService;
 import com.bruce.util.FilterPage;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class VacacionService implements IVacacionService{
     @Override
     @Transactional
     public List<Vacacion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class VacacionService implements IVacacionService{
     @Override
     @Transactional
     public List<Vacacion> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class VacacionService implements IVacacionService{
     @Override
     @Transactional
     public Vacacion last(List<FilterPage> filters) {
-        return dao.last(filters);
+        return dao.lastByFilter(filters);
     }
     
 }

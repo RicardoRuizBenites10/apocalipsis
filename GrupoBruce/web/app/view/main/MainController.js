@@ -1,9 +1,3 @@
-/**
- * This class is the controller for the main view for the application. It is specified as
- * the "controller" of the Main view class.
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define('GrupoBruce.view.main.MainController', {
     extend: 'Ext.app.ViewController',
 
@@ -58,6 +52,7 @@ Ext.define('GrupoBruce.view.main.MainController', {
     treeNodeSelect: function (tree, node, opts) {
         var handler = node.get('handler');
         if (handler !== undefined && handler !== '') {
+            console.log(handler);
             var panel = this.lookupReference('mainBody');
             var panelView = Ext.create(handler);
             panel.removeAll();

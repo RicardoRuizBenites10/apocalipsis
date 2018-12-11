@@ -10,6 +10,7 @@ import com.bruce.dao.to.Area;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -30,7 +31,7 @@ public class AreaDAO implements IAreaDAO {
     private SessionFactory sf;
 
     @Override
-    public List<Area> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Area> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Area.class);
         if (filters != null) {
@@ -91,12 +92,12 @@ public class AreaDAO implements IAreaDAO {
     }
 
     @Override
-    public Area find(Object idT) {
+    public Area get(Object idT) {
         return (Area) sf.getCurrentSession().get(Area.class, (Serializable) idT);
     }
 
     @Override
-    public List<Area> findAll() {
+    public List<Area> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

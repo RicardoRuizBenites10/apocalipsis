@@ -1,19 +1,17 @@
-Ext.define('GrupoBruce.view.menu.FormMenu', {
+Ext.define('GrupoBruce.view.rol.FormRol', {
     extend: 'Ext.window.Window',
-    alias: 'widget.WformMenu',
-    reference: 'form_menu',
-
-    controller: 'Cmenu',
+    alias: 'widget.WformRol',
+    reference: 'form_rol',
+    
+    controller: 'Crol',
     viewModel: {
-        type: 'VMmenu'
+        type: 'VMrol'
     },
-
-    title: 'Editar opción de menú',
-
-    width: 400,
-    resizable: false,
+    
     modal: true,
     closable: false,
+    resizable: false,
+    width: 400,
     autoShow: true,
 
     items: [{
@@ -22,35 +20,17 @@ Ext.define('GrupoBruce.view.menu.FormMenu', {
                 xtype: 'container',
                 layout: 'hbox',
                 defaults: {
+                    padding: 5,
                     allowBlank: false,
-                    labelAlign: 'top',
-                    padding: 5
+                    labelAlign: 'top'
                 }
             },
             items: [{
                     items: [{
                             xtype: 'textfield',
-                            name: 'text',
-                            fieldLabel: 'Descripción',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'textfield',
-                            name: 'iconCls',
-                            fieldLabel: 'Icono',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'textfield',
-                            name: 'handler',
-                            fieldLabel: 'Handler',
-                            flex: 1,
-                            allowBlank: true
+                            fieldLabel: 'Denominación'
                         }]
                 }],
-
             buttons: [{
                     text: 'Cancelar',
                     listeners: {
@@ -75,5 +55,4 @@ Ext.define('GrupoBruce.view.menu.FormMenu', {
                     }
                 }]
         }]
-
 });

@@ -6,15 +6,11 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Area;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IAreaDAO extends IEntidadDAO<Area>{
-    public List<Area> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Area lastByFilter(List<FilterPage> filters);
+    
 }

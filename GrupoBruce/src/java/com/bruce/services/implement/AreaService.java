@@ -28,7 +28,7 @@ public class AreaService implements IAreaService {
     @Override
     @Transactional
     public List<Area> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -46,14 +46,14 @@ public class AreaService implements IAreaService {
     @Override
     @Transactional
     public void insert(Area t) {
-        Area last = dao.lastByFilter(null), sup = dao.find(t.getIdSuparea());
+        Area last = dao.lastByFilter(null), sup = dao.get(t.getIdSuparea());
         int idLast = last != null ? Integer.parseInt(last.getIdArea()) : 0;
         t.setIdArea(String.format("%04d", idLast + 1));
+        dao.create(t);
         if (sup != null) {
             sup.setLeaf(false);
             dao.update(sup);
         }
-        dao.create(t);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class AreaService implements IAreaService {
     @Transactional
     public void delete(Area t) {
         List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
-        Area sup = dao.find(t.getIdSuparea());
+        Area sup = dao.get(t.getIdSuparea());
         filters.add(new FilterPage("idSuparea", t.getIdArea()));
         filters2.add(new FilterPage("idSuparea", t.getIdSuparea()));
         int childs = dao.countByFilter(filters);
@@ -84,7 +84,7 @@ public class AreaService implements IAreaService {
     @Override
     @Transactional
     public Area find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

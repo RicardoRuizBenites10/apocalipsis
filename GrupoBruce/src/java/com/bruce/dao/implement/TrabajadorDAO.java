@@ -49,7 +49,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public Trabajador find(Object idT) {
+    public Trabajador get(Object idT) {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Trabajador T WHERE T.idTrabajador = :idTrabajador");
         query.setParameter("idTrabajador", (String) idT);
@@ -59,7 +59,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     }
 
     @Override
-    public List<Trabajador> findAll() {
+    public List<Trabajador> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL);
         return query.list();
@@ -85,7 +85,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
 //        return result;
 //    }
     @Override
-    public List<Trabajador> getTrabajadorsPagination(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Trabajador> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Trabajador.class);
         if (filters != null) {
@@ -131,5 +131,10 @@ public class TrabajadorDAO implements ITrabajadorDAO {
         });
         cr.setProjection(Projections.rowCount());
         return ((Long) cr.list().get(0)).intValue();
+    }
+
+    @Override
+    public Trabajador lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
