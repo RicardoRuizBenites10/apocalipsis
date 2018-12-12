@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Genero;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IGeneroDAO extends IEntidadDAO<Genero>{
-    public List<Genero> filterBySituacion(boolean situacion);
 }

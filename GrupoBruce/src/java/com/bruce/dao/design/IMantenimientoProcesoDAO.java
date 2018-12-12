@@ -6,16 +6,11 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.MantenimientoProceso;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IMantenimientoProcesoDAO  extends IEntidadDAO<MantenimientoProceso>{
-    public List<MantenimientoProceso> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public MantenimientoProceso lastByFilter(List<FilterPage> filters);
     
 }

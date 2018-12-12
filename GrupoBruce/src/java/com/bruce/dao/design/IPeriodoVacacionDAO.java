@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.PeriodoVacacion;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IPeriodoVacacionDAO extends IEntidadDAO<PeriodoVacacion>{
-    public List<PeriodoVacacion> getBySituacion(boolean situacion);
 }

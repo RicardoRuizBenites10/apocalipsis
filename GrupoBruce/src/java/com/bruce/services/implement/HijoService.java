@@ -9,6 +9,7 @@ import com.bruce.dao.design.IHijoDAO;
 import com.bruce.dao.to.Hijo;
 import com.bruce.services.design.IHijoService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class HijoService implements IHijoService {
     @Override
     @Transactional
     public List<Hijo> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.filterByPadre(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
     @Transactional
     public int countFilter(List<FilterPage> filters) {
-        return dao.countHijos(filters);
+        return dao.countByFilter(filters);
     }
 
     @Override
@@ -46,7 +47,9 @@ public class HijoService implements IHijoService {
     @Override
     @Transactional
     public void insert(Hijo currentHijo) {
-        Hijo lastHijo = dao.lastHijo(currentHijo.getIdTrabajador());
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTrabajador", currentHijo.getIdTrabajador()));
+        Hijo lastHijo = dao.lastByFilter(filters);
         int idLast = 0;
         if (lastHijo != null) {
             idLast = lastHijo.getIdHijo();
@@ -76,7 +79,7 @@ public class HijoService implements IHijoService {
     @Override
     @Transactional
     public List<Hijo> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
 }

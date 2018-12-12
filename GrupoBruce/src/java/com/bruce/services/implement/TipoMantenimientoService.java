@@ -27,7 +27,7 @@ public class TipoMantenimientoService implements ITipoMantenimientoService{
     @Override
     @Transactional
     public List<TipoMantenimiento> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class TipoMantenimientoService implements ITipoMantenimientoService{
     @Override
     @Transactional
     public TipoMantenimiento find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

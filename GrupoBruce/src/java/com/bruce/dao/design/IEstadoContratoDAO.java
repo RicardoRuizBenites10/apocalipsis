@@ -13,5 +13,4 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface IEstadoContratoDAO extends IEntidadDAO<EstadoContrato>{
-    public List<EstadoContrato> filterBySituacion(boolean situacion);
 }

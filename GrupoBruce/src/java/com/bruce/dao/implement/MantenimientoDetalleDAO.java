@@ -9,6 +9,7 @@ import com.bruce.dao.design.IMantenimientoDetalleDAO;
 import com.bruce.dao.to.Mantenimiento;
 import com.bruce.dao.to.MantenimientoDetalle;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -31,12 +32,17 @@ public class MantenimientoDetalleDAO implements IMantenimientoDetalleDAO{
     private SessionFactory sf;
 
     @Override
-    public List<MantenimientoDetalle> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<MantenimientoDetalle> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Mantenimiento.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -92,13 +98,12 @@ public class MantenimientoDetalleDAO implements IMantenimientoDetalleDAO{
     }
 
     @Override
-    public MantenimientoDetalle find(Object idT) {
+    public MantenimientoDetalle get(Object idT) {
         return (MantenimientoDetalle) sf.getCurrentSession().get(MantenimientoDetalle.class, (Serializable) sf);
     }
 
     @Override
-    public List<MantenimientoDetalle> findAll() {
+    public List<MantenimientoDetalle> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 }

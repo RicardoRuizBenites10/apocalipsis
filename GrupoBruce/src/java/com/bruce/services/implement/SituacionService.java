@@ -9,6 +9,7 @@ import com.bruce.dao.design.ISituacionDAO;
 import com.bruce.dao.to.Situacion;
 import com.bruce.services.design.ISituacionService;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,9 @@ public class SituacionService implements ISituacionService{
     @Override
     @Transactional
     public Situacion last(String idTrabajador) {
-        return dao.last(idTrabajador);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTrabajador", idTrabajador));
+        return dao.lastByFilter(filters);
     }
 
     @Override

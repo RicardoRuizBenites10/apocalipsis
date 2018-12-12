@@ -51,13 +51,13 @@ public class TipoEstudioService implements ITipoEstudioService{
     @Override
     @Transactional
     public List<TipoEstudio> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
     @Transactional
     public List<TipoEstudio> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override

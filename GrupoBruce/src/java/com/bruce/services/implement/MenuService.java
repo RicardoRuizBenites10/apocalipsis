@@ -52,7 +52,7 @@ public class MenuService implements IMenuService{
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null,  filters);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MenuService implements IMenuService{
     @Override
     @Transactional
     public void insert(Menu t) {
-        Menu last = dao.lastByFilter(null), sup = dao.find(t.getIdSupmenu());
+        Menu last = dao.lastByFilter(null), sup = dao.get(t.getIdSupmenu());
         int idLast = last == null ? 0 : Integer.parseInt(last.getIdMenu());
         t.setIdMenu(String.format("%04d", idLast + 1));
         dao.create(t);
@@ -102,7 +102,7 @@ public class MenuService implements IMenuService{
     @Transactional
     public void delete(Menu t) {
         List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
-        Menu sup = dao.find(t.getIdSupmenu());
+        Menu sup = dao.get(t.getIdSupmenu());
         filters.add(new FilterPage("idSupmenu", t.getIdMenu()));
         filters2.add(new FilterPage("idSupmenu", t.getIdSupmenu()));
         int childs = dao.countByFilter(filters);
@@ -120,13 +120,13 @@ public class MenuService implements IMenuService{
     @Override
     @Transactional
     public Menu find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override
     @Transactional
     public List<Menu> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

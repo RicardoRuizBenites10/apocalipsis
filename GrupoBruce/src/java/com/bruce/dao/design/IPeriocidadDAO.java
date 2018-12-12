@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Periocidad;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IPeriocidadDAO extends IEntidadDAO<Periocidad>{
-    public List<Periocidad> filterBySituacion(boolean situacion);
 }

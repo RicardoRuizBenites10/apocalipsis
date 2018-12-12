@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.EntidadFinanciera;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEntidadFinancieraDAO extends IEntidadDAO<EntidadFinanciera>{
-    public List<EntidadFinanciera> filterBySituacion(boolean situacion);
 }

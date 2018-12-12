@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAsistenciaDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -29,7 +30,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
     private SessionFactory sf;
 
     @Override
-    public List<Asistencia> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Asistencia> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Asistencia.class);
         if (filters != null) {
@@ -90,12 +91,12 @@ public class AsistenciaDAO implements IAsistenciaDAO {
     }
 
     @Override
-    public Asistencia find(Object idT) {
+    public Asistencia get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Asistencia> findAll() {
+    public List<Asistencia> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

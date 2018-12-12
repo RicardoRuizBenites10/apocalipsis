@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.ITipoVacacionDAO;
 import com.bruce.dao.to.TipoVacacion;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -43,19 +44,19 @@ public class TipoVacacionDAO implements ITipoVacacionDAO{
     }
 
     @Override
-    public TipoVacacion find(Object idT) {
+    public TipoVacacion get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<TipoVacacion> findAll() {
+    public List<TipoVacacion> getAll() {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(TipoVacacion.class);
         return cr.list();
     }
 
     @Override
-    public List<TipoVacacion> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<TipoVacacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(TipoVacacion.class);
         if(filters!=null){
@@ -78,6 +79,11 @@ public class TipoVacacionDAO implements ITipoVacacionDAO{
         cr.setProjection(Projections.rowCount());
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
+    }
+
+    @Override
+    public TipoVacacion lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

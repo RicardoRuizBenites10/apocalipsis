@@ -28,7 +28,7 @@ public class FormacionService implements IFormacionService{
     @Override
     @Transactional
     public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class FormacionService implements IFormacionService{
     @Override
     @Transactional
     public List<Formacion> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

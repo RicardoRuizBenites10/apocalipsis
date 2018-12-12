@@ -29,7 +29,7 @@ public class AusenciaService implements IAusenciaService{
     @Override
     @Transactional
     public List<Ausencia> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class AusenciaService implements IAusenciaService{
     @Override
     @Transactional
     public List<Ausencia> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

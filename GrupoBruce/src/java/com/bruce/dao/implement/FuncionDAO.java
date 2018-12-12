@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -29,12 +30,17 @@ public class FuncionDAO implements IFuncionDAO{
     private SessionFactory sf;
 
     @Override
-    public List<Funcion> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Funcion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Funcion.class);
         if(filters!=null){
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -90,12 +96,12 @@ public class FuncionDAO implements IFuncionDAO{
     }
 
     @Override
-    public Funcion find(Object idT) {
+    public Funcion get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Funcion> findAll() {
+    public List<Funcion> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -28,7 +28,7 @@ public class FuncionService implements IFuncionService {
     @Override
     @Transactional
     public List<Funcion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override

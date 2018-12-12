@@ -14,7 +14,4 @@ import java.util.List;
  * @author RICARDO
  */
 public interface IAsignacionEquipoDAO extends IEntidadDAO<AsignacionEquipo>{
-    public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public AsignacionEquipo lastByFilter(List<FilterPage> filters);
 }

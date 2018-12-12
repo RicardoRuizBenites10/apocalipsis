@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Nacionalidad;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface INacionalidadDAO extends IEntidadDAO<Nacionalidad>{
-    public List<Nacionalidad> filterBySituacion(boolean situacion);
 }

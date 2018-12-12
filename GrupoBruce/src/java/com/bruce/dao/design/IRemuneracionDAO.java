@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Remuneracion;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IRemuneracionDAO extends IEntidadDAO<Remuneracion>{
-    public List<Remuneracion> filterByContrato(String idTrabajador, int idContrato);
 }

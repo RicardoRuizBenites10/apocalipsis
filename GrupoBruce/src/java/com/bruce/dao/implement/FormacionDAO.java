@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -45,24 +46,29 @@ public class FormacionDAO implements IFormacionDAO {
     }
 
     @Override
-    public Formacion find(Object idT) {
+    public Formacion get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Formacion> findAll() {
+    public List<Formacion> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Formacion");
         return query.list();
     }
 
     @Override
-    public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Formacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Formacion.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         cr.setFirstResult(start);

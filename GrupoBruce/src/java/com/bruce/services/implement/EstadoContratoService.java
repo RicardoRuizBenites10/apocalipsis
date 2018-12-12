@@ -50,7 +50,7 @@ public class EstadoContratoService implements IEstadoContratoService{
     @Override
     @Transactional
     public List<EstadoContrato> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

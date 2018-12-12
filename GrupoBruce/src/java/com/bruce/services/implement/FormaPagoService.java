@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IFormaPagoDAO;
 import com.bruce.dao.to.FormaPago;
 import com.bruce.services.design.IFormaPagoService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +46,15 @@ public class FormaPagoService implements IFormaPagoService{
     @Override
     @Transactional
     public List<FormaPago> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
     @Transactional
     public List<FormaPago> findBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override

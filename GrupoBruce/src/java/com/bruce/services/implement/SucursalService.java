@@ -45,7 +45,7 @@ public class SucursalService implements ISucursalService{
     @Override
     @Transactional
     public List<Sucursal> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SucursalService implements ISucursalService{
     @Override
     @Transactional
     public List<Sucursal> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override

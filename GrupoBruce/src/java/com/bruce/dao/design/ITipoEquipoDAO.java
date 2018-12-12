@@ -6,15 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.TipoEquipo;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface ITipoEquipoDAO extends IEntidadDAO<TipoEquipo>{
-    public List<TipoEquipo> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public TipoEquipo lastByFilter(List<FilterPage> filters);
 }

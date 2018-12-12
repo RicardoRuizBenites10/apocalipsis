@@ -7,10 +7,15 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IEstadoEstudioDAO;
 import com.bruce.dao.to.EstadoEstudio;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +30,20 @@ public class EstadoEstudioDAO implements IEstadoEstudioDAO {
     private SessionFactory sf;
 
     @Override
-    public List<EstadoEstudio> filterBySituacion(boolean situacion) {
+    public List<EstadoEstudio> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM EstadoEstudio EE WHERE EE.situacion = :situacion");
-        query.setParameter("situacion", situacion);
-        return query.list();
+        Criteria cr = session.createCriteria(EstadoEstudio.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        return cr.list();
     }
 
     @Override
@@ -48,15 +62,25 @@ public class EstadoEstudioDAO implements IEstadoEstudioDAO {
     }
 
     @Override
-    public EstadoEstudio find(Object idT) {
+    public EstadoEstudio get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<EstadoEstudio> findAll() {
+    public List<EstadoEstudio> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM EstadoEstudio");
         return query.list();
+    }
+
+    @Override
+    public EstadoEstudio lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

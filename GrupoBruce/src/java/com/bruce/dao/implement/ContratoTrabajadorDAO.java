@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -45,7 +46,7 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     }
 
     @Override
-    public ContratoTrabajador find(Object idT) {
+    public ContratoTrabajador get(Object idT) {
         Session session = sf.getCurrentSession();
         List<FilterPage> filters = (List<FilterPage>) idT;
         Criteria cr = session.createCriteria(ContratoTrabajador.class);
@@ -56,14 +57,14 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     }
 
     @Override
-    public List<ContratoTrabajador> findAll() {
+    public List<ContratoTrabajador> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM ContratoTrabajador");
         return query.list();
     }
 
     @Override
-    public List<ContratoTrabajador> filterByTrabajador(int start, int limit, List<FilterPage> filters) {
+    public List<ContratoTrabajador> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(ContratoTrabajador.class);
         filters.forEach(item -> {
@@ -76,7 +77,7 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     }
 
     @Override
-    public int getCountContratos(List<FilterPage> filters) {
+    public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(ContratoTrabajador.class);
         filters.forEach(item -> {
@@ -88,11 +89,15 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
     }
 
     @Override
-    public ContratoTrabajador last(String idTrabajador) {
+    public ContratoTrabajador lastByFilter(List<FilterPage> filters) {
         ContratoTrabajador contrato = null;
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(ContratoTrabajador.class);
-        cr.add(Restrictions.eq("idTrabajador", idTrabajador));
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
         cr.addOrder(Order.desc("idContrato"));
         cr.setFirstResult(0);
         

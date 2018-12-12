@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.FormaPago;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IFormaPagoDAO extends IEntidadDAO<FormaPago>{
-    public List<FormaPago> filterBySituacion(boolean situacion);
 }

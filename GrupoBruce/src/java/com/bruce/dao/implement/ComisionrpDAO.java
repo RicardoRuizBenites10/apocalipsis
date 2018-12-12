@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IComisionrpDAO;
 import com.bruce.dao.to.Comisionrp;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -46,24 +47,29 @@ public class ComisionrpDAO implements IComisionrpDAO {
     }
 
     @Override
-    public Comisionrp find(Object idT) {
+    public Comisionrp get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Comisionrp> findAll() {
+    public List<Comisionrp> getAll() {
         Session session = sf.getCurrentSession();
         List result = session.createQuery("FROM Comisionrp").list();
         return result;
     }
 
     @Override
-    public List<Comisionrp> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Comisionrp> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Comisionrp.class);
         if(filters!=null){
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();

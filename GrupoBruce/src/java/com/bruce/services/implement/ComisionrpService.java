@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class ComisionrpService implements IComisionrpService{
-    
+public class ComisionrpService implements IComisionrpService {
+
     @Autowired
     private IComisionrpDAO dao;
 
@@ -45,7 +45,7 @@ public class ComisionrpService implements IComisionrpService{
     @Override
     @Transactional
     public List<Comisionrp> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ComisionrpService implements IComisionrpService{
     @Override
     @Transactional
     public List<Comisionrp> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override

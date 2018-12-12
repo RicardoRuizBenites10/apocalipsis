@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IMantenimientoProcesoDAO;
 import com.bruce.dao.to.MantenimientoProceso;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -30,12 +31,17 @@ public class MantenimientoProcesoDAO implements IMantenimientoProcesoDAO{
     private SessionFactory sf;
 
     @Override
-    public List<MantenimientoProceso> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<MantenimientoProceso> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(MantenimientoProceso.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -91,12 +97,12 @@ public class MantenimientoProcesoDAO implements IMantenimientoProcesoDAO{
     }
 
     @Override
-    public MantenimientoProceso find(Object idT) {
+    public MantenimientoProceso get(Object idT) {
         return (MantenimientoProceso) sf.getCurrentSession().get(MantenimientoProceso.class, (Serializable) sf);
     }
 
     @Override
-    public List<MantenimientoProceso> findAll() {
+    public List<MantenimientoProceso> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

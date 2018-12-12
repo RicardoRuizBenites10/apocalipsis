@@ -6,15 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Formacion;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IFormacionDAO extends IEntidadDAO<Formacion> {
-    public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Formacion lastByFilter(List<FilterPage> filters);
 }

@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IEstadoEstudioDAO;
 import com.bruce.dao.to.EstadoEstudio;
 import com.bruce.services.design.IEstadoEstudioService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,9 @@ public class EstadoEstudioService implements IEstadoEstudioService{
     @Override
     @Transactional
     public List<EstadoEstudio> getBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class EstadoEstudioService implements IEstadoEstudioService{
     @Override
     @Transactional
     public List<EstadoEstudio> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

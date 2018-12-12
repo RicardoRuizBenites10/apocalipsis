@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.bruce.services.design.IContratoTrabajadorService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,14 +40,16 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Override
     @Transactional
     public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters) {
-        return dao.filterByTrabajador(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
     @Transactional
     public void insert(ContratoTrabajador newContrato) {
         int idCLast = 0;
-        ContratoTrabajador lastContrato = dao.last(newContrato.getIdTrabajador());
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTrabajador", newContrato.getIdTrabajador()));
+        ContratoTrabajador lastContrato = dao.lastByFilter(filters);
         if (lastContrato != null) {
             idCLast = lastContrato.getIdContrato();
             if (lastContrato.getIdEcontrato() == Constante.CONTRATO_ESTADO_VIGENTE) {
@@ -58,8 +61,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
         dao.create(newContrato);
         /*---actualizacion en situacion y trabajador----*/
-        Situacion lastSituacion = dao2.last(newContrato.getIdTrabajador());
-        Trabajador trabajador = dao3.find(newContrato.getIdTrabajador());
+        Situacion lastSituacion = dao2.lastByFilter(filters);
+        Trabajador trabajador = dao3.get(newContrato.getIdTrabajador());
         int idSLast = lastSituacion != null ? lastSituacion.getIdSituacion() : 0;
         if (lastSituacion == null || (!lastSituacion.isActiva())) {
             dao2.create(new Situacion(newContrato.getIdTrabajador(), idSLast + 1, newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
@@ -91,20 +94,23 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Override
     @Transactional
     public List<ContratoTrabajador> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
     @Transactional
     public int totalCount(List<FilterPage> filters) {
-        return dao.getCountContratos(filters);
+        return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
     public Map<String, Object> validaAdd(String idTrabajador) {
         Map<String, Object> map = new HashMap<>();
-        ContratoTrabajador lastContrato = dao.last(idTrabajador);
+        
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idTrabajador", idTrabajador));
+        ContratoTrabajador lastContrato = dao.lastByFilter(filters);
         boolean success = true;
         Date inicio = null;
         if (lastContrato != null) {

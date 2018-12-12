@@ -27,7 +27,7 @@ public class TipoEquipoService implements ITipoEquipoService{
     @Override
     @Transactional
     public List<TipoEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class TipoEquipoService implements ITipoEquipoService{
     @Override
     @Transactional
     public TipoEquipo find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

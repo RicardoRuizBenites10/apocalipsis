@@ -50,7 +50,7 @@ public class TiempoContratoService implements ITiempoContratoService{
     @Override
     @Transactional
     public List<TiempoContrato> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

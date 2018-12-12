@@ -6,15 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Hijo;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IHijoDAO extends IEntidadDAO<Hijo>{
-    public List<Hijo> filterByPadre(int start, int limit, List<FilterPage> filters);
-    public int countHijos(List<FilterPage> filters);
-    public Hijo lastHijo(String idTrabajador);
 }

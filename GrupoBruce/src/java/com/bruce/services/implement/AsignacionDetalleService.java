@@ -59,7 +59,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
         t.setAsignado(true);
         dao.create(t);
         
-        EquipoInformatico equipo = dao2.find(t.getIdEinformatico());
+        EquipoInformatico equipo = dao2.get(t.getIdEinformatico());
         equipo.setIdEequipo(Constante.EQUIPO_ESTADO_ASIGNADO);
         dao2.update(equipo);
     }
@@ -114,7 +114,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Transactional
     public void delete(AsignacionDetalle t) {
         dao.delete(t);
-        EquipoInformatico equipo = dao2.find(t.getIdEinformatico());
+        EquipoInformatico equipo = dao2.get(t.getIdEinformatico());
         equipo.setIdEequipo(Constante.EQUIPO_ESTADO_PORASIGNAR);
         dao2.update(equipo);
     }
@@ -122,7 +122,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Override
     @Transactional
     public AsignacionDetalle find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

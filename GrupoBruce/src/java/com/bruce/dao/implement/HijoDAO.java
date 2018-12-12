@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -45,24 +46,31 @@ public class HijoDAO implements IHijoDAO {
     }
 
     @Override
-    public Hijo find(Object idT) {
+    public Hijo get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Hijo> findAll() {
+    public List<Hijo> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Hijo");
         return query.list();
     }
 
     @Override
-    public List<Hijo> filterByPadre(int start, int limit, List<FilterPage> filters) {
+    public List<Hijo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Hijo.class);
-        filters.forEach(item -> {
-            cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-        });
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
         cr.addOrder(Order.desc("idHijo"));
         cr.setFirstResult(start);
         cr.setMaxResults(limit);
@@ -70,31 +78,35 @@ public class HijoDAO implements IHijoDAO {
     }
 
     @Override
-    public int countHijos(List<FilterPage> filters) {
+    public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Hijo.class);
-        filters.forEach(item -> {
-            cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-        });
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
         cr.setProjection(Projections.rowCount());
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
     }
 
     @Override
-    public Hijo lastHijo(String idTrabajador) {
+    public Hijo lastByFilter(List<FilterPage> filters) {
         Hijo hijo = null;
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Hijo.class);
-        cr.add(Restrictions.eq("idTrabajador", idTrabajador));
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
         cr.addOrder(Order.desc("idHijo"));
         cr.setFirstResult(0);
-
         List result = cr.list();
         if (result.size() > 0) {
             hijo = (Hijo) result.get(0);
         }
-
         return hijo;
     }
 

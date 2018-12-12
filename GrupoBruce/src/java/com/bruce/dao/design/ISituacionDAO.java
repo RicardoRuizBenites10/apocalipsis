@@ -6,14 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Situacion;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface ISituacionDAO extends IEntidadDAO<Situacion>{
-    public Situacion last(String idTrabajador);
-    public int countByFilter(List<FilterPage> filters);
 }

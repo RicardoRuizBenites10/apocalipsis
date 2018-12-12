@@ -7,10 +7,15 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IECivilDAO;
 import com.bruce.dao.to.Ecivil;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +30,20 @@ public class ECivilDAO implements IECivilDAO {
     private SessionFactory sf;
 
     @Override
-    public List<Ecivil> filterBySituacion(boolean situacion) {
+    public List<Ecivil> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Ecivil EC WHERE EC.situacion = :situacion");
-        query.setParameter("situacion", situacion);
-        return query.list();
+        Criteria cr = session.createCriteria(Ecivil.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        return cr.list();
     }
 
     @Override
@@ -48,15 +62,25 @@ public class ECivilDAO implements IECivilDAO {
     }
 
     @Override
-    public Ecivil find(Object idT) {
+    public Ecivil get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Ecivil> findAll() {
+    public List<Ecivil> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Ecivil");
         return query.list();
+    }
+
+    @Override
+    public Ecivil lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

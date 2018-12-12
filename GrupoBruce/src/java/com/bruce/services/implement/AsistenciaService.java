@@ -31,7 +31,7 @@ public class AsistenciaService implements IAsistenciaService {
     @Override
     @Transactional
     public List<Asistencia> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit,null, filters);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AsistenciaService implements IAsistenciaService {
     public List<Asistencia> insertList(List<Asistencia> list) {
         List<Asistencia> notFound = new ArrayList<>();
         list.forEach(item -> {
-            if (daoT.find(item.getIdTrabajador()) != null) {
+            if (daoT.get(item.getIdTrabajador()) != null) {
                 insert(item);
             } else {
                 notFound.add(item);

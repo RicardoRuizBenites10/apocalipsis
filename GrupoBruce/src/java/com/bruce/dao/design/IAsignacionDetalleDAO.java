@@ -6,16 +6,11 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.AsignacionDetalle;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface IAsignacionDetalleDAO extends IEntidadDAO<AsignacionDetalle>{
-    public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public AsignacionDetalle lastByFilter(List<FilterPage> filters);
     public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle);
 }

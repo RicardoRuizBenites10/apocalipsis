@@ -7,10 +7,15 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IEmpresaDAO;
 import com.bruce.dao.to.Empresa;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +30,20 @@ public class EmpresaDAO implements IEmpresaDAO {
     private SessionFactory sf;
 
     @Override
-    public List<Empresa> filterBySituacion(boolean situacion) {
+    public List<Empresa> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Empresa E WHERE E.situacion = :situacion");
-        query.setParameter("situacion", situacion);
-        return query.list();
+        Criteria cr = session.createCriteria(Empresa.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        return cr.list();
     }
 
     @Override
@@ -48,15 +62,25 @@ public class EmpresaDAO implements IEmpresaDAO {
     }
 
     @Override
-    public Empresa find(Object idT) {
+    public Empresa get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Empresa> findAll() {
+    public List<Empresa> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Empresa");
         return query.list();
+    }
+
+    @Override
+    public Empresa lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.Sucursal;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -45,24 +46,29 @@ public class SucursalDAO implements ISucursalDAO {
     }
 
     @Override
-    public Sucursal find(Object idT) {
+    public Sucursal get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Sucursal> findAll() {
+    public List<Sucursal> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Sucursal");
         return query.list();
     }
 
     @Override
-    public List<Sucursal> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Sucursal> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Sucursal.class);
         if(filters!=null){
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();

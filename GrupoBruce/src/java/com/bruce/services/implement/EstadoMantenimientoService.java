@@ -27,7 +27,7 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
     @Override
     @Transactional
     public List<EstadoMantenimiento> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
     @Override
     @Transactional
     public EstadoMantenimiento find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

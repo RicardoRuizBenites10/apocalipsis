@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -30,12 +31,17 @@ public class MenuDAO implements IMenuDAO{
     private SessionFactory sf;
     
     @Override
-    public List<Menu> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Menu> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Menu.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -91,12 +97,12 @@ public class MenuDAO implements IMenuDAO{
     }
 
     @Override
-    public Menu find(Object idT) {
+    public Menu get(Object idT) {
         return (Menu)sf.getCurrentSession().get(Menu.class, (Serializable) idT);
     }
 
     @Override
-    public List<Menu> findAll() {
+    public List<Menu> getAll() {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Menu.class);
         List result = cr.list();

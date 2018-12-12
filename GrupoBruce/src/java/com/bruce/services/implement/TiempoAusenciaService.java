@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.ITiempoAusenciaDAO;
 import com.bruce.dao.to.TiempoAusencia;
 import com.bruce.services.design.ITiempoAusenciaService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,9 @@ public class TiempoAusenciaService implements ITiempoAusenciaService{
     @Override
     @Transactional
     public List<TiempoAusencia> getBySituacion(boolean situacion) {
-        return dao.getBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class TiempoAusenciaService implements ITiempoAusenciaService{
     @Override
     @Transactional
     public List<TiempoAusencia> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

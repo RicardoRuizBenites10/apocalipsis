@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IEmpresaDAO;
 import com.bruce.dao.to.Empresa;
 import com.bruce.services.design.IEmpresaService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +46,15 @@ public class EmpresaService implements IEmpresaService {
     @Override
     @Transactional
     public List<Empresa> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
 
     @Override
     @Transactional
     public List<Empresa> findBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override

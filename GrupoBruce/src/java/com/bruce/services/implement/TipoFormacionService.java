@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.ITipoFormacionDAO;
 import com.bruce.dao.to.TipoFormacion;
 import com.bruce.services.design.ITipoFormacionService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,9 @@ public class TipoFormacionService implements ITipoFormacionService{
     @Override
     @Transactional
     public List<TipoFormacion> getBySituacion(boolean situacion) {
-        return dao.getBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class TipoFormacionService implements ITipoFormacionService{
     @Override
     @Transactional
     public List<TipoFormacion> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

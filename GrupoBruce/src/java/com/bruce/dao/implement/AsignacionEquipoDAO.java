@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAsignacionEquipoDAO;
 import com.bruce.dao.to.AsignacionEquipo;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -30,7 +31,7 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
     private SessionFactory sf;
     
     @Override
-    public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<AsignacionEquipo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(AsignacionEquipo.class, "aseq");
         if (filters != null) {
@@ -91,12 +92,12 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
     }
 
     @Override
-    public AsignacionEquipo find(Object idT) {
+    public AsignacionEquipo get(Object idT) {
         return (AsignacionEquipo) sf.getCurrentSession().get(AsignacionEquipo.class, (Serializable) sf);
     }
 
     @Override
-    public List<AsignacionEquipo> findAll() {
+    public List<AsignacionEquipo> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

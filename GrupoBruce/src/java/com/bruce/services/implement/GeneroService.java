@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IGeneroDAO;
 import com.bruce.dao.to.Genero;
 import com.bruce.services.design.IGeneroService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +46,15 @@ public class GeneroService implements IGeneroService {
     @Override
     @Transactional
     public List<Genero> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
     @Override
     @Transactional
     public List<Genero> findBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override

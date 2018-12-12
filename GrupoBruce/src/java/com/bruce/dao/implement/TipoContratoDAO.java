@@ -6,11 +6,17 @@
 package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITipoContratoDAO;
+import com.bruce.dao.to.Empresa;
 import com.bruce.dao.to.TipoContrato;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +31,20 @@ public class TipoContratoDAO implements ITipoContratoDAO {
     private SessionFactory sf;
 
     @Override
-    public List<TipoContrato> filterBySituacion(boolean situacion) {
+    public List<TipoContrato> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM TipoContrato TC WHERE TC.situacion = :situacion");
-        query.setParameter("situacion", situacion);
-        return query.list();
+        Criteria cr = session.createCriteria(TipoContrato.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        return cr.list();
     }
 
     @Override
@@ -48,15 +63,25 @@ public class TipoContratoDAO implements ITipoContratoDAO {
     }
 
     @Override
-    public TipoContrato find(Object idT) {
+    public TipoContrato get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<TipoContrato> findAll() {
+    public List<TipoContrato> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM TipoContrato");
         return query.list();
+    }
+
+    @Override
+    public TipoContrato lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

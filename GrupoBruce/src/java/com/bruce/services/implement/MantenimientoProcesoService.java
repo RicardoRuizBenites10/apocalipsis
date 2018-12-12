@@ -58,7 +58,7 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     public void insert(MantenimientoProceso t) {
         t.setIdMproceso(t.getIdMantenimiento() + t.getIdEmantenimiento());
         dao.create(t);
-        Mantenimiento mantenimiento = dao2.find(new MantenimientoId(t.getIdAequipo(),t.getIdMantenimiento()));
+        Mantenimiento mantenimiento = dao2.get(new MantenimientoId(t.getIdAequipo(),t.getIdMantenimiento()));
         mantenimiento.setIdEmantenimiento(t.getIdEmantenimiento());
         dao2.update(mantenimiento);
     }
@@ -110,7 +110,7 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     @Override
     @Transactional
     public MantenimientoProceso find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

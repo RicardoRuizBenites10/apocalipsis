@@ -14,6 +14,4 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ITipoVacacionDAO extends IEntidadDAO<TipoVacacion>{
-    public List<TipoVacacion> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
 }

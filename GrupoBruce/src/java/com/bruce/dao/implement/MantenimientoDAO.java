@@ -9,7 +9,7 @@ import com.bruce.dao.design.IMantenimientoDAO;
 import com.bruce.dao.to.Mantenimiento;
 import com.bruce.dao.to.MantenimientoId;
 import com.bruce.util.FilterPage;
-import java.io.Serializable;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -32,12 +32,17 @@ public class MantenimientoDAO implements IMantenimientoDAO{
     private SessionFactory sf;
 
     @Override
-    public List<Mantenimiento> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Mantenimiento> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Mantenimiento.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -93,7 +98,7 @@ public class MantenimientoDAO implements IMantenimientoDAO{
     }
 
     @Override
-    public Mantenimiento find(Object idT) {
+    public Mantenimiento get(Object idT) {
         Session session = sf.getCurrentSession();
         MantenimientoId mm = (MantenimientoId) idT;
         Query query = session.createQuery("FROM Mantenimiento WHERE idAequipo = :idAequipo AND idMantenimiento = :idMantenimiento");
@@ -105,7 +110,7 @@ public class MantenimientoDAO implements IMantenimientoDAO{
     }
 
     @Override
-    public List<Mantenimiento> findAll() {
+    public List<Mantenimiento> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

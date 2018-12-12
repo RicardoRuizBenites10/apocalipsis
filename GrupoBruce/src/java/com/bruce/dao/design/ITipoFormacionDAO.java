@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.TipoFormacion;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface ITipoFormacionDAO extends IEntidadDAO<TipoFormacion>{
-    public List<TipoFormacion> getBySituacion(boolean situacion);
 }

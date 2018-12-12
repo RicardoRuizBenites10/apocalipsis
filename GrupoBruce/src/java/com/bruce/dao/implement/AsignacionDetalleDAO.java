@@ -9,6 +9,7 @@ import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.to.AsignacionDetalle;
 import com.bruce.util.FilterPage;
 import com.bruce.util.QuerySQL;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -32,7 +33,7 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     private SessionFactory sf;
 
     @Override
-    public List<AsignacionDetalle> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<AsignacionDetalle> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(AsignacionDetalle.class);
         if (filters != null) {
@@ -105,12 +106,12 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     }
 
     @Override
-    public AsignacionDetalle find(Object idT) {
+    public AsignacionDetalle get(Object idT) {
         return (AsignacionDetalle) sf.getCurrentSession().get(AsignacionDetalle.class, (Serializable) sf);
     }
 
     @Override
-    public List<AsignacionDetalle> findAll() {
+    public List<AsignacionDetalle> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

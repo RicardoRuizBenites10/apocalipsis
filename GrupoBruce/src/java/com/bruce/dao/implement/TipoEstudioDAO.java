@@ -9,6 +9,7 @@ import com.bruce.dao.design.ITipoEstudioDAO;
 import com.bruce.dao.to.TipoEstudio;
 import com.bruce.dao.to.TipoEstudio;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -46,19 +47,19 @@ public class TipoEstudioDAO implements ITipoEstudioDAO {
     }
 
     @Override
-    public TipoEstudio find(Object idT) {
+    public TipoEstudio get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<TipoEstudio> findAll() {
+    public List<TipoEstudio> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM TipoEstudio");
         return query.list();
     }
 
     @Override
-    public List<TipoEstudio> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<TipoEstudio> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(TipoEstudio.class);
         if (filters != null) {
@@ -75,6 +76,11 @@ public class TipoEstudioDAO implements ITipoEstudioDAO {
                             break;
                     }
                 }
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();

@@ -6,13 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.PeriodoPlanilla;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IPeriodoPlanillaDAO extends IEntidadDAO<PeriodoPlanilla>{
-    public List<PeriodoPlanilla> filterBySituacion(boolean situacion);
-    public List<PeriodoPlanilla> filterByTipo(int id_tperiodo);
 }

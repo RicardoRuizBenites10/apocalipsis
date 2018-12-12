@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.TiempoAusencia;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface ITiempoAusenciaDAO extends IEntidadDAO<TiempoAusencia>{
-    public List<TiempoAusencia> getBySituacion(boolean situacion);
 }

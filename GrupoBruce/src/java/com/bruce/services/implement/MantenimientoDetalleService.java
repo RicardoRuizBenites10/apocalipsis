@@ -53,7 +53,7 @@ public class MantenimientoDetalleService implements IMantenimientoDetalleService
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MantenimientoDetalleService implements IMantenimientoDetalleService
     @Override
     @Transactional
     public MantenimientoDetalle find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

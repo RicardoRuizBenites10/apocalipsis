@@ -7,12 +7,16 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITExtralaboralDAO;
 import com.bruce.dao.to.Textralaboral;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author RICARDO
  */
+@Repository
 public class TExtralaboralDAO implements ITExtralaboralDAO{
 
     @Override
@@ -31,12 +35,27 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
     }
 
     @Override
-    public Textralaboral find(Object idT) {
+    public Textralaboral get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Textralaboral> findAll() {
+    public Textralaboral lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Textralaboral> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Textralaboral> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

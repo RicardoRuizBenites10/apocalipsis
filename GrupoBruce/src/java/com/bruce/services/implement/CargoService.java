@@ -28,7 +28,7 @@ public class CargoService implements ICargoService{
     @Override
     @Transactional
     public List<Cargo> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override

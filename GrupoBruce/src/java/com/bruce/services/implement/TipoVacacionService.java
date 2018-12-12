@@ -29,7 +29,7 @@ public class TipoVacacionService implements ITipoVacacionService{
     @Override
     @Transactional
     public List<TipoVacacion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class TipoVacacionService implements ITipoVacacionService{
     @Override
     @Transactional
     public List<TipoVacacion> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

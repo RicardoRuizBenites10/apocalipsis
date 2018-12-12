@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAusenciaDAO;
 import com.bruce.dao.to.Ausencia;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -29,7 +30,7 @@ public class AusenciaDAO implements IAusenciaDAO {
     private SessionFactory sf;
 
     @Override
-    public List<Ausencia> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Ausencia> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Ausencia.class);
         if (filters != null) {
@@ -92,12 +93,12 @@ public class AusenciaDAO implements IAusenciaDAO {
     }
 
     @Override
-    public Ausencia find(Object idT) {
+    public Ausencia get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Ausencia> findAll() {
+    public List<Ausencia> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

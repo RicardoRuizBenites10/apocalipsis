@@ -8,6 +8,8 @@ package com.bruce.services.implement;
 import com.bruce.dao.design.IECivilDAO;
 import com.bruce.dao.to.Ecivil;
 import com.bruce.services.design.IECivilService;
+import com.bruce.util.FilterPage;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ECivilService implements IECivilService {
-    
+
     @Autowired
     private IECivilDAO dao;
 
@@ -44,13 +46,15 @@ public class ECivilService implements IECivilService {
     @Override
     @Transactional
     public List<Ecivil> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
-    
+
     @Override
     @Transactional
     public List<Ecivil> findBySituacion(boolean situacion) {
-        return dao.filterBySituacion(situacion);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("situacion", situacion));
+        return dao.getByFilter(0, 100, null, filters);
     }
 
     @Override
@@ -58,5 +62,5 @@ public class ECivilService implements IECivilService {
     public void update(Ecivil t) {
         dao.update(t);
     }
-    
+
 }

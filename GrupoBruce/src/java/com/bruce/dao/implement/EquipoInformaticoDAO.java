@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IEquipoInformaticoDAO;
 import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -30,7 +31,7 @@ public class EquipoInformaticoDAO implements IEquipoInformaticoDAO{
     private SessionFactory sf;
 
     @Override
-    public List<EquipoInformatico> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<EquipoInformatico> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(EquipoInformatico.class);
         if (filters != null) {
@@ -98,12 +99,12 @@ public class EquipoInformaticoDAO implements IEquipoInformaticoDAO{
     }
 
     @Override
-    public EquipoInformatico find(Object idT) {
+    public EquipoInformatico get(Object idT) {
         return (EquipoInformatico) sf.getCurrentSession().get(EquipoInformatico.class, (Serializable) idT);
     }
 
     @Override
-    public List<EquipoInformatico> findAll() {
+    public List<EquipoInformatico> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

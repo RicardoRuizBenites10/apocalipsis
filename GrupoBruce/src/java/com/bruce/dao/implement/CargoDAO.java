@@ -9,6 +9,7 @@ import com.bruce.dao.design.ICargoDAO;
 import com.bruce.dao.to.Cargo;
 import java.util.List;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,7 +30,7 @@ public class CargoDAO implements ICargoDAO{
     private SessionFactory sf;
     
     @Override
-    public List<Cargo> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<Cargo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Cargo.class);
         if(filters!=null){
@@ -90,12 +91,12 @@ public class CargoDAO implements ICargoDAO{
     }
 
     @Override
-    public Cargo find(Object idT) {
+    public Cargo get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Cargo> findAll() {
+    public List<Cargo> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

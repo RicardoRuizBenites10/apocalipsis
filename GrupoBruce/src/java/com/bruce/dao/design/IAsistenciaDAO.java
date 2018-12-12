@@ -14,7 +14,5 @@ import java.util.List;
  * @author RICARDO
  */
 public interface IAsistenciaDAO extends IEntidadDAO<Asistencia>{
-    public List<Asistencia> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Asistencia lastByFilter(List<FilterPage> filters);
+    
 }

@@ -13,7 +13,6 @@ import com.bruce.dao.to.EquipoInformatico;
 import com.bruce.services.design.IEquipoInformaticoService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
-import com.bruce.util.Metodo;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +63,7 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -88,7 +87,7 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
         filters.add(new FilterPage("eq", "idEequipo", Constante.EQUIPO_ESTADO_PORASIGNAR));
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -142,7 +141,7 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
     @Override
     @Transactional
     public EquipoInformatico find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

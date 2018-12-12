@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.TipoContrato;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface ITipoContratoDAO extends IEntidadDAO<TipoContrato>{
-    public List<TipoContrato> filterBySituacion(boolean situacion);
 }

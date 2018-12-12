@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.ISituacionDAO;
 import com.bruce.dao.to.Situacion;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -44,21 +45,42 @@ public class SituacionDAO implements ISituacionDAO {
     }
 
     @Override
-    public Situacion find(Object idT) {
+    public Situacion get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Situacion> findAll() {
+    public List<Situacion> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Situacion last(String idTrabajador) {
+    public List<Situacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Situacion.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        return cr.list();
+    }
+
+    @Override
+    public Situacion lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Situacion situacion = null;
         Criteria cr = session.createCriteria(Situacion.class);
-        cr.add(Restrictions.eq("idTrabajador", idTrabajador));
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }        
         cr.addOrder(Order.desc("idSituacion"));
         cr.setFirstResult(0);
         List result = cr.list();

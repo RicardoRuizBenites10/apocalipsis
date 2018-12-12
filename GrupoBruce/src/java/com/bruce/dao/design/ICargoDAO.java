@@ -14,7 +14,4 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ICargoDAO extends IEntidadDAO<Cargo>{
-    public List<Cargo> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Cargo lastByFilter(List<FilterPage> filters);
 }

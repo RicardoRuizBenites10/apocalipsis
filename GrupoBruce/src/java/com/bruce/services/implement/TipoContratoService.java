@@ -50,7 +50,7 @@ public class TipoContratoService implements ITipoContratoService{
     @Override
     @Transactional
     public List<TipoContrato> findAll() {
-        return dao.findAll();
+        return dao.getAll();
     }
     
 }

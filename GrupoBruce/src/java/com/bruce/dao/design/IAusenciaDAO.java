@@ -14,7 +14,4 @@ import java.util.List;
  * @author RICARDO
  */
 public interface IAusenciaDAO extends IEntidadDAO<Ausencia> {
-    public List<Ausencia> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Ausencia lastByFilter(List<FilterPage> filters);
 }

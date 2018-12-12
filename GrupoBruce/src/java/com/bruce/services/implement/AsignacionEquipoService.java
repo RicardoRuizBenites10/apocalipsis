@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class AsignacionEquipoService implements IAsignacionEquipoService{
-    
+public class AsignacionEquipoService implements IAsignacionEquipoService {
+
     @Autowired
     private IAsignacionEquipoDAO dao;
     @Autowired
@@ -36,7 +36,7 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     @Override
     @Transactional
     public List<AsignacionEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, filters);
+        return dao.getByFilter(start, limit, null, filters);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class AsignacionEquipoService implements IAsignacionEquipoService{
     @Override
     @Transactional
     public AsignacionEquipo find(Object id) {
-        return dao.find(id);
+        return dao.get(id);
     }
 
     @Override

@@ -6,12 +6,10 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.EstadoEstudio;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEstadoEstudioDAO extends IEntidadDAO<EstadoEstudio>{
-    public List<EstadoEstudio> filterBySituacion(boolean situacion);
 }

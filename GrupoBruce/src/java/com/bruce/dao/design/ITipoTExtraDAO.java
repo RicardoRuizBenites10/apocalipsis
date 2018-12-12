@@ -11,6 +11,5 @@ import com.bruce.dao.to.TipoTextra;
  *
  * @author RICARDO
  */
-public interface ITipoTExtraDAO extends IEntidadDAO<TipoTextra>{
-    
+public interface ITipoTExtraDAO extends IEntidadDAO<TipoTextra> {
 }

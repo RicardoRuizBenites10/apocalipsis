@@ -7,8 +7,8 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITipoEquipoDAO;
 import com.bruce.dao.to.TipoEquipo;
-import com.bruce.dao.to.TipoEquipo;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -31,12 +31,17 @@ public class TipoEquipoDAO implements ITipoEquipoDAO {
     private SessionFactory sf;
 
     @Override
-    public List<TipoEquipo> getByFilter(int start, int limit, List<FilterPage> filters) {
+    public List<TipoEquipo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(TipoEquipo.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
         return cr.list();
@@ -92,12 +97,12 @@ public class TipoEquipoDAO implements ITipoEquipoDAO {
     }
 
     @Override
-    public TipoEquipo find(Object idT) {
+    public TipoEquipo get(Object idT) {
         return (TipoEquipo) sf.getCurrentSession().get(TipoEquipo.class, (Serializable) sf);
     }
 
     @Override
-    public List<TipoEquipo> findAll() {
+    public List<TipoEquipo> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

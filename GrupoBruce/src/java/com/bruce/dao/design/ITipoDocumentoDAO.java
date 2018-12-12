@@ -13,5 +13,4 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface ITipoDocumentoDAO extends IEntidadDAO<TipoDocumento>{
-    public List<TipoDocumento> filterBySituacion(boolean situacion);
 }

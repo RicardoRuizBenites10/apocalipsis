@@ -7,12 +7,16 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.ITipoTExtraDAO;
 import com.bruce.dao.to.TipoTextra;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author RICARDO
  */
+@Repository
 public class TipoTExtraDAO implements ITipoTExtraDAO{
 
     @Override
@@ -31,12 +35,27 @@ public class TipoTExtraDAO implements ITipoTExtraDAO{
     }
 
     @Override
-    public TipoTextra find(Object idT) {
+    public TipoTextra get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<TipoTextra> findAll() {
+    public List<TipoTextra> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TipoTextra lastByFilter(List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TipoTextra> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int countByFilter(List<FilterPage> filters) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
