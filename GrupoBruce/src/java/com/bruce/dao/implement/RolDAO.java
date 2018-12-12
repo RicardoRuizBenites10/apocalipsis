@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IEmpresaDAO;
-import com.bruce.dao.to.Empresa;
+import com.bruce.dao.design.IRolDAO;
+import com.bruce.dao.to.Rol;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import java.util.List;
@@ -25,15 +25,62 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class EmpresaDAO implements IEmpresaDAO {
+public class RolDAO implements IRolDAO {
 
     @Autowired
     private SessionFactory sf;
 
     @Override
-    public List<Empresa> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public void create(Rol t) {
+        sf.getCurrentSession().save(t);
+    }
+
+    @Override
+    public void update(Rol t) {
+        sf.getCurrentSession().update(t);
+    }
+
+    @Override
+    public void delete(Rol t) {
+        sf.getCurrentSession().delete(t);
+    }
+
+    @Override
+    public Rol get(Object idT) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Rol lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Empresa.class);
+        Rol entity = null;
+        Criteria cr = session.createCriteria(Rol.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idRol"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            entity = (Rol) result.get(0);
+        }
+        return entity;
+    }
+
+    @Override
+    public List<Rol> getAll() {
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("FROM Rol");
+        return query.list();
+    }
+
+    @Override
+    public List<Rol> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Rol.class);
         if(filters!=null){
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
@@ -48,56 +95,9 @@ public class EmpresaDAO implements IEmpresaDAO {
     }
 
     @Override
-    public void create(Empresa t) {
-        sf.getCurrentSession().save(t);
-    }
-
-    @Override
-    public void update(Empresa t) {
-        sf.getCurrentSession().update(t);
-    }
-
-    @Override
-    public void delete(Empresa t) {
-        sf.getCurrentSession().delete(t);
-    }
-
-    @Override
-    public Empresa get(Object idT) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Empresa> getAll() {
-        Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Empresa");
-        return query.list();
-    }
-
-    @Override
-    public Empresa lastByFilter(List<FilterPage> filters) {
-        Session session = sf.getCurrentSession();
-        Empresa entity = null;
-        Criteria cr = session.createCriteria(Empresa.class);
-        if(filters!=null){
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-            });
-        }
-        cr.addOrder(Order.desc("idEmpresa"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        if (result.size() > 0) {
-            entity = (Empresa) result.get(0);
-        }
-        return entity;
-    }
-
-    @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Empresa.class);
+        Criteria cr = session.createCriteria(Rol.class);
         if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
@@ -107,5 +107,4 @@ public class EmpresaDAO implements IEmpresaDAO {
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
     }
-
 }

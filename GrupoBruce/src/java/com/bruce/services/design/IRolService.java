@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.Rol;
 
@@ -11,6 +11,6 @@ import com.bruce.dao.to.Rol;
  *
  * @author SISTEMAS
  */
-public interface IRolDAO extends IEntidadDAO<Rol>{
+public interface IRolService extends IEntidadService<Rol>{
     
 }
