@@ -5,9 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IRolDAO;
-import com.bruce.dao.to.Rol;
-import com.bruce.services.design.IRolService;
+import com.bruce.dao.design.IAccesoDAO;
+import com.bruce.dao.to.Acceso;
+import com.bruce.services.design.IAccesoService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,45 +24,31 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class RolService implements IRolService{
+public class AccesoService implements IAccesoService{
     
     @Autowired
-    private IRolDAO dao;
+    private IAccesoDAO dao;
 
     @Override
     @Transactional
-    public void insert(Rol t) {
-        Rol last = dao.lastByFilter(null);
-        int idLast = last != null ? Integer.parseInt(last.getIdRol()) : 0 ;
-        t.setIdRol(String.format("%03d", idLast + 1));
+    public void insert(Acceso t) {
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(Rol t) {
+    public void update(Acceso t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Rol t) {
+    public void delete(Acceso t) {
         dao.delete(t);
     }
 
     @Override
     @Transactional
-    public Rol find(Object id) {
-        return dao.get(id);
-    }
-
-    @Override
-    @Transactional
-    public List<Rol> findAll() {
-        return dao.getAll();
-    }
-
-    @Override
     public int countByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -71,7 +57,7 @@ public class RolService implements IRolService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -80,7 +66,14 @@ public class RolService implements IRolService{
     }
 
     @Override
-    public Rol lastByFilter(String filter, String query) {
+    @Transactional
+    public Acceso find(Object id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public Acceso lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -88,7 +81,7 @@ public class RolService implements IRolService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -97,7 +90,14 @@ public class RolService implements IRolService{
     }
 
     @Override
-    public List<Rol> getByFilter(int start, int limit, String sort, String filter, String query) {
+    @Transactional
+    public List<Acceso> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public List<Acceso> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -110,12 +110,17 @@ public class RolService implements IRolService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
         }
         return dao.getByFilter(start, limit, sorts, filters);
+    }
+
+    @Override
+    public List<Acceso> getByRol(int start, int limit, String idRol) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -1,6 +1,7 @@
 package com.bruce.dao.to;
 // Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -37,6 +38,35 @@ public class AccesoId implements java.io.Serializable {
 
     public void setIdMenu(String idMenu) {
         this.idMenu = idMenu;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.idRol);
+        hash = 37 * hash + Objects.hashCode(this.idMenu);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AccesoId other = (AccesoId) obj;
+        if (!Objects.equals(this.idRol, other.idRol)) {
+            return false;
+        }
+        if (!Objects.equals(this.idMenu, other.idMenu)) {
+            return false;
+        }
+        return true;
     }
 
 }

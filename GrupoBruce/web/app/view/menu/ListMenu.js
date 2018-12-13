@@ -22,9 +22,8 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
     },
     allowDeselect: true,
 
-    rootVisible: false,
-//    singleExpand: true,
     closable: true,
+    rootVisible: false,
     useArrows: true,
 
     style: 'border: solid rgb(234,234,236) 1px',

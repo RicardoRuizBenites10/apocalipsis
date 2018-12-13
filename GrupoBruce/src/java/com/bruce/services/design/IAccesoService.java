@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.Acceso;
 import java.util.List;
@@ -12,6 +12,6 @@ import java.util.List;
  *
  * @author SISTEMAS
  */
-public interface IAccesoDAO extends IEntidadDAO<Acceso>{
+public interface IAccesoService extends IEntidadService<Acceso>{
     public List<Acceso> getByRol(int start, int limit, String idRol);
 }

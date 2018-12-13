@@ -1,10 +1,31 @@
 Ext.define('GrupoBruce.model.Acceso', {
     extend: 'Ext.data.Model',
-    idProperty: 'accesoIdId',
+    alias: 'model.Macceso',
+
+    idProperty: 'idMenu',
     fields: [
-        { name: 'vistas', type: 'string' },
-        { name: 'accesoIdId', reference: 'GrupoBruce.model.AccesoId', unique: true },
-        { name: 'usuarioId', reference: 'GrupoBruce.model.Usuario', type: 'string' },
-        { name: 'menuId', reference: 'GrupoBruce.model.Menu', type: 'int' }
-    ]
+        {name: 'acceder', type: 'boolean'},
+        {name: 'fechaUpdate', type: 'date'},
+        {name: 'idMenu', type: 'string'},
+        {name: 'idRol', type: 'string'}
+    ],
+    
+    proxy: {
+        type: 'ajax',
+        api: {
+            create: 'iiAcceso',
+            read: 'accesos',
+            update: 'uuAcceso',
+            destroy: 'ddAcceso'
+        },
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+            successProperty: 'success'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true
+        }
+    }
 });

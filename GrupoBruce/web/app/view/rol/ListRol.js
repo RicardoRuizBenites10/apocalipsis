@@ -12,8 +12,14 @@ Ext.define('GrupoBruce.view.rol.ListRol', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Código',
+            dataIndex: 'idRol',
+            align: 'center'
+    },{
             text: 'Denominación',
-            dataIndex: 'denominacion'
+            dataIndex: 'denominacion',
+            align: 'left',
+            flex: 1
         }],
     
     dockedItems: [{
@@ -22,9 +28,9 @@ Ext.define('GrupoBruce.view.rol.ListRol', {
             items: [{
                     text: 'Nuevo',
                     iconCls: 'x-fa fa-plus',
-//                    bind: {
-//                        disabled: '{selectRol}'
-//                    },
+                    bind: {
+                        disabled: '{selectRol}'
+                    },
                     listeners: {
                         click: 'addRol'
                     }
@@ -32,26 +38,39 @@ Ext.define('GrupoBruce.view.rol.ListRol', {
                     text: 'Editar',
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
-//                    bind: {
-//                        disabled: '{!selectRol}'
-//                    },
+                    bind: {
+                        disabled: '{!selectRol}'
+                    },
                     listeners: {
                         click: 'editRol'
                     }
                 }, {
-                    text: 'Ver',
-                    iconCls: 'x-fa fa-search',
-                    disabled: true,
-//                    bind: {
-//                        disabled: '{!selectRol}'
-//                    }
+                    text: 'Eliminar',
+                    iconCls: 'x-fa fa-trash',
+                    disabled: true
+                    ,bind: {
+                        disabled: '{!selectRol}'
+                    },
+                    listeners: {
+                        click: 'deleteRol'
+                    }
+                },'-',{
+                    text: 'Accesos',
+                    iconCls: 'x-fa fa-dot-circle-o',
+                    disabled: true
+                    ,bind: {
+                        disabled: '{!selectRol}'
+                    },
+                    listeners: {
+                        click: 'onAccesoRol'
+                    }
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
-//            bind: {
-//                store: '{rols}'
-//            },
+            bind: {
+                store: '{rols}'
+            },
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
             emptyMsg: "No hay registros que mostrar",

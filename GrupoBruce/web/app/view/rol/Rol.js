@@ -5,7 +5,8 @@ Ext.define('GrupoBruce.view.rol.Rol',{
         'GrupoBruce.view.rol.RolController',
         'GrupoBruce.view.rol.RolModel',
         
-        'GrupoBruce.view.rol.ListRol'
+        'GrupoBruce.view.rol.ListRol',
+        'GrupoBruce.view.rol.FormRol'
     ],
 
     controller: 'Crol',
@@ -15,6 +16,7 @@ Ext.define('GrupoBruce.view.rol.Rol',{
     
     items: [{
             xtype: 'WlistRol',
+            id: 'id_wrol',
             height: 500
     }]
 });

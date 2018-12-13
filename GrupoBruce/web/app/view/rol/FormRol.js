@@ -13,7 +13,8 @@ Ext.define('GrupoBruce.view.rol.FormRol', {
     resizable: false,
     width: 400,
     autoShow: true,
-
+    
+    title: 'Editar rol',
     items: [{
             xtype: 'form',
             defaults: {
@@ -28,7 +29,9 @@ Ext.define('GrupoBruce.view.rol.FormRol', {
             items: [{
                     items: [{
                             xtype: 'textfield',
-                            fieldLabel: 'Denominación'
+                            name: 'denominacion',
+                            fieldLabel: 'Denominación',
+                            flex: 1
                         }]
                 }],
             buttons: [{
@@ -51,7 +54,7 @@ Ext.define('GrupoBruce.view.rol.FormRol', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'onSaveMenu'
+                        click: 'onSaveRol'
                     }
                 }]
         }]

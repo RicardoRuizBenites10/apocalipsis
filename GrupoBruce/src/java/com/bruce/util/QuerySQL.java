@@ -10,7 +10,9 @@ package com.bruce.util;
  * @author SISTEMAS
  */
 public class QuerySQL {
-
+    //ACCESO
+    public static final String ACCESO_ROL = "FROM Acceso WHERE usu = :idRol";
+    
     //USUARIO
     public static final String USUARIO_VALIDA = "FROM Usuario WHERE usu = :usuario AND clave = :pass";
 

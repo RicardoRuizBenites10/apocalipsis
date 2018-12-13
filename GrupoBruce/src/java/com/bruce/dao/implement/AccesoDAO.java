@@ -8,13 +8,15 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAccesoDAO;
 import com.bruce.dao.to.Acceso;
 import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,11 +29,6 @@ public class AccesoDAO implements IAccesoDAO{
     
     @Autowired
     private SessionFactory sf;
-    
-    @Override
-    public Acceso filterByID(String idUsuario, int idMenu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void create(Acceso acceso) {
@@ -55,22 +52,62 @@ public class AccesoDAO implements IAccesoDAO{
 
     @Override
     public Acceso lastByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Acceso acceso = null;
+        Criteria cr = session.createCriteria(Acceso.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idAcceso"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            acceso = (Acceso) result.get(0);
+        }
+        return acceso;
     }
 
     @Override
     public List<Acceso> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery("From Acceso");
+        return query.list();
     }
 
     @Override
     public List<Acceso> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Acceso.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        return cr.list();
+    }
+
+    @Override
+    public List<Acceso> getByRol(int start, int limit, String idRol) {
+        Session session = sf.getCurrentSession();
+        Query query = session.createQuery(idRol);
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(Acceso.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
     }
     
 }

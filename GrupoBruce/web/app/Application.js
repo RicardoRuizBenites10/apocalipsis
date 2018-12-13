@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.Application', {
     },
 
     stores: [
+        'GrupoBruce.store.Acceso',
         'GrupoBruce.store.Archivo',
         'GrupoBruce.store.Area',
         'GrupoBruce.store.AsignacionDetalle',
