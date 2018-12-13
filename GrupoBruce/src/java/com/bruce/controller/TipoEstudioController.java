@@ -42,27 +42,14 @@ public class TipoEstudioController {
             @RequestParam("page") int page,
             @RequestParam("start") int start,
             @RequestParam("limit") int limit,
-            @RequestParam("filter") String filter,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<FilterPage> filters = new ArrayList<>();
-        try {
-            filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (query != null && !query.equalsIgnoreCase("")) {
-            filters.add(new FilterPage("like", "descripcion", query));
-        }
         Map<String, Object> map = new HashMap<>();
-        List<TipoEstudio> lista = std.getByFilter(start, limit, filters);
-
         map.put("success", true);
         map.put("message", "Datos encontrados");
-        map.put("data", lista);
+        map.put("data", std.getByFilter(start, limit, sort, filter, query));
         return map;
     }
 }

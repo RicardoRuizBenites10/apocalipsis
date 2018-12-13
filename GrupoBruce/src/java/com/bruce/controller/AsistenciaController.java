@@ -44,7 +44,9 @@ public class AsistenciaController {
             @RequestParam("page") int page,
             @RequestParam("start") int start,
             @RequestParam("limit") int limit,
-            @RequestParam("filter") String filter) {
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
 
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();

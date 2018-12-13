@@ -82,14 +82,26 @@ public class MantenimientoService implements IMantenimientoService {
 
     @Override
     @Transactional
-    public Mantenimiento lastByFilter(List<FilterPage> filters) {
+    public Mantenimiento lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "observacion", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
     public void insert(Mantenimiento t) {
-        Mantenimiento last = lastByFilter(null);
+        Mantenimiento last = dao.lastByFilter(null);
         int idLast = last != null ? Integer.parseInt(last.getIdMantenimiento().substring(4)) : 0;
         t.setIdMantenimiento(t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setIdEmantenimiento(Constante.MANTENIMIENTO_ESTADO_REQUERIDO);

@@ -15,7 +15,5 @@ import java.util.Map;
  * @author RICARDO
  */
 public interface IContratoTrabajadorService extends IEntidadService<ContratoTrabajador>{
-    public List<ContratoTrabajador> findByTrabajador(int start, int limit, List<FilterPage> filters);
-    public int totalCount(List<FilterPage> filters);
     public Map<String, Object>  validaAdd(String idTrabajador);
 }

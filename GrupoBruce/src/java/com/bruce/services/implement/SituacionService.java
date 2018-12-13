@@ -9,6 +9,10 @@ import com.bruce.dao.design.ISituacionDAO;
 import com.bruce.dao.to.Situacion;
 import com.bruce.services.design.ISituacionService;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +31,19 @@ public class SituacionService implements ISituacionService{
 
     @Override
     @Transactional
-    public Situacion last(String idTrabajador) {
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idTrabajador", idTrabajador));
-        return dao.lastByFilter(filters);
-    }
-
-    @Override
-    @Transactional
-    public int countByFilter(List<FilterPage> filters) {
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.countByFilter(filters);
     }
 
@@ -67,6 +75,47 @@ public class SituacionService implements ISituacionService{
     @Transactional(readOnly = true)
     public List<Situacion> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public Situacion lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.lastByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public List<Situacion> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.getByFilter(start, limit, sorts, filters);
     }
     
 }

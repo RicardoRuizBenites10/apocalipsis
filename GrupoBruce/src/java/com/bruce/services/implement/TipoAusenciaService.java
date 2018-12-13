@@ -9,6 +9,10 @@ import com.bruce.dao.design.ITipoAusenciaDAO;
 import com.bruce.dao.to.TipoAusencia;
 import com.bruce.services.design.ITipoAusenciaService;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +65,65 @@ public class TipoAusenciaService implements ITipoAusenciaService{
     @Transactional
     public List<TipoAusencia> findAll() {
         return dao.getAll();
+    }
+
+    @Override
+    @Transactional
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.countByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public TipoAusencia lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.lastByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public List<TipoAusencia> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.getByFilter(start, limit, sorts, filters);
     }
     
 }

@@ -110,7 +110,19 @@ public class EquipoInformaticoService implements IEquipoInformaticoService {
 
     @Override
     @Transactional
-    public EquipoInformatico lastByFilter(List<FilterPage> filters) {
+    public EquipoInformatico lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.lastByFilter(filters);
     }
 

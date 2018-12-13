@@ -6,15 +6,10 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.MantenimientoDetalle;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface IMantenimientoDetalleService extends IEntidadService<MantenimientoDetalle>{
-    public List<MantenimientoDetalle> getByFilter(int start, int limit, String sort, String filter, String query);
-    public int countByFilter(String filter, String query);
-    public MantenimientoDetalle lastByFilter(List<FilterPage> filters);
 }

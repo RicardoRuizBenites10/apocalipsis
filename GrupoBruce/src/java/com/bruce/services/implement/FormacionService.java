@@ -9,6 +9,10 @@ import com.bruce.dao.design.IFormacionDAO;
 import com.bruce.dao.to.Formacion;
 import com.bruce.services.design.IFormacionService;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +31,60 @@ public class FormacionService implements IFormacionService{
     
     @Override
     @Transactional
-    public List<Formacion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, null, filters);
+    public List<Formacion> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override
     @Transactional
-    public int countByFilter(List<FilterPage> filters) {
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Formacion lastByFilter(List<FilterPage> filters) {
+    public Formacion lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.lastByFilter(filters);
     }
 
@@ -48,7 +93,7 @@ public class FormacionService implements IFormacionService{
     public void insert(Formacion t) {
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idTrabajador", t.getIdTrabajador()));
-        Formacion last = lastByFilter(filters);
+        Formacion last = dao.lastByFilter(filters);
         int idLast = last != null ? last.getIdFormacion() : 0;
         t.setIdFormacion(idLast + 1);
         dao.create(t);

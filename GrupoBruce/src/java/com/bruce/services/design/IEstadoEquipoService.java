@@ -6,15 +6,10 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.EstadoEquipo;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface IEstadoEquipoService extends IEntidadService<EstadoEquipo>{
-    public List<EstadoEquipo> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public EstadoEquipo lastByFilter(List<FilterPage> filters);
 }

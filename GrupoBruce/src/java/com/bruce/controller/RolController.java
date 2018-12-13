@@ -7,7 +7,6 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.Rol;
 import com.bruce.services.design.IRolService;
-import com.bruce.services.design.IRolService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -81,7 +81,19 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
 
     @Override
     @Transactional
-    public MantenimientoProceso lastByFilter(List<FilterPage> filters) {
+    public MantenimientoProceso lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.lastByFilter(filters);
     }
 
