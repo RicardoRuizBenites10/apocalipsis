@@ -9,6 +9,11 @@ import com.bruce.dao.design.IVacacionDAO;
 import com.bruce.dao.to.Vacacion;
 import com.bruce.services.design.IVacacionService;
 import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +31,25 @@ public class VacacionService implements IVacacionService{
     
     @Override
     @Transactional
-    public List<Vacacion> getByFilter(int start, int limit, List<FilterPage> filters) {
-        return dao.getByFilter(start, limit, null, filters);
+    public List<Vacacion> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override
@@ -67,13 +89,37 @@ public class VacacionService implements IVacacionService{
 
     @Override
     @Transactional
-    public int countByFilter(List<FilterPage> filters) {
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Vacacion last(List<FilterPage> filters) {
+    public Vacacion lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         return dao.lastByFilter(filters);
     }
     

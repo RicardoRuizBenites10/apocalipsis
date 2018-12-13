@@ -59,7 +59,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, null, filters);
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override
@@ -82,23 +82,16 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
 
     @Override
     @Transactional
-    public AsignacionDetalle lastByFilter(List<FilterPage> filters) {
-        return dao.lastByFilter(filters);
-    }
-
-    @Override
-    @Transactional
     public void insert(AsignacionDetalle t) {
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idAequipo", t.getIdAequipo()));
-        AsignacionDetalle last = lastByFilter(filters);
+        AsignacionDetalle last = dao.lastByFilter(filters);
         int idLast = last != null ? Integer.parseInt(last.getIdAdetalle().substring(4)) : 0;
-        System.out.println("Ptmr: " + t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setIdAdetalle(t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setFecha(new Date());
         t.setAsignado(true);
         dao.create(t);
-        
+
         EquipoInformatico equipo = dao2.get(t.getIdEinformatico());
         equipo.setIdEequipo(Constante.EQUIPO_ESTADO_ASIGNADO);
         dao2.update(equipo);
@@ -135,6 +128,23 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Transactional
     public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle) {
         return dao.validaREquipoAsignacion(asignacionDetalle);
+    }
+
+    @Override
+    public AsignacionDetalle lastByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "einformatico", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dao.lastByFilter(filters);
     }
 
 }

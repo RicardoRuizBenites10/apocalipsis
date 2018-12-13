@@ -47,11 +47,9 @@ public class TrabajadorController {
             @RequestParam(required = false, value = "query") String query) {
 
         Map<String, Object> map = new HashMap<>();
-        List<Trabajador> lista = st.findPagination(start, limit, sort, filter, query);
-        
         map.put("success", true);
         map.put("message", "Datos encontrados");
-        map.put("data", lista);
+        map.put("data", st.getByFilter(start, limit, sort, filter, query));
         map.put("total", st.countByFilter(filter, query));
         return map;
     }

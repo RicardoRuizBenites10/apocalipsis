@@ -15,6 +15,9 @@ public interface IEntidadService<T> {
     public void insert(T t);
     public void update(T t);
     public void delete(T t);
+    public int  countByFilter(String filter, String query);
     public T find(Object id);
+    public T lastByFilter(String filter, String query);
     public List<T> findAll();
+    public List<T> getByFilter(int start, int limit, String sort, String filter, String query);
 }

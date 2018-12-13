@@ -61,7 +61,7 @@ public class TrabajadorService implements ITrabajadorService {
 
     @Override
     @Transactional
-    public List<Trabajador> findPagination(int start, int limit, String sort, String filter, String query) {
+    public List<Trabajador> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -104,5 +104,10 @@ public class TrabajadorService implements ITrabajadorService {
     @Transactional
     public void update(Trabajador t) {
         dao.update(t);
+    }
+
+    @Override
+    public Trabajador lastByFilter(String filter, String query) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

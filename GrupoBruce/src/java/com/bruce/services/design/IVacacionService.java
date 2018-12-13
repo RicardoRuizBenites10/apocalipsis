@@ -6,16 +6,10 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Vacacion;
-import com.bruce.util.FilterPage;
-import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IVacacionService extends IEntidadService<Vacacion> {
-
-    public List<Vacacion> getByFilter(int start, int limit, List<FilterPage> filters);
-    public int countByFilter(List<FilterPage> filters);
-    public Vacacion last(List<FilterPage> filters);
 }

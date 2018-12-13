@@ -5,8 +5,9 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.AsignacionEquipo;
-import com.bruce.services.design.IAsignacionEquipoService;
+import com.bruce.dao.to.Rol;
+import com.bruce.services.design.IRolService;
+import com.bruce.services.design.IRolService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author RICARDO
  */
 @Controller
-public class AsignacionEquipoController {
-
+public class RolController {
     @Autowired
-    private IAsignacionEquipoService sct;
+    private IRolService sct;
 
     @ResponseBody
-    @RequestMapping(value = "/asignacionsEquipo", method = RequestMethod.GET)
+    @RequestMapping(value = "/rols", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
@@ -43,49 +43,43 @@ public class AsignacionEquipoController {
         map.put("total", sct.countByFilter(filter, query));
         return map;
     }
-    
-    @ResponseBody
-    @RequestMapping(value = "/relacionAsignacionEquipo", method = RequestMethod.POST)
-    public Map<String, Object> validaRelacion(@RequestBody AsignacionEquipo asignacionEquipo) {
-        return sct.validaRelacion(asignacionEquipo);
-    }
 
     @ResponseBody
-    @RequestMapping(value = "/iiAsignacionEquipo", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody AsignacionEquipo asignacionEquipo) {
+    @RequestMapping(value = "/iiRol", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Rol rol) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(asignacionEquipo);
+        sct.insert(rol);
         map.put("success", true);
-        map.put("data", asignacionEquipo);
+        map.put("data", rol);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuAsignacionEquipo", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody AsignacionEquipo asignacionEquipo) {
+    @RequestMapping(value = "/uuRol", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Rol rol) {
         Map<String, Object> map = new HashMap<>();
-        sct.update(asignacionEquipo);
+        sct.update(rol);
         map.put("success", true);
-        map.put("data", asignacionEquipo);
+        map.put("data", rol);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddAsignacionEquipo", method = RequestMethod.POST)
-    public Map<String, Object> delete(@RequestBody AsignacionEquipo asignacionEquipo) {
+    @RequestMapping(value = "/ddRol", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Rol rol) {
         Map<String, Object> map = new HashMap<>();
         boolean success = false;
         String msg = "Operacion exitosa";
         try {
-            sct.delete(asignacionEquipo);
+            sct.delete(rol);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();
         }
         map.put("success", success);
-        map.put("data", asignacionEquipo);
+        map.put("data", rol);
         map.put("message", msg);
         return map;
     }
