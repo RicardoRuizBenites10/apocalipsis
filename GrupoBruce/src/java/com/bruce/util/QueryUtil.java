@@ -9,9 +9,9 @@ package com.bruce.util;
  *
  * @author SISTEMAS
  */
-public class QuerySQL {
+public class QueryUtil {
     //ACCESO
-    public static final String ACCESO_ROL = "FROM Acceso WHERE usu = :idRol";
+    public static final String ACCESO_ROL = "SELECT M.ID_MENU, :IDROL ID_ROL, ISNULL(A.FECHA_UPDATE,GETDATE()) FECHA_UPDATE, ISNULL(A.ACCEDER, 0) AS ACCEDER , M.DESCRIPCION text, M.LEAF, M.ID_SUPMENU idSupmenu FROM MENU M LEFT JOIN ACCESO A ON A.ID_MENU = M.ID_MENU AND A.ID_ROL=:IDROL";
     
     //USUARIO
     public static final String USUARIO_VALIDA = "FROM Usuario WHERE usu = :usuario AND clave = :pass";

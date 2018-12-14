@@ -13,7 +13,11 @@ Ext.define('GrupoBruce.view.acceso.AccesoModel', {
             filters: [{
                     property: 'idRol',
                     value: '{recordRol.idRol}'
-                }]
+                }],
+            proxy: {
+                type: 'ajax',
+                url: 'accesosRol'
+            }
         }
     }
 

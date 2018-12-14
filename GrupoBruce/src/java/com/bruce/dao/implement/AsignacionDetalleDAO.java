@@ -8,7 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.to.AsignacionDetalle;
 import com.bruce.util.FilterPage;
-import com.bruce.util.QuerySQL;
+import com.bruce.util.QueryUtil;
 import com.bruce.util.SortPage;
 import java.io.Serializable;
 import java.util.List;
@@ -48,7 +48,7 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     public boolean validaREquipoAsignacion(AsignacionDetalle asignacionDetalle) {
         boolean rpta;
         Session session = sf.getCurrentSession();
-        Query query = session.createSQLQuery(QuerySQL.ASIGNACION_DETALLE_VALIDA);
+        Query query = session.createSQLQuery(QueryUtil.ASIGNACION_DETALLE_VALIDA);
         query.setParameter("IDEINFORMATICO", asignacionDetalle.getIdEinformatico());
         query.setParameter("IDASIGNACION", asignacionDetalle.getIdAequipo());
         List result = query.list();

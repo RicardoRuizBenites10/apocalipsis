@@ -38,7 +38,7 @@ public class AccesoController {
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("message", "Lista de áreas");
+        map.put("message", "Lista de accesos");
         map.put("data", serv.getByFilter(start, limit, sort, filter, query));
         map.put("total", serv.countByFilter(filter, query));
         return map;
@@ -55,8 +55,8 @@ public class AccesoController {
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("message", "Lista de áreas");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("message", "Lista de accesos");
+        map.put("data", serv.getByRol(filter));
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }

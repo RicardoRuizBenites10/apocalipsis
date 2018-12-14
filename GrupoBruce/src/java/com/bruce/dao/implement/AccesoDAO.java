@@ -10,9 +10,11 @@ import com.bruce.dao.to.Acceso;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.QueryUtil;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -90,9 +92,11 @@ public class AccesoDAO implements IAccesoDAO{
     }
 
     @Override
-    public List<Acceso> getByRol(int start, int limit, String idRol) {
+    public List<Acceso> getByRol(String idRol) {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery(idRol);
+        SQLQuery query = session.createSQLQuery(QueryUtil.ACCESO_ROL);
+        query.addEntity(Acceso.class);
+        query.setParameter("IDROL", idRol);
         return query.list();
     }
 

@@ -13,5 +13,5 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface IAccesoDAO extends IEntidadDAO<Acceso>{
-    public List<Acceso> getByRol(int start, int limit, String idRol);
+    public List<Acceso> getByRol(String idRol);
 }

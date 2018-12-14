@@ -14,7 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.Metodo;
-import com.bruce.util.QuerySQL;
+import com.bruce.util.QueryUtil;
 import java.util.ArrayList;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -61,7 +61,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
     @Override
     public List<Trabajador> getAll() {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL);
+        Query query = session.createQuery(QueryUtil.TRABAJADOR_ALL);
         return query.list();
     }
 
@@ -72,7 +72,7 @@ public class TrabajadorDAO implements ITrabajadorDAO {
 //        List<TrabajadorDTO> result = null;
 //        try {
 //            tx = session.beginTransaction();
-////            Query query = session.createQuery(QuerySQL.TRABAJADOR_ALL_PERFORMANCE);
+////            Query query = session.createQuery(QueryUtil.TRABAJADOR_ALL_PERFORMANCE);
 ////            result = query.setResultTransformer(Transformers.aliasToBean(TrabajadorDTO.class)).list();
 //            tx.commit();
 //        } catch (HibernateException he) {

@@ -13,7 +13,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import com.bruce.util.QuerySQL;
+import com.bruce.util.QueryUtil;
 import com.bruce.util.SortPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,7 +32,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     public Usuario valida(String usu, String pass) {
         Session session = sf.getCurrentSession();
         Usuario usuario = null;
-        Query query = session.createQuery(QuerySQL.USUARIO_VALIDA);
+        Query query = session.createQuery(QueryUtil.USUARIO_VALIDA);
         query.setParameter("usuario", usu);
         query.setParameter("pass", pass.getBytes());
         List result = query.list();

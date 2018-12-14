@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class AccesoService implements IAccesoService{
-    
+public class AccesoService implements IAccesoService {
+
     @Autowired
     private IAccesoDAO dao;
 
@@ -119,8 +119,20 @@ public class AccesoService implements IAccesoService{
     }
 
     @Override
-    public List<Acceso> getByRol(int start, int limit, String idRol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public List<Acceso> getByRol(String filter) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            }
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        String idRol = filters.size() > 0 ? (String) filters.get(0).getValue() : "";
+        return dao.getByRol(idRol);
     }
-    
+
 }
