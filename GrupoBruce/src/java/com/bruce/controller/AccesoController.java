@@ -47,9 +47,6 @@ public class AccesoController {
     @ResponseBody
     @RequestMapping(value = "/accesosRol", method = RequestMethod.GET)
     public Map<String, Object> getByRol(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {

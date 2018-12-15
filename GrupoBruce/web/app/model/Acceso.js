@@ -4,13 +4,13 @@ Ext.define('GrupoBruce.model.Acceso', {
 
     idProperty: 'idMenu',
     fields: [
+        {name: 'idMenu', type: 'string'},
+        {name: 'idSupmenu', type: 'string'},
+        {name: 'text', type: 'string'},
+        {name: 'leaf', type: 'boolean'},
         {name: 'checked', type: 'boolean'},
         {name: 'fechaUpdate', type: 'date'},
-        {name: 'idMenu', type: 'string'},
-        {name: 'idRol', type: 'string'},
-        {name: 'text', type: 'string'},
-        {name: 'idSupmenu', type: 'string'},
-        {name: 'leaf', type: 'boolean'}
+        {name: 'idRol', type: 'string'}
     ],
     
     proxy: {

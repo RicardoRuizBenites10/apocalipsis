@@ -16,7 +16,12 @@ Ext.define('GrupoBruce.view.acceso.AccesoModel', {
                 }],
             proxy: {
                 type: 'ajax',
-                url: 'accesosRol'
+                url: 'accesosRol',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    successProperty: 'success'
+                }
             }
         }
     }
