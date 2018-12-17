@@ -8,11 +8,11 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
         plugins: {
             ptype: 'treeviewdragdrop'
         }
-//        ,listeners: {
-//            drop: function (node, data, overModel, dropPosition) {
-//                alert('Node: ' + node + ' Data: ' + dropPosition);
-//            }
-//        }
+        ,listeners: {
+            drop: function (node, data, model, dropPosition) {
+                alert('Node: ' + model.get('idMenu') + ' Data: ' + dropPosition);
+            }
+        }
     },
 
     bind: {

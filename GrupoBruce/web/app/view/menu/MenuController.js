@@ -70,4 +70,5 @@ Ext.define('GrupoBruce.view.menu.MenuController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
     }
+
 });

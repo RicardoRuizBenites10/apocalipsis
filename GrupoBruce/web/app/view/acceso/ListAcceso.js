@@ -7,14 +7,14 @@ Ext.define('GrupoBruce.view.acceso.ListAcceso', {
         store: '{accesosRol}',
         selection: '{selectAcceso}'
     },
-    
+
     rootVisible: false,
     useArrows: true,
-    
-    checkPropagation: 'both',
-    frame: true,
-    bufferedRenderer: false,
-    animate: true,
+
+    checkPropagation: 'down',
+//    frame: true,
+//    bufferedRenderer: false,
+//    animate: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
@@ -23,7 +23,7 @@ Ext.define('GrupoBruce.view.acceso.ListAcceso', {
             dataIndex: 'text',
             width: 500,
             align: 'left'
-        },{
+        }, {
             text: 'Codigo',
             dataIndex: 'idMenu',
             width: 100,
@@ -37,6 +37,10 @@ Ext.define('GrupoBruce.view.acceso.ListAcceso', {
                 text: 'Guardar',
                 handler: 'saveAcceso'
             }]
+    },
+
+    listeners: {
+        checkchange: 'onChangeSelect'
     }
 
 });
