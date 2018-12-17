@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Acceso;
 import com.bruce.services.design.IAccesoService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,17 @@ public class AccesoController {
     public Map<String, Object> insert(@RequestBody Acceso acceso) {
         Map<String, Object> map = new HashMap<>();
         serv.insert(acceso);
+        map.put("success", true);
+        map.put("data", acceso);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/iiLAcceso", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody List<Acceso> acceso) {
+        Map<String, Object> map = new HashMap<>();
+//        serv.insert(acceso);
         map.put("success", true);
         map.put("data", acceso);
         map.put("message", "Registro exitoso.");

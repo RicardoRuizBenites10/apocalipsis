@@ -21,6 +21,10 @@ Ext.define('GrupoBruce.view.acceso.AccesoModel', {
                     type: 'json',
                     rootProperty: 'data',
                     successProperty: 'success'
+                },
+                writer: {
+                    type: 'json',
+                    writeAllFields: true
                 }
             }
         }

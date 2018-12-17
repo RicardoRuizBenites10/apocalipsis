@@ -9,10 +9,10 @@ Ext.define('GrupoBruce.model.Acceso', {
         {name: 'text', type: 'string'},
         {name: 'leaf', type: 'boolean'},
         {name: 'checked', type: 'boolean'},
-        {name: 'fechaUpdate', type: 'date'},
+        {name: 'fechaUpdate', type: 'date', dateFormat: 'c'},
         {name: 'idRol', type: 'string'}
     ],
-    
+
     proxy: {
         type: 'ajax',
         api: {
