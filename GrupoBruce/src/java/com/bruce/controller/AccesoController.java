@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class AccesoController {
-    
+
     @Autowired
     private IAccesoService serv;
 
@@ -44,7 +44,7 @@ public class AccesoController {
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/accesosRol", method = RequestMethod.GET)
     public Map<String, Object> getByRol(
@@ -69,7 +69,7 @@ public class AccesoController {
         map.put("message", "Registro exitoso.");
         return map;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/iiLAcceso", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody List<Acceso> acceso) {
@@ -108,6 +108,6 @@ public class AccesoController {
         map.put("data", acceso);
         map.put("message", msg);
         return map;
-    }    
-    
+    }
+
 }

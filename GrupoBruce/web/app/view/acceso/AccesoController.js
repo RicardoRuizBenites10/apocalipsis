@@ -12,16 +12,17 @@ Ext.define('GrupoBruce.view.acceso.AccesoController', {
 //        }
     },
 
-    onTransform: function (extendModel) {
-        var model = new GrupoBruce.model.Acceso();
-        model.set('idMenu', extendModel.get('idMenu'));
-        model.set('idSupmenu', extendModel.get('idSupmenu'));
-        model.set('text', extendModel.get('text'));
-        model.set('leaf', extendModel.get('leaf'));
-        model.set('checked', extendModel.get('checked'));
-        model.set('fechaUpdate', Ext.Date.format(new Date(), 'c'));
-        model.set('idRol', extendModel.get('idRol'));
-        return model.data;
+    goToNodes: function (jsonData, node) {
+        var scope = this;
+        node.data.fechaUpdate = Ext.Date.format(new Date(), 'c');
+        node.set('fechaUpdate',new Date());
+        jsonData.push(node.data);
+        if (!node.get('leaf')) {
+            node.eachChild(function (childNode) { //childNode.parentNode
+               jsonData = scope.goToNodes(jsonData, childNode);
+            });
+        }
+        return jsonData;
     },
 
     saveAcceso: function (btn) {
@@ -29,14 +30,9 @@ Ext.define('GrupoBruce.view.acceso.AccesoController', {
         var store = grid.getStore();
         var jsonData = [];
         var scope = this;
-        
+
         store.each(function (model) {
-            jsonData.push(scope.onTransform(model));
-            if (!model.get('leaf')) {
-                model.parentNode.eachChild(function (child) {
-                    jsonData.push(scope.onTransform(child));
-                });
-            }
+            jsonData = scope.goToNodes(jsonData, model);
         });
 
         Ext.Ajax.request({

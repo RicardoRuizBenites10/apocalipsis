@@ -29,6 +29,7 @@ public class Acceso implements java.io.Serializable {
     private String text;
     private boolean leaf;
     private String idSupmenu;
+    private String parentId;
 
     public Acceso() {
     }
@@ -107,5 +108,14 @@ public class Acceso implements java.io.Serializable {
 
     public void setIdSupmenu(String idSupmenu) {
         this.idSupmenu = idSupmenu;
+    }
+
+    @Transient
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }

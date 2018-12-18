@@ -12,21 +12,21 @@ Ext.define('GrupoBruce.view.acceso.ListAcceso', {
     useArrows: true,
 
     checkPropagation: 'down',
-//    frame: true,
+    frame: true,
 //    bufferedRenderer: false,
 //    animate: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Codigo',
+            dataIndex: 'idMenu',
+            width: 80,
+            align: 'left'
+        },{
             xtype: 'treecolumn',
             text: 'Nombre',
             dataIndex: 'text',
             width: 500,
-            align: 'left'
-        }, {
-            text: 'Codigo',
-            dataIndex: 'idMenu',
-            width: 100,
             align: 'left'
         }],
 
