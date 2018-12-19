@@ -34,7 +34,7 @@ public class AccesoDAO implements IAccesoDAO{
 
     @Override
     public void create(Acceso acceso) {
-        sf.getCurrentSession().save(acceso);
+        sf.getCurrentSession().saveOrUpdate(acceso);
     }
 
     @Override

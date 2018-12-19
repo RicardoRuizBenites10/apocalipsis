@@ -73,6 +73,16 @@ public class AccesoService implements IAccesoService {
 
     @Override
     @Transactional
+    public void changeAcceso(List<Acceso> accesos) {
+        if(accesos.size()>0){
+            accesos.forEach( item -> {
+                dao.create(item);
+            });
+        }
+    }
+
+    @Override
+    @Transactional
     public Acceso lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -92,7 +102,7 @@ public class AccesoService implements IAccesoService {
     @Override
     @Transactional
     public List<Acceso> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.getAll();
     }
 
     @Override

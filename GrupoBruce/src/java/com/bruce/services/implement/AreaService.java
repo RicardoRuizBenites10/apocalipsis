@@ -53,7 +53,7 @@ public class AreaService implements IAreaService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit,null, filters);
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class AreaService implements IAreaService {
         } else {
             dao.delete(t);
             if (sup != null) {
-                sup.setLeaf(dao.countByFilter(filters2)==0);
+                sup.setLeaf(dao.countByFilter(filters2) == 0);
                 dao.update(sup);
             }
         }

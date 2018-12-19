@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface IAccesoService extends IEntidadService<Acceso>{
     public List<Acceso> getByRol(String filter);
+    public void changeAcceso(List<Acceso> accesos);
 }

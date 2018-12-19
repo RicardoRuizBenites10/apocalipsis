@@ -80,7 +80,7 @@ public class Acceso implements java.io.Serializable {
         this.checked = checked;
     }
     
-    @Generated(GenerationTime.ALWAYS) 
+    @Generated(GenerationTime.NEVER) 
     @Column(insertable = false, updatable = false)
     public String getText() {
         return text;
@@ -90,7 +90,7 @@ public class Acceso implements java.io.Serializable {
         this.text = text;
     }
 
-    @Generated(GenerationTime.ALWAYS) 
+    @Generated(GenerationTime.NEVER) 
     @Column(insertable = false, updatable = false)
     public boolean isLeaf() {
         return leaf;
@@ -100,7 +100,7 @@ public class Acceso implements java.io.Serializable {
         this.leaf = leaf;
     }
 
-    @Generated(GenerationTime.ALWAYS) 
+    @Generated(GenerationTime.NEVER) 
     @Column(insertable = false, updatable = false)
     public String getIdSupmenu() {
         return idSupmenu;

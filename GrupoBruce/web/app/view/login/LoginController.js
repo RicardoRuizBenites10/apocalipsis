@@ -2,12 +2,10 @@ Ext.define('GrupoBruce.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login',
 
-    validaSesion: function () {
-
-        var formLogin = this.lookupReference('formSesion');
-
+    validaSesion: function (btn) {
+        var formLogin = btn.up('form');
         if (!formLogin.isDirty()) {
-            Ext.Msg.alert('Status', 'No hay informacion que guardar.');
+            Ext.Msg.alert('Status', 'Por favor ingresar información.');
             return;
         } else if (!formLogin.isValid()) {
             Ext.Msg.alert('Status', 'Información ingresada no es valida.');

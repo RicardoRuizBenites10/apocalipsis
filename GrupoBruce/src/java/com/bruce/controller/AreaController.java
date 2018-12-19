@@ -30,16 +30,16 @@ public class AreaController {
     @ResponseBody
     @RequestMapping(value = "/areas", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "page") Integer page,
+            @RequestParam(required = false, value = "start") Integer start,
+            @RequestParam(required = false, value = "limit") Integer limit,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de áreas");
-        map.put("data", sct.getByFilter(start, limit, sort, filter, query));
+        map.put("data", sct.getByFilter(0, 1000, sort, filter, query));
         map.put("total", sct.countByFilter(filter, query));
         return map;
     }

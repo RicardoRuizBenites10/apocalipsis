@@ -15,11 +15,11 @@ Ext.define('GrupoBruce.view.acceso.AccesoController', {
     goToNodes: function (jsonData, node) {
         var scope = this;
         node.data.fechaUpdate = Ext.Date.format(new Date(), 'c');
-        node.set('fechaUpdate',new Date());
+        node.set('fechaUpdate', new Date());
         jsonData.push(node.data);
         if (!node.get('leaf')) {
             node.eachChild(function (childNode) { //childNode.parentNode
-               jsonData = scope.goToNodes(jsonData, childNode);
+                jsonData = scope.goToNodes(jsonData, childNode);
             });
         }
         return jsonData;
@@ -35,19 +35,13 @@ Ext.define('GrupoBruce.view.acceso.AccesoController', {
             jsonData = scope.goToNodes(jsonData, model);
         });
 
-        Ext.Ajax.request({
-            url: 'iiLAcceso',
-            jsonData: jsonData,
-            method: 'POST',
-            scope: this,
-            success: function (response, opts) {
-                var responseText = Ext.decode(response.responseText);
-                store.removeAll();
-                Ext.Msg.alert('Status', responseText.message);
-                store.setData(responseText.data);
+        store.sync({
+            success: function (response, operation) {
+                grid.getStore().reload();
+                Ext.Msg.alert('Success', 'Operación exitosa.');
             },
-            failurer: function (response, opts) {
-                Ext.Msg.alert('Status', response.status);
+            failure: function (response, operation) {
+                Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
             }
         });
     }

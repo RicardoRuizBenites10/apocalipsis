@@ -58,6 +58,17 @@ public class AccesoController {
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/accesosRol", method = RequestMethod.POST)
+    public Map<String, Object> changeByRol(@RequestBody List<Acceso> accesos) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeAcceso(accesos);
+        map.put("success", true);
+        map.put("data", accesos);
+        map.put("message", "Accesos actualizados.");
+        return map;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/iiAcceso", method = RequestMethod.POST)
