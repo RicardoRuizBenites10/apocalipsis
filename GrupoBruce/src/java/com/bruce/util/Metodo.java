@@ -254,4 +254,17 @@ public class Metodo {
         }
         return lista;
     }
+
+    public static String getFilters(String inicial, List<FilterPage> filters) {
+        String filter = " ";
+        int cont = 0;
+        if (filters != null && filters.size() > 0) {
+            filter = filter + "WHERE ";
+            for (FilterPage item : filters) {
+                cont++;
+                filter = filter + inicial + "." + item.getProperty() + " = :" + item.getProperty() + (filters.size() != cont ? " AND " : "");
+            }
+        }
+        return filter;
+    }
 }

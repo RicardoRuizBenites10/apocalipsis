@@ -57,6 +57,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TipoMantenimiento',
         'GrupoBruce.store.TipoTrabajador',
         'GrupoBruce.store.TipoVacacion',
+        'GrupoBruce.store.Usuario',
         'Grupobruce.store.Vacacion'
     ],
 

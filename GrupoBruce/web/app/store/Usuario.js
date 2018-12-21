@@ -3,6 +3,7 @@ Ext.define('GrupoBruce.store.Usuario',{
     model: 'GrupoBruce.model.Usuario',
     alias: 'store.Susuario',
     
-    autoLoad: true
+    remoteFilter: true,
+    remoteSort: true
     
 });

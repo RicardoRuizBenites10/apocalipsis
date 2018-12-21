@@ -66,6 +66,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
+    @Transactional
     public int countByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -74,7 +75,7 @@ public class UsuarioService implements IUsuarioService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -83,6 +84,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
+    @Transactional
     public Usuario lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -100,6 +102,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     @Override
+    @Transactional
     public List<Usuario> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
