@@ -267,4 +267,23 @@ public class Metodo {
         }
         return filter;
     }
+
+    public static String getOrders(String inicial, List<SortPage> orders) {
+        String order = " ";
+        int cont = 0;
+        if (orders != null && orders.size() > 0) {
+            order = order + "ORDER BY ";
+            for (SortPage item : orders) {
+                cont++;
+                order = order + inicial + "." + item.getProperty() + " " + item.getDirection() + (orders.size() != cont ? ", " : "");
+            }
+        }
+        return order;
+    }
+    
+    public static String getPagination(String start, String limit) {
+        String order = "OFFSET" + start+ "ROWS" + "FETCH NEXT " + limit + " ROWS ONLY";
+        return order;
+    }
+
 }

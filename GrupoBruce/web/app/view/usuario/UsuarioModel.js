@@ -9,11 +9,7 @@ Ext.define('GrupoBruce.view.usuario.UsuarioModel', {
     stores: {
         usuarios: {
             type: 'Susuario',
-            autoLoad: true,
-            filters: [{
-                    property: 'ID_USUARIO',
-                    value: '{usu}'
-                }]
+            autoLoad: true
         },
         rols: {
             type: 'Srol',

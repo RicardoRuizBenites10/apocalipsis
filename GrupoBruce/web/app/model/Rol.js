@@ -20,7 +20,8 @@ Ext.define('GrupoBruce.model.Rol', {
         reader: {
             type: 'json',
             rootProperty: 'data',
-            successProperty: 'message'
+            successProperty: 'message',
+            totalProperty: 'total'
         },
         writeer: {
             type: 'json',

@@ -15,10 +15,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.QueryUtil;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,20 +85,18 @@ public class UsuarioDAO implements IUsuarioDAO {
     public List<Usuario> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         String filtros = Metodo.getFilters("U", filters);
-        SQLQuery query = session.createSQLQuery(QueryUtil.USUARIOS + filtros);
-        System.err.println("JOOODER: " + QueryUtil.USUARIOS + filtros);
+        String ordenes = Metodo.getOrders("U", sorts);
+        SQLQuery query = session.createSQLQuery(QueryUtil.USUARIOS + filtros + ordenes);
+        ReverseQuery reverse = new ReverseQuery("USUARIO", "U");
+        reverse.addResult("U.ID_USUARIO", "U.ID_USUARIO");
+        reverse.addResult("U.USU", "U.USU");
+        System.err.println("My consulta: " + reverse.getQuery());
         query.addEntity(Usuario.class);
         if (!filtros.trim().equalsIgnoreCase("")) {
             filters.forEach((item) -> {
-                System.err.println("PARAMETRO: " + item.getProperty());
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-//        if (sorts != null) {
-//            sorts.forEach(item -> {
-//                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-//            });
-//        }
         return query.list();
     }
 

@@ -11,6 +11,7 @@ import com.bruce.services.design.ITrabajadorService;
 import com.bruce.services.design.IUsuarioService;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -106,10 +107,11 @@ public class UsuarioController {
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
+        List data = su.getByFilter(start, limit, sort, filter, query);
         map.put("success", true);
         map.put("message", "Lista de áreas");
-        map.put("data", su.getByFilter(start, limit, sort, filter, query));
-        map.put("total", su.countByFilter(filter, query));
+        map.put("data", data);
+        map.put("total", data.size());
         return map;
     }
 
