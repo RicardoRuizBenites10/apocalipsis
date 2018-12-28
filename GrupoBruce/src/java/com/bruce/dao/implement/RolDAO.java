@@ -61,7 +61,7 @@ public class RolDAO implements IRolDAO {
         Session session = sf.getCurrentSession();
         Rol entity = null;
         Criteria cr = session.createCriteria(Rol.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
@@ -89,9 +89,16 @@ public class RolDAO implements IRolDAO {
     public List<Rol> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Rol.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         if (sorts != null) {

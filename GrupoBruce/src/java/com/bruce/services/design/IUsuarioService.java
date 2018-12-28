@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Usuario;
+import java.util.Map;
 
 /**
  *
  * @author RICARDO
  */
 public interface IUsuarioService extends IEntidadService<Usuario>{
-    public Usuario accesoUsuario(String usu, String pass);
+    public Usuario accesoUsuario(Usuario usuario);
+    public Map<String,Object> validaNUsuario(Usuario usuario);
 }

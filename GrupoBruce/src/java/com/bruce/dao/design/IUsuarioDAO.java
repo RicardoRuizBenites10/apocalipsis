@@ -6,11 +6,13 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Usuario;
+import com.bruce.util.FilterPage;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IUsuarioDAO extends IEntidadDAO<Usuario>{
-    public Usuario valida(String usu, String pass);
+    public Usuario valida(List<FilterPage> filters);
 }

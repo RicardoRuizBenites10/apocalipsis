@@ -34,8 +34,6 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService su;
-    @Autowired
-    private ITrabajadorService st;
 
     private final UsuarioValidator validator;
 
@@ -43,36 +41,13 @@ public class UsuarioController {
         this.validator = new UsuarioValidator();
     }
 
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public ModelAndView accediendo() {
-//        return new ModelAndView("intranet/login", "usuario", new Usuario());
-//    }
-//    @RequestMapping(value = "/validate", method = RequestMethod.POST)
-//    public String validarUsuario(HttpServletRequest request, @ModelAttribute("usuario") Usuario usuario, BindingResult result, ModelMap model) {
-//        String urlResult = "intranet/login";
-//        validator.validate(usuario, result);
-//        if (!result.hasErrors()) {
-//            usuario = su.accesoUsuario(usuario.getUsu(), new String(usuario.getClave()));
-//            if (usuario!=null) {
-//                model.addAttribute("usuario", usuario);
-//                //DECLARACIÓN DE SESIÓN
-//                HttpSession sesion = request.getSession();
-//                sesion.setAttribute("ssUsuario", usuario);
-//                Date fs = new Date();
-//                sesion.setAttribute("ssFechaHora", fs);
-//                sesion.setMaxInactiveInterval(3 * 60);
-//                urlResult = "redirect:inicio";
-//            }
-//        }
-//        return urlResult;
-//    }
     @ResponseBody
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public Map<String, Object> validarUsuario(@RequestBody Usuario usuario, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
-        Usuario usu = su.accesoUsuario(usuario.getUsu(), usuario.getDeClave());
+        Usuario usu = su.accesoUsuario(usuario);
         if (usu != null) {
-            
+            usu.setDeClave("");
             //DECLARACIÓN DE SESIÓN
             HttpSession sesion = request.getSession();
             sesion.setAttribute("ssUsuario", usuario);
@@ -82,12 +57,18 @@ public class UsuarioController {
             
             map.put("success", true);
             map.put("message", "Usuario validado.");
-            map.put("data", st.find(usu.getIdUsuario()));
+            map.put("data", usu);
         } else {
             map.put("success", false);
             map.put("message", "El usuario y/o contraseña no coinciden.");
         }
         return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/validaNUsuario", method = RequestMethod.POST)
+    public Map<String, Object> validaNUsuario(@RequestBody Usuario usuario) {
+        return su.validaNUsuario(usuario);
     }
     
     @ResponseBody
@@ -154,18 +135,4 @@ public class UsuarioController {
         map.put("message", msg);
         return map;
     }
-    
-
-//    @RequestMapping(value = "/inicio", method = RequestMethod.GET)
-//    public String inicioUsuario() {
-//        return "intranet/inicio";
-//    }
-//
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public String salirUsuario(HttpServletRequest request) {
-//        HttpSession sesion = request.getSession();
-//        sesion.removeAttribute("ssUsuario");
-//        sesion.invalidate();
-//        return "redirect:login";
-//    }
 }

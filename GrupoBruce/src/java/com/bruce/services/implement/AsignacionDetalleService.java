@@ -131,6 +131,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     }
 
     @Override
+    @Transactional
     public AsignacionDetalle lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();

@@ -17,6 +17,7 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
         title: '{titulo}'
     },
 
+    style: 'border: solid rgb(234,234,236) 1px',
     items: [{
             xtype: 'grid',
             reference: 'list_pvacacion',

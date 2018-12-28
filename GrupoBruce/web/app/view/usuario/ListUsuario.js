@@ -1,10 +1,10 @@
-Ext.define('GrupoBruce.view.usuario.ListUsuario',{
+Ext.define('GrupoBruce.view.usuario.ListUsuario', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistUsuario',
     reference: 'list_usuario',
-    
+
     title: 'Lista de usuarios',
-    
+
     bind: {
         store: '{usuarios}',
         selection: '{selectUsuario}'
@@ -13,21 +13,41 @@ Ext.define('GrupoBruce.view.usuario.ListUsuario',{
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Trabajador',
+            dataIndex: 'trabajador',
+            sortable: false,
+            align: 'left',
+            width: 350
+        },
+        {
             text: 'Usuario',
             dataIndex: 'usu',
             align: 'left',
-            width: 100
-    },{
-        text: 'Contraseña',
-        dataIndex: 'clave',
-        align: 'left',
-        width: 200
-    },{
-        text: 'Rol',
-        dataIndex: 'rol',
-        align: 'left',
-        width: 300
-    }],
+            width: 130
+        }, {
+            text: 'Contraseña',
+            dataIndex: 'clave',
+            align: 'left',
+            width: 200
+        }, {
+            text: 'Rol',
+            dataIndex: 'rol',
+            sortable: false,
+            align: 'left',
+            width: 300
+        },{
+            text: 'Estado',
+            dataIndex: 'estado',
+            width: 120,
+            align: 'center',
+            renderer: function(val){
+                if(val){
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
+                }else{
+                    return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
+                }
+            }
+        }],
 
     dockedItems: [{
             xtype: 'toolbar',

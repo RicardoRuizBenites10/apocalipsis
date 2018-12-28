@@ -135,20 +135,28 @@ Ext.define('GrupoBruce.view.main.MainModel', {
             }
         },
         
-        navRemote: {
-            type: 'Smenu',
-            autoLoad: true
+        navRol: {
+            type: 'Sacceso',
+            autoLoad: true,
+            filters: [{
+                    property: 'idRol',
+                    value: '{myRol}'
+                }]
         }
     },
 
     formulas: {
+        myRol: function(get){
+            return get('thisUsuario').idRol;
+        },
+        
         thisUsuario: function () {
             return Ext.JSON.decode(localStorage.getItem("sesionUsuario"));
         },
 
         thisName: function (get) {
             var usuario = get('thisUsuario');
-            return usuario.nombres + ' ' + usuario.apPaterno + ' ' + usuario.apMaterno;
+            return usuario.trabajador;
         },
 
         thisAvatar: function (get) {

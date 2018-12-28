@@ -46,7 +46,7 @@ Ext.define('GrupoBruce.view.main.MainMenu', {
             expanderFirst: false,
             singleExpand: true,
             bind: {
-                store: '{navRemote}'
+                store: '{navRol}'
             }
             , listeners: {
 //                itemclick: function (treelist, ctx) {

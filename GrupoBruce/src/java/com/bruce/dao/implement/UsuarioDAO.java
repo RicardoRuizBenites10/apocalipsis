@@ -8,13 +8,9 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IUsuarioDAO;
 import com.bruce.dao.to.Usuario;
 import com.bruce.util.FilterPage;
-import com.bruce.util.Metodo;
-import java.util.Iterator;
 import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import com.bruce.util.QueryUtil;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
@@ -33,21 +29,6 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Autowired
     private SessionFactory sf;
-
-    @Override
-    public Usuario valida(String usu, String pass) {
-        Session session = sf.getCurrentSession();
-        Usuario usuario = null;
-        Query query = session.createQuery(QueryUtil.USUARIO_VALIDA);
-        query.setParameter("usuario", usu);
-        query.setParameter("pass", pass.getBytes());
-        List result = query.list();
-        Iterator iterator = result.iterator();
-        if (iterator.hasNext()) {
-            usuario = (Usuario) iterator.next();
-        }
-        return usuario;
-    }
 
     @Override
     public void create(Usuario t) {
@@ -84,20 +65,57 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public List<Usuario> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        String filtros = Metodo.getFilters("U", filters);
-        String ordenes = Metodo.getOrders("U", sorts);
-        SQLQuery query = session.createSQLQuery(QueryUtil.USUARIOS + filtros + ordenes);
         ReverseQuery reverse = new ReverseQuery("USUARIO", "U");
-        reverse.addResult("U.ID_USUARIO", "U.ID_USUARIO");
-        reverse.addResult("U.USU", "U.USU");
-        System.err.println("My consulta: " + reverse.getQuery());
+        reverse.addResult("U.ID_USUARIO");
+        reverse.addResult("U.USU");
+        reverse.addResult("DECRYPTBYPASSPHRASE('Bruces@22',U.CLAVE) AS CLAVE");
+        reverse.addResult("U.ESTADO");
+        reverse.addResult("U.ID_ROL");
+        reverse.addResult("R.DENOMINACION AS rol");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS trabajador");
+        reverse.addJoin("INNER JOIN Rol R", "R.ID_ROL = U.ID_ROL");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = U.ID_USUARIO");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(Usuario.class);
-        if (!filtros.trim().equalsIgnoreCase("")) {
+        if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         return query.list();
+    }
+
+    @Override
+    public Usuario valida(List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        Usuario usuario = null;
+        ReverseQuery reverse = new ReverseQuery("USUARIO", "U");
+        reverse.addResult("U.ID_USUARIO");
+        reverse.addResult("U.USU");
+        reverse.addResult("DECRYPTBYPASSPHRASE('Bruces@22',U.CLAVE) AS CLAVE");
+        reverse.addResult("U.ESTADO");
+        reverse.addResult("U.ID_ROL");
+        reverse.addResult("R.DENOMINACION AS rol");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS trabajador");
+        reverse.addJoin("INNER JOIN Rol R", "R.ID_ROL = U.ID_ROL");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = U.ID_USUARIO");
+        reverse.setFilters(filters);
+
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Usuario.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
+            });
+        }
+        List result = query.list();
+        if (!result.isEmpty()) {
+            usuario = (Usuario) result.get(0);
+        }
+        return usuario;
     }
 
     @Override

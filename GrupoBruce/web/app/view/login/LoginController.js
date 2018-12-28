@@ -24,15 +24,23 @@ Ext.define('GrupoBruce.view.login.LoginController', {
 
     onLoginSuccess: function (response, opts) {
         var responseText = Ext.decode(response.responseText);
-        localStorage.setItem("sesionEstado", responseText.success);
-        localStorage.setItem("sesionUsuario", Ext.JSON.encode(responseText.data));
-
-        if(responseText.success){
-            this.getView().destroy();
-            Ext.create({
-                xtype: 'app-main'
-            });
-        }else{
+        if (responseText.success) {
+            if (responseText.data.estado) {
+                localStorage.setItem("sesionEstado", responseText.success);
+                localStorage.setItem("sesionUsuario", Ext.JSON.encode(responseText.data));
+                this.getView().destroy();
+                Ext.create({
+                    xtype: 'app-main'
+                });
+            } else {
+                Ext.Msg.show({
+                    title: 'Error',
+                    msg: "El usuario esta inactivo, comuniquese con el administrador.",
+                    icon: Ext.Msg.ERROR,
+                    botones: Ext.Msg.OK
+                });
+            }
+        } else {
             Ext.Msg.show({
                 title: 'Error',
                 msg: responseText.message,
@@ -40,9 +48,9 @@ Ext.define('GrupoBruce.view.login.LoginController', {
                 botones: Ext.Msg.OK
             });
         }
-        
+
     },
-    
+
     onLoginFailure: function (response, opts) {
         Ext.Msg.alert('Status', response.status);
     }

@@ -16,6 +16,7 @@ Ext.define('GrupoBruce.view.usuario.Usuario',{
 
     items: [{
             xtype: 'WlistUsuario',
+            id: 'id_wusuario',
             height: 520
     }]
 });

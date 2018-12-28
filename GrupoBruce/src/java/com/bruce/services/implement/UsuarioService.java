@@ -14,7 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,27 +26,31 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class UsuarioService implements IUsuarioService{
-    
+public class UsuarioService implements IUsuarioService {
+
     @Autowired
     private IUsuarioDAO dao;
-    
+
     @Override
     @Transactional
-    public Usuario accesoUsuario(String usu, String pass) {
-        return dao.valida(usu, pass);
+    public Usuario accesoUsuario(Usuario usuario) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("USU", usuario.getUsu()));
+        filters.add(new FilterPage("CLAVE", usuario.getClave()));
+        return dao.valida(filters);
     }
 
     @Override
     @Transactional
     public void insert(Usuario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        t.setUsu(t.getUsu().trim());
+        dao.create(t);
     }
 
     @Override
     @Transactional
     public void delete(Usuario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.delete(t);
     }
 
     @Override
@@ -62,7 +68,7 @@ public class UsuarioService implements IUsuarioService{
     @Override
     @Transactional
     public void update(Usuario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.update(t);
     }
 
     @Override
@@ -123,5 +129,18 @@ public class UsuarioService implements IUsuarioService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
+    @Override
+    @Transactional
+    public Map<String, Object> validaNUsuario(Usuario usuario) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("idUsuario", usuario.getIdUsuario()));
+        int numUsu = dao.countByFilter(filters);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", numUsu == 0);
+        map.put("data", usuario);
+        map.put("message", "Validación exitosa.");
+        return map;
+    }
+
 }

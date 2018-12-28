@@ -14,7 +14,7 @@ Ext.define('GrupoBruce.view.acceso.AccesoController', {
 
     goToNodes: function (jsonData, node) {
         var scope = this;
-        node.data.fechaUpdate = Ext.Date.format(new Date(), 'c');
+//        node.data.fechaUpdate = Ext.Date.format(new Date(), 'c');
         node.set('fechaUpdate', new Date());
         jsonData.push(node.data);
         if (!node.get('leaf')) {

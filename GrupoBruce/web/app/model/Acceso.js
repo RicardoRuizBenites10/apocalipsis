@@ -17,8 +17,8 @@ Ext.define('GrupoBruce.model.Acceso', {
         type: 'ajax',
         api: {
             create: 'iiAcceso',
-            read: 'accesos',
-            update: 'uuAcceso',
+            read: 'accesosRol',
+            update: 'uuLAcceso',
             destroy: 'ddAcceso'
         },
         reader: {

@@ -52,8 +52,6 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalleController', {
                                 Ext.Msg.alert('Failure', 'Operacion fallada.')
                             }
                         });
-
-
                     } else {
                         Ext.Msg.show({
                             title: 'Error',

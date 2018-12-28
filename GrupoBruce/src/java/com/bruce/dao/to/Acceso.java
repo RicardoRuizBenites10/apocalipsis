@@ -1,3 +1,4 @@
+
 package com.bruce.dao.to;
 // Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
@@ -26,9 +27,11 @@ public class Acceso implements java.io.Serializable {
     private Date fechaUpdate;
     private boolean checked;
     
-    private String text;
-    private boolean leaf;
     private String idSupmenu;
+    private boolean leaf;
+    private String text;
+    private String iconCls;
+    private String handler;
     private String parentId;
 
     public Acceso() {
@@ -108,6 +111,26 @@ public class Acceso implements java.io.Serializable {
 
     public void setIdSupmenu(String idSupmenu) {
         this.idSupmenu = idSupmenu;
+    }
+        
+    @Generated(GenerationTime.NEVER) 
+    @Column(insertable = false, updatable = false)
+    public String getIconCls() {
+        return iconCls;
+    }
+
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
+    }
+
+    @Generated(GenerationTime.NEVER) 
+    @Column(insertable = false, updatable = false)
+    public String getHandler() {
+        return handler;
+    }
+
+    public void setHandler(String handler) {
+        this.handler = handler;
     }
 
     @Transient

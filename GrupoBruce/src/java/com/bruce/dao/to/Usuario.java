@@ -25,6 +25,7 @@ public class Usuario implements java.io.Serializable {
 
     private String deClave;
     private String rol;
+    private String trabajador;
 
     public Usuario() {
     }
@@ -97,6 +98,16 @@ public class Usuario implements java.io.Serializable {
     @Column(insertable = false, updatable = false)
     public String getRol() {
         return rol;
+    }
+    
+    @Generated(GenerationTime.NEVER) 
+    @Column(insertable = false, updatable = false)
+    public String getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(String trabajador) {
+        this.trabajador = trabajador;
     }
 
     public void setRol(String rol) {

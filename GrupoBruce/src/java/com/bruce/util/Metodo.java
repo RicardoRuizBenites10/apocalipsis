@@ -255,35 +255,4 @@ public class Metodo {
         return lista;
     }
 
-    public static String getFilters(String inicial, List<FilterPage> filters) {
-        String filter = " ";
-        int cont = 0;
-        if (filters != null && filters.size() > 0) {
-            filter = filter + "WHERE ";
-            for (FilterPage item : filters) {
-                cont++;
-                filter = filter + inicial + "." + item.getProperty() + " = :" + item.getProperty() + (filters.size() != cont ? " AND " : "");
-            }
-        }
-        return filter;
-    }
-
-    public static String getOrders(String inicial, List<SortPage> orders) {
-        String order = " ";
-        int cont = 0;
-        if (orders != null && orders.size() > 0) {
-            order = order + "ORDER BY ";
-            for (SortPage item : orders) {
-                cont++;
-                order = order + inicial + "." + item.getProperty() + " " + item.getDirection() + (orders.size() != cont ? ", " : "");
-            }
-        }
-        return order;
-    }
-    
-    public static String getPagination(String start, String limit) {
-        String order = "OFFSET" + start+ "ROWS" + "FETCH NEXT " + limit + " ROWS ONLY";
-        return order;
-    }
-
 }
