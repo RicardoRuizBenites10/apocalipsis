@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.equipo.EquipoController', {
         var window = new GrupoBruce.view.equipo.FormEquipo();
         window.getViewModel().set('selectEquipo', record);
         if (!record) {
-            window.setTitle('Registrar proceso');
+            window.setTitle('Registrar equipo informatico');
             record = new GrupoBruce.model.EquipoInformatico();
         }
         window.down('form').loadRecord(record);

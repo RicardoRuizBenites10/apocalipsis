@@ -55,7 +55,7 @@ Ext.define('GrupoBruce.view.rol.ListRol', {
                         click: 'deleteRol'
                     }
                 },'-',{
-                    text: 'Accesos',
+                    text: 'Permisos',
                     iconCls: 'x-fa fa-dot-circle-o',
                     disabled: true
                     ,bind: {

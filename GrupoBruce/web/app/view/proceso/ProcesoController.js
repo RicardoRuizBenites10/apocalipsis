@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.proceso.ProcesoController', {
     createDialog: function (record) {
         var window = new GrupoBruce.view.proceso.FormProceso();
         if (!record) {
-            window.setTitle('Registrar equipo informatico');
+            window.setTitle('Registrar proceso');
             record = new GrupoBruce.model.Proceso();
         }
         window.down('form').loadRecord(record);
@@ -43,6 +43,16 @@ Ext.define('GrupoBruce.view.proceso.ProcesoController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
+    },
+    
+    createWindow: function (view) {
+        var model = this.getViewModel().get('selectProceso');
+        var window = Ext.create(view);
+        window.getViewModel().set('recordProceso', model);
+    },
+
+    onEtapasProceso : function () {
+        this.createWindow('GrupoBruce.view.estado.Estado');
     }
 
 });

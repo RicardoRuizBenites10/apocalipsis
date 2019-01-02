@@ -5,6 +5,7 @@ Ext.define('GrupoBruce.model.Proceso', {
     idProperty: 'idProceso',
     fields: [
         { name: 'descripcion', type: 'string' },
+        { name: 'entidad', type: 'string' },
         { name: 'estado', type: 'boolean' },
         { name: 'fecha', type: 'date' , dateFormat: 'c'},
         { name: 'idProceso', type: 'string' },

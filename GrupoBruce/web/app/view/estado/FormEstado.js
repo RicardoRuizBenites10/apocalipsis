@@ -1,14 +1,14 @@
-Ext.define('GrupoBruce.view.proceso.FormProceso', {
+Ext.define('GrupoBruce.view.estado.FormEstado',{
     extend: 'Ext.window.Window',
-    alias: 'widget.WformProceso',
-    reference: 'form_proceso',
-
-    controller: 'Cproceso',
-    ViewModel: {
-        type: 'VMproceso'
+    alias: 'widget.WformEstado',
+    reference: 'form_estado',
+    
+    controller: 'Cestado',
+    viewModel: {
+        type: 'VMestado'
     },
-
-    modal: true,
+    
+        modal: true,
     closable: false,
     resizable: false,
     width: 400,
@@ -67,7 +67,7 @@ Ext.define('GrupoBruce.view.proceso.FormProceso', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'onSaveProceso'
+                        click: 'onSaveEstado'
                     }
                 }]
         }]

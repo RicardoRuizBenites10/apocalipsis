@@ -17,13 +17,25 @@ Ext.define('GrupoBruce.view.proceso.ListProceso', {
         }, {
             text: 'Nombre',
             dataIndex: 'nombre',
-            width: 500,
+            width: 400,
             align: 'left'
+        },{
+            text: 'Entidad a manejar',
+            dataIndex: 'entidad',
+            align: 'left',
+            width: 250
         }, {
             text: 'Estado',
             dataIndex: 'estado',
             width: 150,
-            align: 'center'
+            align: 'center',
+            renderer: function(val){
+                if(val){
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
+                }else{
+                    return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
+                }
+            }
         }],
 
     tbar: {
@@ -51,6 +63,14 @@ Ext.define('GrupoBruce.view.proceso.ListProceso', {
                     disabled: '{!selectProceso}'
                 },
                 handler: 'deleteProceso'
+            }, '-', {
+                iconCls: 'x-fa fa-retweet',
+                disabled: true,
+                text: 'Etapas de proceso',
+                bind: {
+                    disabled: '{!selectProceso}'
+                },
+                handler: 'onEtapasProceso'
             }]
     },
 

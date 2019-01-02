@@ -40,6 +40,7 @@ public class ProcesoService implements IProcesoService{
         int idLast = last == null ? 0 : Integer.parseInt(last.getIdProceso());
         t.setIdProceso(String.format("%03d", idLast + 1));
         t.setFecha(new Date());
+        t.setEstado(true);
         dao.create(t);
     }
 

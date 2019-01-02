@@ -24,6 +24,7 @@ public class Proceso implements java.io.Serializable {
     private String idProceso;
     private String nombre;
     private String descripcion;
+    private String entidad;
     private Date fecha;
     private boolean estado;
 
@@ -64,6 +65,15 @@ public class Proceso implements java.io.Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Column(name = "ENTIDAD", nullable = false)
+    public String getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(String entidad) {
+        this.entidad = entidad;
     }
 
     @Temporal(TemporalType.DATE)
