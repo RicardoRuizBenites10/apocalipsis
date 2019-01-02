@@ -5,12 +5,12 @@ Ext.define('GrupoBruce.model.AsignacionEquipo', {
     fields: [
         {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'idAequipo', type: 'string'},
+        {name: 'estado', type: 'boolean'},
         {name: 'idAsignador', type: 'string'},
         {name: 'idRecepcionador', type: 'string'},
         {name: 'nomUsu', type: 'string'},
         {name: 'nroIp', type: 'string'},
-        {name: 'pasUsu', type: 'string'},
-        {name: 'recepcionador', type: 'string'}
+        {name: 'pasUsu', type: 'string'}
     ],
     
     identifier: 'sequential',

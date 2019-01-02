@@ -13,6 +13,8 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -29,6 +31,7 @@ public class AsignacionDetalle implements java.io.Serializable {
     private Date fecha;
     private Date fechaAsignado;
     private boolean asignado;
+    
     private String einformatico;
 
     public AsignacionDetalle() {
@@ -102,7 +105,8 @@ public class AsignacionDetalle implements java.io.Serializable {
         this.asignado = asignado;
     }
 
-    @Column(name = "EINFORMATICO", nullable = false)
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "EINFORMATICO", insertable = false, updatable = false)
     public String getEinformatico() {
         return einformatico;
     }

@@ -102,8 +102,9 @@ public class AsignacionEquipoService implements IAsignacionEquipoService {
     @Override
     @Transactional
     public void insert(AsignacionEquipo t) {
-        AsignacionEquipo last = dao.lastByFilter(null);
+        AsignacionEquipo last = dao.lastByFilter(new ArrayList<>());
         int idLast = last != null ? Integer.parseInt(last.getIdAequipo()) : 0;
+        t.setEstado(true);
         t.setIdAequipo(String.format("%04d", idLast + 1));
         dao.create(t);
     }

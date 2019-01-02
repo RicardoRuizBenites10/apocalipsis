@@ -121,15 +121,26 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Usuario.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("USUARIO", "U");
+        reverse.addResult("U.ID_USUARIO");
+        reverse.addResult("U.USU");
+        reverse.addResult("DECRYPTBYPASSPHRASE('Bruces@22',U.CLAVE) AS CLAVE");
+        reverse.addResult("U.ESTADO");
+        reverse.addResult("U.ID_ROL");
+        reverse.addResult("R.DENOMINACION AS rol");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS trabajador");
+        reverse.addJoin("INNER JOIN Rol R", "R.ID_ROL = U.ID_ROL");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = U.ID_USUARIO");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Usuario.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return result.size();
     }
 
 }

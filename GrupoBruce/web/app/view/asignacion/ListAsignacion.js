@@ -19,7 +19,7 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
             text: 'Custodio',
             dataIndex: 'recepcionador',
             align: 'left',
-            width: 350
+            width: 300
         }, {
             text: 'Usuario',
             dataIndex: 'nomUsu',
@@ -33,6 +33,11 @@ Ext.define('GrupoBruce.view.asignacion.ListAsignacion', {
             dataIndex: 'fecha',
             formatter: 'date("d/m/Y")',
             align: 'center'
+        },{
+            text: 'Asignador',
+            dataIndex: 'asignador',
+            align: 'left',
+            width: 300
         }],
 
     dockedItems: [{

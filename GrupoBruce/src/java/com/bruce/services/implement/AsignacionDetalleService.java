@@ -84,7 +84,7 @@ public class AsignacionDetalleService implements IAsignacionDetalleService {
     @Transactional
     public void insert(AsignacionDetalle t) {
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idAequipo", t.getIdAequipo()));
+        filters.add(new FilterPage("ID_AEQUIPO", t.getIdAequipo()));
         AsignacionDetalle last = dao.lastByFilter(filters);
         int idLast = last != null ? Integer.parseInt(last.getIdAdetalle().substring(4)) : 0;
         t.setIdAdetalle(t.getIdAequipo() + String.format("%04d", idLast + 1));

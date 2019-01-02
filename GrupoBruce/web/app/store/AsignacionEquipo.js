@@ -4,5 +4,10 @@ Ext.define('GrupoBruce.store.AsignacionEquipo', {
     model: 'GrupoBruce.model.AsignacionEquipo',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: 'ID_AEQUIPO',
+            direction: 'ASC'
+        }]
 });

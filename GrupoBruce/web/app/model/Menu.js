@@ -9,7 +9,9 @@ Ext.define('GrupoBruce.model.Menu', {
         {name: 'text', type: 'string'},
         {name: 'handler', type: 'string'},
         {name: 'iconCls', type: 'string'},
-        {name: 'leaf', type: 'boolean'}
+        {name: 'leaf', type: 'boolean'},
+        {name: 'codProceso', type: 'string'},
+        {name: 'proceso', type: 'boolean'}
     ],
 
     identifier: {

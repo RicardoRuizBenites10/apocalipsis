@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.asignaciondetalle.AsignacionDetalleModel', {
             type: 'SasignacionDetalle',
             autoLoad: true,
             filters: [{
-                    property: 'idAequipo',
+                    property: 'ID_AEQUIPO',
                     value: '{recordAsignacion.idAequipo}'
                 }]
         },

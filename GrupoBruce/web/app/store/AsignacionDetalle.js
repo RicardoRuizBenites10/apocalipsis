@@ -4,5 +4,10 @@ Ext.define('GrupoBruce.store.AsignacionDetalle', {
     model: 'GrupoBruce.model.AsignacionDetalle',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: 'ID_ADETALLE',
+            direction: 'DESC'
+        }]
 });

@@ -49,6 +49,24 @@ Ext.define('GrupoBruce.view.menu.FormMenu', {
                             flex: 1,
                             allowBlank: true
                         }]
+                }, {
+                    items: [{
+                            xtype: 'checkbox',
+                            reference: 'check_proceso',
+                            name: 'proceso',
+                            fieldLabel: 'Tipo',
+                            boxLabel: 'Proceso',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            name: 'codProceso',
+                            fieldLabel: 'Código proceso',
+                            disabled: true,
+                            bind: {
+                                disabled: '{!check_proceso.checked}'
+                            },
+                            flex: 1
+                        }]
                 }],
 
             buttons: [{

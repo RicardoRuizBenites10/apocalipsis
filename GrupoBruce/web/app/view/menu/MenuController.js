@@ -52,6 +52,11 @@ Ext.define('GrupoBruce.view.menu.MenuController', {
         var grid = Ext.getCmp('id_lmenu');
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
+                var check = window.lookupReference('check_proceso').checked;
+            model.set('proceso', check);
+            if(!check){
+                model.set('codProceso','');
+            }
             model.save({// save the record to the server
                 success: function (area, operation) {
                     form.reset();

@@ -8,13 +8,15 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAsignacionEquipoDAO;
 import com.bruce.dao.to.AsignacionEquipo;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,30 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
     @Override
     public List<AsignacionEquipo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(AsignacionEquipo.class, "aseq");
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ASIGNACION_EQUIPO", "AE");
+        reverse.addResult("AE.ID_AEQUIPO");
+        reverse.addResult("AE.FECHA");
+        reverse.addResult("AE.NRO_IP");
+        reverse.addResult("AE.NOM_USU");
+        reverse.addResult("AE.PAS_USU");
+        reverse.addResult("AE.ESTADO");
+        reverse.addResult("AE.ID_ASIGNADOR");
+        reverse.addResult("AE.ID_RECEPCIONADOR");
+        reverse.addResult("T1.AP_PATERNO +' '+ T1.AP_MATERNO + ', ' + T1.NOMBRES AS ASIGNADOR");
+        reverse.addResult("T2.AP_PATERNO +' '+ T2.AP_MATERNO + ', ' + T2.NOMBRES AS RECEPCIONADOR");
+        reverse.addJoin("INNER JOIN TRABAJADOR T1", "T1.ID_TRABAJADOR = AE.ID_ASIGNADOR");
+        reverse.addJoin("INNER JOIN Trabajador T2", "T2.ID_TRABAJADOR = AE.ID_RECEPCIONADOR");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(AsignacionEquipo.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return cr.list();
+        return query.list();
     }
 
     @Override
@@ -60,17 +79,33 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
     public AsignacionEquipo lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         AsignacionEquipo asignacionEquipo = null;
-        Criteria cr = session.createCriteria(AsignacionEquipo.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ASIGNACION_EQUIPO", "AE");
+        reverse.addResult("AE.ID_AEQUIPO");
+        reverse.addResult("AE.FECHA");
+        reverse.addResult("AE.NRO_IP");
+        reverse.addResult("AE.NOM_USU");
+        reverse.addResult("AE.PAS_USU");
+        reverse.addResult("AE.ESTADO");
+        reverse.addResult("AE.ID_ASIGNADOR");
+        reverse.addResult("AE.ID_RECEPCIONADOR");
+        reverse.addResult("T1.AP_PATERNO +' '+ T1.AP_MATERNO + ', ' + T1.NOMBRES AS ASIGNADOR");
+        reverse.addResult("T2.AP_PATERNO +' '+ T2.AP_MATERNO + ', ' + T2.NOMBRES AS RECEPCIONADOR");
+        reverse.addJoin("INNER JOIN TRABAJADOR T1", "T1.ID_TRABAJADOR = AE.ID_ASIGNADOR");
+        reverse.addJoin("INNER JOIN Trabajador T2", "T2.ID_TRABAJADOR = AE.ID_RECEPCIONADOR");
+        reverse.setFilters(filters);
+        List<SortPage> sorts = new ArrayList<>();
+        sorts.add(new SortPage("ID_AEQUIPO", "DESC"));
+        reverse.setSorts(sorts);
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(AsignacionEquipo.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idAequipo"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        if (result.size() > 0) {
+        List result = query.list();
+        if(!result.isEmpty()){
             asignacionEquipo = (AsignacionEquipo) result.get(0);
         }
         return asignacionEquipo;

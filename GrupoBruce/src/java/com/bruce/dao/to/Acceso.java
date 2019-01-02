@@ -32,6 +32,8 @@ public class Acceso implements java.io.Serializable {
     private String text;
     private String iconCls;
     private String handler;
+    private boolean proceso;
+    private String codProceso;
     private String parentId;
 
     public Acceso() {
@@ -124,13 +126,33 @@ public class Acceso implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER) 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "ACCION",insertable = false, updatable = false)
     public String getHandler() {
         return handler;
     }
 
     public void setHandler(String handler) {
         this.handler = handler;
+    }
+
+    @Generated(GenerationTime.NEVER) 
+    @Column(name = "PROCESO",insertable = false, updatable = false)
+    public boolean isProceso() {
+        return proceso;
+    }
+
+    public void setProceso(boolean proceso) {
+        this.proceso = proceso;
+    }
+
+    @Generated(GenerationTime.NEVER) 
+    @Column(name = "COD_PROCESO",insertable = false, updatable = false)
+    public String getCodProceso() {
+        return codProceso;
+    }
+
+    public void setCodProceso(String codProceso) {
+        this.codProceso = codProceso;
     }
 
     @Transient

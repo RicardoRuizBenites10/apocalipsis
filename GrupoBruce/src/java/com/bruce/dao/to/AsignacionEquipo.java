@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -26,10 +28,12 @@ public class AsignacionEquipo implements java.io.Serializable {
     private String nroIp;
     private String nomUsu;
     private String pasUsu;
+    private boolean estado;
     private String idAsignador;
     private String idRecepcionador;
 
     private String recepcionador;
+    private String asignador;
 
     public AsignacionEquipo() {
     }
@@ -91,6 +95,15 @@ public class AsignacionEquipo implements java.io.Serializable {
         this.pasUsu = pasUsu;
     }
 
+    @Column(name = "ESTADO", nullable = false)
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Column(name = "ID_ASIGNADOR", nullable = false)
     public String getIdAsignador() {
         return idAsignador;
@@ -108,13 +121,24 @@ public class AsignacionEquipo implements java.io.Serializable {
     public void setIdRecepcionador(String idRecepcionador) {
         this.idRecepcionador = idRecepcionador;
     }
-
-    @Column(name="RECEPCIONADOR", nullable = false)
+    
+    @Generated(GenerationTime.NEVER)
+    @Column(name="RECEPCIONADOR", insertable = false, updatable = false)
     public String getRecepcionador() {
         return recepcionador;
     }
 
     public void setRecepcionador(String recepcionador) {
         this.recepcionador = recepcionador;
+    }
+    
+    @Generated(GenerationTime.NEVER)
+    @Column(name="ASIGNADOR", insertable = false, updatable = false)
+    public String getAsignador() {
+        return asignador;
+    }
+
+    public void setAsignador(String asignador) {
+        this.asignador = asignador;
     }
 }

@@ -20,6 +20,8 @@ public class Menu implements java.io.Serializable {
     private String handler;
     private boolean leaf;
     private String idSupmenu;
+    private boolean proceso;
+    private String codProceso;
     
     private String parentId;
     private String lastParentId;
@@ -88,6 +90,24 @@ public class Menu implements java.io.Serializable {
 
     public void setIdSupmenu(String idSupmenu) {
         this.idSupmenu = idSupmenu;
+    }
+
+    @Column(name = "PROCESO", nullable = false)
+    public boolean isProceso() {
+        return proceso;
+    }
+
+    public void setProceso(boolean proceso) {
+        this.proceso = proceso;
+    }
+
+    @Column(name="COD_PROCESO")
+    public String getCodProceso() {
+        return codProceso;
+    }
+
+    public void setCodProceso(String codProceso) {
+        this.codProceso = codProceso;
     }
     
     @Transient

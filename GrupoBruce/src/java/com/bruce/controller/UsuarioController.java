@@ -92,7 +92,7 @@ public class UsuarioController {
         map.put("success", true);
         map.put("message", "Lista de áreas");
         map.put("data", data);
-        map.put("total", data.size());
+        map.put("total", su.countByFilter(filter, query));
         return map;
     }
 

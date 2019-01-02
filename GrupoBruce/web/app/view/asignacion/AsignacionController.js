@@ -30,8 +30,8 @@ Ext.define('GrupoBruce.view.asignacion.AsignacionController', {
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            model.set('idAsignador',loggedIn.idTrabajador);
-            model.set('recepcionador',window.getViewModel().get('selectRecepcionador').get('nombresCompletos'));
+            model.set('idAsignador',loggedIn.idUsuario);
+//            model.set('recepcionador',window.getViewModel().get('selectRecepcionador').get('nombresCompletos'));
             model.save({// save the record to the server
                 success: function (response, operation) {
                     grid.getStore().reload();

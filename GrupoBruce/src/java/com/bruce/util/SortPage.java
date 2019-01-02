@@ -16,6 +16,11 @@ public class SortPage {
     public SortPage() {
     }
 
+    public SortPage(String property, String direction) {
+        this.property = property;
+        this.direction = direction;
+    }
+
     public String getProperty() {
         return property;
     }

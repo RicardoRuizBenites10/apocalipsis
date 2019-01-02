@@ -10,6 +10,8 @@ Ext.define('GrupoBruce.model.Acceso', {
         {name: 'leaf', type: 'boolean'},
         {name: 'checked', type: 'boolean'},
         {name: 'fechaUpdate', type: 'date', dateFormat: 'c'},
+        {name: 'codProceso', type: 'string'},
+        {name: 'proceso', type: 'boolean'},
         {name: 'idRol', type: 'string'}
     ],
 
