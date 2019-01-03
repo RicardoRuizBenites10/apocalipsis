@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.EstadoMantenimiento', {
     fields: [
         {name: 'descripcion', type: 'string'},
         {name: 'accion', type: 'string'},
-        {name: 'idEmantenimiento', type: 'string'},
+        {name: 'idEstado', type: 'string'},
         {name: 'orden', type: 'int'},
         {name: 'solucionador', type: 'boolean'},
         {name: 'idPosterior', type: 'string'},

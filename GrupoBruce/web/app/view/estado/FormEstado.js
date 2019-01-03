@@ -1,14 +1,14 @@
-Ext.define('GrupoBruce.view.estado.FormEstado',{
+Ext.define('GrupoBruce.view.estado.FormEstado', {
     extend: 'Ext.window.Window',
     alias: 'widget.WformEstado',
     reference: 'form_estado',
-    
+
     controller: 'Cestado',
     viewModel: {
         type: 'VMestado'
     },
-    
-        modal: true,
+
+    modal: true,
     closable: false,
     resizable: false,
     width: 400,
@@ -28,23 +28,41 @@ Ext.define('GrupoBruce.view.estado.FormEstado',{
             items: [{
                     items: [{
                             xtype: 'textfield',
-                            name: 'nombre',
-                            fieldLabel: 'Nombre',
+                            name: 'descripcion',
+                            fieldLabel: 'Descripción',
                             flex: 1
                         }]
                 }, {
                     items: [{
                             xtype: 'textfield',
-                            name: 'entidad',
-                            fieldLabel: 'Entidad a manejar',
+                            name: 'accion',
+                            fieldLabel: 'Acción',
                             flex: 1
                         }]
+                },{
+                    items: [{
+                            xtype: 'combobox',
+                            fieldLabel: 'Estado que precede',
+                            bind: {
+                                store: '{estados}'
+                            },
+                            editable: false,
+                            flex: 1
+                    }]
                 }, {
                     items: [{
-                            xtype: 'textarea',
-                            name: 'descripcion',
-                            fieldLabel: 'Descripción',
+                            xtype: 'checkbox',
+                            name: 'solucionador',
+                            fieldLabel: 'Solucionador',
+                            boxLabel: 'Si',
                             flex: 1
+                        }, {
+                            xtype: 'numberfield',
+                            allowDecimals: false,
+                            hideTrigger: true,
+                            minValue: 1,
+                            name: 'orden',
+                            fieldLabel: 'Órden'
                         }]
                 }],
             buttons: [{

@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.view.estado.Estado',{
     extend: 'Ext.window.Window',
+    alias: 'Westado',
 
     requires: [
         'GrupoBruce.view.estado.EstadoController',

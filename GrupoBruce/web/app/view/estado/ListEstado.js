@@ -11,11 +11,17 @@ Ext.define('GrupoBruce.view.estado.ListEstado',{
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Código'
+            text: 'Código',
+            dataIndex: 'idEstado',
+            align: 'center'
         }, {
-            text: 'Orden'
+            text: 'Orden',
+            dataIndex: 'orden',
+            align: 'center'
         }, {
             text: 'Etapa',
+            dataIndex: 'descripcion',
+            align: 'left',
             width: 200
         },{
             text: 'Posterior',

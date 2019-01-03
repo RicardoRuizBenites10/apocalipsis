@@ -18,32 +18,32 @@ import javax.persistence.Table;
 @Table(name = "ESTADO_MANTENIMIENTO", schema = "dbo", catalog = "BDBRUCE")
 public class EstadoMantenimiento implements java.io.Serializable {
 
-    private String idEmantenimiento;
+    private String idEstado;
     private int orden;
     private String descripcion;
     private String accion;
     private boolean solucionador;
     private boolean situacion;
     private boolean ultimo;
-    private String idPosterior;
+    private String idPrecede;
 
     public EstadoMantenimiento() {
     }
 
-    public EstadoMantenimiento(String idEmantenimiento, String descripcion, boolean situacion) {
-        this.idEmantenimiento = idEmantenimiento;
+    public EstadoMantenimiento(String idEstado, String descripcion, boolean situacion) {
+        this.idEstado = idEstado;
         this.descripcion = descripcion;
         this.situacion = situacion;
     }
 
     @Id
     @Column(name = "ID_EMANTENIMIENTO", nullable = false)
-    public String getIdEmantenimiento() {
-        return idEmantenimiento;
+    public String getIdEstado() {
+        return idEstado;
     }
 
-    public void setIdEmantenimiento(String idEmantenimiento) {
-        this.idEmantenimiento = idEmantenimiento;
+    public void setIdEstado(String idEmantenimiento) {
+        this.idEstado = idEmantenimiento;
     }
 
     @Column(name = "ORDEN", nullable = false)
@@ -100,12 +100,12 @@ public class EstadoMantenimiento implements java.io.Serializable {
         this.ultimo = ultimo;
     }
 
-    @Column(name = "ID_POSTERIOR", nullable = false)
-    public String getIdPosterior() {
-        return idPosterior;
+    @Column(name = "ID_PRECEDE", nullable = false)
+    public String getIdPrecede() {
+        return idPrecede;
     }
 
-    public void setIdPosterior(String idPosterior) {
-        this.idPosterior = idPosterior;
+    public void setIdPrecede(String idPrecede) {
+        this.idPrecede = idPrecede;
     }
 }
