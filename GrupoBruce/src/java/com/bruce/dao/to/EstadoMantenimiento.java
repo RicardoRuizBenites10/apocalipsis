@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -27,6 +29,8 @@ public class EstadoMantenimiento implements java.io.Serializable {
     private boolean ultimo;
     private String idPrecede;
 
+    private String precede;
+
     public EstadoMantenimiento() {
     }
 
@@ -37,7 +41,7 @@ public class EstadoMantenimiento implements java.io.Serializable {
     }
 
     @Id
-    @Column(name = "ID_EMANTENIMIENTO", nullable = false)
+    @Column(name = "ID_ESTADO", nullable = false)
     public String getIdEstado() {
         return idEstado;
     }
@@ -107,5 +111,15 @@ public class EstadoMantenimiento implements java.io.Serializable {
 
     public void setIdPrecede(String idPrecede) {
         this.idPrecede = idPrecede;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
+    public String getPrecede() {
+        return precede;
+    }
+
+    public void setPrecede(String precede) {
+        this.precede = precede;
     }
 }

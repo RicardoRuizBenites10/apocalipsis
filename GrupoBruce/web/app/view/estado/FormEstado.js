@@ -42,10 +42,15 @@ Ext.define('GrupoBruce.view.estado.FormEstado', {
                 },{
                     items: [{
                             xtype: 'combobox',
-                            fieldLabel: 'Estado que precede',
                             bind: {
-                                store: '{estados}'
+                                store: '{estados}',
+                                selection: '{selectPrecede}'
                             },
+                            fieldLabel: 'Estado que precede',
+                            name: 'idPrecede',
+                            emptyText: 'Seleccionar',
+                            displayField: 'descripcion',
+                            valueField: 'idEstado',
                             editable: false,
                             flex: 1
                     }]
@@ -62,7 +67,11 @@ Ext.define('GrupoBruce.view.estado.FormEstado', {
                             hideTrigger: true,
                             minValue: 1,
                             name: 'orden',
-                            fieldLabel: 'Órden'
+                            fieldLabel: 'Órden',
+                            bind: {
+                                value: '{numOrden}'
+                            },
+                            editable: false
                         }]
                 }],
             buttons: [{

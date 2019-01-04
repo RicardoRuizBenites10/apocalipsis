@@ -44,7 +44,7 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+                filters.add(new FilterPage("like", "DESCRIPCION", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -62,7 +62,7 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+                filters.add(new FilterPage("like", "DESCRIPCION", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -80,7 +80,7 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nomUsu", "%" + query));
+                filters.add(new FilterPage("like", "DESCRIPCION", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();

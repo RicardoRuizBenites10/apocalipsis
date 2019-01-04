@@ -19,12 +19,14 @@ Ext.define('GrupoBruce.view.estado.ListEstado',{
             dataIndex: 'orden',
             align: 'center'
         }, {
-            text: 'Etapa',
+            text: 'Etapa actual',
             dataIndex: 'descripcion',
             align: 'left',
             width: 200
         },{
-            text: 'Posterior',
+            text: 'Etapa anterior',
+            dataIndex: 'precede',
+            align: 'left',
             width: 200
         }],
 

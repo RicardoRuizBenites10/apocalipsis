@@ -8,15 +8,14 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IEstadoMantenimientoDAO;
 import com.bruce.dao.to.EstadoMantenimiento;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,44 +32,88 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
     @Override
     public List<EstadoMantenimiento> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ESTADO_MANTENIMIENTO", "EM");
+        reverse.addResult("EM.ID_ESTADO");
+        reverse.addResult("EM.ORDEN");
+        reverse.addResult("EM.DESCRIPCION");
+        reverse.addResult("EM.ACCION");
+        reverse.addResult("EM.SOLUCIONADOR");
+        reverse.addResult("EM.ULTIMO");
+        reverse.addResult("EM.SITUACION");
+        reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM1.DESCRIPCION PRECEDE");
+        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        System.err.println("Query: \n" + reverse.getQuery());
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(EstadoMantenimiento.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                System.err.println("\nParametro: " + item.getProperty() + " valor: " + item.getValue());
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ESTADO_MANTENIMIENTO", "EM");
+        reverse.addResult("EM.ID_ESTADO");
+        reverse.addResult("EM.ORDEN");
+        reverse.addResult("EM.DESCRIPCION");
+        reverse.addResult("EM.ACCION");
+        reverse.addResult("EM.SOLUCIONADOR");
+        reverse.addResult("EM.ULTIMO");
+        reverse.addResult("EM.SITUACION");
+        reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM1.DESCRIPCION PRECEDE");
+        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(EstadoMantenimiento.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return result.size();
     }
 
     @Override
     public EstadoMantenimiento lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         EstadoMantenimiento estadoMantenimiento = null;
-        Criteria cr = session.createCriteria(EstadoMantenimiento.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ESTADO_MANTENIMIENTO", "EM");
+        reverse.addResult("EM.ID_ESTADO");
+        reverse.addResult("EM.ORDEN");
+        reverse.addResult("EM.DESCRIPCION");
+        reverse.addResult("EM.ACCION");
+        reverse.addResult("EM.SOLUCIONADOR");
+        reverse.addResult("EM.ULTIMO");
+        reverse.addResult("EM.SITUACION");
+        reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM1.DESCRIPCION PRECEDE");
+        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.setFilters(filters);
+        List<SortPage> sorts = new ArrayList<>();
+        sorts.add(new SortPage("ID_ESTADO", "DESC"));
+        reverse.setSorts(sorts);
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(EstadoMantenimiento.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idEmantenimiento"));
-        cr.setFirstResult(0);
 
-        List result = cr.list();
-        if (result.size() > 0) {
+        List result = query.list();
+        if (!result.isEmpty()) {
             estadoMantenimiento = (EstadoMantenimiento) result.get(0);
         }
         return estadoMantenimiento;

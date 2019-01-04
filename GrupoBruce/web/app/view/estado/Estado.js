@@ -26,6 +26,7 @@ Ext.define('GrupoBruce.view.estado.Estado',{
 
     items: [{
             xtype: 'WlistEstado',
+            id: 'id_westado',
             height: 400,
             width: 600
         }]
