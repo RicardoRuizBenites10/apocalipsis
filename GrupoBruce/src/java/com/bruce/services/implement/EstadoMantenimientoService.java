@@ -6,8 +6,11 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IEstadoMantenimientoDAO;
+import com.bruce.dao.design.IMenuDAO;
 import com.bruce.dao.to.EstadoMantenimiento;
+import com.bruce.dao.to.Menu;
 import com.bruce.services.design.IEstadoMantenimientoService;
+import com.bruce.services.design.IMenuService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,11 +27,15 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class EstadoMantenimientoService implements IEstadoMantenimientoService{
-    
+public class EstadoMantenimientoService implements IEstadoMantenimientoService {
+
     @Autowired
     private IEstadoMantenimientoDAO dao;
-    
+    @Autowired
+    private IMenuDAO daoMenu;
+    @Autowired
+    private IMenuService servMenu;
+
     @Override
     @Transactional
     public List<EstadoMantenimiento> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -91,7 +98,30 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
     @Override
     @Transactional
     public void insert(EstadoMantenimiento t) {
+        EstadoMantenimiento last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? Integer.parseInt(last.getIdEstado()) : 0;
+        t.setIdEstado(String.format("%03d", idLast + 1));
+        t.setSituacion(true);
         dao.create(t);
+        /*Referente al menu*/
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("codProceso", t.getIdProceso()));
+        filters.add(new FilterPage("codEtapa", ""));
+        Menu parent = daoMenu.lastByFilter(filters), submenu;
+        if (parent != null) {
+            submenu = new Menu();
+            submenu.setIconCls("x-fa fa-cog");
+            submenu.setText(t.getDescripcion());
+            submenu.setHandler("GrupoBruce.view.mantenimientoproceso.MantenimientoProceso");
+            submenu.setIdSupmenu(parent.getIdMenu());
+            submenu.setCodProceso(t.getIdProceso());
+            submenu.setCodEtapa(t.getIdEstado());
+            submenu.setLeaf(true);
+            servMenu.insert(submenu);
+            
+            parent.setLeaf(false);
+            servMenu.update(parent);
+        }
     }
 
     @Override
@@ -117,5 +147,5 @@ public class EstadoMantenimientoService implements IEstadoMantenimientoService{
     public List<EstadoMantenimiento> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -22,7 +22,8 @@ public class Menu implements java.io.Serializable {
     private String idSupmenu;
     private boolean proceso;
     private String codProceso;
-    
+    private String codEtapa;
+
     private String parentId;
     private String lastParentId;
 
@@ -101,7 +102,7 @@ public class Menu implements java.io.Serializable {
         this.proceso = proceso;
     }
 
-    @Column(name="COD_PROCESO")
+    @Column(name = "COD_PROCESO")
     public String getCodProceso() {
         return codProceso;
     }
@@ -109,7 +110,16 @@ public class Menu implements java.io.Serializable {
     public void setCodProceso(String codProceso) {
         this.codProceso = codProceso;
     }
-    
+
+    @Column(name = "COD_ETAPA")
+    public String getCodEtapa() {
+        return codEtapa;
+    }
+
+    public void setCodEtapa(String codEtapa) {
+        this.codEtapa = codEtapa;
+    }
+
     @Transient
     public String getParentId() {
         return parentId;
@@ -118,7 +128,7 @@ public class Menu implements java.io.Serializable {
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
-    
+
     @Transient
     public String getLastParentId() {
         return lastParentId;
@@ -127,5 +137,5 @@ public class Menu implements java.io.Serializable {
     public void setLastParentId(String lastParentId) {
         this.lastParentId = lastParentId;
     }
-    
+
 }

@@ -44,8 +44,12 @@ Ext.define('GrupoBruce.view.main.MainController', {
         if (handler !== undefined && handler !== '' && handler !== null) {
             if (node.get('checked')) {
                 var panel = this.lookupReference('mainBody');
-                var panelView = Ext.create(handler);
                 panel.removeAll();
+                var panelView = Ext.create(handler);
+                var codEtapa = node.get('codEtapa');
+                if (codEtapa !== '') {
+                    panelView.getViewModel().set('codEtapa', codEtapa);
+                }
                 panel.add(panelView);
             } else {
                 Ext.Msg.show({

@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.model.Acceso', {
         {name: 'checked', type: 'boolean'},
         {name: 'fechaUpdate', type: 'date', dateFormat: 'c'},
         {name: 'codProceso', type: 'string'},
+        {name: 'codEtapa', type: 'string'},
         {name: 'proceso', type: 'boolean'},
         {name: 'idRol', type: 'string'}
     ],

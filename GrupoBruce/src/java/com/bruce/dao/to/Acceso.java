@@ -1,4 +1,3 @@
-
 package com.bruce.dao.to;
 // Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
@@ -26,7 +25,7 @@ public class Acceso implements java.io.Serializable {
     private String idRol;
     private Date fechaUpdate;
     private boolean checked;
-    
+
     private String idSupmenu;
     private boolean leaf;
     private String text;
@@ -34,6 +33,7 @@ public class Acceso implements java.io.Serializable {
     private String handler;
     private boolean proceso;
     private String codProceso;
+    private String codEtapa;
     private String parentId;
 
     public Acceso() {
@@ -45,9 +45,9 @@ public class Acceso implements java.io.Serializable {
         this.fechaUpdate = fechaUpdate;
         this.checked = checked;
     }
-    
+
     @Id
-    @Column(name="ID_MENU", nullable=false)
+    @Column(name = "ID_MENU", nullable = false)
     public String getIdMenu() {
         return idMenu;
     }
@@ -55,9 +55,9 @@ public class Acceso implements java.io.Serializable {
     public void setIdMenu(String idMenu) {
         this.idMenu = idMenu;
     }
-    
+
     @Id
-    @Column(name="ID_ROL", nullable=false)
+    @Column(name = "ID_ROL", nullable = false)
     public String getIdRol() {
         return idRol;
     }
@@ -65,9 +65,9 @@ public class Acceso implements java.io.Serializable {
     public void setIdRol(String idRol) {
         this.idRol = idRol;
     }
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="FECHA_UPDATE", nullable=false)
+    @Column(name = "FECHA_UPDATE", nullable = false)
     public Date getFechaUpdate() {
         return fechaUpdate;
     }
@@ -76,7 +76,7 @@ public class Acceso implements java.io.Serializable {
         this.fechaUpdate = fechaUpdate;
     }
 
-    @Column(name="ACCEDER", nullable=false)
+    @Column(name = "ACCEDER", nullable = false)
     public boolean isChecked() {
         return checked;
     }
@@ -84,8 +84,8 @@ public class Acceso implements java.io.Serializable {
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
-    
-    @Generated(GenerationTime.NEVER) 
+
+    @Generated(GenerationTime.NEVER)
     @Column(insertable = false, updatable = false)
     public String getText() {
         return text;
@@ -95,7 +95,7 @@ public class Acceso implements java.io.Serializable {
         this.text = text;
     }
 
-    @Generated(GenerationTime.NEVER) 
+    @Generated(GenerationTime.NEVER)
     @Column(insertable = false, updatable = false)
     public boolean isLeaf() {
         return leaf;
@@ -105,7 +105,7 @@ public class Acceso implements java.io.Serializable {
         this.leaf = leaf;
     }
 
-    @Generated(GenerationTime.NEVER) 
+    @Generated(GenerationTime.NEVER)
     @Column(insertable = false, updatable = false)
     public String getIdSupmenu() {
         return idSupmenu;
@@ -114,8 +114,8 @@ public class Acceso implements java.io.Serializable {
     public void setIdSupmenu(String idSupmenu) {
         this.idSupmenu = idSupmenu;
     }
-        
-    @Generated(GenerationTime.NEVER) 
+
+    @Generated(GenerationTime.NEVER)
     @Column(insertable = false, updatable = false)
     public String getIconCls() {
         return iconCls;
@@ -125,8 +125,8 @@ public class Acceso implements java.io.Serializable {
         this.iconCls = iconCls;
     }
 
-    @Generated(GenerationTime.NEVER) 
-    @Column(name = "ACCION",insertable = false, updatable = false)
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "ACCION", insertable = false, updatable = false)
     public String getHandler() {
         return handler;
     }
@@ -135,8 +135,8 @@ public class Acceso implements java.io.Serializable {
         this.handler = handler;
     }
 
-    @Generated(GenerationTime.NEVER) 
-    @Column(name = "PROCESO",insertable = false, updatable = false)
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "PROCESO", insertable = false, updatable = false)
     public boolean isProceso() {
         return proceso;
     }
@@ -145,14 +145,24 @@ public class Acceso implements java.io.Serializable {
         this.proceso = proceso;
     }
 
-    @Generated(GenerationTime.NEVER) 
-    @Column(name = "COD_PROCESO",insertable = false, updatable = false)
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "COD_PROCESO", insertable = false, updatable = false)
     public String getCodProceso() {
         return codProceso;
     }
 
     public void setCodProceso(String codProceso) {
         this.codProceso = codProceso;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "COD_ETAPA", insertable = false, updatable = false)
+    public String getCodEtapa() {
+        return codEtapa;
+    }
+
+    public void setCodEtapa(String codEtapa) {
+        this.codEtapa = codEtapa;
     }
 
     @Transient

@@ -11,7 +11,8 @@ Ext.define('GrupoBruce.model.EstadoMantenimiento', {
         {name: 'solucionador', type: 'boolean'},
         {name: 'situacion', type: 'boolean'},
         {name: 'ultimo', type: 'boolean'},
-        {name: 'idPrecede', type: 'string'}
+        {name: 'idPrecede', type: 'string'},
+        {name: 'idProceso', type: 'string'}
     ],
 
     identifier: 'sequential',

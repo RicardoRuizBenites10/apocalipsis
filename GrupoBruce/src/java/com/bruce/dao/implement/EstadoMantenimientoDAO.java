@@ -41,8 +41,9 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
         reverse.addResult("EM.ULTIMO");
         reverse.addResult("EM.SITUACION");
         reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM.ID_PROCESO");
         reverse.addResult("EM1.DESCRIPCION PRECEDE");
-        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.addJoin("LEFT JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -70,8 +71,9 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
         reverse.addResult("EM.ULTIMO");
         reverse.addResult("EM.SITUACION");
         reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM.ID_PROCESO");
         reverse.addResult("EM1.DESCRIPCION PRECEDE");
-        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.addJoin("LEFT JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(EstadoMantenimiento.class);
@@ -97,8 +99,9 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
         reverse.addResult("EM.ULTIMO");
         reverse.addResult("EM.SITUACION");
         reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM.ID_PROCESO");
         reverse.addResult("EM1.DESCRIPCION PRECEDE");
-        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.addJoin("LEFT JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
         reverse.setFilters(filters);
         List<SortPage> sorts = new ArrayList<>();
         sorts.add(new SortPage("ID_ESTADO", "DESC"));

@@ -28,6 +28,7 @@ public class EstadoMantenimiento implements java.io.Serializable {
     private boolean situacion;
     private boolean ultimo;
     private String idPrecede;
+    private String idProceso;
 
     private String precede;
 
@@ -111,6 +112,15 @@ public class EstadoMantenimiento implements java.io.Serializable {
 
     public void setIdPrecede(String idPrecede) {
         this.idPrecede = idPrecede;
+    }
+
+    @Column(name = "ID_PROCESO", nullable = false)
+    public String getIdProceso() {
+        return idProceso;
+    }
+
+    public void setIdProceso(String idProceso) {
+        this.idProceso = idProceso;
     }
 
     @Generated(GenerationTime.NEVER)

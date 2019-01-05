@@ -15,8 +15,6 @@ import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

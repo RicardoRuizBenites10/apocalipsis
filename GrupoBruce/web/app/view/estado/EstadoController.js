@@ -32,8 +32,13 @@ Ext.define('GrupoBruce.view.estado.EstadoController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
+            model.set('idProceso',window.getViewModel().get('recordProceso').get('idProceso'));
             model.save({// save the record to the server
                 success: function (model, operation) {
+                    var main = Ext.getCmp('id_mainMenu').down('treelist');
+                    main.getStore().getRoot().removeAll();
+                    main.getStore().reload();
+                    
                     grid.getStore().reload();
                     form.reset();
                     window.destroy();
