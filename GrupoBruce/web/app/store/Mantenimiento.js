@@ -4,6 +4,11 @@ Ext.define('GrupoBruce.store.Mantenimiento', {
     model: 'GrupoBruce.model.Mantenimiento',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: 'ID_MANTENIMIENTO',
+            direction: 'ASC'
+        }]
 });
 

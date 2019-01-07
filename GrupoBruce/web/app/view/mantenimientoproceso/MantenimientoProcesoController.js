@@ -4,15 +4,14 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso();
-        var idPosterior = this.getViewModel().get('selectEstadoMantenimiento').get('idPosterior');
+        var idEstado = this.getViewModel().get('nextEstadoMantenimiento').get('idEstado');
 
-        window.getViewModel().set('selectEstadoMantenimiento', this.getViewModel().get('selectEstadoMantenimiento'));
         window.getViewModel().set('nextEstadoMantenimiento', this.getViewModel().get('nextEstadoMantenimiento'));
 
         var newRecord = new GrupoBruce.model.MantenimientoProceso();
         newRecord.set('idAequipo', record.get('idAequipo'));
         newRecord.set('idMantenimiento', record.get('idMantenimiento'));
-        newRecord.set('idEmantenimiento', idPosterior);
+        newRecord.set('idEmantenimiento', idEstado);
 
         window.down('form').loadRecord(newRecord);
     },
@@ -32,7 +31,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            model.set('idGenerador', loggedIn.idTrabajador);
+            model.set('idGenerador', loggedIn.idUsuario);
             model.save({// save the record to the server
                 success: function (response, operation) {
                     grid.getStore().reload();
@@ -52,12 +51,13 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoController'
     verificaProcesoMantenimiento: function (combo, newValue, oldValue) {
         var storeEM = combo.getStore();
         var selection = combo.getSelection();
-        var panel = combo.up('WmantenimientoProceso');
-        storeEM.each(function (model) {
-            if (model.data.idEmantenimiento === selection.get('idPosterior')) {
-                panel.getViewModel().set('nextEstadoMantenimiento', model);
-            }
-        });
+        console.log('Verifica: ' +storeEM.count());
+//        var panel = combo.up('WmantenimientoProceso');
+//        storeEM.each(function (model) {
+//            if (model.data.idEmantenimiento === selection.get('idPosterior')) {
+//                panel.getViewModel().set('nextEstadoMantenimiento', model);
+//            }
+//        });
     },
     
     seguimientoMantenimientoProceso: function(){

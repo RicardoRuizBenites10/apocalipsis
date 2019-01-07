@@ -25,7 +25,7 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformaticoC
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            model.set('idGenerador',loggedIn.idTrabajador);
+            model.set('idGenerador',loggedIn.idUsuario);
             model.save({// save the record to the server
                 success: function (response, operation) {
                     grid.getStore().reload();

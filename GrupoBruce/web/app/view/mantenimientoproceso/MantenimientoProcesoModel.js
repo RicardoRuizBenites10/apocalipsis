@@ -8,7 +8,6 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
         codEtapa: null,
         selectSolucionador: null,
         selectMantenimiento: null,
-        selectEstadoMantenimiento: null,
         nextEstadoMantenimiento: null
     },
 
@@ -17,29 +16,19 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
             type: 'Smantenimiento',
             autoLoad: true,
             filters: [{
-                    property: 'idEmantenimiento',
-                    value: '{selectEstadoMantenimiento.idEmantenimiento}'
+                    property: 'ID_EMANTENIMIENTO',
+                    operator: '{codEtapa !== null ? "eq" : "like"}',
+                    value: '{codEtapa !== null ? codEtapa : "%"}'
                 }]
         },
-//        mantenimientosProceso: {
-//            type: 'SmantenimientoProceso',
-//            autoLoad: true,
-//            filters: [{
-//                    property: 'idAequipo',
-//                    value: '{selectMantenimiento.idAequipo}'
-//                },{
-//                    property: 'idMantenimiento',
-//                    value: '{selectMantenimiento.idMantenimiento}'
-//                }]
-//        },
         estadosMantenimiento: {
             type: 'SestadoMantenimiento',
+            autoLoad: true,
             filters: [{
-                    property: 'ID_ESTADO',
+                    property: 'ID_PRECEDE',
                     operator: 'EQ',
                     value: '{codEtapa}'
-                }],
-            autoLoad: true
+                }]
         },
         trabajadors: {
             type: 'Strabajador',
@@ -58,4 +47,5 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
             }
         }
     }
+
 });

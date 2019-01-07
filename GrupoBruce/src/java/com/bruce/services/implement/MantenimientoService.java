@@ -59,7 +59,7 @@ public class MantenimientoService implements IMantenimientoService {
         } catch (IOException ex) {
             Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit,null, filters);
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MantenimientoService implements IMantenimientoService {
         t.setIdEmantenimiento(Constante.MANTENIMIENTO_ESTADO_REQUERIDO);
         t.setFecha(new Date());
         dao.create(t);
-        
+
         MantenimientoProceso mp = new MantenimientoProceso();
         mp.setIdAequipo(t.getIdAequipo());
         mp.setIdMantenimiento(t.getIdMantenimiento());

@@ -47,12 +47,10 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
-        System.err.println("Query: \n" + reverse.getQuery());
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(EstadoMantenimiento.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                System.err.println("\nParametro: " + item.getProperty() + " valor: " + item.getValue());
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }

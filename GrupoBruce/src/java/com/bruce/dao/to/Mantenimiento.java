@@ -13,6 +13,8 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -33,6 +35,9 @@ public class Mantenimiento implements java.io.Serializable {
     private String idTmantenimiento;
     private String idEmantenimiento;
     private String idGenerador;
+    
+    private String generador;
+    private String etapa;
 
     public Mantenimiento() {
     }
@@ -136,5 +141,25 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setIdGenerador(String idGenerador) {
         this.idGenerador = idGenerador;
+    }
+    
+    @Generated(GenerationTime.NEVER)
+    @Column(name="GENERADOR", insertable = false, updatable = false)
+    public String getGenerador() {
+        return generador;
+    }
+
+    public void setGenerador(String generador) {
+        this.generador = generador;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="ETAPA", insertable = false, updatable = false)
+    public String getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 }

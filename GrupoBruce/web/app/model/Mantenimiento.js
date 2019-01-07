@@ -13,7 +13,8 @@ Ext.define('GrupoBruce.model.Mantenimiento', {
         {name: 'idTmantenimiento', type: 'string'},
         {name: 'idEmantenimiento', type: 'string'},
         {name: 'observacion', type: 'string'},
-        {name: 'idGenerador', type: 'string'}
+        {name: 'idGenerador', type: 'string'},
+        {name: 'generador', type: 'string'}
     ],
     
     identifier: 'sequential',

@@ -43,17 +43,17 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListSeguimientoProceso', {
                     align: 'left',
                     renderer: function (val) {
                         switch (val) {
-                            case '01':
+                            case '001':
                                 return 'Requerido';
-                            case '02':
+                            case '002':
                                 return 'Asignado';
-                            case '03':
+                            case '003':
                                 return 'En preceso';
-                            case '04':
+                            case '004':
                                 return 'Terminado';
-                            case '05':
+                            case '005':
                                 return 'En entrega';
-                            case '06':
+                            case '006':
                                 return 'Recepcionado';
                         }
                     }

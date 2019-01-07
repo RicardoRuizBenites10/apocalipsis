@@ -11,6 +11,10 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
+            text: 'Código',
+            dataIndex: 'idMantenimiento',
+            align: 'center'
+        }, {
             text: 'Fecha',
             dataIndex: 'fecha',
             formatter: 'date("d/m/Y")',
@@ -18,11 +22,20 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
         }, {
             text: 'Observación',
             dataIndex: 'observacion',
+            width: 250,
             align: 'left',
             flex: 1
         }, {
             text: 'Generador',
+            dataIndex: 'generador',
+            width: 250,
+            align: 'left',
             flex: 1
+        }, {
+            text: 'Situación',
+            dataIndex: 'etapa',
+            width: 250,
+            align: 'center'
         }],
 
     dockedItems: [{
@@ -30,32 +43,34 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
             overflowHandler: 'menu',
             items: [{
                     xtype: 'combobox',
-                    reference: 'cbo_estadoMantenimiento',
-                    fieldLabel: 'Mantenimiento',
+                    fieldLabel: 'Siguiente',
+                    hidden:true,
+                    bind: {
+                        store: '{estadosMantenimiento}',
+                        selection: '{nextEstadoMantenimiento}',
+                        hidden: '{!codEtapa}'
+                    },
                     valueField: 'idEmantenimiento',
                     displayField: 'descripcion',
                     editable: false,
-                    bind: {
-                        store: '{estadosMantenimiento}',
-                        selection: '{selectEstadoMantenimiento}'
-                    },
                     listeners: {
                         change: 'verificaProcesoMantenimiento'
                     }
-                }, '-', {
+                }, {
                     xtype: 'button',
                     iconCls: 'x-fa fa-tasks',
                     text: 'Siguiente etapa',
+                    hidden: true,
                     bind: {
                         disabled: '{!selectMantenimiento}',
                         text: '{nextEstadoMantenimiento.accion}',
-                        hidden: '{!selectEstadoMantenimiento.idPosterior}'
+                        hidden: '{!nextEstadoMantenimiento}'
                     },
                     handler: 'addMantenimientoProceso'
                 }, {
                     iconCls: 'x-fa fa-eye',
                     disabled: true,
-                    text: 'Seguimiento',
+                    text: 'Ver detalle',
                     bind: {
                         disabled: '{!selectMantenimiento}'
                     },
