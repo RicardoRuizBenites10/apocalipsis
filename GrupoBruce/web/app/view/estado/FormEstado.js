@@ -29,7 +29,7 @@ Ext.define('GrupoBruce.view.estado.FormEstado', {
                     items: [{
                             xtype: 'textfield',
                             name: 'descripcion',
-                            fieldLabel: 'Descripción',
+                            fieldLabel: 'Situación',
                             flex: 1
                         }]
                 }, {

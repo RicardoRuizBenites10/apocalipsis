@@ -80,13 +80,17 @@ public class ReverseQuery {
             for (FilterPage item : filters) {
                 cont++;
                 filterBand = !item.getProperty().equalsIgnoreCase("CLAVE") ? iniEntidad + "." + item.getProperty() : "DECRYPTBYPASSPHRASE('Bruces@22'," + iniEntidad + "." + item.getProperty() + ")";
-                switch (item.getOperator()) {
-                    case "like":
-                        filterSensitive = " LIKE :" + item.getProperty();
-                        break;
-                    default:
-                        filterSensitive = " = :" + item.getProperty();
-                        break;
+                if (item.getOperator() != null) {
+                    switch (item.getOperator()) {
+                        case "like":
+                            filterSensitive = " LIKE :" + item.getProperty();
+                            break;
+                        default:
+                            filterSensitive = " = :" + item.getProperty();
+                            break;
+                    }
+                }else{
+                    filterSensitive = " = :" + item.getProperty();
                 }
                 filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? " AND " : "");
             }

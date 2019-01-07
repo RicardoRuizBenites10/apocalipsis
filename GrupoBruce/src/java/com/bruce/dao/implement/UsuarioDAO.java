@@ -101,7 +101,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         reverse.addJoin("INNER JOIN Rol R", "R.ID_ROL = U.ID_ROL");
         reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = U.ID_USUARIO");
         reverse.setFilters(filters);
-
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(Usuario.class);
         if (!filters.isEmpty()) {

@@ -35,7 +35,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
         estadosMantenimiento: {
             type: 'SestadoMantenimiento',
             filters: [{
-                    property: 'ID_PRECEDE',
+                    property: 'ID_ESTADO',
                     operator: 'EQ',
                     value: '{codEtapa}'
                 }],
