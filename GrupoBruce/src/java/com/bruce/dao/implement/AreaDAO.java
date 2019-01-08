@@ -36,7 +36,14 @@ public class AreaDAO implements IAreaDAO {
         Criteria cr = session.createCriteria(Area.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         return cr.list();
@@ -48,7 +55,14 @@ public class AreaDAO implements IAreaDAO {
         Criteria cr = session.createCriteria(Area.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         cr.setProjection(Projections.rowCount());
@@ -63,7 +77,14 @@ public class AreaDAO implements IAreaDAO {
         Criteria cr = session.createCriteria(Area.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         cr.addOrder(Order.desc("idArea"));

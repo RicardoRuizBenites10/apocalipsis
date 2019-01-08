@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.model.Vacacion', {
     extend: 'Ext.data.Model',
     alias: 'model.Mvacacion',
 
-    idProperty: 'idPVacacion',
+    idProperty: 'idVacacion',
     fields: [
         {name: 'diasTomados', type: 'int'},
         {name: 'fechaBase', type: 'date', dateFormat: 'c'},
@@ -10,6 +10,7 @@ Ext.define('GrupoBruce.model.Vacacion', {
         {name: 'fechaSalida', type: 'date', dateFormat: 'c'},
         {name: 'idPVacacion', type: 'int'},
         {name: 'idTrabajador', type: 'string'},
+        {name: 'idVacacion', type: 'string'},
         {name: 'idTVacacion', type: 'int'}
     ],
 

@@ -57,14 +57,13 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                         },{
                             xtype: 'numberfield',
                             name: 'diasTomados',
-                            fieldLabel: 'Dias a tomar',
+                            fieldLabel: 'Número días',
                             allowDecimals: false,
                             hideTrigger: true,
                             minValue: 7,
                             maxValue: 30,
-                            hidden: true,
                             bind: {
-                                hidden: '{selectTipo ? !selectTipo.pagar : true}',
+//                                hidden: '{selectTipo ? !selectTipo.pagar : true}',
                                 value: '{nroDias}'
                             },
                             allowBlank: true

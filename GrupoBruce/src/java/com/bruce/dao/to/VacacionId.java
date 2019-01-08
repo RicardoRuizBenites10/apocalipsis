@@ -10,14 +10,14 @@ import javax.persistence.Column;
 public class VacacionId implements java.io.Serializable {
 
     private String idTrabajador;
-    private int idPVacacion;
+    private String idVacacion;
 
     public VacacionId() {
     }
 
-    public VacacionId(String idTrabajador, int idPVacacion) {
+    public VacacionId(String idTrabajador, String idVacacion) {
         this.idTrabajador = idTrabajador;
-        this.idPVacacion = idPVacacion;
+        this.idVacacion = idVacacion;
     }
 
     @Column(name = "ID_TRABAJADOR", nullable = false, length = 15)
@@ -29,20 +29,20 @@ public class VacacionId implements java.io.Serializable {
         this.idTrabajador = idTrabajador;
     }
     
-    @Column(name="ID_PVACACION", nullable = false)
-    public int getIdPVacacion() {
-        return idPVacacion;
+    @Column(name="ID_VACACION", nullable = false)
+    public String getIdVacacion() {
+        return idVacacion;
     }
 
-    public void setIdPVacacion(int idPVacacion) {
-        this.idPVacacion = idPVacacion;
+    public void setIdVacacion(String idVacacion) {
+        this.idVacacion = idVacacion;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.idTrabajador);
-        hash = 59 * hash + this.idPVacacion;
+        hash = 97 * hash + Objects.hashCode(this.idTrabajador);
+        hash = 97 * hash + Objects.hashCode(this.idVacacion);
         return hash;
     }
 
@@ -58,10 +58,10 @@ public class VacacionId implements java.io.Serializable {
             return false;
         }
         final VacacionId other = (VacacionId) obj;
-        if (this.idPVacacion != other.idPVacacion) {
+        if (!Objects.equals(this.idTrabajador, other.idTrabajador)) {
             return false;
         }
-        if (!Objects.equals(this.idTrabajador, other.idTrabajador)) {
+        if (!Objects.equals(this.idVacacion, other.idVacacion)) {
             return false;
         }
         return true;

@@ -19,12 +19,13 @@ import javax.persistence.TemporalType;
 public class Vacacion implements java.io.Serializable {
 
     private String idTrabajador;
-    private int idPVacacion;
+    private String idVacacion;
     private Date fechaBase;
     private Date fechaSalida;
     private Date fechaRetorno;
     private Integer diasTomados;
     private int idTVacacion;
+    private int idPVacacion;
 
     public Vacacion() {
     }
@@ -48,15 +49,15 @@ public class Vacacion implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-
+    
     @Id
-    @Column(name = "ID_PVACACION", nullable = false)
-    public int getIdPVacacion() {
-        return idPVacacion;
+    @Column(name = "ID_VACACION", nullable = false)
+    public String getIdVacacion() {
+        return idVacacion;
     }
 
-    public void setIdPVacacion(int idPVacacion) {
-        this.idPVacacion = idPVacacion;
+    public void setIdVacacion(String idVacacion) {
+        this.idVacacion = idVacacion;
     }
 
     @Temporal(TemporalType.DATE)
@@ -105,6 +106,15 @@ public class Vacacion implements java.io.Serializable {
 
     public void setIdTVacacion(int idTVacacion) {
         this.idTVacacion = idTVacacion;
+    }
+
+    @Column(name = "ID_PVACACION", nullable = false)
+    public int getIdPVacacion() {
+        return idPVacacion;
+    }
+
+    public void setIdPVacacion(int idPVacacion) {
+        this.idPVacacion = idPVacacion;
     }
 
     @Override
