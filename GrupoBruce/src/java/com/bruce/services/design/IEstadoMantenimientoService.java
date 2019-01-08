@@ -6,10 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.EstadoMantenimiento;
+import java.util.Map;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEstadoMantenimientoService extends IEntidadService<EstadoMantenimiento>{
+    public Map<String, Object> validaRelacion(EstadoMantenimiento estado);
 }

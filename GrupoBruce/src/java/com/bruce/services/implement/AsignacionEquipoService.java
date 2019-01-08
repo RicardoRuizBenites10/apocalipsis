@@ -5,7 +5,6 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.controller.TrabajadorController;
 import com.bruce.dao.design.IAsignacionDetalleDAO;
 import com.bruce.dao.design.IAsignacionEquipoDAO;
 import com.bruce.dao.design.IMantenimientoDAO;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -136,8 +133,8 @@ public class AsignacionEquipoService implements IAsignacionEquipoService {
     @Override
     @Transactional
     public Map<String, Object> validaRelacion(AsignacionEquipo asignacion) {
-        List<FilterPage> filters = new ArrayList<>(), filtersMD = new ArrayList<>();
-        filters.add(new FilterPage("idAequipo", asignacion.getIdAequipo()));
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("ID_AEQUIPO", asignacion.getIdAequipo()));
         boolean validacion = false;
         String mensage = "No se puede eliminar ya que tiene registros relacionados";
         Map<String, Object> map = new HashMap<>();

@@ -147,12 +147,32 @@ public class MantenimientoDAO implements IMantenimientoDAO {
     public Mantenimiento get(Object idT) {
         Session session = sf.getCurrentSession();
         MantenimientoId mm = (MantenimientoId) idT;
-        Query query = session.createQuery("FROM Mantenimiento WHERE idAequipo = :idAequipo AND idMantenimiento = :idMantenimiento");
-        query.setParameter("idAequipo", mm.getIdAequipo());
-        query.setParameter("idMantenimiento", mm.getIdMantenimiento());
+        ReverseQuery reverse = new ReverseQuery("MANTENIMIENTO", "M");
+        reverse.addResult("M.ID_AEQUIPO");
+        reverse.addResult("M.ID_MANTENIMIENTO");
+        reverse.addResult("M.FECHA");
+        reverse.addResult("M.FECHA_PROGRAMADA");
+        reverse.addResult("M.FECHA_ATENDIDO");
+        reverse.addResult("M.OBSERVACION");
+        reverse.addResult("M.COSTO");
+        reverse.addResult("M.ID_TMANTENIMIENTO");
+        reverse.addResult("M.ID_EMANTENIMIENTO");
+        reverse.addResult("M.ID_GENERADOR");
+        reverse.addResult("T1.AP_PATERNO +' '+ T1.AP_MATERNO + ', ' + T1.NOMBRES AS GENERADOR");
+        reverse.addResult("EM.DESCRIPCION ETAPA");
+        reverse.addJoin("INNER JOIN TRABAJADOR T1", "T1.ID_TRABAJADOR = M.ID_GENERADOR");
+        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM", "EM.ID_ESTADO = M.ID_EMANTENIMIENTO");
+        reverse.getLFilters().add(new FilterPage("ID_AEQUIPO", mm.getIdAequipo()));
+        reverse.getLFilters().add(new FilterPage("ID_MANTENIMIENTO", mm.getIdMantenimiento()));
+        
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Mantenimiento.class);
+        query.setParameter("ID_AEQUIPO", mm.getIdAequipo());
+        query.setParameter("ID_MANTENIMIENTO", mm.getIdMantenimiento());
+
         List result = query.list();
-        Mantenimiento mantenimiento = result.size() > 0 ? (Mantenimiento) result.get(0) : null;
-        return mantenimiento;//(Mantenimiento) sf.getCurrentSession().get(Mantenimiento.class, (Serializable) sf);
+        Mantenimiento mantenimiento = !result.isEmpty() ? (Mantenimiento) result.get(0) : null;
+        return mantenimiento;
     }
 
     @Override

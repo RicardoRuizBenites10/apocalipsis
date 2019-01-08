@@ -137,7 +137,28 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
 
     @Override
     public EstadoMantenimiento get(Object idT) {
-        return (EstadoMantenimiento) sf.getCurrentSession().get(EstadoMantenimiento.class, (Serializable) idT);
+        Session session = sf.getCurrentSession();
+        ReverseQuery reverse = new ReverseQuery("ESTADO_MANTENIMIENTO", "EM");
+        reverse.addResult("EM.ID_ESTADO");
+        reverse.addResult("EM.ORDEN");
+        reverse.addResult("EM.DESCRIPCION");
+        reverse.addResult("EM.ACCION");
+        reverse.addResult("EM.SOLUCIONADOR");
+        reverse.addResult("EM.ULTIMO");
+        reverse.addResult("EM.SITUACION");
+        reverse.addResult("EM.ID_PRECEDE");
+        reverse.addResult("EM.ID_PROCESO");
+        reverse.addResult("EM1.DESCRIPCION PRECEDE");
+        reverse.addJoin("LEFT JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
+        reverse.getLFilters().add(new FilterPage("ID_ESTADO", idT));
+        
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(EstadoMantenimiento.class);
+        query.setParameter("ID_ESTADO", idT);
+        
+        List result = query.list();
+        EstadoMantenimiento estado = !result.isEmpty() ? (EstadoMantenimiento) result.get(0) : null;
+        return estado;
     }
 
     @Override

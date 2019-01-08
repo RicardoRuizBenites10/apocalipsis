@@ -75,7 +75,7 @@ public class ReverseQuery {
     private String getFilters() {
         String filterString = "\n", filterBand, filterSensitive;
         int cont = 0;
-        if (!this.filters.isEmpty()) {
+        if (this.filters != null && !this.filters.isEmpty()) {
             filterString = filterString + "WHERE\n";
             for (FilterPage item : filters) {
                 cont++;
@@ -89,13 +89,17 @@ public class ReverseQuery {
                             filterSensitive = " = :" + item.getProperty();
                             break;
                     }
-                }else{
+                } else {
                     filterSensitive = " = :" + item.getProperty();
                 }
                 filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? " AND " : "");
             }
         }
         return filterString;
+    }
+    
+    public List<FilterPage> getLFilters() {
+        return filters;
     }
 
     public void setFilters(List<FilterPage> filters) {

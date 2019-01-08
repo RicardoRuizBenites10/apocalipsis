@@ -6,8 +6,10 @@
 package com.bruce.services.implement;
 
 import com.bruce.controller.TrabajadorController;
+import com.bruce.dao.design.IEstadoMantenimientoDAO;
 import com.bruce.dao.design.IMantenimientoDAO;
 import com.bruce.dao.design.IMantenimientoProcesoDAO;
+import com.bruce.dao.to.EstadoMantenimiento;
 import com.bruce.dao.to.Mantenimiento;
 import com.bruce.dao.to.MantenimientoId;
 import com.bruce.dao.to.MantenimientoProceso;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,12 +34,14 @@ import java.util.logging.Logger;
  * @author RICARDO
  */
 @Service
-public class MantenimientoProcesoService implements IMantenimientoProcesoService{
-    
+public class MantenimientoProcesoService implements IMantenimientoProcesoService {
+
     @Autowired
-    private IMantenimientoProcesoDAO dao;
+    private IEstadoMantenimientoDAO dao3;
     @Autowired
     private IMantenimientoDAO dao2;
+    @Autowired
+    private IMantenimientoProcesoDAO dao;
 
     @Override
     @Transactional
@@ -102,8 +107,15 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     public void insert(MantenimientoProceso t) {
         t.setIdMproceso(t.getIdMantenimiento() + t.getIdEmantenimiento());
         dao.create(t);
-        Mantenimiento mantenimiento = dao2.get(new MantenimientoId(t.getIdAequipo(),t.getIdMantenimiento()));
+        /*Actualiza mantenimiento*/
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("ID_ESTADO", t.getIdEmantenimiento()));
+        EstadoMantenimiento estado = dao3.lastByFilter(filters);
+        Mantenimiento mantenimiento = dao2.get(new MantenimientoId(t.getIdAequipo(), t.getIdMantenimiento()));
         mantenimiento.setIdEmantenimiento(t.getIdEmantenimiento());
+        if (estado.isUltimo()) {
+            mantenimiento.setFechaAtendido(new Date());
+        }
         dao2.update(mantenimiento);
     }
 
@@ -130,5 +142,5 @@ public class MantenimientoProcesoService implements IMantenimientoProcesoService
     public List<MantenimientoProceso> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

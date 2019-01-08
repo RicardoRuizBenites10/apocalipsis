@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.view.mantenimientoeinformatico.MantenimientoEinformaticoM
             type: 'Smantenimiento',
             autoLoad: true,
             filters: [{
-                    property: 'idAequipo',
+                    property: 'ID_AEQUIPO',
                     value: '{recordAsignacion.idAequipo}'
             }]
         }

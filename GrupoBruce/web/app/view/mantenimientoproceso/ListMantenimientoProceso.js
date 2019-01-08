@@ -23,14 +23,12 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.ListMantenimientoProceso', {
             text: 'Observación',
             dataIndex: 'observacion',
             width: 250,
-            align: 'left',
-            flex: 1
+            align: 'left'
         }, {
             text: 'Generador',
             dataIndex: 'generador',
             width: 250,
-            align: 'left',
-            flex: 1
+            align: 'left'
         }, {
             text: 'Situación',
             dataIndex: 'etapa',

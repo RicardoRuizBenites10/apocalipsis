@@ -101,7 +101,7 @@ public class MantenimientoService implements IMantenimientoService {
     @Override
     @Transactional
     public void insert(Mantenimiento t) {
-        Mantenimiento last = dao.lastByFilter(null);
+        Mantenimiento last = dao.lastByFilter(new ArrayList<>());
         int idLast = last != null ? Integer.parseInt(last.getIdMantenimiento().substring(4)) : 0;
         t.setIdMantenimiento(t.getIdAequipo() + String.format("%04d", idLast + 1));
         t.setIdEmantenimiento(Constante.MANTENIMIENTO_ESTADO_REQUERIDO);

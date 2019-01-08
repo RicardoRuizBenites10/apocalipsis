@@ -54,6 +54,12 @@ public class EstadoMantenimientoController {
         map.put("message", "Registro exitoso.");
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/relacionEstado", method = RequestMethod.POST)
+    public Map<String, Object> validaRelacion(@RequestBody EstadoMantenimiento estadoMantenimiento) {
+        return sct.validaRelacion(estadoMantenimiento);
+    }
 
     @ResponseBody
     @RequestMapping(value = "/uuEstadoMantenimiento", method = RequestMethod.POST)

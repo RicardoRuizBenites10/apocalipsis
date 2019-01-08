@@ -74,6 +74,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.FormMantenimientoProceso', {
                             xtype: 'textarea',
                             name: 'observacion',
                             fieldLabel: 'Observación',
+                            allowBlank: true,
                             flex: 1
                         }]
                 }],
