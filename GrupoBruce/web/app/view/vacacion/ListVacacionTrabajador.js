@@ -15,6 +15,10 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
             dataIndex: 'idPVacacion',
             align: 'center'
         },{
+            text: 'Tipo',
+            dataIndex: 'tipo',
+            align: 'left'
+        },{
             text: 'Fecha base',
             formatter: 'date("d/m/Y")',
             dataIndex: 'fechaBase'
@@ -27,15 +31,8 @@ Ext.define('GrupoBruce.view.vacacion.ListVacacionTrabajador', {
             formatter: 'date("d/m/Y")',
             dataIndex: 'fechaRetorno'
         }, {
-            text: 'Usado',
+            text: 'Nro días',
             dataIndex: 'diasTomados',
-            align: 'center'
-        }, {
-            text: 'Vendido',
-            dataIndex: 'diasTomados',
-            renderer: function(val){
-                return 30- val;
-            },
             align: 'center'
         }],
 

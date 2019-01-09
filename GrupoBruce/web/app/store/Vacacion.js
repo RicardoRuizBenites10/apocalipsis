@@ -4,6 +4,11 @@ Ext.define('Grupobruce.store.Vacacion',{
     alias: 'store.Svacacion',
     
     remoteFilter: true,
-    remoteSort: true
+    remoteSort: true,
+    
+    sorters: [{
+            property: 'ID_VACACION',
+            direction: 'ASC'
+        }]
     
 });

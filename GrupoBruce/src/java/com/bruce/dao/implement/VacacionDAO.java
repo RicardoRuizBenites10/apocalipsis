@@ -12,11 +12,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,55 +31,83 @@ public class VacacionDAO implements IVacacionDAO {
     @Override
     public List<Vacacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Vacacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("VACACION", "V");
+        reverse.addResult("V.ID_TRABAJADOR");
+        reverse.addResult("V.ID_VACACION");
+        reverse.addResult("V.FECHA_BASE");
+        reverse.addResult("V.FECHA_SALIDA");
+        reverse.addResult("V.FECHA_RETORNO");
+        reverse.addResult("V.DIAS_TOMADOS");
+        reverse.addResult("V.ID_TVACACION");
+        reverse.addResult("V.ID_PVACACION");
+        reverse.addResult("TV.DESCRIPCION TIPO");
+        reverse.addJoin("INNER JOIN TIPO_VACACION TV", "TV.ID_TVACACION = V.ID_TVACACION");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Vacacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        if (sorts != null) {
-            sorts.forEach(item -> {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            });
-        }
-        cr.addOrder(Order.desc("idPVacacion"));
-        cr.setFirstResult(start);
-        cr.setMaxResults(limit);
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Vacacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("VACACION", "V");
+        reverse.addResult("V.ID_TRABAJADOR");
+        reverse.addResult("V.ID_VACACION");
+        reverse.addResult("V.FECHA_BASE");
+        reverse.addResult("V.FECHA_SALIDA");
+        reverse.addResult("V.FECHA_RETORNO");
+        reverse.addResult("V.DIAS_TOMADOS");
+        reverse.addResult("V.ID_TVACACION");
+        reverse.addResult("V.ID_PVACACION");
+        reverse.addResult("TV.DESCRIPCION TIPO");
+        reverse.addJoin("INNER JOIN TIPO_VACACION TV", "TV.ID_TVACACION = V.ID_TVACACION");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Vacacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return result.size();
     }
 
     @Override
     public Vacacion lastByFilter(List<FilterPage> filters) {
-        Vacacion last = null;
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Vacacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("VACACION", "V");
+        reverse.addResult("V.ID_TRABAJADOR");
+        reverse.addResult("V.ID_VACACION");
+        reverse.addResult("V.FECHA_BASE");
+        reverse.addResult("V.FECHA_SALIDA");
+        reverse.addResult("V.FECHA_RETORNO");
+        reverse.addResult("V.DIAS_TOMADOS");
+        reverse.addResult("V.ID_TVACACION");
+        reverse.addResult("V.ID_PVACACION");
+        reverse.addResult("TV.DESCRIPCION TIPO");
+        reverse.addJoin("INNER JOIN TIPO_VACACION TV", "TV.ID_TVACACION = V.ID_TVACACION");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ID_VACACION", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Vacacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idPVacacion"));
-        cr.setFirstResult(0);
-
-        List list = cr.list();
-        if (list.size() > 0) {
-            last = (Vacacion) list.get(0);
-        }
-
+        
+        List result = query.list();
+        Vacacion last = !result.isEmpty() ? (Vacacion) result.get(0) : null;
         return last;
     }
 

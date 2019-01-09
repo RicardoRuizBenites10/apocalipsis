@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
     resizable: false,
     closable: false,
     modal: true,
-    
+
     title: 'Registrar vacación',
     items: [{
             xtype: 'form',
@@ -33,10 +33,18 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                             },
                             displayField: 'idPVacacion',
                             valueField: 'idPVacacion'
-                        },{
+                        }]
+                }, {
+                    items: [{
                             xtype: 'textfield',
-                            fieldLabel: 'Tiempo servicio',
+                            fieldLabel: 'Años servicio',
                             bind: '{tiempo_servicio}',
+                            minValue: 1,
+                            editable: false
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Dias restantes',
+                            bind: '{diasRestantes}',
                             minValue: 1,
                             editable: false
                         }]
@@ -54,16 +62,15 @@ Ext.define('GrupoBruce.view.vacacion.FormVacacionTrabajador', {
                             autoSelect: true,
                             displayField: 'descripcion',
                             valueField: 'idTVacacion'
-                        },{
+                        }, {
                             xtype: 'numberfield',
                             name: 'diasTomados',
                             fieldLabel: 'Número días',
                             allowDecimals: false,
                             hideTrigger: true,
-                            minValue: 7,
-                            maxValue: 30,
+                            minValue: 1,
                             bind: {
-//                                hidden: '{selectTipo ? !selectTipo.pagar : true}',
+                                maxValue: '{diasRestantes}',
                                 value: '{nroDias}'
                             },
                             allowBlank: true

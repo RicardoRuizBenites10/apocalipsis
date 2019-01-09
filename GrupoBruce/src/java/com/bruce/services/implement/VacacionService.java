@@ -24,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class VacacionService implements IVacacionService{
-    
+public class VacacionService implements IVacacionService {
+
     @Autowired
     private IVacacionDAO dao;
-    
+
     @Override
     @Transactional
     public List<Vacacion> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -55,11 +55,12 @@ public class VacacionService implements IVacacionService{
     @Override
     @Transactional
     public void insert(Vacacion currentVacacion) {
-//        List<FilterPage> filters = new ArrayList<>();
-//        filters.add(new FilterPage("idTrabajador",currentVacacion.getIdTrabajador()));
-//        Vacacion last = last(filters);
-//        int idLast = last == null ? 1 : last.getIdPVacacion() + 1;
-//        currentVacacion.setIdPVacacion(idLast);
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("ID_TRABAJADOR", currentVacacion.getIdTrabajador()));
+        filters.add(new FilterPage("ID_PVACACION", currentVacacion.getIdPVacacion()));
+        Vacacion last = dao.lastByFilter(filters);
+        int idLast = last == null ? 0 : Integer.parseInt(last.getIdVacacion().substring(4));
+        currentVacacion.setIdVacacion(String.valueOf(currentVacacion.getIdPVacacion()) + String.valueOf(idLast + 1));
         dao.create(currentVacacion);
     }
 
@@ -122,5 +123,5 @@ public class VacacionService implements IVacacionService{
         }
         return dao.lastByFilter(filters);
     }
-    
+
 }

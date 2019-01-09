@@ -119,6 +119,10 @@ public class ReverseQuery {
         return sortString;
     }
 
+    public List<SortPage> getLSorts() {
+        return sorts;
+    }
+
     public void setSorts(List<SortPage> sorts) {
         this.sorts = sorts;
     }

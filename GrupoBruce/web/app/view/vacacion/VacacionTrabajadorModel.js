@@ -18,7 +18,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
             type: 'Svacacion',
             autoLoad: true,
             filters: [{
-                    property: 'idTrabajador',
+                    property: 'ID_TRABAJADOR',
                     value: '{recordTrabajador.idTrabajador}'
                 }]
         },
@@ -48,6 +48,19 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
                 return servicio;
             }
         },
+        diasRestantes: function (get) {
+            var dias = 30, periodo = get('selectPeriodo'), anio, storeV = get('vacacions');
+            if (periodo) {
+                anio = periodo.get('idPVacacion');
+                storeV.each(function (model) {
+                    if (model.get('idPVacacion') === anio) {
+                        dias = dias - model.get('diasTomados');
+                    }
+                });
+            }
+            this.set({initialDay: dias});
+            return dias;
+        },
         retorno: {
             get: function (get) {
                 var dias = get('diasTipo'), salida = get('salida'), fecha, vacacion = get('selectVacacion');
@@ -60,11 +73,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
         },
         diasTipo: {
             get: function (get) {
-                var tipo = get('selectTipo'), numero = 0;
-                if (tipo) {
-                    numero = tipo.get('pagar') ? get('nroDias') : 30;
-                }
-                return numero;
+                return get('nroDias');
             }
         },
         nroDias: {

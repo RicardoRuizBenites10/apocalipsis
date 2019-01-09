@@ -10,7 +10,6 @@ import com.bruce.dao.to.EstadoMantenimiento;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.SQLQuery;

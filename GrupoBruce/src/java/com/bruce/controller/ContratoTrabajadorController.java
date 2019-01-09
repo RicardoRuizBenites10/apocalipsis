@@ -7,16 +7,8 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.ContratoTrabajador;
 import com.bruce.services.design.IContratoTrabajadorService;
-import com.bruce.util.FilterPage;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
