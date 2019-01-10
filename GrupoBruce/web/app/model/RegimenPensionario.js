@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.RegimenPensionario', {
 
     idProperty: 'idRpensionario',
     fields: [
-        {name: 'codigo', type: 'string'},
+        {name: 'comision', type: 'boolean'},
         {name: 'cuspp', type: 'boolean'},
         {name: 'descripcion', type: 'string'},
         {name: 'idRpensionario', type: 'string'},

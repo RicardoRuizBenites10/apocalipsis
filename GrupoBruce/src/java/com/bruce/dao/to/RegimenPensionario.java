@@ -19,6 +19,7 @@ public class RegimenPensionario implements java.io.Serializable {
     private String idRpensionario;
     private String descripcion;
     private boolean cuspp;
+    private boolean comision;
     private boolean situacion;
 
     public RegimenPensionario() {
@@ -63,6 +64,15 @@ public class RegimenPensionario implements java.io.Serializable {
 
     public void setCuspp(boolean cuspp) {
         this.cuspp = cuspp;
+    }
+    
+    @Column(name="COMISION", nullable = false)
+    public boolean isComision() {
+        return comision;
+    }
+
+    public void setComision(boolean comision) {
+        this.comision = comision;
     }
 
     @Column(name = "SITUACION", nullable = false)

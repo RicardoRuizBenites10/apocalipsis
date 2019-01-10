@@ -294,7 +294,7 @@
       "parameters": {
         "appName": "GrupoBruce",
         "baseClass": "Ext.data.Model",
-        "fields": "codigo:string:null,descripcion:string:null,idTtrabajador:int:null,situacion:boolean:null",
+        "fields": "idTtrabajador:int:null",
         "modelFileName": "TipoTrabajador",
         "modelNamespace": "GrupoBruce.model",
         "name": "TipoTrabajador"

@@ -4,7 +4,6 @@ Ext.define('GrupoBruce.model.TipoTrabajador', {
     
     idProperty: 'idTtrabajador',
     fields: [
-        { name: 'codigo', type: 'string' },
         { name: 'descripcion', type: 'string' },
         { name: 'idTtrabajador', type: 'int' },
         { name: 'hasctacts', type: 'boolean' },
@@ -16,9 +15,9 @@ Ext.define('GrupoBruce.model.TipoTrabajador', {
         type: 'ajax',
         api:{
             read: 'tipoTrabajadorBySituacion',
-            create: 'insertTipoTrabajador',
-            updte: 'updateTipoTrabajador',
-            delete: 'deleteTipoTrabajador'
+            create: 'iiTipoTrabajador',
+            updte: 'uuTipoTrabajador',
+            delete: 'ddTipoTrabajador'
         },
         reader: {
             type: 'json',

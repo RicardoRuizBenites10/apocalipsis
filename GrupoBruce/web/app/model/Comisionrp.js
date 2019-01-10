@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.model.Comisionrp', {
     extend: 'Ext.data.Model',
     alias: 'model.Mcomisionrp',
-    
+
     idProperty: 'idComisionrp',
     fields: [
         {name: 'comision', type: 'float'},
@@ -20,9 +20,9 @@ Ext.define('GrupoBruce.model.Comisionrp', {
         type: 'ajax',
         api: {
             read: 'comisionrps',
-            create: 'insertComisionrp',
-            update: 'updateComisionrp',
-            destroy : 'deleteComisionrp'
+            create: 'iiComisionrp',
+            update: 'uuComisionrp',
+            destroy: 'ddComisionrp'
         },
         reader: {
             type: 'json',
