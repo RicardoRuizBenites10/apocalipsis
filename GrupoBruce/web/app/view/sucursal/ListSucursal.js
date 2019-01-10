@@ -1,53 +1,31 @@
-Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
+Ext.define('GrupoBruce.view.sucursal.ListSucursal',{
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistTipoTrabajador',
-    reference: 'list_tipoTrabajador',
-
+    alias: 'widget.WlistSucursal',
+    reference: 'list_sucursal',
+    
     bind: {
-        store: '{tiposTrabajador}',
-        selection: '{selectTipoTrabajador}'
+        store: '{sucursals}',
+        selection: '{selectSucursal}'
     },
     allowDeselect: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Codigo',
-            dataIndex: 'idTtrabajador',
+            text: 'Código',
+            dataIndex: 'idSucursal',
             align: 'center'
         }, {
-            text: 'Nombre',
-            dataIndex: 'descripcion',
-            width: 200,
+            text: 'Direccion',
+            dataIndex: 'direccion',
+            width: 300,
             align: 'left'
         }, {
-            text: 'R. pensionario',
-            dataIndex: 'hasrpensionario',
-            renderer: function (val) {
-                return val ? 'SI' : 'NO';
-            },
-            width: 150,
-            align: 'center'
+            text: 'Teléfono',
+            dataIndex: 'telefono',
+            align: 'left'
         }, {
-            text: 'Cta. CTS',
-            dataIndex: 'hasctacts',
-            renderer: function (val) {
-                return val ? 'SI' : 'NO';
-            },
-            width: 150,
-            align: 'center'
-        }, {
-            text: 'Pension',
-            dataIndex: 'pension'
-        }, {
-            text: 'Essalud',
-            dataIndex: 'essalud'
-        }, {
-            text: 'Vida',
-            dataIndex: 'vida'
-        },{
             text: 'Situación',
             dataIndex: 'situacion',
-            width: 150,
             align: 'center',
             renderer: function (val) {
                 if (val) {
@@ -65,25 +43,25 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
                 bind: {
-                    disabled: '{selectTipoTrabajador}'
+                    disabled: '{selectSucursal}'
                 },
-                handler: 'addTipoTrabajador'
+                handler: 'addSucursal'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
                 text: 'Modificar',
                 bind: {
-                    disabled: '{!selectTipoTrabajador}'
+                    disabled: '{!selectSucursal}'
                 },
-                handler: 'editTipoTrabajador'
+                handler: 'editSucursal'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
-                    disabled: '{!selectTipoTrabajador}'
+                    disabled: '{!selectSucursal}'
                 },
-                handler: 'deleteTipoTrabajador'
+                handler: 'deleteSucursal'
             }]
     },
 
@@ -91,7 +69,7 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{tiposTrabajador}'
+                store: '{sucursals}'
             },
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',

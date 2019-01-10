@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +55,46 @@ public class SucursalController {
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/iiSucursal", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Sucursal sucursal) {
+        Map<String, Object> map = new HashMap<>();
+        se.insert(sucursal);
+        map.put("success", true);
+        map.put("data", sucursal);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuSucursal", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Sucursal sucursal) {
+        Map<String, Object> map = new HashMap<>();
+        se.update(sucursal);
+        map.put("success", true);
+        map.put("data", sucursal);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddSucursal", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Sucursal sucursal) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            se.delete(sucursal);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", sucursal);
+        map.put("message", msg);
         return map;
     }
     

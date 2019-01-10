@@ -25,13 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class EmpresaService implements IEmpresaService {
-    
+
     @Autowired
     private IEmpresaDAO dao;
 
     @Override
     @Transactional
     public void insert(Empresa t) {
+        Empresa last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? Integer.parseInt(last.getIdEmpresa()) : 0;
+        t.setIdEmpresa(String.format("%02d", idLast + 1));
+        t.setSituacion(true);
         dao.create(t);
     }
 
@@ -122,5 +126,5 @@ public class EmpresaService implements IEmpresaService {
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
 }

@@ -1,37 +1,36 @@
-Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
+Ext.define('GrupoBruce.view.sucursal.SucursalController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Ctipotrabajador',
+    alias: 'controller.Csucursal',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.tipotrabajador.FormTipoTrabajador();
+        var window = new GrupoBruce.view.sucursal.FormSucursal();
         if (!record) {
-            window.setTitle('Registrar tipo trabajador');
-            record = new GrupoBruce.model.TipoTrabajador();
+            var idEmpresa = this.getViewModel().get('recordEmpresa').get('idEmpresa');
+            window.setTitle('Registrar sucursal');
+            record = new GrupoBruce.model.Sucursal();
+            record.set('idEmpresa', idEmpresa);
         }
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addTipoTrabajador: function () {
+    addSucursal: function () {
         this.createDialog(null);
     },
 
-    editTipoTrabajador: function () {
-        var model = this.getViewModel().get('selectTipoTrabajador');
+    editSucursal: function () {
+        var model = this.getViewModel().get('selectSucursal');
         this.createDialog(model);
     },
 
-    onSaveTipoTrabajador: function (btn) {
+    onSaveSucursal: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wtipotrabajador');
+        var grid = Ext.getCmp('id_wsucursal');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var chkrpensionario = this.lookupReference('chk_rpensionario'), chkctacts = this.lookupReference('chk_ctacts');
-            model.set('hasrpensionario', chkrpensionario.checked);
-            model.set('hasctacts', chkctacts.checked);
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();
@@ -48,8 +47,8 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
         }
     },
 
-    deleteTipoTrabajador: function () {
-        var grid = this.lookupReference('list_tipoTrabajador');
+    deleteSucursal: function () {
+        var grid = this.lookupReference('list_sucursal');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -61,5 +60,4 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
             }
         });
     }
-
 });

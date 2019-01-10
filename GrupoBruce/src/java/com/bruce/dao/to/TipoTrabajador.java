@@ -20,6 +20,9 @@ public class TipoTrabajador implements java.io.Serializable {
     private String descripcion;
     private boolean hasctacts;
     private boolean hasrpensionario;
+    private float pension;
+    private float essalud;
+    private float vida;
     private boolean situacion;
 
     public TipoTrabajador() {
@@ -66,6 +69,33 @@ public class TipoTrabajador implements java.io.Serializable {
 
     public void setHasrpensionario(boolean hasrpensionario) {
         this.hasrpensionario = hasrpensionario;
+    }
+
+    @Column(name="PENSION", nullable=false)
+    public float getPension() {
+        return pension;
+    }
+
+    public void setPension(float pension) {
+        this.pension = pension;
+    }
+
+    @Column(name="ESSALUD", nullable=false)
+    public float getEssalud() {
+        return essalud;
+    }
+
+    public void setEssalud(float essalud) {
+        this.essalud = essalud;
+    }
+
+    @Column(name="VIDA", nullable=false)
+    public float getVida() {
+        return vida;
+    }
+
+    public void setVida(float vida) {
+        this.vida = vida;
     }
 
     @Column(name = "SITUACION", nullable = false)

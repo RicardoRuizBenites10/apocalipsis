@@ -1,37 +1,34 @@
-Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
+Ext.define('GrupoBruce.view.empresa.EmpresaController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Ctipotrabajador',
+    alias: 'controller.Cempresa',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.tipotrabajador.FormTipoTrabajador();
+        var window = new GrupoBruce.view.empresa.FormEmpresa();
         if (!record) {
             window.setTitle('Registrar tipo trabajador');
-            record = new GrupoBruce.model.TipoTrabajador();
+            record = new GrupoBruce.model.Empresa();
         }
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addTipoTrabajador: function () {
+    addEmpresa: function () {
         this.createDialog(null);
     },
 
-    editTipoTrabajador: function () {
-        var model = this.getViewModel().get('selectTipoTrabajador');
+    editEmpresa: function () {
+        var model = this.getViewModel().get('selectEmpresa');
         this.createDialog(model);
     },
 
-    onSaveTipoTrabajador: function (btn) {
+    onSaveEmpresa: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wtipotrabajador');
+        var grid = Ext.getCmp('id_wempresa');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var chkrpensionario = this.lookupReference('chk_rpensionario'), chkctacts = this.lookupReference('chk_ctacts');
-            model.set('hasrpensionario', chkrpensionario.checked);
-            model.set('hasctacts', chkctacts.checked);
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();
@@ -48,8 +45,8 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
         }
     },
 
-    deleteTipoTrabajador: function () {
-        var grid = this.lookupReference('list_tipoTrabajador');
+    deleteEmpresa: function () {
+        var grid = this.lookupReference('list_empresa');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -60,6 +57,16 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
+    },
+
+    createWindow: function (view) {
+        var model = this.getViewModel().get('selectEmpresa');
+        var window = Ext.create(view);
+        window.getViewModel().set('recordEmpresa', model);
+    },
+
+    onSucursalEmpresa: function () {
+        this.createWindow('GrupoBruce.view.sucursal.Sucursal');
     }
 
 });

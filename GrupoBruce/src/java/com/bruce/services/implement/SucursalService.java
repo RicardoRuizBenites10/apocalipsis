@@ -24,14 +24,18 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class SucursalService implements ISucursalService{
-    
+public class SucursalService implements ISucursalService {
+
     @Autowired
     private ISucursalDAO dao;
 
     @Override
     @Transactional
     public void insert(Sucursal t) {
+        Sucursal last = dao.lastByFilter(new ArrayList());
+        int idLast = last != null ? Integer.parseInt(last.getIdSucursal()) : 0;
+        t.setIdSucursal(String.format("%02d", idLast + 1));
+        t.setSituacion(true);
         dao.create(t);
     }
 
@@ -117,5 +121,5 @@ public class SucursalService implements ISucursalService{
         }
         return dao.lastByFilter(filters);
     }
-    
+
 }

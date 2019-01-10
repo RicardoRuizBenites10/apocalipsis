@@ -11,13 +11,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "EMPRESA",
-         schema = "dbo",
-         catalog = "BDBRUCE"
+        schema = "dbo",
+        catalog = "BDBRUCE"
 )
 public class Empresa implements java.io.Serializable {
 
     private String idEmpresa;
+    private String ruc;
     private String descripcion;
+    private String logo;
     private boolean situacion;
 
     public Empresa() {
@@ -46,6 +48,24 @@ public class Empresa implements java.io.Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Column(name = "RUC", nullable = false)
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+
+    @Column(name = "LOGO")
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     @Column(name = "SITUACION", nullable = false)

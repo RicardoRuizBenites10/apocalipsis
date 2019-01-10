@@ -6,6 +6,8 @@ Ext.define('GrupoBruce.model.Sucursal', {
     fields: [
         { name: 'direccion', type: 'string' },
         { name: 'idSucursal', type: 'string' },
+        { name: 'telefono', type: 'string' },
+        { name: 'telefono2', type: 'string' },
         { name: 'situacion', type: 'boolean' },
         { name:'idEmpresa', type: 'string' }
     ],
@@ -18,9 +20,9 @@ Ext.define('GrupoBruce.model.Sucursal', {
         type: 'ajax',
         api: {
             read: 'sucursals',
-            create: 'insertSucursal',
-            update: 'updateSucursal',
-            destroy : 'deleteSucursal'
+            create: 'iiSucursal',
+            update: 'uuSucursal',
+            destroy : 'ddSucursal'
         },
         reader: {
             type: 'json',

@@ -32,6 +32,7 @@ public class TipoTrabajadorService implements ITipoTrabajadorService{
     @Override
     @Transactional
     public void insert(TipoTrabajador t) {
+        t.setSituacion(true);
         dao.create(t);
     }
 

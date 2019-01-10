@@ -6,13 +6,13 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Empresa;
-import com.bruce.dao.to.EstadoTrabajador;
 import com.bruce.services.design.IEmpresaService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +36,46 @@ public class EmpresaController {
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/iiEmpresa", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Empresa empresa) {
+        Map<String, Object> map = new HashMap<>();
+        se.insert(empresa);
+        map.put("success", true);
+        map.put("data", empresa);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuEmpresa", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Empresa empresa) {
+        Map<String, Object> map = new HashMap<>();
+        se.update(empresa);
+        map.put("success", true);
+        map.put("data", empresa);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddEmpresa", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Empresa empresa) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            se.delete(empresa);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", empresa);
+        map.put("message", msg);
         return map;
     }
     

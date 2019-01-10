@@ -8,20 +8,28 @@ Ext.define('GrupoBruce.model.TipoTrabajador', {
         { name: 'idTtrabajador', type: 'int' },
         { name: 'hasctacts', type: 'boolean' },
         { name: 'hasrpensionario', type: 'boolean' },
+        { name: 'seguro', type: 'float' },
+        { name: 'essalud', type: 'float' },
+        { name: 'vida', type: 'float' },
         { name: 'situacion', type: 'boolean' }
     ],
     
+    identifier: 'sequential',    
     proxy: {
         type: 'ajax',
-        api:{
-            read: 'tipoTrabajadorBySituacion',
+        api: {
             create: 'iiTipoTrabajador',
-            updte: 'uuTipoTrabajador',
-            delete: 'ddTipoTrabajador'
+            read: 'tipoTrabajadorBySituacion',
+            update: 'uuTipoTrabajador',
+            destroy: 'ddTipoTrabajador'
         },
         reader: {
             type: 'json',
             rootProperty: 'data'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true
         }
     }
 });

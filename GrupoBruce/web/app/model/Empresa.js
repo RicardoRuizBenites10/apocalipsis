@@ -5,7 +5,9 @@ Ext.define('GrupoBruce.model.Empresa', {
     idProperty: 'idEmpresa',
     fields: [
         { name: 'descripcion', type: 'string' },
+        { name: 'ruc', type: 'string' },
         { name: 'idEmpresa', type: 'string' },
+        { name: 'logo', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ],
     

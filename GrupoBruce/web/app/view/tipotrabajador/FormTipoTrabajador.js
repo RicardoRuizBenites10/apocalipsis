@@ -11,7 +11,6 @@ Ext.define('GrupoBruce.view.tipotrabajador.FormTipoTrabajador', {
     modal: true,
     closable: true,
     resizable: true,
-    autoShow: true,
 
     width: 400,
 
@@ -52,6 +51,29 @@ Ext.define('GrupoBruce.view.tipotrabajador.FormTipoTrabajador', {
                             name: 'hasctacts',
                             fieldLabel: 'CTS',
                             boxLabel: 'Si',
+                            flex: 1
+                        }]
+                },{
+                    items: [{
+                            xtype: 'numberfield',
+                            hideTrigger: true,
+                            minValue: 0,
+                            name: 'pension',
+                            fieldLabel: 'Pensión',
+                            flex: 1
+                        }, {
+                            xtype: 'numberfield',
+                            hideTrigger: true,
+                            minValue: 0,
+                            name: 'essalud',
+                            fieldLabel: 'Essalud',
+                            flex: 1
+                        }, {
+                            xtype: 'numberfield',
+                            hideTrigger: true,
+                            minValue: 0,
+                            name: 'vida',
+                            fieldLabel: 'Vida',
                             flex: 1
                         }]
                 }],
