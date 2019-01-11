@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.view.entidadfinanciera.EntidadFinanciera', {
     
     items: [{
             xtype: 'WlistEntidadFinanciera',
-            id: 'id_wentidadFinanciera',
+            id: 'id_wentidadfinanciera',
             height: 500
     }]
 });

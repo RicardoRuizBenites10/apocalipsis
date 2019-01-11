@@ -15,6 +15,7 @@ import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -75,12 +76,36 @@ public class EntidadFinancieraDAO implements IEntidadFinancieraDAO {
 
     @Override
     public EntidadFinanciera lastByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        EntidadFinanciera entity = null;
+        Criteria cr = session.createCriteria(EntidadFinanciera.class);
+        if(filters!=null){
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.addOrder(Order.desc("idEfinanciera"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        if (result.size() > 0) {
+            entity = (EntidadFinanciera) result.get(0);
+        }
+        return entity;
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(EntidadFinanciera.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
     }
 
 }

@@ -5,6 +5,5 @@ Ext.define('GrupoBruce.store.EntidadFinanciera',{
     
     remoteSort: true,
     remoteFilter: true
-    
 });
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -23,18 +24,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class EntidadFinancieraController {
-    
+
     @Autowired
     private IEntidadFinancieraService sec;
-    
+
     @ResponseBody
-    @RequestMapping(value="/entidadFinancieraBySituacion", method = RequestMethod.GET)
-    public Map<String, Object> getBySituacion(){
+    @RequestMapping(value = "/entidadFinancieraBySituacion", method = RequestMethod.GET)
+    public Map<String, Object> getBySituacion(
+            @RequestParam("page") int page,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         List<EntidadFinanciera> lista = sec.findBySituacion(true);
         map.put("success", true);
         map.put("message", "Datos encontrados");
         map.put("data", lista);
+        map.put("total", sec.countByFilter(filter, query));
+        map.put("total", sec.countByFilter(filter, query));
         return map;
     }
 
@@ -77,6 +86,5 @@ public class EntidadFinancieraController {
         map.put("message", msg);
         return map;
     }
-  
-    
+
 }

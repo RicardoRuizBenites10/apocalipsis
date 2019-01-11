@@ -32,6 +32,7 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     @Override
     @Transactional
     public void insert(EntidadFinanciera t) {
+        t.setSituacion(true);
         dao.create(t);
     }
 
@@ -68,6 +69,7 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     }
 
     @Override
+    @Transactional
     public int countByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -85,6 +87,7 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     }
 
     @Override
+    @Transactional
     public EntidadFinanciera lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -102,6 +105,7 @@ public class EntidadFinancieraService implements IEntidadFinancieraService {
     }
 
     @Override
+    @Transactional
     public List<EntidadFinanciera> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();

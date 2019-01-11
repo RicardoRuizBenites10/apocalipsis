@@ -9,7 +9,7 @@ Ext.define('GrupoBruce.view.entidadfinanciera.EntidadFinancieraModel', {
 
     stores: {
         entidadsFinanciera: {
-            xtype: 'SentidadFinanciera',
+            type: 'SentidadFinanciera',
             autoLoad: true
         }
     }
