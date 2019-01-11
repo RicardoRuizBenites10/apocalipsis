@@ -15,5 +15,13 @@ Ext.define('GrupoBruce.view.entidadfinanciera.EntidadFinanciera', {
         type: 'VMentidadfinanciera'
     },
 
-    html: 'Hello, World!!'
+    bind: {
+        title: '{title}'
+    },
+    
+    items: [{
+            xtype: 'WlistEntidadFinanciera',
+            id: 'id_wentidadFinanciera',
+            height: 500
+    }]
 });

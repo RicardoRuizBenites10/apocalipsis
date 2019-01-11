@@ -1,8 +1,17 @@
 Ext.define('GrupoBruce.view.entidadfinanciera.EntidadFinancieraModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMentidadfinanciera',
+
     data: {
-        name: 'GrupoBruce'
+        title: 'Lista de entidades financieras',
+        selectEntidadFinanciera: null
+    },
+
+    stores: {
+        entidadsFinanciera: {
+            xtype: 'SentidadFinanciera',
+            autoLoad: true
+        }
     }
 
 });

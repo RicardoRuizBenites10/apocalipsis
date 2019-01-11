@@ -3,15 +3,8 @@ Ext.define('GrupoBruce.store.EntidadFinanciera',{
     model: 'GrupoBruce.model.EntidadFinanciera',
     alias: 'store.SentidadFinanciera',
     
-    proxy: {
-        type: 'ajax',
-        api:{
-            read: 'entidadFinancieraBySituacion'
-        },
-        reader: {
-            type: 'json',
-            rootProperty: 'data'
-        }
-    }
+    remoteSort: true,
+    remoteFilter: true
+    
 });
 

@@ -5,15 +5,14 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Ecivil;
 import com.bruce.dao.to.EntidadFinanciera;
-import com.bruce.services.design.IECivilService;
 import com.bruce.services.design.IEntidadFinancieraService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,5 +37,46 @@ public class EntidadFinancieraController {
         map.put("data", lista);
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/iiEntidadFinanciera", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody EntidadFinanciera entidadFinanciera) {
+        Map<String, Object> map = new HashMap<>();
+        sec.insert(entidadFinanciera);
+        map.put("success", true);
+        map.put("data", entidadFinanciera);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuEntidadFinanciera", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody EntidadFinanciera entidadFinanciera) {
+        Map<String, Object> map = new HashMap<>();
+        sec.update(entidadFinanciera);
+        map.put("success", true);
+        map.put("data", entidadFinanciera);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddEntidadFinanciera", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody EntidadFinanciera entidadFinanciera) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            sec.delete(entidadFinanciera);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", entidadFinanciera);
+        map.put("message", msg);
+        return map;
+    }
+  
     
 }
