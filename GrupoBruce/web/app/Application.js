@@ -39,6 +39,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.MantenimientoDetalle',
         'GrupoBruce.store.MantenimientoProceso',
         'GrupoBruce.store.Menu',
+        'GrupoBruce.store.Marca',
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.Periocidad',
         'GrupoBruce.store.PeriodoVacacion',

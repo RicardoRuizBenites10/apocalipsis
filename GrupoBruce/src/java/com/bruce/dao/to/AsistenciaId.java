@@ -19,8 +19,8 @@ public class AsistenciaId implements java.io.Serializable {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
     }
-    
-    @Column(name="ID_TRABAJADOR",nullable = false)
+
+    @Column(name = "ID_TRABAJADOR", nullable = false)
     public String getIdTrabajador() {
         return idTrabajador;
     }
@@ -29,7 +29,7 @@ public class AsistenciaId implements java.io.Serializable {
         this.idTrabajador = idTrabajador;
     }
 
-    @Column(name="ID_ASISTENCIA",nullable = false)
+    @Column(name = "ID_ASISTENCIA", nullable = false)
     public String getIdAsistencia() {
         return idAsistencia;
     }

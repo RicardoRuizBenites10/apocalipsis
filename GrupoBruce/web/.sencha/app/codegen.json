@@ -1043,6 +1043,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Proceso"
       }
+    },
+    "app/model/Marca.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,hmarca:string:null,idAsistencia:string:null,idMarca:string:null,idTrabajador:string:null,situacion:boolean:null",
+        "modelFileName": "Marca",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Marca"
+      }
     }
   }
 }

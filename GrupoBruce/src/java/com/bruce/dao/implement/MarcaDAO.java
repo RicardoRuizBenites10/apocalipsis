@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IProcesoDAO;
-import com.bruce.dao.to.Proceso;
+import com.bruce.dao.design.IMarcaDAO;
+import com.bruce.dao.to.Marca;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import java.util.List;
@@ -21,38 +21,38 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
 @Repository
-public class ProcesoDAO implements IProcesoDAO {
+public class MarcaDAO implements IMarcaDAO {
 
     @Autowired
     private SessionFactory sf;
 
     @Override
-    public void create(Proceso t) {
+    public void create(Marca t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Proceso t) {
+    public void update(Marca t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Proceso t) {
+    public void delete(Marca t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Proceso get(Object idT) {
+    public Marca get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Proceso lastByFilter(List<FilterPage> filters) {
+    public Marca lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Proceso.class);
+        Criteria cr = session.createCriteria(Marca.class);
         filters.forEach(item -> {
             switch (item.getOperator()) {
                 case "like":
@@ -63,23 +63,23 @@ public class ProcesoDAO implements IProcesoDAO {
                     break;
             }
         });
-        cr.addOrder(Order.desc("idProceso"));
+        cr.addOrder(Order.desc("idMarca"));
         cr.setFirstResult(0);
 
         List result = cr.list();
-        Proceso proceso = !result.isEmpty() ? (Proceso) result.get(0) : null;
-        return proceso;
+        Marca marca = !result.isEmpty() ? (Marca) result.get(0) : null;
+        return marca;
     }
 
     @Override
-    public List<Proceso> getAll() {
+    public List<Marca> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Proceso> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Marca> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Proceso.class);
+        Criteria cr = session.createCriteria(Marca.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -105,7 +105,7 @@ public class ProcesoDAO implements IProcesoDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Proceso.class);
+        Criteria cr = session.createCriteria(Marca.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {

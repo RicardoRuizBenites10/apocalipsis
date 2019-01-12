@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
         'GrupoBruce.view.asistencia.AsistenciaModel',
 
         'GrupoBruce.view.asistencia.ListMarcacion',
+        'GrupoBruce.view.marca.ListMarcaImport',
         'GrupoBruce.view.asistencia.FormMarcacion'
     ],
 
@@ -22,7 +23,7 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
                         xtype: 'button',
                         iconCls: 'fa fa-plus',
                         text: 'Marcaciones',
-                        handler: 'onImportacionMarcas',
+                        handler: 'onMarcaImport',
                         tooltip: {
                             title: 'Archivo excel con formato:',
                             text: 'Dpto | Nombres | Dni | Fecha/hora'

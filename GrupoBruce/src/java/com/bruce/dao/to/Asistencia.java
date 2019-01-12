@@ -23,7 +23,12 @@ public class Asistencia implements java.io.Serializable {
     private String idTrabajador;
     private String idAsistencia;
     private Date fecha;
-    private String hmarca;
+    private String marca1;
+    private String marca2;
+    private String marca3;
+    private String marca4;
+    private String marca5;
+    private String marca6;
     private int anio;
     private int mes;
     private int dia;
@@ -34,18 +39,18 @@ public class Asistencia implements java.io.Serializable {
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, Date fecha, String hmarca, String trabajador) {
+    public Asistencia(String idTrabajador, Date fecha, String marca1, String trabajador) {
         this.idTrabajador = idTrabajador;
         this.fecha = fecha;
-        this.hmarca = hmarca;
+        this.marca1 = marca1;
         this.trabajador = trabajador;
     }
 
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String hmarca) {
+    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1) {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
-        this.hmarca = hmarca;
+        this.marca1 = marca1;
     }
 
     @Id
@@ -88,13 +93,58 @@ public class Asistencia implements java.io.Serializable {
         this.fechaTemp = fechaTemp;
     }
 
-    @Column(name = "HMARCA", nullable = false, length = 10)
-    public String getHmarca() {
-        return hmarca;
+    @Column(name = "MARCA1", nullable = false)
+    public String getMarca1() {
+        return marca1;
     }
 
-    public void setHmarca(String hmarca) {
-        this.hmarca = hmarca;
+    public void setMarca1(String marca1) {
+        this.marca1 = marca1;
+    }
+
+    @Column(name = "MARCA2")
+    public String getMarca2() {
+        return marca2;
+    }
+
+    public void setMarca2(String marca2) {
+        this.marca2 = marca2;
+    }
+
+    @Column(name = "MARCA3")
+    public String getMarca3() {
+        return marca3;
+    }
+
+    public void setMarca3(String marca3) {
+        this.marca3 = marca3;
+    }
+
+    @Column(name = "MARCA4")
+    public String getMarca4() {
+        return marca4;
+    }
+
+    public void setMarca4(String marca4) {
+        this.marca4 = marca4;
+    }
+
+    @Column(name = "MARCA5")
+    public String getMarca5() {
+        return marca5;
+    }
+
+    public void setMarca5(String marca5) {
+        this.marca5 = marca5;
+    }
+
+    @Column(name = "MARCA6")
+    public String getMarca6() {
+        return marca6;
+    }
+
+    public void setMarca6(String marca6) {
+        this.marca6 = marca6;
     }
 
     @Column(name = "ANIO", nullable = false)
