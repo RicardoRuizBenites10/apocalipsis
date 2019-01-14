@@ -214,7 +214,6 @@ public class Metodo {
                                             valueTem = "ERROR";
                                             break;
                                     }
-                                    System.err.println("Valores: \n [" + indiceCTabla + "]" + valueTem);
                                 }
                             } else {
 //                                listaColumna[indiceCTabla] = "";
@@ -224,11 +223,11 @@ public class Metodo {
                                     marca.setTrabajador(String.valueOf(valueTem));
                                     break;
                                 case 2:
-                                    marca.setIdTrabajador(String.valueOf(valueTem));
+                                    String dni = String.valueOf(valueTem);
+                                    marca.setIdTrabajador(dni.length() == 8 ? dni : "0" + dni);
                                     break;
                                 case 3:
                                     fcha = (String) valueTem;
-                                    System.err.println("Case 3: " + fcha);
                                     if (fcha != null) {
                                         try {
                                             marca.setFecha(formatoFecha.parse(fcha.substring(0, 10)));

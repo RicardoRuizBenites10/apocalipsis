@@ -29,6 +29,7 @@ public class Asistencia implements java.io.Serializable {
     private String marca4;
     private String marca5;
     private String marca6;
+    private String marca7;
     private int anio;
     private int mes;
     private int dia;
@@ -44,6 +45,7 @@ public class Asistencia implements java.io.Serializable {
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
         this.marca1 = marca1;
+        this.marca7 = marca1;
         this.anio = anio;
         this.mes = mes;
         this.dia = dia;
@@ -141,6 +143,15 @@ public class Asistencia implements java.io.Serializable {
 
     public void setMarca6(String marca6) {
         this.marca6 = marca6;
+    }
+
+    @Column(name = "MARCA7", nullable = false)
+    public String getMarca7() {
+        return marca7;
+    }
+
+    public void setMarca7(String marca7) {
+        this.marca7 = marca7;
     }
 
     @Column(name = "ANIO", nullable = false)

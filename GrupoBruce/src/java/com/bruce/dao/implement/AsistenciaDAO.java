@@ -9,7 +9,12 @@ import com.bruce.dao.design.IAsistenciaDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,11 +38,28 @@ public class AsistenciaDAO implements IAsistenciaDAO {
     public List<Asistencia> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Asistencia.class);
-        if (filters != null) {
+        if (!filters.isEmpty()) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                if (item.getProperty().equalsIgnoreCase("fecha")) {
+                    System.err.println("Mi fecha: " + item.getValue());
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        cr.add(Restrictions.eq(item.getProperty(), formatoFecha.parse(String.valueOf(item.getValue()))));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                }
             });
         }
+        if (sorts != null) {
+            sorts.forEach(item -> {
+                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
+            });
+        }
+        cr.setFirstResult(start);
+        cr.setMaxResults(limit);
         return cr.list();
     }
 
@@ -47,7 +69,17 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         Criteria cr = session.createCriteria(Asistencia.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                if (item.getProperty().equalsIgnoreCase("fecha")) {
+                    System.err.println("Mi fecha: " + item.getValue());
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        cr.add(Restrictions.eq(item.getProperty(), formatoFecha.parse(String.valueOf(item.getValue()))));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                }
             });
         }
         cr.setProjection(Projections.rowCount());

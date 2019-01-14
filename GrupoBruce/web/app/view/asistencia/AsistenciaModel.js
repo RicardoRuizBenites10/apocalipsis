@@ -3,29 +3,23 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     alias: 'viewmodel.VMasistencia',
 
     data: {
-        nameFile: null
     },
 
     stores: {
-        importacions: {
+        asistencias: {
             type: 'Sasistencia',
-            proxy: {
-                type: 'ajax',
-                url: 'imports',
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data',
-                    totalProperty: 'total'
-                },
-                writer: {
-                    type: 'json',
-                    writeAllFields: true
-                }
-            },
+            autoLoad: true,
             filters: [{
-                    property: 'nameFile',
-                    value: '{nameFile}'
+                    property: 'fecha',
+                    operator: 'eq',
+                    value: '{desde}'
                 }]
+        }
+    },
+
+    formulas: {
+        desde: function (get) {
+            return '2018-11-02';
         }
     }
 

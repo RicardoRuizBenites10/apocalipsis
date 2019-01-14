@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     alias: 'controller.Casistencia',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.asistencia.FormMarcacion();
+        var window = new GrupoBruce.view.marca.FormMarca();
         if (!record) {
             window.setTitle('Registrar marcación');
 //            var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
@@ -43,4 +43,5 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     onMarcaImport: function () {
         var window = new GrupoBruce.view.marca.ListMarcaImport();
     }
+    
 });

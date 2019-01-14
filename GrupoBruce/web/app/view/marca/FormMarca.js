@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.asistencia.FormMarcacion', {
+Ext.define('GrupoBruce.view.marca.FormMarca', {
     extend: 'Ext.window.Window',
     alias: 'widget.WformMarcacion',
     reference: 'form_marcacion',

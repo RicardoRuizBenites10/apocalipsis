@@ -6,7 +6,8 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
         'GrupoBruce.view.asistencia.AsistenciaModel',
 
         'GrupoBruce.view.marca.ListMarcaImport',
-        'GrupoBruce.view.asistencia.FormMarcacion'
+        'GrupoBruce.view.asistencia.ListAsistencia',
+        'GrupoBruce.view.marca.FormMarca'
     ],
 
     controller: 'Casistencia',
@@ -31,17 +32,10 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
             },
 
             items: [{
-                    title: 'Vista de equipo ',
+                    title: 'Vista de asistencias ',
                     items: [{
-                            xtype: 'grid',
-                            tbar: {
-                                items: [{
-                                        xtype: 'button',
-                                        iconCls: 'x-fa fa-plus',
-                                        text: 'Nueva marca',
-                                        handler: 'addMarcacion'
-                                    }]
-                            }
+                            xtype: 'WlistAsistencia',
+                            height: 420
                         }]
                 },{
                     title: 'Calendario Bruce'

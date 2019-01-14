@@ -153,4 +153,9 @@ public class Marca implements java.io.Serializable {
         this.trabajador = trabajador;
     }
 
+    @Override
+    public String toString() {
+        return "Marca{" + "idTrabajador=" + idTrabajador + ", idAsistencia=" + idAsistencia + ", idMarca=" + idMarca + ", fecha=" + fecha + ", hmarca=" + hmarca + ", situacion=" + situacion + ", dia=" + dia + ", mes=" + mes + ", anio=" + anio + ", fechaTemp=" + fechaTemp + ", trabajador=" + trabajador + '}';
+    }
+
 }

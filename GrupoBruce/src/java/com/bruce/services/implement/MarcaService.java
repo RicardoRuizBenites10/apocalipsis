@@ -134,7 +134,7 @@ public class MarcaService implements IMarcaService {
         List<Marca> notFound = new ArrayList<>();
         List<FilterPage> filter = new ArrayList<>();
         Asistencia asistencia, lastA;
-        Marca lastM;
+        Marca marca, lastM;
         String idAsistencia;
         int idLastA, idLastM;
         for (Marca item : marcas) {
@@ -150,42 +150,45 @@ public class MarcaService implements IMarcaService {
                     filter.remove(0);
                     lastA = daoA.lastByFilter(filter);
                     idLastA = lastA != null ? Integer.parseInt(lastA.getIdAsistencia().substring(8)) : 0;
-                    idAsistencia = item.getAnio() + item.getMes() + item.getDia() + String.format("%04d", idLastA + 1);
+                    idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia()) + String.format("%04d", idLastA + 1);
                     daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia()));
                     item.setIdAsistencia(idAsistencia);
                     item.setIdMarca(idAsistencia + "01");
-                    System.err.println("idMarca: " + idAsistencia + "01");
                     dao.create(item);
                 } else {
                     filter.clear();
                     filter.add(new FilterPage("eq", "idAsistencia", asistencia.getIdAsistencia()));
-                    lastM = dao.lastByFilter(filter);
-                    idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(12)) : 0;
-                    item.setIdMarca(asistencia.getIdAsistencia() + String.format("%02d", idLastM + 1));
-                    dao.create(item);
-                    switch (idLastM + 1) {
-                        case 1:
-                            asistencia.setMarca1(item.getHmarca());
-                            break;
-                        case 2:
-                            asistencia.setMarca2(item.getHmarca());
-                            break;
-                        case 3:
-                            asistencia.setMarca3(item.getHmarca());
-                            break;
-                        case 4:
-                            asistencia.setMarca4(item.getHmarca());
-                            break;
-                        case 5:
-                            asistencia.setMarca5(item.getHmarca());
-                            break;
-                        case 6:
-                            asistencia.setMarca6(item.getHmarca());
-                            break;
+                    filter.add(new FilterPage("eq", "hmarca", item.getHmarca()));
+                    marca = dao.lastByFilter(filter);
+                    if (marca == null) {
+                        filter.clear();
+                        filter.add(new FilterPage("eq", "idAsistencia", asistencia.getIdAsistencia()));
+                        lastM = dao.lastByFilter(filter);
+                        idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(12)) : 0;
+                        item.setIdAsistencia(asistencia.getIdAsistencia());
+                        item.setIdMarca(asistencia.getIdAsistencia() + String.format("%02d", idLastM + 1));
+                        dao.create(item);
+                        switch (idLastM + 1) {
+                            case 2:
+                                asistencia.setMarca2(item.getHmarca());
+                                break;
+                            case 3:
+                                asistencia.setMarca3(item.getHmarca());
+                                break;
+                            case 4:
+                                asistencia.setMarca4(item.getHmarca());
+                                break;
+                            case 5:
+                                asistencia.setMarca5(item.getHmarca());
+                                break;
+                            case 6:
+                                asistencia.setMarca6(item.getHmarca());
+                                break;
+                        }
+                        asistencia.setMarca7(item.getHmarca());
+                        daoA.update(asistencia);
                     }
-                    daoA.update(asistencia);
                 }
-                insert(item);
             } else {
                 notFound.add(item);
             }
