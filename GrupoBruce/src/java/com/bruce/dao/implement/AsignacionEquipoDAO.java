@@ -93,9 +93,7 @@ public class AsignacionEquipoDAO implements IAsignacionEquipoDAO{
         reverse.addJoin("INNER JOIN TRABAJADOR T1", "T1.ID_TRABAJADOR = AE.ID_ASIGNADOR");
         reverse.addJoin("INNER JOIN Trabajador T2", "T2.ID_TRABAJADOR = AE.ID_RECEPCIONADOR");
         reverse.setFilters(filters);
-        List<SortPage> sorts = new ArrayList<>();
-        sorts.add(new SortPage("ID_AEQUIPO", "DESC"));
-        reverse.setSorts(sorts);
+        reverse.getLSorts().add(new SortPage("ID_AEQUIPO", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(AsignacionEquipo.class);

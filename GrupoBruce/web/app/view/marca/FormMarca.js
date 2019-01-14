@@ -3,9 +3,9 @@ Ext.define('GrupoBruce.view.marca.FormMarca', {
     alias: 'widget.WformMarcacion',
     reference: 'form_marcacion',
 
-    controller: 'Casistencia',
+    controller: 'Cmarca',
     viewModel: {
-        type: 'VMasistencia'
+        type: 'VMmarca'
     },
 
     width: 400,
@@ -28,14 +28,33 @@ Ext.define('GrupoBruce.view.marca.FormMarca', {
             },
             items: [{
                     items: [{
-                            xtype: 'textfield',
+                            xtype: 'combo',
+                            id: 'id_trabajadorMarca',
                             name: 'idTrabajador',
-                            fieldLabel: 'Dni',
-                            flex: 1
-                        },{
-                            xtype: 'textfield',
-                            name: 'trabajador',
+                            valueField: 'idTrabajador',
+                            displayField: 'nombres',
                             fieldLabel: 'Trabajador',
+                            emptyText: 'Buscar..',
+                            bind: {
+                                store: '{trabajadors}',
+                                selection: '{selectTrabajador}'
+                            },
+                            tpl: [
+                                '<ul class="x-list-plain">',
+                                '<tpl for=".">',
+                                '<li class="',
+                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
+                                '<li class="x-boundlist-item">',
+                                '{nombresCompletos} ',
+                                '</li>',
+                                '</tpl>',
+                                '</ul>'
+                            ],
+                            minChars: 3,
+                            editable: false,
+                            pageSize: true,
+                            hideTrigger: true,
+                            triggerAction: 'query',
                             flex: 1
                         }]
                 }, {
@@ -43,6 +62,7 @@ Ext.define('GrupoBruce.view.marca.FormMarca', {
                             xtype: 'datefield',
                             name: 'fecha',
                             format: 'd/m/Y',
+                            editable: false,
                             fieldLabel: 'Fecha'
                         }, {
                             xtype: 'timefield',
@@ -50,23 +70,6 @@ Ext.define('GrupoBruce.view.marca.FormMarca', {
                             fieldLabel: 'Hora marcación',
                             minValue: '7:30 am',
                             maxValue: '4:30 pm',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'numberfield',
-                            name: 'anio',
-                            fieldLabel: 'Año',
-                            flex: 1
-                        }, {
-                            xtype: 'numberfield',
-                            name: 'mes',
-                            fieldLabel: 'Mes',
-                            flex: 1
-                        }, {
-                            xtype: 'numberfield',
-                            name: 'dia',
-                            fieldLabel: 'Día',
                             flex: 1
                         }]
                 }],

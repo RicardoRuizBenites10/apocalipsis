@@ -6,9 +6,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var window = new GrupoBruce.view.marca.FormMarca();
         if (!record) {
             window.setTitle('Registrar marcación');
-//            var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
-            var record = Ext.create('GrupoBruce.model.Asistencia', {
-//                idTrabajador: idTrabajador
+            var asistencia = this.getViewModel().get('selectAsistencia');
+            var record = Ext.create('GrupoBruce.model.Marca', {
+                idTrabajador: asistencia.get('idTrabajador'),
+                fecha: asistencia.get('fecha')
             });
         }
         window.down('form').loadRecord(record);

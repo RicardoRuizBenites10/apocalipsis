@@ -26,6 +26,22 @@ Ext.define('GrupoBruce.view.marca.MarcaModel', {
                     property: 'nameFile',
                     value: '{nameFile}'
                 }]
+        },
+        trabajadors: {
+            type: 'Strabajador',
+            autoLoad: true,
+            sorters: [
+                {property: 'apPaterno', direction: 'ASC'},
+                {property: 'apMaterno', direction: 'ASC'},
+                {property: 'nombres', direction: 'ASC'}
+            ],
+            listeners: {
+                beforeload: function (store) {
+                    var query = Ext.getCmp('id_trabajadorMarca');
+                    var valor = query !== undefined ? query.getValue() : 'x1';
+                    store.getProxy().setExtraParam("query", valor);
+                }
+            }
         }
     }
 

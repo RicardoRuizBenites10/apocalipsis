@@ -16,6 +16,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             align: 'center'
         }, {
             text: 'Nombre',
+            dataIndex: 'trabajador',
             width: 300,
             align: 'left'
         }, {
@@ -87,20 +88,14 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                 reference: 'date_desde',
                 fieldLabel: 'Desde',
                 format: 'd/m/Y',
-                value: new Date()
-            }, {
-                xtype: 'button',
-                iconCls: 'x-fa fa-search',
-                tooltip: 'Consultar marcas',
-                bind: {
-                    disabled: '{selectAsistencia}'
-                }
+                bind: '{desde}'
             }, '-', {
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo marca',
+                disabled: true,
                 bind: {
-                    disabled: '{selectAsistencia}'
+                    disabled: '{!selectAsistencia}'
                 },
                 handler: 'addMarcacion'
             }]

@@ -8,19 +8,12 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IAsistenciaDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -37,73 +30,96 @@ public class AsistenciaDAO implements IAsistenciaDAO {
     @Override
     public List<Asistencia> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Asistencia.class);
+        ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
+        reverse.addResult("A.ID_TRABAJADOR");
+        reverse.addResult("A.ID_ASISTENCIA");
+        reverse.addResult("A.FECHA");
+        reverse.addResult("A.MARCA1");
+        reverse.addResult("A.MARCA2");
+        reverse.addResult("A.MARCA3");
+        reverse.addResult("A.MARCA4");
+        reverse.addResult("A.MARCA5");
+        reverse.addResult("A.MARCA6");
+        reverse.addResult("A.MARCA7");
+        reverse.addResult("A.ANIO");
+        reverse.addResult("A.MES");
+        reverse.addResult("A.DIA");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Asistencia.class);
         if (!filters.isEmpty()) {
-            filters.forEach(item -> {
-                if (item.getProperty().equalsIgnoreCase("fecha")) {
-                    System.err.println("Mi fecha: " + item.getValue());
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        cr.add(Restrictions.eq(item.getProperty(), formatoFecha.parse(String.valueOf(item.getValue()))));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(AsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                }
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        if (sorts != null) {
-            sorts.forEach(item -> {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            });
-        }
-        cr.setFirstResult(start);
-        cr.setMaxResults(limit);
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Asistencia.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                if (item.getProperty().equalsIgnoreCase("fecha")) {
-                    System.err.println("Mi fecha: " + item.getValue());
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        cr.add(Restrictions.eq(item.getProperty(), formatoFecha.parse(String.valueOf(item.getValue()))));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(AsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                }
+        ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
+        reverse.addResult("A.ID_TRABAJADOR");
+        reverse.addResult("A.ID_ASISTENCIA");
+        reverse.addResult("A.FECHA");
+        reverse.addResult("A.MARCA1");
+        reverse.addResult("A.MARCA2");
+        reverse.addResult("A.MARCA3");
+        reverse.addResult("A.MARCA4");
+        reverse.addResult("A.MARCA5");
+        reverse.addResult("A.MARCA6");
+        reverse.addResult("A.MARCA7");
+        reverse.addResult("A.ANIO");
+        reverse.addResult("A.MES");
+        reverse.addResult("A.DIA");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Asistencia.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        return query.list().size();
     }
 
     @Override
     public Asistencia lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Asistencia asistencia = null;
-        Criteria cr = session.createCriteria(Asistencia.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+        ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
+        reverse.addResult("A.ID_TRABAJADOR");
+        reverse.addResult("A.ID_ASISTENCIA");
+        reverse.addResult("A.FECHA");
+        reverse.addResult("A.MARCA1");
+        reverse.addResult("A.MARCA2");
+        reverse.addResult("A.MARCA3");
+        reverse.addResult("A.MARCA4");
+        reverse.addResult("A.MARCA5");
+        reverse.addResult("A.MARCA6");
+        reverse.addResult("A.MARCA7");
+        reverse.addResult("A.ANIO");
+        reverse.addResult("A.MES");
+        reverse.addResult("A.DIA");
+        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ID_ASISTENCIA", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Asistencia.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idAsistencia"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        if (result.size() > 0) {
-            asistencia = (Asistencia) result.get(0);
-        }
+        List result = query.list();
+        Asistencia asistencia =  !result.isEmpty() ? (Asistencia)result.get(0) : null;
         return asistencia;
     }
 

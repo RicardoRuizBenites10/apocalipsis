@@ -3,6 +3,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     alias: 'viewmodel.VMasistencia',
 
     data: {
+        desde: new Date()
     },
 
     stores: {
@@ -10,7 +11,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
             type: 'Sasistencia',
             autoLoad: true,
             filters: [{
-                    property: 'fecha',
+                    property: 'FECHA',
                     operator: 'eq',
                     value: '{desde}'
                 }]
@@ -18,9 +19,9 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     },
 
     formulas: {
-        desde: function (get) {
-            return '2018-11-02';
-        }
+//        desde: function (get) {
+//            return '02/11/2018';
+//        }
     }
 
 });
