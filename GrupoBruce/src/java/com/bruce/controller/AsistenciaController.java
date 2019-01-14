@@ -7,19 +7,9 @@ package com.bruce.controller;
 
 import com.bruce.dao.to.Asistencia;
 import com.bruce.services.design.IAsistenciaService;
-import com.bruce.util.Constante;
-import com.bruce.util.FilterPage;
-import com.bruce.util.Metodo;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,35 +27,6 @@ public class AsistenciaController {
 
     @Autowired
     private IAsistenciaService sct;
-
-    @ResponseBody
-    @RequestMapping(value = "/imports", method = RequestMethod.GET)
-    public Map<String, Object> getImport(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
-            @RequestParam(required = false, value = "sort") String sort,
-            @RequestParam(required = false, value = "filter") String filter,
-            @RequestParam(required = false, value = "query") String query) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        List<FilterPage> filters = new ArrayList<>();
-        try {
-            filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Map<String, Object> map = new HashMap<>();
-        List<Asistencia> lista = (filters.size() > 0 && filters.get(0).getValue() != null) ? Metodo.Importar(new File(Constante.DIRECTORY_ASISTENCIA + filters.get(0).getValue())) : new ArrayList<>();
-
-        map.put("success", true);
-        map.put("message", "Datos encontrados");
-        map.put("data", lista);
-        map.put("total", lista.size());
-        return map;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/asistencias", method = RequestMethod.GET)
@@ -95,12 +56,12 @@ public class AsistenciaController {
         map.put("message", "Registro exitoso.");
         return map;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/iiAsistenciaList", method = RequestMethod.POST)
     public Map<String, Object> insertList(@RequestBody List<Asistencia> asistencia) {
         Map<String, Object> map = new HashMap<>();
-        
+
         asistencia = sct.insertList(asistencia);
         map.put("success", true);
         map.put("data", asistencia);

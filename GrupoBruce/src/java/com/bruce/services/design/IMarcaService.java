@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Marca;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IMarcaService extends IEntidadService<Marca>{
-    
+    public List<Marca> insertList(List<Marca> marcas);
 }

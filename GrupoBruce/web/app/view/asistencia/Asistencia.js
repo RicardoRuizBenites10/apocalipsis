@@ -5,7 +5,6 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
         'GrupoBruce.view.asistencia.AsistenciaController',
         'GrupoBruce.view.asistencia.AsistenciaModel',
 
-        'GrupoBruce.view.asistencia.ListMarcacion',
         'GrupoBruce.view.marca.ListMarcaImport',
         'GrupoBruce.view.asistencia.FormMarcacion'
     ],

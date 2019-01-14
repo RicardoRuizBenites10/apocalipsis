@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.view.marca.MarcaModel', {
 
     stores: {
         importacions: {
-            type: 'Sasistencia',
+            type: 'Smarca',
             proxy: {
                 type: 'ajax',
                 url: 'imports',

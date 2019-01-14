@@ -5,7 +5,7 @@
  */
 package com.bruce.util;
 
-import com.bruce.dao.to.Asistencia;
+import com.bruce.dao.to.Marca;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -140,11 +140,11 @@ public class Metodo {
         return nomAvatar;
     }
 
-    public static List<Asistencia> Importar(File archivo) {
+    public static List<Marca> Importar(File archivo) {
 
         Workbook wb;
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"), formatoHora = new SimpleDateFormat("hh:mm:ss a");
-        List<Asistencia> lista = new ArrayList<>();
+        List<Marca> lista = new ArrayList<>();
         Object valueTem = null;
         String fcha;
 
@@ -159,7 +159,7 @@ public class Metodo {
             int contFNN = 0;//CONTADOR DE FILA NO NULLA
 
             for (int ir = 0; ir <= nroFNN; ir++) {
-                Asistencia asistencia = new Asistencia();
+                Marca marca = new Marca();
 //                asistencia.setIdAsistencia(String.valueOf(ir));
                 rowSelect = hoja.getRow(ir);
                 if (rowSelect != null) {
@@ -214,29 +214,31 @@ public class Metodo {
                                             valueTem = "ERROR";
                                             break;
                                     }
+                                    System.err.println("Valores: \n [" + indiceCTabla + "]" + valueTem);
                                 }
                             } else {
 //                                listaColumna[indiceCTabla] = "";
                             }
                             switch (indiceCTabla) {
                                 case 1:
-                                    asistencia.setTrabajador(String.valueOf(valueTem));
+                                    marca.setTrabajador(String.valueOf(valueTem));
                                     break;
                                 case 2:
-                                    asistencia.setIdTrabajador(String.valueOf(valueTem));
+                                    marca.setIdTrabajador(String.valueOf(valueTem));
                                     break;
                                 case 3:
                                     fcha = (String) valueTem;
+                                    System.err.println("Case 3: " + fcha);
                                     if (fcha != null) {
                                         try {
-                                            asistencia.setFecha(formatoFecha.parse(fcha.substring(0, 10)));
+                                            marca.setFecha(formatoFecha.parse(fcha.substring(0, 10)));
                                         } catch (ParseException ex) {
                                             Logger.getLogger(Metodo.class.getName()).log(Level.SEVERE, null, ex);
                                         }
-                                        asistencia.setDia(Integer.parseInt(fcha.substring(0, 2)));
-                                        asistencia.setMes(Integer.parseInt(fcha.substring(3, 5)));
-                                        asistencia.setAnio(Integer.parseInt(fcha.substring(6, 10)));
-                                        asistencia.setHmarca(fcha.substring(11, 16) + fcha.substring(19).replace(".", ""));
+                                        marca.setDia(Integer.parseInt(fcha.substring(0, 2)));
+                                        marca.setMes(Integer.parseInt(fcha.substring(3, 5)));
+                                        marca.setAnio(Integer.parseInt(fcha.substring(6, 10)));
+                                        marca.setHmarca(fcha.substring(11, 16) + fcha.substring(19).replace(".", ""));
                                     }
                                     break;
                                 default:
@@ -245,7 +247,7 @@ public class Metodo {
                         }
                     }
                     if (contFNN > 1) {
-                        lista.add(asistencia);
+                        lista.add(marca);
                     }
                 }
             }

@@ -5,6 +5,7 @@
  */
 package com.bruce.dao.to;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -29,6 +31,12 @@ public class Marca implements java.io.Serializable {
     private Date fecha;
     private String hmarca;
     private boolean situacion;
+    
+    private int dia;
+    private int mes;
+    private int anio;
+    private String fechaTemp;
+    private String trabajador;
 
     public Marca() {
     }
@@ -72,7 +80,7 @@ public class Marca implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false)
+    @Column(name = "FECHA", nullable = false, length = 10)
     public Date getFecha() {
         return fecha;
     }
@@ -97,6 +105,52 @@ public class Marca implements java.io.Serializable {
 
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
+    }
+
+    @Transient
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    @Transient
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    @Transient
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+    
+    @Transient
+    public String getFechaTemp() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(this.fecha);
+    }
+
+    public void setFechaTemp(String fechaTemp) {
+        this.fechaTemp = fechaTemp;
+    }
+
+    @Transient
+    public String getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(String trabajador) {
+        this.trabajador = trabajador;
     }
 
 }

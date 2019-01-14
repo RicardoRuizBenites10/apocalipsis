@@ -39,18 +39,14 @@ public class Asistencia implements java.io.Serializable {
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, Date fecha, String marca1, String trabajador) {
-        this.idTrabajador = idTrabajador;
-        this.fecha = fecha;
-        this.marca1 = marca1;
-        this.trabajador = trabajador;
-    }
-
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1) {
+    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia) {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
         this.marca1 = marca1;
+        this.anio = anio;
+        this.mes = mes;
+        this.dia = dia;
     }
 
     @Id

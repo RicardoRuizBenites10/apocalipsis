@@ -14,12 +14,12 @@ Ext.define('GrupoBruce.view.marca.MarcaController', {
             if (file !== null) {
                 this.getBase64(file).then(data => {
                     var base64 = data.split(',');
-                    var mooo = new GrupoBruce.model.Archivo({
+                    var file = new GrupoBruce.model.Archivo({
                         nombre: name_file,
                         beforeB64: base64[0],
                         afterB64: base64[1]
                     });
-                    mooo.save({// save the record to the server
+                    file.save({// save the record to the server
                         success: function (response, operation) {
                             name_file = response.data.nombre;
                             window.getViewModel().set('nameFile', name_file);
@@ -57,7 +57,7 @@ Ext.define('GrupoBruce.view.marca.MarcaController', {
         });
 
         Ext.Ajax.request({
-            url: 'iiAsistenciaList',
+            url: 'iiMarcaList',
             jsonData: jsonData,
             method: 'POST',
             scope: this,
