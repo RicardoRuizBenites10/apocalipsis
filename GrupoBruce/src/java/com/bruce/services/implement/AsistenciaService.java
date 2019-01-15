@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,20 +93,6 @@ public class AsistenciaService implements IAsistenciaService {
 
     @Override
     @Transactional
-    public List<Asistencia> insertList(List<Asistencia> list) {
-        List<Asistencia> notFound = new ArrayList<>();
-        list.forEach(item -> {
-            if (daoT.get(item.getIdTrabajador()) != null) {
-                insert(item);
-            } else {
-                notFound.add(item);
-            }
-        });
-        return notFound;
-    }
-
-    @Override
-    @Transactional
     public void insert(Asistencia t) {
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("anio", t.getAnio()));
@@ -116,7 +101,6 @@ public class AsistenciaService implements IAsistenciaService {
         Asistencia last = dao.lastByFilter(filters);
 
         int idLast = last != null ? Integer.parseInt(last.getIdAsistencia().substring(8)) : 0;
-        System.err.println("idLast: " + idLast);
         String idAsistencia = String.valueOf(t.getAnio()) + String.format("%02d", t.getMes()) + String.format("%02d", t.getDia()) + String.format("%04d", idLast + 1);
         t.setIdAsistencia(idAsistencia);
         dao.create(t);

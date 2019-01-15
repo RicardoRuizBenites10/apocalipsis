@@ -25,6 +25,7 @@ public class Ausencia implements java.io.Serializable{
 
     private String idTrabajador;
     private int idAusencia;
+    private Date fecha;
     private Date fechaInicio;
     private Date fechaFin;
     private String horaInicio;
@@ -67,6 +68,16 @@ public class Ausencia implements java.io.Serializable{
     public void setIdAusencia(int idAusencia) {
         this.idAusencia = idAusencia;
     }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA", nullable = false, length = 10)
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_INICIO", nullable = false, length = 10)
@@ -79,7 +90,7 @@ public class Ausencia implements java.io.Serializable{
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA_FIN", nullable = false, length = 10)
+    @Column(name = "FECHA_RETORNO", nullable = false, length = 10)
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -97,7 +108,7 @@ public class Ausencia implements java.io.Serializable{
         this.horaInicio = horaInicio;
     }
 
-    @Column(name = "HORA_FIN", length = 10)
+    @Column(name = "HORA_RETORNO", length = 10)
     public String getHoraFin() {
         return horaFin;
     }

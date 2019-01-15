@@ -12,6 +12,7 @@ import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.dao.to.Marca;
 import com.bruce.services.design.IMarcaService;
+import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -151,7 +152,7 @@ public class MarcaService implements IMarcaService {
                     lastA = daoA.lastByFilter(filter);
                     idLastA = lastA != null ? Integer.parseInt(lastA.getIdAsistencia().substring(8)) : 0;
                     idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia()) + String.format("%04d", idLastA + 1);
-                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), false));
+                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_NO));
                     item.setIdAsistencia(idAsistencia);
                     item.setIdMarca(idAsistencia + "01");
                     item.setAutomatico(true);
@@ -171,6 +172,9 @@ public class MarcaService implements IMarcaService {
                         item.setAutomatico(true);
                         dao.create(item);
                         switch (idLastM + 1) {
+                            case 1:
+                                asistencia.setMarca1(item.getHmarca());
+                                break;
                             case 2:
                                 asistencia.setMarca2(item.getHmarca());
                                 break;

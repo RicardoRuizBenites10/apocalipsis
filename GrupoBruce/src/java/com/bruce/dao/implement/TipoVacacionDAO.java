@@ -13,6 +13,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class TipoVacacionDAO implements ITipoVacacionDAO{
     public List<TipoVacacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(TipoVacacion.class);
-        if(filters!=null){
+        if(!filters.isEmpty()){
             filters.forEach(item->{
                 cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
             });
@@ -83,7 +84,24 @@ public class TipoVacacionDAO implements ITipoVacacionDAO{
 
     @Override
     public TipoVacacion lastByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(TipoVacacion.class);
+        filters.forEach(item -> {
+            switch (item.getOperator()) {
+                case "like":
+                    cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                    break;
+                default:
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                    break;
+            }
+        });
+        cr.addOrder(Order.desc("idTVacacion"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        TipoVacacion tipoVacacion = !result.isEmpty() ? (TipoVacacion) result.get(0) : null;
+        return tipoVacacion;
     }
     
 }

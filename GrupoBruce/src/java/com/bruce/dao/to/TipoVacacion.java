@@ -20,16 +20,16 @@ public class TipoVacacion implements java.io.Serializable {
 
     private int idTVacacion;
     private String descripcion;
-    private boolean pagar;
+    private boolean ausencia;
     private boolean situacion;
 
     public TipoVacacion() {
     }
 
-    public TipoVacacion(int idTVacacion, String descripcion, boolean pagar, boolean situacion) {
+    public TipoVacacion(int idTVacacion, String descripcion, boolean ausencia, boolean situacion) {
         this.idTVacacion = idTVacacion;
         this.descripcion = descripcion;
-        this.pagar = pagar;
+        this.ausencia = ausencia;
         this.situacion = situacion;
     }
 
@@ -52,13 +52,13 @@ public class TipoVacacion implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "PAGAR", nullable = false)
-    public boolean isPagar() {
-        return pagar;
+    @Column(name = "AUSENCIA", nullable = false)
+    public boolean isAusencia() {
+        return ausencia;
     }
 
-    public void setPagar(boolean pagar) {
-        this.pagar = pagar;
+    public void setAusencia(boolean ausencia) {
+        this.ausencia = ausencia;
     }
 
     @Column(name = "SITUACION", nullable = false)

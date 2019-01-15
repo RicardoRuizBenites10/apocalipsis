@@ -74,7 +74,7 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                         }, {
                             xtype: 'datefield',
                             name: 'fechaFin',
-                            fieldLabel: 'Acabado en',
+                            fieldLabel: 'Retorna el',
                             format: 'd/m/Y',
                             flex: 1,
                             disabled: true,
@@ -97,7 +97,7 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                         }, {
                             xtype: 'timefield',
                             name: 'horaFin',
-                            fieldLabel: 'Hora fin',
+                            fieldLabel: 'Hora retorno',
                             disabled: true,
                             bind: {
                                 disabled: '{selectTiempo ? !selectTiempo.horas : true}'

@@ -25,8 +25,27 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             formatter: 'date("d/m/Y")',
             align: 'left'
         }, {
+            text: 'Situación',
+            dataIndex: 'ausencia',
+            width: 150,
+            align: 'center',
+            renderer: function (val) {
+                switch(val){
+                    case 0: return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ASISTENCIA </span>';
+                        break;
+                    case 1: return '<span style="background:#9B59B6;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PERMISO </span>';
+                        break;
+                    case 2: return '<span style="background:#5D6D7E;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> VACACION </span>';
+                }
+            }
+        }, {
             text: 'Primera',
             dataIndex: 'marca1',
+            formatter: 'date("h:i A")',
+            align: 'center'
+        }, {
+            text: 'Última',
+            dataIndex: 'marca7',
             formatter: 'date("h:i A")',
             align: 'center'
         }, {
@@ -68,11 +87,6 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             bind: {
                 hidden: '{!checkAllMarcas.checked}'
             },
-            align: 'center'
-        }, {
-            text: 'Última',
-            dataIndex: 'marca7',
-            formatter: 'date("h:i A")',
             align: 'center'
         }],
 

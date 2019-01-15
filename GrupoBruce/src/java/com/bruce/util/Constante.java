@@ -19,6 +19,11 @@ public class Constante {
     public static final int CONTRATO_ESTADO_RENOVADO = 2;
     public static final int CONTRATO_ESTADO_TERMINADO = 3;
     public static final int CONTRATO_ESTADO_CANCELADO = 4;
+    //Ausencia en asistencia
+    
+    public static final int ASISTENCIA_AUSENCIA_NO = 0;
+    public static final int ASISTENCIA_AUSENCIA_PERMISO = 1;
+    public static final int ASISTENCIA_AUSENCIA_VACACION = 2;
     //Tipo de contrato
     public static final String CONTRATO_TIPO_CONVENIO = "00";
     public static final String CONTRATO_TIPO_INDETERMINADO = "01";

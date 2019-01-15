@@ -64,7 +64,7 @@ Ext.define('GrupoBruce.view.vacacion.VacacionTrabajadorModel', {
         retorno: {
             get: function (get) {
                 var dias = get('diasTipo'), salida = get('salida'), fecha, vacacion = get('selectVacacion');
-                fecha = get('initialValue') > 0 && vacacion ? vacacion.get('fechaRetorno') : Ext.Date.add(salida, Ext.Date.DAY, dias + 1);
+                fecha = get('initialValue') > 0 && vacacion ? vacacion.get('fechaRetorno') : Ext.Date.add(salida, Ext.Date.DAY, dias);
                 return fecha;
             },
             set: function (value) {

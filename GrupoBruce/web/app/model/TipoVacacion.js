@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.model.TipoVacacion', {
     fields: [
         { name: 'descripcion', type: 'string' },
         { name: 'idTVacacion', type: 'int' },
-        { name: 'pagar', type: 'boolean' },
+        { name: 'ausencia', type: 'boolean' },
         { name: 'situacion', type: 'boolean' }
     ],
     

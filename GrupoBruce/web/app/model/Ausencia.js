@@ -5,6 +5,7 @@ Ext.define('GrupoBruce.model.Ausencia', {
     idProperty: 'idAusencia',
     fields: [
         { name: 'detalle', type: 'string' },
+        { name: 'fecha', type: 'date', dateFormat: 'c' },
         { name: 'fechaFin', type: 'date', dateFormat: 'c' },
         { name: 'fechaInicio', type: 'date', dateFormat: 'c'},
         { name: 'horaFin', type: 'date', dateFormat: 'h:i a' },

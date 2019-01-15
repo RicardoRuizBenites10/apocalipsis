@@ -6,7 +6,9 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAusenciaDAO;
+import com.bruce.dao.to.Asistencia;
 import com.bruce.dao.to.Ausencia;
+import com.bruce.services.design.IAsistenciaService;
 import com.bruce.services.design.IAusenciaService;
 import com.bruce.util.Constante;
 import com.bruce.util.FilterPage;
@@ -15,6 +17,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +29,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class AusenciaService implements IAusenciaService{
+public class AusenciaService implements IAusenciaService {
 
     @Autowired
     private IAusenciaDAO dao;
-    
+    @Autowired
+    private IAsistenciaService serv;
+
     @Override
     @Transactional
     public List<Ausencia> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -95,12 +101,24 @@ public class AusenciaService implements IAusenciaService{
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idTrabajador", t.getIdTrabajador()));
         Ausencia last = dao.lastByFilter(filters);
-        int idLast = last != null ? last.getIdAusencia(): 0;
+        int idLast = last != null ? last.getIdAusencia() : 0;
         t.setIdAusencia(idLast + 1);
-        if(t.getIdTmausencia()==Constante.AUSENCIA_TIEMPO_HORAS){
+        t.setFecha(new Date());
+        if (t.getIdTmausencia() == Constante.AUSENCIA_TIEMPO_HORAS) {
             t.setFechaFin(t.getFechaInicio());
         }
         dao.create(t);
+        /*Registro en asistencia*/
+        Date fechaTemp;
+        Calendar cal = Calendar.getInstance(), cal2 = Calendar.getInstance();
+        cal.setTime(t.getFechaInicio());
+        cal2.setTime(t.getFechaFin());
+        do {
+            fechaTemp = cal.getTime();
+            serv.insert(new Asistencia(t.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_PERMISO));
+            cal.add(Calendar.DATE, +1);
+        } while (cal.before(cal2));
+
     }
 
     @Override
@@ -126,5 +144,5 @@ public class AusenciaService implements IAusenciaService{
     public List<Ausencia> findAll() {
         return dao.getAll();
     }
-    
+
 }

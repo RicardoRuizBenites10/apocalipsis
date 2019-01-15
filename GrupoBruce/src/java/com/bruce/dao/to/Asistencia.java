@@ -35,7 +35,7 @@ public class Asistencia implements java.io.Serializable {
     private int anio;
     private int mes;
     private int dia;
-    private boolean permiso;
+    private int ausencia;
 
     private String fechaTemp;
     private String trabajador;
@@ -43,7 +43,18 @@ public class Asistencia implements java.io.Serializable {
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia, boolean permiso) {
+    public Asistencia(String idTrabajador, Date fecha, String marca1, String marca7, int anio, int mes, int dia, int ausencia) {
+        this.idTrabajador = idTrabajador;
+        this.fecha = fecha;
+        this.marca1 = marca1;
+        this.marca7 = marca7;
+        this.anio = anio;
+        this.mes = mes;
+        this.dia = dia;
+        this.ausencia = ausencia;
+    }
+
+    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia, int ausencia) {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
@@ -52,7 +63,7 @@ public class Asistencia implements java.io.Serializable {
         this.anio = anio;
         this.mes = mes;
         this.dia = dia;
-        this.permiso = permiso;
+        this.ausencia = ausencia;
     }
 
     @Id
@@ -185,13 +196,13 @@ public class Asistencia implements java.io.Serializable {
         this.dia = dia;
     }
 
-    @Column(name = "PERMISO", nullable = false)
-    public boolean isPermiso() {
-        return permiso;
+    @Column(name = "AUSENCIA", nullable = false)
+    public int getAusencia() {
+        return ausencia;
     }
 
-    public void setPermiso(boolean permiso) {
-        this.permiso = permiso;
+    public void setAusencia(int ausencia) {
+        this.ausencia = ausencia;
     }
 
     @Generated(GenerationTime.NEVER)
