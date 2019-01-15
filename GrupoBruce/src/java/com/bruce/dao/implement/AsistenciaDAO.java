@@ -44,6 +44,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("A.ANIO");
         reverse.addResult("A.MES");
         reverse.addResult("A.DIA");
+        reverse.addResult("A.PERMISO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.setFilters(filters);
@@ -76,6 +77,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("A.ANIO");
         reverse.addResult("A.MES");
         reverse.addResult("A.DIA");
+        reverse.addResult("A.PERMISO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.setFilters(filters);
@@ -106,6 +108,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("A.ANIO");
         reverse.addResult("A.MES");
         reverse.addResult("A.DIA");
+        reverse.addResult("A.PERMISO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("INNER JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.setFilters(filters);

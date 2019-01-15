@@ -141,19 +141,20 @@ public class MarcaService implements IMarcaService {
             filter.clear();
             if (daoT.get(item.getIdTrabajador()) != null) {
                 item.setSituacion(true);
-                filter.add(new FilterPage("eq", "idTrabajador", item.getIdTrabajador()));
-                filter.add(new FilterPage("eq", "anio", item.getAnio()));
-                filter.add(new FilterPage("eq", "mes", item.getMes()));
-                filter.add(new FilterPage("eq", "dia", item.getDia()));
+                filter.add(new FilterPage("eq", "ID_TRABAJADOR", item.getIdTrabajador()));
+                filter.add(new FilterPage("eq", "ANIO", item.getAnio()));
+                filter.add(new FilterPage("eq", "MES", item.getMes()));
+                filter.add(new FilterPage("eq", "DIA", item.getDia()));
                 asistencia = daoA.lastByFilter(filter);
                 if (asistencia == null) {
                     filter.remove(0);
                     lastA = daoA.lastByFilter(filter);
                     idLastA = lastA != null ? Integer.parseInt(lastA.getIdAsistencia().substring(8)) : 0;
                     idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia()) + String.format("%04d", idLastA + 1);
-                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia()));
+                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), false));
                     item.setIdAsistencia(idAsistencia);
                     item.setIdMarca(idAsistencia + "01");
+                    item.setAutomatico(true);
                     dao.create(item);
                 } else {
                     filter.clear();
@@ -167,6 +168,7 @@ public class MarcaService implements IMarcaService {
                         idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(12)) : 0;
                         item.setIdAsistencia(asistencia.getIdAsistencia());
                         item.setIdMarca(asistencia.getIdAsistencia() + String.format("%02d", idLastM + 1));
+                        item.setAutomatico(true);
                         dao.create(item);
                         switch (idLastM + 1) {
                             case 2:

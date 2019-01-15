@@ -30,8 +30,9 @@ public class Marca implements java.io.Serializable {
     private String idMarca;
     private Date fecha;
     private String hmarca;
+    private boolean automatico;
     private boolean situacion;
-    
+
     private int dia;
     private int mes;
     private int anio;
@@ -59,6 +60,7 @@ public class Marca implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
+
     @Id
     @Column(name = "ID_ASISTENCIA", nullable = false)
     public String getIdAsistencia() {
@@ -68,7 +70,7 @@ public class Marca implements java.io.Serializable {
     public void setIdAsistencia(String idAsistencia) {
         this.idAsistencia = idAsistencia;
     }
-    
+
     @Id
     @Column(name = "ID_MARCA", nullable = false)
     public String getIdMarca() {
@@ -96,6 +98,15 @@ public class Marca implements java.io.Serializable {
 
     public void setHmarca(String hmarca) {
         this.hmarca = hmarca;
+    }
+
+    @Column(name = "AUTOMATICO", nullable = false)
+    public boolean isAutomatico() {
+        return automatico;
+    }
+
+    public void setAutomatico(boolean automatico) {
+        this.automatico = automatico;
     }
 
     @Column(name = "SITUACION", nullable = false)
@@ -133,7 +144,7 @@ public class Marca implements java.io.Serializable {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-    
+
     @Transient
     public String getFechaTemp() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -152,10 +163,4 @@ public class Marca implements java.io.Serializable {
     public void setTrabajador(String trabajador) {
         this.trabajador = trabajador;
     }
-
-    @Override
-    public String toString() {
-        return "Marca{" + "idTrabajador=" + idTrabajador + ", idAsistencia=" + idAsistencia + ", idMarca=" + idMarca + ", fecha=" + fecha + ", hmarca=" + hmarca + ", situacion=" + situacion + ", dia=" + dia + ", mes=" + mes + ", anio=" + anio + ", fechaTemp=" + fechaTemp + ", trabajador=" + trabajador + '}';
-    }
-
 }

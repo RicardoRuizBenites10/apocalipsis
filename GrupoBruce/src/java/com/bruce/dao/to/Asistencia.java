@@ -35,6 +35,7 @@ public class Asistencia implements java.io.Serializable {
     private int anio;
     private int mes;
     private int dia;
+    private boolean permiso;
 
     private String fechaTemp;
     private String trabajador;
@@ -42,7 +43,7 @@ public class Asistencia implements java.io.Serializable {
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia) {
+    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia, boolean permiso) {
         this.idTrabajador = idTrabajador;
         this.idAsistencia = idAsistencia;
         this.fecha = fecha;
@@ -51,6 +52,7 @@ public class Asistencia implements java.io.Serializable {
         this.anio = anio;
         this.mes = mes;
         this.dia = dia;
+        this.permiso = permiso;
     }
 
     @Id
@@ -181,6 +183,15 @@ public class Asistencia implements java.io.Serializable {
 
     public void setDia(int dia) {
         this.dia = dia;
+    }
+
+    @Column(name = "PERMISO", nullable = false)
+    public boolean isPermiso() {
+        return permiso;
+    }
+
+    public void setPermiso(boolean permiso) {
+        this.permiso = permiso;
     }
 
     @Generated(GenerationTime.NEVER)
