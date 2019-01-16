@@ -32,13 +32,13 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
             },
 
             items: [{
-                    title: 'Vista de asistencias ',
+                    title: 'Asistencia diaria ',
                     items: [{
                             xtype: 'WlistAsistencia',
                             height: 420
                         }]
                 },{
-                    title: 'Calendario Bruce'
+                    title: 'Seguimiento mensual'
                 }]
         }]
 
