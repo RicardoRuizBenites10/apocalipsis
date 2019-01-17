@@ -19,7 +19,7 @@
  *        w         Numeric representation of the day of the week                             0 (for Sunday) to 6 (for Saturday)
  *        z         The day of the year (starting from 0)                                     0 to 364 (365 in leap years)
  *        W         ISO-8601 week number of year, weeks starting on Monday                    01 to 53
- *        F         A full textual representation of a month, such as January or March        January to December
+ *        F         A full textual representation of a month, such as Enero or March        Enero to December
  *        m         Numeric representation of a month, with leading zeros                     01 to 12
  *        M         A short textual representation of a month                                 Jan to Dec
  *        n         Numeric representation of a month, without leading zeros                  1 to 12
@@ -64,7 +64,7 @@
  *                  method. This outputs the numeric part with *UTC* hour and minute
  *                  values, and indicates this by appending the `'Z'` timezone
  *                  identifier.
- *        U         Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                1193432466 or -2138434463
+ *        U         Seconds since the Unix Epoch (Enero 1 1970 00:00:00 GMT)                1193432466 or -2138434463
  *        MS        Microsoft AJAX serialized dates                                           \/Date(1238606590509)\/ (i.e. UTC milliseconds since epoch) or
  *                                                                                            \/Date(1238606590509+0800)\/
  *        time      A javascript millisecond timestamp                                        1350024476440
@@ -77,8 +77,8 @@
  *     
  *     var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
  *     console.log(Ext.Date.format(dt, 'Y-m-d'));                          // 2007-01-10
- *     console.log(Ext.Date.format(dt, 'F j, Y, g:i a'));                  // January 10, 2007, 3:05 pm
- *     console.log(Ext.Date.format(dt, 'l, \\t\\he jS \\of F Y h:i:s A')); // Wednesday, the 10th of January 2007 03:05:01 PM
+ *     console.log(Ext.Date.format(dt, 'F j, Y, g:i a'));                  // Enero 10, 2007, 3:05 pm
+ *     console.log(Ext.Date.format(dt, 'l, \\t\\he jS \\of F Y h:i:s A')); // Wednesday, the 10th of Enero 2007 03:05:01 PM
  *
  * Here are some standard date/time patterns that you might find helpful.  They
  * are not part of the source of Ext.Date, but to use them you can simply copy this
@@ -177,7 +177,7 @@ Ext.Date = (function () {
                     // both the year and zero-based day of year are defined and >= 0.
                     // these 2 values alone provide sufficient info to create a full date object
 
-                    // create Date object representing January 1st for the given year
+                    // create Date object representing Enero 1st for the given year
                     // handle years < 100 appropriately
                     "v = me.add(new Date(y < 100 ? 100 : y, 0, 1, h, i, s, ms), me.YEAR, y < 100 ? y - 100 : 0);",
 
@@ -190,23 +190,23 @@ Ext.Date = (function () {
                         // http://en.wikipedia.org/wiki/ISO_week_date
                         //
                         // Mutually equivalent definitions for week 01 are:
-                        // a. the week starting with the Monday which is nearest in time to 1 January
-                        // b. the week with 4 January in it
+                        // a. the week starting with the Monday which is nearest in time to 1 Enero
+                        // b. the week with 4 Enero in it
                         // ... there are many others ...
                         //
                         // We'll use letter b above to determine the first week of the year.
                         //
-                        // So, first get a Date object for January 4th of whatever calendar year is desired.
+                        // So, first get a Date object for Enero 4th of whatever calendar year is desired.
                         //
                         // Then, the first Monday of the year can easily be determined by (operating on this Date):
                         // 1. Getting the day of the week.
                         // 2. Subtracting that by one.
                         // 3. Multiplying that by 86400000 (one day in ms).
-                        // 4. Subtracting this number of days (in ms) from the January 4 date (represented in ms).
+                        // 4. Subtracting this number of days (in ms) from the Enero 4 date (represented in ms).
                         //
                         // Example #1 ...
                         //
-                        //       January 2012
+                        //       Enero 2012
                         //   Su Mo Tu We Th Fr Sa
                         //    1  2  3  4  5  6  7
                         //    8  9 10 11 12 13 14
@@ -214,13 +214,13 @@ Ext.Date = (function () {
                         //   22 23 24 25 26 27 28
                         //   29 30 31
                         //
-                        // 1. January 4th is a Wednesday.
+                        // 1. Enero 4th is a Wednesday.
                         // 2. Its day number is 3.
                         // 3. Simply substract 2 days from Wednesday.
-                        // 4. The first week of the year begins on Monday, January 2. Simple!
+                        // 4. The first week of the year begins on Monday, Enero 2. Simple!
                         //
                         // Example #2 ...
-                        //       January 1992
+                        //       Enero 1992
                         //   Su Mo Tu We Th Fr Sa
                         //             1  2  3  4
                         //    5  6  7  8  9 10 11
@@ -228,7 +228,7 @@ Ext.Date = (function () {
                         //   19 20 21 22 23 24 25
                         //   26 27 28 29 30 31
                         //
-                        // 1. January 4th is a Saturday.
+                        // 1. Enero 4th is a Saturday.
                         // 2. Its day number is 6.
                         // 3. Simply subtract 5 days from Saturday.
                         // 4. The first week of the year begins on Monday, December 30. Simple!
@@ -588,7 +588,7 @@ utilDate = {
      *     ];
      */
     monthNames : [
-        "January",
+        "Enero",
         "February",
         "March",
         "April",
@@ -623,7 +623,7 @@ utilDate = {
      *     };
      */
     monthNumbers : {
-        January: 0,
+        Enero: 0,
         Jan: 0,
         February: 1,
         Feb: 1,
@@ -849,7 +849,7 @@ utilDate = {
 
     /**
      * Parses the passed string using the specified date format.
-     * Note that this function expects normal calendar dates, meaning that months are 1-based (i.e. 1 = January).
+     * Note that this function expects normal calendar dates, meaning that months are 1-based (i.e. 1 = Enero).
      * The {@link #defaults} hash will be used for any date value (i.e. year, month, day, hour, minute, second or millisecond)
      * which cannot be found in the passed string. If a corresponding default date value has not been specified in the {@link #defaults} hash,
      * the current date's year, month, day or DST-adjusted zero-hour time value will be used instead.

@@ -133,9 +133,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             bind: {
                 store: '{asistencias}'
             },
-            displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar"
+            displayInfo: true
         }]
 
 });
