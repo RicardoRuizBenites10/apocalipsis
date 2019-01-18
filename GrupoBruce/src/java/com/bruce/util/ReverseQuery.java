@@ -25,6 +25,7 @@ public class ReverseQuery {
     private List<String> resultados = new ArrayList<>();
     private Map<String, String> joins = new HashMap<>();
     private List<FilterPage> filters = new ArrayList<>();
+    private List<String> exceptions = new ArrayList<>();
     private List<SortPage> sorts = new ArrayList<>();
 
     public ReverseQuery(String entidad, String iniEntidad) {
@@ -36,7 +37,7 @@ public class ReverseQuery {
     }
 
     public String getQuery() {
-        return this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getSorts() + getPagination();
+        return this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getExceptions() + getSorts() + getPagination();
     }
 
     public void addResult(String result) {
@@ -92,12 +93,30 @@ public class ReverseQuery {
                 } else {
                     filterSensitive = " = :" + item.getProperty();
                 }
-                filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? " AND " : "");
+                filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
             }
         }
         return filterString;
     }
-    
+
+    public String getExceptions() {
+        String exceptionString = "\n";
+        if (this.exceptions != null && !this.exceptions.isEmpty()) {
+            for (String item : exceptions) {
+                exceptionString =  exceptionString + item;
+            }
+        }
+        return exceptionString;
+    }
+
+    public List<String> getLExeptions() {
+        return this.exceptions;
+    }
+
+    public void setExceptions(List<String> exceptions) {
+        this.exceptions = exceptions;
+    }
+
     public List<FilterPage> getLFilters() {
         return filters;
     }

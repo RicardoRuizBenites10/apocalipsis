@@ -23,6 +23,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
         }, {
             text: 'Nombre',
             dataIndex: 'trabajador',
+            sortable: false,
             width: 300,
             align: 'left'
         }, {
@@ -38,13 +39,19 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             renderer: function (val) {
                 switch (val) {
                     case 0:
-                        return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ASISTENCIA </span>';
+                        return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> NINGUNO </span>';
                         break;
                     case 1:
-                        return '<span style="background:#9B59B6;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PERMISO </span>';
+                        return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ASISTENCIA </span>';
                         break;
                     case 2:
-                        return '<span style="background:#5D6D7E;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> VACACION </span>';
+                        return '<span style="background:#9B59B6;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PERMISO </span>';
+                        break;
+                    case 3:
+                        return '<span style="background:#5D6D7E;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> VACACIÓN </span>';
+                        break;
+                    default:
+                        return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> FALTA </span>';
                 }
             }
         }, {
@@ -121,9 +128,14 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                 text: 'Nuevo marca',
                 disabled: true,
                 bind: {
-                    disabled: '{!selectAsistencia}'
+                    disabled: '{!selectAsistencia}' && '{!selectAsistencia.ausencia}'
                 },
                 handler: 'addMarcacion'
+            },{
+                xtype: 'button',
+                text: 'Generar faltas',
+                iconCls: 'x-fa fa-retweet',
+                handler: 'onProcesar'
             }]
     },
 

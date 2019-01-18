@@ -152,7 +152,7 @@ public class MarcaService implements IMarcaService {
                     lastA = daoA.lastByFilter(filter);
                     idLastA = lastA != null ? Integer.parseInt(lastA.getIdAsistencia().substring(8)) : 0;
                     idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia()) + String.format("%04d", idLastA + 1);
-                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_NO));
+                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_ASISTIO));
                     item.setIdAsistencia(idAsistencia);
                     item.setIdMarca(idAsistencia + "01");
                     item.setAutomatico(true);

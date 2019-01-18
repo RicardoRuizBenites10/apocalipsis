@@ -5,6 +5,7 @@
  */
 package com.bruce.services.implement;
 
+import com.bruce.dao.design.IAsistenciaDAO;
 import com.bruce.dao.design.IAusenciaDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.dao.to.Ausencia;
@@ -33,6 +34,8 @@ public class AusenciaService implements IAusenciaService {
 
     @Autowired
     private IAusenciaDAO dao;
+    @Autowired
+    private IAsistenciaDAO daoA;
     @Autowired
     private IAsistenciaService serv;
 
@@ -110,12 +113,23 @@ public class AusenciaService implements IAusenciaService {
         dao.create(t);
         /*Registro en asistencia*/
         Date fechaTemp;
+        Asistencia asistencia;
         Calendar cal = Calendar.getInstance(), cal2 = Calendar.getInstance();
         cal.setTime(t.getFechaInicio());
         cal2.setTime(t.getFechaFin());
+        List<FilterPage> filtersA = new ArrayList<>();
         do {
             fechaTemp = cal.getTime();
-            serv.insert(new Asistencia(t.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_PERMISO));
+            filtersA.clear();
+            filtersA.add(new FilterPage("ID_TRABAJADOR", t.getIdTrabajador()));
+            filtersA.add(new FilterPage("FECHA", fechaTemp));
+            asistencia = daoA.lastByFilter(filtersA);
+            if(asistencia!=null){
+                asistencia.setAusencia(Constante.ASISTENCIA_AUSENCIA_PERMISO);
+                dao.update(t);
+            }else{
+                serv.insert(new Asistencia(t.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_PERMISO));
+            }
             cal.add(Calendar.DATE, +1);
         } while (cal.before(cal2));
 

@@ -14,16 +14,26 @@ public class FilterPage {
     private String operator;
     private String property;
     private Object value;
+    private boolean and; 
 
     public FilterPage(String property, Object value) {
         this.property = property;
         this.value = value;
+        this.and = true;
     }
 
     public FilterPage(String operator, String property, Object value) {
         this.operator = operator;
         this.property = property;
         this.value = value;
+        this.and = true;
+    }
+
+    public FilterPage(String operator, String property, Object value, boolean and) {
+        this.operator = operator;
+        this.property = property;
+        this.value = value;
+        this.and = and;
     }
 
     public FilterPage() {
@@ -51,5 +61,13 @@ public class FilterPage {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public boolean isAnd() {
+        return and;
+    }
+
+    public void setAnd(boolean and) {
+        this.and = and;
     }
 }
