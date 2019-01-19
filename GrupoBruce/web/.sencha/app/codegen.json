@@ -1055,6 +1055,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Marca"
       }
+    },
+    "app/model/Prestamo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,fechaEntrega:date:null,idPrestamo:string:null,idTrabajador:string:null,mpagado:float:null,mprestado:float:null,pagado:boolean:null,pagoBoleta:float:null",
+        "modelFileName": "Prestamo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Prestamo"
+      }
+    },
+    "app/model/PrestamoPago.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,idPpago:string:null,idPrestamo:string:null,monto:float:null",
+        "modelFileName": "PrestamoPago",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "PrestamoPago"
+      }
     }
   }
 }

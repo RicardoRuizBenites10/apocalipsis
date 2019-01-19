@@ -135,6 +135,14 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                         disabled: '{!selectTrabajador}'
                     }
                 }, {
+                    text: 'Prestamos',
+                    iconCls: 'x-fa fa-money',
+                    disabled: true,
+                    handler: 'onPrestamosTrabajador',
+                    bind: {
+                        disabled: '{!selectTrabajador}'
+                    }
+                }, {
                     text: 'Hijos',
                     iconCls: 'x-fa fa-child',
                     disabled: true,

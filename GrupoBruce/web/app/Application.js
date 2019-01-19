@@ -43,6 +43,8 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.Periocidad',
         'GrupoBruce.store.PeriodoVacacion',
+        'GrupoBruce.store.Prestamo',
+        'GrupoBruce.store.PrestamoPago',
         'GrupoBruce.store.Proceso',
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Rol',

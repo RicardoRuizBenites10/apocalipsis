@@ -68,6 +68,10 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorController', {
     
     onEstudiosTrabajador: function(){
         this.createWindow('GrupoBruce.view.formacion.Formacion');
+    },
+    
+    onPrestamosTrabajador: function(){
+        this.createWindow('GrupoBruce.view.prestamo.Prestamo');
     }
 
 });

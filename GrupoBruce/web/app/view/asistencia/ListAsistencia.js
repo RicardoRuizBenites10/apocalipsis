@@ -133,7 +133,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                 handler: 'addMarcacion'
             },{
                 xtype: 'button',
-                text: 'Generar faltas',
+                text: 'Procesar',
                 iconCls: 'x-fa fa-retweet',
                 handler: 'onProcesar'
             }]
