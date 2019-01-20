@@ -34,9 +34,9 @@ public class TipoConceptoService implements ITipoConceptoService {
     @Override
     @Transactional
     public void insert(TipoConcepto t) {
-        TipoConcepto last = dao.lastByFilter(new ArrayList<>());
-        int idLast = last != null ? Integer.parseInt(last.getIdTconcepto()) : 0;
-        t.setIdTconcepto(String.format("%02d", idLast + 1));
+//        TipoConcepto last = dao.lastByFilter(new ArrayList<>());
+//        int idLast = last != null ? Integer.parseInt(last.getIdTconcepto()) : 0;
+//        t.setIdTipo(String.format("%02d", idLast + 1));
         dao.create(t);
     }
 
@@ -62,7 +62,7 @@ public class TipoConceptoService implements ITipoConceptoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TipoConceptoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,7 +86,7 @@ public class TipoConceptoService implements ITipoConceptoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TipoConceptoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,7 +115,7 @@ public class TipoConceptoService implements ITipoConceptoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(TipoConceptoService.class.getName()).log(Level.SEVERE, null, ex);

@@ -20,6 +20,8 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Ausencia',
         'GrupoBruce.store.Cargo',
         'GrupoBruce.store.Comisionrp',
+        'GrupoBruce.store.Concepto',
+        'GrupoBruce.store.ConceptoAsignado',
         'GrupoBruce.store.ContratoTrabajador',
         'GrupoBruce.store.Ecivil',
         'GrupoBruce.store.EquipoInformatico',

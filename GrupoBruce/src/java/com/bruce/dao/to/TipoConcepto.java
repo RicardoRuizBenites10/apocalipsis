@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "TIPO_CONCEPTO", schema = "dbo", catalog = "BDBRUCE")
 public class TipoConcepto implements java.io.Serializable {
 
-    private String idTconcepto;
+    private String idTipo;
     private String descripcion;
     private boolean situacion;
 
@@ -27,12 +27,12 @@ public class TipoConcepto implements java.io.Serializable {
 
     @Id
     @Column(name="ID_TIPO", nullable = false)
-    public String getIdTconcepto() {
-        return idTconcepto;
+    public String getIdTipo() {
+        return idTipo;
     }
 
-    public void setIdTconcepto(String idTconcepto) {
-        this.idTconcepto = idTconcepto;
+    public void setIdTipo(String idTipo) {
+        this.idTipo = idTipo;
     }
 
     @Column(name="DESCRIPCION", nullable = false)

@@ -28,6 +28,12 @@ Ext.define('GrupoBruce.view.tipoconcepto.FormTipoConcepto', {
             items: [{
                     items: [{
                             xtype: 'textfield',
+                            name: 'idTipo',
+                            fieldLabel: 'Código'
+                        }]
+                },{
+                    items: [{
+                            xtype: 'textfield',
                             name: 'descripcion',
                             fieldLabel: 'Nombre',
                             flex: 1

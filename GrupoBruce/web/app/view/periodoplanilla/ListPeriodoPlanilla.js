@@ -3,7 +3,7 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
     alias: 'widget.WlistPeriodoPlanilla',
     reference: 'list_periodoPlanilla',
     id: 'id_wlistperiodoplanilla',
-    
+
     requires: [
         'Ext.grid.RowNumberer'
     ],
@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             xtype: 'rownumberer'
-        },{
+        }, {
             text: 'Denominación',
             name: 'denominacion',
             width: 200
@@ -48,6 +48,18 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
     tbar: {
         overflowHandler: 'menu',
         items: [{
+                xtype: 'combobox',
+                fieldLabel: 'Tipo trabajador',
+                displayField: 'descripcion',
+                valueField: 'idTtrabajador',
+                bind: {
+                    store: '{tiposTrabajador}',
+                    selection: '{selectSearchTTrabajador}'
+                },
+                pageSize: true,
+                editable: false,
+                emptyText: 'Seleccionar'
+            }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',

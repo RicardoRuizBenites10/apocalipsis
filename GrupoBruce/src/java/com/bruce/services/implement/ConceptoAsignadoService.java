@@ -5,9 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.ITipoPlanillaDAO;
-import com.bruce.dao.to.TipoPlanilla;
-import com.bruce.services.design.ITipoPlanillaService;
+import com.bruce.dao.design.IConceptoAsignadoDAO;
+import com.bruce.dao.to.ConceptoAsignado;
+import com.bruce.services.design.IConceptoAsignadoService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,32 +26,29 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class TipoPlanillaService implements ITipoPlanillaService {
-    
+public class ConceptoAsignadoService implements IConceptoAsignadoService {
+
     @Autowired
-    private ITipoPlanillaDAO dao;
-    
+    private IConceptoAsignadoDAO dao;
+
     @Override
     @Transactional
-    public void insert(TipoPlanilla t) {
-        TipoPlanilla last = dao.lastByFilter(new ArrayList<>());
-        int idLast = last != null ? Integer.parseInt(last.getIdTipo()) : 0;
-        t.setIdTipo(String.format("%02d", idLast + 1));
+    public void insert(ConceptoAsignado t) {
         dao.create(t);
     }
-    
+
     @Override
     @Transactional
-    public void update(TipoPlanilla t) {
+    public void update(ConceptoAsignado t) {
         dao.update(t);
     }
-    
+
     @Override
     @Transactional
-    public void delete(TipoPlanilla t) {
+    public void delete(ConceptoAsignado t) {
         dao.delete(t);
     }
-    
+
     @Override
     @Transactional
     public int countByFilter(String filter, String query) {
@@ -62,23 +59,23 @@ public class TipoPlanillaService implements ITipoPlanillaService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query));
+                filters.add(new FilterPage("like", "idCasignado", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConceptoAsignadoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
-    
+
     @Override
     @Transactional
-    public TipoPlanilla find(Object id) {
+    public ConceptoAsignado find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     @Transactional
-    public TipoPlanilla lastByFilter(String filter, String query) {
+    public ConceptoAsignado lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -86,23 +83,23 @@ public class TipoPlanillaService implements ITipoPlanillaService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query));
+                filters.add(new FilterPage("like", "idCasignado", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConceptoAsignadoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
-    
+
     @Override
     @Transactional
-    public List<TipoPlanilla> findAll() {
+    public List<ConceptoAsignado> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     @Transactional
-    public List<TipoPlanilla> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<ConceptoAsignado> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -115,12 +112,12 @@ public class TipoPlanillaService implements ITipoPlanillaService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query));
+                filters.add(new FilterPage("like", "idCasignado", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConceptoAsignadoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
 }

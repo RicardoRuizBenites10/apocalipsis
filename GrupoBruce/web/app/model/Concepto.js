@@ -1,22 +1,27 @@
-Ext.define('GrupoBruce.model.TipoConcepto', {
+Ext.define('GrupoBruce.model.Concepto', {
     extend: 'Ext.data.Model',
-    alias: 'model.MtipoConcepto',
+    alias: 'model.Mconcepto',
 
-    idProperty: 'idTipo',
+    idProperty: 'idConcepto',
     fields: [
         {name: 'descripcion', type: 'string'},
-        {name: 'idTipo', type: 'string'},
+        {name: 'formula', type: 'string', defaultValue: ''},
+        {name: 'idConcepto', type: 'string'},
+        {name: 'idTconcepto', type: 'string'},
+        {name: 'idTplanilla', type: 'string'},
+        {name: 'idTvariable', type: 'string'},
         {name: 'situacion', type: 'boolean', defaultValue: true}
+
     ],
 
     identifier: 'sequential',
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiTipoConcepto',
-            read: 'tiposConcepto',
-            update: 'uuTipoConcepto',
-            destroy: 'ddTipoConcepto'
+            create: 'iiConcepto',
+            read: 'conceptos',
+            update: 'uuConcepto',
+            destroy: 'ddConcepto'
         },
         reader: {
             type: 'json',

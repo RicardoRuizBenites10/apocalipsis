@@ -1139,6 +1139,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "TipoPlanilla"
       }
+    },
+    "app/model/Concepto.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,formula:string:null,idConcepto:string:null,idTconcepto:string:null,idTplanilla:string:null,idTvariable:string:null",
+        "modelFileName": "Concepto",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Concepto"
+      }
+    },
+    "app/model/ConceptoAsignado.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,idCasignado:string:null,idConcepto:string:null,idTtrabajador:string:null",
+        "modelFileName": "ConceptoAsignado",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ConceptoAsignado"
+      }
     }
   }
 }

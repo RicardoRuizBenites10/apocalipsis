@@ -60,6 +60,16 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
+    },
+
+    createWindow: function (view) {
+        var model = this.getViewModel().get('selectTipoTrabajador');
+        var window = Ext.create(view);
+        window.getViewModel().set('recordTipoTrabajador', model);
+    },
+
+    onConceptosTipoTrabajador: function () {
+        this.createWindow('GrupoBruce.view.conceptoasignado.ConceptoAsignado');
     }
 
 });

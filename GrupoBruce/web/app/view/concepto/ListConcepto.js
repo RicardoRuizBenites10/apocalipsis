@@ -1,51 +1,32 @@
-Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
+Ext.define('GrupoBruce.view.concepto.ListConcepto',{
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistTipoTrabajador',
-    reference: 'list_tipoTrabajador',
+    alias: 'widget.WlistConcepto',
+    reference: 'list_concepto',
+    id: 'id_wlistconcepto',
 
     bind: {
-        store: '{tiposTrabajador}',
-        selection: '{selectTipoTrabajador}'
+        store: '{conceptos}',
+        selection: '{selectConcepto}'
     },
     allowDeselect: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Codigo',
-            dataIndex: 'idTtrabajador',
+            dataIndex: 'idConcepto',
+            width: 200,
             align: 'center'
         }, {
             text: 'Nombre',
             dataIndex: 'descripcion',
-            width: 200,
+            width: 350,
             align: 'left'
         }, {
-            text: 'R. pensionario',
-            dataIndex: 'hasrpensionario',
-            renderer: function (val) {
-                return val ? 'SI' : 'NO';
-            },
-            width: 150,
-            align: 'center'
+            text: 'Tipo',
+            align: 'left',
+            width: 250
         }, {
-            text: 'Cta. CTS',
-            dataIndex: 'hasctacts',
-            renderer: function (val) {
-                return val ? 'SI' : 'NO';
-            },
-            width: 150,
-            align: 'center'
-        }, {
-            text: 'Pension',
-            dataIndex: 'pension'
-        }, {
-            text: 'Essalud',
-            dataIndex: 'essalud'
-        }, {
-            text: 'Vida',
-            dataIndex: 'vida'
-        },{
-            text: 'Situación',
+            text: 'Estado',
             dataIndex: 'situacion',
             width: 150,
             align: 'center',
@@ -65,33 +46,25 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
                 bind: {
-                    disabled: '{selectTipoTrabajador}'
+                    disabled: '{selectConcepto}'
                 },
-                handler: 'addTipoTrabajador'
+                handler: 'addConcepto'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
                 text: 'Modificar',
                 bind: {
-                    disabled: '{!selectTipoTrabajador}'
+                    disabled: '{!selectConcepto}'
                 },
-                handler: 'editTipoTrabajador'
+                handler: 'editConcepto'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
-                    disabled: '{!selectTipoTrabajador}'
+                    disabled: '{!selectConcepto}'
                 },
-                handler: 'deleteTipoTrabajador'
-            },'-',{
-                iconCls: 'x-fa fa-retweet',
-                disabled: true,
-                text: 'Asignar conceptos',
-                bind: {
-                    disabled: '{!selectTipoTrabajador}'
-                },
-                handler: 'onConceptosTipoTrabajador'
+                handler: 'deleteConcepto'
             }]
     },
 
@@ -99,7 +72,7 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{tiposTrabajador}'
+                store: '{conceptos}'
             },
             displayInfo: true,
             displayMsg: 'Mostrando registros {0} - {1} de {2}',
