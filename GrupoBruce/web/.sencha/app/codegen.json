@@ -1079,6 +1079,66 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "PrestamoPago"
       }
+    },
+    "app/model/PeriodoPlanilla.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cerrado:boolean:null,denominacion:string:null,fin:date:null,finPlame:date:null,idPplanilla:string:null,idTtrabajador:int:null,iniPlame:date:null,inicio:date:null,situacion:boolean:null",
+        "modelFileName": "PeriodoPlanilla",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "PeriodoPlanilla"
+      }
+    },
+    "app/model/TipoConcepto.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTconcepto:string:null,situacion:boolean:null",
+        "modelFileName": "TipoConcepto",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoConcepto"
+      }
+    },
+    "app/model/MyModel.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTipo:string:null,situacion:boolean:null",
+        "modelFileName": "MyModel",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "MyModel"
+      }
+    },
+    "app/model/TipoVariable.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTipo:string:null,situacion:boolean:null",
+        "modelFileName": "TipoVariable",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoVariable"
+      }
+    },
+    "app/model/TipoPlanilla.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTipo:string:null,situacion:boolean:null",
+        "modelFileName": "TipoPlanilla",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoPlanilla"
+      }
     }
   }
 }

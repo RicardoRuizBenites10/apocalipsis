@@ -13,8 +13,6 @@ Ext.define('GrupoBruce.view.acceso.ListAcceso', {
 
     checkPropagation: 'down',
     frame: true,
-//    bufferedRenderer: false,
-//    animate: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{

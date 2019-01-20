@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProcesoController {
 
     @Autowired
-    private IProcesoService sct;
+    private IProcesoService serv;
 
     @ResponseBody
     @RequestMapping(value = "/procesos", method = RequestMethod.GET)
@@ -39,8 +39,8 @@ public class ProcesoController {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de proceso");
-        map.put("data", sct.getByFilter(start, limit, sort, filter, query));
-        map.put("total", sct.countByFilter(filter, query));
+        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("total", serv.countByFilter(filter, query));
         return map;
     }
 
@@ -48,7 +48,7 @@ public class ProcesoController {
     @RequestMapping(value = "/iiProceso", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody Proceso proceso) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(proceso);
+        serv.insert(proceso);
         map.put("success", true);
         map.put("data", proceso);
         map.put("message", "Registro exitoso.");
@@ -59,7 +59,7 @@ public class ProcesoController {
     @RequestMapping(value = "/uuProceso", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody Proceso proceso) {
         Map<String, Object> map = new HashMap<>();
-        sct.update(proceso);
+        serv.update(proceso);
         map.put("success", true);
         map.put("data", proceso);
         map.put("message", "Actualización exitosa.");
@@ -73,7 +73,7 @@ public class ProcesoController {
         boolean success = false;
         String msg = "Operacion exitosa";
         try {
-            sct.delete(proceso);
+            serv.delete(proceso);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();

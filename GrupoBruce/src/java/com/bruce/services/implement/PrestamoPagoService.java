@@ -6,7 +6,9 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IPrestamoDAO;
-import com.bruce.dao.to.Prestamo;
+import com.bruce.dao.design.IPrestamoPagoDAO;
+import com.bruce.dao.to.PrestamoPago;
+import com.bruce.services.design.IPrestamoPagoService;
 import com.bruce.services.design.IPrestamoService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
@@ -26,26 +28,26 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class PrestamoPagoService implements IPrestamoService {
+public class PrestamoPagoService implements IPrestamoPagoService {
 
     @Autowired
-    private IPrestamoDAO dao;
+    private IPrestamoPagoDAO dao;
 
     @Override
     @Transactional
-    public void insert(Prestamo t) {
+    public void insert(PrestamoPago t) {
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(Prestamo t) {
+    public void update(PrestamoPago t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Prestamo t) {
+    public void delete(PrestamoPago t) {
         dao.delete(t);
     }
 
@@ -69,13 +71,13 @@ public class PrestamoPagoService implements IPrestamoService {
 
     @Override
     @Transactional
-    public Prestamo find(Object id) {
+    public PrestamoPago find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public Prestamo lastByFilter(String filter, String query) {
+    public PrestamoPago lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -93,13 +95,13 @@ public class PrestamoPagoService implements IPrestamoService {
 
     @Override
     @Transactional
-    public List<Prestamo> findAll() {
+    public List<PrestamoPago> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<Prestamo> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<PrestamoPago> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();

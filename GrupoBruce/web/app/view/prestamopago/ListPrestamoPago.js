@@ -14,16 +14,20 @@ Ext.define('GrupoBruce.view.prestamopago.ListPrestamoPago',{
     columns: [{
             text: 'Código',
             dataIndex: 'idPrestamoPago',
-            align: 'center'
+            align: 'center',
+            flex: 1
         }, {
             text: 'Fecha',
             dataIndex: 'fecha',
-            align: 'center'
+            align: 'center',
+            flex: 1
         }, {
             text: 'Monto',
-            dataIndex: 'monto'
+            dataIndex: 'monto',
+            flex: 1
         }, {
-            text: 'Boleta'
+            text: 'Boleta',
+            flex: 1
         }],
 
     dockedItems: [{

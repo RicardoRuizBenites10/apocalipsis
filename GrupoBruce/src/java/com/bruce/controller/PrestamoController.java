@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PrestamoController {
+
     @Autowired
     private IPrestamoService serv;
 

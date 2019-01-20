@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.prestamopago.PrestamoPago',{
     
     title: 'Pagos de prestamo',
     items: [{
-            xtype: 'WprestamoPago',
+            xtype: 'WlistPrestamoPago',
             width: 600,
             height: 400
     }]

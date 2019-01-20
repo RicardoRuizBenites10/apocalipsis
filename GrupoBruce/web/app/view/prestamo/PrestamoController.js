@@ -26,7 +26,7 @@ Ext.define('GrupoBruce.view.prestamo.PrestamoController', {
     onSavePrestamo: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistproceso');
+        var grid = Ext.getCmp('id_wlistprestamo');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
@@ -54,7 +54,7 @@ Ext.define('GrupoBruce.view.prestamo.PrestamoController', {
     },
 
     onPagosPrestamo : function () {
-        this.createWindow('GrupoBruce.view.pagoprestamo.PagoPrestamo');
+        this.createWindow('GrupoBruce.view.prestamopago.PrestamoPago');
     }
 
 });

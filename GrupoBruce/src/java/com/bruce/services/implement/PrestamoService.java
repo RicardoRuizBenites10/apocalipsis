@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ public class PrestamoService implements IPrestamoService {
         Prestamo last = dao.lastByFilter(filters);
         int idLast = last != null ? Integer.parseInt(last.getIdPrestamo().substring(8)) : 0;
         t.setIdPrestamo(t.getIdTrabajador().trim() + String.format("%04d", idLast + 1));
+        t.setFecha(new Date());
         t.setPagado(false);
         t.setMpagado(0);
         dao.create(t);

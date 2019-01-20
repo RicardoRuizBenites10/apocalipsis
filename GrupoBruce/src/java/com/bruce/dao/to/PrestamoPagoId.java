@@ -29,11 +29,11 @@ public class PrestamoPagoId implements java.io.Serializable {
         this.idPrestamo = idPrestamo;
     }
 
+    @Column(name="ID_PPAGO", nullable = false)
     public String getIdPpago() {
         return idPpago;
     }
 
-    @Column(name="ID_PPAGO", nullable = false)
     public void setIdPpago(String idPpago) {
         this.idPpago = idPpago;
     }

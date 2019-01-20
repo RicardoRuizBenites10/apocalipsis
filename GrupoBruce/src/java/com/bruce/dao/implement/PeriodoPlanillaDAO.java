@@ -5,20 +5,17 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.to.PeriodoPlanilla;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import com.bruce.persistence.HibernateUtil;
 import com.bruce.dao.design.IPeriodoPlanillaDAO;
-import com.bruce.dao.to.Empresa;
+import com.bruce.dao.to.PeriodoPlanilla;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,10 +33,17 @@ public class PeriodoPlanillaDAO implements IPeriodoPlanillaDAO {
     @Override
     public List<PeriodoPlanilla> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Empresa.class);
-        if(filters!=null){
+        Criteria cr = session.createCriteria(PeriodoPlanilla.class);
+        if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         if (sorts != null) {
@@ -47,6 +51,8 @@ public class PeriodoPlanillaDAO implements IPeriodoPlanillaDAO {
                 cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
             });
         }
+        cr.setFirstResult(start);
+        cr.setMaxResults(limit);
         return cr.list();
     }
 
@@ -73,18 +79,51 @@ public class PeriodoPlanillaDAO implements IPeriodoPlanillaDAO {
     @Override
     public List<PeriodoPlanilla> getAll() {
         Session session = sf.getCurrentSession();
-        Query query = session.createQuery("FROM Periodo");
+        Query query = session.createQuery("FROM PeriodoPlanilla");
         return query.list();
     }
 
     @Override
     public PeriodoPlanilla lastByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(PeriodoPlanilla.class);
+        filters.forEach(item -> {
+            switch (item.getOperator()) {
+                case "like":
+                    cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                    break;
+                default:
+                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                    break;
+            }
+        });
+        cr.addOrder(Order.desc("idPplanilla"));
+        cr.setFirstResult(0);
+
+        List result = cr.list();
+        PeriodoPlanilla periodoPlanilla = !result.isEmpty() ? (PeriodoPlanilla) result.get(0) : null;
+        return periodoPlanilla;
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sf.getCurrentSession();
+        Criteria cr = session.createCriteria(PeriodoPlanilla.class);
+        if (filters != null) {
+            filters.forEach(item -> {
+                switch (item.getOperator()) {
+                    case "like":
+                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
+                        break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
+            });
+        }
+        cr.setProjection(Projections.rowCount());
+        List result = cr.list();
+        return ((Long) result.get(0)).intValue();
     }
 
 }

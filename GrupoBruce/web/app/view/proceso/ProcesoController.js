@@ -21,6 +21,20 @@ Ext.define('GrupoBruce.view.proceso.ProcesoController', {
         this.createDialog(model);
     },
     
+    deleteProceso: function () {
+        var grid = this.lookupReference('list_proceso');
+        var model = grid.getSelection()[0];
+        model.erase({
+            success: function (response, operation) {
+                grid.getStore().reload();
+                Ext.Msg.alert('Success', 'Eliminación exitosa.');
+            },
+            failure: function (response, operation) {
+                Ext.Msg.alert('Failure', 'No se pudo eliminar.');
+            }
+        });
+    },
+    
     onSaveProceso: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');

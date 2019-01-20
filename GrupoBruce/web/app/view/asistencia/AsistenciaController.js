@@ -43,6 +43,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
 
     onMarcaImport: function () {
         var window = new GrupoBruce.view.marca.ListMarcaImport();
+    },
+    
+    onProcesar: function(){
+        
     }
     
 });
