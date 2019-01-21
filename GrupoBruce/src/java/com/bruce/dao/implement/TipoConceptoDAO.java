@@ -63,7 +63,7 @@ public class TipoConceptoDAO implements ITipoConceptoDAO{
                     break;
             }
         });
-        cr.addOrder(Order.desc("idTconcepto"));
+        cr.addOrder(Order.desc("idTipo"));
         cr.setFirstResult(0);
 
         List result = cr.list();

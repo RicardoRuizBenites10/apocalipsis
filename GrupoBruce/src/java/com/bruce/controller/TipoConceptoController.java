@@ -5,6 +5,7 @@
  */
 package com.bruce.controller;
 
+import com.bruce.dao.to.ContratoTrabajador;
 import com.bruce.dao.to.TipoConcepto;
 import com.bruce.services.design.ITipoConceptoService;
 import java.util.HashMap;
@@ -82,5 +83,11 @@ public class TipoConceptoController {
         map.put("data", tipoConcepto);
         map.put("message", msg);
         return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/validaTipoConcepto", method = RequestMethod.POST)
+    public Map<String, Object> last(@RequestBody TipoConcepto tipoConcepto) {
+        return serv.validaAdd(tipoConcepto.getIdTipo());
     }
 }

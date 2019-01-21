@@ -14,7 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +123,19 @@ public class TipoConceptoService implements ITipoConceptoService {
             Logger.getLogger(TipoConceptoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> validaAdd(String idTipo) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idTipo", idTipo));
+        TipoConcepto lastContrato = dao.lastByFilter(filters);
+        boolean success = lastContrato == null;
+        map.put("success", success);
+        return map;
     }
 
 }

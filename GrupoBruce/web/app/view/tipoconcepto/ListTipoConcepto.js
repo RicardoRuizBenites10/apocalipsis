@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.tipoconcepto.ListTipoConcepto', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Codigo',
-            dataIndex: 'idTconcepto',
+            dataIndex: 'idTipo',
             align: 'center'
         }, {
             text: 'Nombre',

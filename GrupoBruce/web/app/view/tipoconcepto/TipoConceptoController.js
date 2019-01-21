@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.tipoconcepto.TipoConceptoController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctipoconcepto',
-    
+
     createDialog: function (record) {
         var window = new GrupoBruce.view.tipoconcepto.FormTipoConcepto();
         if (!record) {
@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.tipoconcepto.TipoConceptoController', {
         var model = this.getViewModel().get('selectTipoConcepto');
         this.createDialog(model);
     },
-    
+
     deleteTipoConcepto: function () {
         var grid = this.lookupReference('list_tipoConcepto');
         var model = grid.getSelection()[0];
@@ -34,7 +34,7 @@ Ext.define('GrupoBruce.view.tipoconcepto.TipoConceptoController', {
             }
         });
     },
-    
+
     onSaveTipoConcepto: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
@@ -43,15 +43,36 @@ Ext.define('GrupoBruce.view.tipoconcepto.TipoConceptoController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            model.save({// save the record to the server
-                success: function (model, operation) {
-                    grid.getStore().reload();
-                    form.reset();
-                    window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+            Ext.Ajax.request({
+                url: 'validaTipoConcepto',
+                jsonData: {"idTipo": model.get('idTipo')},
+                method: 'POST',
+                scope: this,
+                success: function (response, opts) {
+                    var responseText = Ext.decode(response.responseText);
+                    if (responseText.success) {
+                        model.save({// save the record to the server
+                            success: function (model, operation) {
+                                grid.getStore().reload();
+                                form.reset();
+                                window.destroy();
+                                Ext.Msg.alert('Success', 'Operación exitosa.')
+                            },
+                            failure: function (model, operation) {
+                                Ext.Msg.alert('Failure', 'Operacion fallada.')
+                            }
+                        });
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Error',
+                            msg: "Código duplicado.",
+                            icon: Ext.Msg.ERROR,
+                            botones: Ext.Msg.OK
+                        });
+                    }
                 },
-                failure: function (model, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
+                failurer: function (response, opts) {
+                    Ext.Msg.alert('Status', response.status);
                 }
             });
         } else { // display error alert if the data is invalid

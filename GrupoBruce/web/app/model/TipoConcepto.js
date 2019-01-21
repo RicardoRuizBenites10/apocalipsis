@@ -9,7 +9,9 @@ Ext.define('GrupoBruce.model.TipoConcepto', {
         {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
 
-    identifier: 'sequential',
+    identifier: {
+        type: 'sequential'
+    },
     proxy: {
         type: 'ajax',
         api: {

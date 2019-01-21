@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.model.TipoPlanilla', {
     fields: [
         { name: 'descripcion', type: 'string' },
         { name: 'idTipo', type: 'string' },
-        { name: 'situacion', type: 'boolean' }
+        { name: 'situacion', type: 'boolean', defaultValue: true }
     ],
 
     identifier: 'sequential',
