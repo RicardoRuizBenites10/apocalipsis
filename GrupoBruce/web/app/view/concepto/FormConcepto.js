@@ -1,8 +1,8 @@
-Ext.define('GrupoBruce.view.concepto.FormConcepto',{
+Ext.define('GrupoBruce.view.concepto.FormConcepto', {
     extend: 'Ext.window.Window',
     alias: 'widget.WformConcepto',
     reference: 'form_concepto',
-    
+
     controller: 'Cconcepto',
     viewModel: 'VMconcepto',
 
@@ -38,8 +38,22 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto',{
                             editable: false,
                             emptyText: 'Seleccionar',
                             flex: 1
+                        }, {
+                            xtype: 'combobox',
+                            name: 'idTplanilla',
+                            fieldLabel: 'Tipo planilla',
+                            displayField: 'descripcion',
+                            valueField: 'idTipo',
+                            bind: {
+                                store: '{tiposPlanilla}',
+                                selection: '{selectTipoPlanilla}'
+                            },
+                            pageSize: true,
+                            editable: false,
+                            emptyText: 'Seleccionar',
+                            flex: 1
                         }]
-                },{
+                }, {
                     items: [{
                             xtype: 'combobox',
                             name: 'idTvariable',
@@ -55,23 +69,7 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto',{
                             emptyText: 'Seleccionar',
                             flex: 1
                         }]
-                },{
-                    items: [{
-                            xtype: 'combobox',
-                            name: 'idTplanilla',
-                            fieldLabel: 'Tipo planilla',
-                            displayField: 'descripcion',
-                            valueField: 'idTipo',
-                            bind: {
-                                store: '{tiposPlanilla}',
-                                selection: '{selectTipoPlanilla}'
-                            },
-                            pageSize: true,
-                            editable: false,
-                            emptyText: 'Seleccionar',
-                            flex: 1
-                        }]
-                },{
+                }, {
                     items: [{
                             xtype: 'textfield',
                             name: 'idConcepto',
