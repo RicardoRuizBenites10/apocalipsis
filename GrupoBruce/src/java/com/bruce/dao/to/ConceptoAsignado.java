@@ -24,7 +24,7 @@ public class ConceptoAsignado implements java.io.Serializable {
     private String idCasignado;
     private Date fecha;
     private String idConcepto;
-    private String idTtrabajador;
+    private int idTtrabajador;
 
     public ConceptoAsignado() {
     }
@@ -59,11 +59,11 @@ public class ConceptoAsignado implements java.io.Serializable {
     }
 
     @Column(name = "ID_TTRABAJADOR", nullable = false)
-    public String getIdTtrabajador() {
+    public int getIdTtrabajador() {
         return idTtrabajador;
     }
 
-    public void setIdTtrabajador(String idTtrabajador) {
+    public void setIdTtrabajador(int idTtrabajador) {
         this.idTtrabajador = idTtrabajador;
     }
 

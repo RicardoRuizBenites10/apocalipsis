@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.model.ConceptoAsignado', {
         { name: 'fecha', type: 'date' },
         { name: 'idCasignado', type: 'string' },
         { name: 'idConcepto', type: 'string' },
-        { name: 'idTtrabajador', type: 'string' }
+        { name: 'idTtrabajador', type: 'int' }
     ],
     
     identifier: 'sequential',
