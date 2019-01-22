@@ -27,22 +27,6 @@ Ext.define('GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla', {
             },
             items: [{
                     items: [{
-                            xtype: 'combobox',
-                            name: 'idTtrabajador',
-                            fieldLabel: 'Tipo trabajador',
-                            displayField: 'descripcion',
-                            valueField: 'idTtrabajador',
-                            bind: {
-                                store: '{tiposTrabajador}',
-                                selection: '{selectTipoTrabajador}'
-                            },
-                            pageSize: true,
-                            editable: false,
-                            emptyText: 'Seleccionar',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
                             xtype: 'datefield',
                             name: 'inicio',
                             fieldLabel: 'Inicio',

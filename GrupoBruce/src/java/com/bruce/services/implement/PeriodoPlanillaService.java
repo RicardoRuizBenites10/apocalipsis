@@ -36,13 +36,15 @@ public class PeriodoPlanillaService implements IPeriodoPlanillaService {
     @Transactional
     public void insert(PeriodoPlanilla t) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        t.setDenominacion(formatoFecha.format(t.getInicio()) + "-" + formatoFecha.format(t.getFin()));
+        t.setDenominacion(formatoFecha.format(t.getInicio()) + " - " + formatoFecha.format(t.getFin()));
         dao.create(t);
     }
 
     @Override
     @Transactional
     public void update(PeriodoPlanilla t) {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        t.setDenominacion(formatoFecha.format(t.getInicio()) + " - " + formatoFecha.format(t.getFin()));
         dao.update(t);
     }
 

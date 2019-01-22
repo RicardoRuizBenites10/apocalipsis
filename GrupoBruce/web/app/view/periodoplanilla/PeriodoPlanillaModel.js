@@ -2,8 +2,8 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMperiodoplanilla',
     data: {
-        selectPeriodoPlanilla: null,
-        selectSearchTTrabajador: null
+        recordTipoTrabajador: null,
+        selectPeriodoPlanilla: null
     },
     
     stores: {
@@ -13,12 +13,8 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaModel', {
             filters:[{
                     property: 'idTtrabajador',
                     operator: 'eq',
-                    value: '{selectSearchTTrabajador.idTtrabajador}'
+                    value: '{recordTipoTrabajador.idTtrabajador}'
             }]
-        },
-        tiposTrabajador: {
-            type: 'StipoTrabajador',
-            autoLoad: true
         }
     }
 

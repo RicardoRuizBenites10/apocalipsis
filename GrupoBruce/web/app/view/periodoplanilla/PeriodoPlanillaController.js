@@ -1,12 +1,14 @@
 Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Cperiodoplanilla',
-    
+
     createDialog: function (record) {
         var window = new GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla();
         if (!record) {
             window.setTitle('Registrar periodo planilla');
+            var tt = this.getViewModel().get('recordTipoTrabajador');
             record = new GrupoBruce.model.PeriodoPlanilla();
+            record.set('idTtrabajador', tt.get('idTtrabajador'));
         }
         window.down('form').loadRecord(record);
         window.show();
@@ -34,7 +36,7 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaController', {
             }
         });
     },
-    
+
     onSavePeriodoPlanilla: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');

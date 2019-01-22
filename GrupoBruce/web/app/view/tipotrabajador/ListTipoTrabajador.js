@@ -92,6 +92,14 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
                     disabled: '{!selectTipoTrabajador}'
                 },
                 handler: 'onConceptosTipoTrabajador'
+            },{
+                iconCls: 'x-fa fa-calendar-o',
+                disabled: true,
+                text: 'Periodo planilla',
+                bind: {
+                    disabled: '{!selectTipoTrabajador}'
+                },
+                handler: 'onPPlanillaTipoTrabajador'
             }]
     },
 

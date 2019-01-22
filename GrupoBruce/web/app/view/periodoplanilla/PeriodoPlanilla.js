@@ -1,5 +1,5 @@
 Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanilla',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
 
     requires: [
         'GrupoBruce.view.periodoplanilla.PeriodoPlanillaController',
@@ -14,9 +14,15 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanilla',{
         type: 'VMperiodoplanilla'
     },
     
+    resizable: false,
+    modal: true,
+    closable: true,
+    autoShow: true,
+    
     title: 'Lista de periodos de planilla',
     items: [{
             xtype: 'WlistPeriodoPlanilla',
-            height: 500
+            width: 600,
+            height: 400
     }]
 });

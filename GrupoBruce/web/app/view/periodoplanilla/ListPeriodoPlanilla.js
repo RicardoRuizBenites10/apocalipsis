@@ -19,7 +19,8 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
             xtype: 'rownumberer'
         }, {
             text: 'Denominación',
-            name: 'denominacion',
+            dataIndex: 'denominacion',
+            align: 'left',
             width: 200
         }, {
             text: 'Fecha inicio',
@@ -48,18 +49,6 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
     tbar: {
         overflowHandler: 'menu',
         items: [{
-                xtype: 'combobox',
-                fieldLabel: 'Tipo trabajador',
-                displayField: 'descripcion',
-                valueField: 'idTtrabajador',
-                bind: {
-                    store: '{tiposTrabajador}',
-                    selection: '{selectSearchTTrabajador}'
-                },
-                pageSize: true,
-                editable: false,
-                emptyText: 'Seleccionar'
-            }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
