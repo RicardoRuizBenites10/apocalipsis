@@ -107,6 +107,23 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     },
                     align: 'center'
                 }]
+        }, {
+            text: 'Ausencia',
+            xtype: 'templatecolumn',
+            tpl: '{marca1}',
+            align: 'left'
+        }, {
+            text: 'H.Extra',
+            dataIndex: 'hextra',
+            renderer: function (val, metadata, record) {
+                var hh = 0;
+                console.log(record.get('marca1'));
+                if (record.marca1 !== undefined) {
+                    console.log("marca1: " + record.marca1);
+                }
+                return 0;
+            },
+            align: 'left'
         }],
 
     tbar: {
@@ -131,7 +148,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     disabled: '{!selectAsistencia}' && '{!selectAsistencia.ausencia}'
                 },
                 handler: 'addMarcacion'
-            },{
+            }, {
                 xtype: 'button',
                 text: 'Procesar',
                 iconCls: 'x-fa fa-retweet',
