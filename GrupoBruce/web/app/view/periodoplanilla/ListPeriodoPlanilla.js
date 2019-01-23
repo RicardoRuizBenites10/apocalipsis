@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
             text: 'Denominación',
             dataIndex: 'denominacion',
             align: 'left',
-            width: 200
+            width: 180
         }, {
             text: 'Fecha inicio',
             dataIndex: 'inicio',
@@ -32,10 +32,13 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
             dataIndex: 'fin',
             align: 'center',
             formatter: 'date("d/m/Y")'
+        },{
+            text: 'Dias periodo',
+            dataIndex: 'diasPeriodo',
+            width: 100
         }, {
             text: 'Situación',
             dataIndex: 'cerrado',
-            width: 150,
             align: 'center',
             renderer: function (val) {
                 if (!val) {

@@ -132,7 +132,12 @@ public class ReverseQuery {
             sortString = sortString + "ORDER BY\n";
             for (SortPage item : this.sorts) {
                 cont++;
-                sortString = sortString + this.iniEntidad + "." + item.getProperty() + " " + item.getDirection() + (this.sorts.size() != cont ? ", " : "");
+                ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), "-");
+                if (propiedad.size() > 1) {
+                    sortString = sortString + propiedad.get(0) + propiedad.get(1) + " " + item.getDirection() + (this.sorts.size() != cont ? ", " : "");
+                } else {
+                    sortString = sortString + this.iniEntidad + "." + item.getProperty() + " " + item.getDirection() + (this.sorts.size() != cont ? ", " : "");
+                }
             }
         }
         return sortString;

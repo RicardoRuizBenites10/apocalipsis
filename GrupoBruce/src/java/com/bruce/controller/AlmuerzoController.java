@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Asistencia;
-import com.bruce.services.design.IAsistenciaService;
+import com.bruce.dao.to.Almuerzo;
+import com.bruce.services.design.IAlmuerzoService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-public class AsistenciaController {
-
+public class AlmuerzoController {
+    
     @Autowired
-    private IAsistenciaService sct;
+    private IAlmuerzoService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/asistencias", method = RequestMethod.GET)
+    @RequestMapping(value = "/almuerzos", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
@@ -36,46 +36,51 @@ public class AsistenciaController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
-
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("message", "Datos encontrados");
-        map.put("data", sct.getByFilter(start, limit, sort, filter, query));
-        map.put("total", sct.countByFilter(filter, query));
+        map.put("message", "Lista de almuerzo");
+        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("total", serv.countByFilter(filter, query));
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiAsistencia", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody Asistencia asistencia) {
+    @RequestMapping(value = "/iiAlmuerzo", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Almuerzo almuerzo) {
         Map<String, Object> map = new HashMap<>();
-        sct.insert(asistencia);
+        serv.insert(almuerzo);
         map.put("success", true);
-        map.put("data", asistencia);
+        map.put("data", almuerzo);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuAsistencia", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody Asistencia asistencia) {
+    @RequestMapping(value = "/uuAlmuerzo", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Almuerzo almuerzo) {
         Map<String, Object> map = new HashMap<>();
-        sct.update(asistencia);
+        serv.update(almuerzo);
         map.put("success", true);
-        map.put("data", asistencia);
+        map.put("data", almuerzo);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddAsistencia", method = RequestMethod.POST)
-    public Map<String, Object> delete(@RequestBody Asistencia asistencia) {
+    @RequestMapping(value = "/ddAlmuerzo", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Almuerzo almuerzo) {
         Map<String, Object> map = new HashMap<>();
-        sct.delete(asistencia);
-        map.put("success", true);
-        map.put("data", asistencia);
-        map.put("message", "Eliminación exitosa");
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            serv.delete(almuerzo);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", almuerzo);
+        map.put("message", msg);
         return map;
     }
-
 }

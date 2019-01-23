@@ -17,10 +17,6 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
     columns: [{
             xtype: 'rownumberer'
         }, {
-            text: 'DNI',
-            dataIndex: 'idTrabajador',
-            align: 'center'
-        }, {
             text: 'Nombre',
             dataIndex: 'trabajador',
             sortable: false,
@@ -108,22 +104,30 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     align: 'center'
                 }]
         }, {
-            text: 'Ausencia',
-            xtype: 'templatecolumn',
-            tpl: '{marca1}',
-            align: 'left'
-        }, {
-            text: 'H.Extra',
-            dataIndex: 'hextra',
+            text: 'Asistio',
+            dataIndex: 'dtrabajado',
             renderer: function (val, metadata, record) {
-                var hh = 0;
-                console.log(record.get('marca1'));
-                if (record.marca1 !== undefined) {
-                    console.log("marca1: " + record.marca1);
-                }
-                return 0;
+                var marca1 = record.get('marca1');
+                return marca1 !== null ? 'SI' : 'NO';
             },
-            align: 'left'
+            align: 'center'
+        }, {
+            text: 'H.Trab.',
+            dataIndex: 'horasTrabajado',
+            renderer: function (val, metadata, record) {
+                var marca1 = record.get('marca1'), marca7 = record.get('marca7');
+                var horas = marca1 !== null && marca7 !== null ? ((Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE) === 0 ? 540 : Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE)) / 60) - 1 : 0;
+                Ext.util.Format.decimalSeparator = '.';
+                return Ext.util.Format.number(horas, '#.0');
+            }
+        }, {
+            text: 'Ausencia',
+            dataIndex: 'horasAusencia',
+            renderer: function (val, metadata, record) {
+                var marca1 = record.get('marca1'), marca7 = record.get('marca7');
+                var horas = marca1 !== null && marca7 !== null ? Ext.Date.getDa: 100;
+                return horas;
+            }
         }],
 
     tbar: {

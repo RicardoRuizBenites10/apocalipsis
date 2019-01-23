@@ -1,8 +1,8 @@
-Ext.define('GrupoBruce.store.Asistencia', {
+Ext.define('GrupoBruce.store.Almuerzo',{
     extend: 'Ext.data.Store',
-    model: 'GrupoBruce.model.Asistencia',
-    alias: 'store.Sasistencia',
-
+    alias: 'store.Salmuerzo',
+    model: 'GrupoBruce.model.Almuerzo',
+    
     remoteSort: true,
     remoteFilter: true,
     
@@ -10,5 +10,4 @@ Ext.define('GrupoBruce.store.Asistencia', {
             property: '-TRABAJADOR',
             direction: 'ASC'
         }]
-    
 });

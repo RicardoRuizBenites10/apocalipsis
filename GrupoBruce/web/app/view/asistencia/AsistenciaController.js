@@ -45,8 +45,19 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var window = new GrupoBruce.view.marca.ListMarcaImport();
     },
     
-    onProcesar: function(){
+    onProcesar: function(btn){
+        var grid = btn.up('WlistAsistencia');
+        var store = grid.getStore();
         
+        store.sync({
+            success: function (response, operation) {
+                grid.getStore().reload();
+                Ext.Msg.alert('Success', 'Operación exitosa.');
+            },
+            failure: function (response, operation) {
+                Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+            }
+        });
     }
     
 });

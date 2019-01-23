@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.model.PeriodoPlanilla', {
     fields: [
         {name: 'cerrado', type: 'boolean'},
         {name: 'denominacion', type: 'string'},
+        {name: 'diasPeriodo', type: 'int'},
         {name: 'fin', type: 'date', dateFormat: 'c'},
         {name: 'finPlame', type: 'date', dateFormat: 'c'},
         {name: 'idPplanilla', type: 'string'},

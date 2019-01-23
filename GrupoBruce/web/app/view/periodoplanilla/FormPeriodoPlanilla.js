@@ -30,11 +30,13 @@ Ext.define('GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla', {
                             xtype: 'datefield',
                             name: 'inicio',
                             fieldLabel: 'Inicio',
+                            bind: '{finicio}',
                             flex: 1
                         }, {
                             xtype: 'datefield',
                             name: 'fin',
                             fieldLabel: 'Fin',
+                            bind: '{ffin}',
                             flex: 1
                         }]
                 }, {
@@ -42,15 +44,24 @@ Ext.define('GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla', {
                             xtype: 'datefield',
                             name: 'iniPlame',
                             fieldLabel: 'Inicio plame',
+                            bind: '{limiteIP}',
                             flex: 1
                         }, {
                             xtype: 'datefield',
                             name: 'finPlame',
                             fieldLabel: 'Fin plame',
+                            bind: '{limiteFP}',
                             flex: 1
                         }]
                 }, {
                     items: [{
+                            xtype: 'numberfield',
+                            name: 'diasPeriodo',
+                            hideTrigger: true,
+                            editable: false,
+                            fieldLabel: 'Días perido',
+                            bind: '{diasPeriodo}'
+                        }, {
                             xtype: 'checkbox',
                             name: 'cerrado',
                             reference: 'chk_cerradoPeriodoPlanilla',
