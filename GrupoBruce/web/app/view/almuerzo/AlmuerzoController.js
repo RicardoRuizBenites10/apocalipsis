@@ -46,14 +46,19 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoController', {
             var refri = this.lookupReference('chk_refrigerio'), encom = this.lookupReference('chk_encomedor');
             model.set('refrigerio', refri.checked);
             model.set('enComedor', encom.checked);
-            model.save({// save the record to the server
-                success: function (model, operation) {
+            model.data.fecha = Ext.Date.format(model.data.fecha, 'c')
+            Ext.Ajax.request({
+                url: 'uuAlmuerzo',
+                jsonData: model.data,
+                method: 'POST',
+                scope: this,
+                success: function (response, opts) {
                     grid.getStore().reload();
                     form.reset();
                     window.destroy();
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
-                failure: function (model, operation) {
+                failurer: function (response, opts) {
                     Ext.Msg.alert('Failure', 'Operacion fallada.')
                 }
             });
@@ -61,12 +66,12 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
     },
-    
-    onProcesar: function(btn){
+
+    onProcesar: function (btn) {
         var grid = btn.up('WlistAlmuerzo');
         var store = grid.getStore();
         store.each(function (model) {
-            model.set('procesado',true);
+            model.set('procesado', true);
         });
         store.sync({
             success: function (response, operation) {
@@ -77,6 +82,7 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoController', {
                 Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
             }
         });
+
     }
 
 });

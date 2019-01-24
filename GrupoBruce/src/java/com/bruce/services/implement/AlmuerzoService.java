@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,6 @@ public class AlmuerzoService implements IAlmuerzoService{
     @Override
     @Transactional
     public void update(Almuerzo t) {
-        t.setProcesado(true);
         dao.update(t);
     }
 
@@ -119,6 +119,16 @@ public class AlmuerzoService implements IAlmuerzoService{
             Logger.getLogger(AlmuerzoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
+    }
+
+    @Override
+    @Transactional
+    public void procesarAlmuerzos(List<Almuerzo> almuerzos) {
+        if(!almuerzos.isEmpty()){
+            almuerzos.forEach(item -> {
+                dao.update(item);
+            });
+        }
     }
     
 }

@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.model.Almuerzo', {
         api: {
             create: 'iiAlmuerzo',
             read: 'almuerzos',
-            update: 'uuAlmuerzo',
+            update: 'uuLAlmuerzo',
             destroy: 'ddAlmuerzo'
         },
         reader: {

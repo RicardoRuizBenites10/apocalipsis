@@ -93,4 +93,9 @@ public class Almuerzo implements java.io.Serializable {
     public void setTrabajador(String trabajador) {
         this.trabajador = trabajador;
     }
+
+    @Override
+    public String toString() {
+        return "Almuerzo{" + "idTrabajador=" + idTrabajador + ", fecha=" + fecha + ", refrigerio=" + refrigerio + ", enComedor=" + enComedor + ", procesado=" + procesado + ", trabajador=" + trabajador + '}';
+    }
 }

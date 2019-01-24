@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Almuerzo;
 import com.bruce.services.design.IAlmuerzoService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,16 @@ public class AlmuerzoController {
         map.put("success", true);
         map.put("data", almuerzo);
         map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/uuLAlmuerzo", method = RequestMethod.POST)
+    public Map<String, Object> procesarAlmuerzos(@RequestBody List<Almuerzo> almuerzos) {
+        Map<String, Object> map = new HashMap<>();
+        serv.procesarAlmuerzos(almuerzos);
+        map.put("success", true);
+        map.put("message", "Almuerzos actualizados.");
         return map;
     }
 

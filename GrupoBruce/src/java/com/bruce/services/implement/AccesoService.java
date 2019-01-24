@@ -74,7 +74,7 @@ public class AccesoService implements IAccesoService {
     @Override
     @Transactional
     public void changeAcceso(List<Acceso> accesos) {
-        if(accesos.size()>0){
+        if(!accesos.isEmpty()){
             accesos.forEach( item -> {
                 dao.create(item);
             });

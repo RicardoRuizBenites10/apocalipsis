@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Almuerzo;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IAlmuerzoService extends IEntidadService<Almuerzo>{
-    
+    public void procesarAlmuerzos(List<Almuerzo> almuerzos);
 }

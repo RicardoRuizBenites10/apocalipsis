@@ -32,7 +32,7 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
             text: 'Refrigerio',
             dataIndex: 'refrigerio',
             align: 'center',
-            renderer: function(val){
+            renderer: function (val) {
                 return val ? 'SI' : 'NO';
             },
             width: 150
@@ -40,17 +40,17 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
             text: 'Almuerzo',
             dataIndex: 'enComedor',
             align: 'center',
-            renderer: function(val){
+            renderer: function (val) {
                 return val ? 'Consesionario' : 'Fuera';
             },
             width: 200
-        },{
+        }, {
             text: 'Situacion',
             dataIndex: 'procesado',
-            renderer: function(val){
-                if(!val){
+            renderer: function (val) {
+                if (!val) {
                     return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
-                }else{
+                } else {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
                 }
             },
@@ -68,10 +68,10 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
                 bind: '{desde}'
             }, {
                 iconCls: 'x-fa fa-edit',
-                disabled: true,
                 text: 'Modificar',
+                disabled: true,
                 bind: {
-                    disabled: '{!selectAlmuerzo}'
+                    disabled: '{!selectAlmuerzo}' || ('{selectAlmuerzo}' && '{selectAlmuerzo.procesado}')
                 },
                 handler: 'editAlmuerzo'
             }, '-', {
@@ -88,7 +88,18 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
                 store: '{almuerzos}'
             },
             displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar"
+            items: ['-', {
+                    xtype: 'numberfield',
+                    emptyText: 'Cantidad registros',
+                    hideTrigger: true,
+                    allowDecimal: false,
+                    bind: '{pageSize}',
+                    width: 145,
+                    keyMap: {
+                        ENTER: function (value,b) {
+                            console.log(b);
+                        }
+                    }
+                }]
         }]
 });
