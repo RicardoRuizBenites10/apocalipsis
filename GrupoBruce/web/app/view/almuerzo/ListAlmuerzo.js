@@ -88,16 +88,17 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
                 store: '{almuerzos}'
             },
             displayInfo: true,
+            displayMsg: 'Mostrando registros {0} - {1} de {2}',
             items: ['-', {
                     xtype: 'numberfield',
                     emptyText: 'Cantidad registros',
                     hideTrigger: true,
                     allowDecimal: false,
-                    bind: '{pageSize}',
+//                    bind: '{pageSize}',
                     width: 145,
                     keyMap: {
-                        ENTER: function (value,b) {
-                            console.log(b);
+                        ENTER: function (key, element) {
+                            Ext.getCmp('id_wlistalmuerzo').up('panel').getViewModel().set('pageSize', element.value);
                         }
                     }
                 }]
