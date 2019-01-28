@@ -2,6 +2,7 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistAsistencia',
     reference: 'list_asistencia',
+    id: 'id_wlistasistencia',
 
     requires: [
         'Ext.grid.RowNumberer'
@@ -166,7 +167,19 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             bind: {
                 store: '{asistencias}'
             },
-            displayInfo: true
+            displayInfo: true,
+            items: ['-', {
+                    xtype: 'numberfield',
+                    emptyText: 'Cantidad registros',
+                    hideTrigger: true,
+                    allowDecimal: false,
+                    width: 130,
+                    keyMap: {
+                        ENTER: function (key, element) {
+                            Ext.getCmp('id_wlistasistencia').up('panel').getViewModel().set('pageSize', element.value);
+                        }
+                    }
+                }]
         }]
 
 });

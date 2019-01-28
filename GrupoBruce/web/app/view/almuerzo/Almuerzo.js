@@ -14,7 +14,7 @@ Ext.define('GrupoBruce.view.almuerzo.Almuerzo', {
         type: 'VMalmuerzo'
     },
 
-    title: 'Lista de almuerzo',
+    title: 'Lista de almuerzos',
     items: [{
             xtype: 'WlistAlmuerzo',
             height: 500

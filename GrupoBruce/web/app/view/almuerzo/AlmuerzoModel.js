@@ -19,6 +19,14 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoModel', {
                     value: '{desde}'
                 }]
         }
+    },
+    
+    formulas: {
+        allowEdit: function(get){
+            var selection = get('selectAlmuerzo');
+            var allow = selection ? selection.get('procesado') : !selection;
+            return allow;
+        }
     }
 
 });

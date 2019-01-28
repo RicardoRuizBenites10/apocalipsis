@@ -16,8 +16,8 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
     },
 
     items: [{
-            xtype: 'tabpanel',
-            title: 'Monitoreo de empleados',
+            xtype: 'WlistAsistencia',
+            title: 'Lista de asistencia',
             header: {
                 items: [{
                         xtype: 'button',
@@ -30,16 +30,7 @@ Ext.define('GrupoBruce.view.asistencia.Asistencia', {
                         }
                     }]
             },
-
-            items: [{
-                    title: 'Asistencia diaria ',
-                    items: [{
-                            xtype: 'WlistAsistencia',
-                            height: 420
-                        }]
-                },{
-                    title: 'Seguimiento mensual'
-                }]
+            height: 500
         }]
 
 });

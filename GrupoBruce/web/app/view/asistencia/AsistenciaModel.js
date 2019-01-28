@@ -3,13 +3,15 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     alias: 'viewmodel.VMasistencia',
 
     data: {
-        desde: new Date()
+        desde: new Date(),
+        pageSize: null
     },
 
     stores: {
         asistencias: {
             type: 'Sasistencia',
             autoLoad: true,
+            pageSize: '{pageSize ? pageSize : 25}',
             filters: [{
                     property: 'FECHA',
                     operator: 'eq',
