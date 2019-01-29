@@ -68,6 +68,17 @@ public class ContratoTrabajadorController {
     }
     
     @ResponseBody
+    @RequestMapping(value = "/endContrato", method = RequestMethod.POST)
+    public Map<String, Object> finalizar(@RequestBody ContratoTrabajador contrato) {
+        Map<String, Object> map = new HashMap<>();
+        sct.endContrato(contrato);
+        map.put("success", true);
+        map.put("data", contrato);
+        map.put("message", "Finalizacion exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
     @RequestMapping(value = "/validaRContrato", method = RequestMethod.POST)
     public Map<String, Object> last(@RequestBody ContratoTrabajador contrato) {
         return sct.validaAdd(contrato.getIdTrabajador());

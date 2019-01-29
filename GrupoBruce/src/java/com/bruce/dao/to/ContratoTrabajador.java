@@ -24,6 +24,7 @@ public class ContratoTrabajador implements java.io.Serializable {
     private double montoContrato;
     private Date fechaFin;
     private Date fechaCese;
+    private String motivoCese;
     private String idTcontrato;
     private int idEcontrato;
     private int idTiempo;
@@ -86,8 +87,8 @@ public class ContratoTrabajador implements java.io.Serializable {
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    
-    @Column(name="MONTO_CONTRATO", nullable = false)
+
+    @Column(name = "MONTO_CONTRATO", nullable = false)
     public double getMontoContrato() {
         return montoContrato;
     }
@@ -114,6 +115,15 @@ public class ContratoTrabajador implements java.io.Serializable {
 
     public void setFechaCese(Date fechaCese) {
         this.fechaCese = fechaCese;
+    }
+
+    @Column(name = "MOTIVO_CESE")
+    public String getMotivoCese() {
+        return motivoCese;
+    }
+
+    public void setMotivoCese(String motivoCese) {
+        this.motivoCese = motivoCese;
     }
 
     @Column(name = "ID_TCONTRATO", nullable = false, length = 2)

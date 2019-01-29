@@ -47,7 +47,16 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
         var model = grid.getSelection()[0];
         this.createDialog(model, model.get('fechaInicio'));
     },
-
+    
+    endContrato: function(){
+        var grid = this.lookupReference('list_contratoTrabajador');
+        var model = grid.getSelection()[0];
+        
+        var window = new GrupoBruce.view.contrato.FormContratoFinalizar();
+        window.down('form').loadRecord(model);
+        
+    },
+    
     onSaveContrato: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
@@ -64,6 +73,33 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                 },
                 failure: function (contrato, operation) {
                     Ext.Msg.alert('Failure', 'Operacion fallada.')
+                }
+            });
+        } else { // display error alert if the data is invalid
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
+        }
+    },
+
+    onFinalizaContrato: function (btn) {
+        var form = btn.up('form');
+        var window = btn.up('window');
+        var grid = Ext.getCmp('id_wcontratotrabajador');
+        var contratoModel = form.getRecord();
+        if (form.isValid()) { // make sure the form contains valid data before submitting
+            form.updateRecord(contratoModel); // update the record with the form data
+            Ext.Ajax.request({
+                url: 'endContrato',
+                jsonData: contratoModel.data,
+                method: 'POST',
+                scope: this,
+                success: function (response, opts) {
+                    grid.getStore().reload();
+                    form.reset();
+                    window.destroy();
+                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                },
+                failurer: function (response, opts) {
+                    Ext.Msg.alert('Status', response.status);
                 }
             });
         } else { // display error alert if the data is invalid

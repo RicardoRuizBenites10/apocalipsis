@@ -7,7 +7,8 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajador', {
         'GrupoBruce.view.contrato.ContratoTrabajadorModel',
         
         'GrupoBruce.view.contrato.ListContratoTrabajador',
-        'GrupoBruce.view.contrato.FormContratoTrabajador'
+        'GrupoBruce.view.contrato.FormContratoTrabajador',
+        'GrupoBruce.view.contrato.FormContratoFinalizar'
     ],
 
     viewModel: {

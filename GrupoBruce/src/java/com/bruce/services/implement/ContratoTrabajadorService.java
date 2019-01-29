@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             trabajador.setUltimaAlta(newContrato.getFechaInicio());
         }
         trabajador.setMontoBase(newContrato.getMontoContrato());
-        dao3.update(trabajador);     
+        dao3.update(trabajador);
 
     }
 
@@ -140,7 +141,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     @Transactional
     public Map<String, Object> validaAdd(String idTrabajador) {
         Map<String, Object> map = new HashMap<>();
-        
+
         List<FilterPage> filters = new ArrayList<>();
         filters.add(new FilterPage("idTrabajador", idTrabajador));
         ContratoTrabajador lastContrato = dao.lastByFilter(filters);
@@ -157,6 +158,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     }
 
     @Override
+    @Transactional
     public ContratoTrabajador lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -171,6 +173,29 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             ex.getMessage();
         }
         return dao.lastByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public void endContrato(ContratoTrabajador contrato) {
+        List<FilterPage> filters = new ArrayList<>();
+        Calendar cal = Calendar.getInstance(), cal2 = Calendar.getInstance();
+        cal.setTime(contrato.getFechaFin());
+        cal2.setTime(contrato.getFechaCese());
+        contrato.setIdEcontrato(cal.compareTo(cal2) == 0 ? Constante.CONTRATO_ESTADO_TERMINADO : Constante.CONTRATO_ESTADO_CANCELADO);
+        dao.update(contrato);
+
+        Trabajador trabajador = dao3.get(contrato.getIdTrabajador());
+        trabajador.setIdEtrabajador(Constante.TRABAJADOR_ESTADO_BAJA);
+        dao3.update(trabajador);
+
+        filters.add(new FilterPage("idTrabajador", contrato.getIdTrabajador()));
+        filters.add(new FilterPage("activa", true));
+        Situacion lastSituacion = dao2.lastByFilter(filters);
+        lastSituacion.setFechaBaja(contrato.getFechaCese());
+        lastSituacion.setContratoBaja(contrato.getIdContrato());
+        lastSituacion.setActiva(false);
+        dao2.update(lastSituacion);
     }
 
 }

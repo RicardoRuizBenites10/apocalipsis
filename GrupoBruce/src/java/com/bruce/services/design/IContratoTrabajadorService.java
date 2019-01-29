@@ -6,14 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.ContratoTrabajador;
-import com.bruce.util.FilterPage;
-import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author RICARDO
  */
-public interface IContratoTrabajadorService extends IEntidadService<ContratoTrabajador>{
-    public Map<String, Object>  validaAdd(String idTrabajador);
+public interface IContratoTrabajadorService extends IEntidadService<ContratoTrabajador> {
+    public Map<String, Object> validaAdd(String idTrabajador);
+    public void endContrato(ContratoTrabajador contrato);
 }

@@ -91,13 +91,21 @@ Ext.define('GrupoBruce.view.contrato.ListContratoTrabajador', {
                 text: 'Nuevo',
                 handler: 'addContrato'
             }, {
+                text: 'Modificar',
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
-                text: 'Modificar',
                 bind: {
                     disabled: '{!selectContrato || selectContrato.idEcontrato !== 1}'
                 },
                 handler: 'editContrato'
+            },{
+                text: 'Finalizar',
+                iconCls: 'x-fa fa-circle-thin',
+                disabled: true,
+                bind: {
+                    disabled: '{!selectContrato || selectContrato.idEcontrato !== 1}'
+                },
+                handler: 'endContrato'
             }]
     },
 
