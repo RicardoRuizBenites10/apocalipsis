@@ -37,7 +37,8 @@ public class ReverseQuery {
     }
 
     public String getQuery() {
-        return this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getExceptions() + getSorts() + getPagination();
+        String query = this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getExceptions() + getSorts() + getPagination();
+        return query;
     }
 
     public void addResult(String result) {
@@ -80,7 +81,13 @@ public class ReverseQuery {
             filterString = filterString + "WHERE\n";
             for (FilterPage item : filters) {
                 cont++;
-                filterBand = !item.getProperty().equalsIgnoreCase("CLAVE") ? iniEntidad + "." + item.getProperty() : "DECRYPTBYPASSPHRASE('Bruces@22'," + iniEntidad + "." + item.getProperty() + ")";
+                if (!item.getProperty().equalsIgnoreCase("CLAVE")) {
+                    ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
+                    filterBand = propiedad.size() > 1 ? propiedad.get(0) + "." + propiedad.get(1) : iniEntidad + "." + item.getProperty();
+                } else {
+                    filterBand = "DECRYPTBYPASSPHRASE('Bruces@22'," + iniEntidad + "." + item.getProperty() + ")";
+                }
+
                 if (item.getOperator() != null) {
                     switch (item.getOperator()) {
                         case "like":
@@ -93,7 +100,9 @@ public class ReverseQuery {
                 } else {
                     filterSensitive = " = :" + item.getProperty();
                 }
-                filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
+                if (item.isInWhere()) {
+                    filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
+                }
             }
         }
         return filterString;
@@ -103,7 +112,7 @@ public class ReverseQuery {
         String exceptionString = "\n";
         if (this.exceptions != null && !this.exceptions.isEmpty()) {
             for (String item : exceptions) {
-                exceptionString =  exceptionString + item;
+                exceptionString = exceptionString + item;
             }
         }
         return exceptionString;

@@ -1,11 +1,12 @@
-Ext.define('GrupoBruce.view.proceso.ListProceso', {
+Ext.define('GrupoBruce.view.horario.ListHorario', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistProceso',
-    reference: 'list_proceso',
+    alias: 'widget.WlistHorario',
+    reference: 'list_horario',
+    id: 'id_wlisthorario',
 
     bind: {
-        store: '{procesos}',
-        selection: '{selectProceso}'
+        store: '{horarios}',
+        selection: '{selectHorario}'
     },
     allowDeselect: true,
 
@@ -17,22 +18,30 @@ Ext.define('GrupoBruce.view.proceso.ListProceso', {
     columns: [{
             xtype: 'rownumberer'
         }, {
-            text: 'Codigo',
-            dataIndex: 'idProceso',
-            align: 'center'
+            text: 'Dia',
+            dataIndex: 'dia',
+            width: 300,
+            align: 'left'
+        },{
+            text: 'Situación',
+            dataIndex: 'libre',
+            align: 'center',
+            renderer: function(value){
+                return value ? 'Libre' : 'Laborable';
+            }
         }, {
-            text: 'Nombre',
-            dataIndex: 'nombre',
-            width: 400,
+            text: 'Entrada',
+            dataIndex: 'horaEntrada',
+            formatter: 'date("h:i A")',
             align: 'left'
         }, {
-            text: 'Entidad a manejar',
-            dataIndex: 'entidad',
-            align: 'left',
-            width: 250
+            text: 'Salida',
+            dataIndex: 'horaSalida',
+            formatter: 'date("h:i A")',
+            align: 'left'
         }, {
             text: 'Estado',
-            dataIndex: 'estado',
+            dataIndex: 'situacion',
             width: 150,
             align: 'center',
             renderer: function (val) {
@@ -51,33 +60,25 @@ Ext.define('GrupoBruce.view.proceso.ListProceso', {
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
                 bind: {
-                    disabled: '{selectProceso}'
+                    disabled: '{selectHorario}'
                 },
-                handler: 'addProceso'
+                handler: 'addHorario'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
                 text: 'Modificar',
                 bind: {
-                    disabled: '{!selectProceso}'
+                    disabled: '{!selectHorario}'
                 },
-                handler: 'editProceso'
+                handler: 'editHorario'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
-                    disabled: '{!selectProceso}'
+                    disabled: '{!selectHorario}'
                 },
-                handler: 'deleteProceso'
-            }, '-', {
-                iconCls: 'x-fa fa-retweet',
-                disabled: true,
-                text: 'Etapas de proceso',
-                bind: {
-                    disabled: '{!selectProceso}'
-                },
-                handler: 'onEtapasProceso'
+                handler: 'deleteHorario'
             }]
     },
 
@@ -85,7 +86,7 @@ Ext.define('GrupoBruce.view.proceso.ListProceso', {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{procesos}'
+                store: '{horarios}'
             },
             displayInfo: true
         }]

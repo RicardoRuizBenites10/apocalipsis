@@ -1175,6 +1175,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Almuerzo"
       }
+    },
+    "app/model/Dia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idDia:int:null",
+        "modelFileName": "Dia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Dia"
+      }
+    },
+    "app/model/Horario.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "horaEntrada:date:null,horaSalida:date:null,idDia:int:null,idHorario:string:null,situacion:boolean:null",
+        "modelFileName": "Horario",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Horario"
+      }
     }
   }
 }

@@ -21,9 +21,9 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     },
 
     formulas: {
-//        desde: function (get) {
-//            return '02/11/2018';
-//        }
+        diaHorario: function (get) {
+            return get('desde').getDay();
+        }
     }
 
 });

@@ -17,6 +17,11 @@ public class FilterPage {
     private boolean and;
     private boolean inWhere;
 
+    public FilterPage() {
+        and = true;
+        inWhere = true;
+    }
+
     public FilterPage(String property, Object value) {
         this.property = property;
         this.value = value;
@@ -38,9 +43,6 @@ public class FilterPage {
         this.value = value;
         this.and = and;
         this.inWhere = inWhere;
-    }
-
-    public FilterPage() {
     }
 
     public String getOperator() {

@@ -30,13 +30,23 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             align: 'left'
         }, {
             text: 'Situación',
+            dataIndex: 'procesado',
+            renderer: function (val) {
+                if (!val) {
+                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
+                } else {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
+                }
+            },
+            align: 'center'
+        }, {
+            text: 'Estado',
             dataIndex: 'ausencia',
-            width: 150,
             align: 'center',
             renderer: function (val) {
                 switch (val) {
                     case 0:
-                        return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> NINGUNO </span>';
+                        return '<span style="background:#3498DB;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> NINGUNO </span>';
                         break;
                     case 1:
                         return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ASISTENCIA </span>';
@@ -104,31 +114,27 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     },
                     align: 'center'
                 }]
-        }, {
-            text: 'Asistio',
-            dataIndex: 'dtrabajado',
-            renderer: function (val, metadata, record) {
-                var marca1 = record.get('marca1');
-                return marca1 !== null ? 'SI' : 'NO';
-            },
-            align: 'center'
-        }, {
-            text: 'H.Trab.',
+        },{
+            text: 'Horas',
+            columns: [{
+            text: 'No Trab.',
             dataIndex: 'horasTrabajado',
             renderer: function (val, metadata, record) {
                 var marca1 = record.get('marca1'), marca7 = record.get('marca7');
+                console.log("Jooder: " +  this.getViewModel().get('diaHorario'));
                 var horas = marca1 !== null && marca7 !== null ? ((Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE) === 0 ? 540 : Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE)) / 60) - 1 : 0;
                 Ext.util.Format.decimalSeparator = '.';
                 return Ext.util.Format.number(horas, '#.0');
             }
         }, {
-            text: 'Ausencia',
+            text: 'Extras',
             dataIndex: 'horasAusencia',
             renderer: function (val, metadata, record) {
                 var marca1 = record.get('marca1'), marca7 = record.get('marca7');
                 var horas = marca1 !== null && marca7 !== null ? Ext.Date.getDa: 100;
                 return horas;
             }
+                }]
         }],
 
     tbar: {

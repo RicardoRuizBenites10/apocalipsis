@@ -17,6 +17,8 @@ Ext.define('GrupoBruce.model.Asistencia', {
         {name: 'anio', type: 'int'},
         {name: 'mes', type: 'int'},
         {name: 'dia', type: 'int'},
+        {name: 'ausencia', type: 'int'},
+        {name: 'procesado', type: 'boolean'},
         {name: 'trabajador', type: 'string'},
         {name: 'fechaTemp', type: 'date', dateFormat: 'c'}
     ],

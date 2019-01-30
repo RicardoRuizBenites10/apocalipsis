@@ -52,6 +52,11 @@ public class AsistenciaService implements IAsistenciaService {
         } catch (IOException ex) {
             ex.getMessage();
         }
+        Asistencia lastDay = dao.lastByFilter(filters);
+        if(lastDay==null || !lastDay.isProcesado()){
+            filters.get(0).setInWhere(false);
+            filters.add(new FilterPage("EQ", "T.ID_ETRABAJADOR", true, true, true));
+        }
         return dao.getByFilter(start, limit, sorts, filters);
     }
 
@@ -69,6 +74,11 @@ public class AsistenciaService implements IAsistenciaService {
             }
         } catch (IOException ex) {
             ex.getMessage();
+        }
+        Asistencia lastDay = dao.lastByFilter(filters);
+        if(lastDay==null || !lastDay.isProcesado()){
+            filters.get(0).setInWhere(false);
+            filters.add(new FilterPage("EQ", "T.ID_ETRABAJADOR", true, true, true));
         }
         return dao.countByFilter(filters);
     }

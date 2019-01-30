@@ -36,6 +36,7 @@ public class Asistencia implements java.io.Serializable {
     private int mes;
     private int dia;
     private int ausencia;
+    private boolean procesado;
 
     private String fechaTemp;
     private String trabajador;
@@ -203,6 +204,15 @@ public class Asistencia implements java.io.Serializable {
 
     public void setAusencia(int ausencia) {
         this.ausencia = ausencia;
+    }
+    
+    @Column(name = "PROCESADO", nullable = false)
+    public boolean isProcesado() {
+        return procesado;
+    }
+
+    public void setProcesado(boolean procesado) {
+        this.procesado = procesado;
     }
 
     @Generated(GenerationTime.NEVER)

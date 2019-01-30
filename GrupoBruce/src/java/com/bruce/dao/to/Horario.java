@@ -20,9 +20,10 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "HORARIO", schema = "dbo", catalog = "BDBRUCE")
 public class Horario implements java.io.Serializable {
 
-    private int idHorario;
+    private String idHorario;
     private String horaEntrada;
     private String horaSalida;
+    private boolean libre;
     private boolean situacion;
     private int idDia;
 
@@ -33,11 +34,11 @@ public class Horario implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_HORARIO", nullable = false)
-    public int getIdHorario() {
+    public String getIdHorario() {
         return idHorario;
     }
 
-    public void setIdHorario(int idHorario) {
+    public void setIdHorario(String idHorario) {
         this.idHorario = idHorario;
     }
 
@@ -57,6 +58,15 @@ public class Horario implements java.io.Serializable {
 
     public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
+    }
+
+    @Column(name = "LIBRE", nullable = false)
+    public boolean isLibre() {
+        return libre;
+    }
+
+    public void setLibre(boolean libre) {
+        this.libre = libre;
     }
 
     @Column(name = "SITUACION", nullable = false)

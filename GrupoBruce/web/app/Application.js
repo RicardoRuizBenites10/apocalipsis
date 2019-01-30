@@ -24,6 +24,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Concepto',
         'GrupoBruce.store.ConceptoAsignado',
         'GrupoBruce.store.ContratoTrabajador',
+        'GrupoBruce.store.Dia',
         'GrupoBruce.store.Ecivil',
         'GrupoBruce.store.EquipoInformatico',
         'GrupoBruce.store.Empresa',
@@ -38,6 +39,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Funcion',
         'GrupoBruce.store.Genero',
         'GrupoBruce.store.Hijo',
+        'GrupoBruce.store.Horario',
         'GrupoBruce.store.Mantenimiento',
         'GrupoBruce.store.MantenimientoDetalle',
         'GrupoBruce.store.MantenimientoProceso',
@@ -88,4 +90,5 @@ Ext.define('GrupoBruce.Application', {
                 }
         );
     }
+    
 });
