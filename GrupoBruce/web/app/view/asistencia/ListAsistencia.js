@@ -119,9 +119,9 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             columns: [{
             text: 'No Trab.',
             dataIndex: 'horasTrabajado',
-            renderer: function (val, metadata, record) {
+            renderer: function (val, metadata, record, rowIndex, colIndex, store, view) {
                 var marca1 = record.get('marca1'), marca7 = record.get('marca7');
-                console.log("Jooder: " +  this.getViewModel().get('diaHorario'));
+                var dada = view.up('panel').up('panel').getViewModel().get('diaHorario');
                 var horas = marca1 !== null && marca7 !== null ? ((Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE) === 0 ? 540 : Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE)) / 60) - 1 : 0;
                 Ext.util.Format.decimalSeparator = '.';
                 return Ext.util.Format.number(horas, '#.0');

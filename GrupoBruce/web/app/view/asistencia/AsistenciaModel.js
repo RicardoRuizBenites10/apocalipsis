@@ -8,6 +8,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     },
 
     stores: {
+        horarios: {
+            type: 'Shorario',
+            autoLoad: true
+        },
         asistencias: {
             type: 'Sasistencia',
             autoLoad: true,
@@ -22,7 +26,16 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
 
     formulas: {
         diaHorario: function (get) {
-            return get('desde').getDay();
+            var dia, numberDay = get('desde').getDay(), horario = get('horarios');
+            horario.reload();
+            console.log(horario.getCount());
+            horario.each(function (item) {
+                console.log(1);
+//                if (numberDay === item.get('idDia')) {
+//                    dia = item;
+//                }
+            });
+            return 10;
         }
     }
 
