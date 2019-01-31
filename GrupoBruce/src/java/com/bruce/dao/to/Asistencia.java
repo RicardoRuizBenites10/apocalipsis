@@ -36,6 +36,10 @@ public class Asistencia implements java.io.Serializable {
     private int mes;
     private int dia;
     private int ausencia;
+    private boolean asistio;
+    private Float hrsDscto;
+    private Float hrsExtra;
+    private boolean stdExtra;
     private boolean procesado;
 
     private String fechaTemp;
@@ -204,6 +208,42 @@ public class Asistencia implements java.io.Serializable {
 
     public void setAusencia(int ausencia) {
         this.ausencia = ausencia;
+    }
+
+    @Column(name = "ASISTIO")
+    public boolean isAsistio() {
+        return asistio;
+    }
+
+    public void setAsistio(boolean asistio) {
+        this.asistio = asistio;
+    }
+
+    @Column(name = "HRS_DSCTO")
+    public Float getHrsDscto() {
+        return hrsDscto;
+    }
+
+    public void setHrsDscto(Float hrsDscto) {
+        this.hrsDscto = hrsDscto;
+    }
+
+    @Column(name = "HRS_EXTRA")
+    public Float getHrsExtra() {
+        return hrsExtra;
+    }
+
+    public void setHrsExtra(Float hrsExtra) {
+        this.hrsExtra = hrsExtra;
+    }
+
+    @Column(name = "STD_EXTRA")
+    public boolean isStdExtra() {
+        return stdExtra;
+    }
+
+    public void setStdExtra(boolean stdExtra) {
+        this.stdExtra = stdExtra;
     }
     
     @Column(name = "PROCESADO", nullable = false)

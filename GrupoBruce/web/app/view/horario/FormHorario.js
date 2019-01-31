@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
 
     controller: 'Chorario',
     viewModel: 'VMhorario',
-    
+
     modal: true,
     closable: false,
     resizable: false,
@@ -37,13 +37,24 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
                                 selection: '{selectDia}'
                             }
                         }]
-                },{
+                }, {
                     items: [{
                             xtype: 'checkbox',
                             name: 'libre',
                             reference: 'chk_setrabaja',
-                            boxLabel: 'No se trabaja'
-                    }]
+                            boxLabel: 'No se trabaja',
+                            flex: 1
+                        }, {
+                            xtype: 'checkbox',
+                            name: 'refrigerio',
+                            reference: 'chk_refrigerio',
+                            disabled: false,
+                            bind: {
+                                disabled: '{chk_setrabaja.checked}'
+                            },
+                            boxLabel: 'Se toma refrigerio',
+                            flex: 1
+                        }]
                 }, {
                     items: [{
                             xtype: 'timefield',

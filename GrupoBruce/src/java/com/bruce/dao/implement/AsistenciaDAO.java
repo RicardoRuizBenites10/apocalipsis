@@ -45,6 +45,10 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
         reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
         reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
+        reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
+        reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
+        reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");
+        reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
@@ -79,6 +83,10 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
         reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
         reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
+        reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
+        reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
+        reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");
+        reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
@@ -111,6 +119,10 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
         reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
         reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
+        reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
+        reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
+        reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");
+        reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
@@ -136,7 +148,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
 
     @Override
     public void update(Asistencia t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

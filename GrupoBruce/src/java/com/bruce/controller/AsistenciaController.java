@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.services.design.IAsistenciaService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,16 @@ public class AsistenciaController {
         sct.update(asistencia);
         map.put("success", true);
         map.put("data", asistencia);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/uuLAsistencia", method = RequestMethod.POST)
+    public Map<String, Object> procesaAsistencia(@RequestBody List<Asistencia> asistencias) {
+        Map<String, Object> map = new HashMap<>();
+        sct.procesarAsistencia(asistencias);
+        map.put("success", true);
         map.put("message", "Actualización exitosa.");
         return map;
     }

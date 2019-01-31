@@ -114,26 +114,53 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     },
                     align: 'center'
                 }]
-        },{
+        }, {
             text: 'Horas',
             columns: [{
-            text: 'No Trab.',
-            dataIndex: 'horasTrabajado',
-            renderer: function (val, metadata, record, rowIndex, colIndex, store, view) {
-                var marca1 = record.get('marca1'), marca7 = record.get('marca7');
-                var dada = view.up('panel').up('panel').getViewModel().get('diaHorario');
-                var horas = marca1 !== null && marca7 !== null ? ((Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE) === 0 ? 540 : Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE)) / 60) - 1 : 0;
-                Ext.util.Format.decimalSeparator = '.';
-                return Ext.util.Format.number(horas, '#.0');
-            }
-        }, {
-            text: 'Extras',
-            dataIndex: 'horasAusencia',
-            renderer: function (val, metadata, record) {
-                var marca1 = record.get('marca1'), marca7 = record.get('marca7');
-                var horas = marca1 !== null && marca7 !== null ? Ext.Date.getDa: 100;
-                return horas;
-            }
+                    text: 'No Trab.',
+                    dataIndex: 'hrsDscto',
+                    renderer: function (val, metadata, record, rowIndex, colIndex, store, view) {
+                        var marca1 = record.get('marca1'), marca7 = record.get('marca7');
+                        var horarios = view.up('panel').up('panel').getViewModel().get('horarios');
+                        var horas = 0, horasBefore, horasAfter, horasReturn;
+                        if (horarios.getCount() > 0) {
+                            var diaHorario = horarios.getAt(0);
+                            if (marca1 !== null && marca7 !== null) {
+                                horasBefore = Ext.Date.diff(marca1, diaHorario.get('horaEntrada'), Ext.Date.MINUTE);
+                                horasAfter = Ext.Date.diff(diaHorario.get('horaSalida'), marca7, Ext.Date.MINUTE);
+                                horas = (horasBefore + horasAfter) / 60;
+                            } else {
+                                horas = (Ext.Date.diff(diaHorario.get('horaSalida'), diaHorario.get('horaEntrada'), Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
+                            }
+                        }
+                        Ext.util.Format.decimalSeparator = '.';
+                        horasReturn = Ext.util.Format.number(horas < 0 ? horas * -1 : 0, '#.0');
+                        record.set('hrsDscto', horasReturn);
+                        return horasReturn;
+                    }
+                }, {
+                    text: 'Extras',
+                    dataIndex: 'hrsExtra',
+                    renderer: function (val, metadata, record, rowIndex, colIndex, store, view) {
+                        var marca1 = record.get('marca1'), marca7 = record.get('marca7');
+                        var horarios = view.up('panel').up('panel').getViewModel().get('horarios');
+                        var horas = 0, horasBefore, horasAfter, horasReturn;
+                        if (horarios.getCount() > 0) {
+                            var diaHorario = horarios.getAt(0);
+                            if (marca1 !== null && marca7 !== null) {
+                                horasBefore = Ext.Date.diff(marca1, diaHorario.get('horaEntrada'), Ext.Date.MINUTE);
+                                horasAfter = Ext.Date.diff(diaHorario.get('horaSalida'), marca7, Ext.Date.MINUTE);
+                                horas = (horasBefore + horasAfter) / 60;
+                            } else {
+                                horas = Ext.Date.diff(diaHorario.get('horaSalida'), diaHorario.get('horaEntrada'), Ext.Date.MINUTE) / 60;
+                            }
+                        }
+                        horas = horas - 0.25;
+                        Ext.util.Format.decimalSeparator = '.';
+                        horasReturn = Ext.util.Format.number(horas > 0 ? horas : 0, '#.0')
+                        record.set('hrsExtra', horasReturn);
+                        return horasReturn;
+                    }
                 }]
         }],
 

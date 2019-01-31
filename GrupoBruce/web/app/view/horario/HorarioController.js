@@ -46,14 +46,16 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
 
             var store = grid.getStore(), valido = true;
             store.each(function (item) {
-                if (model.get('idDia') === item.get('idDia')) {
+                if (model.get('idDia') === item.get('idDia') && model.get('idHorario') !== item.get('idHorario')) {
                     valido = false;
                     return false;
                 }
             });
             if (valido) {
-                var check = this.lookupReference('chk_setrabaja');
-                model.set('libre', check.checked);
+                var noTrabajaja = this.lookupReference('chk_setrabaja').checked;
+                var tomaRefrigerio = this.lookupReference('chk_refrigerio').checked;
+                model.set('libre', noTrabajaja);
+                model.set('refrigerio', noTrabajaja ? false : tomaRefrigerio);
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         grid.getStore().reload();

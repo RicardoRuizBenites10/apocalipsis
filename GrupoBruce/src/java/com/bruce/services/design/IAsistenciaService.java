@@ -6,10 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Asistencia;
+import java.util.List;
 
 /**
  *
  * @author RICARDO
  */
 public interface IAsistenciaService extends IEntidadService<Asistencia>{
+    public void procesarAsistencia(List<Asistencia> asistencias);
 }

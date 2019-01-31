@@ -140,4 +140,18 @@ public class AsistenciaService implements IAsistenciaService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    @Transactional
+    public void procesarAsistencia(List<Asistencia> asistencias) {
+        if(!asistencias.isEmpty()){
+            asistencias.forEach(item -> {
+                if(!item.isAsistio()){
+                    item.setMarca1("");
+                    item.setMarca7("");
+                }
+                dao.update(item);
+            });
+        }
+    }
+
 }

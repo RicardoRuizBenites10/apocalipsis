@@ -54,6 +54,7 @@ public class HorarioDAO implements IHorarioDAO {
         reverse.addResult("H.ID_HORARIO");
         reverse.addResult("H.HORA_ENTRADA");
         reverse.addResult("H.HORA_SALIDA");
+        reverse.addResult("H.REFRIGERIO");
         reverse.addResult("H.LIBRE");
         reverse.addResult("H.SITUACION");
         reverse.addResult("H.ID_DIA");
@@ -86,6 +87,7 @@ public class HorarioDAO implements IHorarioDAO {
         reverse.addResult("H.ID_HORARIO");
         reverse.addResult("H.HORA_ENTRADA");
         reverse.addResult("H.HORA_SALIDA");
+        reverse.addResult("H.REFRIGERIO");
         reverse.addResult("H.LIBRE");
         reverse.addResult("H.SITUACION");
         reverse.addResult("H.ID_DIA");
@@ -111,6 +113,7 @@ public class HorarioDAO implements IHorarioDAO {
         reverse.addResult("H.ID_HORARIO");
         reverse.addResult("H.HORA_ENTRADA");
         reverse.addResult("H.HORA_SALIDA");
+        reverse.addResult("H.REFRIGERIO");
         reverse.addResult("H.LIBRE");
         reverse.addResult("H.SITUACION");
         reverse.addResult("H.ID_DIA");

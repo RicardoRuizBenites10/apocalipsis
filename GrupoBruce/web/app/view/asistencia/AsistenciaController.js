@@ -44,11 +44,20 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     onMarcaImport: function () {
         var window = new GrupoBruce.view.marca.ListMarcaImport();
     },
-    
-    onProcesar: function(btn){
+
+    onProcesar: function (btn) {
         var grid = btn.up('WlistAsistencia');
         var store = grid.getStore();
-        
+        var stdExtra = !this.getViewModel().get('horarios').getAt(0).get('libre');
+        store.each(function (item) {
+            item.set('asistio', item.get('marca7') !== null);
+            if (item.get('marca7') === null) {
+                item.set('ausencia', 4);
+            }
+            item.set('stdExtra', stdExtra);
+            item.set('procesado', true);
+        });
+
         store.sync({
             success: function (response, operation) {
                 grid.getStore().reload();
@@ -59,5 +68,5 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             }
         });
     }
-    
+
 });

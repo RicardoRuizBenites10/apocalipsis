@@ -9,6 +9,7 @@ Ext.define('GrupoBruce.model.Horario', {
         {name: 'idDia', type: 'int'},
         {name: 'idHorario', type: 'string'},
         {name: 'libre', type: 'boolean'},
+        {name: 'refrigerio', type: 'boolean'},
         {name: 'situacion', type: 'boolean', defaultValue: true},
         {name: 'dia', type: 'string'}
     ],

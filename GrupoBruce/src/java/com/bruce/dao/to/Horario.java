@@ -24,6 +24,7 @@ public class Horario implements java.io.Serializable {
     private String horaEntrada;
     private String horaSalida;
     private boolean libre;
+    private boolean refrigerio;
     private boolean situacion;
     private int idDia;
 
@@ -67,6 +68,15 @@ public class Horario implements java.io.Serializable {
 
     public void setLibre(boolean libre) {
         this.libre = libre;
+    }
+
+    @Column(name = "REFRIGERIO", nullable = false)
+    public boolean isRefrigerio() {
+        return refrigerio;
+    }
+
+    public void setRefrigerio(boolean refrigerio) {
+        this.refrigerio = refrigerio;
     }
 
     @Column(name = "SITUACION", nullable = false)

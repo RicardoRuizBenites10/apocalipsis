@@ -18,6 +18,10 @@ Ext.define('GrupoBruce.model.Asistencia', {
         {name: 'mes', type: 'int'},
         {name: 'dia', type: 'int'},
         {name: 'ausencia', type: 'int'},
+        {name: 'asistio', type: 'boolean'},
+        {name: 'hrsDscto', type: 'float'},
+        {name: 'hrsExtra', type: 'float'},
+        {name: 'stdExtra', type: 'boolean'},
         {name: 'procesado', type: 'boolean'},
         {name: 'trabajador', type: 'string'},
         {name: 'fechaTemp', type: 'date', dateFormat: 'c'}
@@ -32,7 +36,7 @@ Ext.define('GrupoBruce.model.Asistencia', {
         api: {
             create: 'iiAsistencia',
             read: 'asistencias',
-            update: 'uuAsistencia',
+            update: 'uuLAsistencia',
             destroy: 'ddAsistencia'
         },
         reader: {
