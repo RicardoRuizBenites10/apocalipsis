@@ -23,7 +23,6 @@ import org.hibernate.annotations.GenerationTime;
 public class Asistencia implements java.io.Serializable {
 
     private String idTrabajador;
-    private String idAsistencia;
     private Date fecha;
     private String marca1;
     private String marca2;
@@ -59,9 +58,8 @@ public class Asistencia implements java.io.Serializable {
         this.ausencia = ausencia;
     }
 
-    public Asistencia(String idTrabajador, String idAsistencia, Date fecha, String marca1, int anio, int mes, int dia, int ausencia) {
+    public Asistencia(String idTrabajador, Date fecha, String marca1, int anio, int mes, int dia, int ausencia) {
         this.idTrabajador = idTrabajador;
-        this.idAsistencia = idAsistencia;
         this.fecha = fecha;
         this.marca1 = marca1;
         this.marca7 = marca1;
@@ -82,15 +80,6 @@ public class Asistencia implements java.io.Serializable {
     }
 
     @Id
-    @Column(name = "ID_ASISTENCIA", nullable = false, length = 8)
-    public String getIdAsistencia() {
-        return idAsistencia;
-    }
-
-    public void setIdAsistencia(String idAsistencia) {
-        this.idAsistencia = idAsistencia;
-    }
-
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA", nullable = false, length = 10)
     public Date getFecha() {
@@ -245,7 +234,7 @@ public class Asistencia implements java.io.Serializable {
     public void setStdExtra(boolean stdExtra) {
         this.stdExtra = stdExtra;
     }
-    
+
     @Column(name = "PROCESADO", nullable = false)
     public boolean isProcesado() {
         return procesado;

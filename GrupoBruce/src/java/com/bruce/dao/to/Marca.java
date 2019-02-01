@@ -26,9 +26,8 @@ import javax.persistence.Transient;
 public class Marca implements java.io.Serializable {
 
     private String idTrabajador;
-    private String idAsistencia;
-    private String idMarca;
     private Date fecha;
+    private String idMarca;
     private String hmarca;
     private boolean automatico;
     private boolean situacion;
@@ -42,9 +41,8 @@ public class Marca implements java.io.Serializable {
     public Marca() {
     }
 
-    public Marca(String idTrabajador, String idAsistencia, String idMarca, Date fecha, String hmarca, boolean situacion) {
+    public Marca(String idTrabajador, String idMarca, Date fecha, String hmarca, boolean situacion) {
         this.idTrabajador = idTrabajador;
-        this.idAsistencia = idAsistencia;
         this.idMarca = idMarca;
         this.fecha = fecha;
         this.hmarca = hmarca;
@@ -62,13 +60,14 @@ public class Marca implements java.io.Serializable {
     }
 
     @Id
-    @Column(name = "ID_ASISTENCIA", nullable = false)
-    public String getIdAsistencia() {
-        return idAsistencia;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA", nullable = false, length = 10)
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setIdAsistencia(String idAsistencia) {
-        this.idAsistencia = idAsistencia;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     @Id
@@ -79,16 +78,6 @@ public class Marca implements java.io.Serializable {
 
     public void setIdMarca(String idMarca) {
         this.idMarca = idMarca;
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false, length = 10)
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     @Column(name = "HMARCA", nullable = false)

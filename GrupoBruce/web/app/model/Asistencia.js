@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.model.Asistencia', {
     extend: 'Ext.data.Model',
     alias: 'model.Masistencia',
 
-    idProperty: 'idAsistencia',
+    idProperty: 'idTrabajador',
     fields: [
         {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'marca1', type: 'date', dateFormat: 'h:i A'},
@@ -12,7 +12,6 @@ Ext.define('GrupoBruce.model.Asistencia', {
         {name: 'marca5', type: 'date', dateFormat: 'h:i A'},
         {name: 'marca6', type: 'date', dateFormat: 'h:i A'},
         {name: 'marca7', type: 'date', dateFormat: 'h:i A'},
-        {name: 'idAsistencia', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
         {name: 'anio', type: 'int'},
         {name: 'mes', type: 'int'},

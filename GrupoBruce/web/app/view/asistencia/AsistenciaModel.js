@@ -3,15 +3,18 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     alias: 'viewmodel.VMasistencia',
 
     data: {
+        selectAsistencia: null,
         desde: new Date(),
-        pageSize: null
+        pageSize: null,
+        allRecord: false,
+        wasCalculated: false
     },
 
     stores: {
         horarios: {
             type: 'Shorario',
-            autoLoad: true
-            , filters: [{
+            autoLoad: true,
+            filters: [{
                     property: 'ID_DIA',
                     operator: 'eq',
                     value: '{idDia}'
@@ -33,10 +36,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
         idDia: function (get) {
             return get('desde').getDay();
         },
-        allRecords: function (get) {
-            var store = get('horarios');
-            console.log(store.getCount() + ' - ' + store.getTotalCount());
-            return store.getCount() === store.getTotalCount();
+        allowEdit: function (get) {
+            var selection = get('selectAsistencia');
+            var allow = selection ? selection.get('procesado') : !selection;
+            return allow;
         }
     }
 

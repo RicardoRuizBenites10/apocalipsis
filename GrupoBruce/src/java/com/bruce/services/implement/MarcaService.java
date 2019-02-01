@@ -134,42 +134,33 @@ public class MarcaService implements IMarcaService {
     public List<Marca> insertList(List<Marca> marcas) {
         List<Marca> notFound = new ArrayList<>();
         List<FilterPage> filter = new ArrayList<>();
-        Asistencia asistencia, lastA;
+        Asistencia asistencia;
         Marca marca, lastM;
         String idAsistencia;
-        int idLastA, idLastM;
+        int idLastM;
         for (Marca item : marcas) {
-            filter.clear();
             if (daoT.get(item.getIdTrabajador()) != null) {
-                item.setSituacion(true);
                 filter.add(new FilterPage("eq", "ID_TRABAJADOR", item.getIdTrabajador()));
                 filter.add(new FilterPage("eq", "ANIO", item.getAnio()));
                 filter.add(new FilterPage("eq", "MES", item.getMes()));
                 filter.add(new FilterPage("eq", "DIA", item.getDia()));
                 asistencia = daoA.lastByFilter(filter);
+                idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia());
                 if (asistencia == null) {
-                    filter.remove(0);
-                    lastA = daoA.lastByFilter(filter);
-                    idLastA = lastA != null ? Integer.parseInt(lastA.getIdAsistencia().substring(8)) : 0;
-                    idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia()) + String.format("%04d", idLastA + 1);
-                    daoA.create(new Asistencia(item.getIdTrabajador(), idAsistencia, item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_ASISTIO));
-                    item.setIdAsistencia(idAsistencia);
+                    daoA.create(new Asistencia(item.getIdTrabajador(), item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_ASISTIO));
                     item.setIdMarca(idAsistencia + "01");
-                    item.setAutomatico(true);
                     dao.create(item);
                 } else {
                     filter.clear();
-                    filter.add(new FilterPage("eq", "idAsistencia", asistencia.getIdAsistencia()));
                     filter.add(new FilterPage("eq", "hmarca", item.getHmarca()));
+                    filter.add(new FilterPage("eq", "idTrabajador", asistencia.getIdTrabajador()));
+                    filter.add(new FilterPage("eq", "fecha", asistencia.getFecha()));
                     marca = dao.lastByFilter(filter);
                     if (marca == null) {
-                        filter.clear();
-                        filter.add(new FilterPage("eq", "idAsistencia", asistencia.getIdAsistencia()));
+                        filter.remove(0);
                         lastM = dao.lastByFilter(filter);
-                        idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(12)) : 0;
-                        item.setIdAsistencia(asistencia.getIdAsistencia());
-                        item.setIdMarca(asistencia.getIdAsistencia() + String.format("%02d", idLastM + 1));
-                        item.setAutomatico(true);
+                        idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(8)) : 0;
+                        item.setIdMarca(idAsistencia + String.format("%02d", idLastM + 1));
                         dao.create(item);
                         switch (idLastM + 1) {
                             case 1:
@@ -195,6 +186,7 @@ public class MarcaService implements IMarcaService {
                         daoA.update(asistencia);
                     }
                 }
+                filter.clear();
             } else {
                 notFound.add(item);
             }

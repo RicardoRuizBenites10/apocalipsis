@@ -4,14 +4,14 @@ Ext.define('GrupoBruce.model.Marca', {
 
     idProperty: 'idMarca',
     fields: [
+        {name: 'automatico', type: 'boolean', defaultValue: true},
         {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'fechaTemp', type: 'date', dateFormat: 'c'},
         {name: 'hmarca', type: 'date', dateFormat: 'h:i A'},
-        {name: 'idAsistencia', type: 'string'},
         {name: 'idMarca', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
-        {name: 'situacion', type: 'boolean'},
-        {name: 'trabajador', type: 'string'},
-        {name: 'fechaTemp', type: 'date', dateFormat: 'c'}
+        {name: 'situacion', type: 'boolean', defaultValue: true},
+        {name: 'trabajador', type: 'string'}
     ],
 
     identifier: 'sequential',

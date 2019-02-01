@@ -53,6 +53,8 @@ Ext.define('GrupoBruce.view.marca.MarcaController', {
         store.each(function (model) {
             model.data.fecha = Ext.Date.format(model.get('fechaTemp'), 'c');
             model.data.hmarca = Ext.Date.format(model.get('hmarca'), 'h:i A');
+            model.data.automatico = true;
+            model.data.situacion = true;
             jsonData.push(model.data);
         });
 

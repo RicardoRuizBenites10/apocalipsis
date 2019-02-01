@@ -32,7 +32,6 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
         reverse.addResult("T.ID_TRABAJADOR");
-        reverse.addResult("ISNULL(A.ID_ASISTENCIA,T.ID_TRABAJADOR) ID_ASISTENCIA");
         reverse.addResult("ISNULL(A.FECHA,:FECHA) FECHA");
         reverse.addResult("ISNULL(A.MARCA1,'') MARCA1");
         reverse.addResult("A.MARCA2");
@@ -70,7 +69,6 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
         reverse.addResult("T.ID_TRABAJADOR");
-        reverse.addResult("ISNULL(A.ID_ASISTENCIA,T.ID_TRABAJADOR) ID_ASISTENCIA");
         reverse.addResult("ISNULL(A.FECHA,:FECHA) FECHA");
         reverse.addResult("ISNULL(A.MARCA1,'') MARCA1");
         reverse.addResult("A.MARCA2");
@@ -106,7 +104,6 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
         reverse.addResult("T.ID_TRABAJADOR");
-        reverse.addResult("ISNULL(A.ID_ASISTENCIA,T.ID_TRABAJADOR) ID_ASISTENCIA");
         reverse.addResult("A.FECHA");
         reverse.addResult("ISNULL(A.MARCA1,'') MARCA1");
         reverse.addResult("A.MARCA2");
@@ -127,7 +124,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_ASISTENCIA", "DESC"));
+        reverse.getLSorts().add(new SortPage("FECHA", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(Asistencia.class);

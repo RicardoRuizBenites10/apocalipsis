@@ -5,8 +5,11 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -15,7 +18,7 @@ import javax.persistence.Column;
 public class MarcaId implements java.io.Serializable {
 
     private String idTrabajador;
-    private String idAsistencia;
+    private Date fecha;
     private String idMarca;
 
     public MarcaId() {
@@ -29,14 +32,15 @@ public class MarcaId implements java.io.Serializable {
     public void setIdTrabajador(String idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
-
-    @Column(name = "ID_ASISTENCIA", nullable = false)
-    public String getIdAsistencia() {
-        return idAsistencia;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA", nullable = false, length = 10)
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setIdAsistencia(String idAsistencia) {
-        this.idAsistencia = idAsistencia;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     @Column(name = "ID_MARCA", nullable = false)
@@ -51,9 +55,9 @@ public class MarcaId implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.idTrabajador);
-        hash = 97 * hash + Objects.hashCode(this.idAsistencia);
-        hash = 97 * hash + Objects.hashCode(this.idMarca);
+        hash = 67 * hash + Objects.hashCode(this.idTrabajador);
+        hash = 67 * hash + Objects.hashCode(this.fecha);
+        hash = 67 * hash + Objects.hashCode(this.idMarca);
         return hash;
     }
 
@@ -72,13 +76,12 @@ public class MarcaId implements java.io.Serializable {
         if (!Objects.equals(this.idTrabajador, other.idTrabajador)) {
             return false;
         }
-        if (!Objects.equals(this.idAsistencia, other.idAsistencia)) {
+        if (!Objects.equals(this.idMarca, other.idMarca)) {
             return false;
         }
-        if (!Objects.equals(this.idMarca, other.idMarca)) {
+        if (!Objects.equals(this.fecha, other.fecha)) {
             return false;
         }
         return true;
     }
-
 }

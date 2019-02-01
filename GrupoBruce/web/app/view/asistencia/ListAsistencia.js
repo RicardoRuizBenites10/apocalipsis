@@ -31,17 +31,6 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
             formatter: 'date("d/m/Y")',
             align: 'left'
         }, {
-            text: 'Situación',
-            dataIndex: 'procesado',
-            renderer: function (val) {
-                if (!val) {
-                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
-                } else {
-                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
-                }
-            },
-            align: 'center'
-        }, {
             text: 'Estado',
             dataIndex: 'ausencia',
             align: 'center',
@@ -137,10 +126,22 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                         xtype: 'numberfield',
                         allowBlank: false,
                         hideTrigger: true,
+                        allowDecimal: true,
                         minValue: 0,
                         maxValue: 10
                     }
                 }]
+        }, {
+            text: 'Situación',
+            dataIndex: 'procesado',
+            renderer: function (val) {
+                if (!val) {
+                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
+                } else {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
+                }
+            },
+            align: 'center'
         }],
     tbar: {
         overflowHandler: 'menu',
@@ -154,14 +155,20 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                 reference: 'date_desde',
                 fieldLabel: 'Desde',
                 format: 'd/m/Y',
-                bind: '{desde}'
+                bind: '{desde}',
+                listeners: {
+                    change: function (datefield, newValue, oldValue, eOpts) {
+                        var viewModel = Ext.getCmp('id_wlistasistencia').up('panel').getViewModel();
+                        viewModel.set('wasCalculated', false);
+                    }
+                }
             }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo marca',
                 disabled: true,
                 bind: {
-                    disabled: '{!selectAsistencia}' && '{!selectAsistencia.ausencia}'
+                    disabled: '{allowEdit}'
                 },
                 handler: 'addMarcacion'
             }, '-', {
@@ -170,13 +177,17 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                 iconCls: 'x-fa fa-calculator',
                 disabled: true,
                 bind: {
-                    disabled: '{!allRecords}'
+                    disabled: '{!allRecord}'
                 },
                 handler: 'onCalcular'
             }, {
                 xtype: 'button',
                 text: 'Procesar',
                 iconCls: 'x-fa fa-retweet',
+                disabled: true,
+                bind: {
+                    disabled: '{!allRecord}'
+                },
                 handler: 'onProcesar'
             }]
     },
@@ -195,7 +206,11 @@ Ext.define('GrupoBruce.view.asistencia.ListAsistencia', {
                     width: 130,
                     keyMap: {
                         ENTER: function (key, element) {
-                            Ext.getCmp('id_wlistasistencia').up('panel').getViewModel().set('pageSize', element.value);
+                            var grid = Ext.getCmp('id_wlistasistencia');
+                            var viewModel = grid.up('panel').getViewModel();
+                            var store = grid.getStore();
+                            viewModel.set('pageSize', element.value);
+                            viewModel.set('allRecord', element.value >= store.getTotalCount());
                         }
                     }
                 }]

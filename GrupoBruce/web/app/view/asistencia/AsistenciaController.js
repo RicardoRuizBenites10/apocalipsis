@@ -49,24 +49,47 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var grid = btn.up('WlistAsistencia');
         var store = grid.getStore();
         var stdExtra = !this.getViewModel().get('horarios').getAt(0).get('libre');
-        store.each(function (item) {
-            item.set('asistio', item.get('marca7') !== null);
-            if (item.get('marca7') === null) {
-                item.set('ausencia', 4);
-            }
-            item.set('stdExtra', stdExtra);
-            item.set('procesado', true);
-        });
+        var wasCalculated = this.getViewModel().get('wasCalculated');
+        var areProccess = 0;
+        if (!wasCalculated) {
+            Ext.MessageBox.show({
+                title: 'Error de procesamiento',
+                msg: 'No se a hecho el cálculo previo.',
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.ERROR
+            });
+        } else {
+            store.each(function (item) {
+                if (item.get('procesado')) {
+                    areProccess = areProccess + 1;
+                }
+                item.set('asistio', item.get('marca7') !== null);
+                if (item.get('marca7') === null) {
+                    item.set('ausencia', 4);
+                }
+                item.set('stdExtra', stdExtra);
+                item.set('procesado', true);
+            });
 
-        store.sync({
-            success: function (response, operation) {
-                grid.getStore().reload();
-                Ext.Msg.alert('Success', 'Operación exitosa.');
-            },
-            failure: function (response, operation) {
-                Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+            if (areProccess === 0) {
+                store.sync({
+                    success: function (response, operation) {
+                        grid.getStore().reload();
+                        Ext.Msg.alert('Success', 'Operación exitosa.');
+                    },
+                    failure: function (response, operation) {
+                        Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                    }
+                });
+            } else {
+                Ext.MessageBox.show({
+                    title: 'Error de procesamiento',
+                    msg: 'Se encontro ' + areProccess + ' datos ya procesados.',
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.ERROR
+                });
             }
-        });
+        }
     },
 
     onCalcular: function (btn) {
@@ -74,24 +97,26 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var store = grid.getStore();
         var diaHorario = this.getViewModel().get('horarios').getAt(0);
         var marca1, marca7;
-        var horas = 0, horasBefore, horasAfter, horasReturn;
+        var horas = 0, minutosBefore, minutosAfter, difM17;
         Ext.util.Format.decimalSeparator = '.';
         store.each(function (item) {
             marca1 = item.get('marca1'), marca7 = item.get('marca7');
             if (marca1 !== null && marca7 !== null) {
-                horasBefore = Ext.Date.diff(marca1, diaHorario.get('horaEntrada'), Ext.Date.MINUTE);
-                horasAfter = Ext.Date.diff(diaHorario.get('horaSalida'), marca7, Ext.Date.MINUTE);
-                horas = (horasBefore + horasAfter) / 60;
+                minutosBefore = Ext.Date.diff(marca1, diaHorario.get('horaEntrada'), Ext.Date.MINUTE);
+                minutosAfter = Ext.Date.diff(diaHorario.get('horaSalida'), marca7, Ext.Date.MINUTE);
+                difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
+                horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
                 horas = (Ext.Date.diff(diaHorario.get('horaSalida'), diaHorario.get('horaEntrada'), Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
             }
-            horasReturn = Ext.util.Format.number(horas, '#.0');
             if (horas >= 0) {
-                item.set('hrsExtra', horasReturn - 0.25); //15min en cambiarse
+                horas = horas - 0.25;//15min en cambiarse
+                item.set('hrsExtra', Ext.util.Format.number(horas > 0 ? horas : 0, '#.0'));
             } else {
-                item.set('hrsDscto', horasReturn * -1);
+                item.set('hrsDscto', Ext.util.Format.number(horas * -1, '#.0'));
             }
         });
+        this.getViewModel().set('wasCalculated', true);
     }
 
 });
