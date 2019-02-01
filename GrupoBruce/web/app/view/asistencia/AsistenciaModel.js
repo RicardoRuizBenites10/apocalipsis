@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
         horarios: {
             type: 'Shorario',
             autoLoad: true
-            ,filters: [{
+            , filters: [{
                     property: 'ID_DIA',
                     operator: 'eq',
                     value: '{idDia}'
@@ -32,6 +32,11 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     formulas: {
         idDia: function (get) {
             return get('desde').getDay();
+        },
+        allRecords: function (get) {
+            var store = get('horarios');
+            console.log(store.getCount() + ' - ' + store.getTotalCount());
+            return store.getCount() === store.getTotalCount();
         }
     }
 
