@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,14 @@ public class CalendarioService implements ICalendarioService {
     @Override
     @Transactional
     public void insert(Calendario t) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(t.getFecha());
+        t.setDia(cal.get(Calendar.DATE));
+        t.setMes(cal.get(Calendar.MONTH) + 1);
+        t.setAnio(cal.get(Calendar.YEAR));
+        t.setNroSemana(cal.get(Calendar.WEEK_OF_YEAR));
+        int idDia = cal.get(Calendar.DAY_OF_WEEK);
+        t.setIdDia(idDia != 0 ? idDia - 1 : 6);
         dao.create(t);
     }
 

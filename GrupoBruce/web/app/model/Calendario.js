@@ -1,10 +1,12 @@
 Ext.define('GrupoBruce.model.Calendario', {
     extend: 'Ext.data.Model',
     alias: 'model.Mcalendario',
-
+    
+    idProperty: 'fecha',
     fields: [
         {name: 'anio', type: 'int'},
         {name: 'dia', type: 'int'},
+        {name: 'descripcion', type: 'string'},
         {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'horaEntrada', type: 'date', dateFormat: 'h:i A'},
         {name: 'horaSalida', type: 'date', dateFormat: 'h:i A'},
@@ -17,10 +19,10 @@ Ext.define('GrupoBruce.model.Calendario', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiCalenario',
+            create: 'iiCalendario',
             read: 'calendarios',
-            update: 'uuCalenario',
-            destroy: 'ddCalenario'
+            update: 'uuCalendario',
+            destroy: 'ddCalendario'
         },
         reader: {
             type: 'json',

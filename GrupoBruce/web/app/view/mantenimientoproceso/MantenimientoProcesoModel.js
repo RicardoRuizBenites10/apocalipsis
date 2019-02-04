@@ -22,7 +22,7 @@ Ext.define('GrupoBruce.view.mantenimientoproceso.MantenimientoProcesoModel', {
                 }]
         },
         estadosMantenimiento: {
-            type: 'SestadoMantenimiento',
+            type: 'SEstadoMantenimiento',
             autoLoad: true,
             filters: [{
                     property: 'ID_PRECEDE',

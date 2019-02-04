@@ -20,6 +20,15 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
                     value: '{idDia}'
                 }]
         },
+        calendarios: {
+            type: 'Scalendario',
+            autoLoad: true,
+            filters: [{
+                    property: 'fecha',
+                    operator: 'eq',
+                    value: '{desde}'
+                }]
+        },
         asistencias: {
             type: 'Sasistencia',
             autoLoad: true,
