@@ -41,8 +41,8 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
                     items: [{
                             xtype: 'checkbox',
                             name: 'libre',
-                            reference: 'chk_setrabaja',
-                            boxLabel: 'No se trabaja',
+                            reference: 'chk_cerrado',
+                            boxLabel: 'Cerrado',
                             flex: 1
                         }, {
                             xtype: 'checkbox',
@@ -50,7 +50,7 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
                             reference: 'chk_refrigerio',
                             disabled: false,
                             bind: {
-                                disabled: '{chk_setrabaja.checked}'
+                                disabled: '{chk_cerrado.checked}'
                             },
                             boxLabel: 'Se toma refrigerio',
                             flex: 1
@@ -65,7 +65,7 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
                             increment: 10,
                             disabled: false,
                             bind: {
-                                disabled: '{chk_setrabaja.checked}'
+                                disabled: '{chk_cerrado.checked}'
                             },
                             flex: 1
                         }, {
@@ -77,7 +77,7 @@ Ext.define('GrupoBruce.view.horario.FormHorario', {
                             increment: 10,
                             disabled: false,
                             bind: {
-                                disabled: '{chk_setrabaja.checked}'
+                                disabled: '{chk_cerrado.checked}'
                             },
                             flex: 1
                         }]

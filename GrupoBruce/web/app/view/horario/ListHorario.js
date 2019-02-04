@@ -27,7 +27,7 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
             dataIndex: 'libre',
             align: 'center',
             renderer: function(value){
-                return value ? 'Libre' : 'Laborable';
+                return value ? 'Cerrado' : 'Abierto';
             }
         }, {
             text: 'Entrada',

@@ -52,7 +52,7 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
                 }
             });
             if (valido) {
-                var noTrabajaja = this.lookupReference('chk_setrabaja').checked;
+                var noTrabajaja = this.lookupReference('chk_cerrado').checked;
                 var tomaRefrigerio = this.lookupReference('chk_refrigerio').checked;
                 model.set('libre', noTrabajaja);
                 model.set('refrigerio', noTrabajaja ? false : tomaRefrigerio);

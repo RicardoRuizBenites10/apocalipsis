@@ -1199,6 +1199,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Horario"
       }
+    },
+    "app/model/Calendario.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "anio:int:null,dia:int:null,fecha:date:null,horaEntrada:date:null,horaSalida:date:null,idDia:int:null,libre:boolean:null,mes:int:null,nroSemana:int:null",
+        "modelFileName": "Calendario",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Calendario"
+      }
     }
   }
 }
