@@ -95,19 +95,27 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     onCalcular: function (btn) {
         var grid = btn.up('WlistAsistencia');
         var store = grid.getStore();
+        var diaEspecial = this.getViewModel().get('calendarios');
         var diaHorario = this.getViewModel().get('horarios').getAt(0);
-        var marca1, marca7;
+        var base1, base2, marca1, marca7;
+        if (diaEspecial.getCount() > 0) {
+            base1 = diaEspecial.getAt(0).get('horaEntrada');
+            base2 = diaEspecial.getAt(0).get('horaSalida');
+        } else {
+            base1 = diaHorario.get('horaEntrada');
+            base2 = diaHorario.get('horaSalida');
+        }
         var horas = 0, minutosBefore, minutosAfter, difM17;
         Ext.util.Format.decimalSeparator = '.';
         store.each(function (item) {
             marca1 = item.get('marca1'), marca7 = item.get('marca7');
             if (marca1 !== null && marca7 !== null) {
-                minutosBefore = Ext.Date.diff(marca1, diaHorario.get('horaEntrada'), Ext.Date.MINUTE);
-                minutosAfter = Ext.Date.diff(diaHorario.get('horaSalida'), marca7, Ext.Date.MINUTE);
+                minutosBefore = Ext.Date.diff(marca1, base1, Ext.Date.MINUTE);
+                minutosAfter = Ext.Date.diff(base2, marca7, Ext.Date.MINUTE);
                 difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
                 horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
-                horas = (Ext.Date.diff(diaHorario.get('horaSalida'), diaHorario.get('horaEntrada'), Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
+                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
             }
             if (horas >= 0) {
                 horas = horas - 0.25;//15min en cambiarse
