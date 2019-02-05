@@ -6,7 +6,6 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IAsistenciaDAO;
-import com.bruce.dao.design.ITrabajadorDAO;
 import com.bruce.dao.to.Asistencia;
 import com.bruce.services.design.IAsistenciaService;
 import com.bruce.util.FilterPage;
@@ -29,8 +28,6 @@ public class AsistenciaService implements IAsistenciaService {
 
     @Autowired
     private IAsistenciaDAO dao;
-    @Autowired
-    private ITrabajadorDAO daoT;
 
     @Override
     @Transactional

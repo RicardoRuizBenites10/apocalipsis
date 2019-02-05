@@ -12,6 +12,7 @@ Ext.define('GrupoBruce.Application', {
 
     stores: [
         'GrupoBruce.store.Acceso',
+        'GrupoBruce.store.Actividad',
         'GrupoBruce.store.Almuerzo',
         'GrupoBruce.store.Archivo',
         'GrupoBruce.store.Area',
@@ -56,7 +57,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.Rol',
         'GrupoBruce.store.Sucursal',
-        'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.Textralaboral',
         'GrupoBruce.store.TiempoAusencia',
         'GrupoBruce.store.TiempoContrato',
         'GrupoBruce.store.TipoAusencia',
@@ -71,6 +72,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TipoTrabajador',
         'GrupoBruce.store.TipoVacacion',
         'GrupoBruce.model.TipoVariable',
+        'GrupoBruce.store.Trabajador',
         'GrupoBruce.store.Usuario',
         'Grupobruce.store.Vacacion'
     ],

@@ -1211,6 +1211,42 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Calendario"
       }
+    },
+    "app/model/Textralaboral.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,fecha:date:null,horaInicio:date:null,horaSalida:date:null,idActividad:int:null,idTrabajador:string:null,idTtextra:int:null",
+        "modelFileName": "Textralaboral",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Textralaboral"
+      }
+    },
+    "app/model/Actividad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "duracion:float:null,fecha:date:null,idActividad:int:null,idEproceso:int:null,idMoneda:string:null,idTactividad:string:null,idUsuario:string:null,nombre:string:null,precio:float:null,situacion:boolean:null",
+        "modelFileName": "Actividad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Actividad"
+      }
+    },
+    "app/model/EtapaProceso.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idEproceso:int:null,orden:int:null,situacion:boolean:null",
+        "modelFileName": "EtapaProceso",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EtapaProceso"
+      }
     }
   }
 }

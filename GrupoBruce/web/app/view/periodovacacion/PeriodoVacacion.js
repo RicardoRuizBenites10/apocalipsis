@@ -27,9 +27,11 @@ Ext.define('GrupoBruce.view.periodovacacion.PeriodoVacacion', {
                 selection: '{selectPVacacion}'
             },
             allowDeselect: true,
+            height: 400,
             columns: [{
                     text: 'Periodo',
-                    dataIndex: 'idPVacacion'
+                    dataIndex: 'idPVacacion',
+                    align: 'center'
                 }, {
                     text: 'Inicio',
                     formatter: 'date("d/m/Y")',
