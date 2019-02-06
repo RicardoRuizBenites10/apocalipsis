@@ -23,6 +23,7 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto',{
             align: 'left'
         }, {
             text: 'Tipo',
+            dataIndex: 'tipo',
             align: 'left',
             width: 250
         }, {
@@ -74,8 +75,6 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto',{
             bind: {
                 store: '{conceptos}'
             },
-            displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar"
+            displayInfo: true
         }]
 });

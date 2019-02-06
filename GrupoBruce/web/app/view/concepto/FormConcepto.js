@@ -38,7 +38,9 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                             editable: false,
                             emptyText: 'Seleccionar',
                             flex: 1
-                        }, {
+                        }]
+                }, {
+                    items: [{
                             xtype: 'combobox',
                             name: 'idTplanilla',
                             fieldLabel: 'Tipo planilla',
