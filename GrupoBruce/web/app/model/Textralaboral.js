@@ -5,14 +5,15 @@ Ext.define('GrupoBruce.model.Textralaboral', {
     idProperty: 'idTextralaboral',
     fields: [
         {name: 'descripcion', type: 'string'},
-        {name: 'fecha', type: 'date'},
-        {name: 'horaInicio', type: 'date'},
-        {name: 'horaSalida', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'horaInicio', type: 'date', dateFormat: 'h:i A'},
+        {name: 'horaSalida', type: 'date', dateFormat: 'h:i A'},
         {name: 'idActividad', type: 'int'},
         {name: 'idTextralaboral', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
         {name: 'idTtextra', type: 'int'},
-        {name: 'trabajador', type: 'string'}
+        {name: 'trabajador', type: 'string'},
+        {name: 'tipotextra', type: 'string'}
     ],
 
     identifier: 'sequential',

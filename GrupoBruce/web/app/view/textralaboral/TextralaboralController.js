@@ -1,7 +1,7 @@
 Ext.define('GrupoBruce.view.textralaboral.TextralaboralController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Ctextralaboral',
-    
+
     createDialog: function (record) {
         var window = new GrupoBruce.view.textralaboral.FormTextralaboral();
         if (!record) {
@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.textralaboral.TextralaboralController', {
         var model = this.getViewModel().get('selectTextralaboral');
         this.createDialog(model);
     },
-    
+
     deleteTextralaboral: function () {
         var grid = this.lookupReference('list_proceso');
         var model = grid.getSelection()[0];
@@ -34,15 +34,17 @@ Ext.define('GrupoBruce.view.textralaboral.TextralaboralController', {
             }
         });
     },
-    
+
     onSaveTextralaboral: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wproceso');
+        var grid = Ext.getCmp('id_wlisttextralaboral');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
+            var horas = window.lookupReference('hrs_extra').value;
+            model.set('horaSalida', Ext.Date.add(model.get('horaInicio'), Ext.Date.HOUR, horas));
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();
@@ -58,14 +60,14 @@ Ext.define('GrupoBruce.view.textralaboral.TextralaboralController', {
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
     },
-    
+
     createWindow: function (view) {
         var model = this.getViewModel().get('selectTextralaboral');
         var window = Ext.create(view);
         window.getViewModel().set('recordTextralaboral', model);
     },
 
-    onEtapasTextralaboral : function () {
+    onEtapasTextralaboral: function () {
         this.createWindow('GrupoBruce.view.estado.Estado');
     }
 

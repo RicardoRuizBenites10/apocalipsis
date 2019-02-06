@@ -1,7 +1,6 @@
 package com.bruce.dao.to;
 // Generated 09/09/2018 05:31:05 AM by Hibernate Tools 4.3.1
 
-import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 

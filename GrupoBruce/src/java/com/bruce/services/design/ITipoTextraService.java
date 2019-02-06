@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
+package com.bruce.services.design;
 
 import com.bruce.dao.to.TipoTextra;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
-public interface ITipoTExtraDAO extends IEntidadDAO<TipoTextra> {
+public interface ITipoTextraService extends IEntidadService<TipoTextra>{
+    
 }

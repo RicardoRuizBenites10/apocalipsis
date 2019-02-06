@@ -3,12 +3,22 @@ Ext.define('GrupoBruce.view.textralaboral.TextralaboralModel', {
     alias: 'viewmodel.VMtextralaboral',
     data: {
         selectTextralaboral: null,
-        selectTrabajador: null
+        selectTrabajador: null,
+        desde: new Date()
     },
 
     stores: {
         textralaborals: {
             type: 'Stextralaboral',
+            autoLoad: true,
+            filters: [{
+                    property: 'FECHA',
+                    operator: 'eq',
+                    value: '{desde}'
+                }]
+        },
+        tiposTextra: {
+            type: 'StipoTextra',
             autoLoad: true
         },
         actividads: {

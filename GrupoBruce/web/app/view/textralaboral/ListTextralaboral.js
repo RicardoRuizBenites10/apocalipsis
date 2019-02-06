@@ -25,29 +25,33 @@ Ext.define('GrupoBruce.view.textralaboral.ListTextralaboral', {
         }, {
             text: 'Fecha',
             dataIndex: 'fecha',
+            formatter: 'date("d/m/Y")',
             align: 'center'
+        }, {
+            text: 'Tipo',
+            dataIndex: 'tipotextra',
+            align: 'left'
         }, {
             text: 'Inicio',
             dataIndex: 'horaInicio',
-            formatter: 'date("d/m/Y")',
+            formatter: 'date("h:i A")',
             align: 'center'
         }, {
             text: 'Fin',
-            dataIndex: 'horaFin',
-            formatter: 'date("d/m/Y")',
+            dataIndex: 'horaSalida',
+            formatter: 'date("h:i A")',
             align: 'center'
         }],
 
     tbar: {
         overflowHandler: 'menu',
         items: [{
-                xtype: 'button',
-                iconCls: 'x-fa fa-plus',
-                text: 'Nuevo',
-                bind: {
-                    disabled: '{selectTextralaboral}'
-                },
-                handler: 'addTextralaboral'
+                xtype: 'datefield',
+                id: 'id_dateDesde',
+                reference: 'date_desde',
+                fieldLabel: 'F. seguimiento',
+                format: 'd/m/Y',
+                bind: '{desde}'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,

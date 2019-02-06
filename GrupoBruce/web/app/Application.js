@@ -69,6 +69,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TipoFormacion',
         'GrupoBruce.store.TipoMantenimiento',
         'GrupoBruce.store.TipoPlanilla',
+        'GrupoBruce.store.TipoTextra',
         'GrupoBruce.store.TipoTrabajador',
         'GrupoBruce.store.TipoVacacion',
         'GrupoBruce.model.TipoVariable',

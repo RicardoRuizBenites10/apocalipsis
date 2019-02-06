@@ -52,6 +52,7 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("TEXTRALABORAL", "TX");
         reverse.addResult("TX.ID_TRABAJADOR");
+        reverse.addResult("TX.ID_TEXTRALABORAL");
         reverse.addResult("TX.FECHA");
         reverse.addResult("TX.HORA_INICIO");
         reverse.addResult("TX.HORA_SALIDA");
@@ -59,7 +60,9 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         reverse.addResult("TX.ID_ACTIVIDAD");
         reverse.addResult("TX.ID_TTEXTRA");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addResult("TTX.DESCRIPCION TIPOTEXTRA");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = TX.ID_TRABAJADOR");
+        reverse.addJoin("INNER JOIN TIPO_TEXTRA TTX", "TTX.ID_TTEXTRA = TX.ID_TTEXTRA");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_TEXTRALABORAL", "DESC"));
         reverse.setPagination(0, 1);
@@ -85,6 +88,7 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("TEXTRALABORAL", "TX");
         reverse.addResult("TX.ID_TRABAJADOR");
+        reverse.addResult("TX.ID_TEXTRALABORAL");
         reverse.addResult("TX.FECHA");
         reverse.addResult("TX.HORA_INICIO");
         reverse.addResult("TX.HORA_SALIDA");
@@ -92,7 +96,9 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         reverse.addResult("TX.ID_ACTIVIDAD");
         reverse.addResult("TX.ID_TTEXTRA");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addResult("TTX.DESCRIPCION TIPOTEXTRA");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = TX.ID_TRABAJADOR");
+        reverse.addJoin("INNER JOIN TIPO_TEXTRA TTX", "TTX.ID_TTEXTRA = TX.ID_TTEXTRA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -111,6 +117,7 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("TEXTRALABORAL", "TX");
         reverse.addResult("TX.ID_TRABAJADOR");
+        reverse.addResult("TX.ID_TEXTRALABORAL");
         reverse.addResult("TX.FECHA");
         reverse.addResult("TX.HORA_INICIO");
         reverse.addResult("TX.HORA_SALIDA");
@@ -118,7 +125,9 @@ public class TExtralaboralDAO implements ITExtralaboralDAO{
         reverse.addResult("TX.ID_ACTIVIDAD");
         reverse.addResult("TX.ID_TTEXTRA");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addResult("TTX.DESCRIPCION TIPOTEXTRA");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = TX.ID_TRABAJADOR");
+        reverse.addJoin("INNER JOIN TIPO_TEXTRA TTX", "TTX.ID_TTEXTRA = TX.ID_TTEXTRA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(Textralaboral.class);

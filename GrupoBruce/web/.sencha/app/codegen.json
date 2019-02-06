@@ -1247,6 +1247,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "EtapaProceso"
       }
+    },
+    "app/model/TipoTextra.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idTtextra:int:null,situacion:boolean:null",
+        "modelFileName": "TipoTextra",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "TipoTextra"
+      }
     }
   }
 }

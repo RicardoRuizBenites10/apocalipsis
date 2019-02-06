@@ -5,11 +5,10 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IActividadDAO;
-import com.bruce.dao.to.Actividad;
-import com.bruce.services.design.IActividadService;
+import com.bruce.dao.design.ITipoTextraDAO;
+import com.bruce.dao.to.TipoTextra;
+import com.bruce.services.design.ITipoTextraService;
 import com.bruce.util.FilterPage;
-import com.bruce.util.Metodo;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,26 +26,26 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ActividadService implements IActividadService {
+public class TipoTextraService implements ITipoTextraService {
 
     @Autowired
-    private IActividadDAO dao;
+    private ITipoTextraDAO dao;
 
     @Override
     @Transactional
-    public void insert(Actividad t) {
+    public void insert(TipoTextra t) {
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(Actividad t) {
+    public void update(TipoTextra t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Actividad t) {
+    public void delete(TipoTextra t) {
         dao.delete(t);
     }
 
@@ -60,27 +59,23 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
-                    filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
-                    filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
-                }
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ActividadService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTextraService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Actividad find(Object id) {
+    public TipoTextra find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public Actividad lastByFilter(String filter, String query) {
+    public TipoTextra lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -88,27 +83,23 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
-                    filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
-                    filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
-                }
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ActividadService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTextraService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<Actividad> findAll() {
+    public List<TipoTextra> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<Actividad> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<TipoTextra> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -121,14 +112,10 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
-                    filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
-                    filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
-                }
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ActividadService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTextraService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }

@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.view.textralaboral.Textralaboral', {
     requires: [
         'GrupoBruce.view.textralaboral.TextralaboralController',
         'GrupoBruce.view.textralaboral.TextralaboralModel',
-        
+
         'GrupoBruce.view.textralaboral.FormTextralaboral',
         'GrupoBruce.view.textralaboral.ListTextralaboral'
     ],
@@ -13,10 +13,18 @@ Ext.define('GrupoBruce.view.textralaboral.Textralaboral', {
     viewModel: {
         type: 'VMtextralaboral'
     },
-    
-    title: 'Lista de horas extras',
+
     items: [{
             xtype: 'WlistTextralaboral',
+            title: 'Lista de horas extras',
+            header: {
+                items: [{
+                        xtype: 'button',
+                        iconCls: 'x-fa fa-plus',
+                        text: 'Programar',
+                        handler: 'addTextralaboral'
+                    }]
+            },
             height: 500
         }]
 });

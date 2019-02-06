@@ -28,8 +28,9 @@ public class Textralaboral implements java.io.Serializable {
     private String descripcion;
     private int idActividad;
     private int idTtextra;
-
+    
     private String trabajador;
+    private String tipotextra;
 
     public Textralaboral() {
     }
@@ -127,5 +128,15 @@ public class Textralaboral implements java.io.Serializable {
 
     public void setTrabajador(String trabajador) {
         this.trabajador = trabajador;
+    }
+    
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "TIPOTEXTRA", insertable = false, updatable = false)
+    public String getTipotextra() {
+        return tipotextra;
+    }
+
+    public void setTipotextra(String tipotextra) {
+        this.tipotextra = tipotextra;
     }
 }

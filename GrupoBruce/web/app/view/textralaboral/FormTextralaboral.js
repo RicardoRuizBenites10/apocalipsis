@@ -11,7 +11,7 @@ Ext.define('GrupoBruce.view.textralaboral.FormTextralaboral', {
     modal: true,
     closable: false,
     resizable: false,
-    width: 400,
+    width: 500,
 
     title: 'Editar proceso',
     items: [{
@@ -85,20 +85,38 @@ Ext.define('GrupoBruce.view.textralaboral.FormTextralaboral', {
                         }]
                 }, {
                     items: [{
+                            xtype: 'combo',
+                            name: 'idTtextra',
+                            fieldLabel: 'Tipo',
+                            bind: {
+                                store: '{tiposTextra}'
+                            },
+                            displayField: 'descripcion',
+                            valueField: 'idTtextra',
+                            emptyText: 'Seleccionar..',
+                            editable: false,
+                            flex: 1
+                        }, {
                             xtype: 'datefield',
                             name: 'fecha',
-                            fieldLabel: 'Fecha'
+                            fieldLabel: 'Fecha programada',
+                            flex: 1
                         }]
                 }, {
                     items: [{
                             xtype: 'timefield',
                             name: 'horaInicio',
                             fieldLabel: 'Hora inicio',
+                            minValue: '7:30 AM',
                             flex: 1
                         }, {
-                            xtype: 'timefield',
-                            name: 'horaSalida',
-                            fieldLabel: 'Hora salida',
+                            xtype: 'numberfield',
+                            allowDecimals: false,
+                            hideTrigger: true,
+                            minValue: 1,
+                            fieldLabel: 'Nro horas',
+                            reference: 'hrs_extra',
+                            id: 'id_hrs_extra',
                             flex: 1
                         }]
                 }, {
@@ -106,6 +124,7 @@ Ext.define('GrupoBruce.view.textralaboral.FormTextralaboral', {
                             xtype: 'textarea',
                             name: 'descripcion',
                             fieldLabel: 'Observación',
+                            allowBlank: true,
                             flex: 1
                         }]
                 }],
