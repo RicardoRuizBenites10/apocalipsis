@@ -8,14 +8,12 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IConceptoDAO;
 import com.bruce.dao.to.Concepto;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,11 +22,11 @@ import org.springframework.stereotype.Repository;
  * @author RICARDO
  */
 @Repository
-public class ConceptoDAO implements IConceptoDAO{
+public class ConceptoDAO implements IConceptoDAO {
 
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(Concepto t) {
         sf.getCurrentSession().save(t);
@@ -52,23 +50,35 @@ public class ConceptoDAO implements IConceptoDAO{
     @Override
     public Concepto lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Concepto.class);
-        filters.forEach(item -> {
-            switch (item.getOperator()) {
-                case "like":
-                    cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                    break;
-                default:
-                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                    break;
-            }
-        });
-        cr.addOrder(Order.desc("idConcepto"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        Concepto proceso = !result.isEmpty() ? (Concepto) result.get(0) : null;
-        return proceso;
+        Concepto concepto = null;
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
+        reverse.addResult("C.ID_TTRABAJADOR");
+        reverse.addResult("C.ID_CONCEPTO");
+        reverse.addResult("C.COD_PDT");
+        reverse.addResult("C.DESCRIPCION");
+        reverse.addResult("C.FORMULA");
+        reverse.addResult("C.ID_TCONCEPTO");
+        reverse.addResult("C.ID_TVARIABLE");
+        reverse.addResult("C.SITUACION");
+        reverse.addResult("TC.DESCRIPCION AS TCONCEPTO");
+        reverse.addResult("TV.DESCRIPCION AS TVARIABLE");
+        reverse.addJoin("INNER JOIN TIPO_CONCEPTO TC", "TC.ID_TIPO = C.ID_TCONCEPTO");
+        reverse.addJoin("INNER JOIN TIPO_VARIABLE TV", "TV.ID_TIPO = C.ID_TVARIABLE");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ID_CONCEPTO", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Concepto.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
+            });
+        }
+        List result = query.list();
+        if (!result.isEmpty()) {
+            concepto = (Concepto) result.get(0);
+        }
+        return concepto;
     }
 
     @Override
@@ -79,48 +89,45 @@ public class ConceptoDAO implements IConceptoDAO{
     @Override
     public List<Concepto> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Concepto.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
+        reverse.addResult("C.ID_TTRABAJADOR");
+        reverse.addResult("C.ID_CONCEPTO");
+        reverse.addResult("C.COD_PDT");
+        reverse.addResult("C.DESCRIPCION");
+        reverse.addResult("C.FORMULA");
+        reverse.addResult("C.ID_TCONCEPTO");
+        reverse.addResult("C.ID_TVARIABLE");
+        reverse.addResult("C.SITUACION");
+        reverse.addResult("TC.DESCRIPCION AS TCONCEPTO");
+        reverse.addResult("TV.DESCRIPCION AS TVARIABLE");
+        reverse.addJoin("INNER JOIN TIPO_CONCEPTO TC", "TC.ID_TIPO = C.ID_TCONCEPTO");
+        reverse.addJoin("INNER JOIN TIPO_VARIABLE TV", "TV.ID_TIPO = C.ID_TVARIABLE");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Concepto.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        if (sorts != null) {
-            sorts.forEach(item -> {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            });
-        }
-        cr.setFirstResult(start);
-        cr.setMaxResults(limit);
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Concepto.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return (int) result.get(0);
     }
-    
+
 }

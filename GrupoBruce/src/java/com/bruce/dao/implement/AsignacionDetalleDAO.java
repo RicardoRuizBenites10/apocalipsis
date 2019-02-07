@@ -72,24 +72,15 @@ public class AsignacionDetalleDAO implements IAsignacionDetalleDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASIGNACION_DETALLE", "AD");
-        reverse.addResult("AD.ID_AEQUIPO");
-        reverse.addResult("AD.ID_ADETALLE");
-        reverse.addResult("AD.FECHA");
-        reverse.addResult("AD.FECHA_ASIGNADO");
-        reverse.addResult("AD.ASIGNADO");
-        reverse.addResult("AD.ID_EINFORMATICO");
-        reverse.addResult("EI.DENOMINACION EINFORMATICO");
-        reverse.addJoin("INNER JOIN EQUIPO_INFORMATICO EI", "EI.ID_EINFORMATICO = AD.ID_EINFORMATICO");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(AsignacionDetalle.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        return result.size();
+        return (int) result.get(0);
     }
 
     @Override

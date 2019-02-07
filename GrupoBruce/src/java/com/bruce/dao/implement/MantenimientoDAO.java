@@ -65,29 +65,15 @@ public class MantenimientoDAO implements IMantenimientoDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("MANTENIMIENTO", "M");
-        reverse.addResult("M.ID_AEQUIPO");
-        reverse.addResult("M.ID_MANTENIMIENTO");
-        reverse.addResult("M.FECHA");
-        reverse.addResult("M.FECHA_PROGRAMADA");
-        reverse.addResult("M.FECHA_ATENDIDO");
-        reverse.addResult("M.OBSERVACION");
-        reverse.addResult("M.COSTO");
-        reverse.addResult("M.ID_TMANTENIMIENTO");
-        reverse.addResult("M.ID_EMANTENIMIENTO");
-        reverse.addResult("M.ID_GENERADOR");
-        reverse.addResult("T1.AP_PATERNO +' '+ T1.AP_MATERNO + ', ' + T1.NOMBRES AS GENERADOR");
-        reverse.addResult("EM.DESCRIPCION ETAPA");
-        reverse.addJoin("INNER JOIN TRABAJADOR T1", "T1.ID_TRABAJADOR = M.ID_GENERADOR");
-        reverse.addJoin("INNER JOIN ESTADO_MANTENIMIENTO EM", "EM.ID_ESTADO = M.ID_EMANTENIMIENTO");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Mantenimiento.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
     @Override

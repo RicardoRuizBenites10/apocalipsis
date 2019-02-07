@@ -68,35 +68,16 @@ public class AsistenciaDAO implements IAsistenciaDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
-        reverse.addResult("T.ID_TRABAJADOR");
-        reverse.addResult("ISNULL(A.FECHA,:FECHA) FECHA");
-        reverse.addResult("ISNULL(A.MARCA1,'') MARCA1");
-        reverse.addResult("A.MARCA2");
-        reverse.addResult("A.MARCA3");
-        reverse.addResult("A.MARCA4");
-        reverse.addResult("A.MARCA5");
-        reverse.addResult("A.MARCA6");
-        reverse.addResult("ISNULL(A.MARCA7,'') MARCA7");
-        reverse.addResult("ISNULL(A.ANIO,DATEPART(YEAR,GETDATE())) ANIO");
-        reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
-        reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
-        reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
-        reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
-        reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
-        reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");
-        reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
-        reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
-        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Asistencia.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
     @Override

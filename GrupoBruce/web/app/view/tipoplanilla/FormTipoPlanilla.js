@@ -1,8 +1,8 @@
-Ext.define('GrupoBruce.view.tipoplanilla.FormTipoPlanilla',{
+Ext.define('GrupoBruce.view.tipoplanilla.FormTipoPlanilla', {
     extend: 'Ext.window.Window',
     alias: 'widget.WformTipoPlanilla',
     reference: 'form_tipoPlanilla',
-    
+
     controller: 'Ctipoplanilla',
     viewModel: 'VMtipoplanilla',
 
@@ -24,6 +24,13 @@ Ext.define('GrupoBruce.view.tipoplanilla.FormTipoPlanilla',{
                 }
             },
             items: [{
+                    items: [{
+                            xtype: 'textfield',
+                            name: 'idTipo',
+                            fieldLabel: 'Código',
+                            flex: 1
+                        }]
+                }, {
                     items: [{
                             xtype: 'textfield',
                             name: 'descripcion',

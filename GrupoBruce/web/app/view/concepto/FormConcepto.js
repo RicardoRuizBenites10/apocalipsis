@@ -9,9 +9,10 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
     modal: true,
     closable: false,
     resizable: false,
-    width: 400,
+    width: 800,
 
     title: 'Editar proceso',
+    layout: 'hbox',
     items: [{
             xtype: 'form',
             defaults: {
@@ -34,29 +35,10 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                                 store: '{tiposConcepto}',
                                 selection: '{selectTipoConcepto}'
                             },
-                            pageSize: true,
                             editable: false,
                             emptyText: 'Seleccionar',
                             flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'combobox',
-                            name: 'idTplanilla',
-                            fieldLabel: 'Tipo planilla',
-                            displayField: 'descripcion',
-                            valueField: 'idTipo',
-                            bind: {
-                                store: '{tiposPlanilla}',
-                                selection: '{selectTipoPlanilla}'
-                            },
-                            pageSize: true,
-                            editable: false,
-                            emptyText: 'Seleccionar',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
+                        }, {
                             xtype: 'combobox',
                             name: 'idTvariable',
                             fieldLabel: 'Tipo variable',
@@ -66,7 +48,6 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                                 store: '{tiposVariable}',
                                 selection: '{selectTipoVariable}'
                             },
-                            pageSize: true,
                             editable: false,
                             emptyText: 'Seleccionar',
                             flex: 1
@@ -74,9 +55,15 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                 }, {
                     items: [{
                             xtype: 'textfield',
+                            name: 'codPdt',
+                            fieldLabel: 'PDT',
+                            allowBlank: true,
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
                             name: 'idConcepto',
                             fieldLabel: 'Código',
-                            flex: 1
+                            flex: 4
                         }]
                 }, {
                     items: [{
@@ -89,6 +76,7 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                     items: [{
                             xtype: 'textarea',
                             name: 'formula',
+                            reference: 'text_formula',
                             fieldLabel: 'Fórmula',
                             allowBlank: true,
                             flex: 1
@@ -116,6 +104,65 @@ Ext.define('GrupoBruce.view.concepto.FormConcepto', {
                     listeners: {
                         click: 'onSaveConcepto'
                     }
-                }]
+                }],
+            flex: 2
+        }, {
+            xtype: 'grid',
+            bind: {
+                store: '{conceptos}',
+                selection: '{selectFormula}'
+            },
+            allowDeselect: true,
+            columns: [{
+                    text: 'Código',
+                    dataIndex: 'idConcepto',
+                    align: 'left',
+                    width: 175
+                }, {
+                    text: 'Descripción',
+                    dataIndex: 'descripcion',
+                    align: 'left',
+                    width: 200
+                }],
+            tbar: {
+                overflowHandler: 'menu',
+                items: [{
+                        iconCls: 'x-fa fa-angle-left',
+                        text: 'Agregar',
+                        disabled: true,
+                        bind: {
+                            disabled: '{!selectFormula}'
+                        },
+                        handler: 'onAddFormula'
+                    },{
+                        text: '+',
+                        handler: 'onSuma'
+                    },{
+                        text: '-',
+                        handler: 'onResta'
+                    },{
+                        text: 'x',
+                        handler: 'onMultiplicacion'
+                    },{
+                        text: '/',
+                        handler: 'onDivision'
+                    },{
+                        text: '(',
+                        handler: 'onParAbierto'
+                    },{
+                        text: ')',
+                        handler: 'onParCerrado'
+                    }]
+            },
+            dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    bind: {
+                        store: '{conceptos}'
+                    },
+                    displayInfo: true
+                }],
+            height: 380,
+            flex: 2
         }]
 });

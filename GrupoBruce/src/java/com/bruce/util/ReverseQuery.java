@@ -55,7 +55,7 @@ public class ReverseQuery {
                 resultString = resultString + item + (cont != this.resultados.size() ? "," : "") + "\n";
             }
         } else {
-            resultString = "*";
+            resultString = "COUNT(*)";
         }
         return resultString;
     }

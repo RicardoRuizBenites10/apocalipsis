@@ -106,22 +106,16 @@ public class AlmuerzoDAO implements IAlmuerzoDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ALMUERZO", "A");
-        reverse.addResult("T.ID_TRABAJADOR");
-        reverse.addResult("ISNULL(A.FECHA,:FECHA) FECHA");
-        reverse.addResult("ISNULL(A.REFRIGERIO,1) REFRIGERIO");
-        reverse.addResult("ISNULL(A.EN_COMEDOR,1) EN_COMEDOR");
-        reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
-        reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Almuerzo.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
 }

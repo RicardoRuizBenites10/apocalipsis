@@ -110,24 +110,15 @@ public class HorarioDAO implements IHorarioDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("HORARIO", "H");
-        reverse.addResult("H.ID_HORARIO");
-        reverse.addResult("H.HORA_ENTRADA");
-        reverse.addResult("H.HORA_SALIDA");
-        reverse.addResult("H.REFRIGERIO");
-        reverse.addResult("H.LIBRE");
-        reverse.addResult("H.SITUACION");
-        reverse.addResult("H.ID_DIA");
-        reverse.addResult("D.DESCRIPCION AS DIA");
-        reverse.addJoin("INNER JOIN DIA D", "D.ID_DIA = H.ID_DIA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Horario.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
 }

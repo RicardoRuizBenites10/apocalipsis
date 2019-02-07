@@ -4,5 +4,16 @@ Ext.define('GrupoBruce.store.Concepto', {
     model: 'GrupoBruce.model.Concepto',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: '-TCONCEPTO',
+            direction: 'ASC'
+        },{
+            property: '-TVARIABLE',
+            direction: 'ASC'
+        },{
+            property: 'ID_CONCEPTO',
+            direction: 'ASC'
+        }]
 });

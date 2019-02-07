@@ -4,14 +4,16 @@ Ext.define('GrupoBruce.model.Concepto', {
 
     idProperty: 'idConcepto',
     fields: [
+        {name: 'codPdt', type: 'string', defaultValue: ''},
         {name: 'descripcion', type: 'string'},
         {name: 'formula', type: 'string', defaultValue: ''},
         {name: 'idConcepto', type: 'string'},
         {name: 'idTconcepto', type: 'string'},
-        {name: 'idTplanilla', type: 'string'},
+        {name: 'idTtrabajador', type: 'int'},
         {name: 'idTvariable', type: 'string'},
-        {name: 'situacion', type: 'boolean', defaultValue: true}
-
+        {name: 'situacion', type: 'boolean', defaultValue: true},
+        {name: 'tconcepto', type: 'string'},
+        {name: 'tvariable', type: 'string'}
     ],
 
     identifier: 'sequential',

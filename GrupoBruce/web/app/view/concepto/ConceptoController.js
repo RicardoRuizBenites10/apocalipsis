@@ -4,9 +4,12 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.concepto.FormConcepto();
+        var vm = this.getViewModel();
+        window.getViewModel().set('selectTipoTrabajador', vm.get('selectTipoTrabajador'));
         if (!record) {
             window.setTitle('Registrar proceso');
             record = new GrupoBruce.model.Concepto();
+            record.set('idTtrabajador', vm.get('selectTipoTrabajador').get('idTtrabajador'));
         }
         window.down('form').loadRecord(record);
         window.show();
@@ -55,8 +58,41 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
                 }
             });
         } else { // display error alert if the data is invalid
-            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
+    },
+
+    onCalculadora: function (btn, value) {
+        var formula = btn.up('window').lookupReference('text_formula');
+        formula.setValue(formula.getValue() + value);
+    },
+
+    onAddFormula: function (btn) {
+        this.onCalculadora(btn, btn.up('window').getViewModel().get('selectFormula').get('idConcepto'));
+    },
+
+    onSuma: function (btn) {
+        this.onCalculadora(btn, '+');
+    },
+
+    onResta: function (btn) {
+        this.onCalculadora(btn, '-');
+    },
+
+    onMultiplicacion: function (btn) {
+        this.onCalculadora(btn, '*');
+    },
+
+    onDivision: function (btn) {
+        this.onCalculadora(btn, '/');
+    },
+
+    onParAbierto: function (btn) {
+        this.onCalculadora(btn, '(');
+    },
+
+    onParCerrado: function (btn) {
+        this.onCalculadora(btn, ')');
     }
 
 });

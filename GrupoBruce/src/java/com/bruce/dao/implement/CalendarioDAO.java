@@ -112,25 +112,15 @@ public class CalendarioDAO implements ICalendarioDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("CALENDARIO", "C");
-        reverse.addResult("C.FECHA");
-        reverse.addResult("C.NRO_SEMANA");
-        reverse.addResult("C.DIA");
-        reverse.addResult("C.MES");
-        reverse.addResult("C.ANIO");
-        reverse.addResult("C.LIBRE");
-        reverse.addResult("C.DESCRIPCION");
-        reverse.addResult("C.HORA_ENTRADA");
-        reverse.addResult("C.HORA_SALIDA");
-        reverse.addResult("C.ID_DIA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Calendario.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
 }

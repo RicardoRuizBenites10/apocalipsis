@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.concepto.ListConcepto',{
+Ext.define('GrupoBruce.view.concepto.ListConcepto', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistConcepto',
     reference: 'list_concepto',
@@ -14,18 +14,21 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto',{
     columns: [{
             text: 'Codigo',
             dataIndex: 'idConcepto',
-            width: 200,
-            align: 'center'
+            width: 150,
+            align: 'left'
         }, {
-            text: 'Nombre',
+            text: 'Descripcion',
             dataIndex: 'descripcion',
             width: 350,
             align: 'left'
         }, {
-            text: 'Tipo',
-            dataIndex: 'tipo',
-            align: 'left',
-            width: 250
+            text: 'T.Concepto',
+            dataIndex: 'tconcepto',
+            align: 'left'
+        }, {
+            text: 'T.Variable',
+            dataIndex: 'tvariable',
+            align: 'left'
         }, {
             text: 'Estado',
             dataIndex: 'situacion',
@@ -43,11 +46,23 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto',{
     tbar: {
         overflowHandler: 'menu',
         items: [{
+                xtype: 'combobox',
+                fieldLabel: 'Tipo trabajador',
+                displayField: 'descripcion',
+                valueField: 'idTipo',
+                bind: {
+                    store: '{tiposTrabajador}',
+                    selection: '{selectTipoTrabajador}'
+                },
+                editable: false,
+                emptyText: 'Seleccionar..'
+            }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
+                disabled: false,
                 bind: {
-                    disabled: '{selectConcepto}'
+                    disabled: '{allowNuevo}'
                 },
                 handler: 'addConcepto'
             }, {

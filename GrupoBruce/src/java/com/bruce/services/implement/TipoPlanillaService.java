@@ -34,9 +34,9 @@ public class TipoPlanillaService implements ITipoPlanillaService {
     @Override
     @Transactional
     public void insert(TipoPlanilla t) {
-        TipoPlanilla last = dao.lastByFilter(new ArrayList<>());
-        int idLast = last != null ? Integer.parseInt(last.getIdTipo()) : 0;
-        t.setIdTipo(String.format("%02d", idLast + 1));
+//        TipoPlanilla last = dao.lastByFilter(new ArrayList<>());
+//        int idLast = last != null ? Integer.parseInt(last.getIdTipo()) : 0;
+//        t.setIdTipo(String.format("%02d", idLast + 1));
         dao.create(t);
     }
     

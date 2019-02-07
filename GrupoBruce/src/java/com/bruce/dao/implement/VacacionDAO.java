@@ -59,26 +59,15 @@ public class VacacionDAO implements IVacacionDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("VACACION", "V");
-        reverse.addResult("V.ID_TRABAJADOR");
-        reverse.addResult("V.ID_VACACION");
-        reverse.addResult("V.FECHA_BASE");
-        reverse.addResult("V.FECHA_SALIDA");
-        reverse.addResult("V.FECHA_RETORNO");
-        reverse.addResult("V.DIAS_TOMADOS");
-        reverse.addResult("V.ID_TVACACION");
-        reverse.addResult("V.ID_PVACACION");
-        reverse.addResult("TV.DESCRIPCION TIPO");
-        reverse.addJoin("INNER JOIN TIPO_VACACION TV", "TV.ID_TVACACION = V.ID_TVACACION");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Vacacion.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        return result.size();
+        return (int) result.get(0);
     }
 
     @Override

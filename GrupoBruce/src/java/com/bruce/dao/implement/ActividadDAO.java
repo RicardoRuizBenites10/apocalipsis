@@ -11,12 +11,9 @@ import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -115,25 +112,15 @@ public class ActividadDAO implements IActividadDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ACTIVIDAD", "A");
-        reverse.addResult("A.ID_ACTIVIDAD");
-        reverse.addResult("A.FECHA");
-        reverse.addResult("A.NOMBRE");
-        reverse.addResult("A.DURACION");
-        reverse.addResult("A.PRECIO");
-        reverse.addResult("A.SITUACION");
-        reverse.addResult("A.ID_MONEDA");
-        reverse.addResult("A.ID_EPROCESO");
-        reverse.addResult("A.USA_MATERIAL");
-        reverse.addResult("A.ID_USUARIO");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Actividad.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return query.list().size();
+        List result = query.list();
+        return (int) result.get(0);
     }
 
 }

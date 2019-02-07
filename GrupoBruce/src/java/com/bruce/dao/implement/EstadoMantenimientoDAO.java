@@ -60,27 +60,16 @@ public class EstadoMantenimientoDAO implements IEstadoMantenimientoDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ESTADO_MANTENIMIENTO", "EM");
-        reverse.addResult("EM.ID_ESTADO");
-        reverse.addResult("EM.ORDEN");
-        reverse.addResult("EM.DESCRIPCION");
-        reverse.addResult("EM.ACCION");
-        reverse.addResult("EM.SOLUCIONADOR");
-        reverse.addResult("EM.ULTIMO");
-        reverse.addResult("EM.SITUACION");
-        reverse.addResult("EM.ID_PRECEDE");
-        reverse.addResult("EM.ID_PROCESO");
-        reverse.addResult("EM1.DESCRIPCION PRECEDE");
         reverse.addJoin("LEFT JOIN ESTADO_MANTENIMIENTO EM1", "EM1.ID_ESTADO = EM.ID_PRECEDE");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(EstadoMantenimiento.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        return result.size();
+        return (int) result.get(0);
     }
 
     @Override

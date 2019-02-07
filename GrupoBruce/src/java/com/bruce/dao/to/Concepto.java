@@ -8,25 +8,43 @@ package com.bruce.dao.to;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
  * @author RICARDO
  */
 @Entity
+@IdClass(value = ConceptoId.class)
 @Table(name = "CONCEPTO", schema = "dbo", catalog = "BDBRUCE")
 public class Concepto implements java.io.Serializable {
 
+    private int idTtrabajador;
     private String idConcepto;
+    private String codPdt;
     private String descripcion;
     private String formula;
     private String idTconcepto;
     private String idTvariable;
-    private String idTplanilla;
     private boolean situacion;
 
+    private String tconcepto;
+    private String tvariable;
+
     public Concepto() {
+    }
+
+    @Id
+    @Column(name = "ID_TTRABAJADOR", nullable = false)
+    public int getIdTtrabajador() {
+        return idTtrabajador;
+    }
+
+    public void setIdTtrabajador(int idTtrabajador) {
+        this.idTtrabajador = idTtrabajador;
     }
 
     @Id
@@ -37,6 +55,15 @@ public class Concepto implements java.io.Serializable {
 
     public void setIdConcepto(String idConcepto) {
         this.idConcepto = idConcepto;
+    }
+
+    @Column(name = "COD_PDT")
+    public String getCodPdt() {
+        return codPdt;
+    }
+
+    public void setCodPdt(String codPdt) {
+        this.codPdt = codPdt;
     }
 
     @Column(name = "DESCRIPCION", nullable = false)
@@ -75,15 +102,6 @@ public class Concepto implements java.io.Serializable {
         this.idTvariable = idTvariable;
     }
 
-    @Column(name = "ID_TPLANILLA", nullable = false)
-    public String getIdTplanilla() {
-        return idTplanilla;
-    }
-
-    public void setIdTplanilla(String idTplanilla) {
-        this.idTplanilla = idTplanilla;
-    }
-
     @Column(name = "SITUACION", nullable = false)
     public boolean isSituacion() {
         return situacion;
@@ -91,6 +109,26 @@ public class Concepto implements java.io.Serializable {
 
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "TCONCEPTO", insertable = false, updatable = false)
+    public String getTconcepto() {
+        return tconcepto;
+    }
+
+    public void setTconcepto(String tconcepto) {
+        this.tconcepto = tconcepto;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "TVARIABLE", insertable = false, updatable = false)
+    public String getTvariable() {
+        return tvariable;
+    }
+
+    public void setTvariable(String tvariable) {
+        this.tvariable = tvariable;
     }
 
 }

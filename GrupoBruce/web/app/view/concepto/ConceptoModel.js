@@ -2,13 +2,19 @@ Ext.define('GrupoBruce.view.concepto.ConceptoModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMconcepto',
     data: {
-        selectConcepto: null
+        selectConcepto: null,
+        selectTipoTrabajador: null
     },
-    
+
     stores: {
         conceptos: {
             type: 'Sconcepto',
-            autoLoad: true
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_TTRABAJADOR',
+                    operator: 'EQ',
+                    value: '{selectTipoTrabajador.idTtrabajador}'
+                }]
         },
         tiposConcepto: {
             type: 'StipoConcepto',
@@ -18,9 +24,16 @@ Ext.define('GrupoBruce.view.concepto.ConceptoModel', {
             type: 'StipoVariable',
             autoLoad: true
         },
-        tiposPlanilla: {
-            type: 'StipoPlanilla',
+        tiposTrabajador: {
+            type: 'StipoTrabajador',
             autoLoad: true
+        }
+    },
+    
+    formulas: {
+        allowNuevo : function(get){
+            var selecttt = get('selectTipoTrabajador');
+            return selecttt ?  get('selectConcepto') : !selecttt;
         }
     }
 
