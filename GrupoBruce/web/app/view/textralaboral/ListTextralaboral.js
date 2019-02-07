@@ -68,14 +68,6 @@ Ext.define('GrupoBruce.view.textralaboral.ListTextralaboral', {
                     disabled: '{!selectTextralaboral}'
                 },
                 handler: 'deleteTextralaboral'
-            }, '-', {
-                iconCls: 'x-fa fa-retweet',
-                disabled: true,
-                text: 'Etapas de proceso',
-                bind: {
-                    disabled: '{!selectTextralaboral}'
-                },
-                handler: 'onEtapasTextralaboral'
             }]
     },
 

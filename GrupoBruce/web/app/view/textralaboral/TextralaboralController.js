@@ -59,16 +59,6 @@ Ext.define('GrupoBruce.view.textralaboral.TextralaboralController', {
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
-    },
-
-    createWindow: function (view) {
-        var model = this.getViewModel().get('selectTextralaboral');
-        var window = Ext.create(view);
-        window.getViewModel().set('recordTextralaboral', model);
-    },
-
-    onEtapasTextralaboral: function () {
-        this.createWindow('GrupoBruce.view.estado.Estado');
     }
 
 });
