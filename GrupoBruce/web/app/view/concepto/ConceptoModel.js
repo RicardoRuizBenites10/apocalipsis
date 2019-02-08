@@ -3,7 +3,8 @@ Ext.define('GrupoBruce.view.concepto.ConceptoModel', {
     alias: 'viewmodel.VMconcepto',
     data: {
         selectConcepto: null,
-        selectTipoTrabajador: null
+        selectTipoTrabajador: null,
+        newItem: false
     },
 
     stores: {

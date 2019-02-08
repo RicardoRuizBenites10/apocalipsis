@@ -3,7 +3,8 @@ Ext.define('GrupoBruce.view.usuario.UsuarioModel', {
     alias: 'viewmodel.VMusuario',
     data: {
         selectUsuario: null,
-        selectTrabajador: null
+        selectTrabajador: null,
+        newItem: false
     },
 
     stores: {

@@ -13,37 +13,38 @@ Ext.define('GrupoBruce.view.conceptoasignado.ListConceptoAsignado', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Código',
-            dataIndex: 'idCasignado',
+            dataIndex: 'idConcepto',
+            width: 200,
             align: 'center'
         }, {
-            text: 'Fecha',
-            dataIndex: 'fecha',
-            align: 'center',
-            formatter: 'date("d/m/Y")'
-        }, {
-            text: 'Nombre',
-            width: 250,
+            text: 'Descripción',
+            dataIndex: 'descripcion',
+            width: 200,
             align: 'left'
         }],
 
     tbar: {
         overflowHandler: 'menu',
         items: [{
-                xtype: 'button',
-                iconCls: 'x-fa fa-plus',
-                text: 'Nuevo',
+                xtype: 'combobox',
+                displayField: 'descripcion',
+                valueField: 'idTipo',
                 bind: {
-                    disabled: '{selectConceptoAsignado}'
+                    store: '{tiposPlanilla}',
+                    selection: '{selectTipoPlanilla}'
                 },
-                handler: 'addConceptoAsignado'
+                emptyText: 'Seleccionar tipo planilla',
+                editable: false,
+                flex: 1
             }, {
-                iconCls: 'x-fa fa-trash',
+                iconCls: 'x-fa fa-chevron-right',
+                iconAlign: 'right',
+                text: 'Quitar',
                 disabled: true,
-                text: 'Eliminar',
                 bind: {
                     disabled: '{!selectConceptoAsignado}'
                 },
-                handler: 'deleteConceptoAsignado'
+                handler: 'onDesasignar'
             }]
     },
 

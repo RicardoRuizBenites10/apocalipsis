@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.view.usuario.UsuarioController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.usuario.FormUsuario();
+        window.getViewModel().set('newItem', !record);
         if (!record) {
             window.setTitle('Registrar usuario');
             record = new GrupoBruce.model.Usuario();
@@ -37,7 +38,8 @@ Ext.define('GrupoBruce.view.usuario.UsuarioController', {
                 scope: this,
                 success: function (response, opts) {
                     var responseText = Ext.decode(response.responseText);
-                    if (responseText.success) {
+                    var temp = responseText.success ? responseText.success : !window.getViewModel().get('newItem');
+                    if (temp) {
                         model.save({// save the record to the server
                             success: function (response, operation) {
                                 grid.getStore().reload();

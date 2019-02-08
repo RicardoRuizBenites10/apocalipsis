@@ -9,34 +9,61 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
  * @author RICARDO
  */
 @Entity
+@IdClass(value = ConceptoAsignadoId.class)
 @Table(name = "CONCEPTO_ASIGNADO", schema = "dbo", catalog = "BDBRUCE")
 public class ConceptoAsignado implements java.io.Serializable {
 
-    private String idCasignado;
-    private Date fecha;
-    private String idConcepto;
     private int idTtrabajador;
+    private String idTplanilla;
+    private String idConcepto;
+    private Date fecha;
+    private int orden;
+
+    private String descripcion;
 
     public ConceptoAsignado() {
     }
 
     @Id
-    @Column(name = "ID_CASIGNADO", nullable = false)
-    public String getIdCasignado() {
-        return idCasignado;
+    @Column(name = "ID_TTRABAJADOR", nullable = false)
+    public int getIdTtrabajador() {
+        return idTtrabajador;
     }
 
-    public void setIdCasignado(String idCasignado) {
-        this.idCasignado = idCasignado;
+    public void setIdTtrabajador(int idTtrabajador) {
+        this.idTtrabajador = idTtrabajador;
+    }
+
+    @Id
+    @Column(name = "ID_TPLANILLA", nullable = false)
+    public String getIdTplanilla() {
+        return idTplanilla;
+    }
+
+    public void setIdTplanilla(String idTplanilla) {
+        this.idTplanilla = idTplanilla;
+    }
+
+    @Id
+    @Column(name = "ID_CONCEPTO", nullable = false)
+    public String getIdConcepto() {
+        return idConcepto;
+    }
+
+    public void setIdConcepto(String idConcepto) {
+        this.idConcepto = idConcepto;
     }
 
     @Temporal(TemporalType.DATE)
@@ -49,22 +76,23 @@ public class ConceptoAsignado implements java.io.Serializable {
         this.fecha = fecha;
     }
 
-    @Column(name = "ID_CONCEPTO", nullable = false)
-    public String getIdConcepto() {
-        return idConcepto;
+    @Column(name = "ORDEN", nullable = false)
+    public int getOrden() {
+        return orden;
     }
 
-    public void setIdConcepto(String idConcepto) {
-        this.idConcepto = idConcepto;
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 
-    @Column(name = "ID_TTRABAJADOR", nullable = false)
-    public int getIdTtrabajador() {
-        return idTtrabajador;
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "DESCRIPCION", insertable = false, updatable = false)
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setIdTtrabajador(int idTtrabajador) {
-        this.idTtrabajador = idTtrabajador;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 }

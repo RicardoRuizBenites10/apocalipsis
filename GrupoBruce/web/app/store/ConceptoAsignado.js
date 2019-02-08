@@ -4,5 +4,10 @@ Ext.define('GrupoBruce.store.ConceptoAsignado', {
     model: 'GrupoBruce.model.ConceptoAsignado',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+
+    sorters: [{
+            property: 'ORDEN',
+            direction: 'ASC'
+        }]
 });

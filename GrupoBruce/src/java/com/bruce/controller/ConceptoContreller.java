@@ -83,4 +83,10 @@ public class ConceptoContreller {
         map.put("message", msg);
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/validaNconcepto", method = RequestMethod.POST)
+    public Map<String, Object> validaAdd(@RequestBody Concepto concepto) {
+        return serv.validaAdd(concepto);
+    }
 }

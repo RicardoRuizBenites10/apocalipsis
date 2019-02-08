@@ -2,14 +2,16 @@ Ext.define('GrupoBruce.model.ConceptoAsignado', {
     extend: 'Ext.data.Model',
     alias: 'model.MconceptoAsignado',
 
-    idProperty: 'idCasignado',
+    idProperty: 'idConcepto',
     fields: [
-        { name: 'fecha', type: 'date' },
-        { name: 'idCasignado', type: 'string' },
-        { name: 'idConcepto', type: 'string' },
-        { name: 'idTtrabajador', type: 'int' }
+        {name: 'descripcion', type: 'string'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'idTplanilla', type: 'string'},
+        {name: 'idConcepto', type: 'string'},
+        {name: 'idTtrabajador', type: 'int'},
+        {name: 'orden', type: 'int'}
     ],
-    
+
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

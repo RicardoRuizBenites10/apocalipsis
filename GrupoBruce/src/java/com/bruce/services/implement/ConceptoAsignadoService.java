@@ -27,28 +27,34 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ConceptoAsignadoService implements IConceptoAsignadoService {
-
+    
     @Autowired
     private IConceptoAsignadoDAO dao;
-
+    
     @Override
     @Transactional
     public void insert(ConceptoAsignado t) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("EQ", "ID_TTRABAJADOR", t.getIdTtrabajador()));
+        filters.add(new FilterPage("EQ", "ID_TPLANILLA", t.getIdTplanilla()));
+        ConceptoAsignado last = dao.lastByFilter(filters);
+        int ordenLast = last != null ? last.getOrden() : 0;
+        t.setOrden(ordenLast + 1);
         dao.create(t);
     }
-
+    
     @Override
     @Transactional
     public void update(ConceptoAsignado t) {
         dao.update(t);
     }
-
+    
     @Override
     @Transactional
     public void delete(ConceptoAsignado t) {
         dao.delete(t);
     }
-
+    
     @Override
     @Transactional
     public int countByFilter(String filter, String query) {
@@ -66,13 +72,13 @@ public class ConceptoAsignadoService implements IConceptoAsignadoService {
         }
         return dao.countByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public ConceptoAsignado find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public ConceptoAsignado lastByFilter(String filter, String query) {
@@ -90,13 +96,13 @@ public class ConceptoAsignadoService implements IConceptoAsignadoService {
         }
         return dao.lastByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public List<ConceptoAsignado> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public List<ConceptoAsignado> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -119,5 +125,5 @@ public class ConceptoAsignadoService implements IConceptoAsignadoService {
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-
+    
 }

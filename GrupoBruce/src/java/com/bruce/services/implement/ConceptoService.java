@@ -14,7 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author RICARDO
  */
 @Service
-public class ConceptoService implements IConceptoService{
+public class ConceptoService implements IConceptoService {
 
     @Autowired
     private IConceptoDAO dao;
-    
+
     @Override
     @Transactional
     public void insert(Concepto t) {
@@ -119,5 +121,17 @@ public class ConceptoService implements IConceptoService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
+    @Override
+    @Transactional
+    public Map<String, Object> validaAdd(Concepto concepto) {
+        Map<String, Object> map = new HashMap<>();
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("EQ", "ID_TTRABAJADOR", concepto.getIdTtrabajador()));
+        filters.add(new FilterPage("EQ", "ID_CONCEPTO", concepto.getIdConcepto()));
+        int identity = dao.countByFilter(filters);
+        map.put("success", identity == 0);
+        return map;
+    }
+
 }

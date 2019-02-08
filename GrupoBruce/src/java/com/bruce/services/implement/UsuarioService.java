@@ -134,7 +134,7 @@ public class UsuarioService implements IUsuarioService {
     @Transactional
     public Map<String, Object> validaNUsuario(Usuario usuario) {
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idUsuario", usuario.getIdUsuario()));
+        filters.add(new FilterPage("ID_USUARIO", usuario.getIdUsuario()));
         int numUsu = dao.countByFilter(filters);
         Map<String, Object> map = new HashMap<>();
         map.put("success", numUsu == 0);

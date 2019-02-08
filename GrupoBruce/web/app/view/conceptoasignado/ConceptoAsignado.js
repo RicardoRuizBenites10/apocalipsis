@@ -18,10 +18,25 @@ Ext.define('GrupoBruce.view.conceptoasignado.ConceptoAsignado', {
     closable: true,
     autoShow: true,
 
+    defaults: {
+        height: 400,
+        flex: 1
+    },
+    width: 800,
+    layout: 'hbox',
+    
     title: 'Lista de conceptos asignados',
     items: [{
-            xtype: 'WlistConceptoAsignado',
-            width: 600,
-            height: 400
+            xtype: 'WlistConceptoAsignado'
+        }, {
+            xtype: 'WlistConcepto',
+            tbar: [{
+                    iconCls: 'x-fa fa-chevron-left',
+                    text: 'ASIGNAR',
+                    bind: {
+                        disabled: '{allowAsignar}'
+                    },
+                    handler: 'onAsignar'
+                }]
         }]
 });

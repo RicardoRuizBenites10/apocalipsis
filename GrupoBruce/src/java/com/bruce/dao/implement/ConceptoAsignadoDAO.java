@@ -8,14 +8,12 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IConceptoAsignadoDAO;
 import com.bruce.dao.to.ConceptoAsignado;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,22 +50,29 @@ public class ConceptoAsignadoDAO implements IConceptoAsignadoDAO {
     @Override
     public ConceptoAsignado lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(ConceptoAsignado.class);
-        filters.forEach(item -> {
-            switch (item.getOperator()) {
-                case "like":
-                    cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                    break;
-                default:
-                    cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                    break;
-            }
-        });
-        cr.addOrder(Order.desc("idCasignado"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        ConceptoAsignado conceptoAsignado = !result.isEmpty() ? (ConceptoAsignado) result.get(0) : null;
+        ConceptoAsignado conceptoAsignado = null;
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO_ASIGNADO", "CA");
+        reverse.addResult("CA.ID_TTRABAJADOR");
+        reverse.addResult("CA.ID_TPLANILLA");
+        reverse.addResult("CA.ID_CONCEPTO");
+        reverse.addResult("CA.FECHA");
+        reverse.addResult("CA.ORDEN");
+        reverse.addResult("C.DESCRIPCION DESCRIPCION");
+        reverse.addJoin("INNER JOIN CONCEPTO C", "C.ID_CONCEPTO=CA.ID_CONCEPTO");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ORDEN", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(ConceptoAsignado.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
+            });
+        }
+        List result = query.list();
+        if (!result.isEmpty()) {
+            conceptoAsignado = (ConceptoAsignado) result.get(0);
+        }
         return conceptoAsignado;
     }
 
@@ -79,47 +84,39 @@ public class ConceptoAsignadoDAO implements IConceptoAsignadoDAO {
     @Override
     public List<ConceptoAsignado> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(ConceptoAsignado.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO_ASIGNADO", "CA");
+        reverse.addResult("CA.ID_TTRABAJADOR");
+        reverse.addResult("CA.ID_TPLANILLA");
+        reverse.addResult("CA.ID_CONCEPTO");
+        reverse.addResult("CA.FECHA");
+        reverse.addResult("CA.ORDEN");
+        reverse.addResult("C.DESCRIPCION DESCRIPCION");
+        reverse.addJoin("INNER JOIN CONCEPTO C", "C.ID_CONCEPTO=CA.ID_CONCEPTO");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(ConceptoAsignado.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        if (sorts != null) {
-            sorts.forEach(item -> {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            });
-        }
-        cr.setFirstResult(start);
-        cr.setMaxResults(limit);
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(ConceptoAsignado.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONCEPTO_ASIGNADO", "CA");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return (int) result.get(0);
     }
 }

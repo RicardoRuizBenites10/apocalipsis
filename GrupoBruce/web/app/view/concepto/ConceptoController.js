@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
         var window = new GrupoBruce.view.concepto.FormConcepto();
         var vm = this.getViewModel();
         window.getViewModel().set('selectTipoTrabajador', vm.get('selectTipoTrabajador'));
+        window.getViewModel().set('newItem', !record);
         if (!record) {
             window.setTitle('Registrar proceso');
             record = new GrupoBruce.model.Concepto();
@@ -46,17 +47,40 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            model.save({// save the record to the server
-                success: function (model, operation) {
-                    grid.getStore().reload();
-                    form.reset();
-                    window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+            Ext.Ajax.request({
+                url: 'validaNconcepto',
+                jsonData: model.data,
+                method: 'POST',
+                scope: this,
+                success: function (response, opts) {
+                    var responseText = Ext.decode(response.responseText);
+                    var valida = responseText.success ? responseText.success : !window.getViewModel().get('newItem');
+                    if (valida) {
+                        model.save({// save the record to the server
+                            success: function (model, operation) {
+                                grid.getStore().reload();
+                                form.reset();
+                                window.destroy();
+                                Ext.Msg.alert('Success', 'Operación exitosa.')
+                            },
+                            failure: function (model, operation) {
+                                Ext.Msg.alert('Failure', 'Operacion fallada.')
+                            }
+                        });
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Error',
+                            msg: "Ya existe un usuario para el trabajador seleccionado, por favor elija otro.",
+                            icon: Ext.Msg.ERROR,
+                            botones: Ext.Msg.OK
+                        });
+                    }
                 },
-                failure: function (model, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
+                failurer: function (response, opts) {
+                    Ext.Msg.alert('Status', response.status);
                 }
             });
+
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
