@@ -56,6 +56,7 @@ public class AlmuerzoDAO implements IAlmuerzoDAO {
         reverse.addResult("ISNULL(A.REFRIGERIO,1) REFRIGERIO");
         reverse.addResult("ISNULL(A.EN_COMEDOR,1) EN_COMEDOR");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
+        reverse.addResult("ISNULL(A.COSTO,0) COSTO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.setFilters(filters);
@@ -87,6 +88,8 @@ public class AlmuerzoDAO implements IAlmuerzoDAO {
         reverse.addResult("ISNULL(A.REFRIGERIO,1) REFRIGERIO");
         reverse.addResult("ISNULL(A.EN_COMEDOR,1) EN_COMEDOR");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
+        reverse.addResult("ISNULL(A.COSTO,0) COSTO");
+        reverse.addResult("A.COSTO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
         reverse.setFilters(filters);

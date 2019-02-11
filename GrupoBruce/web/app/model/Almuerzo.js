@@ -9,7 +9,8 @@ Ext.define('GrupoBruce.model.Almuerzo', {
         {name: 'idTrabajador', type: 'string'},
         {name: 'procesado', type: 'boolean'},
         {name: 'refrigerio', type: 'boolean'},
-        {name: 'trabajador', type: 'string'}
+        {name: 'trabajador', type: 'string'},
+        {name: 'costo', type: 'float'}
     ],
     proxy: {
         type: 'ajax',

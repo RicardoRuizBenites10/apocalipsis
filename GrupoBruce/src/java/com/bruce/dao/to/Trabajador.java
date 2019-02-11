@@ -32,7 +32,7 @@ public class Trabajador implements java.io.Serializable {
     private int nroHijos;
     private String referencia;
     private String codigo;
-    private double montoBase;
+    private double haberBasico;
     private Double montoPasaje;
     private String nrocuentaSueldo;
     private String nrocuentaCts;
@@ -64,7 +64,7 @@ public class Trabajador implements java.io.Serializable {
     public Trabajador() {
     }
 
-    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String codigo, double montoBase, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal) {
+    public Trabajador(String idTrabajador, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String codigo, double haberBasico, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal) {
         this.idTrabajador = idTrabajador;
         this.apPaterno = apPaterno;
         this.apMaterno = apMaterno;
@@ -74,7 +74,7 @@ public class Trabajador implements java.io.Serializable {
         this.telefono = telefono;
         this.nroHijos = nroHijos;
         this.codigo = codigo;
-        this.montoBase = montoBase;
+        this.haberBasico = haberBasico;
         this.idNacionalidad = idNacionalidad;
         this.idTdocumento = idTdocumento;
         this.idGenero = idGenero;
@@ -87,7 +87,7 @@ public class Trabajador implements java.io.Serializable {
         this.idSucursal = idSucursal;
     }
 
-    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, String codigo, double montoBase, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, Date ultimaAlta, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
+    public Trabajador(String idTrabajador, String foto, String apPaterno, String apMaterno, String nombres, Date nacimiento, String direccion, String telefono, int nroHijos, String referencia, String codigo, double haberBasico, Double montoPasaje, String nrocuentaSueldo, String nrocuentaCts, String nrocusppAfiliacion, Date ultimaAlta, int idNacionalidad, String idTdocumento, int idGenero, int idEcivil, int idTtrabajador, int idEtrabajador, int idFpago, int idPeriocidad, String idEmpresa, String idSucursal, String idEfSueldo, String idEfCts, String idRpensionario, Integer idComisionrp) {
         this.idTrabajador = idTrabajador;
         this.foto = foto;
         this.apPaterno = apPaterno;
@@ -99,7 +99,7 @@ public class Trabajador implements java.io.Serializable {
         this.nroHijos = nroHijos;
         this.referencia = referencia;
         this.codigo = codigo;
-        this.montoBase = montoBase;
+        this.haberBasico = haberBasico;
         this.montoPasaje = montoPasaje;
         this.nrocuentaSueldo = nrocuentaSueldo;
         this.nrocuentaCts = nrocuentaCts;
@@ -240,13 +240,13 @@ public class Trabajador implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    @Column(name = "MONTO_BASE", nullable = false, precision = 53, scale = 0)
-    public double getMontoBase() {
-        return this.montoBase;
+    @Column(name = "HABER_BASICO", nullable = false, precision = 53, scale = 0)
+    public double getHaberBasico() {
+        return this.haberBasico;
     }
 
-    public void setMontoBase(double montoBase) {
-        this.montoBase = montoBase;
+    public void setHaberBasico(double haberBasico) {
+        this.haberBasico = haberBasico;
     }
 
     @Column(name = "MONTO_PASAJE", precision = 53, scale = 0)

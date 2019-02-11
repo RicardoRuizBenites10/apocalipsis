@@ -90,7 +90,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             dao2.create(new Situacion(newContrato.getIdTrabajador(), idSLast + 1, newContrato.getFechaInicio(), newContrato.getIdContrato(), true));
             trabajador.setUltimaAlta(newContrato.getFechaInicio());
         }
-        trabajador.setMontoBase(newContrato.getMontoContrato());
+        trabajador.setHaberBasico(newContrato.getMontoContrato());
         dao3.update(trabajador);
 
     }

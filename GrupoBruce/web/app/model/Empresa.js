@@ -1,20 +1,22 @@
 Ext.define('GrupoBruce.model.Empresa', {
     extend: 'Ext.data.Model',
     alias: 'model.Mempresa',
-    
+
     idProperty: 'idEmpresa',
     fields: [
-        { name: 'descripcion', type: 'string' },
-        { name: 'ruc', type: 'string' },
-        { name: 'idEmpresa', type: 'string' },
-        { name: 'logo', type: 'string' },
-        { name: 'situacion', type: 'boolean' }
+        {name: 'descripcion', type: 'string'},
+        {name: 'ruc', type: 'string'},
+        {name: 'idEmpresa', type: 'string'},
+        {name: 'logo', type: 'string'},
+        {name: 'situacion', type: 'boolean'},
+        {name: 'basico', type: 'float'},
+        {name: 'costoMenu', type: 'float'}
     ],
-    
+
     identifier: {
         type: 'sequential'
     },
-    
+
     proxy: {
         type: 'ajax',
         api: {

@@ -30,6 +30,7 @@ public class Almuerzo implements java.io.Serializable {
     private boolean refrigerio;
     private boolean enComedor;
     private boolean procesado;
+    private float costo;
     
     private String trabajador;
 
@@ -83,6 +84,15 @@ public class Almuerzo implements java.io.Serializable {
     public void setProcesado(boolean procesado) {
         this.procesado = procesado;
     }
+    
+    @Column(name = "COSTO", nullable = false)
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
+    }
 
     @Generated(GenerationTime.NEVER)
     @Column(name = "TRABAJADOR", insertable = false, updatable = false)
@@ -92,10 +102,5 @@ public class Almuerzo implements java.io.Serializable {
 
     public void setTrabajador(String trabajador) {
         this.trabajador = trabajador;
-    }
-
-    @Override
-    public String toString() {
-        return "Almuerzo{" + "idTrabajador=" + idTrabajador + ", fecha=" + fecha + ", refrigerio=" + refrigerio + ", enComedor=" + enComedor + ", procesado=" + procesado + ", trabajador=" + trabajador + '}';
     }
 }

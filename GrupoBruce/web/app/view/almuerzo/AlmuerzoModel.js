@@ -18,6 +18,10 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoModel', {
                     operator: 'fecha',
                     value: '{desde}'
                 }]
+        },
+        empresas: {
+            type: 'Sempresa',
+            autoLoad: true
         }
     },
     

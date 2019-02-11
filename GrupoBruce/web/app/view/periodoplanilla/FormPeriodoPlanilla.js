@@ -58,7 +58,7 @@ Ext.define('GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla', {
                             xtype: 'numberfield',
                             name: 'diasPeriodo',
                             hideTrigger: true,
-                            editable: false,
+                            editable: true,
                             fieldLabel: 'Días perido',
                             minValue: 0,
                             bind: '{diasPeriodo}'

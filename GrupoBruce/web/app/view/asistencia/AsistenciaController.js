@@ -115,7 +115,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
                 horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
-                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
+                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 1 : 0);
             }
             if (horas >= 0) {
                 horas = horas - 0.25;//15min en cambiarse

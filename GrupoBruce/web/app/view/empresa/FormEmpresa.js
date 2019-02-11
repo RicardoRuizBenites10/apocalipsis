@@ -39,6 +39,18 @@ Ext.define('GrupoBruce.view.empresa.FormEmpresa', {
                             fieldLabel: 'Nombre',
                             flex: 1
                         }]
+                },{
+                    items: [{
+                            xtype: 'textfield',
+                            name: 'basico',
+                            fieldLabel: 'Sueldo básico',
+                            flex: 1
+                        },{
+                            xtype: 'textfield',
+                            name: 'costoMenu',
+                            fieldLabel: 'Menu trabajador',
+                            flex: 1
+                        }]
                 }],
             buttons: [{
                     text: 'Cancelar',

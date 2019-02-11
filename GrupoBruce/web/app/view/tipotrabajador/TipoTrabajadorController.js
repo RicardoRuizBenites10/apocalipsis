@@ -29,9 +29,12 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var chkrpensionario = this.lookupReference('chk_rpensionario'), chkctacts = this.lookupReference('chk_ctacts');
+            var chkrpensionario = this.lookupReference('chk_rpensionario'), 
+                    chkctacts = this.lookupReference('chk_ctacts'),
+                    chkdiario = this.lookupReference('chk_jornaldiario');
             model.set('hasrpensionario', chkrpensionario.checked);
             model.set('hasctacts', chkctacts.checked);
+            model.set('jornalDiario', chkdiario.checked);
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();

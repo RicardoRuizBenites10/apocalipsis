@@ -350,7 +350,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                     hideTrigger: true,
                                                     editable: false,
                                                     minValue: 0,
-                                                    name: 'montoBase',
+                                                    name: 'haberBasico',
                                                     fieldLabel: 'Monto sueldo :',
                                                     flex: 1
                                                 }]

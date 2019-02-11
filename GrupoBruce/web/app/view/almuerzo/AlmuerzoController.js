@@ -69,9 +69,12 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoController', {
 
     onProcesar: function (btn) {
         var grid = btn.up('WlistAlmuerzo');
+        var panel = grid.up('panel');
+        var costo = panel.getViewModel().get('empresas').getAt(0).get('costoMenu');
         var store = grid.getStore();
         store.each(function (model) {
             model.set('procesado', true);
+            model.set('costo', costo);
         });
         store.sync({
             success: function (response, operation) {

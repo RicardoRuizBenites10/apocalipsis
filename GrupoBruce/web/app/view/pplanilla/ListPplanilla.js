@@ -1,8 +1,8 @@
-Ext.define('GrupoBruce.view.conceptoasignado.ListConceptoAsignado', {
+Ext.define('GrupoBruce.view.pplanilla.ListPplanilla',{
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistConceptoAsignado',
-    reference: 'list_conceptoAsignado',
-    id: 'id_wlistconceptoasignado',
+    alias: 'widget.WlistPplanilla',
+    reference: 'list_pplanilla',
+    id: 'id_wlistpplanilla',
 
     bind: {
         store: '{conceptosAsignado}',

@@ -52,6 +52,13 @@ Ext.define('GrupoBruce.view.tipotrabajador.FormTipoTrabajador', {
                             fieldLabel: 'CTS',
                             boxLabel: 'Si',
                             flex: 1
+                        }, {
+                            xtype: 'checkbox',
+                            reference: 'chk_jornaldiario',
+                            name: 'jornalDiario',
+                            fieldLabel: 'Jornal diario',
+                            boxLabel: 'Si',
+                            flex: 1
                         }]
                 },{
                     items: [{

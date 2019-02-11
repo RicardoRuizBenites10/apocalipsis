@@ -23,8 +23,8 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaController', {
         this.createDialog(model);
     },
 
-    deletePeriodoVacacion: function () {
-        var grid = this.lookupReference('list_periodoVacacion');
+    deletePeriodoPlanilla: function () {
+        var grid = this.lookupReference('list_periodoPlanilla');
         var periodoModel = grid.getSelection()[0];
         periodoModel.erase({
             success: function (response, operation) {
