@@ -50,7 +50,6 @@ public class ConceptoDAO implements IConceptoDAO {
     @Override
     public Concepto lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Concepto concepto = null;
         ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
         reverse.addResult("C.ID_TTRABAJADOR");
         reverse.addResult("C.ID_CONCEPTO");
@@ -75,9 +74,7 @@ public class ConceptoDAO implements IConceptoDAO {
             });
         }
         List result = query.list();
-        if (!result.isEmpty()) {
-            concepto = (Concepto) result.get(0);
-        }
+        Concepto concepto = !result.isEmpty() ? (Concepto) result.get(0) : null;
         return concepto;
     }
 

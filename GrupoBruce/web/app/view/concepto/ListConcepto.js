@@ -2,7 +2,6 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistConcepto',
     reference: 'list_concepto',
-    id: 'id_wlistconcepto',
 
     bind: {
         store: '{conceptos}',
@@ -81,6 +80,14 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto', {
                     disabled: '{!selectConcepto}'
                 },
                 handler: 'deleteConcepto'
+            }, '-', {
+                iconCls: 'x-fa fa-retweet',
+                disabled: true,
+                text: 'Orden de fórmulas',
+                bind: {
+                    disabled: '{!selectTipoTrabajador}'
+                },
+                handler: 'onConceptosTipoTrabajador'
             }]
     },
 

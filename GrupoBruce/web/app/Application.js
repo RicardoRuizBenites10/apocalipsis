@@ -51,6 +51,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Periocidad',
         'GrupoBruce.store.PeriodoPlanilla',
         'GrupoBruce.store.PeriodoVacacion',
+        'GrupoBruce.store.PlanillaTareo',
         'GrupoBruce.store.Prestamo',
         'GrupoBruce.store.PrestamoPago',
         'GrupoBruce.store.Proceso',

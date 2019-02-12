@@ -85,14 +85,6 @@ Ext.define('GrupoBruce.view.tipotrabajador.ListTipoTrabajador', {
                 },
                 handler: 'deleteTipoTrabajador'
             },'-',{
-                iconCls: 'x-fa fa-retweet',
-                disabled: true,
-                text: 'Asignar conceptos',
-                bind: {
-                    disabled: '{!selectTipoTrabajador}'
-                },
-                handler: 'onConceptosTipoTrabajador'
-            },{
                 iconCls: 'x-fa fa-calendar-o',
                 disabled: true,
                 text: 'Periodo planilla',

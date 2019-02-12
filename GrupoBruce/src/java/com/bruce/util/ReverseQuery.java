@@ -22,6 +22,7 @@ public class ReverseQuery {
     private String entidad;
     private String iniEntidad;
     private String pagination;
+    private String group;
     private List<String> resultados = new ArrayList<>();
     private Map<String, String> joins = new HashMap<>();
     private List<FilterPage> filters = new ArrayList<>();
@@ -34,10 +35,11 @@ public class ReverseQuery {
         this.from = "FROM\n";
         this.iniEntidad = iniEntidad;
         this.pagination = "";
+        this.group = "";
     }
 
     public String getQuery() {
-        String query = this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getExceptions() + getSorts() + getPagination();
+        String query = this.select + getResults() + from + this.entidad + getJoins() + getFilters() + getExceptions() + getGroup() + getSorts() + getPagination();
         return query;
     }
 
@@ -75,15 +77,17 @@ public class ReverseQuery {
     }
 
     private String getFilters() {
-        String filterString = "\n", filterBand, filterSensitive;
+        String filterString = "\n", filterBand, filterSensitive, operator;
+        boolean paramVP;
         int cont = 0;
         if (this.filters != null && !this.filters.isEmpty()) {
             filterString = filterString + "WHERE\n";
             for (FilterPage item : filters) {
                 cont++;
+                ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
+                paramVP = propiedad.size() > 1;
                 if (!item.getProperty().equalsIgnoreCase("CLAVE")) {
-                    ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
-                    filterBand = propiedad.size() > 1 ? propiedad.get(0) + "." + propiedad.get(1) : iniEntidad + "." + item.getProperty();
+                    filterBand = paramVP ? propiedad.get(0) + "." + propiedad.get(1) : iniEntidad + "." + item.getProperty();
                 } else {
                     filterBand = "DECRYPTBYPASSPHRASE('Bruces@22'," + iniEntidad + "." + item.getProperty() + ")";
                 }
@@ -91,15 +95,16 @@ public class ReverseQuery {
                 if (item.getOperator() != null) {
                     switch (item.getOperator()) {
                         case "like":
-                            filterSensitive = " LIKE :" + item.getProperty();
+                            operator = " LIKE :";
                             break;
                         default:
-                            filterSensitive = " = :" + item.getProperty();
+                            operator = " = :";
                             break;
                     }
                 } else {
-                    filterSensitive = " = :" + item.getProperty();
+                    operator = " = :";
                 }
+                filterSensitive = operator + item.getProperty();
                 if (item.isInWhere()) {
                     filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
                 }
@@ -166,6 +171,14 @@ public class ReverseQuery {
 
     private String getPagination() {
         return this.pagination;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = "GROUP BY\n" + group + "\n";
     }
 
 }

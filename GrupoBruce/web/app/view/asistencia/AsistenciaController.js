@@ -63,7 +63,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 if (item.get('procesado')) {
                     areProccess = areProccess + 1;
                 }
-                item.set('asistio', item.get('marca7') !== null);
+                item.set('asistio', stdExtra ? item.get('marca7') !== null : !stdExtra);
                 if (item.get('marca7') === null) {
                     item.set('ausencia', 4);
                 }
@@ -115,13 +115,13 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
                 horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
-                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 1 : 0);
+                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
             }
             if (horas >= 0) {
                 horas = horas - 0.25;//15min en cambiarse
-                item.set('hrsExtra', Ext.util.Format.number(horas > 0 ? horas : 0, '#.0'));
+                item.set('hrsExtra', Ext.util.Format.number(horas > 0 ? horas : 0, '#.00'));
             } else {
-                item.set('hrsDscto', Ext.util.Format.number(horas * -1, '#.0'));
+                item.set('hrsDscto', Ext.util.Format.number(horas * -1, '#.00'));
             }
         });
         this.getViewModel().set('wasCalculated', true);

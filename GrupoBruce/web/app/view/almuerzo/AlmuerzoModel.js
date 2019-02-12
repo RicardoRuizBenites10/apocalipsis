@@ -5,7 +5,8 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoModel', {
     data: {
         selectAlmuerzo: null,
         desde: new Date(),
-        pageSize: null
+        pageSize: null,
+        allRecord: false
     },
 
     stores: {

@@ -70,10 +70,6 @@ Ext.define('GrupoBruce.view.tipotrabajador.TipoTrabajadorController', {
         var window = Ext.create(view);
         window.getViewModel().set('recordTipoTrabajador', model);
     },
-
-    onConceptosTipoTrabajador: function () {
-        this.createWindow('GrupoBruce.view.conceptoasignado.ConceptoAsignado');
-    },
     
     onPPlanillaTipoTrabajador: function(){
         this.createWindow('GrupoBruce.view.periodoplanilla.PeriodoPlanilla');

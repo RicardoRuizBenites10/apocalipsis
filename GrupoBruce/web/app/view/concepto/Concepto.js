@@ -1,5 +1,5 @@
 
-Ext.define('GrupoBruce.view.concepto.Concepto',{
+Ext.define('GrupoBruce.view.concepto.Concepto', {
     extend: 'Ext.panel.Panel',
 
     requires: [
@@ -17,6 +17,7 @@ Ext.define('GrupoBruce.view.concepto.Concepto',{
     title: 'Lista de conceptos',
     items: [{
             xtype: 'WlistConcepto',
+            id: 'id_wlistconcepto',
             height: 500
-    }]
+        }]
 });

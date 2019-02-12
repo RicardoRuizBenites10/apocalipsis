@@ -77,6 +77,10 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
             }, '-', {
                 iconCls: 'x-fa fa-retweet',
                 text: 'Procesar',
+                disabled: true,
+                bind: {
+                    disabled: '{!allRecord}'
+                },
                 handler: 'onProcesar'
             }]
     },
@@ -96,7 +100,11 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
                     width: 130,
                     keyMap: {
                         ENTER: function (key, element) {
-                            Ext.getCmp('id_wlistalmuerzo').up('panel').getViewModel().set('pageSize', element.value);
+                            var grid = Ext.getCmp('id_wlistalmuerzo');
+                            var viewModel = grid.up('panel').getViewModel();
+                            var store = grid.getStore();
+                            viewModel.set('pageSize', element.value);
+                            viewModel.set('allRecord', element.value >= store.getTotalCount());
                         }
                     }
                 }]

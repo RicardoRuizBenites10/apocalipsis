@@ -1259,6 +1259,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "TipoTextra"
       }
+    },
+    "app/model/PlanillaTareo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "adelanto:float:null,devolucion:float:null,diasPeriodo:int:null,diasTrabajado:int:null,flagAfp:boolean:null,flagAsig:boolean:null,haberBasico:float:null,hextra25:float:null,hextra35:float:null,horasDesct:float:null,idPplanilla:int:null,idTrabajador:string:null,movilidad:float:null,prestamo:float:null,reintegro:float:null,trabajador:string:null",
+        "modelFileName": "PlanillaTareo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "PlanillaTareo"
+      }
     }
   }
 }

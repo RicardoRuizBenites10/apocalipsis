@@ -117,6 +117,16 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
 
     onParCerrado: function (btn) {
         this.onCalculadora(btn, ')');
+    },
+    
+    createWindow: function (view) {
+        var model = this.getViewModel().get('selectTipoTrabajador');
+        var window = Ext.create(view);
+        window.getViewModel().set('recordTipoTrabajador', model);
+    },
+
+    onConceptosTipoTrabajador: function () {
+        this.createWindow('GrupoBruce.view.conceptoasignado.ConceptoAsignado');
     }
 
 });
