@@ -36,12 +36,12 @@ public class PlanillaTareoController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
-
+        int total = serv.countByFilter(filter, query);
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Datos encontrados");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
-        map.put("total", serv.countByFilter(filter, query));
+        map.put("data", serv.getByFilter(start, total, sort, filter, query));
+        map.put("total", total);
         return map;
     }
 

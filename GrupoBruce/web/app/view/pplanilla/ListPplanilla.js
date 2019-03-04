@@ -123,6 +123,7 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                 store: '{planillasTareo}'
             },
             displayInfo: true,
+            displayMsg: 'Mostrando {0} - {2} de {2}',
             items: ['-', {
                     xtype: 'numberfield',
                     emptyText: 'Cantidad registros',
@@ -135,7 +136,6 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                             var viewModel = grid.up('panel').getViewModel();
                             var store = grid.getStore();
                             viewModel.set('pageSize', element.value);
-//                            viewModel.set('allRecord', element.value >= store.getTotalCount());
                         }
                     }
                 }]
