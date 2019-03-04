@@ -68,10 +68,10 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addResult("0 DEVOLUCION");
         reverse.addResult("CASE WHEN (SELECT COUNT(*) FROM HIJO H WHERE H.ID_TRABAJADOR=A.ID_TRABAJADOR) > 0 THEN 1 ELSE 0 END FLAG_ASIG");
         reverse.addResult("CASE WHEN T.ID_COMISIONRP IS NULL THEN 0 ELSE 1 END FLAG_AFP");
-        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "A.FECHA BETWEEN PP.INICIO AND PP.FIN");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
-        reverse.addJoin("INNER JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
+        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "PP.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PP.INICIO AND PP.FIN");
+        reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
         reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PP.DIAS_PERIODO,PP.ID_PPLANILLA");
         reverse.getLSorts().add(new SortPage("ID_TRABAJADOR", "DESC"));
@@ -114,10 +114,10 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addResult("0 DEVOLUCION");
         reverse.addResult("CASE WHEN (SELECT COUNT(*) FROM HIJO H WHERE H.ID_TRABAJADOR=A.ID_TRABAJADOR) > 0 THEN 1 ELSE 0 END FLAG_ASIG");
         reverse.addResult("CASE WHEN T.ID_COMISIONRP IS NULL THEN 0 ELSE 1 END FLAG_AFP");
-        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "A.FECHA BETWEEN PP.INICIO AND PP.FIN");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
-        reverse.addJoin("INNER JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
+        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "PP.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PP.INICIO AND PP.FIN");
+        reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
         reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PP.DIAS_PERIODO,PP.ID_PPLANILLA");
         reverse.setSorts(sorts);
@@ -136,10 +136,11 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
-        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "A.FECHA BETWEEN PP.INICIO AND PP.FIN");
+        reverse.addResult("PP.ID_PPLANILLA");
         reverse.addJoin("INNER JOIN TRABAJADOR T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
         reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
-        reverse.addJoin("INNER JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
+        reverse.addJoin("INNER JOIN PERIODO_PLANILLA PP", "PP.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PP.INICIO AND PP.FIN");
+        reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
         reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PP.DIAS_PERIODO,PP.ID_PPLANILLA");
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
@@ -149,7 +150,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
             });
         }
         List result = query.list();
-        return (int) result.get(0);
+        return result.size();
     }
 
 }

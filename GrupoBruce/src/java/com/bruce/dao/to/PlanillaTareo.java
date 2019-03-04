@@ -37,6 +37,7 @@ public class PlanillaTareo implements java.io.Serializable {
     private float devolucion;
     private float flagAsig;
     private float flagAfp;
+    private float otrosDesct;
 
     private String trabajador;
 
@@ -196,6 +197,15 @@ public class PlanillaTareo implements java.io.Serializable {
 
     public void setFlagAfp(float flagAfp) {
         this.flagAfp = flagAfp;
+    }
+
+    @Column(name = "OTROS_DESCT", nullable = false)
+    public float getOtrosDesct() {
+        return otrosDesct;
+    }
+
+    public void setOtrosDesct(float otrosDesct) {
+        this.otrosDesct = otrosDesct;
     }
 
     @Generated(GenerationTime.NEVER)

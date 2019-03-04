@@ -17,6 +17,7 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
         {name: 'idPplanilla', type: 'int'},
         {name: 'idTrabajador', type: 'string'},
         {name: 'movilidad', type: 'float'},
+        {name: 'otrosDesct', type: 'float'},
         {name: 'prestamo', type: 'float'},
         {name: 'reintegro', type: 'float'},
         {name: 'trabajador', type: 'string'}

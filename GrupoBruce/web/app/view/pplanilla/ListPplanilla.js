@@ -1,26 +1,77 @@
-Ext.define('GrupoBruce.view.pplanilla.ListPplanilla',{
+Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistPplanilla',
     reference: 'list_pplanilla',
     id: 'id_wlistpplanilla',
 
+    requires: [
+        'Ext.grid.RowNumberer'
+    ],
+
     bind: {
-        store: '{conceptosAsignado}',
+        store: '{planillasTareo}',
         selection: '{selectConceptoAsignado}'
     },
     allowDeselect: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            text: 'Código',
-            dataIndex: 'idConcepto',
-            width: 200,
+            xtype: 'rownumberer'
+        }, {
+            text: 'Trabajador',
+            dataIndex: 'trabajador',
+            width: 300,
+            align: 'left'
+        }, {
+            text: 'Haber',
+            dataIndex: 'haberBasico'
+        }, {
+            text: 'D.Periodo',
+            dataIndex: 'diasPeriodo'
+        }, {
+            text: 'D.Trabajado',
+            dataIndex: 'diasTrabajado'
+        }, {
+            text: 'H.Desct',
+            dataIndex: 'horasDesct'
+        }, {
+            text: 'Almuerzos',
+            dataIndex: 'otrosDesct'
+        }, {
+            text: 'Prestamo',
+            dataIndex: 'prestamo'
+        }, {
+            text: 'Adelanto',
+            dataIndex: 'adelanto'
+        }, {
+            text: 'H.E.25',
+            dataIndex: 'hextra25'
+        }, {
+            text: 'H.E.35',
+            dataIndex: 'hextra35'
+        }, {
+            text: 'Movilidad',
+            dataIndex: 'movilidad'
+        }, {
+            text: 'Reintegro',
+            dataIndex: 'reintegro'
+        }, {
+            text: 'Devolución',
+            dataIndex: 'devolucion'
+        }, {
+            text: 'Asignación',
+            dataIndex: 'flagAsig',
+            renderer: function (val) {
+                return val ? 'SI' : 'NO';
+            },
             align: 'center'
         }, {
-            text: 'Descripción',
-            dataIndex: 'descripcion',
-            width: 200,
-            align: 'left'
+            text: 'AFP',
+            dataIndex: 'flagAfp',
+            renderer: function (val) {
+                return val ? 'AFP' : 'ONP';
+            },
+            align: 'center'
         }],
 
     tbar: {
@@ -28,23 +79,40 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla',{
         items: [{
                 xtype: 'combobox',
                 displayField: 'descripcion',
-                valueField: 'idTipo',
+                valueField: 'idTtrabajador',
                 bind: {
-                    store: '{tiposPlanilla}',
-                    selection: '{selectTipoPlanilla}'
+                    store: '{tipostrabajador}',
+                    selection: '{selectTipoTrabajador}'
                 },
-                emptyText: 'Seleccionar tipo planilla',
-                editable: false,
-                flex: 1
+                emptyText: 'Tipo trabajador',
+                editable: false
             }, {
-                iconCls: 'x-fa fa-chevron-right',
-                iconAlign: 'right',
-                text: 'QUITAR',
+                xtype: 'combobox',
+                id: 'id_idpp',
+                displayField: 'denominacion',
+                valueField: 'idPplanilla',
+                bind: {
+                    store: '{periodosPlanilla}',
+                    selection: '{selectPeriodoPlanilla}'
+                },
+                emptyText: 'Elije periodo planilla',
+                forceSelection: true,
+                editable: false,
+                width: 210
+            },{
+                text: 'Aprobar',
+                iconCls: 'x-fa fa-check-circle-o',
                 disabled: true,
                 bind: {
-                    disabled: '{!selectConceptoAsignado}'
-                },
-                handler: 'onDesasignar'
+                    disabled: '{!allRecord}'
+                }
+            },{
+                text: 'Procesar',
+                iconCls: 'x-fa fa-retweet',
+                disabled: true,
+                bind: {
+                    disabled: '{!allRecord}'
+                }
             }]
     },
 
@@ -52,8 +120,24 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla',{
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{conceptosAsignado}'
+                store: '{planillasTareo}'
             },
-            displayInfo: true
+            displayInfo: true,
+            items: ['-', {
+                    xtype: 'numberfield',
+                    emptyText: 'Cantidad registros',
+                    hideTrigger: true,
+                    allowDecimal: false,
+                    width: 130,
+                    keyMap: {
+                        ENTER: function (key, element) {
+                            var grid = Ext.getCmp('id_wlistpplanilla');
+                            var viewModel = grid.up('panel').getViewModel();
+                            var store = grid.getStore();
+                            viewModel.set('pageSize', element.value);
+//                            viewModel.set('allRecord', element.value >= store.getTotalCount());
+                        }
+                    }
+                }]
         }]
 });

@@ -15,17 +15,18 @@ import javax.persistence.Table;
  * @author RICARDO
  */
 @Entity
-@Table(name="TIPO_PLANILLA", schema="dbo", catalog="BDBRUCE")
-public class TipoPlanilla implements java.io.Serializable{
+@Table(name = "TIPO_PLANILLA", schema = "dbo", catalog = "BDBRUCE")
+public class TipoPlanilla implements java.io.Serializable {
+
     private String idTipo;
     private String descripcion;
     private boolean situacion;
 
     public TipoPlanilla() {
     }
-    
+
     @Id
-    @Column(name="ID_TIPO",nullable = false)
+    @Column(name = "ID_TIPO", nullable = false)
     public String getIdTipo() {
         return idTipo;
     }
@@ -34,7 +35,7 @@ public class TipoPlanilla implements java.io.Serializable{
         this.idTipo = idTipo;
     }
 
-    @Column(name="DESCRIPCION",nullable = false)
+    @Column(name = "DESCRIPCION", nullable = false)
     public String getDescripcion() {
         return descripcion;
     }
@@ -43,7 +44,7 @@ public class TipoPlanilla implements java.io.Serializable{
         this.descripcion = descripcion;
     }
 
-    @Column(name="SITUACION",nullable = false)
+    @Column(name = "SITUACION", nullable = false)
     public boolean isSituacion() {
         return situacion;
     }

@@ -6,7 +6,7 @@
 package com.bruce.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class ReverseQuery {
     private String pagination;
     private String group;
     private List<String> resultados = new ArrayList<>();
-    private Map<String, String> joins = new HashMap<>();
+    private Map<String, String> joins = new LinkedHashMap<>();
     private List<FilterPage> filters = new ArrayList<>();
     private List<String> exceptions = new ArrayList<>();
     private List<SortPage> sorts = new ArrayList<>();
