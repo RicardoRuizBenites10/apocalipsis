@@ -155,9 +155,22 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar",
             items: ['-', {
+                    xtype: 'numberfield',
+                    emptyText: 'Cantidad registros',
+                    hideTrigger: true,
+                    allowDecimal: false,
+                    width: 130,
+                    keyMap: {
+                        ENTER: function (key, element) {
+                            var grid = Ext.getCmp('id_ltrabajador');
+                            var viewModel = grid.up('panel').getViewModel();
+                            console.log('dada: ' + viewModel.get('pageSize'));
+                            viewModel.set('pageSize', element.value);
+                            console.log('dada 2: ' + viewModel.get('pageSize'));
+                        }
+                    }
+                }, {
                     iconCls: 'fa fa-file-excel-o'
                 }],
             overflowHandler: 'scroller'

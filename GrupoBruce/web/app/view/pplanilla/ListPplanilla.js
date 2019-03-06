@@ -134,7 +134,6 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
 //                        ENTER: function (key, element) {
 //                            var grid = Ext.getCmp('id_wlistpplanilla');
 //                            var viewModel = grid.up('panel').getViewModel();
-//                            var store = grid.getStore();
 //                            viewModel.set('pageSize', element.value);
 //                        }
 //                    }

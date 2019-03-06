@@ -1,4 +1,3 @@
-
 Ext.define('GrupoBruce.view.pplanilla.Pplanilla',{
     extend: 'Ext.panel.Panel',
 
