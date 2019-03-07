@@ -16,7 +16,6 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     title: 'Lista de trabajadores',
-    closable: true,
 
     columns: [{
             text: 'DNI', dataIndex: 'idTrabajador',
@@ -165,9 +164,9 @@ Ext.define('GrupoBruce.view.trabajador.ListTrabajador', {
                         ENTER: function (key, element) {
                             var grid = Ext.getCmp('id_ltrabajador');
                             var viewModel = grid.up('panel').getViewModel();
-                            console.log('dada: ' + viewModel.get('pageSize'));
+                            var store = grid.getStore();
                             viewModel.set('pageSize', element.value);
-                            console.log('dada 2: ' + viewModel.get('pageSize'));
+                            store.reload();
                         }
                     }
                 }, {

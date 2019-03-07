@@ -3,18 +3,18 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
     alias: 'viewmodel.VMtrabajador',
 
     data: {
-        pageSize: 17
+        pageSize: null
     },
 
     stores: {
         trabajadors: {
             type: 'Strabajador',
             autoLoad: true,
-            pageSize: '{pageSize ? pageSize : 24}',
+            pageSize: '{pageSize ? pageSize : 25}',
             sorters: [
                 {property: 'idTrabajador', direction: 'ASC'}
-            ],
-//            listeners: {
+            ]
+//            ,listeners: {
 //                beforeload: function (store) {
 //                    store.getProxy().setExtraParams({});
 //                }
