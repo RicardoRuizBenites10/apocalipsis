@@ -4,9 +4,7 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
 
     data: {
         selectTipoTrabajador: null,
-        selectPeriodoPlanilla: null,
-        pageSize: null,
-//        allRecord: false
+        selectPeriodoPlanilla: null
     },
 
     stores: {
@@ -27,7 +25,6 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
             type: 'SplanillaTareo',
             autoLoad: true,
             loading: true,
-            pageSize: '{pageSize ? pageSize : 25}',
             filters: [{
                     property: 'PP.ID_PPLANILLA',
                     operator: 'EQ',
@@ -38,10 +35,9 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
 
     formulas: {
         allRecord: function (get) {
-            var planillas = get('planillasTareo');
-            console.log('pp: ' + get('selectPeriodoPlanilla'));
-            console.log('raro: ' + planillas.pageSize + '-' + planillas.totalCount);
-            return get('selectPeriodoPlanilla') ? planillas.pageSize >= planillas.totalCount : false;
+//            var planillas = get('planillasTareo');
+//            console.log('raro: ' + planillas.pageSize + '-' + planillas.totalCount);
+            return get('selectPeriodoPlanilla');
         }
     }
 

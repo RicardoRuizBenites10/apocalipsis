@@ -114,29 +114,5 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                     disabled: '{!allRecord}'
                 }
             }]
-    },
-
-    dockedItems: [{
-//            xtype: 'pagingtoolbar',
-//            dock: 'bottom',
-//            bind: {
-//                store: '{planillasTareo}'
-//            },
-//            displayInfo: true,
-//            displayMsg: 'Mostrando {0} - {2} de {2}',
-//            items: ['-', {
-//                    xtype: 'numberfield',
-//                    emptyText: 'Cantidad registros',
-//                    hideTrigger: true,
-//                    allowDecimal: false,
-//                    width: 130,
-//                    keyMap: {
-//                        ENTER: function (key, element) {
-//                            var grid = Ext.getCmp('id_wlistpplanilla');
-//                            var viewModel = grid.up('panel').getViewModel();
-//                            viewModel.set('pageSize', element.value);
-//                        }
-//                    }
-//                }]
-        }]
+    }
 });
