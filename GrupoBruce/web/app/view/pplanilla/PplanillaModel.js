@@ -26,7 +26,7 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
             autoLoad: true,
             loading: true,
             filters: [{
-                    property: 'PP.ID_PPLANILLA',
+                    property: 'PT.ID_PPLANILLA',
                     operator: 'EQ',
                     value: '{selectPeriodoPlanilla.idPplanilla}'
                 }]

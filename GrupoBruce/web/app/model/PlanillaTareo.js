@@ -5,9 +5,12 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
     idProperty: 'idTrabajador',
     fields: [
         {name: 'adelanto', type: 'float'},
+        {name: 'aprobado', type: 'boolean'},
         {name: 'devolucion', type: 'float'},
         {name: 'diasPeriodo', type: 'int'},
+        {name: 'diasPlame', type: 'int'},
         {name: 'diasTrabajado', type: 'int'},
+        {name: 'empRmv', type: 'float'},
         {name: 'flagAfp', type: 'boolean'},
         {name: 'flagAsig', type: 'boolean'},
         {name: 'haberBasico', type: 'float'},
@@ -19,6 +22,7 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
         {name: 'movilidad', type: 'float'},
         {name: 'otrosDesct', type: 'float'},
         {name: 'prestamo', type: 'float'},
+        {name: 'procesado', type: 'boolean'},
         {name: 'reintegro', type: 'float'},
         {name: 'trabajador', type: 'string'}
     ],

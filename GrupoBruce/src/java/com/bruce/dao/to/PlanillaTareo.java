@@ -38,6 +38,10 @@ public class PlanillaTareo implements java.io.Serializable {
     private float flagAsig;
     private float flagAfp;
     private float otrosDesct;
+    private int diasPlame;
+    private float empRmv;
+    private boolean aprobado;
+    private boolean procesado;
 
     private String trabajador;
 
@@ -206,6 +210,42 @@ public class PlanillaTareo implements java.io.Serializable {
 
     public void setOtrosDesct(float otrosDesct) {
         this.otrosDesct = otrosDesct;
+    }
+    
+    @Column(name="DIAS_PLAME", nullable = false)
+    public int getDiasPlame() {
+        return diasPlame;
+    }
+
+    public void setDiasPlame(int diasPlame) {
+        this.diasPlame = diasPlame;
+    }
+
+    @Column(name="EMP_RMV", nullable = false)
+    public float getEmpRmv() {
+        return empRmv;
+    }
+
+    public void setEmpRmv(float empRmv) {
+        this.empRmv = empRmv;
+    }
+    
+    @Column(name="APROBADO", nullable = false)
+    public boolean isAprobado() {
+        return aprobado;
+    }
+
+    public void setAprobado(boolean aprobado) {
+        this.aprobado = aprobado;
+    }
+
+    @Column(name="PROCESADO", nullable = false)
+    public boolean isProcesado() {
+        return procesado;
+    }
+
+    public void setProcesado(boolean procesado) {
+        this.procesado = procesado;
     }
 
     @Generated(GenerationTime.NEVER)

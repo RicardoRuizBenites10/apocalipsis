@@ -19,47 +19,35 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
             xtype: 'rownumberer'
         }, {
             text: 'Trabajador',
+            sortable: false,
             dataIndex: 'trabajador',
             width: 300,
             align: 'left'
-        }, {
-            text: 'Haber',
-            dataIndex: 'haberBasico'
-        }, {
-            text: 'D.Periodo',
-            dataIndex: 'diasPeriodo'
-        }, {
-            text: 'D.Trabajado',
-            dataIndex: 'diasTrabajado'
-        }, {
-            text: 'H.Desct',
-            dataIndex: 'horasDesct'
-        }, {
-            text: 'Almuerzos',
-            dataIndex: 'otrosDesct'
-        }, {
-            text: 'Prestamo',
-            dataIndex: 'prestamo'
-        }, {
-            text: 'Adelanto',
-            dataIndex: 'adelanto'
-        }, {
-            text: 'H.E.25',
-            dataIndex: 'hextra25'
-        }, {
-            text: 'H.E.35',
-            dataIndex: 'hextra35'
-        }, {
-            text: 'Movilidad',
-            dataIndex: 'movilidad'
-        }, {
-            text: 'Reintegro',
-            dataIndex: 'reintegro'
-        }, {
-            text: 'Devolución',
-            dataIndex: 'devolucion'
+        },{
+            text: 'Aprobado',
+            dataIndex: 'aprobado',
+            align: 'center',
+            renderer: function (val) {
+                if (!val) {
+                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR APROBAR </span>';
+                } else {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> APROBADO </span>';
+                }
+            }
+        },{
+            text: 'Procesado',
+            dataIndex: 'procesado',
+            align: 'center',
+            renderer: function (val) {
+                if (!val) {
+                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
+                } else {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
+                }
+            }
         }, {
             text: 'Asignación',
+            sortable: false,
             dataIndex: 'flagAsig',
             renderer: function (val) {
                 return val ? 'SI' : 'NO';
@@ -67,11 +55,70 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
             align: 'center'
         }, {
             text: 'AFP',
+            sortable: false,
             dataIndex: 'flagAfp',
             renderer: function (val) {
                 return val ? 'AFP' : 'ONP';
             },
             align: 'center'
+        }, {
+            text: 'Haber',
+            sortable: false,
+            dataIndex: 'haberBasico'
+        }, {
+            text: 'Días',
+            columns: [{
+                    text: 'Periodo',
+                    sortable: false,
+                    dataIndex: 'diasPeriodo'
+                }, {
+                    text: 'Trabajados',
+                    sortable: false,
+                    dataIndex: 'diasTrabajado'
+                }]
+        }, {
+            text: 'Horas',
+            columns: [{
+                    text: 'Extra 50%',
+                    sortable: false,
+                    dataIndex: 'hextra25'
+                }, {
+                    text: 'Extra 100%',
+                    sortable: false,
+                    dataIndex: 'hextra35'
+                }, {
+                    text: 'Descuento',
+                    sortable: false,
+                    dataIndex: 'horasDesct'
+                }]
+        }, {
+            text: 'Movilidad',
+            sortable: false,
+            dataIndex: 'movilidad'
+        }, {
+            text: 'Reintegro',
+            sortable: false,
+            dataIndex: 'reintegro'
+        }, {
+            text: 'Devolución',
+            sortable: false,
+            dataIndex: 'devolucion'
+        }, {
+            text: 'Almuerzos',
+            sortable: false,
+            dataIndex: 'otrosDesct'
+        }, {
+            text: 'Prestamo',
+            sortable: false,
+            dataIndex: 'prestamo'
+        }, {
+            text: 'Adelanto',
+            sortable: false,
+            dataIndex: 'adelanto',
+            hidden: true,
+            bind: {
+                hidden: '{selectTipoTrabajador.jornalDiario}'
+            }
         }],
 
     tbar: {
@@ -99,20 +146,22 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                 forceSelection: true,
                 editable: false,
                 width: 210
-            },{
-                text: 'Aprobar',
+            }, {
+                text: 'Aprobar datos',
                 iconCls: 'x-fa fa-check-circle-o',
                 disabled: true,
                 bind: {
                     disabled: '{!allRecord}'
-                }
-            },{
-                text: 'Procesar',
+                },
+                handler: 'onAprobar'
+            }, {
+                text: 'Procesar información',
                 iconCls: 'x-fa fa-retweet',
                 disabled: true,
                 bind: {
                     disabled: '{!allRecord}'
-                }
+                },
+                handler: 'onProcesar'
             }]
     }
 });
