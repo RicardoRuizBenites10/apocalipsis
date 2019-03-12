@@ -33,7 +33,7 @@ public class PlanillaTareoService implements IPlanillaTareoService {
 
     @Override
     @Transactional
-    public void procesarPTareo(List<PlanillaTareo> asistencias) {
+    public void procesarPTareo(List<PlanillaTareo> planillasTareo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -70,7 +70,9 @@ public class PlanillaTareoService implements IPlanillaTareoService {
         } catch (IOException ex) {
             Logger.getLogger(PlanillaTareoService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.countByFilter(filters);
+        int cc = dao.countByFilter(filters);
+        cc = cc == 0 ? dao.countByCFilter(filters) : cc;
+        return cc;
     }
 
     @Override
@@ -123,7 +125,18 @@ public class PlanillaTareoService implements IPlanillaTareoService {
         } catch (IOException ex) {
             Logger.getLogger(PlanillaTareoService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dao.getByFilter(start, limit, sorts, filters);
+        int cc = dao.countByFilter(filters);
+        return cc == 0 ? dao.getByCFilter(start, limit, sorts, filters) : dao.getByFilter(start, limit, sorts, filters);
+    }
+
+    @Override
+    @Transactional
+    public void aprobarPTareo(List<PlanillaTareo> planillasTareo) {
+        if (planillasTareo.size() > 0) {
+            planillasTareo.forEach(item -> {
+                dao.create(item);
+            });
+        }
     }
 
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PlanillaTareoController {
+
     @Autowired
     private IPlanillaTareoService serv;
 
@@ -66,9 +67,19 @@ public class PlanillaTareoController {
         map.put("message", "Actualización exitosa.");
         return map;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/uuLPlanillaTareo", method = RequestMethod.POST)
+    public Map<String, Object> apruebaPlanillaTareo(@RequestBody List<PlanillaTareo> planillasTareo) {
+        Map<String, Object> map = new HashMap<>();
+        serv.aprobarPTareo(planillasTareo);
+        map.put("success", true);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uu2LPlanillaTareo", method = RequestMethod.POST)
     public Map<String, Object> procesaPlanillaTareo(@RequestBody List<PlanillaTareo> planillaTareos) {
         Map<String, Object> map = new HashMap<>();
         serv.procesarPTareo(planillaTareos);

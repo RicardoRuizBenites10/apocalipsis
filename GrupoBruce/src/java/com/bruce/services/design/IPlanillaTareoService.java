@@ -13,5 +13,6 @@ import java.util.List;
  * @author SISTEMAS
  */
 public interface IPlanillaTareoService extends IEntidadService<PlanillaTareo>{
-    public void procesarPTareo(List<PlanillaTareo> asistencias);
+    public void aprobarPTareo(List<PlanillaTareo> planillasTareo);
+    public void procesarPTareo(List<PlanillaTareo> planillasTareo);
 }

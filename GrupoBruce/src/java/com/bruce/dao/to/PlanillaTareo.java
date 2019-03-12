@@ -22,48 +22,53 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "PLANILLA_TAREO", schema = "dbo", catalog = "BDBRUCE")
 public class PlanillaTareo implements java.io.Serializable {
 
-    private int idPplanilla;
-    private String idTrabajador;
-    private float haberBasico;
+    private float adelanto;
+    private boolean aprobado;
+    private float devolucion;
     private int diasPeriodo;
+    private int diasPlame;
     private int diasTrabajado;
-    private float horasDesct;
+    private float empRmv;
+    private boolean flagAfp;
+    private boolean flagAsig;
+    private float haberBasico;
     private float hextra25;
     private float hextra35;
-    private float adelanto;
-    private float prestamo;
+    private float horasDesct;
+    private int idPplanilla;
+    private String idTrabajador;
     private float movilidad;
-    private float reintegro;
-    private float devolucion;
-    private float flagAsig;
-    private float flagAfp;
     private float otrosDesct;
-    private int diasPlame;
-    private float empRmv;
-    private boolean aprobado;
+    private float prestamo;
     private boolean procesado;
+    private float reintegro;
 
     private String trabajador;
 
     public PlanillaTareo() {
     }
 
-    public PlanillaTareo(int idPplanilla, String idTrabajador, float haberBasico, int diasPeriodo, int diasTrabajado, float horasDesct, float hextra25, float hextra35, float adelanto, float prestamo, float movilidad, float reintegro, float devolucion, float flagAsig, float flagAfp) {
-        this.idPplanilla = idPplanilla;
-        this.idTrabajador = idTrabajador;
-        this.haberBasico = haberBasico;
+    public PlanillaTareo(float adelanto, boolean aprobado, float devolucion, int diasPeriodo, int diasPlame, int diasTrabajado, float empRmv, boolean flagAfp, boolean flagAsig, float haberBasico, float hextra25, float hextra35, float horasDesct, int idPplanilla, String idTrabajador, float movilidad, float otrosDesct, float prestamo, boolean procesado, float reintegro) {
+        this.adelanto = adelanto;
+        this.aprobado = aprobado;
+        this.devolucion = devolucion;
         this.diasPeriodo = diasPeriodo;
+        this.diasPlame = diasPlame;
         this.diasTrabajado = diasTrabajado;
-        this.horasDesct = horasDesct;
+        this.empRmv = empRmv;
+        this.flagAfp = flagAfp;
+        this.flagAsig = flagAsig;
+        this.haberBasico = haberBasico;
         this.hextra25 = hextra25;
         this.hextra35 = hextra35;
-        this.adelanto = adelanto;
-        this.prestamo = prestamo;
+        this.horasDesct = horasDesct;
+        this.idPplanilla = idPplanilla;
+        this.idTrabajador = idTrabajador;
         this.movilidad = movilidad;
+        this.otrosDesct = otrosDesct;
+        this.prestamo = prestamo;
+        this.procesado = procesado;
         this.reintegro = reintegro;
-        this.devolucion = devolucion;
-        this.flagAsig = flagAsig;
-        this.flagAfp = flagAfp;
     }
 
     @Id
@@ -186,20 +191,20 @@ public class PlanillaTareo implements java.io.Serializable {
     }
 
     @Column(name = "FLAG_ASIG", nullable = false)
-    public float getFlagAsig() {
+    public boolean getFlagAsig() {
         return flagAsig;
     }
 
-    public void setFlagAsig(float flagAsig) {
+    public void setFlagAsig(boolean flagAsig) {
         this.flagAsig = flagAsig;
     }
 
     @Column(name = "FLAG_AFP", nullable = false)
-    public float getFlagAfp() {
+    public boolean getFlagAfp() {
         return flagAfp;
     }
 
-    public void setFlagAfp(float flagAfp) {
+    public void setFlagAfp(boolean flagAfp) {
         this.flagAfp = flagAfp;
     }
 
@@ -249,7 +254,7 @@ public class PlanillaTareo implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name = "TRABAJADOR", nullable = false)
+    @Column(name = "TRABAJADOR", insertable = false, updatable = false)
     public String getTrabajador() {
         return trabajador;
     }

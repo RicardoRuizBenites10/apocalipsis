@@ -31,10 +31,10 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiplanillaTareo',
+            create: 'iiPlanillaTareo',
             read: 'planillasTareo',
-            update: 'uuplanillaTareo',
-            destroy: 'ddplanillaTareo'
+            update: 'uuLPlanillaTareo',
+            destroy: 'ddpPlanillaTareo'
         },
         reader: {
             type: 'json',

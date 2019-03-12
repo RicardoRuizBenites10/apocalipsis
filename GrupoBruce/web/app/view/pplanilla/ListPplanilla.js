@@ -23,7 +23,7 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
             dataIndex: 'trabajador',
             width: 300,
             align: 'left'
-        },{
+        }, {
             text: 'Aprobado',
             dataIndex: 'aprobado',
             align: 'center',
@@ -34,7 +34,86 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> APROBADO </span>';
                 }
             }
-        },{
+        }, {
+            text: 'Haber',
+            sortable: false,
+            dataIndex: 'haberBasico'
+        }, {
+            text: 'DATOS PARA INGRESO',
+            columns: [{
+                    text: 'Días',
+                    columns: [{
+                            text: 'Periodo',
+                            sortable: false,
+                            dataIndex: 'diasPeriodo'
+                        }, {
+                            text: 'Trabajados',
+                            sortable: false,
+                            dataIndex: 'diasTrabajado'
+                        }]
+                }, {
+                    text: 'Horas',
+                    columns: [{
+                            text: 'Extra 50%',
+                            sortable: false,
+                            dataIndex: 'hextra25'
+                        }, {
+                            text: 'Extra 100%',
+                            sortable: false,
+                            dataIndex: 'hextra35'
+                        }]
+                }, {
+                    text: 'Movilidad',
+                    sortable: false,
+                    dataIndex: 'movilidad'
+                }, {
+                    text: 'Reintegro',
+                    sortable: false,
+                    dataIndex: 'reintegro'
+                }, {
+                    text: 'Asignación',
+                    sortable: false,
+                    dataIndex: 'flagAsig',
+                    renderer: function (val) {
+                        return val ? 'SI' : 'NO';
+                    },
+                    align: 'center'
+                }]
+        }, {
+            text: 'DATOS PARA DESCUENTO',
+            columns: [{
+                    text: 'Horas',
+                    columns: [{
+                            text: 'Descuento',
+                            sortable: false,
+                            dataIndex: 'horasDesct'
+                        }]
+                }, {
+                    text: 'Almuerzos',
+                    sortable: false,
+                    dataIndex: 'otrosDesct'
+                }, {
+                    text: 'Prestamo',
+                    sortable: false,
+                    dataIndex: 'prestamo'
+                }, {
+                    text: 'Adelanto',
+                    sortable: false,
+                    dataIndex: 'adelanto',
+                    hidden: true,
+                    bind: {
+                        hidden: '{selectTipoTrabajador.jornalDiario}'
+                    }
+                }, {
+                    text: 'AFP',
+                    sortable: false,
+                    dataIndex: 'flagAfp',
+                    renderer: function (val) {
+                        return val ? 'AFP' : 'ONP';
+                    },
+                    align: 'center'
+                }]
+        }, {
             text: 'Procesado',
             dataIndex: 'procesado',
             align: 'center',
@@ -44,80 +123,6 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                 } else {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
                 }
-            }
-        }, {
-            text: 'Asignación',
-            sortable: false,
-            dataIndex: 'flagAsig',
-            renderer: function (val) {
-                return val ? 'SI' : 'NO';
-            },
-            align: 'center'
-        }, {
-            text: 'AFP',
-            sortable: false,
-            dataIndex: 'flagAfp',
-            renderer: function (val) {
-                return val ? 'AFP' : 'ONP';
-            },
-            align: 'center'
-        }, {
-            text: 'Haber',
-            sortable: false,
-            dataIndex: 'haberBasico'
-        }, {
-            text: 'Días',
-            columns: [{
-                    text: 'Periodo',
-                    sortable: false,
-                    dataIndex: 'diasPeriodo'
-                }, {
-                    text: 'Trabajados',
-                    sortable: false,
-                    dataIndex: 'diasTrabajado'
-                }]
-        }, {
-            text: 'Horas',
-            columns: [{
-                    text: 'Extra 50%',
-                    sortable: false,
-                    dataIndex: 'hextra25'
-                }, {
-                    text: 'Extra 100%',
-                    sortable: false,
-                    dataIndex: 'hextra35'
-                }, {
-                    text: 'Descuento',
-                    sortable: false,
-                    dataIndex: 'horasDesct'
-                }]
-        }, {
-            text: 'Movilidad',
-            sortable: false,
-            dataIndex: 'movilidad'
-        }, {
-            text: 'Reintegro',
-            sortable: false,
-            dataIndex: 'reintegro'
-        }, {
-            text: 'Devolución',
-            sortable: false,
-            dataIndex: 'devolucion'
-        }, {
-            text: 'Almuerzos',
-            sortable: false,
-            dataIndex: 'otrosDesct'
-        }, {
-            text: 'Prestamo',
-            sortable: false,
-            dataIndex: 'prestamo'
-        }, {
-            text: 'Adelanto',
-            sortable: false,
-            dataIndex: 'adelanto',
-            hidden: true,
-            bind: {
-                hidden: '{selectTipoTrabajador.jornalDiario}'
             }
         }],
 
