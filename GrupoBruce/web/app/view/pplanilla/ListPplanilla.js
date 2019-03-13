@@ -7,6 +7,11 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
     requires: [
         'Ext.grid.RowNumberer'
     ],
+    plugins: [{
+            ptype: 'rowediting',
+            clicksToMoveEditor: 1,
+            autoCancel: false
+        }],
 
     bind: {
         store: '{planillasTareo}',
@@ -69,7 +74,14 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                 }, {
                     text: 'Reintegro',
                     sortable: false,
-                    dataIndex: 'reintegro'
+                    dataIndex: 'reintegro',
+                    xtype: 'numbercolumn',
+                    editor: {
+                        xtype: 'numberfield',
+                        allowBlank: false,
+                        hideTrigger: true,
+                        minValue: 0
+                    }
                 }, {
                     text: 'Asignación',
                     sortable: false,

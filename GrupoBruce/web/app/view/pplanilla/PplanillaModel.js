@@ -12,6 +12,15 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
             type: 'StipoTrabajador',
             autoLoad: true
         },
+        conceptos: {
+            type: 'Sconcepto',
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_TTRABAJADOR',
+                    operator: 'EQ',
+                    value: '{selectTipoTrabajador.idTtrabajador}'
+                }]
+        },
         periodosPlanilla: {
             type: 'SperiodoPlanilla',
             autoLoad: true,

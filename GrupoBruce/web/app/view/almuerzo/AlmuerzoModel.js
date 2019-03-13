@@ -12,6 +12,7 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoModel', {
     stores: {
         almuerzos: {
             type: 'Salmuerzo',
+            loading: true,
             autoLoad: true,
             pageSize: '{pageSize ? pageSize : 25}',
             filters: [{
@@ -31,6 +32,10 @@ Ext.define('GrupoBruce.view.almuerzo.AlmuerzoModel', {
             var selection = get('selectAlmuerzo');
             var allow = selection ? selection.get('procesado') : !selection;
             return allow;
+        },
+        allRecord: function(get){
+            var almuerzos = get('almuerzos');
+            return almuerzos.totalCount > 0;
         }
     }
 

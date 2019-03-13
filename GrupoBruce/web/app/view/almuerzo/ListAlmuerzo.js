@@ -83,30 +83,5 @@ Ext.define('GrupoBruce.view.almuerzo.ListAlmuerzo', {
                 },
                 handler: 'onProcesar'
             }]
-    },
-
-    dockedItems: [{
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            bind: {
-                store: '{almuerzos}'
-            },
-            displayInfo: true,
-            items: ['-', {
-                    xtype: 'numberfield',
-                    emptyText: 'Cantidad registros',
-                    hideTrigger: true,
-                    allowDecimal: false,
-                    width: 130,
-                    keyMap: {
-                        ENTER: function (key, element) {
-                            var grid = Ext.getCmp('id_wlistalmuerzo');
-                            var viewModel = grid.up('panel').getViewModel();
-                            var store = grid.getStore();
-                            viewModel.set('pageSize', element.value);
-                            viewModel.set('allRecord', element.value >= store.getTotalCount());
-                        }
-                    }
-                }]
-        }]
+    }
 });

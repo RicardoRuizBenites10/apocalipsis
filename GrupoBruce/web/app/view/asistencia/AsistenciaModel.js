@@ -5,7 +5,6 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
     data: {
         selectAsistencia: null,
         desde: new Date(),
-        pageSize: null,
         allRecord: false,
         wasCalculated: false
     },
@@ -31,8 +30,8 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
         },
         asistencias: {
             type: 'Sasistencia',
+            loading: true,
             autoLoad: true,
-            pageSize: '{pageSize ? pageSize : 25}',
             filters: [{
                     property: 'FECHA',
                     operator: 'eq',
@@ -49,6 +48,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
             var selection = get('selectAsistencia');
             var allow = selection ? selection.get('procesado') : !selection;
             return allow;
+        },
+        allRecord: function (get) {
+            var asistencias = get('asistencias');
+            return asistencias.totalCount > 0;
         }
     }
 

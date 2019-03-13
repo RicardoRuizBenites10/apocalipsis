@@ -53,7 +53,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var areProccess = 0;
         if (!wasCalculated) {
             Ext.MessageBox.show({
-                title: 'Error de procesamiento',
+                title: 'Error',
                 msg: 'No se a hecho el cálculo previo.',
                 buttons: Ext.Msg.OK,
                 icon: Ext.Msg.ERROR

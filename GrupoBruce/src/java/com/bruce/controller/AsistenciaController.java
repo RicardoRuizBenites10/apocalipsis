@@ -37,12 +37,12 @@ public class AsistenciaController {
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
-
+        int total = sct.countByFilter(filter, query);
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Datos encontrados");
-        map.put("data", sct.getByFilter(start, limit, sort, filter, query));
-        map.put("total", sct.countByFilter(filter, query));
+        map.put("data", sct.getByFilter(start, total, sort, filter, query));
+        map.put("total", total);
         return map;
     }
 
