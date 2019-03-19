@@ -4,7 +4,8 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
 
     data: {
         selectTipoTrabajador: null,
-        selectPeriodoPlanilla: null
+        selectPeriodoPlanilla: null,
+        tipoPlanilla: '01'
     },
 
     stores: {
@@ -13,12 +14,16 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
             autoLoad: true
         },
         conceptos: {
-            type: 'Sconcepto',
+            type: 'SconceptoAsignado',
             autoLoad: true,
             filters: [{
                     property: 'ID_TTRABAJADOR',
                     operator: 'EQ',
                     value: '{selectTipoTrabajador.idTtrabajador}'
+                }, {
+                    property: 'ID_TPLANILLA',
+                    operator: 'EQ',
+                    value: '{tipoPlanilla}'
                 }]
         },
         periodosPlanilla: {

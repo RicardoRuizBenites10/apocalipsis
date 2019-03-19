@@ -32,6 +32,7 @@ public class ConceptoAsignado implements java.io.Serializable {
     private int orden;
 
     private String descripcion;
+    private String formula;
 
     public ConceptoAsignado() {
     }
@@ -93,6 +94,16 @@ public class ConceptoAsignado implements java.io.Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "FORMULA", insertable = false, updatable = false)
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
     }
 
 }

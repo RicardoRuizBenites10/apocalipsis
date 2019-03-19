@@ -6,6 +6,7 @@ Ext.define('GrupoBruce.model.ConceptoAsignado', {
     fields: [
         {name: 'descripcion', type: 'string'},
         {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'formula', type: 'string'},
         {name: 'idTplanilla', type: 'string'},
         {name: 'idConcepto', type: 'string'},
         {name: 'idTtrabajador', type: 'int'},

@@ -57,6 +57,7 @@ public class ConceptoAsignadoDAO implements IConceptoAsignadoDAO {
         reverse.addResult("CA.ID_CONCEPTO");
         reverse.addResult("CA.FECHA");
         reverse.addResult("CA.ORDEN");
+        reverse.addResult("C.FORMULA FORMULA");
         reverse.addResult("C.DESCRIPCION DESCRIPCION");
         reverse.addJoin("INNER JOIN CONCEPTO C", "C.ID_CONCEPTO=CA.ID_CONCEPTO");
         reverse.setFilters(filters);
@@ -90,6 +91,7 @@ public class ConceptoAsignadoDAO implements IConceptoAsignadoDAO {
         reverse.addResult("CA.ID_CONCEPTO");
         reverse.addResult("CA.FECHA");
         reverse.addResult("CA.ORDEN");
+        reverse.addResult("C.FORMULA FORMULA");
         reverse.addResult("C.DESCRIPCION DESCRIPCION");
         reverse.addJoin("INNER JOIN CONCEPTO C", "C.ID_CONCEPTO=CA.ID_CONCEPTO");
         reverse.setFilters(filters);
