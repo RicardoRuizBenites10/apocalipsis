@@ -40,6 +40,17 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                 }
             }
         }, {
+            text: 'Procesado',
+            dataIndex: 'procesado',
+            align: 'center',
+            renderer: function (val) {
+                if (!val) {
+                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
+                } else {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
+                }
+            }
+        }, {
             text: 'Haber',
             sortable: false,
             dataIndex: 'haberBasico'
@@ -125,17 +136,6 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                     },
                     align: 'center'
                 }]
-        }, {
-            text: 'Procesado',
-            dataIndex: 'procesado',
-            align: 'center',
-            renderer: function (val) {
-                if (!val) {
-                    return '<span style="background:#566573;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> POR PROCESAR </span>';
-                } else {
-                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> PROCESADO </span>';
-                }
-            }
         }],
 
     tbar: {

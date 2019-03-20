@@ -34,7 +34,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
 
     @Override
     public void update(PlanillaTareo t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

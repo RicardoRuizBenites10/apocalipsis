@@ -38,21 +38,24 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
 
     onProcesar: function (btn) {
         var grid = btn.up('WlistPplanilla');
-        var store = grid.getStore();
-        var storeConceptos = this.getViewModel().get('conceptos');
+        var storePtareo = grid.getStore();
+        var storeCAsignados = this.getViewModel().get('conceptos');
         var tipoTrabajador = this.getViewModel().get('selectTipoTrabajador');
-        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100,
-                MOVILIDAD, REINTEGRO, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO,
-                OTROS_DESCT, PENSION, FLAG_AFP, FLAG_ASIG_FAM;
-        var xpro = true, numCon = 0;
-        store.each(function (item) {
+        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100, MOVILIDAD, REINTEGRO, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO, OTROS_DESCT, PENSION, FLAG_AFP, FLAG_ASIG_FAM;
+        var xpro = true;
+
+        var storePlanilla = Ext.create('GrupoBruce.store.Planilla');
+        var periodoPlanilla = this.getViewModel().get('selectPeriodoPlanilla');
+        var planilla;
+
+        storePtareo.each(function (item) {
             if (item.get('procesado')) {
                 xpro = false;
             }
+            item.set('procesado', true);
         });
         if (xpro) {
-            store.each(function (item) {
-
+            storePtareo.each(function (item) {
                 ADELANTO = item.get('adelanto');
                 DEVOLUCION = item.get('devolucion');
                 PRP_DIAS_PER = item.get('diasPeriodo');
@@ -70,33 +73,45 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                 OTROS_DESCT = item.get('otrosDesct');
                 PRESTAMO = item.get('prestamo');
                 REINTEGRO = item.get('reintegro');
-
                 PENSION = tipoTrabajador.get('pension') / 100;
-                var dodo = this;
-                storeConceptos.each(function (concepto) {
-                    numCon = numCon + 1;
-////                    var define = 'if(!' + concepto.get('idConcepto') + '){ var ' + concepto.get('idConcepto') + ' = ' + eval(concepto.get("formula")) + ';}';
-////                    eval(define);
-////                    console.log('dada : ' + eval('F_JORNAL_BASICO'));
-//////                    var evalua = 'console.log("' + concepto.get('idConcepto') + ' :" + ' + concepto.get("formula") + ' );';
-//////                    eval(evalua);
-//////                    console.log('Concepto ' + numCon + ' | ' + concepto.get('idConcepto') + ': ' + eval(concepto.get('idConcepto')));
-                    var define;
-                    if (numCon < 5) {
-                        define = "if(!dodo.numero" + numCon + "){  dodo.numero" + numCon + "=" + numCon * 5 + ";}";
-                    } else {
-                        define = "if(!dodo.numero" + numCon + "){  dodo.numero" + numCon + "=" + (numCon * 5 + this.numero1 + this.numero2) + ";}";
-                    }
-                    console.log('Dentro y antes de eval Número: ' + numCon);
-                    eval(define);
-                    console.log('Dentro y despues de eval :' + dodo.numero1);
-                }, dodo);
-                console.log('Fuera de each: ' + dodo.numero5);
+
+                storeCAsignados.each(function (concepto) {
+                    eval(concepto.get('idConcepto') + ' = ' + eval(concepto.get("formula")) + ';');
+                    planilla = new GrupoBruce.model.Planilla();
+                    planilla.set('idTrabajador', item.get('idTrabajador'));
+                    planilla.set('idPplanilla', periodoPlanilla.get('idPplanilla'));
+                    planilla.set('idTtrabajador', concepto.get('idTtrabajador'));
+                    planilla.set('idTplanilla', concepto.get('idTplanilla'));
+                    planilla.set('idConcepto', concepto.get('idConcepto'));
+                    planilla.set('descripcion', concepto.get('descripcion'));
+                    planilla.set('importe', eval(concepto.get('idConcepto')));
+                    planilla.set('fecha', new Date());
+                    storePlanilla.add(planilla);
+                });
+
+            });
+            storePlanilla.sync({
+                success: function (response, operation) {
+                    storePtareo.sync({
+                        success: function (response, operation) {
+                            grid.getStore().reload();
+                            Ext.Msg.alert('Success', 'Operación exitosa.');
+                        },
+                        failure: function (response, operation) {
+                            Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                        }
+                    });
+//                    grid.getStore().reload();
+//                    Ext.Msg.alert('Success', 'Operación exitosa.');
+                },
+                failure: function (response, operation) {
+                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                }
             });
         } else {
             Ext.MessageBox.show({
                 title: 'Error',
-                msg: 'Los datos ya estan aprobados.',
+                msg: 'Los datos ya estan procesados.',
                 buttons: Ext.Msg.OK,
                 icon: Ext.Msg.ERROR
             });
