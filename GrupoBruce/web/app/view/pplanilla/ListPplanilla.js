@@ -128,11 +128,11 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                         hidden: '{selectTipoTrabajador.jornalDiario}'
                     }
                 }, {
-                    text: 'AFP',
+                    text: 'Regimen',
                     sortable: false,
-                    dataIndex: 'flagAfp',
+                    dataIndex: 'rpregimen',
                     renderer: function (val) {
-                        return val ? 'AFP' : 'ONP';
+                        return val === '' ? 'Ninguno' : (val === '02' ? 'ONP' : 'AFP');
                     },
                     align: 'center'
                 }]

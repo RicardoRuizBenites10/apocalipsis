@@ -29,7 +29,6 @@ public class PlanillaTareo implements java.io.Serializable {
     private int diasPlame;
     private int diasTrabajado;
     private float empRmv;
-    private boolean flagAfp;
     private boolean flagAsig;
     private float haberBasico;
     private float hextra25;
@@ -42,13 +41,15 @@ public class PlanillaTareo implements java.io.Serializable {
     private float prestamo;
     private boolean procesado;
     private float reintegro;
+    private int rpcomision;
+    private String rpregimen;
 
     private String trabajador;
 
     public PlanillaTareo() {
     }
 
-    public PlanillaTareo(float adelanto, boolean aprobado, float devolucion, int diasPeriodo, int diasPlame, int diasTrabajado, float empRmv, boolean flagAfp, boolean flagAsig, float haberBasico, float hextra25, float hextra35, float horasDesct, int idPplanilla, String idTrabajador, float movilidad, float otrosDesct, float prestamo, boolean procesado, float reintegro) {
+    public PlanillaTareo(float adelanto, boolean aprobado, float devolucion, int diasPeriodo, int diasPlame, int diasTrabajado, float empRmv, boolean flagAsig, float haberBasico, float hextra25, float hextra35, float horasDesct, int idPplanilla, String idTrabajador, float movilidad, float otrosDesct, float prestamo, boolean procesado, float reintegro, int rpcomision, String rpregimen, String trabajador) {
         this.adelanto = adelanto;
         this.aprobado = aprobado;
         this.devolucion = devolucion;
@@ -56,7 +57,6 @@ public class PlanillaTareo implements java.io.Serializable {
         this.diasPlame = diasPlame;
         this.diasTrabajado = diasTrabajado;
         this.empRmv = empRmv;
-        this.flagAfp = flagAfp;
         this.flagAsig = flagAsig;
         this.haberBasico = haberBasico;
         this.hextra25 = hextra25;
@@ -69,6 +69,9 @@ public class PlanillaTareo implements java.io.Serializable {
         this.prestamo = prestamo;
         this.procesado = procesado;
         this.reintegro = reintegro;
+        this.rpcomision = rpcomision;
+        this.rpregimen = rpregimen;
+        this.trabajador = trabajador;
     }
 
     @Id
@@ -199,15 +202,6 @@ public class PlanillaTareo implements java.io.Serializable {
         this.flagAsig = flagAsig;
     }
 
-    @Column(name = "FLAG_AFP", nullable = false)
-    public boolean getFlagAfp() {
-        return flagAfp;
-    }
-
-    public void setFlagAfp(boolean flagAfp) {
-        this.flagAfp = flagAfp;
-    }
-
     @Column(name = "OTROS_DESCT", nullable = false)
     public float getOtrosDesct() {
         return otrosDesct;
@@ -251,6 +245,24 @@ public class PlanillaTareo implements java.io.Serializable {
 
     public void setProcesado(boolean procesado) {
         this.procesado = procesado;
+    }
+
+    @Column(name="RPCOMISION", nullable = false)
+    public int getRpcomision() {
+        return rpcomision;
+    }
+
+    public void setRpcomision(int rpcomision) {
+        this.rpcomision = rpcomision;
+    }
+
+    @Column(name="RPREGIMEN", nullable = false)
+    public String getRpregimen() {
+        return rpregimen;
+    }
+
+    public void setRpregimen(String rpregimen) {
+        this.rpregimen = rpregimen;
     }
 
     @Generated(GenerationTime.NEVER)

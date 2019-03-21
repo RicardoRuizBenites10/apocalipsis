@@ -11,7 +11,6 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
         {name: 'diasPlame', type: 'int'},
         {name: 'diasTrabajado', type: 'int'},
         {name: 'empRmv', type: 'float'},
-        {name: 'flagAfp', type: 'boolean'},
         {name: 'flagAsig', type: 'boolean'},
         {name: 'haberBasico', type: 'float'},
         {name: 'hextra25', type: 'float'},
@@ -24,6 +23,8 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
         {name: 'prestamo', type: 'float'},
         {name: 'procesado', type: 'boolean'},
         {name: 'reintegro', type: 'float'},
+        {name: 'rpcomision', type: 'int'},
+        {name: 'rpregimen', type: 'string'},
         {name: 'trabajador', type: 'string'}
     ],
 

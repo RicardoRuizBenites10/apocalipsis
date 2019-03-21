@@ -39,13 +39,16 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
     onProcesar: function (btn) {
         var grid = btn.up('WlistPplanilla');
         var storePtareo = grid.getStore();
-        var storeCAsignados = this.getViewModel().get('conceptos');
-        var tipoTrabajador = this.getViewModel().get('selectTipoTrabajador');
-        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100, MOVILIDAD, REINTEGRO, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO, OTROS_DESCT, PENSION, FLAG_AFP, FLAG_ASIG_FAM;
+        var viewmodel = this.getViewModel();
+        var storeCAsignados = viewmodel.get('conceptosAsignado');
+        var tipoTrabajador = viewmodel.get('selectTipoTrabajador');
+        var periodoPlanilla = viewmodel.get('selectPeriodoPlanilla');
+        var storeComisionrp = viewmodel.get('comisionsrp');
+
+        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100, MOVILIDAD, REINTEGRO, RPREGIMEN, RPCOMISION, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO, OTROS_DESCT, RP_PENSION, RP_SEGURO, RP_COMISION, RP_FONDO, FLAG_ASIG_FAM;
         var xpro = true;
 
         var storePlanilla = Ext.create('GrupoBruce.store.Planilla');
-        var periodoPlanilla = this.getViewModel().get('selectPeriodoPlanilla');
         var planilla;
 
         storePtareo.each(function (item) {
@@ -62,7 +65,6 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                 DIAS_PLAME = item.get('diasPlame');
                 PRP_DIAS_TRAB = item.get('diasTrabajado');
                 EMP_RMV = item.get('empRmv');
-                FLAG_AFP = item.get('flagAfp');
                 FLAG_ASIG_FAM = item.get('flagAsig');
                 HABER_BASICO = item.get('haberBasico');
                 NUM_H_EXTRA25 = item.get('hextra25');
@@ -73,7 +75,14 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                 OTROS_DESCT = item.get('otrosDesct');
                 PRESTAMO = item.get('prestamo');
                 REINTEGRO = item.get('reintegro');
-                PENSION = tipoTrabajador.get('pension') / 100;
+                RPREGIMEN = item.get('rpregimen');
+                RPCOMISION = item.get('rpcomision');
+
+                var comision = storeComisionrp.findRecord('idComisionrp', RPCOMISION);
+                RP_PENSION = RPREGIMEN === '' ? 0 : (RPCOMISION === 0 ? tipoTrabajador.get('pension') / 100 : 0); // tipoTrabajador.get('pension') / 100;
+                RP_FONDO = RPREGIMEN === '' ? 0 : (RPCOMISION !== 0 ? comision.get('fondo') / 100 : 0);
+                RP_SEGURO = RPREGIMEN === '' ? 0 : (RPCOMISION !== 0 ? comision.get('seguro') / 100 : 0);
+                RP_COMISION = RPREGIMEN === '' ? 0 : (RPCOMISION !== 0 ? comision.get('comision') / 100 : 0);
 
                 storeCAsignados.each(function (concepto) {
                     eval(concepto.get('idConcepto') + ' = ' + eval(concepto.get("formula")) + ';');
@@ -101,8 +110,6 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                             Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
                         }
                     });
-//                    grid.getStore().reload();
-//                    Ext.Msg.alert('Success', 'Operación exitosa.');
                 },
                 failure: function (response, operation) {
                     Ext.Msg.alert('Error', 'No se termino con éxito la operación.');

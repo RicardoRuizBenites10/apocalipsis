@@ -13,7 +13,11 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaModel', {
             type: 'StipoTrabajador',
             autoLoad: true
         },
-        conceptos: {
+        comisionsrp: {
+            type: 'Scomisionrp',
+            autoLoad: true
+        },
+        conceptosAsignado: {
             type: 'SconceptoAsignado',
             autoLoad: true,
             filters: [{
