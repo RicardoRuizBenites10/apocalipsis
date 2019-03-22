@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class PlanillaService implements IPlanillaService{
-    
+public class PlanillaService implements IPlanillaService {
+
     @Autowired
     private IPlanillaDAO dao;
-    
+
     @Override
     @Transactional
     public void procesarPlanilla(List<Planilla> planillas) {
@@ -129,5 +129,11 @@ public class PlanillaService implements IPlanillaService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
+    @Override
+    @Transactional
+    public byte[] reportCuadroPlanilla(int idPplanilla) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

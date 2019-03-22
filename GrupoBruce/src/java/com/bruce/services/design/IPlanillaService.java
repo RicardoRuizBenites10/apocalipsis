@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface IPlanillaService extends IEntidadService<Planilla>{
     public void procesarPlanilla(List<Planilla> planillas);
+    public byte[] reportCuadroPlanilla(int idPplanilla);
 }

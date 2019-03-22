@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpplanilla" language="groovy" pageWidth="396" pageHeight="651" columnWidth="356" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67f44aff-f7d2-48a8-bdf6-3d53846f1924">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="42"/>
+	<parameter name="IDPPLANILLA" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+	E.DESCRIPCION EMP_NOMBRE,
+	E.RUC EMP_RUC,
+	S.DIRECCION EMP_DIRECCION,
+	T.AP_PATERNO + ' ' + T.AP_MATERNO + ' ' + T.NOMBRES NOMBRES,
+	T.ID_TRABAJADOR DOCUMENTO,
+	T.HABER_BASICO HABER,
+	T.ULTIMA_ALTA FCHA_INGRESO,
+	TT.DESCRIPCION TIP_TRABAJADOR,
+	RP.DESCRIPCION REGPENSIONARIO,
+	PT.PRP_DIAS_TRAB DIAS_TRAB,
+	PT.NUM_H_EXT25 HEXT25,
+	PT.NUM_H_EXT35 HEXT35,
+	TC.ID_TIPO TIP_CONCEPTOID,
+	TC.DESCRIPCION TIP_CONCEPTO,
+	C.ID_CONCEPTO IDCONCEPTO,
+	C.COD_PDT CONCEPTO_PDT,
+	C.DESCRIPCION CONCEPTO_DESCRIPCION,
+	P.IMPORTE
+FROM PLANILLA P
+INNER JOIN PLANILLA_TAREO PT ON PT.ID_PPLANILLA=P.ID_PPLANILLA AND PT.ID_TRABAJADOR=P.ID_TRABAJADOR
+INNER JOIN TRABAJADOR T ON T.ID_TRABAJADOR=P.ID_TRABAJADOR
+INNER JOIN EMPRESA E ON E.ID_EMPRESA=T.ID_EMPRESA
+INNER JOIN SUCURSAL S ON S.ID_EMPRESA=T.ID_EMPRESA AND S.ID_SUCURSAL=T.ID_SUCURSAL
+INNER JOIN TIPO_TRABAJADOR TT ON TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR
+INNER JOIN REGIMEN_PENSIONARIO RP ON RP.ID_RPENSIONARIO=T.ID_RPENSIONARIO
+INNER JOIN CONCEPTO_ASIGNADO CA ON CA.ID_TTRABAJADOR=P.ID_TTRABAJADOR AND CA.ID_TPLANILLA=P.ID_TPLANILLA AND CA.ID_CONCEPTO=P.ID_CONCEPTO
+INNER JOIN CONCEPTO C ON C.ID_CONCEPTO=P.ID_CONCEPTO
+INNER JOIN TIPO_CONCEPTO TC ON TC.ID_TIPO=C.ID_TCONCEPTO
+WHERE TC.ID_TIPO != '05' AND P.IMPORTE > 0 AND P.ID_PPLANILLA=$P{IDPPLANILLA}
+ORDER BY T.ID_TRABAJADOR, TC.ID_TIPO, CA.ORDEN ASC]]>
+	</queryString>
+	<field name="EMP_NOMBRE" class="java.lang.String"/>
+	<field name="EMP_RUC" class="java.lang.String"/>
+	<field name="EMP_DIRECCION" class="java.lang.String"/>
+	<field name="NOMBRES" class="java.lang.String"/>
+	<field name="DOCUMENTO" class="java.lang.String"/>
+	<field name="HABER" class="java.lang.Double"/>
+	<field name="FCHA_INGRESO" class="java.sql.Date"/>
+	<field name="TIP_TRABAJADOR" class="java.lang.String"/>
+	<field name="REGPENSIONARIO" class="java.lang.String"/>
+	<field name="DIAS_TRAB" class="java.lang.Integer"/>
+	<field name="HEXT25" class="java.math.BigDecimal"/>
+	<field name="HEXT35" class="java.math.BigDecimal"/>
+	<field name="TIP_CONCEPTOID" class="java.lang.String"/>
+	<field name="TIP_CONCEPTO" class="java.lang.String"/>
+	<field name="IDCONCEPTO" class="java.lang.String"/>
+	<field name="CONCEPTO_PDT" class="java.lang.String"/>
+	<field name="CONCEPTO_DESCRIPCION" class="java.lang.String"/>
+	<field name="IMPORTE" class="java.math.BigDecimal"/>
+	<variable name="INGRESO" class="java.math.BigDecimal" resetType="Group" resetGroup="TRABAJADOR" calculation="Sum">
+		<variableExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "ingreso" ) == 0 ? $F{IMPORTE} : 0]]></variableExpression>
+	</variable>
+	<variable name="DESCUENTO" class="java.math.BigDecimal" resetType="Group" resetGroup="TRABAJADOR" calculation="Sum">
+		<variableExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "descuento" ) == 0 ? $F{IMPORTE} : 0]]></variableExpression>
+	</variable>
+	<variable name="APORTES" class="java.math.BigDecimal" resetType="Group" resetGroup="TRABAJADOR" calculation="Sum">
+		<variableExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "aportación empleador" ) == 0 ? $F{IMPORTE} : 0]]></variableExpression>
+	</variable>
+	<variable name="NETO" class="java.math.BigDecimal" resetType="Group" resetGroup="TRABAJADOR" calculation="Sum">
+		<variableExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "ingreso" ) == 0 ? $F{IMPORTE} : ($F{TIP_CONCEPTO}.compareToIgnoreCase( "descuento" ) == 0 ? $F{IMPORTE}*(-1) : $F{IMPORTE} * 0)]]></variableExpression>
+	</variable>
+	<group name="TRABAJADOR">
+		<groupExpression><![CDATA[$F{DOCUMENTO}]]></groupExpression>
+		<groupHeader>
+			<band height="100">
+				<staticText>
+					<reportElement x="0" y="2" width="186" height="14" uuid="e39d94d3-992c-4c9c-b6ca-31dc2115becf"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[DATOS DEL TRABAJADOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="28" width="87" height="12" uuid="c0db3cd3-3a52-4fd0-a961-bf16a827dcc2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[T. TRABAJADOR	:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="50" width="87" height="12" uuid="b3ae9a22-0391-471d-b9d1-b24fd4a96076"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REMUN. BASICA	:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="17" width="134" height="12" uuid="f3080e33-5ce6-48fb-bc1d-109c2e7f506e"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRES}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="86" y="28" width="105" height="12" uuid="aea78949-6b6a-4c89-b80b-9e1d07181d44"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIP_TRABAJADOR}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="86" y="50" width="105" height="12" uuid="ffb204d0-da53-4b91-b0a4-64025c6b1c45"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{HABER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="202" y="28" width="46" height="12" uuid="6f010d78-ff5e-4f8c-a47a-5cfb97bb0fcb"/>
+					<textElement verticalAlignment="Middle" markup="none">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DNI	:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="202" y="39" width="46" height="12" uuid="dabe16f1-8b47-4fd6-a740-f22c6a92d704"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AFP	:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="202" y="50" width="46" height="12" uuid="1275fcc6-61c1-4fb1-8d14-1fa4a2f8d8e2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CUSPP	:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="250" y="28" width="79" height="12" uuid="cac66010-c996-464e-be55-86568f370973"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DOCUMENTO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="250" y="39" width="79" height="12" uuid="c4fda07d-e56d-42bd-b572-e61fddc80dde"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{REGPENSIONARIO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="39" width="87" height="12" uuid="dacf96ea-ecb6-4ccc-a803-05af7f5544b2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIAS TRABAJADO	:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="86" y="39" width="100" height="12" uuid="45dadc36-c9b8-41a1-be3c-e427d6dc092a"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DIAS_TRAB}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="17" width="87" height="12" uuid="dc7a4a44-5fd3-4158-b53b-6c8b79ac2b49"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOMBRES	:]]></text>
+				</staticText>
+				<elementGroup>
+					<rectangle>
+						<reportElement x="3" y="84" width="347" height="16" uuid="16063f7a-ac59-432f-be16-f8474ecdaebe"/>
+					</rectangle>
+				</elementGroup>
+				<staticText>
+					<reportElement x="175" y="84" width="49" height="16" uuid="3558ba57-8ac1-46b7-b3fc-5585700a58f6"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INGRESO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="17" y="84" width="146" height="16" uuid="1fdc72c2-39ae-4318-96d7-e109b29b1253"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONCEPTOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="84" width="49" height="16" uuid="c4c6d1ac-53dd-4f50-b4ac-6bb37ae17719"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[APORTES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="235" y="84" width="58" height="16" uuid="cb1d271d-dc65-403f-b490-09cbd949c09a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DESCUENTOS]]></text>
+				</staticText>
+				<line>
+					<reportElement x="169" y="84" width="1" height="16" uuid="0e4cb1fc-4370-400e-9f51-21e704a94b32"/>
+				</line>
+				<line>
+					<reportElement x="230" y="84" width="1" height="16" uuid="18d85e7d-dc06-438b-9981-796021e0474c"/>
+				</line>
+				<line>
+					<reportElement x="298" y="84" width="1" height="16" uuid="4d83032d-1311-4eff-8cea-580eb2ec53ef"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="82">
+				<staticText>
+					<reportElement x="53" y="66" width="100" height="16" uuid="95885c62-c06a-4c6c-964e-e951b69adadd"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[EMPLEADOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="221" y="66" width="100" height="16" uuid="83c11961-e40e-41a5-95b6-72138114c18b"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[TRABAJADOR]]></text>
+				</staticText>
+				<break>
+					<reportElement x="0" y="81" width="100" height="1" uuid="7968932a-5a86-4b5a-8eb0-43ba400e64f3"/>
+				</break>
+				<elementGroup>
+					<elementGroup/>
+				</elementGroup>
+				<textField pattern="S/ #,##0.00">
+					<reportElement x="231" y="3" width="54" height="12" uuid="ab71f652-6eea-487c-ac91-0923b3444aa3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{DESCUENTO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="S/ #,##0.00">
+					<reportElement x="170" y="3" width="60" height="12" uuid="3f8dbad7-80fe-4b2c-ad71-95c8c824fc24"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{INGRESO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="S/ #,##0.00">
+					<reportElement x="294" y="3" width="49" height="12" uuid="e02b9ae0-fe65-40a6-a842-1cf324c3803a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{APORTES}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="129" y="18" width="62" height="12" uuid="a5d77041-767a-4a2a-bf28-f3b8a790a0cb"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NETO A PAGAR]]></text>
+				</staticText>
+				<textField pattern="S/ #,##0.00">
+					<reportElement x="202" y="18" width="83" height="12" uuid="167ff032-5790-4bad-b329-ec9929ed0e70"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{NETO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="TIPO CONCEPTO">
+		<groupExpression><![CDATA[$F{TIP_CONCEPTO}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<textField>
+					<reportElement x="3" y="2" width="184" height="16" uuid="bb6775c4-9d6e-41a7-8dfd-7aa263eca016"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIP_CONCEPTO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="CONCEPTO">
+		<groupExpression><![CDATA[$F{IDCONCEPTO}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField>
+					<reportElement x="3" y="0" width="31" height="12" uuid="ac51c344-41f8-4cef-b000-70f2f837d814"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CONCEPTO_PDT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="34" y="0" width="135" height="12" uuid="95210aed-9fc0-4b33-b236-c5f57d9bce78"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CONCEPTO_DESCRIPCION}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="177" y="0" width="53" height="12" uuid="a9fa5dd7-e3f2-4255-b66d-8f2cfb08c2a5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "ingreso" ) == 0 ? $F{IMPORTE} : ""]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="294" y="0" width="49" height="12" uuid="e12b7e44-a264-4aa8-805c-7c15586fa6bf"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "aportación empleador" ) == 0 ? $F{IMPORTE} : ""]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="236" y="0" width="49" height="12" uuid="eab0d4a3-f191-461a-a48e-89aab5154ae0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIP_CONCEPTO}.compareToIgnoreCase( "descuento" ) == 0 ? $F{IMPORTE} : ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<pageHeader>
+		<band height="124">
+			<staticText>
+				<reportElement x="0" y="71" width="186" height="14" uuid="ae9f30e4-e2c6-4a95-90d5-67fa67eba2c2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="88" width="87" height="12" uuid="890a7299-f064-4303-9f65-0cfb343b5b0c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph firstLineIndent="1"/>
+				</textElement>
+				<text><![CDATA[RAZON SOCIAL	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="99" width="87" height="12" uuid="3b23797b-11f0-4da1-897d-ca01d7e03d8e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="87" height="12" uuid="5d637bb5-5df9-4fd3-92fb-a1877223f285"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN	:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="88" width="147" height="12" uuid="40a04b5e-bbc8-4b2b-8d2d-e0fe35f64f9f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="99" width="100" height="12" uuid="264ce12d-3e48-43ff-8b81-5908255bd4b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_RUC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="110" width="259" height="12" uuid="2560f838-b2d4-44b9-9da2-7de4b7ad3774"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_DIRECCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="27" width="242" height="16" uuid="07041df1-9e20-4a4d-b248-6a9a1e928614"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BOLETAS DE PAGO DEL TRABAJADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="45" width="141" height="16" uuid="a4fd9deb-ae25-429a-a327-70d4e5e8e997"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPLEADOS Y OBREROS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="2" width="232" height="16" uuid="8781ac0c-4867-4299-9987-5788870322bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

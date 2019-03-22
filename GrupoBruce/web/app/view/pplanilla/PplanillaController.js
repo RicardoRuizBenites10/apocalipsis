@@ -123,6 +123,24 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                 icon: Ext.Msg.ERROR
             });
         }
-    }
+    },
 
+    onPrintCuadro: function (btn) {
+        var viewmodel = this.getViewModel();
+        var periodo = viewmodel.get('selectPeriodoPlanilla');
+        Ext.Ajax.request({
+            url: 'RCplanilla',
+            params: {
+                idPplanilla: periodo.get('idPplanilla')
+            },
+            method: 'GET',
+            scope: this,
+            success: function (response, opts) {
+
+            },
+            failurer: function (response, opts) {
+                Ext.Msg.alert('Status', response.status);
+            }
+        });
+    }
 });

@@ -179,6 +179,14 @@ Ext.define('GrupoBruce.view.pplanilla.ListPplanilla', {
                     disabled: '{!allRecord}'
                 },
                 handler: 'onProcesar'
+            }, {
+                text: 'Cuadro de remuneración',
+                iconCls: 'x-fa fa-print',
+                disabled: true,
+                bind: {
+                    disabled: '{!allRecord}'
+                },
+                handler: 'onPrintCuadro'
             }]
     }
 });

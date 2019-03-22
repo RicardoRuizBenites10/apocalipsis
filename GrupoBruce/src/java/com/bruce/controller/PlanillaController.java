@@ -94,4 +94,15 @@ public class PlanillaController {
         map.put("message", msg);
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/RCplanilla", method = RequestMethod.GET)
+    public Map<String, Object> reportCuadroPlanilla(
+            @RequestParam("idPplanilla") int idPplanilla) {
+        Map<String, Object> map = new HashMap<>();
+        serv.reportCuadroPlanilla(idPplanilla);
+        map.put("success", true);
+        map.put("message", "Lista de planilla");
+        return map;
+    }
 }
