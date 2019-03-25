@@ -130,11 +130,12 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
         var periodo = viewmodel.get('selectPeriodoPlanilla');
         Ext.Ajax.request({
             url: 'RCplanilla',
+            method: 'GET',
+//            isUpload: true,
+            scope: this,
             params: {
                 idPplanilla: periodo.get('idPplanilla')
             },
-            method: 'GET',
-            scope: this,
             success: function (response, opts) {
 
             },

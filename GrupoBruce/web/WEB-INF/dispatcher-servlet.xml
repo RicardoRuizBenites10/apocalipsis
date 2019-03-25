@@ -23,7 +23,8 @@
     <!-- viewResolver -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:suffix=".html" />
+          p:suffix=".html" 
+          p:order="1"/>
     
     <mvc:annotation-driven />
     <mvc:resources mapping="/**" location="/"/><!-- Para que acepte el mapeo a -->
@@ -57,5 +58,18 @@
     </bean>
     
     <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- Jasper Report -->
+    <bean id="jasperViewResolver" 
+          class="org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver">
+        <property name="prefix" value="classpath:/" />
+        <property name="suffix" value=".jasper" />
+        <property name="viewNames" value="rpt_*" />
+        <property name="jdbcDataSource" ref="myDS" />
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView</value>
+        </property>
+        <property name="order" value="0" />
+    </bean>
     
 </beans>

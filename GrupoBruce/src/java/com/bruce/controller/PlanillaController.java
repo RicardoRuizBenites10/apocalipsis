@@ -10,13 +10,16 @@ import com.bruce.services.design.IPlanillaService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
@@ -94,15 +97,27 @@ public class PlanillaController {
         map.put("message", msg);
         return map;
     }
-    
-    @ResponseBody
+
     @RequestMapping(value = "/RCplanilla", method = RequestMethod.GET)
-    public Map<String, Object> reportCuadroPlanilla(
+    public ModelAndView reportCuadroPlanilla(
+            ModelMap modelMap, ModelAndView modelAndView, HttpServletResponse response,
             @RequestParam("idPplanilla") int idPplanilla) {
-        Map<String, Object> map = new HashMap<>();
-        serv.reportCuadroPlanilla(idPplanilla);
-        map.put("success", true);
-        map.put("message", "Lista de planilla");
-        return map;
+
+        response.setContentType("application/x-pdf");
+        response.setHeader("Content-disposition", "inline; filename=helloWorldReport.pdf");
+
+//        Map<String, Object> parametros = new HashMap<>();
+//        parametros.put("idPplanilla", idPplanilla);
+//
+//        modelMap.put("parameters", parametros);
+//        modelMap.put("format", "pdf");
+//        modelAndView = new ModelAndView("rpt_pplanilla", modelMap);
+
+//        Map<String, Object> map = new HashMap<>();
+//        serv.reportCuadroPlanilla(idPplanilla);
+//        map.put("success", true);
+//        map.put("message", "Lista de planilla");
+        return modelAndView;
     }
+
 }
