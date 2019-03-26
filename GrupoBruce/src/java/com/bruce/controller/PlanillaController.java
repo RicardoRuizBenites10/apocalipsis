@@ -103,15 +103,15 @@ public class PlanillaController {
             ModelMap modelMap, ModelAndView modelAndView, HttpServletResponse response,
             @RequestParam("idPplanilla") int idPplanilla) {
 
-        response.setContentType("application/x-pdf");
-        response.setHeader("Content-disposition", "inline; filename=helloWorldReport.pdf");
+//        response.setContentType("application/x-pdf");
+//        response.setHeader("Content-disposition", "inline; filename=helloWorldReport.pdf");
 
 //        Map<String, Object> parametros = new HashMap<>();
 //        parametros.put("idPplanilla", idPplanilla);
 //
 //        modelMap.put("parameters", parametros);
 //        modelMap.put("format", "pdf");
-//        modelAndView = new ModelAndView("rpt_pplanilla", modelMap);
+//        modelAndView = new ModelAndView("rpt_pplanilla.jasper", modelMap);
 
 //        Map<String, Object> map = new HashMap<>();
 //        serv.reportCuadroPlanilla(idPplanilla);

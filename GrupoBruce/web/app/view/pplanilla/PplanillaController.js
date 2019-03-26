@@ -131,7 +131,7 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
         Ext.Ajax.request({
             url: 'RCplanilla',
             method: 'GET',
-//            isUpload: true,
+            isUpload: true,
             scope: this,
             params: {
                 idPplanilla: periodo.get('idPplanilla')
