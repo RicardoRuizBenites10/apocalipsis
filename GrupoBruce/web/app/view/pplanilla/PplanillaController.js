@@ -128,8 +128,9 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
     onPrintCuadro: function (btn) {
         var viewmodel = this.getViewModel();
         var periodo = viewmodel.get('selectPeriodoPlanilla');
+        //$F{IMPORTE} : ($F{TIP_CONCEPTO}.compareToIgnoreCase( "descuento" ) == 0 ? $F{IMPORTE}*(-1) : $F{IMPORTE} * 0)
         Ext.Ajax.request({
-            url: 'RCplanilla',
+            url: 'reportCPlanilla', //'reportes/rpt_pplanilla.jasper',
             method: 'GET',
             isUpload: true,
             scope: this,

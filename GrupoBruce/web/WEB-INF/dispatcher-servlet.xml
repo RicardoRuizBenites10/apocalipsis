@@ -27,6 +27,7 @@
           p:order="1"/>
     
     <mvc:annotation-driven />
+    
     <mvc:resources mapping="/**" location="/"/><!-- Para que acepte el mapeo a -->
     
     <!-- DataSource -->
@@ -62,7 +63,7 @@
     <!-- Jasper Report -->
     <bean id="jasperViewResolver" 
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver">
-        <property name="prefix" value="classpath:/" />
+        <property name="prefix" value="/reportes/" />
         <property name="suffix" value=".jasper" />
         <property name="viewNames" value="rpt_*" />
         <property name="jdbcDataSource" ref="myDS" />
