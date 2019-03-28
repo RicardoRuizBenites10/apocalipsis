@@ -64,7 +64,7 @@
     <bean id="jasperViewResolver" 
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver">
         <property name="prefix" value="/reportes/" />
-        <property name="suffix" value=".jasper" />
+        <property name="suffix" value=".jrxml" />
         <property name="viewNames" value="rpt_*" />
         <property name="jdbcDataSource" ref="myDS" />
         <property name="viewClass">
