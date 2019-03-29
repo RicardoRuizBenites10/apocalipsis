@@ -10,6 +10,7 @@ import com.bruce.services.design.IPlanillaService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -97,17 +98,19 @@ public class PlanillaController {
         return map;
     }
 
-    @RequestMapping(value = "/reportCPlanilla", method = RequestMethod.GET)
+    @RequestMapping(value = "/reportCPlanilla", method = RequestMethod.POST)
     public ModelAndView reportCuadroPlanilla(
             ModelMap modelMap,
             ModelAndView modelAndView,
+            HttpServletResponse response,
             @RequestParam(defaultValue = "pdf", required = false) String format,
             @RequestParam("idPplanilla") int idPplanilla) {
 
         modelMap.put("IDPPLANILLA", idPplanilla);
         modelMap.put("format", format);
+        
         modelAndView = new ModelAndView("rpt_pplanilla", modelMap);
-
+        
         return modelAndView;
     }
 

@@ -128,20 +128,35 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
     onPrintCuadro: function (btn) {
         var viewmodel = this.getViewModel();
         var periodo = viewmodel.get('selectPeriodoPlanilla');
+
+//        var win = window.open('', '_blank');
+//        win.location = 'reportCPlanilla?' + 'idPplanilla=' + periodo.get('idPplanilla');
+//        win.focus();
         Ext.Ajax.request({
             url: 'reportCPlanilla',
-            method: 'GET',
+            method: 'POST',
             isUpload: true,
-            scope: this,
+            autoAbort: false,
+            headers: {
+                'Content-Disposition' : 'attachment'
+            },
             params: {
                 idPplanilla: periodo.get('idPplanilla')
             },
             success: function (response, opts) {
-
+                console.log(response);
+//                if (result.status === 204) {
+//                    Ext.Msg.alert('Empty Report', 'There is no data');
+//                } else if (result.status === 200) {
+//                    var win = window.open('', '_blank');
+//                    win.location = 'reportCPlanilla?'+ 'idPplanilla='+periodo.get('idPplanilla');
+//                    win.focus();
+//                }
             },
             failurer: function (response, opts) {
                 Ext.Msg.alert('Status', response.status);
             }
         });
+
     }
 });
