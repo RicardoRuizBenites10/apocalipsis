@@ -132,31 +132,47 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
 //        var win = window.open('', '_blank');
 //        win.location = 'reportCPlanilla?' + 'idPplanilla=' + periodo.get('idPplanilla');
 //        win.focus();
-        Ext.Ajax.request({
-            url: 'reportCPlanilla',
-            method: 'POST',
-            isUpload: true,
-            autoAbort: false,
-            headers: {
-                'Content-Disposition' : 'attachment'
-            },
-            params: {
-                idPplanilla: periodo.get('idPplanilla')
-            },
-            success: function (response, opts) {
-                console.log(response);
-//                if (result.status === 204) {
-//                    Ext.Msg.alert('Empty Report', 'There is no data');
-//                } else if (result.status === 200) {
-//                    var win = window.open('', '_blank');
-//                    win.location = 'reportCPlanilla?'+ 'idPplanilla='+periodo.get('idPplanilla');
-//                    win.focus();
-//                }
-            },
-            failurer: function (response, opts) {
-                Ext.Msg.alert('Status', response.status);
-            }
-        });
+        var mod = new Ext.Window({
+            title: 'Reporte',
+            width: 600,
+            height: 500,
+            modal: true,
+            items: [{
+                    xtype: 'component',
+                    autoEl: {
+                        tag: 'iframe',
+                        style: 'height: 100%; width: 100%; border: none',
+                        src: 'ReportCPlanilla?' + 'idPplanilla=' + periodo.get('idPplanilla')
+                    }
+                }]
+        }).show();
+
+
+//        Ext.Ajax.request({
+//            url: 'reportCPlanilla',
+//            method: 'POST',
+//            isUpload: true,
+//            autoAbort: false,
+//            headers: {
+//                'Content-Disposition' : 'attachment'
+//            },
+//            params: {
+//                idPplanilla: periodo.get('idPplanilla')
+//            },
+//            success: function (response, opts) {
+//                console.log(response);
+////                if (result.status === 204) {
+////                    Ext.Msg.alert('Empty Report', 'There is no data');
+////                } else if (result.status === 200) {
+////                    var win = window.open('', '_blank');
+////                    win.location = 'reportCPlanilla?'+ 'idPplanilla='+periodo.get('idPplanilla');
+////                    win.focus();
+////                }
+//            },
+//            failurer: function (response, opts) {
+//                Ext.Msg.alert('Status', response.status);
+//            }
+//        });
 
     }
 });

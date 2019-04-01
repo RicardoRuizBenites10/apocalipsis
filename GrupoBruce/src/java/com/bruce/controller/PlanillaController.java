@@ -98,7 +98,7 @@ public class PlanillaController {
         return map;
     }
 
-    @RequestMapping(value = "/reportCPlanilla", method = RequestMethod.POST)
+    @RequestMapping(value = "/ReportCPlanilla", method = RequestMethod.GET)
     public ModelAndView reportCuadroPlanilla(
             ModelMap modelMap,
             ModelAndView modelAndView,
