@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.AsignacionDetalle', {
     
     idProperty: 'idAdetalle',
     fields: [
-        {name: 'asignado', type: 'boolean'},
+        {name: 'asignado', type: 'boolean', defaultValue: true},
         {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'fechaAsignado', type: 'date', dateFormat: 'c'},
         {name: 'idAequipo', type: 'string'},

@@ -129,9 +129,6 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
         var viewmodel = this.getViewModel();
         var periodo = viewmodel.get('selectPeriodoPlanilla');
 
-//        var win = window.open('', '_blank');
-//        win.location = 'reportCPlanilla?' + 'idPplanilla=' + periodo.get('idPplanilla');
-//        win.focus();
         var mod = new Ext.Window({
             title: 'Reporte',
             width: 600,

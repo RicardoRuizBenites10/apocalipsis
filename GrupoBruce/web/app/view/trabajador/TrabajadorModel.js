@@ -14,11 +14,11 @@ Ext.define('GrupoBruce.view.trabajador.TrabajadorModel', {
             sorters: [
                 {property: 'idTrabajador', direction: 'ASC'}
             ]
-//            ,listeners: {
-//                beforeload: function (store) {
-//                    store.getProxy().setExtraParams({});
-//                }
-//            }
+            ,listeners: {
+                beforeload: function (store) {
+                    store.getProxy().setExtraParams({}); //elimina parametros de filtro previos
+                }
+            }
         }
     },
 
