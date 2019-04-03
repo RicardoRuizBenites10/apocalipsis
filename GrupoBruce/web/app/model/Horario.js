@@ -2,12 +2,12 @@ Ext.define('GrupoBruce.model.Horario', {
     extend: 'Ext.data.Model',
     alias: 'model.Mhorario',
 
-    idProperty: 'idHorario',
+    idProperty: 'idTurno',
     fields: [
         {name: 'horaEntrada', type: 'date', dateFormat: 'h:i A'},
         {name: 'horaSalida', type: 'date', dateFormat: 'h:i A'},
         {name: 'idDia', type: 'int'},
-        {name: 'idHorario', type: 'string'},
+        {name: 'idTurno', type: 'string'},
         {name: 'libre', type: 'boolean'},
         {name: 'refrigerio', type: 'boolean'},
         {name: 'situacion', type: 'boolean', defaultValue: true},

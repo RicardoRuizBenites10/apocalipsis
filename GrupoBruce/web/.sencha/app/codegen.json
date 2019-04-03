@@ -1283,6 +1283,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Planilla"
       }
+    },
+    "app/model/Turno.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "actual:boolean:null,descripcion:string:null,idTurno:string:null",
+        "modelFileName": "Turno",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Turno"
+      }
     }
   }
 }

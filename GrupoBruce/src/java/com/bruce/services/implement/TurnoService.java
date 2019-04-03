@@ -5,9 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IHorarioDAO;
-import com.bruce.dao.to.Horario;
-import com.bruce.services.design.IHorarioService;
+import com.bruce.dao.design.ITurnoDAO;
+import com.bruce.dao.to.Turno;
+import com.bruce.services.design.ITurnoService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,26 +26,29 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class HorarioService implements IHorarioService {
-
+public class TurnoService implements ITurnoService{
+    
     @Autowired
-    private IHorarioDAO dao;
-
+    private ITurnoDAO dao;
+    
     @Override
     @Transactional
-    public void insert(Horario t) {
+    public void insert(Turno t) {
+        Turno last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? Integer.parseInt(last.getIdTurno()) : 0;
+        t.setIdTurno(String.format("%02d", idLast + 1));
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(Horario t) {
+    public void update(Turno t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Horario t) {
+    public void delete(Turno t) {
         dao.delete(t);
     }
 
@@ -62,20 +65,20 @@ public class HorarioService implements IHorarioService {
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(HorarioService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TurnoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Horario find(Object id) {
+    public Turno find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public Horario lastByFilter(String filter, String query) {
+    public Turno lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -86,20 +89,20 @@ public class HorarioService implements IHorarioService {
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(HorarioService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TurnoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<Horario> findAll() {
+    public List<Turno> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<Horario> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<Turno> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -115,9 +118,9 @@ public class HorarioService implements IHorarioService {
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(HorarioService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TurnoService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-
+    
 }

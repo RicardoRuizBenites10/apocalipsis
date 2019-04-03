@@ -5,7 +5,6 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.controller.TrabajadorController;
 import com.bruce.dao.design.IAreaDAO;
 import com.bruce.dao.to.Area;
 import com.bruce.util.FilterPage;
@@ -31,47 +30,6 @@ public class AreaService implements IAreaService {
 
     @Autowired
     private IAreaDAO dao;
-
-    @Override
-    @Transactional
-    public List<Area> getByFilter(int start, int limit, String sort, String filter, String query) {
-        ObjectMapper mapper = new ObjectMapper();
-        List<SortPage> sorts = new ArrayList<>();
-        List<FilterPage> filters = new ArrayList<>();
-        try {
-            if (sort != null) {
-                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
-                });
-            }
-            if (filter != null) {
-                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
-                });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dao.getByFilter(start, limit, sorts, filters);
-    }
-
-    @Override
-    @Transactional
-    public int countByFilter(String filter, String query) {
-        ObjectMapper mapper = new ObjectMapper();
-        List<FilterPage> filters = new ArrayList<>();
-        try {
-            if (filter != null) {
-                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
-                });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dao.countByFilter(filters);
-    }
 
     @Override
     @Transactional
@@ -113,14 +71,26 @@ public class AreaService implements IAreaService {
 
     @Override
     @Transactional
-    public Area find(Object id) {
-        return dao.get(id);
+    public int countByFilter(String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nombre", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AreaService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<Area> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Area find(Object id) {
+        return dao.get(id);
     }
 
     @Override
@@ -135,9 +105,38 @@ public class AreaService implements IAreaService {
                 filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(TrabajadorController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AreaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
+    }
+
+    @Override
+    @Transactional
+    public List<Area> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    @Transactional
+    public List<Area> getByFilter(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nombre", "%" + query));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AreaService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dao.getByFilter(start, limit, sorts, filters);
     }
 
 }

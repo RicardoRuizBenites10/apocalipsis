@@ -17,15 +17,13 @@ Ext.define('GrupoBruce.view.ausencia.ListAusencia', {
             renderer: function (val) {
                 switch (val) {
                     case 1:
-                        return 'Vacaciones';
-                    case 2:
                         return 'Enfermedad';
-                    case 3:
+                    case 2:
                         return 'Enfermedad de familiar';
-                    case 4:
+                    case 3:
                         return 'Paternidad / Maternidad';
-                    case 5:
-                        return 'Otro';
+                    case 4:
+                        return 'Otros';
                 }
             },
             flex: 1

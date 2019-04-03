@@ -76,6 +76,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.TipoVacacion',
         'GrupoBruce.model.TipoVariable',
         'GrupoBruce.store.Trabajador',
+        'GrupoBruce.store.Turno',
         'GrupoBruce.store.Usuario',
         'Grupobruce.store.Vacacion'
     ],

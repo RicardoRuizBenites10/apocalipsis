@@ -5,15 +5,14 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IAreaDAO;
-import com.bruce.dao.to.Area;
-import java.util.List;
-import org.hibernate.SessionFactory;
+import com.bruce.dao.design.ITurnoDAO;
+import com.bruce.dao.to.Turno;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
-import java.io.Serializable;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -25,35 +24,35 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class AreaDAO implements IAreaDAO {
+public class TurnoDAO implements ITurnoDAO {
 
     @Autowired
     private SessionFactory sf;
 
     @Override
-    public void create(Area t) {
+    public void create(Turno t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Area t) {
+    public void update(Turno t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Area t) {
+    public void delete(Turno t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Area get(Object idT) {
-        return (Area) sf.getCurrentSession().get(Area.class, (Serializable) idT);
+    public Turno get(Object idT) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Area lastByFilter(List<FilterPage> filters) {
+    public Turno lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(Turno.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -66,23 +65,23 @@ public class AreaDAO implements IAreaDAO {
                 }
             });
         }
-        cr.addOrder(Order.desc("idArea"));
+        cr.addOrder(Order.desc("idTurno"));
         cr.setFirstResult(0);
 
         List result = cr.list();
-        Area area = !result.isEmpty() ? (Area) result.get(0) : null;
-        return area;
+        Turno turno = !result.isEmpty() ? (Turno) result.get(0) : null;
+        return turno;
     }
 
     @Override
-    public List<Area> getAll() {
+    public List<Turno> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Area> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Turno> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(Turno.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -101,7 +100,7 @@ public class AreaDAO implements IAreaDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(Turno.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
