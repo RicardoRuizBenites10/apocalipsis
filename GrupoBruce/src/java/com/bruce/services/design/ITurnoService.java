@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Turno;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface ITurnoService extends IEntidadService<Turno>{
-    
+    public void updateL(List<Turno> turnos);
 }

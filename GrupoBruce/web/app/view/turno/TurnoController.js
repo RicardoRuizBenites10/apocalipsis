@@ -29,6 +29,7 @@ Ext.define('GrupoBruce.view.turno.TurnoController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
+
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();
@@ -57,6 +58,37 @@ Ext.define('GrupoBruce.view.turno.TurnoController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
+    },
+
+    onSelectionChange: function (iView, iCellEl, iColIdx, iRecord, iRowEl, iRowIdx, iEvent) {
+        if (iColIdx === 4) {
+            var actual = iRecord.get('actual'), idTurno = iRecord.get('idTurno');
+            if (actual) {
+                var grid = iView.up('grid');
+                var store = grid.getStore();
+                var jsonData = [];
+
+                store.each(function (item) {
+                    if (item.get('idTurno') !== idTurno) {
+                        item.set('actual', !actual);
+                    }
+                    jsonData.push(item.data);
+                });
+                Ext.Ajax.request({
+                    url: 'uuLTurno',
+                    method: 'POST',
+                    jsonData: jsonData,
+                    success: function (response, operation) {
+                        grid.getStore().reload();
+                    },
+                    failure: function (response, operation) {
+                        Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                    }
+                });
+            } else {
+                iRecord.set('actual', true);
+            }
+        }
     },
 
     createWindow: function (view) {

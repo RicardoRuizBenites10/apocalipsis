@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Turno;
 import com.bruce.services.design.ITurnoService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,17 @@ public class TurnoController {
         serv.update(turno);
         map.put("success", true);
         map.put("data", turno);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/uuLTurno", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<Turno> turnos) {
+        Map<String, Object> map = new HashMap<>();
+        serv.updateL(turnos);
+        map.put("success", true);
+        map.put("data", turnos);
         map.put("message", "Actualización exitosa.");
         return map;
     }

@@ -5,8 +5,11 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
     createDialog: function (record) {
         var window = new GrupoBruce.view.horario.FormHorario();
         if (!record) {
+            var idTurno = this.getViewModel().get('recordTurno').get('idTurno');
             window.setTitle('Registrar horario laboral');
             record = new GrupoBruce.model.Horario();
+            record.set('idDia', '');
+            record.set('idTurno', idTurno);
         }
         window.down('form').loadRecord(record);
         window.show();
@@ -38,13 +41,13 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
     onSaveHorario: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlisthorario');
+        var grid = Ext.getCmp('id_wlisthorario'), store = grid.getStore();
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
 
-            var store = grid.getStore(), valido = true;
+            var valido = true;
             store.each(function (item) {
                 if (model.get('idDia') === item.get('idDia') && model.get('idHorario') !== item.get('idHorario')) {
                     valido = false;
@@ -52,17 +55,27 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
                 }
             });
             if (valido) {
-                var noTrabaja = this.lookupReference('chk_cerrado').checked;
-                var tomaRefrigerio = this.lookupReference('chk_refrigerio').checked;
+                var noTrabaja = this.lookupReference('chk_cerrado').checked, tomaRefrigerio = this.lookupReference('chk_refrigerio').checked;
                 model.set('libre', noTrabaja);
                 model.set('refrigerio', noTrabaja ? false : tomaRefrigerio);
-                if(noTrabaja){
+                if (noTrabaja) {
                     model.set('horaEntrada', null);
                     model.set('horaSalida', null);
                 }
                 model.save({// save the record to the server
                     success: function (model, operation) {
-                        grid.getStore().reload();
+                        var diasL = 0, minL = 0, turno = grid.up('panel').getViewModel().get('recordTurno');
+//                        store.reload();
+                        store.each(function (item) {
+                            diasL = diasL + (item.get('libre') ? 0 : 1);
+                            if (!item.get('libre')) {
+                                minL = minL + Ext.Date.diff(item.get('horaEntrada'), item.get('horaSalida'), Ext.Date.MINUTE) - (item.get('refrigerio') ? 45 : 0);
+                            }
+                            console.log(item.get('dia'));
+                        });
+                        turno.set('dlbSemana', diasL);
+                        turno.set('mlbSemana', minL);
+                        turno.save();
                         form.reset();
                         window.destroy();
                         Ext.Msg.alert('Success', 'Operación exitosa.')

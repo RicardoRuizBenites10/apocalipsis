@@ -122,5 +122,15 @@ public class TurnoService implements ITurnoService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void updateL(List<Turno> turnos) {
+        if(!turnos.isEmpty()){
+            turnos.forEach(item -> {
+                dao.update(item);
+            });
+        }
+    }
     
 }

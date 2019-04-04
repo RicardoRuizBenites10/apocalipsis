@@ -3,9 +3,11 @@ Ext.define('GrupoBruce.model.Turno', {
 
     idProperty: 'idTurno',
     fields: [
-        {name: 'actual', type: 'boolean'},
+        {name: 'actual', type: 'boolean', defaultValue: false},
+        {name: 'dlbSemana', type: 'int'},
         {name: 'descripcion', type: 'string'},
-        {name: 'idTurno', type: 'string'}
+        {name: 'idTurno', type: 'string'},
+        {name: 'mlbSemana', type: 'int'}
     ],
 
     identifier: {

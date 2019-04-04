@@ -1,6 +1,5 @@
-
 Ext.define('GrupoBruce.view.horario.Horario', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
 
     requires: [
         'GrupoBruce.view.horario.HorarioController',

@@ -15,11 +15,14 @@ import javax.persistence.Table;
  * @author SISTEMAS
  */
 @Entity
-@Table(name="TURNO", schema = "dbo", catalog="BDBRUCE")
-public class Turno implements java.io.Serializable{
+@Table(name = "TURNO", schema = "dbo", catalog = "BDBRUCE")
+public class Turno implements java.io.Serializable {
+
     private String idTurno;
     private String descripcion;
     private boolean actual;
+    private int mlbSemana;
+    private int dlbSemana;
 
     public Turno() {
     }
@@ -29,9 +32,9 @@ public class Turno implements java.io.Serializable{
         this.descripcion = descripcion;
         this.actual = actual;
     }
-    
+
     @Id
-    @Column(name="ID_TURNO", nullable = false)
+    @Column(name = "ID_TURNO", nullable = false)
     public String getIdTurno() {
         return idTurno;
     }
@@ -40,7 +43,7 @@ public class Turno implements java.io.Serializable{
         this.idTurno = idTurno;
     }
 
-    @Column(name="DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", nullable = false)
     public String getDescripcion() {
         return descripcion;
     }
@@ -49,12 +52,30 @@ public class Turno implements java.io.Serializable{
         this.descripcion = descripcion;
     }
 
-    @Column(name="ACTUAL", nullable = false)
+    @Column(name = "ACTUAL", nullable = false)
     public boolean isActual() {
         return actual;
     }
 
     public void setActual(boolean actual) {
         this.actual = actual;
+    }
+
+    @Column(name = "MLB_SEMANA", nullable = false)
+    public int getMlbSemana() {
+        return mlbSemana;
+    }
+
+    public void setMlbSemana(int mlbSemana) {
+        this.mlbSemana = mlbSemana;
+    }
+
+    @Column(name = "DLB_SEMANA", nullable = false)
+    public int getDlbSemana() {
+        return dlbSemana;
+    }
+
+    public void setDlbSemana(int dlbSemana) {
+        this.dlbSemana = dlbSemana;
     }
 }

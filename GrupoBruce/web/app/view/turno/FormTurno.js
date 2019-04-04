@@ -3,6 +3,11 @@ Ext.define('GrupoBruce.view.turno.FormTurno', {
     alias: 'widget.WformTurno',
     reference: 'form_turno',
 
+    controller: 'Cturno',
+    viewModel: {
+        type: 'VMturno'
+    },
+
     modal: true,
     closable: false,
     width: 400,
@@ -24,13 +29,6 @@ Ext.define('GrupoBruce.view.turno.FormTurno', {
                             xtype: 'textfield',
                             name: 'descripcion',
                             fieldLabel: 'Descripción',
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'checkbox',
-                            name: 'actual',
-                            boxLabel: 'Actualmente seleccionado',
                             flex: 1
                         }]
                 }],

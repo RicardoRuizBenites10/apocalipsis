@@ -1,8 +1,17 @@
-Ext.define('GrupoBruce.view.turno.ListTurno',{
+Ext.define('GrupoBruce.view.turno.ListTurno', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistTurno',
     reference: 'list_turno',
     id: 'id_wturno',
+
+    requires: [
+        'Ext.selection.CellModel'
+    ],
+
+    plugins: {
+        ptype: 'cellediting',
+        clicksToEdit: 1
+    },
 
     bind: {
         store: '{turnos}',
@@ -21,18 +30,27 @@ Ext.define('GrupoBruce.view.turno.ListTurno',{
             width: 300,
             align: 'left'
         }, {
-            text: 'Situación',
+            text: 'Labor semanal',
+            columns: [{
+                    text: 'Dias',
+                    dataIndex: 'dlbSemana',
+                    align: 'center'
+                }, {
+                    text: 'Tiempo',
+                    dataIndex: 'mlbSemana',
+                    align: 'left'
+                }]
+        }, {
+            xtype: 'checkcolumn',
             dataIndex: 'actual',
-            width: 150,
+            text: 'Activo',
             align: 'center',
-            renderer: function (val) {
-                if (val) {
-                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
-                } else {
-                    return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
-                }
-            }
+            width: 150
         }],
+
+    listeners: {
+        cellclick: 'onSelectionChange'
+    },
 
     tbar: {
         overflowHandler: 'menu',
@@ -61,9 +79,9 @@ Ext.define('GrupoBruce.view.turno.ListTurno',{
                 },
                 handler: 'deleteTurno'
             }, '-', {
-                iconCls: 'x-fa fa-building-o',
+                iconCls: 'x-fa fa-calendar-o',
                 disabled: true,
-                text: 'Sucursales',
+                text: 'Horarios',
                 bind: {
                     disabled: '{!selectTurno}'
                 },
@@ -79,5 +97,5 @@ Ext.define('GrupoBruce.view.turno.ListTurno',{
             },
             displayInfo: true
         }]
-    
+
 });

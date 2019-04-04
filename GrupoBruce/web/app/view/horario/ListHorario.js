@@ -20,7 +20,7 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
         }, {
             text: 'Dia',
             dataIndex: 'dia',
-            width: 300,
+            width: 120,
             align: 'left'
         }, {
             text: 'Situación',
