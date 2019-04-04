@@ -14,10 +14,16 @@ Ext.define('GrupoBruce.view.horario.Horario', {
     viewModel: {
         type: 'VMhorario'
     },
+    
+    resizable: false,
+    modal: true,
+    closable: true,
+    autoShow: true,
 
     title: 'Horario laboral',
     items: [{
             xtype: 'WlistHorario',
-            height: 500
+            height: 400,
+            width: 600
         }]
 });

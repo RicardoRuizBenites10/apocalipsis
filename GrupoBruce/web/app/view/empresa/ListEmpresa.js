@@ -81,9 +81,7 @@ Ext.define('GrupoBruce.view.empresa.ListEmpresa', {
             bind: {
                 store: '{empresas}'
             },
-            displayInfo: true,
-            displayMsg: 'Mostrando registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros que mostrar"
+            displayInfo: true
         }]
 
 });

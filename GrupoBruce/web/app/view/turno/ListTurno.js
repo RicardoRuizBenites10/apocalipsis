@@ -1,47 +1,28 @@
-Ext.define('GrupoBruce.view.horario.ListHorario', {
+Ext.define('GrupoBruce.view.turno.ListTurno',{
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistHorario',
-    reference: 'list_horario',
-    id: 'id_wlisthorario',
+    alias: 'widget.WlistTurno',
+    reference: 'list_turno',
+    id: 'id_wturno',
 
     bind: {
-        store: '{horarios}',
-        selection: '{selectHorario}'
+        store: '{turnos}',
+        selection: '{selectTurno}'
     },
     allowDeselect: true,
 
-    requires: [
-        'Ext.grid.RowNumberer'
-    ],
-
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            xtype: 'rownumberer'
+            text: 'Código',
+            dataIndex: 'idTurno',
+            align: 'center'
         }, {
-            text: 'Dia',
-            dataIndex: 'dia',
+            text: 'Descripción',
+            dataIndex: 'descripcion',
             width: 300,
             align: 'left'
         }, {
             text: 'Situación',
-            dataIndex: 'libre',
-            align: 'center',
-            renderer: function (value) {
-                return value ? 'Cerrado' : 'Abierto';
-            }
-        }, {
-            text: 'Entrada',
-            dataIndex: 'horaEntrada',
-            formatter: 'date("h:i A")',
-            align: 'left'
-        }, {
-            text: 'Salida',
-            dataIndex: 'horaSalida',
-            formatter: 'date("h:i A")',
-            align: 'left'
-        }, {
-            text: 'Estado',
-            dataIndex: 'situacion',
+            dataIndex: 'actual',
             width: 150,
             align: 'center',
             renderer: function (val) {
@@ -60,25 +41,33 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
                 iconCls: 'x-fa fa-plus',
                 text: 'Nuevo',
                 bind: {
-                    disabled: '{selectHorario}'
+                    disabled: '{selectTurno}'
                 },
-                handler: 'addHorario'
+                handler: 'addTurno'
             }, {
                 iconCls: 'x-fa fa-edit',
                 disabled: true,
                 text: 'Modificar',
                 bind: {
-                    disabled: '{!selectHorario}'
+                    disabled: '{!selectTurno}'
                 },
-                handler: 'editHorario'
+                handler: 'editTurno'
             }, {
                 iconCls: 'x-fa fa-trash',
                 disabled: true,
                 text: 'Eliminar',
                 bind: {
-                    disabled: '{!selectHorario}'
+                    disabled: '{!selectTurno}'
                 },
-                handler: 'deleteHorario'
+                handler: 'deleteTurno'
+            }, '-', {
+                iconCls: 'x-fa fa-building-o',
+                disabled: true,
+                text: 'Sucursales',
+                bind: {
+                    disabled: '{!selectTurno}'
+                },
+                handler: 'onHorarioTurno'
             }]
     },
 
@@ -86,8 +75,9 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{horarios}'
+                store: '{turnos}'
             },
             displayInfo: true
         }]
+    
 });
