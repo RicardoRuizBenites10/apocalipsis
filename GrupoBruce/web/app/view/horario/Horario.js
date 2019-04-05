@@ -23,6 +23,6 @@ Ext.define('GrupoBruce.view.horario.Horario', {
     items: [{
             xtype: 'WlistHorario',
             height: 400,
-            width: 600
+            width: 620
         }]
 });

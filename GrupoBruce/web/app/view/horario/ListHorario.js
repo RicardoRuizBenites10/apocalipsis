@@ -20,14 +20,21 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
         }, {
             text: 'Dia',
             dataIndex: 'dia',
-            width: 120,
+            width: 100,
             align: 'left'
         }, {
             text: 'Situación',
             dataIndex: 'libre',
             align: 'center',
             renderer: function (value) {
-                return value ? 'Cerrado' : 'Abierto';
+                return value ? 'CERRADO' : 'ABIERTO';
+            }
+        }, {
+            text: 'Refrigerio',
+            dataIndex: 'refrigerio',
+            align: 'center',
+            renderer: function (value) {
+                return value ? 'SI' : 'NO';
             }
         }, {
             text: 'Entrada',
@@ -42,7 +49,6 @@ Ext.define('GrupoBruce.view.horario.ListHorario', {
         }, {
             text: 'Estado',
             dataIndex: 'situacion',
-            width: 150,
             align: 'center',
             renderer: function (val) {
                 if (val) {

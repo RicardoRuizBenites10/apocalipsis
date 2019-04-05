@@ -63,19 +63,21 @@ Ext.define('GrupoBruce.view.horario.HorarioController', {
                     model.set('horaSalida', null);
                 }
                 model.save({// save the record to the server
-                    success: function (model, operation) {
+                    success: function (response, operation) {
                         var diasL = 0, minL = 0, turno = grid.up('panel').getViewModel().get('recordTurno');
-//                        store.reload();
+                        
+                        store.add(model);
                         store.each(function (item) {
                             diasL = diasL + (item.get('libre') ? 0 : 1);
                             if (!item.get('libre')) {
                                 minL = minL + Ext.Date.diff(item.get('horaEntrada'), item.get('horaSalida'), Ext.Date.MINUTE) - (item.get('refrigerio') ? 45 : 0);
                             }
-                            console.log(item.get('dia'));
                         });
                         turno.set('dlbSemana', diasL);
                         turno.set('mlbSemana', minL);
                         turno.save();
+                        
+                        store.reload();
                         form.reset();
                         window.destroy();
                         Ext.Msg.alert('Success', 'Operación exitosa.')

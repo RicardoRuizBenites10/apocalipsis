@@ -36,9 +36,14 @@ Ext.define('GrupoBruce.view.turno.ListTurno', {
                     dataIndex: 'dlbSemana',
                     align: 'center'
                 }, {
-                    text: 'Tiempo',
+                    text: 'Hrs | Min',
                     dataIndex: 'mlbSemana',
-                    align: 'left'
+                    sortable: false,
+                    renderer: function (value) {
+                        var h = Math.trunc(value / 60);
+                        return h + 'hrs ' + (value - h * 60) + 'min';
+                    },
+                    align: 'center'
                 }]
         }, {
             xtype: 'checkcolumn',
