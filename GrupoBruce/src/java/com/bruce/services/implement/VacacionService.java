@@ -84,7 +84,7 @@ public class VacacionService implements IVacacionService {
             cal2.setTime(currentVacacion.getFechaRetorno());
             do {
                 fechaTemp = cal.getTime();
-                serv.insert(new Asistencia(currentVacacion.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_VACACION));
+                serv.insert(new Asistencia(currentVacacion.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_VACACION, false));
                 cal.add(Calendar.DATE, +1);
             } while (cal.before(cal2));
         }

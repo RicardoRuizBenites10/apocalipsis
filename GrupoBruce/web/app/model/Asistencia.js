@@ -17,6 +17,8 @@ Ext.define('GrupoBruce.model.Asistencia', {
         {name: 'mes', type: 'int'},
         {name: 'dia', type: 'int'},
         {name: 'ausencia', type: 'int'},
+        {name: 'marca', type: 'boolean'},
+        {name: 'util', type: 'boolean'},
         {name: 'asistio', type: 'boolean'},
         {name: 'hrsDscto', type: 'float'},
         {name: 'hrsExtra', type: 'float'},

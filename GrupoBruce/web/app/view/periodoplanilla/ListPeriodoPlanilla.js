@@ -4,10 +4,6 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
     reference: 'list_periodoPlanilla',
     id: 'id_wlistperiodoplanilla',
 
-    requires: [
-        'Ext.grid.RowNumberer'
-    ],
-
     bind: {
         store: '{periodosPlanilla}',
         selection: '{selectPeriodoPlanilla}'
@@ -16,12 +12,10 @@ Ext.define('GrupoBruce.view.periodoplanilla.ListPeriodoPlanilla', {
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
-            xtype: 'rownumberer'
-        }, {
             text: 'Denominación',
             dataIndex: 'denominacion',
-            align: 'left',
-            width: 180
+            align: 'center',
+            width: 200
         }, {
             text: 'Fecha inicio',
             dataIndex: 'inicio',

@@ -35,6 +35,8 @@ public class Asistencia implements java.io.Serializable {
     private int mes;
     private int dia;
     private int ausencia;
+    private boolean marca;
+    private boolean util;
     private boolean asistio;
     private Float hrsDscto;
     private Float hrsExtra;
@@ -47,7 +49,7 @@ public class Asistencia implements java.io.Serializable {
     public Asistencia() {
     }
 
-    public Asistencia(String idTrabajador, Date fecha, String marca1, String marca7, int anio, int mes, int dia, int ausencia) {
+    public Asistencia(String idTrabajador, Date fecha, String marca1, String marca7, int anio, int mes, int dia, int ausencia, boolean marca) {
         this.idTrabajador = idTrabajador;
         this.fecha = fecha;
         this.marca1 = marca1;
@@ -56,9 +58,10 @@ public class Asistencia implements java.io.Serializable {
         this.mes = mes;
         this.dia = dia;
         this.ausencia = ausencia;
+        this.marca = marca;
     }
 
-    public Asistencia(String idTrabajador, Date fecha, String marca1, int anio, int mes, int dia, int ausencia) {
+    public Asistencia(String idTrabajador, Date fecha, String marca1, int anio, int mes, int dia, int ausencia, boolean marca) {
         this.idTrabajador = idTrabajador;
         this.fecha = fecha;
         this.marca1 = marca1;
@@ -67,6 +70,7 @@ public class Asistencia implements java.io.Serializable {
         this.mes = mes;
         this.dia = dia;
         this.ausencia = ausencia;
+        this.marca = marca;
     }
 
     @Id
@@ -197,6 +201,24 @@ public class Asistencia implements java.io.Serializable {
 
     public void setAusencia(int ausencia) {
         this.ausencia = ausencia;
+    }
+
+    @Column(name = "MARCA", nullable = false)
+    public boolean isMarca() {
+        return marca;
+    }
+
+    public void setMarca(boolean marca) {
+        this.marca = marca;
+    }
+
+    @Column(name = "UTIL")
+    public boolean isUtil() {
+        return util;
+    }
+
+    public void setUtil(boolean util) {
+        this.util = util;
     }
 
     @Column(name = "ASISTIO")

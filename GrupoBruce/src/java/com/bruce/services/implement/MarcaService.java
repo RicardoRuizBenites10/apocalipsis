@@ -136,7 +136,7 @@ public class MarcaService implements IMarcaService {
         List<FilterPage> filter = new ArrayList<>();
         Asistencia asistencia;
         Marca marca, lastM;
-        String idAsistencia;
+        String idMarca;
         int idLastM;
         for (Marca item : marcas) {
             if (daoT.get(item.getIdTrabajador()) != null) {
@@ -145,10 +145,10 @@ public class MarcaService implements IMarcaService {
                 filter.add(new FilterPage("eq", "MES", item.getMes()));
                 filter.add(new FilterPage("eq", "DIA", item.getDia()));
                 asistencia = daoA.lastByFilter(filter);
-                idAsistencia = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia());
+                idMarca = String.valueOf(item.getAnio()) + String.format("%02d", item.getMes()) + String.format("%02d", item.getDia());
                 if (asistencia == null) {
-                    daoA.create(new Asistencia(item.getIdTrabajador(), item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_ASISTIO));
-                    item.setIdMarca(idAsistencia + "01");
+                    daoA.create(new Asistencia(item.getIdTrabajador(), item.getFecha(), item.getHmarca(), item.getAnio(), item.getMes(), item.getDia(), Constante.ASISTENCIA_AUSENCIA_ASISTIO, true));
+                    item.setIdMarca(idMarca + "01");
                     dao.create(item);
                 } else {
                     filter.clear();
@@ -160,7 +160,7 @@ public class MarcaService implements IMarcaService {
                         filter.remove(0);
                         lastM = dao.lastByFilter(filter);
                         idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(8)) : 0;
-                        item.setIdMarca(idAsistencia + String.format("%02d", idLastM + 1));
+                        item.setIdMarca(idMarca + String.format("%02d", idLastM + 1));
                         dao.create(item);
                         switch (idLastM + 1) {
                             case 1:

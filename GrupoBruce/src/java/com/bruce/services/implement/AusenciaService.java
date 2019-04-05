@@ -128,7 +128,7 @@ public class AusenciaService implements IAusenciaService {
                 asistencia.setAusencia(Constante.ASISTENCIA_AUSENCIA_PERMISO);
                 dao.update(t);
             }else{
-                serv.insert(new Asistencia(t.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_PERMISO));
+                serv.insert(new Asistencia(t.getIdTrabajador(), fechaTemp, "", "", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE), Constante.ASISTENCIA_AUSENCIA_PERMISO, false));
             }
             cal.add(Calendar.DATE, +1);
         } while (cal.before(cal2));

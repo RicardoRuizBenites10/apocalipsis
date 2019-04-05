@@ -44,6 +44,8 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
         reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
         reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
+        reverse.addResult("ISNULL(A.MARCA,0) MARCA");
+        reverse.addResult("ISNULL(A.UTIL,0) UTIL");
         reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
         reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
         reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");
@@ -97,6 +99,8 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.MES,DATEPART(MONTH,GETDATE())) MES");
         reverse.addResult("ISNULL(A.DIA,DATEPART(DAY,GETDATE())) DIA");
         reverse.addResult("ISNULL(A.AUSENCIA,0) AUSENCIA");
+        reverse.addResult("ISNULL(A.MARCA,0) MARCA");
+        reverse.addResult("ISNULL(A.UTIL,0) UTIL");
         reverse.addResult("ISNULL(A.ASISTIO,0) ASISTIO");
         reverse.addResult("ISNULL(A.HRS_DSCTO,0) HRS_DSCTO");
         reverse.addResult("ISNULL(A.HRS_EXTRA,0) HRS_EXTRA");

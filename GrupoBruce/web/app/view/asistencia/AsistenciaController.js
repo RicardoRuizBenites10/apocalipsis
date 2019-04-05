@@ -45,6 +45,42 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
         var window = new GrupoBruce.view.marca.ListMarcaImport();
     },
 
+    onCalcular: function (btn) {
+        var grid = btn.up('WlistAsistencia');
+        var store = grid.getStore();
+        var viewmodel = this.getViewModel();
+        var diaEspecial = viewmodel.get('calendarios');
+        var diaHorario = viewmodel.get('horarios').getAt(0);
+        var base1, base2, marca1, marca7;
+        if (!diaHorario.get('libre') && diaEspecial.getCount() > 0) {
+            base1 = diaEspecial.getAt(0).get('horaEntrada');
+            base2 = diaEspecial.getAt(0).get('horaSalida');
+        } else {
+            base1 = diaHorario.get('horaEntrada');
+            base2 = diaHorario.get('horaSalida');
+        }
+        var horas = 0, minutosBefore, minutosAfter, difM17;
+        Ext.util.Format.decimalSeparator = '.';
+        store.each(function (item) {
+            marca1 = item.get('marca1'), marca7 = item.get('marca7');
+            if (marca1 !== null && marca7 !== null) {
+                minutosBefore = Ext.Date.diff(marca1, base1, Ext.Date.MINUTE);
+                minutosAfter = Ext.Date.diff(base2, marca7, Ext.Date.MINUTE);
+                difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
+                horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
+            } else {
+                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
+            }
+            if (horas >= 0) {
+                horas = horas - 0.25;//15min en cambiarse
+                item.set('hrsExtra', Ext.util.Format.number(horas > 0 ? horas : 0, '#.00'));
+            } else {
+                item.set('hrsDscto', Ext.util.Format.number(horas * -1, '#.00'));
+            }
+        });
+        viewmodel.set('wasCalculated', true);
+    },
+
     onProcesar: function (btn) {
         var grid = btn.up('WlistAsistencia');
         var store = grid.getStore();
@@ -90,41 +126,6 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 });
             }
         }
-    },
-
-    onCalcular: function (btn) {
-        var grid = btn.up('WlistAsistencia');
-        var store = grid.getStore();
-        var diaEspecial = this.getViewModel().get('calendarios');
-        var diaHorario = this.getViewModel().get('horarios').getAt(0);
-        var base1, base2, marca1, marca7;
-        if (diaEspecial.getCount() > 0) {
-            base1 = diaEspecial.getAt(0).get('horaEntrada');
-            base2 = diaEspecial.getAt(0).get('horaSalida');
-        } else {
-            base1 = diaHorario.get('horaEntrada');
-            base2 = diaHorario.get('horaSalida');
-        }
-        var horas = 0, minutosBefore, minutosAfter, difM17;
-        Ext.util.Format.decimalSeparator = '.';
-        store.each(function (item) {
-            marca1 = item.get('marca1'), marca7 = item.get('marca7');
-            if (marca1 !== null && marca7 !== null) {
-                minutosBefore = Ext.Date.diff(marca1, base1, Ext.Date.MINUTE);
-                minutosAfter = Ext.Date.diff(base2, marca7, Ext.Date.MINUTE);
-                difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
-                horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
-            } else {
-                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
-            }
-            if (horas >= 0) {
-                horas = horas - 0.25;//15min en cambiarse
-                item.set('hrsExtra', Ext.util.Format.number(horas > 0 ? horas : 0, '#.00'));
-            } else {
-                item.set('hrsDscto', Ext.util.Format.number(horas * -1, '#.00'));
-            }
-        });
-        this.getViewModel().set('wasCalculated', true);
     }
 
 });

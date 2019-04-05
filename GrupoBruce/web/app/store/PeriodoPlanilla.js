@@ -4,5 +4,10 @@ Ext.define('GrupoBruce.store.PeriodoPlanilla', {
     model: 'GrupoBruce.model.PeriodoPlanilla',
 
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: 'inicio',
+            direction: 'DESC'
+        }]
 });
