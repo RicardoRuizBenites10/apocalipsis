@@ -57,6 +57,7 @@ public class CalendarioDAO implements ICalendarioDAO {
         reverse.addResult("C.MES");
         reverse.addResult("C.ANIO");
         reverse.addResult("C.LIBRE");
+        reverse.addResult("C.REFRIGERIO");
         reverse.addResult("C.DESCRIPCION");
         reverse.addResult("C.HORA_ENTRADA");
         reverse.addResult("C.HORA_SALIDA");
@@ -91,6 +92,7 @@ public class CalendarioDAO implements ICalendarioDAO {
         reverse.addResult("C.MES");
         reverse.addResult("C.ANIO");
         reverse.addResult("C.LIBRE");
+        reverse.addResult("C.REFRIGERIO");
         reverse.addResult("C.DESCRIPCION");
         reverse.addResult("C.HORA_ENTRADA");
         reverse.addResult("C.HORA_SALIDA");

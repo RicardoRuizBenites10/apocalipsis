@@ -46,6 +46,16 @@ Ext.define('GrupoBruce.view.calendario.FormCalendario', {
                             reference: 'chk_cerrado',
                             boxLabel: 'Cerrado',
                             flex: 1
+                        },{
+                            xtype: 'checkbox',
+                            name: 'refrigerio',
+                            disabled: false,
+                            bind: {
+                                disabled: '{chk_cerrado.checked}'
+                            },
+                            reference: 'chk_refrigerio',
+                            boxLabel: 'Refrigerio',
+                            flex: 1
                         }]
                 }, {
                     items: [{

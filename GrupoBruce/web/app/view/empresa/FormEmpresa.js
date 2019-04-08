@@ -43,11 +43,20 @@ Ext.define('GrupoBruce.view.empresa.FormEmpresa', {
                     items: [{
                             xtype: 'textfield',
                             name: 'basico',
-                            fieldLabel: 'Sueldo básico',
+                            fieldLabel: 'Sueldo básico'
+                        }]
+                },{
+                    items: [{
+                            xtype: 'numberfield',
+                            name: 'minRefrigerio',
+                            hideTrigger: true,
+                            allowDecimal: false,
+                            fieldLabel: 'Minutos de refrigerio',
                             flex: 1
                         },{
-                            xtype: 'textfield',
+                            xtype: 'numberfield',
                             name: 'costoMenu',
+                            hideTrigger: true,
                             fieldLabel: 'Menu trabajador',
                             flex: 1
                         }]

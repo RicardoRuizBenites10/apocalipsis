@@ -52,8 +52,10 @@ Ext.define('GrupoBruce.view.calendario.CalendarioController', {
                 }
             });
             if (valido) {
-                var noTrabajaja = this.lookupReference('chk_cerrado').checked;
-                model.set('libre', noTrabajaja);
+                var noTrabaja = this.lookupReference('chk_cerrado').checked;
+                var refrigerio = noTrabaja ? false : this.lookupReference('chk_refrigerio').checked;
+                model.set('libre', noTrabaja);
+                model.set('refrigerio', refrigerio);
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         grid.getStore().reload();

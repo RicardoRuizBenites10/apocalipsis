@@ -10,7 +10,8 @@ Ext.define('GrupoBruce.model.Empresa', {
         {name: 'logo', type: 'string'},
         {name: 'situacion', type: 'boolean'},
         {name: 'basico', type: 'float'},
-        {name: 'costoMenu', type: 'float'}
+        {name: 'costoMenu', type: 'float'},
+        {name: 'minRefrigerio', type: 'float'}
     ],
 
     identifier: {

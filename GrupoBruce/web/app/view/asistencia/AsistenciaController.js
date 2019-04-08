@@ -46,20 +46,14 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     },
 
     onCalcular: function (btn) {
-        var grid = btn.up('WlistAsistencia');
-        var store = grid.getStore();
-        var viewmodel = this.getViewModel();
-        var diaEspecial = viewmodel.get('calendarios');
-        var diaHorario = viewmodel.get('horarios').getAt(0);
-        var base1, base2, marca1, marca7;
-        if (!diaHorario.get('libre') && diaEspecial.getCount() > 0) {
-            base1 = diaEspecial.getAt(0).get('horaEntrada');
-            base2 = diaEspecial.getAt(0).get('horaSalida');
-        } else {
-            base1 = diaHorario.get('horaEntrada');
-            base2 = diaHorario.get('horaSalida');
-        }
-        var horas = 0, minutosBefore, minutosAfter, difM17;
+        var grid = btn.up('WlistAsistencia'), store = grid.getStore(), viewmodel = this.getViewModel();
+        var storeED = viewmodel.get('calendarios'), storeHD = viewmodel.get('horarios');
+        var currentDay = storeED.getCount() > 0 ? storeED.getAt(0) : storeHD.getAt(0);
+
+        var base1, base2, marca1, marca7, horas = 0, minutosBefore, minutosAfter, difM17;
+        base1 = currentDay.get('horaEntrada');
+        base2 = currentDay.get('horaSalida');
+
         Ext.util.Format.decimalSeparator = '.';
         store.each(function (item) {
             marca1 = item.get('marca1'), marca7 = item.get('marca7');
@@ -69,7 +63,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
                 horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
-                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (diaHorario.get('refrigerio') ? 0.75 : 0);
+                horas = (Ext.Date.diff(base2, base1, Ext.Date.MINUTE) / 60) + (currentDay.get('refrigerio') ? 0.75 : 0);
             }
             if (horas >= 0) {
                 horas = horas - 0.25;//15min en cambiarse

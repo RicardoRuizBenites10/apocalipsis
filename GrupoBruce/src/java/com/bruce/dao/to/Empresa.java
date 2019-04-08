@@ -20,6 +20,7 @@ public class Empresa implements java.io.Serializable {
     private boolean situacion;
     private Float basico;
     private Float costoMenu;
+    private Float minRefrigerio;
 
     public Empresa() {
     }
@@ -92,6 +93,15 @@ public class Empresa implements java.io.Serializable {
 
     public void setCostoMenu(Float costoMenu) {
         this.costoMenu = costoMenu;
+    }
+
+    @Column(name = "MIN_REFRIGERIO")
+    public Float getMinRefrigerio() {
+        return minRefrigerio;
+    }
+
+    public void setMinRefrigerio(Float minRefrigerio) {
+        this.minRefrigerio = minRefrigerio;
     }
 
 }
