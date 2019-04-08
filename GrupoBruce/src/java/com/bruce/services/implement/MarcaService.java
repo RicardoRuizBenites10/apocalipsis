@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,14 @@ public class MarcaService implements IMarcaService {
     @Override
     @Transactional
     public void insert(Marca t) {
+        String idMarca = String.valueOf(t.getAnio()) + String.format("%02d", t.getMes()) + String.format("%02d", t.getDia());
+        List<FilterPage> filter = new ArrayList<>();
+        filter.add(new FilterPage("eq", "idTrabajador", t.getIdTrabajador()));
+        filter.add(new FilterPage("eq", "fecha", t.getFecha()));
+        Marca lastM = dao.lastByFilter(filter);
+        int idLastM = lastM != null ? Integer.parseInt(lastM.getIdMarca().substring(8)) : 0;
+        t.setIdMarca(idMarca + String.format("%02d", idLastM + 1));
+        t.setAutomatico(false);
         dao.create(t);
     }
 

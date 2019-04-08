@@ -2,6 +2,37 @@ Ext.define('GrupoBruce.view.marca.MarcaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Cmarca',
 
+    onSaveMarcacion: function (btn) {
+        var form = btn.up('form');
+        var window = btn.up('window');
+        var asistencia = window.getViewModel().get('recordAsistencia');
+        var marca = form.getRecord();
+        var m1 = asistencia.get('marca1'), m2 = asistencia.get('marca2'), m3 = asistencia.get('marca3'), m4 = asistencia.get('marca4'), m5 = asistencia.get('marca5'), m6 = asistencia.get('marca6');
+        var fecha = asistencia.get('fecha'), dia = fecha.getDate(), mes = fecha.getMonth() + 1, anio = fecha.getYear() + 1900;
+        
+        if (form.isValid()) { // make sure the form contains valid data before submitting
+            form.updateRecord(marca); // update the record with the form data
+            marca.set('dia', dia);
+            marca.set('mes', mes);
+            marca.set('anio', anio);
+            
+            console.log('hh : ' + marca.get('hmarca'));
+            
+            
+//            marca.save({// save the record to the server
+//                success: function (response, operation) {
+//                    window.destroy();
+//                    Ext.Msg.alert('Success', 'Operación exitosa.');
+//                },
+//                failure: function (response, operation) {
+//                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+//                }
+//            });
+        } else { // display error alert if the data is invalid
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
+        }
+    },
+
     onImportacionFile: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');

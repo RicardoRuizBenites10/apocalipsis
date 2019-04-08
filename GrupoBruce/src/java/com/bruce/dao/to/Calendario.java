@@ -28,6 +28,7 @@ public class Calendario implements java.io.Serializable {
     private int anio;
     private boolean libre;
     private boolean refrigerio;
+    private boolean especial;
     private String descripcion;
     private String horaEntrada;
     private String horaSalida;
@@ -99,6 +100,15 @@ public class Calendario implements java.io.Serializable {
 
     public void setRefrigerio(boolean refrigerio) {
         this.refrigerio = refrigerio;
+    }
+
+    @Column(name = "ESPECIAL", nullable = false)
+    public boolean isEspecial() {
+        return especial;
+    }
+
+    public void setEspecial(boolean especial) {
+        this.especial = especial;
     }
 
     @Column(name = "DESCRIPCION")

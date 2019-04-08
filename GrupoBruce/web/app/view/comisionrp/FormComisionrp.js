@@ -43,15 +43,15 @@ Ext.define('GrupoBruce.view.comisionrp.FormComisionrp', {
                             xtype: 'numberfield',
                             hideTrigger: true,
                             minValue: 0,
-                            name: 'seguro',
-                            fieldLabel: 'Seguro',
+                            name: 'comision',
+                            fieldLabel: 'Comisión',
                             flex: 1
                         }, {
                             xtype: 'numberfield',
                             hideTrigger: true,
                             minValue: 0,
-                            name: 'comision',
-                            fieldLabel: 'Comisión',
+                            name: 'seguro',
+                            fieldLabel: 'Seguro',
                             flex: 1
                         }]
                 }],

@@ -50,6 +50,10 @@ Ext.define('GrupoBruce.view.periodoplanilla.PeriodoPlanillaModel', {
                 }
             }
             return dias < 8 ? dias : 30;
+        },
+        diasTotal: function (get) {
+            var fecha1 = get('finicio'), fecha2 = get('ffin');
+            return fecha1 !== null && fecha2 !== null ? Ext.Date.diff(fecha1, fecha2, Ext.Date.DAY) + 1 : 0;
         }
     }
 

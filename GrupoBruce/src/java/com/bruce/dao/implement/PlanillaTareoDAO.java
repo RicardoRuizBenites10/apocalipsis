@@ -56,6 +56,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addResult("T.AP_PATERNO + ' ' + T.AP_MATERNO + ' ' + T.NOMBRES TRABAJADOR");
         reverse.addResult("T.HABER_BASICO");
         reverse.addResult("PT.DIAS_PERIODO PRP_DIAS_PER");
+        reverse.addResult("PT.DIAS_DOMINICAL PRP_DIAS_DOM");
         reverse.addResult("SUM(CASE WHEN A.ASISTIO = 1 THEN 1 ELSE 0 END) PRP_DIAS_TRAB");
         reverse.addResult("SUM(A.HRS_DSCTO) NUM_H_DESCT");
         reverse.addResult("SUM(CASE WHEN A.STD_EXTRA = 1 THEN A.HRS_EXTRA ELSE 0 END) NUM_H_EXT25");
@@ -79,7 +80,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addJoin("INNER JOIN PERIODO_PLANILLA PT", "PT.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PT.INICIO AND PT.FIN");
         reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
-        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
+        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.DIAS_DOMINICAL,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
         reverse.getLSorts().add(new SortPage("ID_TRABAJADOR", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
@@ -108,6 +109,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addResult("T.AP_PATERNO + ' ' + T.AP_MATERNO + ' ' + T.NOMBRES TRABAJADOR");
         reverse.addResult("PT.HABER_BASICO");
         reverse.addResult("PT.PRP_DIAS_PER");
+        reverse.addResult("PT.PRP_DIAS_DOM");
         reverse.addResult("PT.PRP_DIAS_TRAB");
         reverse.addResult("PT.NUM_H_DESCT");
         reverse.addResult("PT.NUM_H_EXT25");
@@ -164,6 +166,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addResult("T.AP_PATERNO + ' ' + T.AP_MATERNO + ' ' + T.NOMBRES TRABAJADOR");
         reverse.addResult("T.HABER_BASICO");
         reverse.addResult("PT.DIAS_PERIODO PRP_DIAS_PER");
+        reverse.addResult("PT.DIAS_DOMINICAL PRP_DIAS_DOM");
         reverse.addResult("SUM(CASE WHEN A.ASISTIO = 1 THEN 1 ELSE 0 END) PRP_DIAS_TRAB");
         reverse.addResult("SUM(A.HRS_DSCTO) NUM_H_DESCT");
         reverse.addResult("SUM(CASE WHEN A.STD_EXTRA = 1 THEN A.HRS_EXTRA ELSE 0 END) NUM_H_EXT25");
@@ -187,7 +190,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addJoin("INNER JOIN PERIODO_PLANILLA PT", "PT.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PT.INICIO AND PT.FIN");
         reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
-        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
+        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.DIAS_DOMINICAL,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
@@ -211,7 +214,7 @@ public class PlanillaTareoDAO implements IPlanillaTareoDAO {
         reverse.addJoin("INNER JOIN PERIODO_PLANILLA PT", "PT.ID_TTRABAJADOR = T.ID_TTRABAJADOR AND A.FECHA BETWEEN PT.INICIO AND PT.FIN");
         reverse.addJoin("LEFT JOIN ALMUERZO AL", "AL.ID_TRABAJADOR = A.ID_TRABAJADOR AND AL.FECHA = A.FECHA");
         reverse.setFilters(filters);
-        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
+        reverse.setGroup("A.ID_TRABAJADOR,T.MONTO_PASAJE,T.AP_PATERNO,T.AP_MATERNO,T.NOMBRES,T.ID_RPENSIONARIO,T.ID_COMISIONRP,T.HABER_BASICO,TT.PENSION,TT.JORNAL_DIARIO,PT.DIAS_PERIODO,PT.DIAS_DOMINICAL,PT.ID_PPLANILLA,EM.BASICO,PT.INI_PLAME,PT.FIN_PLAME");
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {

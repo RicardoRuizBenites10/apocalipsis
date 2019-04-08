@@ -45,7 +45,7 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
         var periodoPlanilla = viewmodel.get('selectPeriodoPlanilla');
         var storeComisionrp = viewmodel.get('comisionsrp');
 
-        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100, MOVILIDAD, REINTEGRO, RPREGIMEN, RPCOMISION, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO, OTROS_DESCT, RP_PENSION, RP_SEGURO, RP_COMISION, RP_FONDO, FLAG_ASIG_FAM;
+        var HABER_BASICO, PRP_DIAS_PER, PRP_DIAS_DOM, PRP_DIAS_TRAB, NUM_H_EXTRA25, NUM_H_EXTRA35, NUM_H_EXTRA100, MOVILIDAD, REINTEGRO, RPREGIMEN, RPCOMISION, DEVOLUCION, EMP_RMV, DIAS_PLAME, ADELANTO, NUM_H_DESCT, PRESTAMO, OTROS_DESCT, RP_PENSION, RP_SEGURO, RP_COMISION, RP_FONDO, FLAG_ASIG_FAM;
         var xpro = true;
 
         var storePlanilla = Ext.create('GrupoBruce.store.Planilla');
@@ -62,6 +62,7 @@ Ext.define('GrupoBruce.view.pplanilla.PplanillaController', {
                 ADELANTO = item.get('adelanto');
                 DEVOLUCION = item.get('devolucion');
                 PRP_DIAS_PER = item.get('diasPeriodo');
+                PRP_DIAS_DOM = item.get('diasDominical');
                 DIAS_PLAME = item.get('diasPlame');
                 PRP_DIAS_TRAB = item.get('diasTrabajado');
                 EMP_RMV = item.get('empRmv');

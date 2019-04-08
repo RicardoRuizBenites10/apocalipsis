@@ -92,18 +92,18 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                                 disabled: '{selectTiempo ? !selectTiempo.horas : true}'
                             },
                             minValue: '7:30 AM',
-                            maxValue: '4:30 PM',
+                            maxValue: '6:30 PM',
                             flex: 1
                         }, {
                             xtype: 'timefield',
                             name: 'horaFin',
-                            fieldLabel: 'Hora retorno',
+                            fieldLabel: 'Hora termina',
                             disabled: true,
                             bind: {
                                 disabled: '{selectTiempo ? !selectTiempo.horas : true}'
                             },
                             minValue: '7:30 AM',
-                            maxValue: '4:30 PM',
+                            maxValue: '6:30 PM',
                             flex: 1
                         }]
                 }],

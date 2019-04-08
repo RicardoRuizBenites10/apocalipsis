@@ -26,6 +26,7 @@ public class PlanillaTareo implements java.io.Serializable {
     private boolean aprobado;
     private float devolucion;
     private int diasPeriodo;
+    private int diasDominical;
     private int diasPlame;
     private int diasTrabajado;
     private float empRmv;
@@ -110,6 +111,15 @@ public class PlanillaTareo implements java.io.Serializable {
 
     public void setDiasPeriodo(int diasPeriodo) {
         this.diasPeriodo = diasPeriodo;
+    }
+
+    @Column(name = "PRP_DIAS_DOM", nullable = false)
+    public int getDiasDominical() {
+        return diasDominical;
+    }
+
+    public void setDiasDominical(int diasDominical) {
+        this.diasDominical = diasDominical;
     }
 
     @Column(name = "PRP_DIAS_TRAB", nullable = false)

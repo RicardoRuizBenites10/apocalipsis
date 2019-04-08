@@ -58,11 +58,21 @@ Ext.define('GrupoBruce.view.periodoplanilla.FormPeriodoPlanilla', {
                             xtype: 'numberfield',
                             name: 'diasPeriodo',
                             hideTrigger: true,
-                            editable: true,
-                            fieldLabel: 'Días perido',
+                            editable: false,
+                            fieldLabel: 'Días laborable',
                             minValue: 0,
                             bind: '{diasPeriodo}'
-                        }, {
+                        },{
+                            xtype: 'numberfield',
+                            name: 'diasDominical',
+                            hideTrigger: true,
+                            editable: false,
+                            fieldLabel: 'Días dominical',
+                            minValue: 0,
+                            bind: '{diasTotal - diasPeriodo}'
+                        }]
+                },{
+                    items: [{
                             xtype: 'checkbox',
                             name: 'cerrado',
                             reference: 'chk_cerradoPeriodoPlanilla',

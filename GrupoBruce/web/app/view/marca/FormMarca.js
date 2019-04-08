@@ -69,7 +69,7 @@ Ext.define('GrupoBruce.view.marca.FormMarca', {
                             name: 'hmarca',
                             fieldLabel: 'Hora marcación',
                             minValue: '7:30 am',
-                            maxValue: '4:30 pm',
+                            maxValue: '6:30 pm',
                             flex: 1
                         }]
                 }],

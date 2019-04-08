@@ -2,23 +2,6 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Casistencia',
 
-    createDialog: function (record) {
-        var window = new GrupoBruce.view.marca.FormMarca();
-        if (!record) {
-            window.setTitle('Registrar marcación');
-            var asistencia = this.getViewModel().get('selectAsistencia');
-            var record = Ext.create('GrupoBruce.model.Marca', {
-                idTrabajador: asistencia.get('idTrabajador'),
-                fecha: asistencia.get('fecha')
-            });
-        }
-        window.down('form').loadRecord(record);
-    },
-
-    addMarcacion: function () {
-        this.createDialog(null);
-    },
-
     onSaveMarcacion: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
@@ -48,18 +31,23 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     onCalcular: function (btn) {
         var grid = btn.up('WlistAsistencia'), store = grid.getStore(), viewmodel = this.getViewModel();
         var storeED = viewmodel.get('calendarios'), storeHD = viewmodel.get('horarios');
-        var currentDay = storeED.getCount() > 0 ? storeED.getAt(0) : storeHD.getAt(0);
-
-        var base1, base2, marca1, marca7, horas = 0, minutosBefore, minutosAfter, difM17;
-        base1 = currentDay.get('horaEntrada');
-        base2 = currentDay.get('horaSalida');
+        var scheduleDay = storeHD.getAt(0), currentDay = storeED.getCount() > 0 ? storeED.getAt(0) : scheduleDay;
+        var base1, base2, marca1, marca7, difM17, marcacion, libre, diario, horas = 0, minutosBefore, minutosAfter;
+        base1 = currentDay.get('horaEntrada'), base2 = currentDay.get('horaSalida'), libre = currentDay.get('libre');
 
         Ext.util.Format.decimalSeparator = '.';
         store.each(function (item) {
-            marca1 = item.get('marca1'), marca7 = item.get('marca7');
-            if (marca1 !== null && marca7 !== null) {
-                minutosBefore = Ext.Date.diff(marca1, base1, Ext.Date.MINUTE);
-                minutosAfter = Ext.Date.diff(base2, marca7, Ext.Date.MINUTE);
+            marca1 = item.get('marca1'), marca7 = item.get('marca7'), diario = item.get('jornalDiario');
+            marcacion = marca1 !== null && marca7 !== null;
+            if (currentDay.get('especial') === undefined) { //dia normal
+                item.set('asistio', !libre ? marcacion : !diario);
+            } else {
+                item.set('asistio', scheduleDay.get('libre') ? !diario : (libre ? true : marcacion));
+            }
+            item.set('util', libre ? true : marcacion);
+            item.set('stdExtra', !libre);
+            if (marcacion) {
+                minutosBefore = Ext.Date.diff(marca1, base1, Ext.Date.MINUTE), minutosAfter = Ext.Date.diff(base2, marca7, Ext.Date.MINUTE);
                 difM17 = Ext.Date.diff(marca1, marca7, Ext.Date.MINUTE);
                 horas = difM17 < 60 ? 0 : (minutosBefore + minutosAfter) / 60;
             } else {
@@ -76,9 +64,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
     },
 
     onProcesar: function (btn) {
-        var grid = btn.up('WlistAsistencia');
-        var store = grid.getStore();
-        var stdExtra = !this.getViewModel().get('horarios').getAt(0).get('libre');
+        var grid = btn.up('WlistAsistencia'), store = grid.getStore();
         var wasCalculated = this.getViewModel().get('wasCalculated');
         var areProccess = 0;
         if (!wasCalculated) {
@@ -90,14 +76,10 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
             });
         } else {
             store.each(function (item) {
-                if (item.get('procesado')) {
+                if (item.get('procesado'))
                     areProccess = areProccess + 1;
-                }
-                item.set('asistio', stdExtra ? item.get('marca7') !== null : !stdExtra);
-                if (item.get('marca7') === null) {
+                if (item.get('marca7') === null)
                     item.set('ausencia', 4);
-                }
-                item.set('stdExtra', stdExtra);
                 item.set('procesado', true);
             });
 
@@ -120,6 +102,22 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaController', {
                 });
             }
         }
+    },
+
+    createWindow: function (view) {
+        var window = Ext.create(view);
+        window.setTitle('Registrar marcación');
+        var model = this.getViewModel().get('selectAsistencia');
+        var record = Ext.create('GrupoBruce.model.Marca', {
+            idTrabajador: model.get('idTrabajador'),
+            fecha: model.get('fecha')
+        });
+        window.down('form').loadRecord(record);
+        window.getViewModel().set('recordAsistencia', model);
+    },
+
+    addMarcacion: function () {
+        this.createWindow('GrupoBruce.view.marca.FormMarca');
     }
 
 });

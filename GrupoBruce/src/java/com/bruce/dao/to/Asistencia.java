@@ -45,6 +45,7 @@ public class Asistencia implements java.io.Serializable {
 
     private String fechaTemp;
     private String trabajador;
+    private boolean jornalDiario;
 
     public Asistencia() {
     }
@@ -274,6 +275,16 @@ public class Asistencia implements java.io.Serializable {
 
     public void setTrabajador(String trabajador) {
         this.trabajador = trabajador;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "JORNAL_DIARIO", insertable = false, updatable = false)
+    public boolean isJornalDiario() {
+        return jornalDiario;
+    }
+
+    public void setJornalDiario(boolean jornalDiario) {
+        this.jornalDiario = jornalDiario;
     }
 
 }

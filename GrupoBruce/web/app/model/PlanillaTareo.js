@@ -8,6 +8,7 @@ Ext.define('GrupoBruce.model.PlanillaTareo', {
         {name: 'aprobado', type: 'boolean'},
         {name: 'devolucion', type: 'float'},
         {name: 'diasPeriodo', type: 'int'},
+        {name: 'diasDominical', type: 'int'},
         {name: 'diasPlame', type: 'int'},
         {name: 'diasTrabajado', type: 'int'},
         {name: 'empRmv', type: 'float'},

@@ -21,6 +21,7 @@ public class PeriodoPlanilla implements java.io.Serializable {
     private int idPplanilla;
     private Date inicio;
     private Date fin;
+    private int diasDominical;
     private int diasPeriodo;
     private String denominacion;
     private Date iniPlame;
@@ -80,6 +81,15 @@ public class PeriodoPlanilla implements java.io.Serializable {
 
     public void setFin(Date fin) {
         this.fin = fin;
+    }
+
+    @Column(name = "DIAS_DOMINICAL", nullable = false)
+    public int getDiasDominical() {
+        return diasDominical;
+    }
+
+    public void setDiasDominical(int diasDominical) {
+        this.diasDominical = diasDominical;
     }
 
     @Column(name = "DIAS_PERIODO", nullable = false)

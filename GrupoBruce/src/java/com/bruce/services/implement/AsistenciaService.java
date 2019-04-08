@@ -133,7 +133,7 @@ public class AsistenciaService implements IAsistenciaService {
     public void procesarAsistencia(List<Asistencia> asistencias) {
         if(!asistencias.isEmpty()){
             asistencias.forEach(item -> {
-                if(!item.isAsistio()){
+                if(!item.isMarca()){
                     item.setMarca1("");
                     item.setMarca7("");
                 }

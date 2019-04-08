@@ -52,7 +52,9 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addResult("TT.JORNAL_DIARIO");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
+        reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -71,6 +73,7 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("ASISTENCIA", "A");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR AND A.FECHA = :FECHA");
+        reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -107,7 +110,9 @@ public class AsistenciaDAO implements IAsistenciaDAO {
         reverse.addResult("ISNULL(A.STD_EXTRA,0) STD_EXTRA");
         reverse.addResult("ISNULL(A.PROCESADO,0) PROCESADO");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS TRABAJADOR");
+        reverse.addResult("TT.JORNAL_DIARIO");
         reverse.addJoin("RIGHT JOIN Trabajador T", "T.ID_TRABAJADOR = A.ID_TRABAJADOR");
+        reverse.addJoin("INNER JOIN TIPO_TRABAJADOR TT", "TT.ID_TTRABAJADOR = T.ID_TTRABAJADOR");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("FECHA", "DESC"));
         reverse.setPagination(0, 1);

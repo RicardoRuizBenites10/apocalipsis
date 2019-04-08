@@ -7,14 +7,15 @@ Ext.define('GrupoBruce.model.Calendario', {
         {name: 'anio', type: 'int'},
         {name: 'dia', type: 'int'},
         {name: 'descripcion', type: 'string'},
+        {name: 'especial', type: 'boolean'},
         {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'horaEntrada', type: 'date', dateFormat: 'h:i A'},
         {name: 'horaSalida', type: 'date', dateFormat: 'h:i A'},
         {name: 'idDia', type: 'int'},
         {name: 'libre', type: 'boolean'},
-        {name: 'refrigerio', type: 'boolean'},
         {name: 'mes', type: 'int'},
-        {name: 'nroSemana', type: 'int'}
+        {name: 'nroSemana', type: 'int'},
+        {name: 'refrigerio', type: 'boolean'}
     ],
     
     proxy: {
