@@ -118,7 +118,7 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
     onParCerrado: function (btn) {
         this.onCalculadora(btn, ')');
     },
-    
+
     createWindow: function (view) {
         var model = this.getViewModel().get('selectTipoTrabajador');
         var window = Ext.create(view);
@@ -127,6 +127,101 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
 
     onConceptosTipoTrabajador: function () {
         this.createWindow('GrupoBruce.view.conceptoasignado.ConceptoAsignado');
+    },
+
+    onCopyConcepts: function (btn) {
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Copiar concepto',
+
+            controller: 'Cconcepto',
+            viewModel: 'VMconcepto',
+            width: 400,
+            resizable: false,
+            modal: true,
+
+            items: [{
+                    xtype: 'form',
+                    defaults: {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        defaults: {
+                            allowBlank: false,
+                            labelAlign: 'top',
+                            padding: 5
+                        }
+                    },
+                    items: [{
+                            items: [{
+                                    xtype: 'combobox',
+                                    fieldLabel: 'Tipo trabajador destino',
+                                    displayField: 'descripcion',
+                                    valueField: 'idTipo',
+                                    bind: {
+                                        store: '{tiposTrabajador}',
+                                        selection: '{selectTipoTrabajadorCopy}'
+                                    },
+                                    editable: false,
+                                    emptyText: 'Seleccionar..',
+                                    flex: 1
+                                }]
+                        }],
+
+                    buttons: [{
+                            text: 'Cancelar',
+                            listeners: {
+                                click: function () {
+                                    this.up('form').reset();
+                                    this.up('window').close();
+                                }
+                            }
+                        }, {
+                            text: 'Grabar',
+                            iconCls: 'fa fa-save',
+                            formBind: true,
+                            listeners: {
+                                click: 'onCopyConcepto'
+                            }
+                        }]
+                }]
+        });
+        win.getViewModel().set('procedenciaTT', this.getViewModel().get('selectTipoTrabajador'));
+        win.show();
+    },
+
+    onCopyConcepto: function (btn) {
+        var grid = this.lookupReference('list_concepto');
+        var win = btn.up('window');
+        var vm = win.getViewModel();
+        var ttProcedencia = vm.get('procedenciaTT'), ttDestino = vm.get('selectTipoTrabajadorCopy');
+        if (ttProcedencia.get('idTtrabajador') !== ttDestino.get('idTtrabajador')) {
+            var jsonData = [];
+            grid.getStore().each(function (item) {
+                item.set('idTtrabajador', ttDestino.get('idTtrabajador'));
+                jsonData.push(item.data);
+            });
+
+            Ext.Ajax.request({
+                url: 'ccLConcepto',
+                method: 'POST',
+                jsonData: jsonData,
+                success: function (response, operation) {
+                    btn.up('form').reset();
+                    win.destroy();
+                    Ext.Msg.alert('Success', 'Operación exitosa.');
+                },
+                failure: function (response, operation) {
+                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                }
+            });
+
+        } else {
+            Ext.Msg.show({
+                title: 'Error',
+                msg: 'El tipo trabajador procedencia y destino debe ser diferente.',
+                icon: Ext.Msg.ERROR,
+                botones: Ext.Msg.OK
+            });
+        }
     }
 
 });

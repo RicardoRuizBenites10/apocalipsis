@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Concepto;
 import com.bruce.services.design.IConceptoService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +63,16 @@ public class ConceptoContreller {
         serv.update(concepto);
         map.put("success", true);
         map.put("data", concepto);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ccLConcepto", method = RequestMethod.POST)
+    public Map<String, Object> copy(@RequestBody List<Concepto> conceptos) {
+        Map<String, Object> map = new HashMap<>();
+        serv.copy(conceptos);
+        map.put("success", true);
         map.put("message", "Actualización exitosa.");
         return map;
     }

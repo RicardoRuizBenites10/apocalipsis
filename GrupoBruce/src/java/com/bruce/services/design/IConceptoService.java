@@ -6,6 +6,7 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Concepto;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,4 +15,5 @@ import java.util.Map;
  */
 public interface IConceptoService extends IEntidadService<Concepto>{
     public Map<String, Object> validaAdd(Concepto concepto);
+    public void copy(List<Concepto> conceptos);
 }

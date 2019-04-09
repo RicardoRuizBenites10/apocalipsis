@@ -10,6 +10,16 @@ Ext.define('GrupoBruce.view.main.Main', {
         'GrupoBruce.view.main.MainMenu'
     ],
 
+    mixins: [
+        'Ext.mixin.Responsive'
+    ],
+
+    responsiveFormulas: {
+        small: 'height < 600',
+        medium: 'height >= 600 && height < 800',
+        large: 'height >= 800'
+    },
+
     controller: 'main',
     viewModel: 'main',
     plugins: 'viewport',

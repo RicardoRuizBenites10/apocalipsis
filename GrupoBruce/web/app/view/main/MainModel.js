@@ -8,6 +8,16 @@ Ext.define('GrupoBruce.view.main.MainModel', {
     },
 
     stores: {
+        trabajador: {
+            type: 'Strabajador',
+            autoLoad: true,
+            loading: true,
+            filters: [{
+                    property: 'idTrabajador',
+                    operator: 'EQ',
+                    value: '{thisUsuario.idUsuario}'
+                }]
+        },
         navRol: {
             type: 'Sacceso',
             autoLoad: true,
@@ -28,16 +38,15 @@ Ext.define('GrupoBruce.view.main.MainModel', {
         },
 
         thisName: function (get) {
-            var usuario = get('thisUsuario');
-            return usuario.trabajador;
+            return get('trabajador').getAt(0).get('nombresCompletos');
         },
 
         thisAvatar: function (get) {
-            return get('thisUsuario').fotoB64;
+            return get('trabajador').getAt(0).get('fotoB64');
         },
 
         altAvatar: function (get) {
-            return get('thisUsuario').foto;
+            return get('trabajador').getAt(0).get('foto');
         },
 
         rootSelection: function (get) {

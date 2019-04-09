@@ -6,11 +6,11 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
         'GrupoBruce.view.trabajador.TrabajadorController',
         'GrupoBruce.view.trabajador.TrabajadorModel'
 
-        ,'GrupoBruce.view.trabajador.ListTrabajador'
-        ,'GrupoBruce.view.trabajador.FormTrabajador'
-        
-        ,'GrupoBruce.view.contrato.ContratoTrabajador'
-        ,'GrupoBruce.view.hijo.HijoTrabajador'
+                , 'GrupoBruce.view.trabajador.ListTrabajador'
+                , 'GrupoBruce.view.trabajador.FormTrabajador'
+
+                , 'GrupoBruce.view.contrato.ContratoTrabajador'
+                , 'GrupoBruce.view.hijo.HijoTrabajador'
     ],
 
     controller: 'Ctrabajador',
@@ -20,7 +20,19 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
 
     items: [{
             xtype: 'WlistTrabajador',
-            height: 520
+            plugins: 'responsive',
+
+            responsiveConfig: {
+                small: {
+                    height: 300
+                },
+                medium: {
+                    height: 540
+                },
+                large: {
+                    height: 830
+                }
+            }
         }]
 
 });

@@ -88,6 +88,14 @@ Ext.define('GrupoBruce.view.concepto.ListConcepto', {
                     disabled: '{!selectTipoTrabajador}'
                 },
                 handler: 'onConceptosTipoTrabajador'
+            },{
+                iconCls: 'x-fa fa-copy',
+                disabled: true,
+                text: 'Copiar conceptos',
+                bind: {
+                    disabled: '{!selectTipoTrabajador}'
+                },
+                handler: 'onCopyConcepts'
             }]
     },
 

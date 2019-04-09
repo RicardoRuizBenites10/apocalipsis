@@ -7,27 +7,64 @@ Ext.define('GrupoBruce.view.marca.MarcaController', {
         var window = btn.up('window');
         var asistencia = window.getViewModel().get('recordAsistencia');
         var marca = form.getRecord();
-        var m1 = asistencia.get('marca1'), m2 = asistencia.get('marca2'), m3 = asistencia.get('marca3'), m4 = asistencia.get('marca4'), m5 = asistencia.get('marca5'), m6 = asistencia.get('marca6');
         var fecha = asistencia.get('fecha'), dia = fecha.getDate(), mes = fecha.getMonth() + 1, anio = fecha.getYear() + 1900;
-        
+
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(marca); // update the record with the form data
             marca.set('dia', dia);
             marca.set('mes', mes);
             marca.set('anio', anio);
-            
-            console.log('hh : ' + marca.get('hmarca'));
-            
-            
-//            marca.save({// save the record to the server
-//                success: function (response, operation) {
-//                    window.destroy();
-//                    Ext.Msg.alert('Success', 'Operación exitosa.');
-//                },
-//                failure: function (response, operation) {
-//                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
-//                }
-//            });
+
+            var movebaleHour = marca.get('hmarca'), minTemp, horaN, minN, tempHour, agregar = true;
+            marca.save({// save the record to the server
+                success: function (response, operation) {
+                    for (var i = 1; i < 7; i++) {
+                        horaN = asistencia.get('marca' + i);
+                        minTemp = movebaleHour.getHours() * 60 + movebaleHour.getMinutes();
+                        if (horaN !== null) {
+                            minN = horaN.getHours() * 60 + horaN.getMinutes();
+                            if (minN > minTemp) {
+                                tempHour = horaN;
+                                asistencia.set(('marca' + i), movebaleHour);
+                                movebaleHour = tempHour;
+                            }
+                        } else {
+                            if (agregar) {
+                                asistencia.set(('marca' + i), movebaleHour);
+                                asistencia.set(('marca7'), movebaleHour);
+                                agregar = false;
+                            }
+                        }
+                    }
+                    asistencia.data.marca1 = asistencia.data.marca1 !== null ? Ext.Date.format(asistencia.data.marca1, 'h:i A') : null;
+                    asistencia.data.marca2 = asistencia.data.marca2 !== null ? Ext.Date.format(asistencia.data.marca2, 'h:i A') : null;
+                    asistencia.data.marca3 = asistencia.data.marca3 !== null ? Ext.Date.format(asistencia.data.marca3, 'h:i A') : null;
+                    asistencia.data.marca4 = asistencia.data.marca4 !== null ? Ext.Date.format(asistencia.data.marca4, 'h:i A') : null;
+                    asistencia.data.marca5 = asistencia.data.marca5 !== null ? Ext.Date.format(asistencia.data.marca5, 'h:i A') : null;
+                    asistencia.data.marca6 = asistencia.data.marca6 !== null ? Ext.Date.format(asistencia.data.marca6, 'h:i A') : null;
+                    asistencia.data.marca7 = asistencia.data.marca7 !== null ? Ext.Date.format(asistencia.data.marca7, 'h:i A') : null;
+                    asistencia.data.fecha = asistencia.data.fecha !== null ? Ext.Date.format(asistencia.data.fecha, 'c') : null;
+                    asistencia.data.fechaTemp = asistencia.data.fechaTemp !== null ? Ext.Date.format(asistencia.data.fechaTemp, 'c') : null;
+                    asistencia.data.ausencia = asistencia.data.ausencia === 0 || asistencia.data.ausencia === 4 ? 1 : asistencia.data.ausencia;
+                    asistencia.data.marca = true;
+                    Ext.Ajax.request({
+                        url: 'uuAsistencia',
+                        jsonData: asistencia.data,
+                        method: 'POST',
+                        success: function (response, operation) {
+                            Ext.getCmp('id_wlistasistencia').getStore().reload();
+                            window.destroy();
+                            Ext.Msg.alert('Success', 'Operación exitosa.');
+                        },
+                        failure: function (response, operation) {
+                            Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                        }
+                    });
+                },
+                failure: function (response, operation) {
+                    Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                }
+            });
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }

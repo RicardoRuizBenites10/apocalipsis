@@ -34,7 +34,7 @@ public class ConceptoDAO implements IConceptoDAO {
 
     @Override
     public void update(Concepto t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

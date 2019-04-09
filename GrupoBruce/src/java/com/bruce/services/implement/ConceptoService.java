@@ -134,4 +134,14 @@ public class ConceptoService implements IConceptoService {
         return map;
     }
 
+    @Override
+    @Transactional
+    public void copy(List<Concepto> conceptos) {
+        if(!conceptos.isEmpty()){
+            conceptos.forEach(item -> {
+                dao.update(item);
+            });
+        }
+    }
+
 }

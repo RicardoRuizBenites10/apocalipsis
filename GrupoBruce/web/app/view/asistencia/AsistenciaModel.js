@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.asistencia.AsistenciaModel', {
                     property: 'ID_DIA',
                     operator: 'eq',
                     value: '{idDia}'
-                },{
+                }, {
                     property: 'T.ACTUAL',
                     operator: 'eq',
                     value: true
