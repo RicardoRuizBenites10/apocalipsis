@@ -21,7 +21,6 @@ Ext.define('GrupoBruce.view.trabajador.Trabajador', {
     items: [{
             xtype: 'WlistTrabajador',
             plugins: 'responsive',
-
             responsiveConfig: {
                 small: {
                     height: 300

@@ -15,13 +15,24 @@ Ext.define('GrupoBruce.view.equipo.Equipo', {
     viewModel: {
         type: 'VMequipo'
     },
-    
+
     bind: {
         title: '{title}'
     },
     items: [{
             xtype: 'WlistEquipo',
             id: 'id_wequipo',
-            height: 500
+            plugins: 'responsive',
+            responsiveConfig: {
+                small: {
+                    height: 300
+                },
+                medium: {
+                    height: 540
+                },
+                large: {
+                    height: 830
+                }
+            }
         }]
 });
