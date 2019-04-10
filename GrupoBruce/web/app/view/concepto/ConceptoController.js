@@ -184,15 +184,17 @@ Ext.define('GrupoBruce.view.concepto.ConceptoController', {
                         }]
                 }]
         });
-        win.getViewModel().set('procedenciaTT', this.getViewModel().get('selectTipoTrabajador'));
+        win.getViewModel().set('selectTipoTrabajador', this.getViewModel().get('selectTipoTrabajador'));
+        console.log('dada: ' + this.getViewModel().get('selectTipoTrabajador'));
         win.show();
     },
 
     onCopyConcepto: function (btn) {
-        var grid = this.lookupReference('list_concepto');
+        var grid = Ext.getCmp('id_wlistconcepto');
         var win = btn.up('window');
         var vm = win.getViewModel();
-        var ttProcedencia = vm.get('procedenciaTT'), ttDestino = vm.get('selectTipoTrabajadorCopy');
+        console.log('dede: ' + vm.get('selectTipoTrabajador'));
+        var ttProcedencia = vm.get('selectTipoTrabajador'), ttDestino = vm.get('selectTipoTrabajadorCopy');
         if (ttProcedencia.get('idTtrabajador') !== ttDestino.get('idTtrabajador')) {
             var jsonData = [];
             grid.getStore().each(function (item) {
