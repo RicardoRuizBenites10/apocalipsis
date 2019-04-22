@@ -80,7 +80,7 @@ public class Especificacion implements java.io.Serializable {
         this.fechaUpdate = fechaUpdate;
     }
 
-    @Column(name = "DESCRIPCION")
+    @Column(name = "USU_UPDATE")
     public String getUsuUpdate() {
         return usuUpdate;
     }

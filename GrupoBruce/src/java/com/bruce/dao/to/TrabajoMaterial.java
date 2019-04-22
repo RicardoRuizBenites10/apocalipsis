@@ -8,6 +8,7 @@ package com.bruce.dao.to;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -15,8 +16,9 @@ import javax.persistence.Table;
  * @author SISTEMAS
  */
 @Entity
+@IdClass(value = TrabajoMaterialId.class)
 @Table(name = "TRABAJO_MATERIAL", schema = "dbo", catalog = "BDBRUCE")
-public class TrabajoMaterial implements java.io.Serializable{
+public class TrabajoMaterial implements java.io.Serializable {
 
     private int idTrabajador;
     private int idMaterial;

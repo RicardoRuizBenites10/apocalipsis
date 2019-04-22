@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Cliente implements java.io.Serializable {
 
     private String idCliente;
-    private String descripcion;
+    private String nombre;
     private String telefono;
     private String correo;
     private String direccion;
@@ -37,19 +37,20 @@ public class Cliente implements java.io.Serializable {
         this.idCliente = idCliente;
     }
 
-    @Column(name = "ID_CLIENTE", nullable = false)
-    public String getDescripcion() {
-        return descripcion;
+    @Column(name = "NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Column(name = "TELEFONO", nullable = true)
     public String getTelefono() {
         return telefono;
     }
+
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
