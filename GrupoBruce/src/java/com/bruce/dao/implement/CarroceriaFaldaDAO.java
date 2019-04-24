@@ -5,15 +5,14 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IAreaDAO;
-import com.bruce.dao.to.Area;
-import java.util.List;
-import org.hibernate.SessionFactory;
+import com.bruce.dao.design.ICarroceriaFaldaDAO;
+import com.bruce.dao.to.CarroceriaFalda;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
-import java.io.Serializable;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -25,35 +24,35 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class AreaDAO implements IAreaDAO {
+public class CarroceriaFaldaDAO implements ICarroceriaFaldaDAO{
 
     @Autowired
     private SessionFactory sf;
-
+    
     @Override
-    public void create(Area t) {
+    public void create(CarroceriaFalda t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Area t) {
+    public void update(CarroceriaFalda t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Area t) {
+    public void delete(CarroceriaFalda t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Area get(Object idT) {
-        return (Area) sf.getCurrentSession().get(Area.class, (Serializable) idT);
+    public CarroceriaFalda get(Object idT) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Area lastByFilter(List<FilterPage> filters) {
+    public CarroceriaFalda lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(CarroceriaFalda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -66,23 +65,23 @@ public class AreaDAO implements IAreaDAO {
                 }
             });
         }
-        cr.addOrder(Order.desc("idArea"));
+        cr.addOrder(Order.desc("idCarFal"));
         cr.setFirstResult(0);
 
         List result = cr.list();
-        Area item = !result.isEmpty() ? (Area) result.get(0) : null;
+        CarroceriaFalda item = !result.isEmpty() ? (CarroceriaFalda) result.get(0) : null;
         return item;
     }
 
     @Override
-    public List<Area> getAll() {
+    public List<CarroceriaFalda> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Area> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<CarroceriaFalda> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(CarroceriaFalda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -101,7 +100,7 @@ public class AreaDAO implements IAreaDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Area.class);
+        Criteria cr = session.createCriteria(CarroceriaFalda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -118,5 +117,5 @@ public class AreaDAO implements IAreaDAO {
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
     }
-
+    
 }
