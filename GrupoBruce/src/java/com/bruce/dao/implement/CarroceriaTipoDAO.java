@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IConceptoDAO;
-import com.bruce.dao.to.Concepto;
+import com.bruce.dao.design.ICarroceriaTipoDAO;
+import com.bruce.dao.to.CarroceriaTipo;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -19,91 +19,83 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author RICARDO
+ * @author SISTEMAS
  */
 @Repository
-public class ConceptoDAO implements IConceptoDAO {
+public class CarroceriaTipoDAO implements ICarroceriaTipoDAO{
 
     @Autowired
     private SessionFactory sf;
-
+    
     @Override
-    public void create(Concepto t) {
+    public void create(CarroceriaTipo t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Concepto t) {
-        sf.getCurrentSession().saveOrUpdate(t);
+    public void update(CarroceriaTipo t) {
+        sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Concepto t) {
+    public void delete(CarroceriaTipo t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Concepto get(Object idT) {
+    public CarroceriaTipo get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Concepto lastByFilter(List<FilterPage> filters) {
+    public CarroceriaTipo lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
-        reverse.addResult("C.ID_TTRABAJADOR");
-        reverse.addResult("C.ID_CONCEPTO");
-        reverse.addResult("C.COD_PDT");
-        reverse.addResult("C.DESCRIPCION");
-        reverse.addResult("C.FORMULA");
-        reverse.addResult("C.ID_TCONCEPTO");
-        reverse.addResult("C.ID_TVARIABLE");
-        reverse.addResult("C.SITUACION");
-        reverse.addResult("TC.DESCRIPCION AS TCONCEPTO");
-        reverse.addResult("TV.DESCRIPCION AS TVARIABLE");
-        reverse.addJoin("INNER JOIN TIPO_CONCEPTO TC", "TC.ID_TIPO = C.ID_TCONCEPTO");
-        reverse.addJoin("INNER JOIN TIPO_VARIABLE TV", "TV.ID_TIPO = C.ID_TVARIABLE");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA_TIPO", "CT");
+        reverse.addResult("CT.ID_CARTIP");
+        reverse.addResult("CT.FECHA");
+        reverse.addResult("CT.CODIGO");
+        reverse.addResult("CT.DESCRIPCION");
+        reverse.addResult("CT.SITUACION");
+        reverse.addResult("CT.ID_CARMOD");
+        reverse.addResult("CM.DESCRIPCION MODELO");
+        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CT.ID_CARMOD");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_CONCEPTO", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_CARTIP", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Concepto.class);
+        query.addEntity(CarroceriaTipo.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        Concepto item = !result.isEmpty() ? (Concepto) result.get(0) : null;
+        CarroceriaTipo item = !result.isEmpty() ? (CarroceriaTipo) result.get(0) : null;
         return item;
     }
 
     @Override
-    public List<Concepto> getAll() {
+    public List<CarroceriaTipo> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Concepto> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<CarroceriaTipo> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
-        reverse.addResult("C.ID_TTRABAJADOR");
-        reverse.addResult("C.ID_CONCEPTO");
-        reverse.addResult("C.COD_PDT");
-        reverse.addResult("C.DESCRIPCION");
-        reverse.addResult("C.FORMULA");
-        reverse.addResult("C.ID_TCONCEPTO");
-        reverse.addResult("C.ID_TVARIABLE");
-        reverse.addResult("C.SITUACION");
-        reverse.addResult("TC.DESCRIPCION AS TCONCEPTO");
-        reverse.addResult("TV.DESCRIPCION AS TVARIABLE");
-        reverse.addJoin("INNER JOIN TIPO_CONCEPTO TC", "TC.ID_TIPO = C.ID_TCONCEPTO");
-        reverse.addJoin("INNER JOIN TIPO_VARIABLE TV", "TV.ID_TIPO = C.ID_TVARIABLE");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA_TIPO", "CT");
+        reverse.addResult("CT.ID_CARTIP");
+        reverse.addResult("CT.FECHA");
+        reverse.addResult("CT.CODIGO");
+        reverse.addResult("CT.DESCRIPCION");
+        reverse.addResult("CT.SITUACION");
+        reverse.addResult("CT.ID_CARMOD");
+        reverse.addResult("CM.DESCRIPCION MODELO");
+        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CT.ID_CARMOD");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Concepto.class);
+        query.addEntity(CarroceriaTipo.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
@@ -115,7 +107,7 @@ public class ConceptoDAO implements IConceptoDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONCEPTO", "C");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA_TIPO", "CT");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -126,5 +118,5 @@ public class ConceptoDAO implements IConceptoDAO {
         List result = query.list();
         return (int) result.get(0);
     }
-
+    
 }

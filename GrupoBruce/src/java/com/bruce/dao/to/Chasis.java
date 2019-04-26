@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Chasis implements java.io.Serializable {
     private int ddee;
     private String idChapro;
     private String idCarmod;
+    private String proveedor;
+    private String carroceria;
 
     public Chasis() {
     }
@@ -71,5 +75,25 @@ public class Chasis implements java.io.Serializable {
 
     public void setIdCarmod(String idCarmod) {
         this.idCarmod = idCarmod;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="PROVEEDOR", insertable = false, updatable = false)
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="CARROCERIA", insertable = false, updatable = false)
+    public String getCarroceria() {
+        return carroceria;
+    }
+
+    public void setCarroceria(String carroceria) {
+        this.carroceria = carroceria;
     }
 }
