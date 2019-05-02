@@ -13,6 +13,8 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -26,6 +28,7 @@ public class ProformaDetalle implements java.io.Serializable {
     private int idProforma;
     private int idEspecificacion;
     private Date fecha;
+    private String especificacion;
 
     public ProformaDetalle() {
     }
@@ -58,5 +61,15 @@ public class ProformaDetalle implements java.io.Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "ESPECIFICACION", insertable = false, updatable = false)
+    public String getEspecificacion() {
+        return especificacion;
+    }
+
+    public void setEspecificacion(String especificacion) {
+        this.especificacion = especificacion;
     }
 }

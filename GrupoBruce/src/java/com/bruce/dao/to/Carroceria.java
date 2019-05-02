@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -29,6 +31,10 @@ public class Carroceria implements java.io.Serializable {
     private String idCartip;
     private String idCarfal;
     private int idChasis;
+    
+    private String tipo;
+    private String falda;
+    private String chasis;
 
     public Carroceria() {
     }
@@ -105,5 +111,35 @@ public class Carroceria implements java.io.Serializable {
 
     public void setIdChasis(int idChasis) {
         this.idChasis = idChasis;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "TIPO", updatable = false, insertable = false )
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "FALDA", updatable = false, insertable = false )
+    public String getFalda() {
+        return falda;
+    }
+
+    public void setFalda(String falda) {
+        this.falda = falda;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "CHASIS", updatable = false, insertable = false )
+    public String getChasis() {
+        return chasis;
+    }
+
+    public void setChasis(String chasis) {
+        this.chasis = chasis;
     }
 }

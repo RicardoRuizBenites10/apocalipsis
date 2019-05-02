@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IChasisDAO;
-import com.bruce.dao.to.Chasis;
+import com.bruce.dao.design.IProformaDAO;
+import com.bruce.dao.to.Proforma;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -22,82 +22,80 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ChasisDAO implements IChasisDAO{
-    
+public class ProformaDAO implements IProformaDAO {
+
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
-    public void create(Chasis t) {
+    public void create(Proforma t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Chasis t) {
+    public void update(Proforma t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Chasis t) {
+    public void delete(Proforma t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Chasis get(Object idT) {
+    public Proforma get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Chasis lastByFilter(List<FilterPage> filters) {
+    public Proforma lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("PROFORMA", "PR");
+        reverse.addResult("PR.ID_PROFORMA");
+        reverse.addResult("PR.FECHA");
+        reverse.addResult("PR.ID_CARROCERIA");
+        reverse.addResult("PR.ID_CLIENTE");
+        reverse.addResult("CL.NOMBRE CLIENTE");
+        reverse.addResult("CA.CODIGO CARROCERIA");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=PR.ID_CLIENTE");
+        reverse.addJoin("INNER JOIN CARROCERIA CA", "CA.ID_CARROCERIA=PR.ID_CARROCERIA");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_CHASIS", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_PROFORMA", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Proforma.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        Chasis item = !result.isEmpty() ? (Chasis) result.get(0) : null;
+        Proforma item = !result.isEmpty() ? (Proforma) result.get(0) : null;
         return item;
     }
 
     @Override
-    public List<Chasis> getAll() {
+    public List<Proforma> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Chasis> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Proforma> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("PROFORMA", "PR");
+        reverse.addResult("PR.ID_PROFORMA");
+        reverse.addResult("PR.FECHA");
+        reverse.addResult("PR.ID_CARROCERIA");
+        reverse.addResult("PR.ID_CLIENTE");
+        reverse.addResult("CL.NOMBRE CLIENTE");
+        reverse.addResult("CA.CODIGO CARROCERIA");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=PR.ID_CLIENTE");
+        reverse.addJoin("INNER JOIN CARROCERIA CA", "CA.ID_CARROCERIA=PR.ID_CARROCERIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Proforma.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
@@ -109,7 +107,7 @@ public class ChasisDAO implements IChasisDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
+        ReverseQuery reverse = new ReverseQuery("PROFORMA", "PR");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -119,5 +117,6 @@ public class ChasisDAO implements IChasisDAO{
         }
         List result = query.list();
         return (int) result.get(0);
-    }    
+    }
+
 }

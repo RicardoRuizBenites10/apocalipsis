@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -25,6 +27,9 @@ public class Proforma implements java.io.Serializable{
     private int idProforma;
     private Date fecha;
     private int idCarroceria;
+    
+    private String cliente;
+    private String carroceria;
 
     public Proforma() {
     }
@@ -65,5 +70,25 @@ public class Proforma implements java.io.Serializable{
 
     public void setIdCarroceria(int idCarroceria) {
         this.idCarroceria = idCarroceria;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="CLIENTE", insertable = false, updatable = false)
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="CARROCERIA", insertable = false, updatable = false)
+    public String getCarroceria() {
+        return carroceria;
+    }
+
+    public void setCarroceria(String carroceria) {
+        this.carroceria = carroceria;
     }
 }

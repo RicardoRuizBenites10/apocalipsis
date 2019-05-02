@@ -5,8 +5,9 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IChasisDAO;
-import com.bruce.dao.to.Chasis;
+import com.bruce.dao.design.IObraDAO;
+import com.bruce.dao.to.Obra;
+import com.bruce.dao.to.Obra;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -22,82 +23,88 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ChasisDAO implements IChasisDAO{
-    
+public class ObraDAO implements IObraDAO{
+
     @Autowired
     private SessionFactory sf;
     
     @Override
-    public void create(Chasis t) {
+    public void create(Obra t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Chasis t) {
+    public void update(Obra t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Chasis t) {
+    public void delete(Obra t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Chasis get(Object idT) {
+    public Obra get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Chasis lastByFilter(List<FilterPage> filters) {
+    public Obra lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
+        reverse.addResult("OB.ID_OBRA");
+        reverse.addResult("OB.NOMBRE");
+        reverse.addResult("OB.FECHA");
+        reverse.addResult("OB.FECHA_INICIO");
+        reverse.addResult("OB.FECHA_FIN");
+        reverse.addResult("OB.ID_OBRTIP");
+        reverse.addResult("OB.ID_CLIENTE");
+        reverse.addResult("OB.ID_PROFORMA");
+        reverse.addResult("OT.DESCRIPCION TIPO");
+        reverse.addResult("CL.NOMBRE CLIENTE");
+        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=OB.ID_OBRTIP");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=OB.ID_CLIENTE");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_CHASIS", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_OBRA", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Obra.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        Chasis item = !result.isEmpty() ? (Chasis) result.get(0) : null;
+        Obra item = !result.isEmpty() ? (Obra) result.get(0) : null;
         return item;
     }
 
     @Override
-    public List<Chasis> getAll() {
+    public List<Obra> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Chasis> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Obra> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
+        reverse.addResult("OB.ID_OBRA");
+        reverse.addResult("OB.NOMBRE");
+        reverse.addResult("OB.FECHA");
+        reverse.addResult("OB.FECHA_INICIO");
+        reverse.addResult("OB.FECHA_FIN");
+        reverse.addResult("OB.ID_OBRTIP");
+        reverse.addResult("OB.ID_CLIENTE");
+        reverse.addResult("OB.ID_PROFORMA");
+        reverse.addResult("OT.DESCRIPCION TIPO");
+        reverse.addResult("CL.NOMBRE CLIENTE");
+        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=OB.ID_OBRTIP");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=OB.ID_CLIENTE");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Obra.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
@@ -109,7 +116,7 @@ public class ChasisDAO implements IChasisDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -119,5 +126,6 @@ public class ChasisDAO implements IChasisDAO{
         }
         List result = query.list();
         return (int) result.get(0);
-    }    
+    }
+    
 }

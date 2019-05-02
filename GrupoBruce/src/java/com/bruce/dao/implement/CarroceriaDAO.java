@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IChasisDAO;
-import com.bruce.dao.to.Chasis;
+import com.bruce.dao.design.ICarroceriaDAO;
+import com.bruce.dao.to.Carroceria;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -22,82 +22,92 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ChasisDAO implements IChasisDAO{
+public class CarroceriaDAO implements ICarroceriaDAO{
     
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
-    public void create(Chasis t) {
+    public void create(Carroceria t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Chasis t) {
+    public void update(Carroceria t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Chasis t) {
+    public void delete(Carroceria t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Chasis get(Object idT) {
+    public Carroceria get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Chasis lastByFilter(List<FilterPage> filters) {
+    public Carroceria lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA", "CC");
+        reverse.addResult("CC.ID_CARROCERIA");
+        reverse.addResult("CC.FECHA");
+        reverse.addResult("CC.CODIGO");
+        reverse.addResult("CC.DESCRIPCION");
+        reverse.addResult("CC.SITUACION");
+        reverse.addResult("CC.ID_CHASIS");
+        reverse.addResult("CC.ID_CARTIP");
+        reverse.addResult("CC.ID_CARFAL");
+        reverse.addResult("CT.DESCRIPCION TIPO");
+        reverse.addResult("CF.DESCRIPCION FALDA");
+        reverse.addResult("CH.MODELO CHASIS");
+        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP");
+        reverse.addJoin("INNER JOIN CARROCERIA_FALDA CF", "CF.ID_CARFAL=CC.ID_CARFAL");
+        reverse.addJoin("INNER JOIN CHASIS CH", "CH.ID_CHASIS=CC.ID_CHASIS");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_CHASIS", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_CARROCERIA", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Carroceria.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        Chasis item = !result.isEmpty() ? (Chasis) result.get(0) : null;
+        Carroceria item = !result.isEmpty() ? (Carroceria) result.get(0) : null;
         return item;
     }
 
     @Override
-    public List<Chasis> getAll() {
+    public List<Carroceria> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Chasis> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Carroceria> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
-        reverse.addResult("CH.ID_CHASIS");
-        reverse.addResult("CH.MODELO");
-        reverse.addResult("CH.DDEE");
-        reverse.addResult("CH.ID_CHAPRO");
-        reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
-        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
-        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA", "CC");
+        reverse.addResult("CC.ID_CARROCERIA");
+        reverse.addResult("CC.FECHA");
+        reverse.addResult("CC.CODIGO");
+        reverse.addResult("CC.DESCRIPCION");
+        reverse.addResult("CC.SITUACION");
+        reverse.addResult("CC.ID_CHASIS");
+        reverse.addResult("CC.ID_CARTIP");
+        reverse.addResult("CC.ID_CARFAL");
+        reverse.addResult("CT.DESCRIPCION TIPO");
+        reverse.addResult("CF.DESCRIPCION FALDA");
+        reverse.addResult("CH.MODELO CHASIS");
+        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP");
+        reverse.addJoin("INNER JOIN CARROCERIA_FALDA CF", "CF.ID_CARFAL=CC.ID_CARFAL");
+        reverse.addJoin("INNER JOIN CHASIS CH", "CH.ID_CHASIS=CC.ID_CHASIS");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Chasis.class);
+        query.addEntity(Carroceria.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
@@ -109,7 +119,7 @@ public class ChasisDAO implements IChasisDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CHASIS", "CH");
+        ReverseQuery reverse = new ReverseQuery("CARROCERIA", "CC");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -119,5 +129,6 @@ public class ChasisDAO implements IChasisDAO{
         }
         List result = query.list();
         return (int) result.get(0);
-    }    
+    }
+    
 }

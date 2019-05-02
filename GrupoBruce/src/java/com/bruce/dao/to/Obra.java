@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -30,6 +32,9 @@ public class Obra implements java.io.Serializable {
     private String idCliente;
     private int idProforma;
 
+    private String tipo;
+    private String cliente;
+    
     public Obra() {
     }
 
@@ -107,5 +112,25 @@ public class Obra implements java.io.Serializable {
 
     public void setIdProforma(int idProforma) {
         this.idProforma = idProforma;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="TIPO",insertable = false,updatable = false)
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="CLIENTE",insertable = false,updatable = false)
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 }

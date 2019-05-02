@@ -10,23 +10,29 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
  * @author SISTEMAS
  */
 @Entity
-@IdClass(value=ActividadMaterialId.class)
-@Table(name="ACTIVIDAD_MATERIAL", schema="dbo", catalog="BDBRUCE")
-public class ActividadMaterial implements java.io.Serializable{
+@IdClass(value = ActividadMaterialId.class)
+@Table(name = "ACTIVIDAD_MATERIAL", schema = "dbo", catalog = "BDBRUCE")
+public class ActividadMaterial implements java.io.Serializable {
+
     private int idActividad;
     private int idMaterial;
     private float cantidad;
     private int idUmedida;
 
+    private String material;
+    private String unidad;
+
     public ActividadMaterial() {
     }
-    
+
     @Id
     @Column(name = "ID_ACTIVIDAD", nullable = false)
     public int getIdActividad() {
@@ -63,5 +69,25 @@ public class ActividadMaterial implements java.io.Serializable{
 
     public void setIdUmedida(int idUmedida) {
         this.idUmedida = idUmedida;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "MATERIAL", updatable = false, insertable = false)
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "UNIDAD", updatable = false, insertable = false)
+    public String getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
     }
 }
