@@ -22,6 +22,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Ausencia',
         'GrupoBruce.store.Calendario',
         'GrupoBruce.store.Cargo',
+        'GrupoBruce.store.ChasisProveedor',
         'GrupoBruce.store.Comisionrp',
         'GrupoBruce.store.Concepto',
         'GrupoBruce.store.ConceptoAsignado',

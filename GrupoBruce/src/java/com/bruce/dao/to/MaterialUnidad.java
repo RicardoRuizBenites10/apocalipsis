@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -24,6 +26,8 @@ public class MaterialUnidad implements java.io.Serializable {
     private int idUmedida;
     private float precio;
     private boolean base;
+
+    private String denominacion;
 
     public MaterialUnidad() {
     }
@@ -64,6 +68,16 @@ public class MaterialUnidad implements java.io.Serializable {
 
     public void setBase(boolean base) {
         this.base = base;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "DENOMINACION", insertable = false, updatable = false)
+    public String getDenominacion() {
+        return denominacion;
+    }
+
+    public void setDenominacion(String denominacion) {
+        this.denominacion = denominacion;
     }
 
 }

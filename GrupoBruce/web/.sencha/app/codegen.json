@@ -1295,6 +1295,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Turno"
       }
+    },
+    "app/model/ChasisProveedor.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idChapro:string:null,situacion:boolean:null",
+        "modelFileName": "ChasisProveedor",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ChasisProveedor"
+      }
+    },
+    "app/model/CarroceriaModelo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,descripcion:string:null,fecha:date:null,idCarmod:string:null,situacion:boolean:null",
+        "modelFileName": "CarroceriaModelo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CarroceriaModelo"
+      }
     }
   }
 }
