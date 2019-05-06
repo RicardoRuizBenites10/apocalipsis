@@ -17,7 +17,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MATERIAL_FAMILIA", schema = "dbo", catalog = "BDBRUCE")
-public class MaterialFamilia implements java.io.Serializable{
+public class MaterialFamilia implements java.io.Serializable {
+
     private int idFamilia;
     private Date fecha;
     private String descripcion;
@@ -27,7 +28,7 @@ public class MaterialFamilia implements java.io.Serializable{
     }
 
     @Id
-    @Column(name="ID_FAMILIA",nullable = false)
+    @Column(name = "ID_FAMILIA", nullable = false)
     public int getIdFamilia() {
         return idFamilia;
     }

@@ -1319,6 +1319,210 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "CarroceriaModelo"
       }
+    },
+    "app/model/CarroceriaTipo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,descripcion:string:null,fecha:date:null,idCarmod:string:null,idCartip:string:null,modelo:string:null,situacion:boolean:null",
+        "modelFileName": "CarroceriaTipo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CarroceriaTipo"
+      }
+    },
+    "app/model/Chasis.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "carroceria:string:null,ddee:int:null,idCarmod:string:null,idChapro:string:null,idChasis:int:null,modelo:string:null,proveedor:string:null",
+        "modelFileName": "Chasis",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Chasis"
+      }
+    },
+    "app/model/CarroceriaFalda.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "codigo:string:null,descripcion:string:null,fecha:date:null,idCarfal:int:null,situacion:boolean:null",
+        "modelFileName": "CarroceriaFalda",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "CarroceriaFalda"
+      }
+    },
+    "app/model/Carroceria.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "chasis:string:null,codigo:string:null,descripcion:string:null,falda:string:null,fecha:date:null,idCarfal:string:null,idCarroceria:int:null,idCartip:string:null,idChasis:int:null,situacion:boolean:null,tipo:string:null",
+        "modelFileName": "Carroceria",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Carroceria"
+      }
+    },
+    "app/model/Especificacion.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,fechaInsert:date:null,fechaUpdate:date:null,idEspecificacion:int:null,situacion:boolean:null,usuInsert:string:null",
+        "modelFileName": "Especificacion",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Especificacion"
+      }
+    },
+    "app/model/Plantilla.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "especificacion:string:null,fechaInsert:date:null,fechaUpdate:date:null,idCarroceria:int:null,idEspecificacion:int:null",
+        "modelFileName": "Plantilla",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Plantilla"
+      }
+    },
+    "app/model/Cliente.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "correo:string:null,direccion:string:null,idCliente:string:null,nombre:string:null,telefono:string:null",
+        "modelFileName": "Cliente",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Cliente"
+      }
+    },
+    "app/model/Proforma.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "carroceria:string:null,cliente:string:null,fecha:date:null,idCarroceria:int:null,idCliente:string:null,idProforma:int:null",
+        "modelFileName": "Proforma",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Proforma"
+      }
+    },
+    "app/model/ProformaDetalle.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "especificacion:string:null,fecha:date:null,idEspecificacion:int:null,idProforma:int:null",
+        "modelFileName": "ProformaDetalle",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ProformaDetalle"
+      }
+    },
+    "app/model/EspecifiacionActividad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "actividad:string:null,fecha:date:null,idActividad:int:null,idEspecificacion:int:null",
+        "modelFileName": "EspecifiacionActividad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EspecifiacionActividad"
+      }
+    },
+    "app/model/ActividadMaterial.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cantidad:float:null,idActividad:int:null,idMaterial:int:null,idUmedida:int:null,material:string:null,unidad:string:null",
+        "modelFileName": "ActividadMaterial",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ActividadMaterial"
+      }
+    },
+    "app/model/Obra.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cliente:string:null,fecha:date:null,fechaFin:date:null,fechaInicio:date:null,idCliente:string:null,idObra:int:null,idObrtip:int:null,idProforma:int:null,nombre:string:null,tipo:string:null",
+        "modelFileName": "Obra",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Obra"
+      }
+    },
+    "app/model/Contratista.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "correo:string:null,direccion:string:null,idContratista:string:null,idEproceso:int:null,nombre:string:null,situacion:boolean:null,telefono:string:null",
+        "modelFileName": "Contratista",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Contratista"
+      }
+    },
+    "app/model/MaterialFamilia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,fecha:date:null,idFamilia:int:null,situacion:boolean:null",
+        "modelFileName": "MaterialFamilia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "MaterialFamilia"
+      }
+    },
+    "app/model/MaterialSubfamilia.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,fecha:date:null,idFamilia:int:null,idSubfamilia:int:null,situacion:boolean:null",
+        "modelFileName": "MaterialSubfamilia",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "MaterialSubfamilia"
+      }
+    },
+    "app/model/UnidadMedida.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "denominacion:string:null,equivalencia:float:null,idUmedida:int:null,situacion:boolean:null",
+        "modelFileName": "UnidadMedida",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "UnidadMedida"
+      }
+    },
+    "app/model/MaterialUnidad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "base:boolean:null,denominacion:string:null,idMaterial:int:null,idUmedida:int:null,precio:float:null",
+        "modelFileName": "MaterialUnidad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "MaterialUnidad"
+      }
     }
   }
 }

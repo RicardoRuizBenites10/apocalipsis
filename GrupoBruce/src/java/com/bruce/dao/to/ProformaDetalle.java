@@ -21,13 +21,14 @@ import org.hibernate.annotations.GenerationTime;
  * @author SISTEMAS
  */
 @Entity
-@IdClass(value = ProformaDetalleID.class)
+@IdClass(value = ProformaDetalleId.class)
 @Table(name = "PROFORMA_DETALLE", schema = "dbo", catalog = "BDBRUCE")
 public class ProformaDetalle implements java.io.Serializable {
 
     private int idProforma;
     private int idEspecificacion;
     private Date fecha;
+    
     private String especificacion;
 
     public ProformaDetalle() {

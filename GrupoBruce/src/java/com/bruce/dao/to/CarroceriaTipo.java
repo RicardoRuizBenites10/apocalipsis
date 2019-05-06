@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -27,6 +29,8 @@ public class CarroceriaTipo implements java.io.Serializable {
     private String descripcion;
     private boolean situacion;
     private String idCarmod;
+
+    private String modelo;
 
     public CarroceriaTipo() {
     }
@@ -85,5 +89,15 @@ public class CarroceriaTipo implements java.io.Serializable {
 
     public void setIdCarmod(String idCarmod) {
         this.idCarmod = idCarmod;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "MODELO", insertable = false, updatable = false)
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 }

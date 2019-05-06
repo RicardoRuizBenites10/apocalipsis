@@ -25,6 +25,7 @@ public class Chasis implements java.io.Serializable {
     private int ddee;
     private String idChapro;
     private String idCarmod;
+    
     private String proveedor;
     private String carroceria;
 
