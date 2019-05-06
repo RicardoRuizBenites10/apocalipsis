@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 public class CarroceriaModelo implements java.io.Serializable {
 
     private String idCarmod;
-    private String codigo;
+    private String nombre;
     private Date fecha;
     private String descripcion;
     private boolean situacion;
@@ -40,13 +40,13 @@ public class CarroceriaModelo implements java.io.Serializable {
         this.idCarmod = idCarmod;
     }
 
-    @Column(name="CODIGO", nullable = false)
-    public String getCodigo() {
-        return codigo;
+    @Column(name="NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     @Temporal(TemporalType.DATE)

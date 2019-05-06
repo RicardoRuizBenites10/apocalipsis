@@ -1523,6 +1523,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "MaterialUnidad"
       }
+    },
+    "app/model/Material.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "autoparte:boolean:null,cantIngreso:float:null,cantSalida:float:null,familia:string:null,idEmpresa:string:null,idFamilia:int:null,idMaterial:int:null,idSubfamilia:int:null,idSucursal:string:null,idUsuario:string:null,nombre:string:null,precio:float:null,segCalidad:boolean:null,stock:float:null,stockMaximo:float:null,stockMinimo:float:null,subfamilia:string:null",
+        "modelFileName": "Material",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Material"
+      }
     }
   }
 }

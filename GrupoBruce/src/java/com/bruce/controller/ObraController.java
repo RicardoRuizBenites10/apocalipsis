@@ -6,7 +6,7 @@
 package com.bruce.controller;
 
 import com.bruce.dao.to.Obra;
-import com.bruce.services.implement.ObraService;
+import com.bruce.services.design.IObraService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class ObraController {
+
     @Autowired
-    private ObraService serv;
+    private IObraService serv;
 
     @ResponseBody
     @RequestMapping(value = "/obras", method = RequestMethod.GET)

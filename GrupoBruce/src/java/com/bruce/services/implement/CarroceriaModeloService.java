@@ -34,6 +34,7 @@ public class CarroceriaModeloService implements ICarroceriaModeloService{
     @Override
     @Transactional
     public void insert(CarroceriaModelo t) {
+        t.setIdCarmod(t.getIdCarmod().toUpperCase());
         dao.create(t);
     }
 

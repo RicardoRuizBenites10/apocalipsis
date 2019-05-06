@@ -2,11 +2,11 @@ Ext.define('GrupoBruce.model.CarroceriaModelo', {
     extend: 'Ext.data.Model',
     idProperty: 'idCarmod',
     fields: [
-        {name: 'codigo', type: 'string'},
         {name: 'descripcion', type: 'string'},
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idCarmod', type: 'string'},
-        {name: 'situacion', type: 'boolean'}
+        {name: 'nombre', type: 'string'},
+        {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
     
     identifier: 'sequential',

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -35,6 +37,9 @@ public class Material implements java.io.Serializable {
     private int idFamilia;
     private int idSubfamilia;
     private String idUsuario;
+    
+    private String familia;
+    private String subfamilia;
 
     public Material() {
     }
@@ -132,7 +137,7 @@ public class Material implements java.io.Serializable {
         this.cantSalida = cantSalida;
     }
 
-    @Column(name = "AUTOPARTE", nullable = false)
+    @Column(name = "ISAUTOPARTE", nullable = false)
     public boolean isAutoparte() {
         return autoparte;
     }
@@ -175,5 +180,25 @@ public class Material implements java.io.Serializable {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="FAMILIA", insertable = false, updatable = false)
+    public String getFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(String familia) {
+        this.familia = familia;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="SUBFAMILIA", insertable = false, updatable = false)
+    public String getSubfamilia() {
+        return subfamilia;
+    }
+
+    public void setSubfamilia(String subfamilia) {
+        this.subfamilia = subfamilia;
     }
 }
