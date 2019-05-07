@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.model.Chasis', {
     extend: 'Ext.data.Model',
-    id: 'idChasis',
+    idProperty: 'idChasis',
     fields: [
         { name: 'carroceria', type: 'string' },
         { name: 'ddee', type: 'int' },

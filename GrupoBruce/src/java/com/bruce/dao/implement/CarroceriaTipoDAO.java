@@ -53,7 +53,7 @@ public class CarroceriaTipoDAO implements ICarroceriaTipoDAO{
         ReverseQuery reverse = new ReverseQuery("CARROCERIA_TIPO", "CT");
         reverse.addResult("CT.ID_CARTIP");
         reverse.addResult("CT.FECHA");
-        reverse.addResult("CT.CODIGO");
+        reverse.addResult("CT.NOMBRE");
         reverse.addResult("CT.DESCRIPCION");
         reverse.addResult("CT.SITUACION");
         reverse.addResult("CT.ID_CARMOD");
@@ -85,7 +85,7 @@ public class CarroceriaTipoDAO implements ICarroceriaTipoDAO{
         ReverseQuery reverse = new ReverseQuery("CARROCERIA_TIPO", "CT");
         reverse.addResult("CT.ID_CARTIP");
         reverse.addResult("CT.FECHA");
-        reverse.addResult("CT.CODIGO");
+        reverse.addResult("CT.NOMBRE");
         reverse.addResult("CT.DESCRIPCION");
         reverse.addResult("CT.SITUACION");
         reverse.addResult("CT.ID_CARMOD");

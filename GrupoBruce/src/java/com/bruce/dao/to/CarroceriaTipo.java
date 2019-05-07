@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenerationTime;
 public class CarroceriaTipo implements java.io.Serializable {
 
     private String idCartip;
-    private String codigo;
+    private String nombre;
     private Date fecha;
     private String descripcion;
     private boolean situacion;
@@ -45,13 +45,13 @@ public class CarroceriaTipo implements java.io.Serializable {
         this.idCartip = idCartip;
     }
 
-    @Column(name = "CODIGO", nullable = false)
-    public String getCodigo() {
-        return codigo;
+    @Column(name = "NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Temporal(TemporalType.DATE)

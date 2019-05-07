@@ -3,9 +3,10 @@ Ext.define('GrupoBruce.model.ChasisProveedor', {
     alias: 'model.Mchasisproveedor',
     idProperty: 'idChapro',
     fields: [
-        {name: 'descripcion', type: 'string'},
+        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idChapro', type: 'string'},
-        {name: 'situacion', type: 'boolean'}
+        {name: 'nombre', type: 'string'},
+        {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
 
     identifier: {

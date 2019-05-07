@@ -16,6 +16,7 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModelo', {
 
     items: [{
             xtype: 'WlistCarroceriaModel',
+            plugins: 'responsive',
             responsiveConfig: {
                 small: {
                     height: 300

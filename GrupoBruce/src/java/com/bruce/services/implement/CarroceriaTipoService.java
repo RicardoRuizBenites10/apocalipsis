@@ -34,6 +34,7 @@ public class CarroceriaTipoService implements ICarroceriaTipoService{
     @Override
     @Transactional
     public void insert(CarroceriaTipo t) {
+        t.setIdCartip(t.getIdCartip().toUpperCase());
         dao.create(t);
     }
 

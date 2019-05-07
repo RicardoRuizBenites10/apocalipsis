@@ -1,85 +1,70 @@
-Ext.define('GrupoBruce.view.empresa.ListEmpresa', {
+Ext.define('GrupoBruce.view.carroceriatipo.ListCarroceriaTipo', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistEmpresa',
-    reference: 'list_empresa',
+    alias: 'widget.Wlistcarroceriatipo',
+    reference: 'list_carroceriatipo',
+    id: 'id_wlistcarroceriatipo',
 
     bind: {
-        store: '{empresas}',
-        selection: '{selectEmpresa}'
+        store: '{carroceriatipos}',
+        selection: '{selectCarroceriaTipo}'
     },
     allowDeselect: true,
 
-    style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Código',
-            dataIndex: 'idEmpresa',
+            dataIndex: 'idCartip',
             align: 'center'
         }, {
-            text: 'RUC',
-            dataIndex: 'ruc',
-            width: 150,
-            align: 'center'
-        }, {
-            text: 'Empresa',
-            dataIndex: 'descripcion',
-            width: 300,
-            align: 'left'
+            text: 'Nombre',
+            dataIndex: 'nombre',
+            align: 'left',
+            width: 300
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
-            width: 150,
-            align: 'center',
             renderer: function (val) {
                 if (val) {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
                 } else {
                     return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
                 }
-            }
+            },
+            align: 'center'
         }],
-
     dockedItems: [{
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
+                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectEmpresa}'
+                        disabled: '{selectCarroceriaTipo}'
                     },
-                    handler: 'addEmpresa'
+                    handler: 'addCarroceriaTipo'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectCarroceriaTipo}'
                     },
-                    handler: 'editEmpresa'
+                    handler: 'editCarroceriaTipo'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectCarroceriaTipo}'
                     },
-                    handler: 'deleteEmpresa'
-                }, '-', {
-                    iconCls: 'x-fa fa-building-o',
-                    disabled: true,
-                    text: 'Sucursales',
-                    bind: {
-                        disabled: '{!selectEmpresa}'
-                    },
-                    handler: 'onSucursalEmpresa'
+                    handler: 'deleteCarroceriaTipo'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{empresas}'
+                store: '{carroceriatipos}'
             },
             displayInfo: true
         }]
-
 });

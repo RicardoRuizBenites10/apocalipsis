@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.store.CarroceriaTipo',{
     remoteFilter: true,
     
     sorters: [{
-            property: 'CODIGO',
+            property: 'NOMBRE',
             direction: 'ASC'
         }]
 });

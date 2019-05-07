@@ -1,32 +1,32 @@
-Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
+Ext.define('GrupoBruce.view.chasis.ChasisController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Ccarroceriamodelo',
+    alias: 'controller.Cchasis',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.carroceriamodelo.FormCarroceriaModelo();
-        window.getViewModel().set('newRegister', !record);
+        var window = new GrupoBruce.view.chasis.FormChasis();
         if (!record) {
-            window.setTitle('Registrar modelo de carrocería');
-            record = new GrupoBruce.model.CarroceriaModelo();
-            record.set('idCarmod', '');
+            var idChapro = this.getViewModel().get('recordChasisProveedor').get('idChapro');
+            window.setTitle('Registrar chasis');
+            record = new GrupoBruce.model.Chasis();
+            record.set('idChapro', idChapro);
         }
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addCarroceriaModelo: function () {
+    addChasis: function () {
         this.createDialog(null);
     },
 
-    editCarroceriaModelo: function () {
-        var model = this.getViewModel().get('selectCarroceriaModelo');
+    editChasis: function () {
+        var model = this.getViewModel().get('selectChasis');
         this.createDialog(model);
     },
 
-    onSaveCarroceriaModelo: function (btn) {
+    onSaveChasis: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistCarroceriaModel');
+        var grid = Ext.getCmp('id_wlistchasis');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
@@ -47,8 +47,8 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
         }
     },
 
-    deleteCarroceriaModelo: function () {
-        var grid = this.lookupReference('list_carroceriamodelo');
+    deleteChasis: function () {
+        var grid = this.lookupReference('list_chasis');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -59,16 +59,7 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
-    },
-
-    createWindow: function (view) {
-        var model = this.getViewModel().get('selectCarroceriaModelo');
-        var window = Ext.create(view);
-        window.getViewModel().set('recordCarroceriaModelo', model);
-    },
-
-    onCarroceriaSubtipo: function () {
-        this.createWindow('GrupoBruce.view.carroceriatipo.CarroceriaTipo');
     }
+
 
 });

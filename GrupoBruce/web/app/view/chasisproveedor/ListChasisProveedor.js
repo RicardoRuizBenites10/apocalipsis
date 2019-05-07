@@ -1,85 +1,79 @@
-Ext.define('GrupoBruce.view.empresa.ListEmpresa', {
+Ext.define('GrupoBruce.view.chasisproveedor.ListChasisProveedor', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistEmpresa',
-    reference: 'list_empresa',
+    alias: 'widget.Wlistchasisproveedor',
+    reference: 'list_chasisproveedor',
+    id: 'id_wlistchasisproveedor',
 
     bind: {
-        store: '{empresas}',
-        selection: '{selectEmpresa}'
+        store: '{chasisproveedors}',
+        selection: '{selectChasisProveedor}'
     },
     allowDeselect: true,
 
-    style: 'border: solid rgb(234,234,236) 1px',
+    title: 'Lista de proveedores de chasis',
     columns: [{
             text: 'Código',
-            dataIndex: 'idEmpresa',
+            dataIndex: 'idChapro',
             align: 'center'
         }, {
-            text: 'RUC',
-            dataIndex: 'ruc',
-            width: 150,
-            align: 'center'
+            text: 'Nombre',
+            dataIndex: 'nombre',
+            align: 'left',
+            width: 400
         }, {
-            text: 'Empresa',
-            dataIndex: 'descripcion',
-            width: 300,
-            align: 'left'
-        }, {
-            text: 'Situación',
+            text: 'Situacion',
             dataIndex: 'situacion',
-            width: 150,
-            align: 'center',
             renderer: function (val) {
                 if (val) {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
                 } else {
                     return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
                 }
-            }
+            },
+            align: 'center'
         }],
-
     dockedItems: [{
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
+                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectEmpresa}'
+                        disabled: '{selectChasisProveedor}'
                     },
-                    handler: 'addEmpresa'
+                    handler: 'addChasisProveedor'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectChasisProveedor}'
                     },
-                    handler: 'editEmpresa'
+                    handler: 'editChasisProveedor'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectChasisProveedor}'
                     },
-                    handler: 'deleteEmpresa'
+                    handler: 'deleteChasisProveedor'
                 }, '-', {
-                    iconCls: 'x-fa fa-building-o',
+                    text: 'Chasises',
+                    iconCls: 'x-fa fa-list',
                     disabled: true,
-                    text: 'Sucursales',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectChasisProveedor}'
                     },
-                    handler: 'onSucursalEmpresa'
+                    handler: 'onChasis'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{empresas}'
+                store: '{chasisproveedors}'
             },
             displayInfo: true
         }]
-
 });

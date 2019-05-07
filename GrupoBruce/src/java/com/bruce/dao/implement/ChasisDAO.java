@@ -56,8 +56,8 @@ public class ChasisDAO implements IChasisDAO{
         reverse.addResult("CH.DDEE");
         reverse.addResult("CH.ID_CHAPRO");
         reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
+        reverse.addResult("CHP.NOMBRE PROVEEDOR");
+        reverse.addResult("CM.NOMBRE CARROCERIA");
         reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
         reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
         reverse.setFilters(filters);
@@ -89,8 +89,8 @@ public class ChasisDAO implements IChasisDAO{
         reverse.addResult("CH.DDEE");
         reverse.addResult("CH.ID_CHAPRO");
         reverse.addResult("CH.ID_CARMOD");
-        reverse.addResult("CHP.DESCRIPCION PROVEEDOR");
-        reverse.addResult("CM.DESCRIPCION CARROCERIA");
+        reverse.addResult("CHP.NOMBRE PROVEEDOR");
+        reverse.addResult("CM.NOMBRE CARROCERIA");
         reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CH.ID_CHAPRO");
         reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CH.ID_CARMOD");
         reverse.setFilters(filters);

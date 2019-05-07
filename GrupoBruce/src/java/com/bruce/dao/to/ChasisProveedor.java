@@ -5,10 +5,13 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -19,7 +22,8 @@ import javax.persistence.Table;
 public class ChasisProveedor implements java.io.Serializable {
 
     private String idChapro;
-    private String descripcion;
+    private Date fecha;
+    private String nombre;
     private boolean situacion;
 
     public ChasisProveedor() {
@@ -35,13 +39,23 @@ public class ChasisProveedor implements java.io.Serializable {
         this.idChapro = idChapro;
     }
 
-    @Column(name = "DESCRIPCION", nullable = false)
-    public String getDescripcion() {
-        return descripcion;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA", nullable = false)
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    @Column(name = "NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Column(name = "SITUACION", nullable = false)

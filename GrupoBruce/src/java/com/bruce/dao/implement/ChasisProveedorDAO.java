@@ -65,7 +65,7 @@ public class ChasisProveedorDAO implements IChasisProveedorDAO{
                 }
             });
         }
-        cr.addOrder(Order.desc("idChaPro"));
+        cr.addOrder(Order.desc("idChapro"));
         cr.setFirstResult(0);
 
         List result = cr.list();

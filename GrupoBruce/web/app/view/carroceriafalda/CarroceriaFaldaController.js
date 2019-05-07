@@ -1,32 +1,32 @@
-Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
+Ext.define('GrupoBruce.view.carroceriafalda.CarroceriaFaldaController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Ccarroceriamodelo',
+    alias: 'controller.Ccarroceriafalda',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.carroceriamodelo.FormCarroceriaModelo();
+        var window = new GrupoBruce.view.carroceriafalda.FormCarroceriaFalda();
         window.getViewModel().set('newRegister', !record);
         if (!record) {
             window.setTitle('Registrar modelo de carrocería');
-            record = new GrupoBruce.model.CarroceriaModelo();
-            record.set('idCarmod', '');
+            record = new GrupoBruce.model.CarroceriaFalda();
+            record.set('idCarfal', '');
         }
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addCarroceriaModelo: function () {
+    addCarroceriaFalda: function () {
         this.createDialog(null);
     },
 
-    editCarroceriaModelo: function () {
-        var model = this.getViewModel().get('selectCarroceriaModelo');
+    editCarroceriaFalda: function () {
+        var model = this.getViewModel().get('selectCarroceriaFalda');
         this.createDialog(model);
     },
 
-    onSaveCarroceriaModelo: function (btn) {
+    onSaveCarroceriaFalda: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistCarroceriaModel');
+        var grid = Ext.getCmp('id_wlistcarroceriafalda');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
@@ -47,8 +47,8 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
         }
     },
 
-    deleteCarroceriaModelo: function () {
-        var grid = this.lookupReference('list_carroceriamodelo');
+    deleteCarroceriaFalda: function () {
+        var grid = this.lookupReference('list_carroceriafalda');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -59,16 +59,6 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
-    },
-
-    createWindow: function (view) {
-        var model = this.getViewModel().get('selectCarroceriaModelo');
-        var window = Ext.create(view);
-        window.getViewModel().set('recordCarroceriaModelo', model);
-    },
-
-    onCarroceriaSubtipo: function () {
-        this.createWindow('GrupoBruce.view.carroceriatipo.CarroceriaTipo');
     }
 
 });

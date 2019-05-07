@@ -1,85 +1,71 @@
-Ext.define('GrupoBruce.view.empresa.ListEmpresa', {
+Ext.define('GrupoBruce.view.carroceriafalda.ListCarroceriaFalda', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistEmpresa',
-    reference: 'list_empresa',
+    alias: 'widget.Wlistcarroceriafalda',
+    reference: 'list_carroceriafalda',
+    id: 'id_wlistcarroceriafalda',
 
     bind: {
-        store: '{empresas}',
-        selection: '{selectEmpresa}'
+        store: '{carroceriafaldas}',
+        selection: '{selectCarroceriaFalda}'
     },
     allowDeselect: true,
+    title: 'Lista de faldas carrocería',
 
-    style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Código',
-            dataIndex: 'idEmpresa',
+            dataIndex: 'idCarfal',
             align: 'center'
         }, {
-            text: 'RUC',
-            dataIndex: 'ruc',
-            width: 150,
-            align: 'center'
-        }, {
-            text: 'Empresa',
-            dataIndex: 'descripcion',
-            width: 300,
-            align: 'left'
+            text: 'Nombre',
+            dataIndex: 'nombre',
+            align: 'left',
+            width: 300
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
-            width: 150,
-            align: 'center',
             renderer: function (val) {
                 if (val) {
                     return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
                 } else {
                     return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
                 }
-            }
+            },
+            align: 'center'
         }],
-
     dockedItems: [{
             xtype: 'toolbar',
+            dock: 'top',
             overflowHandler: 'menu',
             items: [{
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectEmpresa}'
+                        disabled: '{selectCarroceriaFalda}'
                     },
-                    handler: 'addEmpresa'
+                    handler: 'addCarroceriaFalda'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectCarroceriaFalda}'
                     },
-                    handler: 'editEmpresa'
+                    handler: 'editCarroceriaFalda'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectEmpresa}'
+                        disabled: '{!selectCarroceriaFalda}'
                     },
-                    handler: 'deleteEmpresa'
-                }, '-', {
-                    iconCls: 'x-fa fa-building-o',
-                    disabled: true,
-                    text: 'Sucursales',
-                    bind: {
-                        disabled: '{!selectEmpresa}'
-                    },
-                    handler: 'onSucursalEmpresa'
+                    handler: 'deleteCarroceriaFalda'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{empresas}'
+                store: '{carroceriafaldas}'
             },
             displayInfo: true
         }]
-
 });

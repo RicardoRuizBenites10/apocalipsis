@@ -26,14 +26,17 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ChasisProveedorService implements IChasisProveedorService{
-    
+public class ChasisProveedorService implements IChasisProveedorService {
+
     @Autowired
     private IChasisProveedorDAO dao;
 
     @Override
     @Transactional
     public void insert(ChasisProveedor t) {
+        ChasisProveedor last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? Integer.parseInt(last.getIdChapro()) : 0;
+        t.setIdChapro(String.format("%03d", idLast + 1));
         dao.create(t);
     }
 
@@ -119,5 +122,5 @@ public class ChasisProveedorService implements IChasisProveedorService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
 }

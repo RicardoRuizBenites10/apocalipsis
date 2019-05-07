@@ -34,6 +34,7 @@ public class CarroceriaFaldaService implements ICarroceriaFaldaService{
     @Override
     @Transactional
     public void insert(CarroceriaFalda t) {
+        t.setIdCarfal(t.getIdCarfal().toUpperCase());
         dao.create(t);
     }
 

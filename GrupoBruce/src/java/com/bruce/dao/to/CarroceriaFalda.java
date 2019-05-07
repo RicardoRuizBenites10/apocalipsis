@@ -18,11 +18,11 @@ import javax.persistence.TemporalType;
  * @author SISTEMAS
  */
 @Entity
-@Table(name = "CARROCERIA_TIPO", schema = "dbo", catalog = "BDBRUCE")
+@Table(name = "CARROCERIA_FALDA", schema = "dbo", catalog = "BDBRUCE")
 public class CarroceriaFalda implements java.io.Serializable {
 
-    private int idCarfal;
-    private String codigo;
+    private String idCarfal;
+    private String nombre;
     private Date fecha;
     private String descripcion;
     private boolean situacion;
@@ -32,21 +32,21 @@ public class CarroceriaFalda implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_CARFAL", nullable = false)
-    public int getIdCarfal() {
+    public String getIdCarfal() {
         return idCarfal;
     }
 
-    public void setIdCarfal(int idCarfal) {
+    public void setIdCarfal(String idCarfal) {
         this.idCarfal = idCarfal;
     }
 
-    @Column(name = "CODIGO", nullable = false)
-    public String getCodigo() {
-        return codigo;
+    @Column(name = "NOMBRE", nullable = false)
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Temporal(TemporalType.DATE)

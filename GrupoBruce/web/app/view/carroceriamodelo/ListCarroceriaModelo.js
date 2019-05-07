@@ -9,7 +9,6 @@ Ext.define('GrupoBruce.view.carroceriamodelo.ListCarroceriaModelo', {
         selection: '{selectCarroceriaModelo}'
     },
     allowDeselect: true,
-    plugins: 'responsive',
 
     title: 'Lista de modelos de carrocería',
     style: 'border: solid rgb(234,234,236) 1px',
