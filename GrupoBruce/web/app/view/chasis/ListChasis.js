@@ -4,6 +4,10 @@ Ext.define('GrupoBruce.view.chasis.ListChasis', {
     reference: 'list_chasis',
     id: 'id_wlistchasis',
 
+    requires: [
+        'Ext.grid.RowNumberer'
+    ],
+
     bind: {
         store: '{chasiss}',
         selection: '{selectChasis}'
@@ -11,10 +15,7 @@ Ext.define('GrupoBruce.view.chasis.ListChasis', {
     allowDeselect: true,
 
     columns: [{
-            text: 'Tipo carrocería',
-            dataIndex: 'carroceria',
-            align: 'left',
-            width: '200'
+            xtype: 'rownumberer'
         }, {
             text: 'Nombre',
             dataIndex: 'modelo',
@@ -24,6 +25,11 @@ Ext.define('GrupoBruce.view.chasis.ListChasis', {
             text: 'D.D.E.E.',
             dataIndex: 'ddee',
             align: 'left'
+        }, {
+            text: 'Tipo carrocería',
+            dataIndex: 'carroceria',
+            align: 'left',
+            width: '200'
         }],
     dockedItems: [{
             xtype: 'toolbar',
