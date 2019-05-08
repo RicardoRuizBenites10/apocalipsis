@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.Plantilla', {
         { name: 'especificacion', type: 'string' },
         { name: 'fechaInsert', type: 'date' },
         { name: 'fechaUpdate', type: 'date' },
-        { name: 'idCarroceria', type: 'int' },
+        { name: 'idCarroceria', type: 'string' },
         { name: 'idEspecificacion', type: 'int' }
     ],
     

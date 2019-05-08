@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.carroceriamodelo.CarroceriaModeloModel', {
 
     stores: {
         carroceriaModelos: {
-            type: 'ScarroceriaModelo',
+            type: 'Scarroceriamodelo',
             autoLoad: true
         }
     }

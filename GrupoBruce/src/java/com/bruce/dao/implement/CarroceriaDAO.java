@@ -22,8 +22,8 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class CarroceriaDAO implements ICarroceriaDAO{
-    
+public class CarroceriaDAO implements ICarroceriaDAO {
+
     @Autowired
     private SessionFactory sf;
 
@@ -52,18 +52,24 @@ public class CarroceriaDAO implements ICarroceriaDAO{
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("CARROCERIA", "CC");
         reverse.addResult("CC.ID_CARROCERIA");
-        reverse.addResult("CC.FECHA");
         reverse.addResult("CC.CODIGO");
+        reverse.addResult("CC.FECHA");
         reverse.addResult("CC.DESCRIPCION");
         reverse.addResult("CC.SITUACION");
+        reverse.addResult("CC.ID_CHAPRO");
         reverse.addResult("CC.ID_CHASIS");
+        reverse.addResult("CC.ID_CARMOD");
         reverse.addResult("CC.ID_CARTIP");
         reverse.addResult("CC.ID_CARFAL");
-        reverse.addResult("CT.DESCRIPCION TIPO");
-        reverse.addResult("CF.DESCRIPCION FALDA");
+        reverse.addResult("CM.NOMBRE TIPO");
+        reverse.addResult("CT.NOMBRE SUBTIPO");
+        reverse.addResult("CF.NOMBRE FALDA");
+        reverse.addResult("CHP.NOMBRE PROVEEDOR");
         reverse.addResult("CH.MODELO CHASIS");
-        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP");
+        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CC.ID_CARMOD");
+        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP AND CT.ID_CARMOD=CM.ID_CARMOD");
         reverse.addJoin("INNER JOIN CARROCERIA_FALDA CF", "CF.ID_CARFAL=CC.ID_CARFAL");
+        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CC.ID_CHAPRO");
         reverse.addJoin("INNER JOIN CHASIS CH", "CH.ID_CHASIS=CC.ID_CHASIS");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_CARROCERIA", "DESC"));
@@ -90,18 +96,24 @@ public class CarroceriaDAO implements ICarroceriaDAO{
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("CARROCERIA", "CC");
         reverse.addResult("CC.ID_CARROCERIA");
-        reverse.addResult("CC.FECHA");
         reverse.addResult("CC.CODIGO");
+        reverse.addResult("CC.FECHA");
         reverse.addResult("CC.DESCRIPCION");
         reverse.addResult("CC.SITUACION");
+        reverse.addResult("CC.ID_CHAPRO");
         reverse.addResult("CC.ID_CHASIS");
+        reverse.addResult("CC.ID_CARMOD");
         reverse.addResult("CC.ID_CARTIP");
         reverse.addResult("CC.ID_CARFAL");
-        reverse.addResult("CT.DESCRIPCION TIPO");
-        reverse.addResult("CF.DESCRIPCION FALDA");
+        reverse.addResult("CM.NOMBRE TIPO");
+        reverse.addResult("CT.NOMBRE SUBTIPO");
+        reverse.addResult("CF.NOMBRE FALDA");
+        reverse.addResult("CHP.NOMBRE PROVEEDOR");
         reverse.addResult("CH.MODELO CHASIS");
-        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP");
+        reverse.addJoin("INNER JOIN CARROCERIA_MODELO CM", "CM.ID_CARMOD=CC.ID_CARMOD");
+        reverse.addJoin("INNER JOIN CARROCERIA_TIPO CT", "CT.ID_CARTIP=CC.ID_CARTIP AND CT.ID_CARMOD=CM.ID_CARMOD");
         reverse.addJoin("INNER JOIN CARROCERIA_FALDA CF", "CF.ID_CARFAL=CC.ID_CARFAL");
+        reverse.addJoin("INNER JOIN CHASIS_PROVEEDOR CHP", "CHP.ID_CHAPRO=CC.ID_CHAPRO");
         reverse.addJoin("INNER JOIN CHASIS CH", "CH.ID_CHASIS=CC.ID_CHASIS");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
@@ -130,5 +142,5 @@ public class CarroceriaDAO implements ICarroceriaDAO{
         List result = query.list();
         return (int) result.get(0);
     }
-    
+
 }

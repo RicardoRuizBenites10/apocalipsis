@@ -23,17 +23,21 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "CARROCERIA", schema = "dbo", catalog = "BDBRUCE")
 public class Carroceria implements java.io.Serializable {
 
-    private int idCarroceria;
-    private Date fecha;
+    private String idCarroceria;
     private String codigo;
+    private Date fecha;
     private String descripcion;
     private boolean situacion;
+    private String idChapro;
+    private int idChasis;
+    private String idCarmod;
     private String idCartip;
     private String idCarfal;
-    private int idChasis;
-    
+
     private String tipo;
+    private String subtipo;
     private String falda;
+    private String proveedor;
     private String chasis;
 
     public Carroceria() {
@@ -41,12 +45,21 @@ public class Carroceria implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_CARROCERIA", nullable = false)
-    public int getIdCarroceria() {
+    public String getIdCarroceria() {
         return idCarroceria;
     }
 
-    public void setIdCarroceria(int idCarroceria) {
+    public void setIdCarroceria(String idCarroceria) {
         this.idCarroceria = idCarroceria;
+    }
+    
+    @Column(name = "CODIGO", nullable = false)
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     @Temporal(TemporalType.DATE)
@@ -57,15 +70,6 @@ public class Carroceria implements java.io.Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    @Column(name = "CODIGO", nullable = false)
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     @Column(name = "DESCRIPCION")
@@ -113,8 +117,26 @@ public class Carroceria implements java.io.Serializable {
         this.idChasis = idChasis;
     }
 
+    @Column(name = "ID_CHAPRO", nullable = false)
+    public String getIdChapro() {
+        return idChapro;
+    }
+
+    public void setIdChapro(String idChapro) {
+        this.idChapro = idChapro;
+    }
+
+    @Column(name = "ID_CARMOD", nullable = false)
+    public String getIdCarmod() {
+        return idCarmod;
+    }
+
+    public void setIdCarmod(String idCarmod) {
+        this.idCarmod = idCarmod;
+    }
+
     @Generated(GenerationTime.NEVER)
-    @Column(name = "TIPO", updatable = false, insertable = false )
+    @Column(name = "TIPO", updatable = false, insertable = false)
     public String getTipo() {
         return tipo;
     }
@@ -124,7 +146,7 @@ public class Carroceria implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name = "FALDA", updatable = false, insertable = false )
+    @Column(name = "FALDA", updatable = false, insertable = false)
     public String getFalda() {
         return falda;
     }
@@ -134,7 +156,27 @@ public class Carroceria implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name = "CHASIS", updatable = false, insertable = false )
+    @Column(name = "SUBTIPO", updatable = false, insertable = false)
+    public String getSubtipo() {
+        return subtipo;
+    }
+
+    public void setSubtipo(String subtipo) {
+        this.subtipo = subtipo;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "PROVEEDOR", updatable = false, insertable = false)
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "CHASIS", updatable = false, insertable = false)
     public String getChasis() {
         return chasis;
     }

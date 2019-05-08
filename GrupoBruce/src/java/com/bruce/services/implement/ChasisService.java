@@ -59,7 +59,7 @@ public class ChasisService implements IChasisService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "modelo", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class ChasisService implements IChasisService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "modelo", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ChasisService implements IChasisService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "modelo", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);

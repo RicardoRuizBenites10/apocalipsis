@@ -8,6 +8,7 @@ package com.bruce.dao.to;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -17,19 +18,30 @@ import org.hibernate.annotations.GenerationTime;
  * @author SISTEMAS
  */
 @Entity
+@IdClass(value = ChasisId.class)
 @Table(name = "CHASIS", schema = "dbo", catalog = "BDBRUCE")
 public class Chasis implements java.io.Serializable {
 
+    private String idChapro;
     private int idChasis;
     private String modelo;
     private int ddee;
-    private String idChapro;
     private String idCarmod;
     
     private String proveedor;
     private String carroceria;
 
     public Chasis() {
+    }
+    
+    @Id
+    @Column(name="ID_CHAPRO", nullable = false)
+    public String getIdChapro() {
+        return idChapro;
+    }
+
+    public void setIdChapro(String idChapro) {
+        this.idChapro = idChapro;
     }
     
     @Id
@@ -58,15 +70,6 @@ public class Chasis implements java.io.Serializable {
 
     public void setDdee(int ddee) {
         this.ddee = ddee;
-    }
-
-    @Column(name="ID_CHAPRO", nullable = false)
-    public String getIdChapro() {
-        return idChapro;
-    }
-
-    public void setIdChapro(String idChapro) {
-        this.idChapro = idChapro;
     }
 
     @Column(name="ID_CARMOD", nullable = false)

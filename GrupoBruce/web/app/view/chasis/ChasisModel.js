@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.view.chasis.ChasisModel', {
             autoLoad: true
         },
         carroceriamodelos: {
-            type: 'ScarroceriaModelo',
+            type: 'Scarroceriamodelo',
             autoLoad: true
         }
     }

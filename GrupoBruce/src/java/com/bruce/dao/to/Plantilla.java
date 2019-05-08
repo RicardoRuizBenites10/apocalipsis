@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "PLANTILLA", schema = "dbo", catalog = "BDBRUCE")
 public class Plantilla implements java.io.Serializable {
 
-    private int idCarroceria;
+    private String idCarroceria;
     private int idEspecificacion;
     private Date fechaInsert;
     private Date fechaUpdate;
@@ -37,11 +37,11 @@ public class Plantilla implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_CARROCERIA", nullable = false)
-    public int getIdCarroceria() {
+    public String getIdCarroceria() {
         return idCarroceria;
     }
 
-    public void setIdCarroceria(int idCarroceria) {
+    public void setIdCarroceria(String idCarroceria) {
         this.idCarroceria = idCarroceria;
     }
 

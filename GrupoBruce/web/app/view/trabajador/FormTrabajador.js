@@ -278,7 +278,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                             items: [{
                                                     xtype: 'combobox',
                                                     name: 'idFpago',
-                                                    fieldLabel: 'Forma Pago :',
+                                                    fieldLabel: 'Forma pago :',
                                                     editable: false,
                                                     emptyText: 'Seleccionar',
                                                     displayField: 'descripcion',

@@ -26,7 +26,7 @@ public class Proforma implements java.io.Serializable{
     private String idCliente;
     private int idProforma;
     private Date fecha;
-    private int idCarroceria;
+    private String idCarroceria;
     
     private String cliente;
     private String carroceria;
@@ -64,11 +64,11 @@ public class Proforma implements java.io.Serializable{
     }
 
     @Column(name = "ID_CARROCERIA", nullable = false)
-    public int getIdCarroceria() {
+    public String getIdCarroceria() {
         return idCarroceria;
     }
 
-    public void setIdCarroceria(int idCarroceria) {
+    public void setIdCarroceria(String idCarroceria) {
         this.idCarroceria = idCarroceria;
     }
 

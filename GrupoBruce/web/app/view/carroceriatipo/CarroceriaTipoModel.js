@@ -5,11 +5,15 @@ Ext.define('GrupoBruce.view.carroceriatipo.CarroceriaTipoModel', {
         newRegister: true,
         recordCarroceriaModelo: null
     },
-    
+
     stores: {
         carroceriatipos: {
-            type: 'ScarroceriaTipo',
-            autoLoad: true
+            type: 'Scarroceriatipo',
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_CARMOD',
+                    value: '{recordCarroceriaModelo.idCarmod}'
+                }]
         }
     }
 

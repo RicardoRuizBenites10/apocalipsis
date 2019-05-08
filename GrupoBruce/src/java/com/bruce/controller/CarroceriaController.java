@@ -23,12 +23,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class CarroceriaController {
+
     @Autowired
     private ICarroceriaService serv;
 
     @ResponseBody
     @RequestMapping(value = "/carrocerias", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
+            @RequestParam("page") int page,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "filter") String filter,
+            @RequestParam(required = false, value = "query") String query) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("message", "Lista de carroceria");
+        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("total", serv.countByFilter(filter, query));
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.GET)
+    public Map<String, Object> getByLastFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
             @RequestParam("limit") int limit,

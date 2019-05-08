@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.Proforma', {
         { name: 'carroceria', type: 'string' },
         { name: 'cliente', type: 'string' },
         { name: 'fecha', type: 'date' },
-        { name: 'idCarroceria', type: 'int' },
+        { name: 'idCarroceria', type: 'string' },
         { name: 'idCliente', type: 'string' },
         { name: 'idProforma', type: 'int' }
     ],

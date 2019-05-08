@@ -5,6 +5,7 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Objects;
 import javax.persistence.Column;
 
 /**
@@ -13,18 +14,18 @@ import javax.persistence.Column;
  */
 public class PlantillaId implements java.io.Serializable {
 
-    private int idCarroceria;
+    private String idCarroceria;
     private int idEspecificacion;
 
     public PlantillaId() {
     }
 
     @Column(name = "ID_CARROCERIA", nullable = false)
-    public int getIdCarroceria() {
+    public String getIdCarroceria() {
         return idCarroceria;
     }
 
-    public void setIdCarroceria(int idCarroceria) {
+    public void setIdCarroceria(String idCarroceria) {
         this.idCarroceria = idCarroceria;
     }
 
@@ -39,9 +40,9 @@ public class PlantillaId implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.idCarroceria;
-        hash = 79 * hash + this.idEspecificacion;
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.idCarroceria);
+        hash = 89 * hash + this.idEspecificacion;
         return hash;
     }
 
@@ -57,10 +58,10 @@ public class PlantillaId implements java.io.Serializable {
             return false;
         }
         final PlantillaId other = (PlantillaId) obj;
-        if (this.idCarroceria != other.idCarroceria) {
+        if (this.idEspecificacion != other.idEspecificacion) {
             return false;
         }
-        if (this.idEspecificacion != other.idEspecificacion) {
+        if (!Objects.equals(this.idCarroceria, other.idCarroceria)) {
             return false;
         }
         return true;
