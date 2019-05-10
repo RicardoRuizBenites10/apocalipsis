@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class CarroceriaService implements ICarroceriaService{
-    
+public class CarroceriaService implements ICarroceriaService {
+
     @Autowired
     private ICarroceriaDAO dao;
-    
+
     @Override
     @Transactional
     public void insert(Carroceria t) {
@@ -119,5 +119,17 @@ public class CarroceriaService implements ICarroceriaService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
+    @Override
+    @Transactional
+    public String generateCode(String idCarmod, String idCartip, String idCarfal) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("ID_CARMOD", idCarmod));
+        filters.add(new FilterPage("ID_CARTIP", idCartip));
+        filters.add(new FilterPage("ID_CARFAL", idCarfal));
+        Carroceria carroceriaLast = dao.lastByFilter(filters);
+        int idLast = carroceriaLast != null ? Integer.parseInt(carroceriaLast.getCodigo()) : 0;
+        return String.format("%03d", idLast + 1);
+    }
+
 }

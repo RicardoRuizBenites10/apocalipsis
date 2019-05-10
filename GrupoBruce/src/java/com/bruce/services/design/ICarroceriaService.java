@@ -12,5 +12,5 @@ import com.bruce.dao.to.Carroceria;
  * @author SISTEMAS
  */
 public interface ICarroceriaService extends IEntidadService<Carroceria>{
-    
+    public String generateCode(String idCarmod, String idCartip, String idCarfal);
 }

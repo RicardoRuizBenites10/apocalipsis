@@ -65,6 +65,4 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
             }
         });
     }
-
-
 });

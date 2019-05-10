@@ -45,19 +45,15 @@ public class CarroceriaController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.GET)
+    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.POST)
     public Map<String, Object> getByLastFilters(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
-            @RequestParam(required = false, value = "sort") String sort,
-            @RequestParam(required = false, value = "filter") String filter,
-            @RequestParam(required = false, value = "query") String query) {
+            @RequestParam("ID_CARMOD") String idCarmod,
+            @RequestParam("ID_CARTIP") String idCartip,
+            @RequestParam("ID_CARFAL") String idCarfal) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de carroceria");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
-        map.put("total", serv.countByFilter(filter, query));
+        map.put("data", serv.generateCode(idCarmod, idCartip, idCarfal));
         return map;
     }
 
