@@ -23,6 +23,15 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
         this.createDialog(model);
     },
 
+    onChangeCodigo: function (combo, newValue, oldValue) {
+        var vm = combo.up('window').getViewModel();
+        var modCar = vm.get('selectCarroceriaModelo'), tipCar = vm.get('selectCarroceriaTipo'), falCar = vm.get('selectCarroceriaFalda');
+        
+        if (modCar !== null && tipCar !== null && falCar !== null) {
+            console.log('modelo : ');
+        }
+    },
+
     onSaveCarroceria: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');

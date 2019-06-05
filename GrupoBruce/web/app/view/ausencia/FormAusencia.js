@@ -131,7 +131,6 @@ Ext.define('GrupoBruce.view.ausencia.FormAusencia', {
                         click: 'onSaveAusencia'
                     }
                 }]
-
         }]
 });
 
