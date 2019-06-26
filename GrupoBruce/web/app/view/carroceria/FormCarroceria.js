@@ -38,9 +38,9 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             emptyText: 'Seleccionar',
                             forceSelection: true,
                             editable: false,
-                            listeners: {
-                                change: 'onChangeCodigo'
-                            },
+//                            listeners: {
+//                                change: 'onChangeCodigo'
+//                            },
                             flex: 1
                         }, {
                             xtype: 'combobox',
@@ -55,9 +55,9 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             emptyText: 'Seleccionar',
                             forceSelection: true,
                             editable: false,
-                            listeners: {
-                                change: 'onChangeCodigo'
-                            },
+//                            listeners: {
+//                                change: 'onChangeCodigo'
+//                            },
                             flex: 1
                         }]
                 }, {
@@ -73,9 +73,9 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             },
                             emptyText: 'Seleccionar',
                             editable: false,
-                            listeners: {
-                                change: 'onChangeCodigo'
-                            },
+//                            listeners: {
+//                                change: 'onChangeCodigo'
+//                            },
                             flex: 1
                         }]
                 }, {

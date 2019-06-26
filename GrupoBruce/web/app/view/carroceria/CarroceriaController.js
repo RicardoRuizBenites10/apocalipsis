@@ -53,11 +53,11 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
                     Ext.Msg.alert('Success', 'Operación exitosa.')
                 },
                 failure: function (model, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
+                    Ext.Msg.alert('Failure', 'Operacion fallada.');
                 }
             });
         } else { // display error alert if the data is invalid
-            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
         }
     },
 

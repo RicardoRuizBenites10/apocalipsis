@@ -1110,7 +1110,7 @@
       "parameters": {
         "appName": "GrupoBruce",
         "baseClass": "Ext.data.Model",
-        "fields": "descripcion:string:null,idTipo:string:null,situacion:boolean:null",
+        "fields": "myField1:auto:null",
         "modelFileName": "MyModel",
         "modelNamespace": "GrupoBruce.model",
         "name": "MyModel"

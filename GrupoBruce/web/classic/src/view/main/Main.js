@@ -83,12 +83,11 @@ Ext.define('GrupoBruce.view.main.Main', {
 //                            bind: {
 //                                html: '<b> {rootSelection} </b>'
 //                            }
-//                        }, 
+//                        },
                         {
                             reference: 'mainBody',
                             bodyPadding: 10
                         }]
-
                 }]
         }
     ]
