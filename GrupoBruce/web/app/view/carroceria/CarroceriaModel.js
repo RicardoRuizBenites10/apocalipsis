@@ -17,6 +17,7 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
         },
         carroceriamodelos: {
             type: 'Scarroceriamodelo',
+            loading: true,
             autoLoad: true
         },
         carroceriatipos: {
@@ -50,7 +51,7 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
         }
         , carroceriaLast: {
             type: 'Scarroceria',
-            loading: true,
+//            loading: true,
             proxy: {
                 type: 'ajax',
                 url: 'carroceriaLast',
@@ -79,32 +80,56 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
     },
 
     formulas: {
-        codigoLetra: function (get) {
+        loadLast: function (get) {
             var store = get('carroceriaLast');
+
+            (new Ext.Promise(function (resolve, reject) {
+                store.load({
+                    callback: function (records, operation, success) {
+                        if (success) {
+                            // Use the provided "resolve" method  to drive the promise:
+                            resolve(records);
+                        } else {
+                            // Use the provided "reject" method  to drive the promise:
+                            reject("Error loading Companies.");
+                        }
+                    }
+                });
+            })).then(function (content) {
+                // content is responseText of ajax response
+            });
+
+        },
+
+        codigoLetra: function (get) {
+            var store = get('carroceriaLast'), tipo = get('selectCarroceriaTipo'), falda = get('selectCarroceriaFalda');
             console.log('aaaa');
-//            var pro = this;
-            new Ext.Promise(function (resolve, reject) {
+            return (new Ext.Promise(function (resolve, reject) {
                 store.load({
                     callback: function (records, operation, success) {
                         if (success) {
                             // Use the provided "resolve" method  to drive the promise:
                             if(records.length){
-                                return records[1].get('codigo');
+                                console.log(records[0].data.codigo);
+                                return records[0].data.codigo;
+                            }else{
+                                console.log(records.length);
+                                return 77
                             }
-                            console.log(records.length);
 //                            resolve(records);
                         } else {
                             // Use the provided "reject" method  to drive the promise:
                             console.log('nonono');
+                            return 44
 //                            reject("Error loading Companies.");
                         }
                     }
                 });
-            });
+            }));
 //                    .then(function (content) {
-//                console.log('dododo');
+//                console.log(content);
 //            });
-            console.log('zzzz');
+            console.log('yayayaya');
         }
     }
 
