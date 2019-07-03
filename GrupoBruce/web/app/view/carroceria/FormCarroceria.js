@@ -38,9 +38,6 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             emptyText: 'Seleccionar',
                             forceSelection: true,
                             editable: false,
-//                            listeners: {
-//                                change: 'onChangeCodigo'
-//                            },
                             flex: 1
                         }, {
                             xtype: 'combobox',
@@ -55,9 +52,6 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             emptyText: 'Seleccionar',
                             forceSelection: true,
                             editable: false,
-//                            listeners: {
-//                                change: 'onChangeCodigo'
-//                            },
                             flex: 1
                         }]
                 }, {
@@ -73,9 +67,6 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             },
                             emptyText: 'Seleccionar',
                             editable: false,
-//                            listeners: {
-//                                change: 'onChangeCodigo'
-//                            },
                             flex: 1
                         }]
                 }, {
@@ -112,6 +103,14 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
                             fieldLabel: 'Código',
                             name: 'idCarroceria',
                             bind: '{codigoLetra}',
+                            editable: false,
+                            flex: 1
+                        },{
+                            xtype: 'textfield',
+                            fieldLabel: 'Código',
+                            name: 'codigo',
+                            hidden: true,
+                            bind: '{codigoNumero}',
                             editable: false,
                             flex: 1
                         }]

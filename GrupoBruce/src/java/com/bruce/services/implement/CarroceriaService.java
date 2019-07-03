@@ -129,7 +129,7 @@ public class CarroceriaService implements ICarroceriaService {
         filters.add(new FilterPage("ID_CARFAL", idCarfal));
         Carroceria carroceriaLast = dao.lastByFilter(filters);
         int idLast = carroceriaLast != null ? Integer.parseInt(carroceriaLast.getCodigo()) : 0;
-        return String.format("%03d", idLast + 1);
+        return (idCarmod + idCartip + idCarfal).substring(0, 3) + '-' + String.format("%03d", idLast + 1);
     }
 
 }

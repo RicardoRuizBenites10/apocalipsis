@@ -9,7 +9,7 @@ Ext.define('Ext.ux.ActivityMonitor', {
     ready: false,
     verbose: false,
     interval: (1000 * 60 * 1), //1 minute
-    maxInactive: (1000 * 60 * 3), //3 minutes
+    maxInactive: (1000 * 60 * 15), //15 minutes
 
     init: function (config) {
         if (!config) {

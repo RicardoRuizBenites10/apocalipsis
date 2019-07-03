@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
 
     data: {
         newRegister: true,
+        codigoNumero: '',
         selectCarroceriaModelo: null,
         selectCarroceriaTipo: null,
         selectCarroceriaFalda: null,
@@ -17,12 +18,10 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
         },
         carroceriamodelos: {
             type: 'Scarroceriamodelo',
-            loading: true,
             autoLoad: true
         },
         carroceriatipos: {
             type: 'Scarroceriatipo',
-            loading: true,
             autoLoad: true,
             filters: [{
                     property: 'ID_CARMOD',
@@ -35,7 +34,6 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
         },
         chasiss: {
             type: 'Schasis',
-            loading: true,
             autoLoad: true,
             filters: [{
                     property: 'ID_CHAPRO',
@@ -49,87 +47,32 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaModel', {
             type: 'Scarroceriafalda',
             autoLoad: true
         }
-        , carroceriaLast: {
-            type: 'Scarroceria',
-//            loading: true,
-            proxy: {
-                type: 'ajax',
-                url: 'carroceriaLast',
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data',
-                    totalProperty: 'total',
-                    successProperty: 'success'
-                }
-            },
-            filters: [{
-                    property: 'ID_CARMOD',
-                    value: '{selectCarroceriaTipo.idCarmod}'
-                }, {
-                    property: 'ID_CARTIP',
-                    value: '{selectCarroceriaTipo.idCartip}'
-                }, {
-                    property: 'ID_CARFAL',
-                    value: '{selectCarroceriaFalda.idCarfal}'
-                }],
-            sorters: [{
-                    property: 'CODIGO',
-                    direction: 'DESC'
-                }]
-        }
     },
 
     formulas: {
-        loadLast: function (get) {
-            var store = get('carroceriaLast');
-
-            (new Ext.Promise(function (resolve, reject) {
-                store.load({
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            // Use the provided "resolve" method  to drive the promise:
-                            resolve(records);
-                        } else {
-                            // Use the provided "reject" method  to drive the promise:
-                            reject("Error loading Companies.");
-                        }
-                    }
-                });
-            })).then(function (content) {
-                // content is responseText of ajax response
-            });
-
-        },
-
         codigoLetra: function (get) {
-            var store = get('carroceriaLast'), tipo = get('selectCarroceriaTipo'), falda = get('selectCarroceriaFalda');
-            console.log('aaaa');
-            return (new Ext.Promise(function (resolve, reject) {
-                store.load({
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            // Use the provided "resolve" method  to drive the promise:
-                            if(records.length){
-                                console.log(records[0].data.codigo);
-                                return records[0].data.codigo;
-                            }else{
-                                console.log(records.length);
-                                return 77
-                            }
-//                            resolve(records);
-                        } else {
-                            // Use the provided "reject" method  to drive the promise:
-                            console.log('nonono');
-                            return 44
-//                            reject("Error loading Companies.");
+            var mod = get('selectCarroceriaModelo'), tip = get('selectCarroceriaTipo'), fal = get('selectCarroceriaFalda');
+            var codigo = '', codigoNum = '';
+            if (get('newRegister')) {
+                if (mod && tip && fal) {
+                    Ext.Ajax.request({
+                        url: 'carroceriaLast',
+                        method: 'POST',
+                        async: false,
+                        params: {ID_CARMOD: mod.get('idCarmod'), ID_CARTIP: tip.get('idCartip'), ID_CARFAL: fal.get('idCarfal')},
+                        success: function (response, opts) {
+                            var responseText = Ext.decode(response.responseText);
+                            codigo = responseText.data;
+                            codigoNum = codigo.substr(4, 3);
+                        },
+                        failurer: function (response, opts) {
+                            console.log('Joder 2');
                         }
-                    }
-                });
-            }));
-//                    .then(function (content) {
-//                console.log(content);
-//            });
-            console.log('yayayaya');
+                    });
+                    this.set('codigoNumero', codigoNum);
+                }
+                return codigo;
+            }
         }
     }
 

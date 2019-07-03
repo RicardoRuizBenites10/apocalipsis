@@ -44,32 +44,32 @@ public class CarroceriaController {
         return map;
     }
 
-//    @ResponseBody
-//    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.POST)
-//    public Map<String, Object> getByLastFilters(
-//            @RequestParam("ID_CARMOD") String idCarmod,
-//            @RequestParam("ID_CARTIP") String idCartip,
-//            @RequestParam("ID_CARFAL") String idCarfal) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("success", true);
-//        map.put("message", "Lista de carroceria");
-//        map.put("data", serv.generateCode(idCarmod, idCartip, idCarfal));
-//        return map;
-//    }
-    
     @ResponseBody
-    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.GET)
+    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.POST)
     public Map<String, Object> getByLastFilters(
-            @RequestParam("filter") String filter,
-            @RequestParam(required = false, value = "query") String query) {
+            @RequestParam("ID_CARMOD") String idCarmod,
+            @RequestParam("ID_CARTIP") String idCartip,
+            @RequestParam("ID_CARFAL") String idCarfal) {
         Map<String, Object> map = new HashMap<>();
-        Carroceria last = serv.lastByFilter(filter, query);
-        int idLast = last != null ? Integer.parseInt(last.getCodigo()) : 0;
         map.put("success", true);
         map.put("message", "Lista de carroceria");
-        map.put("data", last);
+        map.put("data", serv.generateCode(idCarmod, idCartip, idCarfal));
         return map;
     }
+    
+//    @ResponseBody
+//    @RequestMapping(value = "/carroceriaLast", method = RequestMethod.GET)
+//    public Map<String, Object> getByLastFilters(
+//            @RequestParam("filter") String filter,
+//            @RequestParam(required = false, value = "query") String query) {
+//        Map<String, Object> map = new HashMap<>();
+//        Carroceria last = serv.lastByFilter(filter, query);
+//        int idLast = last != null ? Integer.parseInt(last.getCodigo()) : 0;
+//        map.put("success", true);
+//        map.put("message", "Lista de carroceria");
+//        map.put("data", last);
+//        return map;
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/iiCarroceria", method = RequestMethod.POST)

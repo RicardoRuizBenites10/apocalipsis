@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
         if (!record) {
             window.setTitle('Registrar modelo de carrocería');
             record = new GrupoBruce.model.Carroceria();
-            record.set('idCarfal', '');
+//            record.set('idCarfal', '');
         }
         window.down('form').loadRecord(record);
         window.show();
@@ -23,15 +23,6 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
         this.createDialog(model);
     },
 
-    onChangeCodigo: function (combo, newValue, oldValue) {
-        var vm = combo.up('window').getViewModel();
-        var modCar = vm.get('selectCarroceriaModelo'), tipCar = vm.get('selectCarroceriaTipo'), falCar = vm.get('selectCarroceriaFalda');
-        
-        if (modCar !== null && tipCar !== null && falCar !== null) {
-            console.log('modelo : ');
-        }
-    },
-
     onSaveCarroceria: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
@@ -40,11 +31,6 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var codigo = window.getViewModel().get('codigo');
-            var newRegister = window.getViewModel().get('newRegister');
-            if (newRegister) {
-                model.set('codigo', codigo);
-            }
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();
