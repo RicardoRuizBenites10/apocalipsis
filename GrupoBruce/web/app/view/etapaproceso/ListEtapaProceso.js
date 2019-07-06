@@ -1,61 +1,55 @@
-Ext.define('GrupoBruce.view.actividad.ListActividad',{
+Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso',{
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistActividad',
-    reference: 'list_actividad',
-    id: 'id_wlistactividad',
+    alias: 'widget.Wlistetapaproceso',
+    reference: 'list_etapaproceso',
     
     bind: {
-        store: '{actividads}',
-        selection: '{selectActividad}'
+        store: 'etapasproceso',
+        selection: 'selectEtapaProceso'
     },
     allowDeselect: true,
     
-    columns: [{
-            text: 'Código',
-            dataIndex: 'idActividad'
+    items: [{
+            text: 'Descripción',
+            dataIndex: 'descripcion'
     },{
-        text: 'Nombre'
-    },{
-        text: 'Tiempo'
-    },{
-        text: 'Actualizado'
+        text: 'Orden',
+        dataIndex: 'orden'
     }],
-    
+
     dockedItems: [{
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
-                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectActividad}'
+                        disabled: '{selectEtapaEmpresa}'
                     },
-                    handler: 'addActividad'
+                    handler: 'addEtapaEmpresa'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectEtapaEmpresa}'
                     },
-                    handler: 'editActividad'
+                    handler: 'editEtapaEmpresa'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectEtapaEmpresa}'
                     },
-                    handler: 'deleteActividad'
+                    handler: 'deleteEtapaEmpresa'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{actividads}'
+                store: '{etapasproceso}'
             },
             displayInfo: true
         }]
-    
 });

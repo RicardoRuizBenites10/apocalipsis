@@ -63,7 +63,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
                                                 }, {
                                                     xtype: 'textfield',
                                                     name: 'idTrabajador',
-                                                    fieldLabel: 'Número DNI:'
+                                                    fieldLabel: 'Número documento:'
                                                 }]
                                         }, {
                                             items: [

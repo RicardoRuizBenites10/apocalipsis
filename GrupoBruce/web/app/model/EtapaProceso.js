@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.model.EtapaProceso', {
     extend: 'Ext.data.Model',
+    alias: 'model.MetapaProceso',
 
     idProperty: 'idEproceso',
     fields: [

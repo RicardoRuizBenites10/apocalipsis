@@ -47,6 +47,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.EstadoEstudio',
         'GrupoBruce.store.EstadoMantenimiento',
         'GrupoBruce.store.EstadoTrabajador',
+        'GrupoBruce.store.EtapaProceso',
         'GrupoBruce.store.Formacion',
         'GrupoBruce.store.FormaPago',
         'GrupoBruce.store.Funcion',
@@ -114,6 +115,7 @@ Ext.define('GrupoBruce.Application', {
             localStorage.removeItem('sesionEstado');
             localStorage.removeItem('sesionUsuario');
             location.reload(true);
+            this.stop();
         };
 
         Ext.ux.ActivityMonitor.isActive = function () {

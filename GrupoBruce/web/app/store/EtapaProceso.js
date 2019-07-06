@@ -1,4 +1,4 @@
-Etx.define('GrupoBruce.store.EtapaProceso', {
+Ext.define('GrupoBruce.store.EtapaProceso', {
     extend: 'Ext.data.Store',
     alias: 'store.SetapaProceso',
     model: 'GrupoBruce.model.EtapaProceso',

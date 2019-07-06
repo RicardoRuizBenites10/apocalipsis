@@ -10,7 +10,9 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
         }
         ,listeners: {
             drop: function (node, data, model, dropPosition) {
-                alert('Node: ' + model.get('idMenu') + ' Data: ' + dropPosition);
+                alert('Node: ' + model.get('idMenu') + ' Position: ' + dropPosition);
+                console.log(data);
+                console.log(model);
             }
         }
     },
