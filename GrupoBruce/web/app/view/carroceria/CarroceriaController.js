@@ -8,7 +8,6 @@ Ext.define('GrupoBruce.view.carroceria.CarroceriaController', {
         if (!record) {
             window.setTitle('Registrar modelo de carrocería');
             record = new GrupoBruce.model.Carroceria();
-//            record.set('idCarfal', '');
         }
         window.down('form').loadRecord(record);
         window.show();

@@ -1,37 +1,36 @@
-Ext.define('GrupoBruce.view.etapaproceso.EtapaProcesoController', {
+Ext.define('GrupoBruce.view.unidadmedida.UnidadMedidaController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Cetapaproceso',
+    alias: 'controller.Cunidadmedida',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.etapaproceso.FormEtapaProceso();
+        var window = new GrupoBruce.view.unidadmedida.FormUnidadMedida();
+        window.getViewModel().set('newRegister', !record);
         if (!record) {
-            window.setTitle('Registrar área de producción');
-            record = new GrupoBruce.model.EtapaProceso();
+            window.setTitle('Registrar unidad medida');
+            record = new GrupoBruce.model.UnidadMedida();
         }
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addEtapaProceso: function () {
+    addUnidadMedida: function () {
         this.createDialog(null);
     },
 
-    editEtapaProceso: function () {
-        var model = this.getViewModel().get('selectEtapaProceso');
+    editUnidadMedida: function () {
+        var model = this.getViewModel().get('selectUnidadMedida');
         this.createDialog(model);
     },
 
-    onSaveEtapaProceso: function (btn) {
+    onSaveUnidadMedida: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wetapaproceso');
+        var grid = Ext.getCmp('id_wlistunidadmedida');
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var pasa = this.lookupReference('chk_pasabus').checked,
-                situacion = this.lookupReference('chk_situacionetapaproceso').checked;
-            model.set('pasaBus', pasa);
+            var situacion = this.lookupReference('chk_situacionunidadmedida').checked;
             model.set('situacion',situacion);
             model.save({// save the record to the server
                 success: function (model, operation) {
@@ -49,8 +48,8 @@ Ext.define('GrupoBruce.view.etapaproceso.EtapaProcesoController', {
         }
     },
 
-    deleteEtapaProceso: function () {
-        var grid = this.lookupReference('list_etapaproceso');
+    deleteUnidadMedida: function () {
+        var grid = this.lookupReference('list_unidadmedida');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -62,4 +61,5 @@ Ext.define('GrupoBruce.view.etapaproceso.EtapaProcesoController', {
             }
         });
     }
+
 });

@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IEtapaProcesoDAO;
-import com.bruce.dao.to.EtapaProceso;
+import com.bruce.dao.design.IMonedaDAO;
+import com.bruce.dao.to.Moneda;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import java.util.List;
@@ -24,35 +24,35 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class EtapaProcesoDAO implements IEtapaProcesoDAO {
-
+public class MonedaDAO implements IMonedaDAO{
+    
     @Autowired
     private SessionFactory sf;
-
+    
     @Override
-    public void create(EtapaProceso t) {
+    public void create(Moneda t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(EtapaProceso t) {
+    public void update(Moneda t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(EtapaProceso t) {
+    public void delete(Moneda t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public EtapaProceso get(Object idT) {
+    public Moneda get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public EtapaProceso lastByFilter(List<FilterPage> filters) {
+    public Moneda lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(EtapaProceso.class);
+        Criteria cr = session.createCriteria(Moneda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -65,23 +65,23 @@ public class EtapaProcesoDAO implements IEtapaProcesoDAO {
                 }
             });
         }
-        cr.addOrder(Order.desc("idEproceso"));
+        cr.addOrder(Order.desc("idMoneda"));
         cr.setFirstResult(0);
 
         List result = cr.list();
-        EtapaProceso proceso = !result.isEmpty() ? (EtapaProceso) result.get(0) : null;
-        return proceso;
+        Moneda item = !result.isEmpty() ? (Moneda) result.get(0) : null;
+        return item;
     }
 
     @Override
-    public List<EtapaProceso> getAll() {
+    public List<Moneda> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<EtapaProceso> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<Moneda> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(EtapaProceso.class);
+        Criteria cr = session.createCriteria(Moneda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -94,20 +94,13 @@ public class EtapaProcesoDAO implements IEtapaProcesoDAO {
                 }
             });
         }
-        if (sorts != null) {
-            sorts.forEach(item -> {
-                cr.addOrder(item.getDirection().equalsIgnoreCase("ASC") ? Order.asc(item.getProperty()) : Order.desc(item.getProperty()));
-            });
-        }
-        cr.setFirstResult(start);
-        cr.setMaxResults(limit);
         return cr.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(EtapaProceso.class);
+        Criteria cr = session.createCriteria(Moneda.class);
         if (filters != null) {
             filters.forEach(item -> {
                 switch (item.getOperator()) {
@@ -124,5 +117,5 @@ public class EtapaProcesoDAO implements IEtapaProcesoDAO {
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
     }
-
+    
 }

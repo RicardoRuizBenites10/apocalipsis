@@ -1,4 +1,3 @@
-
 Ext.define('GrupoBruce.view.actividad.Actividad', {
     extend: 'Ext.panel.Panel',
 

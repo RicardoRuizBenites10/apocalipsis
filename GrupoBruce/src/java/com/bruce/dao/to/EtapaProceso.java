@@ -20,15 +20,17 @@ public class EtapaProceso implements java.io.Serializable {
     private int idEproceso;
     private String descripcion;
     private int orden;
+    private boolean pasaBus;
     private boolean situacion;
 
     public EtapaProceso() {
     }
 
-    public EtapaProceso(int idEproceso, String descripcion, int orden, boolean situacion) {
+    public EtapaProceso(int idEproceso, String descripcion, int orden, boolean pasaBus, boolean situacion) {
         this.idEproceso = idEproceso;
         this.descripcion = descripcion;
         this.orden = orden;
+        this.pasaBus = pasaBus;
         this.situacion = situacion;
     }
 
@@ -58,6 +60,15 @@ public class EtapaProceso implements java.io.Serializable {
 
     public void setOrden(int orden) {
         this.orden = orden;
+    }
+
+    @Column(name="PASA_BUS", nullable = false)
+    public boolean isPasaBus() {
+        return pasaBus;
+    }
+
+    public void setPasaBus(boolean pasaBus) {
+        this.pasaBus = pasaBus;
     }
 
     @Column(name="SITUACION", nullable = false)

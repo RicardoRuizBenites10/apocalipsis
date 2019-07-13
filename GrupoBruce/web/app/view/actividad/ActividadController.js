@@ -29,6 +29,12 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
+            var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
+            var usamat = this.lookupReference('chk_usamaterial').checked, 
+                situacion = this.lookupReference('chk_situacionactividad').checked;
+            model.set('idUsuario',loggedIn.idUsuario);
+            model.set('usaMaterial',usamat);
+            model.set('situacion',situacion);
             model.save({// save the record to the server
                 success: function (model, operation) {
                     grid.getStore().reload();

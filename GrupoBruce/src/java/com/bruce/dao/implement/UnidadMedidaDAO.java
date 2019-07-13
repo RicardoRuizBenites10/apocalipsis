@@ -65,7 +65,7 @@ public class UnidadMedidaDAO implements IUnidadMedidaDAO{
                 }
             });
         }
-        cr.addOrder(Order.desc("idUMedida"));
+        cr.addOrder(Order.desc("idUmedida"));
         cr.setFirstResult(0);
 
         List result = cr.list();

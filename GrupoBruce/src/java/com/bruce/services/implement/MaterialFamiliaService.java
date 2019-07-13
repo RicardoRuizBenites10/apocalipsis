@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class MaterialFamiliaService implements IMaterialFamiliaService{
+public class MaterialFamiliaService implements IMaterialFamiliaService {
     
     @Autowired
     private IMaterialFamiliaDAO dao;
@@ -34,21 +34,24 @@ public class MaterialFamiliaService implements IMaterialFamiliaService{
     @Override
     @Transactional
     public void insert(MaterialFamilia t) {
+        MaterialFamilia last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdFamilia() : 0;
+        t.setIdFamilia(idLast + 1);
         dao.create(t);
     }
-
+    
     @Override
     @Transactional
     public void update(MaterialFamilia t) {
         dao.update(t);
     }
-
+    
     @Override
     @Transactional
     public void delete(MaterialFamilia t) {
         dao.delete(t);
     }
-
+    
     @Override
     @Transactional
     public int countByFilter(String filter, String query) {
@@ -59,20 +62,20 @@ public class MaterialFamiliaService implements IMaterialFamiliaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialFamiliaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public MaterialFamilia find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public MaterialFamilia lastByFilter(String filter, String query) {
@@ -83,20 +86,20 @@ public class MaterialFamiliaService implements IMaterialFamiliaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialFamiliaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public List<MaterialFamilia> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public List<MaterialFamilia> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -112,7 +115,7 @@ public class MaterialFamiliaService implements IMaterialFamiliaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialFamiliaService.class.getName()).log(Level.SEVERE, null, ex);

@@ -62,6 +62,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.MaterialFamilia',
         'GrupoBruce.store.MaterialSubfamilia',
         'GrupoBruce.store.MaterialUnidad',
+        'GrupoBruce.store.Moneda',
         'GrupoBruce.store.Nacionalidad',
         'GrupoBruce.store.Obra',
         'GrupoBruce.store.Periocidad',

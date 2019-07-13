@@ -11,9 +11,17 @@ Ext.define('GrupoBruce.view.actividad.ActividadModel', {
             autoLoad: true
         },
         eprocesos: {
-            type: 'SetapaProceso',
+            type: 'Setapaproceso',
+            autoLoad: true
+        },
+        monedas: {
+            type: 'Smoneda',
             autoLoad: true
         }
+    },
+    
+    formulas: {
+        
     }
 
 });

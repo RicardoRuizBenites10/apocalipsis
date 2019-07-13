@@ -5,48 +5,40 @@
  */
 package com.bruce.dao.to;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author SISTEMAS
  */
 @Entity
-@Table(name = "MATERIAL_FAMILIA", schema = "dbo", catalog = "BDBRUCE")
-public class MaterialFamilia implements java.io.Serializable {
+@Table(name = "MONEDA", schema = "dbo", catalog = "BDBRUCE")
+public class Moneda implements java.io.Serializable {
 
-    private int idFamilia;
-    private Date fecha;
+    private String idMoneda;
     private String descripcion;
     private boolean situacion;
 
-    public MaterialFamilia() {
+    public Moneda() {
+    }
+
+    public Moneda(String idMoneda, String descripcion, boolean situacion) {
+        this.idMoneda = idMoneda;
+        this.descripcion = descripcion;
+        this.situacion = situacion;
     }
 
     @Id
-    @Column(name = "ID_FAMILIA", nullable = false)
-    public int getIdFamilia() {
-        return idFamilia;
+    @Column(name = "ID_MONEDA", nullable = false)
+    public String getIdMoneda() {
+        return idMoneda;
     }
 
-    public void setIdFamilia(int idFamilia) {
-        this.idFamilia = idFamilia;
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false)
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setIdMoneda(String idMoneda) {
+        this.idMoneda = idMoneda;
     }
 
     @Column(name = "DESCRIPCION", nullable = false)

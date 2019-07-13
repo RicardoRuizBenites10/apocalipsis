@@ -1,30 +1,20 @@
-Ext.define('GrupoBruce.view.actividad.ListActividad', {
+Ext.define('GrupoBruce.view.materialfamilia.ListMaterialFamilia', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistActividad',
-    reference: 'list_actividad',
-    id: 'id_wlistactividad',
+    alias: 'widget.Wlistmaterialfamilia',
+    reference: 'list_materialfamilia',
+    id: 'id_wlistmaterialfamilia',
 
     bind: {
-        store: '{actividads}',
-        selection: '{selectActividad}'
+        store: '{materialsfamilia}',
+        selection: '{selectMaterialFamilia}'
     },
     allowDeselect: true,
 
     columns: [{
-            text: 'Código',
-            dataIndex: 'idActividad'
-        }, {
-            text: 'Nombre',
-            dataIndex: 'nombre',
+            text: 'Descripción',
+            dataIndex: 'descripcion',
             align: 'left',
-            width: 200
-        }, {
-            text: 'Tiempo',
-            dataIndex: 'duracion'
-        }, {
-            text: 'Actualizado',
-            dataIndex: 'fecha',
-            formatter: 'date("d/m/Y")'
+            width: 250
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
@@ -42,37 +32,43 @@ Ext.define('GrupoBruce.view.actividad.ListActividad', {
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
-                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectActividad}'
+                        disabled: '{selectMaterialFamilia}'
                     },
-                    handler: 'addActividad'
+                    handler: 'addMaterialFamilia'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectMaterialFamilia}'
                     },
-                    handler: 'editActividad'
+                    handler: 'editMaterialFamilia'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectMaterialFamilia}'
                     },
-                    handler: 'deleteActividad'
+                    handler: 'deleteMaterialFamilia'
+                }, '-', {
+                    iconCls: 'x-fa fa-list',
+                    disabled: true,
+                    text: 'Lista subfamilias',
+                    bind: {
+                        disabled: '{!selectMaterialFamilia}'
+                    },
+                    handler: 'onMaterialSubfamilia'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{actividads}'
+                store: '{materialsfamilia}'
             },
             displayInfo: true
         }]
-
 });

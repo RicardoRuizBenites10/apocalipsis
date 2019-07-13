@@ -1,10 +1,12 @@
 Ext.define('GrupoBruce.model.UnidadMedida', {
     extend: 'Ext.data.Model',
+    alias: 'model.Munidadmedida',
+    
     idProperty: 'idUmedida',
     fields: [
         { name: 'denominacion', type: 'string' },
         { name: 'equivalencia', type: 'float' },
-        { name: 'idUmedida', type: 'int' },
+        { name: 'idUmedida', type: 'string' },
         { name: 'situacion', type: 'boolean' }
     ],
     

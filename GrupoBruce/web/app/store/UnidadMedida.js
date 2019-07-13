@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.store.UnidadMedida',{
     extend: 'Ext.data.Store',
-    alias: 'store.SunidadMedida',
+    alias: 'store.Sunidadmedida',
     model: 'GrupoBruce.model.UnidadMedida',
     
     remoteSort: true,

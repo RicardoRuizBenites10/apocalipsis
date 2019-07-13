@@ -1,21 +1,33 @@
-Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso',{
+Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.Wlistetapaproceso',
     reference: 'list_etapaproceso',
-    
+    id: 'id_wetapaproceso',
+
     bind: {
-        store: 'etapasproceso',
-        selection: 'selectEtapaProceso'
+        store: '{etapasproceso}',
+        selection: '{selectEtapaProceso}'
     },
     allowDeselect: true,
-    
-    items: [{
+
+    columns: [{
             text: 'Descripción',
             dataIndex: 'descripcion'
-    },{
-        text: 'Orden',
-        dataIndex: 'orden'
-    }],
+        }, {
+            text: 'Orden',
+            dataIndex: 'orden'
+        }, {
+            text: 'Situación',
+            dataIndex: 'situacion',
+            renderer: function (val) {
+                if (val) {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
+                } else {
+                    return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
+                }
+            },
+            align: 'center'
+        }],
 
     dockedItems: [{
             xtype: 'toolbar',
@@ -24,25 +36,25 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso',{
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectEtapaEmpresa}'
+                        disabled: '{selectEtapaProceso}'
                     },
-                    handler: 'addEtapaEmpresa'
+                    handler: 'addEtapaProceso'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectEtapaEmpresa}'
+                        disabled: '{!selectEtapaProceso}'
                     },
-                    handler: 'editEtapaEmpresa'
+                    handler: 'editEtapaProceso'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectEtapaEmpresa}'
+                        disabled: '{!selectEtapaProceso}'
                     },
-                    handler: 'deleteEtapaEmpresa'
+                    handler: 'deleteEtapaProceso'
                 }]
         }, {
             xtype: 'pagingtoolbar',

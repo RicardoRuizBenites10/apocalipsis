@@ -5,9 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IMaterialSubfamiliaDAO;
-import com.bruce.dao.to.MaterialSubfamilia;
-import com.bruce.services.design.IMaterialSubfamiliaService;
+import com.bruce.dao.design.IMonedaDAO;
+import com.bruce.dao.to.Moneda;
+import com.bruce.services.design.IMonedaService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,26 +26,26 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class MaterialSubfamiliaService implements IMaterialSubfamiliaService{
+public class MonedaService implements IMonedaService{
     
     @Autowired
-    private IMaterialSubfamiliaDAO dao;
+    private IMonedaDAO dao;
     
     @Override
     @Transactional
-    public void insert(MaterialSubfamilia t) {
+    public void insert(Moneda t) {
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(MaterialSubfamilia t) {
+    public void update(Moneda t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(MaterialSubfamilia t) {
+    public void delete(Moneda t) {
         dao.delete(t);
     }
 
@@ -62,20 +62,20 @@ public class MaterialSubfamiliaService implements IMaterialSubfamiliaService{
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(MaterialSubfamiliaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonedaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public MaterialSubfamilia find(Object id) {
+    public Moneda find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public MaterialSubfamilia lastByFilter(String filter, String query) {
+    public Moneda lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -86,20 +86,20 @@ public class MaterialSubfamiliaService implements IMaterialSubfamiliaService{
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(MaterialSubfamiliaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonedaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<MaterialSubfamilia> findAll() {
+    public List<Moneda> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<MaterialSubfamilia> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<Moneda> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -115,7 +115,7 @@ public class MaterialSubfamiliaService implements IMaterialSubfamiliaService{
                 filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(MaterialSubfamiliaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonedaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }

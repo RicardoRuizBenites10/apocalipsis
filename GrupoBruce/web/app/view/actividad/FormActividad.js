@@ -26,6 +26,36 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
             },
             items: [{
                     items: [{
+                            xtype: 'combobox',
+                            name: 'idEproceso',
+                            fieldLabel: 'Área',
+                            valueField: 'idEproceso',
+                            displayField: 'descripcion',
+                            bind: {
+                                store: '{eprocesos}',
+                                selection: '{selectEproceso}'
+                            },
+                            emptyText: 'Seleccionar',
+                            forceSelection: true,
+                            editable: false,
+                            flex: 1
+                        }, {
+                            xtype: 'combobox',
+                            name: 'idMoneda',
+                            fieldLabel: 'Moneda',
+                            valueField: 'idMoneda',
+                            displayField: 'descripcion',
+                            bind: {
+                                store: '{monedas}',
+                                selection: '{selectMoneda}'
+                            },
+                            emptyText: 'Seleccionar',
+                            forceSelection: true,
+                            editable: false,
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
                             xtype: 'textarea',
                             name: 'nombre',
                             fieldLabel: 'Nombre',
@@ -38,35 +68,24 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
                             fieldLabel: 'Duración',
                             minValue: 0,
                             hideTrigger: true,
-                            flex: 1
+                            width: '48%'
                         }]
                 }, {
                     items: [{
                             xtype: 'checkbox',
+                            name: 'usaMaterial',
+                            reference: 'chk_usamaterial',
                             fieldLabel: 'Uso de material',
                             boxLabel: 'Si',
                             flex: 1
                         }, {
                             xtype: 'checkbox',
+                            name: 'situacion',
+                            reference: 'chk_situacionactividad',
                             fieldLabel: 'Situacion',
                             boxLabel: 'Activo',
                             flex: 1
                         }]
-                },{
-                    items: [{
-                            xtype: 'combobox',
-                            name: 'idEproceso',
-                            valueField: 'idEproceso',
-                            displayField: 'descripcion',
-                            bind: {
-                                store: '{eprocesos}',
-                                selection: '{selectEproceso}'
-                            },
-                            emptyText: 'Seleccionar',
-                            forceSelection: true,
-                            editable: false,
-                            flex: 1
-                    }]
                 }],
             buttons: [{
                     text: 'Cancelar',

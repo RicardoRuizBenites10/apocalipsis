@@ -1535,6 +1535,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Material"
       }
+    },
+    "app/model/Moneda.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idMoneda:string:null,situacion:boolean:null",
+        "modelFileName": "Moneda",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Moneda"
+      }
     }
   }
 }

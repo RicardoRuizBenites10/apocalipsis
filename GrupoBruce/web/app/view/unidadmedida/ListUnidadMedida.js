@@ -1,30 +1,27 @@
-Ext.define('GrupoBruce.view.actividad.ListActividad', {
+Ext.define('GrupoBruce.view.unidadmedida.ListUnidadMedida', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.WlistActividad',
-    reference: 'list_actividad',
-    id: 'id_wlistactividad',
+    alias: 'widget.Wlistunidadmedida',
+    reference: 'list_unidadmedida',
+    id: 'id_wlistunidadmedida',
 
     bind: {
-        store: '{actividads}',
-        selection: '{selectActividad}'
+        store: '{unidadsmedida}',
+        selection: '{selectUnidadMedida}'
     },
     allowDeselect: true,
 
     columns: [{
             text: 'Código',
-            dataIndex: 'idActividad'
+            dataIndex: 'idUmedida',
+            align: 'center'
         }, {
-            text: 'Nombre',
-            dataIndex: 'nombre',
+            text: 'Denominación',
+            dataIndex: 'denominacion',
             align: 'left',
             width: 200
         }, {
-            text: 'Tiempo',
-            dataIndex: 'duracion'
-        }, {
-            text: 'Actualizado',
-            dataIndex: 'fecha',
-            formatter: 'date("d/m/Y")'
+            text: 'Equivalencia',
+            dataIndex: 'equivalencia'
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
@@ -42,37 +39,35 @@ Ext.define('GrupoBruce.view.actividad.ListActividad', {
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
-                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
                     bind: {
-                        disabled: '{selectActividad}'
+                        disabled: '{selectUnidadMedida}'
                     },
-                    handler: 'addActividad'
+                    handler: 'addUnidadMedida'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectUnidadMedida}'
                     },
-                    handler: 'editActividad'
+                    handler: 'editUnidadMedida'
                 }, {
                     iconCls: 'x-fa fa-trash',
                     disabled: true,
                     text: 'Eliminar',
                     bind: {
-                        disabled: '{!selectActividad}'
+                        disabled: '{!selectUnidadMedida}'
                     },
-                    handler: 'deleteActividad'
+                    handler: 'deleteUnidadMedida'
                 }]
         }, {
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             bind: {
-                store: '{actividads}'
+                store: '{unidadsmedida}'
             },
             displayInfo: true
         }]
-
 });

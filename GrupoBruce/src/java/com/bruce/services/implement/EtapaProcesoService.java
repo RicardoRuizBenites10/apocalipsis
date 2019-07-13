@@ -34,6 +34,9 @@ public class EtapaProcesoService implements IEtapaProcesoService {
     @Override
     @Transactional
     public void insert(EtapaProceso t) {
+        EtapaProceso last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdEproceso() : 0;
+        t.setIdEproceso(idLast + 1);
         dao.create(t);
     }
 

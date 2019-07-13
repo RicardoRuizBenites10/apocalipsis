@@ -7,7 +7,8 @@ Ext.define('GrupoBruce.model.EtapaProceso', {
         {name: 'descripcion', type: 'string'},
         {name: 'idEproceso', type: 'int'},
         {name: 'orden', type: 'int'},
-        {name: 'situacion', type: 'boolean'}
+        {name: 'pasaBus', type: 'boolean', defaultValue: true},
+        {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
 
     identifier: 'sequential',

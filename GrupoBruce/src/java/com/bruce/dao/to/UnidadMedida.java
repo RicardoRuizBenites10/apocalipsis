@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "UNIDAD_MEDIDA", schema = "dbo", catalog = "BDBRUCE")
 public class UnidadMedida implements java.io.Serializable {
 
-    private int idUmedida;
+    private String idUmedida;
     private String denominacion;
     private float equivalencia;
     private boolean situacion;
@@ -28,11 +28,11 @@ public class UnidadMedida implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_UMEDIDA", nullable = false)
-    public int getIdUmedida() {
+    public String getIdUmedida() {
         return idUmedida;
     }
 
-    public void setIdUmedida(int idUmedida) {
+    public void setIdUmedida(String idUmedida) {
         this.idUmedida = idUmedida;
     }
 
