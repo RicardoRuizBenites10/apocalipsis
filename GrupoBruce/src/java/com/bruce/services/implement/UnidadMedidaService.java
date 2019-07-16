@@ -60,7 +60,7 @@ public class UnidadMedidaService implements IUnidadMedidaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(UnidadMedidaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +84,7 @@ public class UnidadMedidaService implements IUnidadMedidaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(UnidadMedidaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,7 +113,7 @@ public class UnidadMedidaService implements IUnidadMedidaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(UnidadMedidaService.class.getName()).log(Level.SEVERE, null, ex);

@@ -15,6 +15,7 @@ Ext.define('GrupoBruce.model.Material', {
         { name: 'nombre', type: 'string' },
         { name: 'precio', type: 'float' },
         { name: 'segCalidad', type: 'boolean' },
+        { name: 'situacion', type: 'boolean' },
         { name: 'stock', type: 'float' },
         { name: 'stockMaximo', type: 'float' },
         { name: 'stockMinimo', type: 'float' },

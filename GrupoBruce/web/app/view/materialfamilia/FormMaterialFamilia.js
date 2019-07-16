@@ -13,6 +13,7 @@ Ext.define('GrupoBruce.view.materialfamilia.FormMaterialFamilia', {
     closable: false,
     resizable: false,
     width: 350,
+    title: 'Editar familia material',
 
     items: [{
             xtype: 'form',

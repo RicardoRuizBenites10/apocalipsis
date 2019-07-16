@@ -2,13 +2,13 @@ Ext.define('GrupoBruce.model.MaterialSubfamilia', {
     extend: 'Ext.data.Model',
     idProperty: 'idSubfamilia',
     fields: [
-        { name: 'descripcion', type: 'string' },
-        { name: 'fecha', type: 'date' },
-        { name: 'idFamilia', type: 'int' },
-        { name: 'idSubfamilia', type: 'int' },
-        { name: 'situacion', type: 'boolean' }
+        {name: 'descripcion', type: 'string'},
+        {name: 'fecha', type: 'date', defaultValue: new Date()},
+        {name: 'idFamilia', type: 'int'},
+        {name: 'idSubfamilia', type: 'int'},
+        {name: 'situacion', type: 'boolean'}
     ],
-    
+
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

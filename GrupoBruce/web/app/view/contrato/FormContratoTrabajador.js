@@ -105,6 +105,7 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             xtype: 'datefield',
                             name: 'fechaFin',
                             allowBlank: true,
+                            readOnly: true,
                             fieldLabel: 'Fin de contrato',
                             format: 'd/m/Y',
                             bind: '{fin}',

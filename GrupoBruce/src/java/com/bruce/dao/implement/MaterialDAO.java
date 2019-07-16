@@ -61,8 +61,9 @@ public class MaterialDAO implements IMaterialDAO{
         reverse.addResult("M.STOCK_MAXIMO");
         reverse.addResult("M.CANT_INGRESO");
         reverse.addResult("M.CANT_SALIDA");
-        reverse.addResult("M.ISAUTOPARTE");
+        reverse.addResult("M.AUTOPARTE");
         reverse.addResult("M.SEG_CALIDAD");
+        reverse.addResult("M.SITUACION");
         reverse.addResult("M.ID_FAMILIA");
         reverse.addResult("M.ID_SUBFAMILIA");
         reverse.addResult("M.ID_USUARIO");
@@ -104,8 +105,9 @@ public class MaterialDAO implements IMaterialDAO{
         reverse.addResult("M.STOCK_MAXIMO");
         reverse.addResult("M.CANT_INGRESO");
         reverse.addResult("M.CANT_SALIDA");
-        reverse.addResult("M.ISAUTOPARTE");
+        reverse.addResult("M.AUTOPARTE");
         reverse.addResult("M.SEG_CALIDAD");
+        reverse.addResult("M.SITUACION");
         reverse.addResult("M.ID_FAMILIA");
         reverse.addResult("M.ID_SUBFAMILIA");
         reverse.addResult("M.ID_USUARIO");

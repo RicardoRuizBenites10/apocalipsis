@@ -34,10 +34,11 @@ public class Material implements java.io.Serializable {
     private float cantSalida;
     private boolean autoparte;
     private boolean segCalidad;
+    private boolean situacion;
     private int idFamilia;
     private int idSubfamilia;
     private String idUsuario;
-    
+
     private String familia;
     private String subfamilia;
 
@@ -137,7 +138,7 @@ public class Material implements java.io.Serializable {
         this.cantSalida = cantSalida;
     }
 
-    @Column(name = "ISAUTOPARTE", nullable = false)
+    @Column(name = "AUTOPARTE", nullable = false)
     public boolean isAutoparte() {
         return autoparte;
     }
@@ -153,6 +154,15 @@ public class Material implements java.io.Serializable {
 
     public void setSegCalidad(boolean segCalidad) {
         this.segCalidad = segCalidad;
+    }
+
+    @Column(name = "SITUACION", nullable = false)
+    public boolean isSituacion() {
+        return situacion;
+    }
+
+    public void setSituacion(boolean situacion) {
+        this.situacion = situacion;
     }
 
     @Column(name = "ID_FAMILIA", nullable = false)
@@ -183,7 +193,7 @@ public class Material implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name="FAMILIA", insertable = false, updatable = false)
+    @Column(name = "FAMILIA", insertable = false, updatable = false)
     public String getFamilia() {
         return familia;
     }
@@ -193,7 +203,7 @@ public class Material implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name="SUBFAMILIA", insertable = false, updatable = false)
+    @Column(name = "SUBFAMILIA", insertable = false, updatable = false)
     public String getSubfamilia() {
         return subfamilia;
     }

@@ -1,16 +1,25 @@
-
-Ext.define('GrupoBruce.view.material.Material',{
+Ext.define('GrupoBruce.view.material.Material', {
     extend: 'Ext.panel.Panel',
 
     requires: [
         'GrupoBruce.view.material.MaterialController',
-        'GrupoBruce.view.material.MaterialModel'
+        'GrupoBruce.view.material.MaterialModel',
+
+        'GrupoBruce.view.material.ListMaterial',
+        'GrupoBruce.view.material.FormMaterial'
     ],
 
-    controller: 'material-material',
+    controller: 'Cmaterial',
     viewModel: {
-        type: 'material-material'
+        type: 'VMmaterial'
     },
 
-    html: 'Hello, World!!'
+    bind: {
+        title: '{titulo}'
+    },
+
+    items: [{
+            xtype: 'Wlistmaterial',
+            height: 500
+        }]
 });

@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.view.materialfamilia.MaterialFamiliaController', {
     createDialog: function (record) {
         var window = new GrupoBruce.view.materialfamilia.FormMaterialFamilia();
         if (!record) {
-            window.setTitle('Registrar tipo trabajador');
+            window.setTitle('Registrar familia material');
             record = new GrupoBruce.model.MaterialFamilia();
         }
         window.down('form').loadRecord(record);
@@ -48,7 +48,7 @@ Ext.define('GrupoBruce.view.materialfamilia.MaterialFamiliaController', {
     },
 
     deleteMaterialFamilia: function () {
-        var grid = this.lookupReference('list_empresa');
+        var grid = this.lookupReference('list_materialfamilia');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
