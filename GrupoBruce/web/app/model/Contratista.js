@@ -2,15 +2,16 @@ Ext.define('GrupoBruce.model.Contratista', {
     extend: 'Ext.data.Model',
     idProperty: 'idContratista',
     fields: [
-        { name: 'correo', type: 'string' },
-        { name: 'direccion', type: 'string' },
-        { name: 'idContratista', type: 'string' },
-        { name: 'idEproceso', type: 'int' },
-        { name: 'nombre', type: 'string' },
-        { name: 'situacion', type: 'boolean' },
-        { name: 'telefono', type: 'string' }
+        {name: 'correo', type: 'string'},
+        {name: 'direccion', type: 'string'},
+        {name: 'idContratista', type: 'string'},
+        {name: 'idEproceso', type: 'int'},
+        {name: 'nombre', type: 'string'},
+        {name: 'situacion', type: 'boolean'},
+        {name: 'telefono', type: 'string'},
+        {name: 'etapaProceso', type: 'string'}
     ],
-    
+
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

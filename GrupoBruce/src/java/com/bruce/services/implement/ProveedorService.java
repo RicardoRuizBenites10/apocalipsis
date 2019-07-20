@@ -5,9 +5,9 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IContratistaDAO;
-import com.bruce.dao.to.Contratista;
-import com.bruce.services.design.IContratistaService;
+import com.bruce.dao.design.IProveedorDAO;
+import com.bruce.dao.to.Proveedor;
+import com.bruce.services.design.IProveedorService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,26 +26,26 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ContratistaService implements IContratistaService{
+public class ProveedorService implements IProveedorService{
     
     @Autowired
-    private IContratistaDAO dao;
+    private IProveedorDAO dao;
     
     @Override
     @Transactional
-    public void insert(Contratista t) {
+    public void insert(Proveedor t) {
         dao.create(t);
     }
 
     @Override
     @Transactional
-    public void update(Contratista t) {
+    public void update(Proveedor t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Contratista t) {
+    public void delete(Proveedor t) {
         dao.delete(t);
     }
 
@@ -59,23 +59,23 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Contratista find(Object id) {
+    public Proveedor find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public Contratista lastByFilter(String filter, String query) {
+    public Proveedor lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -83,23 +83,23 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<Contratista> findAll() {
+    public List<Proveedor> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<Contratista> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<Proveedor> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -112,10 +112,10 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }

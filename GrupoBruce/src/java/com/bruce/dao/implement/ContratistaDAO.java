@@ -8,14 +8,12 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IContratistaDAO;
 import com.bruce.dao.to.Contratista;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,11 +22,11 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ContratistaDAO implements IContratistaDAO{
-    
+public class ContratistaDAO implements IContratistaDAO {
+
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(Contratista t) {
         sf.getCurrentSession().save(t);
@@ -52,25 +50,30 @@ public class ContratistaDAO implements IContratistaDAO{
     @Override
     public Contratista lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Contratista.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
+        reverse.addResult("C.ID_CONTRATISTA");
+        reverse.addResult("C.NOMBRE");
+        reverse.addResult("C.DIRECCION");
+        reverse.addResult("C.TELEFONO");
+        reverse.addResult("C.CORREO");
+        reverse.addResult("C.SITUACION");
+        reverse.addResult("C.ID_EPROCESO");
+        reverse.addResult("EP.DESCRIPCION ETAPA_PROCESO");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=C.ID_EPROCESO");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ID_CONTRATISTA", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Contratista.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idContratista"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
-        Contratista item = !result.isEmpty() ? (Contratista) result.get(0) : null;
-        return item;
+        List result = query.list();
+        Contratista contratista = !result.isEmpty() ? (Contratista) result.get(0) : null;
+        
+        return contratista;
     }
 
     @Override
@@ -81,41 +84,42 @@ public class ContratistaDAO implements IContratistaDAO{
     @Override
     public List<Contratista> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Contratista.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
+        reverse.addResult("C.ID_CONTRATISTA");
+        reverse.addResult("C.NOMBRE");
+        reverse.addResult("C.DIRECCION");
+        reverse.addResult("C.TELEFONO");
+        reverse.addResult("C.CORREO");
+        reverse.addResult("C.SITUACION");
+        reverse.addResult("C.ID_EPROCESO");
+        reverse.addResult("EP.DESCRIPCION ETAPA_PROCESO");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=C.ID_EPROCESO");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Contratista.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Contratista.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return (int) result.get(0);
     }
-    
+
 }

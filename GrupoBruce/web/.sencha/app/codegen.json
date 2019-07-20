@@ -1547,6 +1547,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Moneda"
       }
+    },
+    "app/model/Proveedor.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "ccorriente1:string:null,ccorriente2:string:null,correo:string:null,direccion:string:null,idProveedor:string:null,nombre:string:null,situacion:boolean:null,telefono:string:null",
+        "modelFileName": "Proveedor",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Proveedor"
+      }
     }
   }
 }
