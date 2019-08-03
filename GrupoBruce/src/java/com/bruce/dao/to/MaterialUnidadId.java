@@ -5,6 +5,7 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Objects;
 import javax.persistence.Column;
 
 /**
@@ -14,7 +15,7 @@ import javax.persistence.Column;
 public class MaterialUnidadId implements java.io.Serializable {
 
     private int idMaterial;
-    private int idUmedida;
+    private String idUmedida;
 
     public MaterialUnidadId() {
     }
@@ -29,19 +30,19 @@ public class MaterialUnidadId implements java.io.Serializable {
     }
 
     @Column(name="ID_UMEDIDA",nullable = false)
-    public int getIdUmedida() {
+    public String getIdUmedida() {
         return idUmedida;
     }
 
-    public void setIdUmedida(int idUmedida) {
+    public void setIdUmedida(String idUmedida) {
         this.idUmedida = idUmedida;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + this.idMaterial;
-        hash = 31 * hash + this.idUmedida;
+        hash = 79 * hash + this.idMaterial;
+        hash = 79 * hash + Objects.hashCode(this.idUmedida);
         return hash;
     }
 
@@ -60,7 +61,7 @@ public class MaterialUnidadId implements java.io.Serializable {
         if (this.idMaterial != other.idMaterial) {
             return false;
         }
-        if (this.idUmedida != other.idUmedida) {
+        if (!Objects.equals(this.idUmedida, other.idUmedida)) {
             return false;
         }
         return true;

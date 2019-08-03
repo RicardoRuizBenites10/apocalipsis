@@ -4,17 +4,17 @@ Ext.define('GrupoBruce.model.MaterialUnidad', {
     fields: [
         { name: 'base', type: 'boolean' },
         { name: 'denominacion', type: 'string' },
+        { name: 'equivalencia', type: 'float' },
         { name: 'idMaterial', type: 'int' },
-        { name: 'idUmedida', type: 'int' },
+        { name: 'idUmedida', type: 'string' },
         { name: 'precio', type: 'float' }
     ],
     
-    identifier: 'sequential',
     proxy: {
         type: 'ajax',
         api: {
             create: 'iiMaterialUnidad',
-            read: 'materialUnidads',
+            read: 'materialunidads',
             update: 'uuMaterialUnidad',
             destroy: 'ddMaterialUnidad'
         },

@@ -15,7 +15,7 @@ Ext.define('GrupoBruce.model.UnidadMedida', {
         type: 'ajax',
         api: {
             create: 'iiUnidadMedida',
-            read: 'unidadMedidas',
+            read: 'unidadmedidas',
             update: 'uuUnidadMedida',
             destroy: 'ddUnidadMedida'
         },

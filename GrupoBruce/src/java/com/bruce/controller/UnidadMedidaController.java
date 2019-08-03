@@ -27,7 +27,7 @@ public class UnidadMedidaController {
     private IUnidadMedidaService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/unidadMedidas", method = RequestMethod.GET)
+    @RequestMapping(value = "/unidadmedidas", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,

@@ -3,7 +3,11 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
     alias: 'widget.Wformmaterial',
     reference: 'form_material',
     id: 'id_wformmaterial',
-
+    
+    requires: [
+        'GrupoBruce.view.materialunidad.MaterialUnidad'
+    ],
+    
     controller: 'Cmaterial',
     viewModel: {
         type: 'VMmaterial'
@@ -12,8 +16,9 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
     modal: true,
     closable: false,
     resizable: false,
-    width: 500,
-    title: 'Editar material',
+    scrollable: true,
+    width: 400,
+    maxHeight: Ext.getBody().getViewSize().height * 0.8,
 
     items: [{
             xtype: 'form',
@@ -25,6 +30,11 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                     labelAlign: 'top',
                     padding: 5
                 }
+            },
+            fieldDefaults: {
+                labelAlign: 'right',
+                labelWidth: 115,
+                msgTarget: 'side'
             },
 
             items: [{
@@ -64,18 +74,6 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                             name: 'nombre',
                             flex: 1
                         }]
-                },{
-                    items: [{
-                            xtype: 'tagfield',
-                            fieldLabel: 'Unidad de medida',
-                            displayField: 'denominacion',
-                            valueField: 'idUmedida',
-                            forceSelection: true,
-                            bind: {
-                                store: '{unidadsmedida}'
-                            },
-                            flex: 1
-                    }]
                 }, {
                     items: [{
                             xtype: 'numberfield',
@@ -83,39 +81,76 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                             name: 'stockMinimo',
                             hideTrigger: true,
                             minValue: '0',
-                            flex: 1
+                            width: '32%'
                         }, {
                             xtype: 'numberfield',
                             fieldLabel: 'Stock máximo',
                             name: 'stockMaximo',
                             hideTrigger: true,
                             minValue: '0',
-                            flex: 1
+                            width: '32%'
                         }]
-                }, {
+                }
+                , {
+                    items: [{
+                            xtype: 'fieldset',
+                            title: 'Unidad de medida',
+                            margin: '0 0 0 5px',
+                            items: [{
+                                    xtype: 'Wmaterialunidad',
+                                    flex: 1
+                                }]
+                        }]
+                }
+//                ,{
+//                    items: [{
+//                            xtype: 'multiselector',
+//                            fieldName: 'denominacion',
+//                            align: 'left',
+//                            search: {
+//                                field: 'denominacion',
+//                                store: {
+//                                    type: 'Sunidadmedida'
+//                                }
+//                            },
+//                            flex: 1
+//                        }]
+//                }
+//                , {
+//                    items: [{
+//                            xtype: 'tagfield',
+//                            fieldLabel: 'Unidad de medida',
+//                            displayField: 'denominacion',
+//                            valueField: 'idUmedida',
+//                            forceSelection: true,
+//                            bind: {
+//                                store: '{unidadsmedida}'
+//                            },
+//                            flex: 1
+//                        }]
+//                }
+                , {
                     items: [{
                             xtype: 'checkbox',
-                            boxLabel: 'Seguimiento de calidad',
-                            name: 'segCalidad',
-                            reference: 'chk_materialseguimientocalidad',
+                            name: 'situacion',
+                            reference: 'chk_situacionmaterial',
+                            boxLabel: 'Está activo',
                             flex: 1
                         }, {
                             xtype: 'checkbox',
-                            boxLabel: 'Fabricación interna',
+                            boxLabel: 'Es autoparte',
                             name: 'autoparte',
                             reference: 'chk_materialautoparte',
                             flex: 1
-                        }]
-                },{
-                    items: [{
+                        }, {
                             xtype: 'checkbox',
-                            fieldLabel: 'Situación',
-                            name: 'situacion',
-                            reference: 'chk_situacionmaterial',
-                            boxLabel: 'Activo',
-                            width: '48%'
-                    }]
+                            boxLabel: 'Revisa calidad',
+                            name: 'segCalidad',
+                            reference: 'chk_materialseguimientocalidad',
+                            flex: 1
+                        }]
                 }],
+
             buttons: [{
                     text: 'Cancelar',
                     listeners: {

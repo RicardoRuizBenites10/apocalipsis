@@ -24,10 +24,6 @@ Ext.define('GrupoBruce.view.material.MaterialModel', {
                     value: '{selectMaterialFamilia.idFamilia}',
                     operator: 'EQ'
                 }]
-        },
-        unidadsmedida: {
-            type: 'Sunidadmedida',
-            autoLoad: true
         }
     }
 

@@ -38,16 +38,19 @@ public class MaterialUnidadService implements IMaterialUnidadService{
     }
 
     @Override
+    @Transactional
     public void update(MaterialUnidad t) {
         dao.update(t);
     }
 
     @Override
+    @Transactional
     public void delete(MaterialUnidad t) {
         dao.delete(t);
     }
 
     @Override
+    @Transactional
     public int countByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -56,7 +59,7 @@ public class MaterialUnidadService implements IMaterialUnidadService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialUnidadService.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,11 +68,13 @@ public class MaterialUnidadService implements IMaterialUnidadService{
     }
 
     @Override
+    @Transactional
     public MaterialUnidad find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public MaterialUnidad lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
@@ -78,7 +83,7 @@ public class MaterialUnidadService implements IMaterialUnidadService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialUnidadService.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,11 +92,13 @@ public class MaterialUnidadService implements IMaterialUnidadService{
     }
 
     @Override
+    @Transactional
     public List<MaterialUnidad> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    @Transactional
     public List<MaterialUnidad> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
@@ -105,7 +112,7 @@ public class MaterialUnidadService implements IMaterialUnidadService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialUnidadService.class.getName()).log(Level.SEVERE, null, ex);

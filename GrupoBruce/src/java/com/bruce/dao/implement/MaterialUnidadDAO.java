@@ -50,7 +50,7 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     @Override
     public MaterialUnidad lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("MATERIA_UNIDAD", "MU");
+        ReverseQuery reverse = new ReverseQuery("MATERIAL_UNIDAD", "MU");
         reverse.addResult("MU.ID_MATERIAL");
         reverse.addResult("MU.ID_UMEDIDA");
         reverse.addResult("MU.PRECIO");
@@ -81,7 +81,7 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     @Override
     public List<MaterialUnidad> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("MATERIA_UNIDAD", "MU");
+        ReverseQuery reverse = new ReverseQuery("MATERIAL_UNIDAD", "MU");
         reverse.addResult("MU.ID_MATERIAL");
         reverse.addResult("MU.ID_UMEDIDA");
         reverse.addResult("MU.PRECIO");
@@ -105,7 +105,7 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("MATERIA_UNIDAD", "MU");
+        ReverseQuery reverse = new ReverseQuery("MATERIAL_UNIDAD", "MU");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {

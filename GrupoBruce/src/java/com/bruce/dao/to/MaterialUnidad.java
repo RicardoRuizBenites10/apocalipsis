@@ -23,7 +23,8 @@ import org.hibernate.annotations.GenerationTime;
 public class MaterialUnidad implements java.io.Serializable {
 
     private int idMaterial;
-    private int idUmedida;
+    private String idUmedida;
+    private float equivalencia;
     private float precio;
     private boolean base;
 
@@ -44,12 +45,21 @@ public class MaterialUnidad implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_UMEDIDA", nullable = false)
-    public int getIdUmedida() {
+    public String getIdUmedida() {
         return idUmedida;
     }
 
-    public void setIdUmedida(int idUmedida) {
+    public void setIdUmedida(String idUmedida) {
         this.idUmedida = idUmedida;
+    }
+
+    @Column(name = "EQUIVALENCIA", nullable = false)
+    public float getEquivalencia() {
+        return equivalencia;
+    }
+
+    public void setEquivalencia(float equivalencia) {
+        this.equivalencia = equivalencia;
     }
 
     @Column(name = "PRECIO", nullable = false)
