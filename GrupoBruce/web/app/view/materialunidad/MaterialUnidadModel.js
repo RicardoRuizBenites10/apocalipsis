@@ -2,7 +2,8 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMmaterialunidad',
     data: {
-        recordMaterial: null
+        recordMaterial: null,
+        selectMaterialUnidad: null
     },
     
     stores: {
@@ -12,10 +13,9 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadModel', {
         },
         materialunidads: {
             type: 'Smaterialunidad',
-            session: true,
             autoLoad: true,
             filters: [{
-                    property: 'idMaterial',
+                    property: 'ID_MATERIAL',
                     operator: 'EQ',
                     value: '{recordMaterial.idMaterial}'
             }]

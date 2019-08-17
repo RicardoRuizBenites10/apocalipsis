@@ -3,37 +3,38 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidad', {
     alias: 'widget.Wmaterialunidad',
     reference: 'materialunidad',
     id: 'id_wmaterialunidad',
-    
+
     requires: [
         'GrupoBruce.view.materialunidad.MaterialUnidadController',
         'GrupoBruce.view.materialunidad.MaterialUnidadModel',
-        
+
         'GrupoBruce.view.materialunidad.FormMaterialUnidad'
     ],
-    
+
     controller: 'Cmaterialunidad',
     viewModel: {
         type: 'VMmaterialunidad'
     },
+
     bind: {
         store: '{materialunidads}',
         selection: '{selectMaterialUnidad}'
     },
+
     allowDeselect: true,
-    height: 100,
+    height: 150,
 
     columns: [{
             text: 'Unidad',
             dataIndex: 'idUmedida',
-            width: 122
+            align: 'left'
         }, {
             text: 'Equivalencia',
             dataIndex: 'equivalencia',
-            width: 122
+            xtype: 'numbercolumn', format:'0.00'
         }, {
             text: 'Precio',
-            dataIndex: 'precio',
-            width: 122
+            dataIndex: 'precio'
         }],
     dockedItems: [{
             xtype: 'toolbar',
@@ -42,7 +43,7 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidad', {
                     iconCls: 'x-fa fa-plus',
                     text: 'Asignar',
                     bind: {
-                        disabled: '{selectMaterial}'
+                        disabled: '{selectMaterialUnidad}'
                     },
                     handler: 'addMaterialUnidad'
                 }, {
@@ -50,7 +51,7 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidad', {
                     disabled: true,
                     text: 'Quitar',
                     bind: {
-                        disabled: '{!selectMaterial}'
+                        disabled: '{!selectMaterialUnidad}'
                     },
                     handler: 'deleteMaterialUnidad'
                 }]

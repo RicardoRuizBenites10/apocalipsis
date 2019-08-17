@@ -1,5 +1,6 @@
 Ext.define('GrupoBruce.view.proveedor.Proveedor', {
     extend: 'Ext.panel.Panel',
+    alias: 'widget.Wproveedor',
 
     requires: [
         'GrupoBruce.view.proveedor.ProveedorController',

@@ -92,13 +92,13 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                         }]
                 }
                 , {
+                    layout: 'fit',
+                    margin: '10px 0 0 0',
                     items: [{
                             xtype: 'fieldset',
                             title: 'Unidad de medida',
-                            margin: '0 0 0 5px',
                             items: [{
-                                    xtype: 'Wmaterialunidad',
-                                    flex: 1
+                                    xtype: 'Wmaterialunidad'
                                 }]
                         }]
                 }

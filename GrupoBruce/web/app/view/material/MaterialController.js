@@ -7,6 +7,7 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
         if (!record) {
             window.setTitle('Registrar material');
             record = new GrupoBruce.model.Material();
+            Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial',record);
         }
         window.down('form').loadRecord(record);
         window.show();

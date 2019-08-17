@@ -32,37 +32,39 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
             var base = this.lookupReference('chk_unidadbase').checked;
             model.set('base', base);
             var store = grid.getStore();
+
+            var errorUnidad, errorRepit = false;
+            
+            store.each(function (item) {
+                if (item.get('idUmedida') === model.get('idUmedida')) errorRepit = true;
+                if (item.get('base')) errorUnidad = true;
+            });
+            errorUnidad = store.getCount() > 0 ? errorUnidad === model.get('base') : !model.get('base');
+            
+            if (errorRepit) {
+                Ext.Msg.alert('Error', 'Unidad de medida repetida.');
+                return false;
+            }
+
+            if (errorUnidad) {
+                Ext.Msg.alert('Error', 'Es necesario solamente una unidad de medida base.');
+                return false;
+            }
+
             store.add(model);
-//            console.log(store.data);
-//            console.log(store.count());
-//            model.save({// save the record to the server
-//                success: function (model, operation) {
-////                    grid.getStore().reload();
-//                    form.reset();
-//                    window.destroy();
-//                    Ext.Msg.alert('Success', 'Operación exitosa.')
-//                },
-//                failure: function (model, operation) {
-//                    Ext.Msg.alert('Failure', 'Operacion fallada.')
-//                }
-//            });
+            form.reset();
+            window.destroy();
+
+
         } else { // display error alert if the data is invalid
             Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.')
         }
     },
 
     deleteMaterialUnidad: function () {
-        var grid = this.lookupReference('list_material');
-        var model = grid.getSelection()[0];
-        model.erase({
-            success: function (response, operation) {
-                grid.getStore().reload();
-                Ext.Msg.alert('Success', 'Eliminación exitosa.');
-            },
-            failure: function (response, operation) {
-                Ext.Msg.alert('Failure', 'Operacion fallada.')
-            }
-        });
+        var grid = Ext.getCmp('id_wmaterialunidad');
+        var model = grid.getSelection()[0];  
+        grid.getStore().remove(model);
     }
 
 });
