@@ -54,8 +54,7 @@ Ext.define('GrupoBruce.view.main.Main', {
             xtype: 'WmainMenu',
             region: 'west',
             split: false,
-            border: true,
-            scrollable: 'y'
+            border: true
         }, {
             region: 'center',
             layout: 'border',
@@ -73,15 +72,24 @@ Ext.define('GrupoBruce.view.main.Main', {
 //                }],
             items: [{
                     region: 'center',
+                    scrollable: 'y',
                     layout: {
                         type: 'vbox',
                         align: 'stretch'
                     },
                     items: [
+                        {
+                            bodyPadding: '15 15 0 15',
+                            bind: {
+                                html: '{rootSelection}'
+                            }
+                        },
 //                        {
-//                            bodyPadding: '15 15 0 15',
+//                            xtype: 'breadcrumb',
+//                            rootVisible: false,
 //                            bind: {
-//                                html: '<b> {rootSelection} </b>'
+//                                store: '{navRol}',
+//                                selection: '{selectMenu}'
 //                            }
 //                        },
                         {
@@ -89,7 +97,6 @@ Ext.define('GrupoBruce.view.main.Main', {
                             bodyPadding: 10
                         }]
                 }]
-        }
-    ]
+        }]
 
 });

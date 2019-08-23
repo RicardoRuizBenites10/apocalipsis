@@ -14,6 +14,7 @@ import javax.persistence.Table;
 public class Sucursal implements java.io.Serializable {
 
     private String idSucursal;
+    private String descripcion;
     private String direccion;
     private String telefono;
     private String telefono2;
@@ -38,6 +39,15 @@ public class Sucursal implements java.io.Serializable {
 
     public void setIdSucursal(String idSucursal) {
         this.idSucursal = idSucursal;
+    }
+
+    @Column(name = "DESCRIPCION", nullable = false, length = 50)
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Column(name = "DIRECCION", nullable = false, length = 80)

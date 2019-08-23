@@ -4,12 +4,15 @@ Ext.define('GrupoBruce.model.Usuario', {
 
     idProperty: 'idUsuario',
     fields: [
+        {name: 'accSucursal', type: 'string'},
         {name: 'idUsuario', type: 'string'},
         {name: 'usu', type: 'string'},
         {name: 'clave', type: 'string'},
         {name: 'deClave', type: 'string'},
         {name: 'estado', type: 'boolean'},
-        {name: 'idRol', type: 'string'}
+        {name: 'idEmpresa', type: 'string'},
+        {name: 'idRol', type: 'string'},
+        {name: 'idSucursal', type: 'string'}
     ],
 
     identifier: 'sequential',

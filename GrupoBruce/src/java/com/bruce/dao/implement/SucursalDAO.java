@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.Sucursal;
 import com.bruce.util.FilterPage;
+import com.bruce.util.Metodo;
 import com.bruce.util.SortPage;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -61,9 +62,19 @@ public class SucursalDAO implements ISucursalDAO {
     public List<Sucursal> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Sucursal.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "in":
+                        cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
+                        break;
+                    case "like":
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                            break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         if (sorts != null) {
@@ -78,14 +89,24 @@ public class SucursalDAO implements ISucursalDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Sucursal.class);
-        if(filters!=null){
+        if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "in":
+                        cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
+                        break;
+                    case "like":
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                            break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         cr.setProjection(Projections.rowCount());
         List result = cr.list();
-        return ((Long) result.get(0)).intValue(); 
+        return ((Long) result.get(0)).intValue();
     }
 
     @Override
@@ -95,7 +116,17 @@ public class SucursalDAO implements ISucursalDAO {
         Criteria cr = session.createCriteria(Sucursal.class);
         if (filters != null) {
             filters.forEach(item -> {
-                cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                switch (item.getOperator()) {
+                    case "in":
+                        cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
+                        break;
+                    case "like":
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                            break;
+                    default:
+                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
+                        break;
+                }
             });
         }
         cr.addOrder(Order.desc("idSucursal"));
@@ -105,7 +136,7 @@ public class SucursalDAO implements ISucursalDAO {
         if (result.size() > 0) {
             function = (Sucursal) result.get(0);
         }
-        return function; 
+        return function;
     }
 
 }

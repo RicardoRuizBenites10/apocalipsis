@@ -27,6 +27,13 @@ Ext.define('GrupoBruce.view.sucursal.FormSucursal', {
             },
             items: [{
                     items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Descripción',
+                            name: 'descripcion',
+                            flex: 1
+                        }]
+                }, {
+                    items: [{
                             xtype: 'textarea',
                             name: 'direccion',
                             fieldLabel: 'Dirección',

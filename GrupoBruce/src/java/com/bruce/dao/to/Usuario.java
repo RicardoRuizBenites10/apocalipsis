@@ -21,6 +21,9 @@ public class Usuario implements java.io.Serializable {
     private String usu;
     private byte[] clave;
     private boolean estado;
+    private String idEmpresa;
+    private String accSucursal;
+    private String idSucursal;
     private String idRol;
 
     private String deClave;
@@ -83,6 +86,33 @@ public class Usuario implements java.io.Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Column(name = "ID_EMPRESA", nullable = false)
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    @Column(name = "ACC_SUCURSAL", nullable = false)
+    public String getAccSucursal() {
+        return accSucursal;
+    }
+
+    public void setAccSucursal(String accSucursal) {
+        this.accSucursal = accSucursal;
+    }
+
+    @Column(name = "ID_SUCURSAL", nullable = false)
+    public String getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(String idSucursal) {
+        this.idSucursal = idSucursal;
     }
     
     @Column(name="ID_ROL", nullable=false)

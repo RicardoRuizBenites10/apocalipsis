@@ -68,6 +68,9 @@ public class UsuarioDAO implements IUsuarioDAO {
         reverse.addResult("U.USU");
         reverse.addResult("DECRYPTBYPASSPHRASE('Bruces@22',U.CLAVE) AS CLAVE");
         reverse.addResult("U.ESTADO");
+        reverse.addResult("U.ID_EMPRESA");
+        reverse.addResult("U.ACC_SUCURSAL");
+        reverse.addResult("U.ID_SUCURSAL");
         reverse.addResult("U.ID_ROL");
         reverse.addResult("R.DENOMINACION AS rol");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS trabajador");
@@ -95,6 +98,9 @@ public class UsuarioDAO implements IUsuarioDAO {
         reverse.addResult("U.USU");
         reverse.addResult("DECRYPTBYPASSPHRASE('Bruces@22',U.CLAVE) AS CLAVE");
         reverse.addResult("U.ESTADO");
+        reverse.addResult("U.ID_EMPRESA");
+        reverse.addResult("U.ACC_SUCURSAL");
+        reverse.addResult("U.ID_SUCURSAL");
         reverse.addResult("U.ID_ROL");
         reverse.addResult("R.DENOMINACION AS rol");
         reverse.addResult("T.AP_PATERNO +' '+ T.AP_MATERNO + ', ' + T.NOMBRES AS trabajador");

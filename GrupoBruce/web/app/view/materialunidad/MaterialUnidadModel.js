@@ -3,7 +3,8 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadModel', {
     alias: 'viewmodel.VMmaterialunidad',
     data: {
         recordMaterial: null,
-        selectMaterialUnidad: null
+        selectMaterialUnidad: null,
+        hasBase: false
     },
     
     stores: {

@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.model.Sucursal', {
     
     idProperty: 'idSucursal',
     fields: [
+        { name: 'descripcion', type: 'string' },
         { name: 'direccion', type: 'string' },
         { name: 'idSucursal', type: 'string' },
         { name: 'telefono', type: 'string' },

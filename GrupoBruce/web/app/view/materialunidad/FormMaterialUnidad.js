@@ -55,7 +55,10 @@ Ext.define('GrupoBruce.view.materialunidad.FormMaterialUnidad', {
                             xtype: 'checkbox',
                             name: 'base',
                             reference: 'chk_unidadbase',
-                            boxLabel: 'Unidad base'
+                            boxLabel: 'Unidad base',
+                            bind: {
+                                hidden: '{hasBase}'
+                            }
                     }]
                 }],
 

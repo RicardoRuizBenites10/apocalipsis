@@ -71,9 +71,9 @@ Ext.define('GrupoBruce.view.usuario.ListUsuario', {
                     listeners: {
                         click: 'editTrabajador'
                     }
-                }, {
-                    text: 'Ver',
-                    iconCls: 'x-fa fa-search',
+                },'-', {
+                    text: 'Permisos',
+                    iconCls: 'x-fa fa-check-square-o',
                     disabled: true,
                     bind: {
                         disabled: '{!selectUsuario}'

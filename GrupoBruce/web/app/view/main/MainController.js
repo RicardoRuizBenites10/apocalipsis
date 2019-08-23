@@ -1,13 +1,13 @@
 Ext.define('GrupoBruce.view.main.MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.main',
-    
+
     onConfirm: function (choice) {
         if (choice === 'yes') {
             //
         }
     },
-    
+
     onCerrarSesion: function () {
         // Remove the localStorage key/value
         localStorage.removeItem('sesionEstado');
@@ -19,16 +19,16 @@ Ext.define('GrupoBruce.view.main.MainController', {
             xtype: 'login'
         });
     },
-    
+
     onShowBody: function () {
         Ext.Msg.alert('Titulo', 'Cuerpo');
     },
-    
+
     onToggleNav: function (button, pressed) {
 
 
     },
-    
+
     onToggleMicro: function (button, pressed) {
         var treelist = this.lookupReference('treelist'),
                 navBtn = this.lookupReference('navBtn'),
@@ -44,12 +44,12 @@ Ext.define('GrupoBruce.view.main.MainController', {
             navBtn.enable();
         }
     },
-    
+
     treeNodeSelect: function (tree, node, opts) {
         var handler = node.get('handler');
+        var panel = this.lookupReference('mainBody');
         if (handler !== undefined && handler !== '' && handler !== null) {
             if (node.get('checked')) {
-                var panel = this.lookupReference('mainBody');
                 panel.removeAll();
                 var panelView = Ext.create(handler);
                 var codEtapa = node.get('codEtapa');
@@ -65,6 +65,8 @@ Ext.define('GrupoBruce.view.main.MainController', {
                     botones: Ext.Msg.OK
                 });
             }
+        } else {
+            panel.removeAll();
         }
     }
 

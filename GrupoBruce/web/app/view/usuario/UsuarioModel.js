@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.view.usuario.UsuarioModel', {
     data: {
         selectUsuario: null,
         selectTrabajador: null,
+        selectEmpresa: null,
         newItem: false
     },
 
@@ -12,7 +13,42 @@ Ext.define('GrupoBruce.view.usuario.UsuarioModel', {
             type: 'Susuario',
             autoLoad: true
         },
-        
+
+        empresas: {
+            type: 'Sempresa',
+            autoLoad: true
+        },
+
+        acc_sucursals: {
+            type: 'Ssucursal',
+            autoLoad: true,
+            filters: [{
+                    property: 'idEmpresa',
+                    operator: 'eq',
+                    value: '{selectEmpresa.idEmpresa}'
+                }]
+        },
+
+        def_sucursal: {
+            type: 'Ssucursal',
+            autoLoad: true,
+            filters: [{
+                    property: 'idSucursal',
+                    operator: 'in',
+                    value: '{tag_sucursals.value}'
+                },{
+                    property: 'idEmpresa',
+                    operator: 'eq',
+                    value: '{selectEmpresa.idEmpresa}'
+                }],
+            listeners: {
+                beforeload: function (store) {
+                    var filter = store.getFilters().getAt(0);
+                    filter.setValue(filter.getValue().toString());
+                }
+            }
+        },
+
         trabajadors: {
             type: 'Strabajador',
             autoLoad: true,
@@ -34,9 +70,9 @@ Ext.define('GrupoBruce.view.usuario.UsuarioModel', {
             autoLoad: true
         }
     },
-    
+
     formulas: {
-        vPass: function(get){
+        vPass: function (get) {
             return 'password';
         }
     }

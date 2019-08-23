@@ -1,8 +1,8 @@
-Ext.define('GrupoBruce.view.sucursal.ListSucursal',{
+Ext.define('GrupoBruce.view.sucursal.ListSucursal', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.WlistSucursal',
     reference: 'list_sucursal',
-    
+
     bind: {
         store: '{sucursals}',
         selection: '{selectSucursal}'
@@ -14,6 +14,10 @@ Ext.define('GrupoBruce.view.sucursal.ListSucursal',{
             text: 'Código',
             dataIndex: 'idSucursal',
             align: 'center'
+        }, {
+            text: 'Descripción',
+            dataIndex: 'descripcion',
+            align: 'left'
         }, {
             text: 'Direccion',
             dataIndex: 'direccion',

@@ -93,7 +93,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                 }
                 , {
                     layout: 'fit',
-                    margin: '10px 0 0 0',
+                    margin: '10px 0 10px 0',
                     items: [{
                             xtype: 'fieldset',
                             title: 'Unidad de medida',
@@ -101,35 +101,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                                     xtype: 'Wmaterialunidad'
                                 }]
                         }]
-                }
-//                ,{
-//                    items: [{
-//                            xtype: 'multiselector',
-//                            fieldName: 'denominacion',
-//                            align: 'left',
-//                            search: {
-//                                field: 'denominacion',
-//                                store: {
-//                                    type: 'Sunidadmedida'
-//                                }
-//                            },
-//                            flex: 1
-//                        }]
-//                }
-//                , {
-//                    items: [{
-//                            xtype: 'tagfield',
-//                            fieldLabel: 'Unidad de medida',
-//                            displayField: 'denominacion',
-//                            valueField: 'idUmedida',
-//                            forceSelection: true,
-//                            bind: {
-//                                store: '{unidadsmedida}'
-//                            },
-//                            flex: 1
-//                        }]
-//                }
-                , {
+                }, {
                     items: [{
                             xtype: 'checkbox',
                             name: 'situacion',

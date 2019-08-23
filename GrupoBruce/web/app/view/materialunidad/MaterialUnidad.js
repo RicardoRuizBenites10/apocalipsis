@@ -27,6 +27,7 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidad', {
     columns: [{
             text: 'Unidad',
             dataIndex: 'idUmedida',
+            width: 70,
             align: 'left'
         }, {
             text: 'Equivalencia',
@@ -34,7 +35,17 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidad', {
             xtype: 'numbercolumn', format:'0.00'
         }, {
             text: 'Precio',
+            width: 90,
             dataIndex: 'precio'
+        },{
+            text: 'Base',
+            dataIndex: 'base',
+            width: 90,
+            align: 'center',
+            renderer: function(val){
+                if(val)
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> Base </span>';
+            }
         }],
     dockedItems: [{
             xtype: 'toolbar',

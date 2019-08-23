@@ -39,22 +39,61 @@ Ext.define('GrupoBruce.view.main.MainMenu', {
                     }
                 }]
         }, {
-            xtype: 'treelist',
-            reference: 'treelist',
-            ui: 'nav',
-            expanderOnly: false,
-            expanderFirst: false,
-            singleExpand: true,
-            bind: {
-                store: '{navRol}'
-            }
-            , listeners: {
+            items: [{
+                    xtype: 'treelist',
+                    reference: 'treelist',
+                    ui: 'nav',
+                    expanderOnly: false,
+                    expanderFirst: false,
+                    singleExpand: true,
+                    bind: {
+                        store: '{navRol}',
+                        selection: '{selectMenu}'
+                    }
+                    , listeners: {
 //                itemclick: function (treelist, ctx) {
 //                    console.log("click");
 //                },
-                selectionchange: 'treeNodeSelect'
-
-            }
+                        selectionchange: 'treeNodeSelect'
+                    }
+                }],
+            scrollable: 'y',
+            flex: 3
+        }, {
+            title: 'Información',
+            iconCls: 'x-fa fa-info-circle',
+            scrollable: 'y',
+            flex: 1,
+            defaults: {
+                xtype: 'combo',
+                labelWidth: 55
+            },
+            items: [{
+                    padding: '3px 0 0 0',
+                    fieldLabel: 'Empresa',
+                    displayField: 'descripcion',
+                    valueField: 'idEmpresa',
+                    bind: {
+                        store: '{empresas}',
+                        value: '{thisUsuario.idEmpresa}',
+                        selection: '{selectEmpresa}'
+                    },
+                    readOnly: true,
+                    forceSelection: true,
+                    editable: false
+                }, {
+                    margin: '-6px 0 0 0',
+                    fieldLabel: 'Sucursal',
+                    displayField: 'descripcion',
+                    valueField: 'idSucursal',
+                    bind: {
+                        store: '{sucursals}',
+                        value: '{thisUsuario.idSucursal}',
+                        selection: '{selectSucursal}'
+                    },
+                    forceSelection: true,
+                    editable: false
+                }]
         }]
 
 });

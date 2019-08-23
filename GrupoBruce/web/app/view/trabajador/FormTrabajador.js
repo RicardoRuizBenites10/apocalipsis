@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.trabajador.FormTrabajador', {
     },
     controller: 'Ctrabajador',
 
-    height: 575,
+//    height: 575,
     width: 550,
     resizable: false,
     modal: true,

@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
         if (!record) {
             window.setTitle('Registrar material');
             record = new GrupoBruce.model.Material();
-            Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial',record);
+            Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial', record);
         }
         window.down('form').loadRecord(record);
         window.show();
@@ -33,15 +33,32 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             var situacion = this.lookupReference('chk_situacionmaterial').checked;
             var calidad = this.lookupReference('chk_materialseguimientocalidad').checked;
             var autoparte = this.lookupReference('chk_materialautoparte').checked;
+            var unidadesStore = this.lookupReference('materialunidad').getStore(), hasBase = false;
             model.set('situacion', situacion);
             model.set('segCalidad', calidad);
             model.set('autoparte', autoparte);
+            unidadesStore.each(function (item) {
+                if (item.get('base'))
+                    hasBase = true;
+            });
+            if (!hasBase) {
+                Ext.Msg.alert('Error', 'Debe asignar unidad de medida base.');
+                return false;
+            }
             model.save({// save the record to the server
                 success: function (model, operation) {
-                    grid.getStore().reload();
-                    form.reset();
-                    window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                    unidadesStore.sync({
+                        success: function (response, operation) {
+                            grid.getStore().reload();
+                            form.reset();
+                            window.destroy();
+                            Ext.Msg.alert('Success', 'Operación exitosa.');
+                        },
+                        failure: function (response, operation) {
+                            model.erase();
+                            Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                        }
+                    });
                 },
                 failure: function (model, operation) {
                     Ext.Msg.alert('Failure', 'Operacion fallada.')

@@ -3,11 +3,16 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
     alias: 'controller.Cmaterialunidad',
 
     createDialog: function (record) {
+        var grid = Ext.getCmp('id_wmaterialunidad'), hasBase = false;
         var window = new GrupoBruce.view.materialunidad.FormMaterialUnidad();
         if (!record) {
             window.setTitle('Asignar unidad material');
             record = new GrupoBruce.model.MaterialUnidad();
         }
+        grid.getStore().each(function (item) {
+            if (item.get('base')) hasBase = true;
+        });
+        window.getViewModel().set('hasBase', hasBase);
         window.down('form').loadRecord(record);
         window.show();
     },
@@ -33,21 +38,26 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
             model.set('base', base);
             var store = grid.getStore();
 
-            var errorUnidad, errorRepit = false;
-            
+            var errorUnidad = false, errorRepit = false;
+
             store.each(function (item) {
-                if (item.get('idUmedida') === model.get('idUmedida')) errorRepit = true;
-                if (item.get('base')) errorUnidad = true;
+                if (item.get('idUmedida') === model.get('idUmedida'))
+                    errorRepit = true;
+                if (item.get('base')){
+                    errorUnidad = true;
+                    console.log('Item: ' + item.get('idUmedida') + ' - ' + item.get('base'));
+                }
             });
-            errorUnidad = store.getCount() > 0 ? errorUnidad === model.get('base') : !model.get('base');
             
+            errorUnidad = store.getCount() > 0 ? errorUnidad === model.get('base') : !model.get('base');
+
             if (errorRepit) {
                 Ext.Msg.alert('Error', 'Unidad de medida repetida.');
                 return false;
             }
 
             if (errorUnidad) {
-                Ext.Msg.alert('Error', 'Es necesario solamente una unidad de medida base.');
+                Ext.Msg.alert('Error', 'Es necesario seleccionar unidad medida base.');
                 return false;
             }
 
@@ -63,7 +73,7 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
 
     deleteMaterialUnidad: function () {
         var grid = Ext.getCmp('id_wmaterialunidad');
-        var model = grid.getSelection()[0];  
+        var model = grid.getSelection()[0];
         grid.getStore().remove(model);
     }
 

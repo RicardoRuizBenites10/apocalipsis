@@ -25,6 +25,34 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                     property: 'idRol',
                     value: '{myRol}'
                 }]
+        },
+        empresas: {
+            type: 'Sempresa',
+            autoLoad: true,
+            filters:[{
+                    property: 'idEmpresa',
+                    operator: 'eq',
+                    value: '{thisUsuario.idEmpresa}'
+            }]
+        },
+        sucursals: {
+            type: 'Ssucursal',
+            autoLoad: true,
+            filters: [{
+                    property: 'idSucursal',
+                    operator: 'in',
+                    value: '{thisUsuario.accSucursal}'
+                },{
+                    property: 'idEmpresa',
+                    operator: 'eq',
+                    value: '{thisUsuario.idEmpresa}'
+                }],
+            listeners: {
+                beforeload: function (store) {
+                    var filter = store.getFilters().getAt(0);
+                    filter.setValue(filter.getValue().toString());
+                }
+            }
         }
     },
 
@@ -53,10 +81,11 @@ Ext.define('GrupoBruce.view.main.MainModel', {
             var selection = get('treelist.selection'), path, array, accion;
             if (selection) {
                 path = selection.getPath('text');
-                path = path.replace(/^\/Root/, '');
-                return 'Seleccionado: ' + path;
+                path = path.replace(/\/Root/, 'Menu');
+                path = path.replace(/\//g, '<span class="x-fa fa-angle-right" style="padding: 0 18px 0 18px;"></span>');
+                return  path;
             } else {
-                return 'No node selected';
+                return '';
             }
         }
     }
