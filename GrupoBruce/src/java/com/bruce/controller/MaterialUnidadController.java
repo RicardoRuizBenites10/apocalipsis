@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.MaterialUnidad;
 import com.bruce.services.design.IMaterialUnidadService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,13 +48,24 @@ public class MaterialUnidadController {
     @RequestMapping(value = "/iiMaterialUnidad", method = RequestMethod.POST)
     public Map<String, Object> insert(@RequestBody MaterialUnidad materialUnidad) {
         Map<String, Object> map = new HashMap<>();
-//        serv.insert(materialUnidad);
+        serv.insert(materialUnidad);
         map.put("success", true);
         map.put("data", materialUnidad);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/iiLMaterialUnidad", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<MaterialUnidad> materialUnidad) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeMaterialUnidad(materialUnidad);
+        map.put("success", true);
+        map.put("data", materialUnidad);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+    
     @ResponseBody
     @RequestMapping(value = "/uuMaterialUnidad", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody MaterialUnidad materialUnidad) {

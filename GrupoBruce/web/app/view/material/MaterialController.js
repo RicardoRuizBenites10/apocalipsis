@@ -4,11 +4,15 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.material.FormMaterial();
+        var modMain = Ext.getCmp('id_wmain').getViewModel();
         if (!record) {
             window.setTitle('Registrar material');
             record = new GrupoBruce.model.Material();
-            Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial', record);
+            record.set('idEmpresa', modMain.get('selectEmpresa').get('idEmpresa'));
+            record.set('idSucursal', modMain.get('selectSucursal').get('idSucursal'));
+            record.set('idUsuario', modMain.get('thisUsuario').idUsuario);
         }
+        Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial', record);
         window.down('form').loadRecord(record);
         window.show();
     },
@@ -34,6 +38,7 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             var calidad = this.lookupReference('chk_materialseguimientocalidad').checked;
             var autoparte = this.lookupReference('chk_materialautoparte').checked;
             var unidadesStore = this.lookupReference('materialunidad').getStore(), hasBase = false;
+
             model.set('situacion', situacion);
             model.set('segCalidad', calidad);
             model.set('autoparte', autoparte);
@@ -47,6 +52,9 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             }
             model.save({// save the record to the server
                 success: function (model, operation) {
+                    unidadesStore.each(function(item){
+                        item.set('idMaterial', model.get('idMaterial'));
+                    });
                     unidadesStore.sync({
                         success: function (response, operation) {
                             grid.getStore().reload();

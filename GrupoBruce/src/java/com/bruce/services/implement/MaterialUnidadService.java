@@ -119,5 +119,15 @@ public class MaterialUnidadService implements IMaterialUnidadService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void changeMaterialUnidad(List<MaterialUnidad> mu) {
+        if(!mu.isEmpty()){
+            mu.forEach( item -> {
+                dao.create(item);
+            });
+        }
+    }
     
 }

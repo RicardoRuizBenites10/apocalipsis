@@ -19,7 +19,8 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
     scrollable: true,
     width: 400,
     maxHeight: Ext.getBody().getViewSize().height * 0.8,
-
+    
+    title: 'Editar material',
     items: [{
             xtype: 'form',
             defaults: {

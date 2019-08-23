@@ -29,7 +29,7 @@ public class MaterialDAO implements IMaterialDAO{
     
     @Override
     public void create(Material t) {
-        sf.getCurrentSession().save(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

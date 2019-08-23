@@ -1,6 +1,8 @@
 Ext.define('GrupoBruce.view.main.Main', {
     extend: 'Ext.panel.Panel',
     xtype: 'app-main',
+    reference: 'main',
+    id: 'id_wmain',
 
     requires: [
         'Ext.plugin.Viewport',
@@ -21,7 +23,9 @@ Ext.define('GrupoBruce.view.main.Main', {
     },
 
     controller: 'main',
-    viewModel: 'main',
+    viewModel: {
+        type: 'main'
+    },
     plugins: 'viewport',
     iconCls: 'x-fa fa-bus',
     title: 'GRUPO BRUCE S.A.',

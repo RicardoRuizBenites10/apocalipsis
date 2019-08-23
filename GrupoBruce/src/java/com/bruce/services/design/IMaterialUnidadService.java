@@ -6,11 +6,14 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.MaterialUnidad;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
-public interface IMaterialUnidadService extends IEntidadService<MaterialUnidad>{
+public interface IMaterialUnidadService extends IEntidadService<MaterialUnidad> {
+
+    public void changeMaterialUnidad(List<MaterialUnidad> mu);
     
 }

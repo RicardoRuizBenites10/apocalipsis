@@ -65,17 +65,6 @@ public class AccesoController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiLAcceso", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody List<Acceso> acceso) {
-        Map<String, Object> map = new HashMap<>();
-//        serv.insert(acceso);
-        map.put("success", true);
-        map.put("data", acceso);
-        map.put("message", "Registro exitoso.");
-        return map;
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/uuAcceso", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody Acceso acceso) {
         Map<String, Object> map = new HashMap<>();
