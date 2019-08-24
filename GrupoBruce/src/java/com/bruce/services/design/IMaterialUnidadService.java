@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface IMaterialUnidadService extends IEntidadService<MaterialUnidad> {
 
-    public void changeMaterialUnidad(List<MaterialUnidad> mu);
+    public void changeLMaterialUnidad(List<MaterialUnidad> mu);
+    public void deleteLMaterialUnidad(List<MaterialUnidad> mu);
     
 }

@@ -10,7 +10,16 @@ Ext.define('GrupoBruce.view.material.MaterialModel', {
     stores: {
         materials: {
             type: 'Smaterial',
-            autoLoad: true
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_EMPRESA',
+                    operator: 'eq',
+                    value: '{idEmpresa}'
+                }, {
+                    property: 'ID_SUCURSAL',
+                    operator: 'eq',
+                    value: '{idSucursal}'
+                }]
         },
         materialsfamilia: {
             type: 'Smaterialfamilia',
@@ -24,6 +33,18 @@ Ext.define('GrupoBruce.view.material.MaterialModel', {
                     value: '{selectMaterialFamilia.idFamilia}',
                     operator: 'EQ'
                 }]
+        }
+    },
+
+    formulas: {
+        idEmpresa: function (get) {
+            var modMain = Ext.getCmp('id_wmain').getViewModel();
+            return modMain.get('selectEmpresa').get('idEmpresa');
+        },
+
+        idSucursal: function (get) {
+            var modMain = Ext.getCmp('id_wmain').getViewModel();
+            return modMain.get('selectSucursal').get('idSucursal');
         }
     }
 

@@ -70,7 +70,7 @@ public class MaterialDAO implements IMaterialDAO{
         reverse.addResult("MF.DESCRIPCION FAMILIA");
         reverse.addResult("MS.DESCRIPCION SUBFAMILIA");
         reverse.addJoin("INNER JOIN MATERIAL_FAMILIA MF", "MF.ID_FAMILIA=M.ID_FAMILIA");
-        reverse.addJoin("INNER JOIN MATERIAL_SUBFAMILIA MS", "MS.ID_SUBFAMILIA=M.ID_SUBFAMILIA");
+        reverse.addJoin("INNER JOIN MATERIAL_SUBFAMILIA MS", "MS.ID_SUBFAMILIA=M.ID_SUBFAMILIA AND MF.ID_FAMILIA=MS.ID_FAMILIA");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_MATERIAL", "DESC"));
         reverse.setPagination(0, 1);
@@ -114,7 +114,7 @@ public class MaterialDAO implements IMaterialDAO{
         reverse.addResult("MF.DESCRIPCION FAMILIA");
         reverse.addResult("MS.DESCRIPCION SUBFAMILIA");
         reverse.addJoin("INNER JOIN MATERIAL_FAMILIA MF", "MF.ID_FAMILIA=M.ID_FAMILIA");
-        reverse.addJoin("INNER JOIN MATERIAL_SUBFAMILIA MS", "MS.ID_SUBFAMILIA=M.ID_SUBFAMILIA");
+        reverse.addJoin("INNER JOIN MATERIAL_SUBFAMILIA MS", "MS.ID_SUBFAMILIA=M.ID_SUBFAMILIA AND MF.ID_FAMILIA=MS.ID_FAMILIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);

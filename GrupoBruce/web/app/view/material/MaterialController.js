@@ -13,6 +13,7 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             record.set('idUsuario', modMain.get('thisUsuario').idUsuario);
         }
         Ext.getCmp('id_wmaterialunidad').getViewModel().set('recordMaterial', record);
+        window.getViewModel().set('newRecord', !record);
         window.down('form').loadRecord(record);
         window.show();
     },
@@ -52,7 +53,7 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             }
             model.save({// save the record to the server
                 success: function (model, operation) {
-                    unidadesStore.each(function(item){
+                    unidadesStore.each(function (item) {
                         item.set('idMaterial', model.get('idMaterial'));
                     });
                     unidadesStore.sync({
@@ -63,8 +64,21 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
                             Ext.Msg.alert('Success', 'Operación exitosa.');
                         },
                         failure: function (response, operation) {
-                            model.erase();
-                            Ext.Msg.alert('Error', 'No se termino con éxito la operación.');
+                            if (window.getViewModel().get('newRecord')) {
+                                model.erase();
+                            }
+                            Ext.each(response.exceptions, function (operation) {
+                                if (operation.hasException()) {
+                                    console.log(operation)
+                                }
+                            });
+                            console.log(response);
+                            Ext.Msg.show({
+                                title: 'Error',
+                                msg: 'Operación fallada.',
+                                icon: Ext.Msg.ERROR,
+                                botones: Ext.Msg.OK
+                            });
                         }
                     });
                 },

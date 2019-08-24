@@ -59,7 +59,7 @@ public class MaterialUnidadController {
     @RequestMapping(value = "/iiLMaterialUnidad", method = RequestMethod.POST)
     public Map<String, Object> insertL(@RequestBody List<MaterialUnidad> materialUnidad) {
         Map<String, Object> map = new HashMap<>();
-        serv.changeMaterialUnidad(materialUnidad);
+        serv.changeLMaterialUnidad(materialUnidad);
         map.put("success", true);
         map.put("data", materialUnidad);
         map.put("message", "Registro exitoso.");
@@ -70,7 +70,18 @@ public class MaterialUnidadController {
     @RequestMapping(value = "/uuMaterialUnidad", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody MaterialUnidad materialUnidad) {
         Map<String, Object> map = new HashMap<>();
-//        serv.update(materialUnidad);
+        serv.update(materialUnidad);
+        map.put("success", true);
+        map.put("data", materialUnidad);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/uuLMaterialUnidad", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<MaterialUnidad> materialUnidad) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLMaterialUnidad(materialUnidad);
         map.put("success", true);
         map.put("data", materialUnidad);
         map.put("message", "Actualización exitosa.");
@@ -89,6 +100,19 @@ public class MaterialUnidadController {
         } catch (Exception e) {
             msg = e.getMessage();
         }
+        map.put("success", success);
+        map.put("data", materialUnidad);
+        map.put("message", msg);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddLMaterialUnidad", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<MaterialUnidad> materialUnidad) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        serv.deleteLMaterialUnidad(materialUnidad);
         map.put("success", success);
         map.put("data", materialUnidad);
         map.put("message", msg);

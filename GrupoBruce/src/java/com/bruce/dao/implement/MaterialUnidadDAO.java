@@ -29,12 +29,12 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     
     @Override
     public void create(MaterialUnidad t) {
-        sf.getCurrentSession().save(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override
     public void update(MaterialUnidad t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

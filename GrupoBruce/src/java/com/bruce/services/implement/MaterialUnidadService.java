@@ -122,10 +122,20 @@ public class MaterialUnidadService implements IMaterialUnidadService{
 
     @Override
     @Transactional
-    public void changeMaterialUnidad(List<MaterialUnidad> mu) {
+    public void changeLMaterialUnidad(List<MaterialUnidad> mu) {
         if(!mu.isEmpty()){
             mu.forEach( item -> {
                 dao.create(item);
+            });
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteLMaterialUnidad(List<MaterialUnidad> mu) {
+        if(!mu.isEmpty()){
+            mu.forEach( item -> {
+                dao.delete(item);
             });
         }
     }

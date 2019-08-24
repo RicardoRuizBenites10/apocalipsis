@@ -13,10 +13,10 @@ Ext.define('GrupoBruce.model.MaterialUnidad', {
     proxy: {
         type: 'ajax',
         api: {
+            destroy: 'ddLMaterialUnidad',
             create: 'iiLMaterialUnidad',
             read: 'materialunidads',
-            update: 'uuMaterialUnidad',
-            destroy: 'ddMaterialUnidad'
+            update: 'uuLMaterialUnidad'
         },
         reader: {
             type: 'json',
@@ -25,6 +25,7 @@ Ext.define('GrupoBruce.model.MaterialUnidad', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

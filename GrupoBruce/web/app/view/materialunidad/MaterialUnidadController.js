@@ -45,7 +45,6 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
                     errorRepit = true;
                 if (item.get('base')){
                     errorUnidad = true;
-                    console.log('Item: ' + item.get('idUmedida') + ' - ' + item.get('base'));
                 }
             });
             
