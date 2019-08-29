@@ -6,6 +6,9 @@ Ext.define('GrupoBruce.store.MaterialUnidad', {
     remoteSort: true,
     remoteFilter: true,
     sorters: [{
+            property: 'BASE',
+            direction: 'DESC'
+        },{
             property: '-DENOMINACION',
             direction: 'ASC'
         }]

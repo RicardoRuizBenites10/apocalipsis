@@ -104,13 +104,14 @@ Ext.define('GrupoBruce.Application', {
 
     launch: function () {
         var loggedIn = Ext.decode(localStorage.getItem("sesionEstado"));
-               
+
+        Ext.util.Format.decimalSeparator = '.';
+
         Ext.ux.ActivityMonitor.init({
             verbose: true
         });
 
         Ext.ux.ActivityMonitor.start();
-
         Ext.ux.ActivityMonitor.isInactive = function () {
 //            Ext.Msg.alert('Monitor', 'User is inactive!');
             localStorage.removeItem('sesionEstado');
@@ -118,7 +119,6 @@ Ext.define('GrupoBruce.Application', {
             location.reload(true);
             this.stop();
         };
-
         Ext.ux.ActivityMonitor.isActive = function () {
 //            Ext.Msg.alert('Monitor', 'User is active!');
         };

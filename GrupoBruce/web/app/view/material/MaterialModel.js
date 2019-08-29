@@ -30,8 +30,8 @@ Ext.define('GrupoBruce.view.material.MaterialModel', {
             autoLoad: true,
             filters: [{
                     property: 'idFamilia',
-                    value: '{selectMaterialFamilia.idFamilia}',
-                    operator: 'EQ'
+                    operator: 'eq',
+                    value: '{selectMaterialFamilia.idFamilia}'
                 }]
         }
     },

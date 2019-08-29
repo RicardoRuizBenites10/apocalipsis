@@ -34,6 +34,9 @@ public class MaterialService implements IMaterialService{
     @Override
     @Transactional
     public void insert(Material t) {
+        Material last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdMaterial() : 0 ;
+        t.setIdMaterial(idLast + 1);
         dao.create(t);
     }
 

@@ -49,6 +49,9 @@ Ext.define('GrupoBruce.view.unidadmedida.FormUnidadMedida', {
                             name: 'equivalencia',
                             fieldLabel: 'Equivalencia',
                             hideTrigger: true,
+                            minValue: 0,
+                            decimalPrecision: 5,
+                            allowDecimal: true,
                             flex: 1
                         },{
                             xtype: 'checkbox',

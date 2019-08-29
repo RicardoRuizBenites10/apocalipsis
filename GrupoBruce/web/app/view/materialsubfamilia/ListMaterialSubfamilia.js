@@ -42,6 +42,7 @@ Ext.define('GrupoBruce.view.materialsubfamilia.ListMaterialSubfamilia',{
                         value: '{recordMaterialFamilia.idFamilia}'
                     },
                     forceSelection: true,
+                    readOnly: true,
                     editable: false,
                     hideTrigger: true,
                     width: 150

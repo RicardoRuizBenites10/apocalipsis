@@ -29,11 +29,11 @@ Ext.define('GrupoBruce.view.main.MainModel', {
         empresas: {
             type: 'Sempresa',
             autoLoad: true,
-            filters:[{
+            filters: [{
                     property: 'idEmpresa',
                     operator: 'eq',
                     value: '{thisUsuario.idEmpresa}'
-            }]
+                }]
         },
         sucursals: {
             type: 'Ssucursal',
@@ -42,7 +42,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
                     property: 'idSucursal',
                     operator: 'in',
                     value: '{thisUsuario.accSucursal}'
-                },{
+                }, {
                     property: 'idEmpresa',
                     operator: 'eq',
                     value: '{thisUsuario.idEmpresa}'
@@ -57,10 +57,10 @@ Ext.define('GrupoBruce.view.main.MainModel', {
     },
 
     formulas: {
-        myRol: function(get){
+        myRol: function (get) {
             return get('thisUsuario').idRol;
         },
-        
+
         thisUsuario: function () {
             return Ext.JSON.decode(localStorage.getItem("sesionUsuario"));
         },
@@ -79,7 +79,7 @@ Ext.define('GrupoBruce.view.main.MainModel', {
 
         rootSelection: function (get) {
             var selection = get('treelist.selection'), path, array, accion;
-            if (selection) {
+            if (selection && selection.data.handler !== '') {
                 path = selection.getPath('text');
                 path = path.replace(/\/Root/, 'Menu');
                 path = path.replace(/\//g, '<span class="x-fa fa-angle-right" style="padding: 0 18px 0 18px;"></span>');

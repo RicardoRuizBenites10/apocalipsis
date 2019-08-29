@@ -47,6 +47,7 @@ Ext.define('GrupoBruce.view.materialunidad.FormMaterialUnidad', {
                             fieldLabel: 'Equivalencia',
                             hideTrigger: true,
                             bind: '{selectUnidadMedida.equivalencia}',
+                            decimalPrecision: 5,
                             minValue: 0,
                             flex: 1
                     }]

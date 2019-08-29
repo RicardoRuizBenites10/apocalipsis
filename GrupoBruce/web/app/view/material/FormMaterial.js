@@ -3,11 +3,11 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
     alias: 'widget.Wformmaterial',
     reference: 'form_material',
     id: 'id_wformmaterial',
-    
+
     requires: [
         'GrupoBruce.view.materialunidad.MaterialUnidad'
     ],
-    
+
     controller: 'Cmaterial',
     viewModel: {
         type: 'VMmaterial'
@@ -15,11 +15,10 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
 
     modal: true,
     closable: false,
-    resizable: false,
     scrollable: true,
     width: 400,
     maxHeight: Ext.getBody().getViewSize().height * 0.8,
-    
+
     title: 'Editar material',
     items: [{
             xtype: 'form',
@@ -95,6 +94,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                 , {
                     layout: 'fit',
                     margin: '10px 0 10px 0',
+                    allowBlank: true,
                     items: [{
                             xtype: 'fieldset',
                             title: 'Unidad de medida',
