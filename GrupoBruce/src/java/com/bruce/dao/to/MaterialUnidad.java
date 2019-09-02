@@ -22,6 +22,8 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "MATERIAL_UNIDAD", schema = "dbo", catalog = "BDBRUCE")
 public class MaterialUnidad implements java.io.Serializable {
 
+    private String idEmpresa;
+    private String idSucursal;
     private int idMaterial;
     private String idUmedida;
     private float equivalencia;
@@ -31,6 +33,26 @@ public class MaterialUnidad implements java.io.Serializable {
     private String denominacion;
 
     public MaterialUnidad() {
+    }
+
+    @Id
+    @Column(name = "ID_EMPRESA", nullable = false)
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    @Id
+    @Column(name = "ID_SUCURSAL", nullable = false)
+    public String getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(String idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
     @Id

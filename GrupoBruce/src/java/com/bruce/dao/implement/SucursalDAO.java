@@ -68,6 +68,9 @@ public class SucursalDAO implements ISucursalDAO {
                     case "in":
                         cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
                         break;
+                    case "nin":
+                        cr.add(Restrictions.not(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ","))));
+                        break;
                     case "like":
                         cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
                             break;
@@ -95,6 +98,9 @@ public class SucursalDAO implements ISucursalDAO {
                     case "in":
                         cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
                         break;
+                    case "nin":
+                        cr.add(Restrictions.not(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ","))));
+                        break;
                     case "like":
                         cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
                             break;
@@ -119,6 +125,9 @@ public class SucursalDAO implements ISucursalDAO {
                 switch (item.getOperator()) {
                     case "in":
                         cr.add(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ",")));
+                        break;
+                    case "nin":
+                        cr.add(Restrictions.not(Restrictions.in(item.getProperty(), Metodo.getSplit(String.valueOf(item.getValue()), ","))));
                         break;
                     case "like":
                         cr.add(Restrictions.eq(item.getProperty(), item.getValue()));

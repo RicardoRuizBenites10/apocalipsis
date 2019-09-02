@@ -6,7 +6,9 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IMaterialUnidadDAO;
+import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.MaterialUnidad;
+import com.bruce.dao.to.Sucursal;
 import com.bruce.services.design.IMaterialUnidadService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
@@ -26,27 +28,78 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class MaterialUnidadService implements IMaterialUnidadService{
-    
+public class MaterialUnidadService implements IMaterialUnidadService {
+
     @Autowired
     private IMaterialUnidadDAO dao;
-    
+    @Autowired
+    private ISucursalDAO dao2;
+
     @Override
     @Transactional
     public void insert(MaterialUnidad t) {
         dao.create(t);
+
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idEmpresa", t.getIdEmpresa()));
+        filters.add(new FilterPage("nin", "idSucursal", t.getIdSucursal()));
+        List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+        sucursals.forEach(item -> {
+
+            MaterialUnidad mu = new MaterialUnidad();
+            mu.setIdEmpresa(item.getIdEmpresa());
+            mu.setIdSucursal(item.getIdSucursal());
+            mu.setIdMaterial(t.getIdMaterial());
+            mu.setIdUmedida(t.getIdUmedida());
+            mu.setEquivalencia(t.getEquivalencia());
+            mu.setPrecio(t.getPrecio());
+            mu.setBase(t.isBase());
+            dao.create(mu);
+        });
     }
 
     @Override
     @Transactional
     public void update(MaterialUnidad t) {
         dao.update(t);
+
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idEmpresa", t.getIdEmpresa()));
+        filters.add(new FilterPage("nin", "idSucursal", t.getIdSucursal()));
+        List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+        sucursals.forEach(item -> {
+            MaterialUnidad mu = new MaterialUnidad();
+            mu.setIdEmpresa(item.getIdEmpresa());
+            mu.setIdSucursal(item.getIdSucursal());
+            mu.setIdMaterial(t.getIdMaterial());
+            mu.setIdUmedida(t.getIdUmedida());
+            mu.setEquivalencia(t.getEquivalencia());
+            mu.setPrecio(t.getPrecio());
+            mu.setBase(t.isBase());
+            dao.update(mu);
+        });
     }
 
     @Override
     @Transactional
     public void delete(MaterialUnidad t) {
         dao.delete(t);
+
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idEmpresa", t.getIdEmpresa()));
+        filters.add(new FilterPage("nin", "idSucursal", t.getIdSucursal()));
+        List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+        sucursals.forEach(item -> {
+            MaterialUnidad mu = new MaterialUnidad();
+            mu.setIdEmpresa(item.getIdEmpresa());
+            mu.setIdSucursal(item.getIdSucursal());
+            mu.setIdMaterial(t.getIdMaterial());
+            mu.setIdUmedida(t.getIdUmedida());
+            mu.setEquivalencia(t.getEquivalencia());
+            mu.setPrecio(t.getPrecio());
+            mu.setBase(t.isBase());
+            dao.delete(mu);
+        });
     }
 
     @Override
@@ -122,22 +175,52 @@ public class MaterialUnidadService implements IMaterialUnidadService{
 
     @Override
     @Transactional
-    public void changeLMaterialUnidad(List<MaterialUnidad> mu) {
-        if(!mu.isEmpty()){
-            mu.forEach( item -> {
-                dao.create(item);
+    public void changeLMaterialUnidad(List<MaterialUnidad> mun) {
+        if (!mun.isEmpty()) {
+            List<FilterPage> filters = new ArrayList<>();
+            filters.add(new FilterPage("eq", "idEmpresa", mun.get(0).getIdEmpresa()));
+            filters.add(new FilterPage("nin", "idSucursal", mun.get(0).getIdSucursal()));
+            List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+            mun.forEach(t -> {
+                dao.create(t);
+                sucursals.forEach(item -> {
+                    MaterialUnidad mu = new MaterialUnidad();
+                    mu.setIdEmpresa(item.getIdEmpresa());
+                    mu.setIdSucursal(item.getIdSucursal());
+                    mu.setIdMaterial(t.getIdMaterial());
+                    mu.setIdUmedida(t.getIdUmedida());
+                    mu.setEquivalencia(t.getEquivalencia());
+                    mu.setPrecio(t.getPrecio());
+                    mu.setBase(t.isBase());
+                    dao.create(mu);
+                });
             });
         }
     }
 
     @Override
     @Transactional
-    public void deleteLMaterialUnidad(List<MaterialUnidad> mu) {
-        if(!mu.isEmpty()){
-            mu.forEach( item -> {
-                dao.delete(item);
+    public void deleteLMaterialUnidad(List<MaterialUnidad> mun) {
+        if (!mun.isEmpty()) {
+            List<FilterPage> filters = new ArrayList<>();
+            filters.add(new FilterPage("eq", "idEmpresa", mun.get(0).getIdEmpresa()));
+            filters.add(new FilterPage("nin", "idSucursal", mun.get(0).getIdSucursal()));
+            List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+            mun.forEach(t -> {
+                dao.delete(t);
+                sucursals.forEach(item -> {
+                    MaterialUnidad mu = new MaterialUnidad();
+                    mu.setIdEmpresa(item.getIdEmpresa());
+                    mu.setIdSucursal(item.getIdSucursal());
+                    mu.setIdMaterial(t.getIdMaterial());
+                    mu.setIdUmedida(t.getIdUmedida());
+                    mu.setEquivalencia(t.getEquivalencia());
+                    mu.setPrecio(t.getPrecio());
+                    mu.setBase(t.isBase());
+                    dao.delete(mu);
+                });
             });
         }
     }
-    
+
 }

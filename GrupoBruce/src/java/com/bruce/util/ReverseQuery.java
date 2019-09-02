@@ -97,6 +97,9 @@ public class ReverseQuery {
                         case "like":
                             operator = " LIKE :";
                             break;
+                        case "in":
+                            operator = " IN :";
+                            break;
                         default:
                             operator = " = :";
                             break;

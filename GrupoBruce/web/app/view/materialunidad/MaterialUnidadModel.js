@@ -16,8 +16,16 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadModel', {
             type: 'Smaterialunidad',
             autoLoad: true,
             autoSync: '{!newRegister}',
-            trackRemoved : '{newRegister}',
+            trackRemoved : '{!newRegister}',
             filters: [{
+                    property: 'ID_EMPRESA',
+                    operator: 'EQ',
+                    value: '{recordMaterial.idEmpresa}'
+            },{
+                    property: 'ID_SUCURSAL',
+                    operator: 'EQ',
+                    value: '{recordMaterial.idSucursal}'
+            },{
                     property: 'ID_MATERIAL',
                     operator: 'EQ',
                     value: '{recordMaterial.idMaterial}'

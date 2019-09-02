@@ -14,10 +14,30 @@ import javax.persistence.Column;
  */
 public class MaterialUnidadId implements java.io.Serializable {
 
+    private String idEmpresa;
+    private String idSucursal;
     private int idMaterial;
     private String idUmedida;
 
     public MaterialUnidadId() {
+    }
+
+    @Column(name="ID_EMPRESA",nullable = false)
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    @Column(name="ID_SUCURSAL",nullable = false)
+    public String getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(String idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
     @Column(name="ID_MATERIAL",nullable = false)
@@ -40,9 +60,11 @@ public class MaterialUnidadId implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.idMaterial;
-        hash = 79 * hash + Objects.hashCode(this.idUmedida);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.idEmpresa);
+        hash = 41 * hash + Objects.hashCode(this.idSucursal);
+        hash = 41 * hash + this.idMaterial;
+        hash = 41 * hash + Objects.hashCode(this.idUmedida);
         return hash;
     }
 
@@ -61,9 +83,16 @@ public class MaterialUnidadId implements java.io.Serializable {
         if (this.idMaterial != other.idMaterial) {
             return false;
         }
+        if (!Objects.equals(this.idEmpresa, other.idEmpresa)) {
+            return false;
+        }
+        if (!Objects.equals(this.idSucursal, other.idSucursal)) {
+            return false;
+        }
         if (!Objects.equals(this.idUmedida, other.idUmedida)) {
             return false;
         }
         return true;
     }
+    
 }

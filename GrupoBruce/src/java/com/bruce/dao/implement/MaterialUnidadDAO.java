@@ -51,6 +51,8 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     public MaterialUnidad lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("MATERIAL_UNIDAD", "MU");
+        reverse.addResult("MU.ID_EMPRESA");
+        reverse.addResult("MU.ID_SUCURSAL");
         reverse.addResult("MU.ID_MATERIAL");
         reverse.addResult("MU.ID_UMEDIDA");
         reverse.addResult("MU.PRECIO");
@@ -82,6 +84,8 @@ public class MaterialUnidadDAO implements IMaterialUnidadDAO{
     public List<MaterialUnidad> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("MATERIAL_UNIDAD", "MU");
+        reverse.addResult("MU.ID_EMPRESA");
+        reverse.addResult("MU.ID_SUCURSAL");
         reverse.addResult("MU.ID_MATERIAL");
         reverse.addResult("MU.ID_UMEDIDA");
         reverse.addResult("MU.PRECIO");

@@ -11,8 +11,12 @@ Ext.define('GrupoBruce.view.materialunidad.MaterialUnidadController', {
             window.setTitle('Asignar unidad material');
             record = new GrupoBruce.model.MaterialUnidad();
         }
-        
-        if (!vmGrid.get('newRegister')) record.set('idMaterial', vmGrid.get('recordMaterial').get('idMaterial'));
+
+        if (!vmGrid.get('newRegister')) {
+            record.set('idEmpresa', vmGrid.get('recordMaterial').get('idEmpresa'));
+            record.set('idSucursal', vmGrid.get('recordMaterial').get('idSucursal'));
+            record.set('idMaterial', vmGrid.get('recordMaterial').get('idMaterial'));
+        }
         grid.getStore().each(function (item) {
             if (item.get('base'))
                 hasBase = true;

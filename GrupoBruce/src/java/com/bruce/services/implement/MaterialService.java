@@ -6,13 +6,16 @@
 package com.bruce.services.implement;
 
 import com.bruce.dao.design.IMaterialDAO;
+import com.bruce.dao.design.ISucursalDAO;
 import com.bruce.dao.to.Material;
+import com.bruce.dao.to.Sucursal;
 import com.bruce.services.design.IMaterialService;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +33,8 @@ public class MaterialService implements IMaterialService{
     
     @Autowired
     private IMaterialDAO dao;
+    @Autowired
+    private ISucursalDAO dao2;
     
     @Override
     @Transactional
@@ -38,12 +43,63 @@ public class MaterialService implements IMaterialService{
         int idLast = last != null ? last.getIdMaterial() : 0 ;
         t.setIdMaterial(idLast + 1);
         dao.create(t);
+        
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idEmpresa", t.getIdEmpresa()));
+        filters.add(new FilterPage("nin", "idSucursal", t.getIdSucursal()));
+        List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+        
+        sucursals.forEach(item -> {
+            Material mat = new Material();
+            mat.setIdEmpresa(item.getIdEmpresa());
+            mat.setIdSucursal(item.getIdSucursal());
+            mat.setIdMaterial(t.getIdMaterial());
+            mat.setIdFamilia(t.getIdFamilia());
+            mat.setIdSubfamilia(t.getIdSubfamilia());
+            mat.setIdUsuario(t.getIdUsuario());
+            mat.setNombre(t.getNombre());
+            mat.setPrecio(t.getPrecio());
+            mat.setStock(t.getStock());
+            mat.setStockMinimo(t.getStockMinimo());
+            mat.setStockMaximo(t.getStockMaximo());
+            mat.setCantIngreso(t.getCantIngreso());
+            mat.setCantSalida(t.getCantSalida());
+            mat.setAutoparte(t.isAutoparte());
+            mat.setSegCalidad(t.isSegCalidad());
+            mat.setSituacion(t.isSituacion());
+            dao.create(mat);
+        });
     }
 
     @Override
     @Transactional
     public void update(Material t) {
         dao.update(t);
+        
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "idEmpresa", t.getIdEmpresa()));
+        filters.add(new FilterPage("nin", "idSucursal", t.getIdSucursal()));
+        List<Sucursal> sucursals = dao2.getByFilter(0, 0, new ArrayList<>(), filters);
+        sucursals.forEach(item -> {
+            Material mat = new Material();
+            mat.setIdEmpresa(item.getIdEmpresa());
+            mat.setIdSucursal(item.getIdSucursal());
+            mat.setIdMaterial(t.getIdMaterial());
+            mat.setIdFamilia(t.getIdFamilia());
+            mat.setIdSubfamilia(t.getIdSubfamilia());
+            mat.setIdUsuario(t.getIdUsuario());
+            mat.setNombre(t.getNombre());
+            mat.setPrecio(t.getPrecio());
+            mat.setStock(t.getStock());
+            mat.setStockMinimo(t.getStockMinimo());
+            mat.setStockMaximo(t.getStockMaximo());
+            mat.setCantIngreso(t.getCantIngreso());
+            mat.setCantSalida(t.getCantSalida());
+            mat.setAutoparte(t.isAutoparte());
+            mat.setSegCalidad(t.isSegCalidad());
+            mat.setSituacion(t.isSituacion());
+            dao.create(mat);
+        });
     }
 
     @Override

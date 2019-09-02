@@ -63,6 +63,8 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
                     var dada = Ext.getCmp('id_wmaterialunidad').getViewModel().get('materialunidads');
                     if (nuevo) {
                         dada.each(function (item) {
+                            item.set('idEmpresa', model.get('idEmpresa'));
+                            item.set('idSucursal', model.get('idSucursal'));
                             item.set('idMaterial', model.get('idMaterial'));
                         });
                         dada.sync({
