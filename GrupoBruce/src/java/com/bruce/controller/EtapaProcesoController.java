@@ -30,16 +30,16 @@ public class EtapaProcesoController {
     @ResponseBody
     @RequestMapping(value = "/etapaProcesos", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "page") Integer page,
+            @RequestParam(required = false, value = "start") Integer start,
+            @RequestParam(required = false, value = "limit") Integer limit,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("message", "Lista de etapaProceso");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("data", serv.getByFilter(0, 10000, sort, filter, query));
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }

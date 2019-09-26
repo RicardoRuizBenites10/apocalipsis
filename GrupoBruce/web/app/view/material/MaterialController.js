@@ -5,9 +5,9 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
     createDialog: function (record) {
         var window = new GrupoBruce.view.material.FormMaterial();
         var vmMain = Ext.getCmp('id_wmain').getViewModel();
-        var vmMUnd = Ext.getCmp('id_wmaterialunidad').getViewModel();
+        var vmGrid = Ext.getCmp('id_wmaterialunidad').getViewModel();
 
-        vmMUnd.set('newRegister', !record);
+        vmGrid.set('newRegister', !record);
         window.getViewModel().set('newRegister', !record);
         if (!record) {
             window.setTitle('Registrar material');
@@ -17,8 +17,8 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
             record.set('idUsuario', vmMain.get('thisUsuario').idUsuario);
             record.set('idMaterial', 0);
         }
-        vmMUnd.set('recordMaterial', record);
-
+        vmGrid.set('recordMaterial', record);
+        
         window.down('form').loadRecord(record);
         window.show();
     },
@@ -96,12 +96,6 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
                                     Ext.Msg.alert("Status", msg + " operation failed!");
                                 } else
                                     Ext.Msg.alert('Status', 'Changes failed.');
-//                            Ext.Msg.show({
-//                                title: 'Error',
-//                                msg: 'Operación fallada.',
-//                                icon: Ext.Msg.ERROR,
-//                                botones: Ext.Msg.OK
-//                            });
                             }
                         });
                     } else {

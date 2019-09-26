@@ -34,7 +34,7 @@ public class ActividadMaterialDAO implements IActividadMaterialDAO{
 
     @Override
     public void update(ActividadMaterial t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

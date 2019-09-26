@@ -35,6 +35,9 @@ public class ActividadService implements IActividadService {
     @Override
     @Transactional
     public void insert(Actividad t) {
+        Actividad last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdActividad() : 0;
+        t.setIdActividad(idLast + 1);
         dao.create(t);
     }
 
@@ -60,9 +63,9 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
+                if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
+                } else {
                     filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
                 }
             }
@@ -88,9 +91,9 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
+                if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
+                } else {
                     filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
                 }
             }
@@ -121,9 +124,9 @@ public class ActividadService implements IActividadService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                if(Metodo.isNumeric(query.trim())){
+                if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
-                }else{
+                } else {
                     filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
                 }
             }

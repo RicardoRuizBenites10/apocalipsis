@@ -1,49 +1,43 @@
-Ext.define('GrupoBruce.view.area.FormArea', {
+Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
     extend: 'Ext.window.Window',
-    alias: 'widget.WformArea',
-    reference: 'form_area',
+    alias: 'widget.Wformespecificacion',
+    reference: 'form_especificacion',
+    id: 'id_wformespecificacion',
     
-    controller: 'Carea',
+    controller: 'Cespecificacion',
     viewModel: {
-        type: 'VMarea'
+        type: 'VMespecificacion'
     },
 
-    bind: {
-        title: '{title}'
-    },
-    
-    width: 400,
-    resizable: false,
-    modal: true,
+    dialog: true,
     closable: false,
     autoShow: true,
-    title: 'Editar área',
+    width: 500,
+    title: 'Editar Especificación',
 
     items: [{
             xtype: 'form',
             defaults: {
-                xtype: 'container',
                 layout: 'hbox',
                 defaults: {
                     allowBlank: false,
                     labelAlign: 'top',
-                    padding: 5
+                    padding: 10
                 }
             },
             items: [{
                     items: [{
-                            xtype: 'textfield',
-                            name: 'nombre',
-                            fieldLabel: 'Nombre de área funcional',
+                            xtype: 'textarea',
+                            fieldLabel: 'Nombre',
+                            name: 'descripcion',
                             flex: 1
                         }]
                 },{
                     items: [{
-                            xtype: 'textareafield',
-                            name: 'descripcion',
-                            fieldLabel: 'Descripción',
-                            allowBlank: true,
-                            flex: 1
+                            xtype: 'combobox',
+                            reference: 'chk_situacionespecificacion',
+                            fieldLabel: 'Situación',
+                            comboLabel: 'Activo'
                     }]
                 }],
 
@@ -67,9 +61,8 @@ Ext.define('GrupoBruce.view.area.FormArea', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'onSaveArea'
+                        click: 'onSaveEspecificacion'
                     }
                 }]
         }]
-
 });

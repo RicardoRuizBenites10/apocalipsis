@@ -34,10 +34,14 @@ public class EtapaProcesoService implements IEtapaProcesoService {
     @Override
     @Transactional
     public void insert(EtapaProceso t) {
-        EtapaProceso last = dao.lastByFilter(new ArrayList<>());
-        int idLast = last != null ? last.getIdEproceso() : 0;
-        t.setIdEproceso(idLast + 1);
+        EtapaProceso last = dao.lastByFilter(new ArrayList<>()), sup = dao.get(t.getIdSupeproceso());
+        int idLast = last != null ? Integer.parseInt(last.getIdEproceso()) : 0;
+        t.setIdEproceso(String.format("%04d", idLast + 1));
         dao.create(t);
+        if(sup!=null){
+            sup.setLeaf(false);
+            dao.update(sup);
+        }
     }
 
     @Override
@@ -49,6 +53,20 @@ public class EtapaProcesoService implements IEtapaProcesoService {
     @Override
     @Transactional
     public void delete(EtapaProceso t) {
+        List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
+        EtapaProceso sup = dao.get(t.getIdSupeproceso());
+        filters.add(new FilterPage("idSupeproceso", t.getIdEproceso()));
+        filters2.add(new FilterPage("idSupeproceso", t.getIdSupeproceso()));
+        int childs = dao.countByFilter(filters);
+        if (childs > 0) {
+            throw new RuntimeException("El menú no debe contener submenus.");
+        } else {
+            dao.delete(t);
+            if (sup != null) {
+                sup.setLeaf(dao.countByFilter(filters2)==0);
+                dao.update(sup);
+            }
+        }
         dao.delete(t);
     }
 

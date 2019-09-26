@@ -8,11 +8,7 @@ Ext.define('GrupoBruce.view.menu.MenuController', {
         var window = new GrupoBruce.view.menu.FormMenu();
         window.setTitle('Registrar menú');
 
-        var parentId = 'root';
-        if (rootModel) {
-            parentId = rootModel.get('idMenu');
-        }
-        childModel.set('idSupmenu', parentId);
+        childModel.set('idSupmenu', rootModel ? rootModel.get('idMenu') : 'root');
         childModel.set('leaf', true);
         window.down('form').loadRecord(childModel);
     },

@@ -37,8 +37,8 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
             autoLoad: true,
             filters: [{
                     property: 'idArea',
-                    value: '{selectArea.idArea}'
-            }]
+                    value: '{selectArea}'
+                }]
         }
     },
 
@@ -48,7 +48,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
                 var contrato = get('selectContrato');
                 return contrato ? contrato.get('fechaInicio') : get('currentDate');
             },
-            set: function(value){
+            set: function (value) {
                 this.set({currentDate: value});
             }
         },

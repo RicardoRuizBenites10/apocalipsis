@@ -8,8 +8,6 @@ package com.bruce.dao.to;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,13 +29,13 @@ public class Actividad implements java.io.Serializable {
     private boolean usaMaterial;
     private boolean situacion;
     private String idMoneda;
-    private int idEproceso;
+    private String idEproceso;
     private String idUsuario;
 
     public Actividad() {
     }
 
-    public Actividad(int idActividad, Date fecha, String nombre, float duracion, float precio, boolean usaMaterial, boolean situacion, String idMoneda, int idEproceso, String idUsuario) {
+    public Actividad(int idActividad, Date fecha, String nombre, float duracion, float precio, boolean usaMaterial, boolean situacion, String idMoneda, String idEproceso, String idUsuario) {
         this.idActividad = idActividad;
         this.fecha = fecha;
         this.nombre = nombre;
@@ -51,7 +49,6 @@ public class Actividad implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_ACTIVIDAD", nullable = false)
     public int getIdActividad() {
         return idActividad;
@@ -117,11 +114,11 @@ public class Actividad implements java.io.Serializable {
     }
 
     @Column(name = "ID_EPROCESO", nullable = false)
-    public int getIdEproceso() {
+    public String getIdEproceso() {
         return idEproceso;
     }
 
-    public void setIdEproceso(int idEproceso) {
+    public void setIdEproceso(String idEproceso) {
         this.idEproceso = idEproceso;
     }
 

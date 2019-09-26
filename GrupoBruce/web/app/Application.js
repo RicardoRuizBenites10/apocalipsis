@@ -113,7 +113,6 @@ Ext.define('GrupoBruce.Application', {
 
         Ext.ux.ActivityMonitor.start();
         Ext.ux.ActivityMonitor.isInactive = function () {
-//            Ext.Msg.alert('Monitor', 'User is inactive!');
             localStorage.removeItem('sesionEstado');
             localStorage.removeItem('sesionUsuario');
             location.reload(true);

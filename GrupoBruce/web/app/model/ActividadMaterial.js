@@ -1,11 +1,11 @@
 Ext.define('GrupoBruce.model.ActividadMaterial', {
     extend: 'Ext.data.Model',
-    idProperty: 'idMaterial',
+    idProperty: 'material',
     fields: [
         { name: 'cantidad', type: 'float' },
         { name: 'idActividad', type: 'int' },
         { name: 'idMaterial', type: 'int' },
-        { name: 'idUmedida', type: 'int' },
+        { name: 'idUmedida', type: 'string' },
         { name: 'material', type: 'string' },
         { name: 'unidad', type: 'string' }
     ],
@@ -14,10 +14,10 @@ Ext.define('GrupoBruce.model.ActividadMaterial', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiActividadMaterial',
+            create: 'iiLActividadMaterial',
             read: 'actividadMaterials',
-            update: 'uuActividadMaterial',
-            destroy: 'ddActividadMaterial'
+            update: 'uuLActividadMaterial',
+            destroy: 'ddLActividadMaterial'
         },
         reader: {
             type: 'json',
@@ -26,6 +26,7 @@ Ext.define('GrupoBruce.model.ActividadMaterial', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

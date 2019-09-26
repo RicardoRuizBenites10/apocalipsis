@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.ActividadMaterial;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IActividadMaterialService extends IEntidadService<ActividadMaterial>{
-    
+    public void changeLActividadMaterial(List<ActividadMaterial> am);
+    public void deleteLActividadMaterial(List<ActividadMaterial> am);
 }

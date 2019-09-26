@@ -1,7 +1,9 @@
 Ext.define('GrupoBruce.store.EtapaProceso', {
-    extend: 'Ext.data.Store',
-    alias: 'store.Setapaproceso',
+    extend: 'Ext.data.TreeStore',
     model: 'GrupoBruce.model.EtapaProceso',
+    alias: 'store.Setapaproceso',
+    
+    parentIdProperty: 'idSupeproceso',
 
     remoteSort: true,
     remoteFilter: true

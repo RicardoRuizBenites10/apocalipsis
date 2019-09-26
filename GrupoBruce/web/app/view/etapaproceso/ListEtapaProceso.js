@@ -1,5 +1,5 @@
 Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
-    extend: 'Ext.grid.Panel',
+    extend: 'Ext.tree.Panel',
     alias: 'widget.Wlistetapaproceso',
     reference: 'list_etapaproceso',
     id: 'id_wetapaproceso',
@@ -9,14 +9,18 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
         selection: '{selectEtapaProceso}'
     },
     allowDeselect: true,
+    rootVisible: false,
+    useArrows: true,
 
     columns: [{
+            text: 'Código',
+            dataIndex: 'idEproceso'
+        }, {
+            xtype: 'treecolumn',
             text: 'Descripción',
             dataIndex: 'descripcion',
+            width: 300,
             align: 'left'
-        }, {
-            text: 'Orden',
-            dataIndex: 'orden'
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
@@ -36,9 +40,6 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
             items: [{
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
-                    bind: {
-                        disabled: '{selectEtapaProceso}'
-                    },
                     handler: 'addEtapaProceso'
                 }, {
                     iconCls: 'x-fa fa-edit',

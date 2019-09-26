@@ -62,7 +62,7 @@ public class ActividadDAO implements IActividadDAO {
         reverse.addResult("A.USA_MATERIAL");
         reverse.addResult("A.ID_USUARIO");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("FECHA", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_ACTIVIDAD", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         query.addEntity(Actividad.class);

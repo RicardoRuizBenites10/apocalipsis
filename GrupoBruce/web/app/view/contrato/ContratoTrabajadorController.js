@@ -4,13 +4,17 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
 
     createDialog: function (record, inicio) {
         var window = new GrupoBruce.view.contrato.FormContratoTrabajador();
-        window.getViewModel().set('currentDate', inicio);
+        var vmWindow = window.getViewModel();
+        vmWindow.set('currentDate', inicio);
         if (!record) {
             window.setTitle('Registrar contrato');
             var idTrabajador = this.getViewModel().get('recordTrabajador').get('idTrabajador');
             var record = Ext.create('GrupoBruce.model.ContratoTrabajador', {
                 idTrabajador: idTrabajador
             });
+        }else{
+            vmWindow.set('miCodex', record.get('idArea'));
+            vmWindow.set('selectArea', record.get('idArea'));
         }
         window.down('form').loadRecord(record);
     },
@@ -64,6 +68,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
         var contratoModel = form.getRecord();
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(contratoModel); // update the record with the form data
+            contratoModel.set('idArea',Ext.getCmp('id_treeareatrabajo').getValue());
             contratoModel.save({// save the record to the server
                 success: function (contrato, operation) {
                     grid.getStore().reload();

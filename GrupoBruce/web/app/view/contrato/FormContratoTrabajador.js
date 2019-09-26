@@ -3,6 +3,10 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
     alias: 'widget.WformContratoTrabajador',
     reference: 'form_contratoTrabajador',
 
+//    requires: [
+//        'Ext.ux.TreePicker'
+//    ],
+
     viewModel: {
         type: 'VMcontratoTrabajador'
     },
@@ -15,7 +19,8 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
     autoShow: true,
     title: 'Editar contrato',
 
-    items: [{
+    items: [
+        {
             xtype: 'form',
             defaults: {
                 xtype: 'container',
@@ -52,19 +57,25 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                     ]
                 }, {
                     items: [{
-                            xtype: 'combobox',
-                            name: 'idArea',
+                            xtype: 'treepicker',
+                            id: 'id_treeareatrabajo',
                             fieldLabel: 'Área de trabajo',
-                            editable: false,
-                            emptyText: 'Seleccionar',
                             displayField: 'nombre',
                             valueField: 'idArea',
                             bind: {
                                 store: '{areas}',
-                                selection: '{selectArea}'
+                                value: '{miCodex}'
                             },
-                            flex: 1
-                        }]
+                            emptyText: 'Seleccionar',
+                            editable: false,
+                            flex: 1,
+                            listeners: {
+                                select: function (picker, record) {
+                                    picker.up('window').getViewModel().set('selectArea', record.get('idArea'));
+                                }
+                            }
+                        }
+                    ]
                 }, {
                     items: [{
                             xtype: 'combobox',
@@ -136,7 +147,6 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                         click: 'onSaveContrato'
                     }
                 }]
-        }]
-
-
+        }
+    ]
 });

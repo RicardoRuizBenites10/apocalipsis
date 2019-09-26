@@ -4,18 +4,33 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
     reference: 'list_menu',
     id: 'id_lmenu',
 
-    viewConfig: {
-        plugins: {
-            ptype: 'treeviewdragdrop'
-        }
-        ,listeners: {
-            drop: function (node, data, model, dropPosition) {
-                alert('Node: ' + model.get('idMenu') + ' Position: ' + dropPosition);
-                console.log(data);
-                console.log(model);
-            }
-        }
-    },
+//    viewConfig: {
+//        plugins: {
+//            ptype: 'gridviewdragdrop',
+//            expandDelay: 1000
+//        }
+//        , listeners: {
+//            drop: function (node, data, overModel, dropPosition, dropHandlers) {
+////                dropHandlers.wait = true;
+////                Ext.MessageBox.confirm('Drop', 'Esta seguro', function (btn) {
+//////                    console.log(btn);
+////                    if (btn === 'yes') {
+////                        dropHandlers.processDrop();
+////                console.log('Node: ' + overModel.get('idMenu') + ' - ' + overModel.get('idSupmenu') + ' Position: ' + dropPosition);
+////                    } else {
+////                        dropHandlers.cancelDrop();
+////                    }
+////                });
+//
+////                data.records[0].set('idSupmenu',overModel.get('idSupmenu'));
+//                console.log(overModel);
+//                console.log(data.records[0]);
+////                data.records[0].save();
+//////                console.log(node.getStore().reload());
+////                Ext.getCmp('id_lmenu').getStore().reload();
+//            }
+//        }
+//    },
 
     bind: {
         title: '{title}',
@@ -23,8 +38,6 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
         selection: '{selectMenu}'
     },
     allowDeselect: true,
-
-    closable: true,
     rootVisible: false,
     useArrows: true,
 
@@ -50,11 +63,7 @@ Ext.define('GrupoBruce.view.menu.ListMenu', {
         items: [{
                 xtype: 'button',
                 iconCls: 'x-fa fa-plus',
-//                disabled: true,
                 text: 'Nuevo',
-//                bind: {
-//                    disabled: '{!selectMenu}'
-//                },
                 handler: 'addMenu'
             }, {
                 iconCls: 'x-fa fa-edit',

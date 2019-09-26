@@ -25,7 +25,7 @@ public class ActividadMaterial implements java.io.Serializable {
     private int idActividad;
     private int idMaterial;
     private float cantidad;
-    private int idUmedida;
+    private String idUmedida;
 
     private String material;
     private String unidad;
@@ -63,11 +63,11 @@ public class ActividadMaterial implements java.io.Serializable {
     }
 
     @Column(name = "ID_UMEDIDA", nullable = false)
-    public int getIdUmedida() {
+    public String getIdUmedida() {
         return idUmedida;
     }
 
-    public void setIdUmedida(int idUmedida) {
+    public void setIdUmedida(String idUmedida) {
         this.idUmedida = idUmedida;
     }
 

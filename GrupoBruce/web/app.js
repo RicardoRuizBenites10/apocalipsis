@@ -5,7 +5,7 @@ Ext.application({
     extend: 'GrupoBruce.Application',
 
     requires: [
-        'GrupoBruce.view.main.Main' ,
+        'GrupoBruce.view.main.Main',
         'Ext.ux.ActivityMonitor'
     ]
 });

@@ -9,6 +9,7 @@ import com.bruce.dao.design.IEtapaProcesoDAO;
 import com.bruce.dao.to.EtapaProceso;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
+import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -46,7 +47,7 @@ public class EtapaProcesoDAO implements IEtapaProcesoDAO {
 
     @Override
     public EtapaProceso get(Object idT) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (EtapaProceso) sf.getCurrentSession().get(EtapaProceso.class, (Serializable) idT);
     }
 
     @Override

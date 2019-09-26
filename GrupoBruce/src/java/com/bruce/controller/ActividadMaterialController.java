@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.ActividadMaterial;
 import com.bruce.services.design.IActividadMaterialService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class ActividadMaterialController {
+
     @Autowired
     private IActividadMaterialService serv;
 
@@ -55,10 +57,32 @@ public class ActividadMaterialController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/iiLActividadMaterial", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<ActividadMaterial> actividadMaterial) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLActividadMaterial(actividadMaterial);
+        map.put("success", true);
+        map.put("data", actividadMaterial);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/uuActividadMaterial", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody ActividadMaterial actividadMaterial) {
         Map<String, Object> map = new HashMap<>();
         serv.update(actividadMaterial);
+        map.put("success", true);
+        map.put("data", actividadMaterial);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuLActividadMaterial", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<ActividadMaterial> actividadMaterial) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLActividadMaterial(actividadMaterial);
         map.put("success", true);
         map.put("data", actividadMaterial);
         map.put("message", "Actualización exitosa.");
@@ -83,4 +107,14 @@ public class ActividadMaterialController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/ddLActividadMaterial", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<ActividadMaterial> actividadMaterial) {
+        Map<String, Object> map = new HashMap<>();
+        serv.deleteLActividadMaterial(actividadMaterial);
+        map.put("success", true);
+        map.put("data", actividadMaterial);
+        map.put("message", "Eliminación exitosa");
+        return map;
+    }
 }

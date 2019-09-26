@@ -119,5 +119,21 @@ public class ActividadMaterialService implements IActividadMaterialService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void changeLActividadMaterial(List<ActividadMaterial> am) {
+        am.forEach(item -> {
+            dao.update(item);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteLActividadMaterial(List<ActividadMaterial> am) {
+        am.forEach(item -> {
+            dao.delete(item);
+        });
+    }
     
 }

@@ -12,6 +12,7 @@ Ext.define('GrupoBruce.view.etapaproceso.FormEtapaProceso', {
     dialog: true,
     resizable: false,
     closable: false,
+    autoShow: true,
     width: 350,
     title: 'Eidtar área de producción',
 
@@ -33,16 +34,6 @@ Ext.define('GrupoBruce.view.etapaproceso.FormEtapaProceso', {
                             name: 'descripcion',
                             fieldLabel: 'Nombre',
                             flex: 1
-                        }]
-                }, {
-                    flex: 2,
-                    items: [{
-                            xtype: 'numberfield',
-                            name: 'orden',
-                            fieldLabel: 'Número de orden',
-                            hideTrigger: true,
-                            minValue: 0,
-                            width: '49%'
                         }]
                 }, {
                     items: [{

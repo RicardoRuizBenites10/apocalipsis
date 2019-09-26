@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.view.actividad.ActividadModel', {
     data: {
         selectActividad: null
     },
-    
+
     stores: {
         actividads: {
             type: 'Sactividad',
@@ -18,10 +18,6 @@ Ext.define('GrupoBruce.view.actividad.ActividadModel', {
             type: 'Smoneda',
             autoLoad: true
         }
-    },
-    
-    formulas: {
-        
     }
 
 });

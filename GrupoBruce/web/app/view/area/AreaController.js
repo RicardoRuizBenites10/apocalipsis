@@ -2,23 +2,25 @@ Ext.define('GrupoBruce.view.area.AreaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Carea',
     
-    addArea: function () {
-        var areaModel = Ext.create('GrupoBruce.model.Area');
-
+    createDialog: function(record){
         var window = new GrupoBruce.view.area.FormArea();
-        window.setTitle('Registrar área');
-        var parentId = this.getViewModel().get('selectArea').get('idArea');
-        areaModel.set('idSuparea', parentId);
-        areaModel.set('leaf', true);
-        
-        window.down('form').loadRecord(areaModel);
+        var vm = this.getViewModel();
+        if(!record){
+            window.setTitle('Registrar área');
+            record = Ext.create('GrupoBruce.model.Area');
+            record.set('idSuparea', vm.get('selectArea').get('idArea'));
+            record.set('leaf', true);
+        }
+        window.down('form').loadRecord(record);
+    },
+    
+    addArea: function () {
+        this.createDialog(null);
     },
 
     editArea: function () {
         var model = this.getViewModel().get('selectArea');
-        var window = new GrupoBruce.view.area.FormArea();
-        window.setTitle('Editar área');
-        window.down('form').loadRecord(model);
+        this.createDialog(model);
     },
 
     deleteArea: function () {
