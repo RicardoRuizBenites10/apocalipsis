@@ -95,19 +95,22 @@ public class ReverseQuery {
                 if (item.getOperator() != null) {
                     switch (item.getOperator()) {
                         case "like":
-                            operator = " LIKE :";
+                            operator = " LIKE (:";
                             break;
                         case "in":
-                            operator = " IN :";
+                            operator = " IN (:";
+                            break;
+                        case "nin":
+                            operator = " NOT IN (:";
                             break;
                         default:
-                            operator = " = :";
+                            operator = " = (:";
                             break;
                     }
                 } else {
-                    operator = " = :";
+                    operator = " = (:";
                 }
-                filterSensitive = operator + item.getProperty();
+                filterSensitive = operator + item.getProperty() + ")";
                 if (item.isInWhere()) {
                     filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
                 }

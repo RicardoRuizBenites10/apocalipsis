@@ -1,12 +1,12 @@
-Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
+Ext.define('GrupoBruce.view.especificacioncategoria.ListEspecificacionCategoria', {
     extend: 'Ext.tree.Panel',
-    alias: 'widget.Wlistetapaproceso',
-    reference: 'list_etapaproceso',
-    id: 'id_wetapaproceso',
+    alias: 'widget.Wlistespecificacioncategoria',
+    reference: 'list_especificacioncategoria',
+    id: 'id_wlistespecificacioncategoria',
 
     bind: {
-        store: '{etapasproceso}',
-        selection: '{selectEtapaProceso}'
+        store: '{especificacioncategorias}',
+        selection: '{selectEspecificacionCategoria}'
     },
     allowDeselect: true,
     rootVisible: false,
@@ -15,13 +15,18 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Código',
-            dataIndex: 'idEproceso'
+            dataIndex: 'idEcategoria'
         }, {
             xtype: 'treecolumn',
-            text: 'Descripción',
-            dataIndex: 'descripcion',
-            width: 300,
+            text: 'Nombre',
+            dataIndex: 'nombre',
+            sortable: true,
+            width: 400,
             align: 'left'
+        }, {
+            text: 'Actualizado',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaUpdate'
         }, {
             text: 'Situación',
             dataIndex: 'situacion',
@@ -39,32 +44,26 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
+                    xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
-                    handler: 'addEtapaProceso'
+                    handler: 'addEspecificacionCategoria'
                 }, {
                     iconCls: 'x-fa fa-edit',
                     disabled: true,
                     text: 'Modificar',
                     bind: {
-                        disabled: '{!selectEtapaProceso}'
+                        disabled: '{!selectEspecificacionCategoria}'
                     },
-                    handler: 'editEtapaProceso'
+                    handler: 'editEspecificacionCategoria'
                 }, {
                     iconCls: 'x-fa fa-trash',
-                    disabled: true,
                     text: 'Eliminar',
+                    disabled: true,
                     bind: {
-                        disabled: '{!selectEtapaProceso}'
+                        disabled: '{!selectEspecificacionCategoria}'
                     },
-                    handler: 'deleteEtapaProceso'
+                    handler: 'deleteEspecificacionCategoria'
                 }]
-        }, {
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            bind: {
-                store: '{etapasproceso}'
-            },
-            displayInfo: true
         }]
 });

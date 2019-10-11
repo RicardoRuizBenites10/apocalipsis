@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "ETAPA_PROCESO", schema = "dbo", catalog = "BDBRUCE")
 public class EtapaProceso implements java.io.Serializable {
+
     private String idEproceso;
     private String descripcion;
     private int nivel;
@@ -26,7 +27,7 @@ public class EtapaProceso implements java.io.Serializable {
     private boolean situacion;
     private boolean leaf;
     private String idSupeproceso;
-    
+
     private String parentId;
     private String lastParentId;
 
@@ -42,7 +43,7 @@ public class EtapaProceso implements java.io.Serializable {
     }
 
     @Id
-    @Column(name="ID_EPROCESO", nullable = false)
+    @Column(name = "ID_EPROCESO", nullable = false)
     public String getIdEproceso() {
         return idEproceso;
     }
@@ -51,7 +52,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.idEproceso = idEproceso;
     }
 
-    @Column(name="DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", nullable = false)
     public String getDescripcion() {
         return descripcion;
     }
@@ -60,7 +61,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name="ORDEN", nullable = false)
+    @Column(name = "ORDEN", nullable = false)
     public int getOrden() {
         return orden;
     }
@@ -69,7 +70,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.orden = orden;
     }
 
-    @Column(name="PASA_BUS", nullable = false)
+    @Column(name = "PASA_BUS", nullable = false)
     public boolean isPasaBus() {
         return pasaBus;
     }
@@ -78,7 +79,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.pasaBus = pasaBus;
     }
 
-    @Column(name="SITUACION", nullable = false)
+    @Column(name = "SITUACION", nullable = false)
     public boolean isSituacion() {
         return situacion;
     }
@@ -87,7 +88,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.situacion = situacion;
     }
 
-    @Column(name="NIVEL", nullable = false)
+    @Column(name = "NIVEL", nullable = false)
     public int getNivel() {
         return nivel;
     }
@@ -96,7 +97,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.nivel = nivel;
     }
 
-    @Column(name="LEAF", nullable = false)
+    @Column(name = "LEAF", nullable = false)
     public boolean isLeaf() {
         return leaf;
     }
@@ -105,7 +106,7 @@ public class EtapaProceso implements java.io.Serializable {
         this.leaf = leaf;
     }
 
-    @Column(name="ID_SUPEPROCESO", nullable = false)
+    @Column(name = "ID_SUPEPROCESO", nullable = false)
     public String getIdSupeproceso() {
         return idSupeproceso;
     }

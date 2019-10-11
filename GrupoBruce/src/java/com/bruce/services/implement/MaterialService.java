@@ -15,7 +15,6 @@ import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -118,7 +117,7 @@ public class MaterialService implements IMaterialService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "nombre", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialService.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +141,7 @@ public class MaterialService implements IMaterialService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "nombre", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialService.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +171,7 @@ public class MaterialService implements IMaterialService{
                 });
             }
             if (query != null) {
-                filters.add(new FilterPage("like", "nombre", query));
+                filters.add(new FilterPage("like", "nombre", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(MaterialService.class.getName()).log(Level.SEVERE, null, ex);

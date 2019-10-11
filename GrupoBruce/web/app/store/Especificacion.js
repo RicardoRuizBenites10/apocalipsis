@@ -4,5 +4,13 @@ Ext.define('GrupoBruce.store.Especificacion',{
     model: 'GrupoBruce.model.Especificacion',
     
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: '-CATEGORIA',
+            direction: 'ASC'
+        },{
+            property: 'DESCRIPCION',
+            direction: 'ASC'
+        }]
 });

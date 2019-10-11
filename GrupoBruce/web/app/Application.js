@@ -41,6 +41,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.Empresa',
         'GrupoBruce.store.EntidadFinanciera',
         'GrupoBruce.store.EspecificacionActividad',
+        'GrupoBruce.store.EspecificacionCategoria',
         'GrupoBruce.store.Especificacion',
         'GrupoBruce.store.EstadoContrato',
         'GrupoBruce.store.EstadoEquipo',

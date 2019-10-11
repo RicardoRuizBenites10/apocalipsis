@@ -14,6 +14,7 @@ Ext.define('GrupoBruce.view.area.Area', {
         type: 'VMarea'
     },
     
+    title: 'Lista de áreas funcionales',
     items: [{
             xtype: 'WlistArea',
             height: 520

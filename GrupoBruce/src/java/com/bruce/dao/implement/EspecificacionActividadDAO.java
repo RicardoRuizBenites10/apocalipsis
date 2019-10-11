@@ -55,7 +55,9 @@ public class EspecificacionActividadDAO implements IEspecificacionActividadDAO{
         reverse.addResult("EA.ID_ACTIVIDAD");
         reverse.addResult("EA.FECHA");
         reverse.addResult("AC.NOMBRE ACTIVIDAD");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
         reverse.addJoin("INNER JOIN ACTIVIDAD AC", "AC.ID_ACTIVIDAD=EA.ID_ACTIVIDAD");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "AC.ID_EPROCESO=EP.ID_EPROCESO");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_ACTIVIDAD", "DESC"));
         reverse.setPagination(0, 1);
@@ -84,7 +86,9 @@ public class EspecificacionActividadDAO implements IEspecificacionActividadDAO{
         reverse.addResult("EA.ID_ACTIVIDAD");
         reverse.addResult("EA.FECHA");
         reverse.addResult("AC.NOMBRE ACTIVIDAD");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
         reverse.addJoin("INNER JOIN ACTIVIDAD AC", "AC.ID_ACTIVIDAD=EA.ID_ACTIVIDAD");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "AC.ID_EPROCESO=EP.ID_EPROCESO");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);

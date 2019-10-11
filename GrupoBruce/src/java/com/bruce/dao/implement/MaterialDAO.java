@@ -22,8 +22,8 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class MaterialDAO implements IMaterialDAO{
-
+public class MaterialDAO implements IMaterialDAO {
+    
     @Autowired
     private SessionFactory sf;
     
@@ -31,22 +31,22 @@ public class MaterialDAO implements IMaterialDAO{
     public void create(Material t) {
         sf.getCurrentSession().saveOrUpdate(t);
     }
-
+    
     @Override
     public void update(Material t) {
         sf.getCurrentSession().update(t);
     }
-
+    
     @Override
     public void delete(Material t) {
         sf.getCurrentSession().delete(t);
     }
-
+    
     @Override
     public Material get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Material lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
@@ -85,12 +85,12 @@ public class MaterialDAO implements IMaterialDAO{
         Material item = !result.isEmpty() ? (Material) result.get(0) : null;
         return item;
     }
-
+    
     @Override
     public List<Material> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public List<Material> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
@@ -122,12 +122,16 @@ public class MaterialDAO implements IMaterialDAO{
         query.addEntity(Material.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         return query.list();
     }
-
+    
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
@@ -136,7 +140,11 @@ public class MaterialDAO implements IMaterialDAO{
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         List result = query.list();

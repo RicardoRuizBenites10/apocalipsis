@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.Especificacion;
-import com.bruce.services.design.IEspecificacionService;
+import com.bruce.dao.to.EspecificacionCategoria;
+import com.bruce.services.design.IEspecificacionCategoriaService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,64 +22,64 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-public class EspecificacionController {
+public class EspecificacionCategoriaController {
     
     @Autowired
-    private IEspecificacionService serv;
+    private IEspecificacionCategoriaService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/especificacions", method = RequestMethod.GET)
+    @RequestMapping(value = "/especificacionCategorias", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
-            @RequestParam("page") int page,
-            @RequestParam("start") int start,
-            @RequestParam("limit") int limit,
+            @RequestParam(required = false, value = "page") Integer page,
+            @RequestParam(required = false, value = "start") Integer start,
+            @RequestParam(required = false, value = "limit") Integer limit,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("message", "Lista de especificacion");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("message", "Lista de especificación categoria");
+        map.put("data", serv.getByFilter(0, 1000, sort, filter, query));
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiEspecificacion", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody Especificacion especificacion) {
+    @RequestMapping(value = "/iiEspecificacionCategoria", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody EspecificacionCategoria especificacionCategoria) {
         Map<String, Object> map = new HashMap<>();
-        serv.insert(especificacion);
+        serv.insert(especificacionCategoria);
         map.put("success", true);
-        map.put("data", especificacion);
+        map.put("data", especificacionCategoria);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuEspecificacion", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody Especificacion especificacion) {
+    @RequestMapping(value = "/uuEspecificacionCategoria", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody EspecificacionCategoria especificacionCategoria) {
         Map<String, Object> map = new HashMap<>();
-        serv.update(especificacion);
+        serv.update(especificacionCategoria);
         map.put("success", true);
-        map.put("data", especificacion);
+        map.put("data", especificacionCategoria);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddEspecificacion", method = RequestMethod.POST)
-    public Map<String, Object> delete(@RequestBody Especificacion especificacion) {
+    @RequestMapping(value = "/ddEspecificacionCategoria", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody EspecificacionCategoria especificacionCategoria) {
         Map<String, Object> map = new HashMap<>();
         boolean success = false;
         String msg = "Operacion exitosa";
         try {
-            serv.delete(especificacion);
+            serv.delete(especificacionCategoria);
             success = true;
         } catch (Exception e) {
-            msg = e.getMessage();
+            e.printStackTrace();
         }
         map.put("success", success);
-        map.put("data", especificacion);
+        map.put("data", especificacionCategoria);
         map.put("message", msg);
         return map;
     }

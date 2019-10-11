@@ -3,6 +3,10 @@ Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
     alias: 'widget.Wformespecificacion',
     reference: 'form_especificacion',
     id: 'id_wformespecificacion',
+
+    requires: [
+        'GrupoBruce.view.especificacionactividad.EspecificacionActividad'
+    ],
     
     controller: 'Cespecificacion',
     viewModel: {
@@ -26,19 +30,52 @@ Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
                 }
             },
             items: [{
+                    xtype: 'tabpanel',
                     items: [{
-                            xtype: 'textarea',
-                            fieldLabel: 'Nombre',
-                            name: 'descripcion',
-                            flex: 1
+                            defaults: {
+                                xtype: 'container',
+                                layout: 'hbox',
+                                defaults: {
+                                    allowBlank: false,
+                                    labelAlign: 'top',
+                                    padding: 10
+                                }
+                            },
+                            title: 'Datos generales',
+                            items: [{
+                                    items: [{
+                                            xtype: 'treepicker',
+                                            id: 'id_treecategoria',
+                                            fieldLabel: 'Categoría',
+                                            displayField: 'nombre',
+                                            valueField: 'idEcategoria',
+                                            bind: {
+                                                store: '{especificacioncategorias}',
+                                                value: '{miCodex}'
+                                            },
+                                            flex: 1
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'textarea',
+                                            fieldLabel: 'Nombre',
+                                            name: 'descripcion',
+                                            flex: 1
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'checkbox',
+                                            reference: 'chk_situacionespecificacion',
+                                            fieldLabel: 'Situación',
+                                            boxLabel: 'Activo'
+                                        }]
+                                }]
+                        }, {
+                            title: 'Actividades asignadas',
+                            items: [{
+                                    xtype: 'Wespecificacionactividad'
+                                }]
                         }]
-                },{
-                    items: [{
-                            xtype: 'combobox',
-                            reference: 'chk_situacionespecificacion',
-                            fieldLabel: 'Situación',
-                            comboLabel: 'Activo'
-                    }]
                 }],
 
             buttons: [{

@@ -8,6 +8,7 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IActividadDAO;
 import com.bruce.dao.to.Actividad;
 import com.bruce.util.FilterPage;
+import com.bruce.util.Metodo;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
@@ -61,6 +62,8 @@ public class ActividadDAO implements IActividadDAO {
         reverse.addResult("A.ID_EPROCESO");
         reverse.addResult("A.USA_MATERIAL");
         reverse.addResult("A.ID_USUARIO");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "A.ID_EPROCESO=EP.ID_EPROCESO");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_ACTIVIDAD", "DESC"));
         reverse.setPagination(0, 1);
@@ -95,6 +98,8 @@ public class ActividadDAO implements IActividadDAO {
         reverse.addResult("A.ID_EPROCESO");
         reverse.addResult("A.USA_MATERIAL");
         reverse.addResult("A.ID_USUARIO");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
+        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "A.ID_EPROCESO=EP.ID_EPROCESO");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -102,7 +107,11 @@ public class ActividadDAO implements IActividadDAO {
         query.addEntity(Actividad.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         return query.list();
@@ -116,7 +125,11 @@ public class ActividadDAO implements IActividadDAO {
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         List result = query.list();

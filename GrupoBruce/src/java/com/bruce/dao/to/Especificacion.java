@@ -28,6 +28,10 @@ public class Especificacion implements java.io.Serializable {
     private Date fechaUpdate;
     private String usuUpdate;
     private boolean situacion;
+    private boolean usaActividad;
+    private String idEcategoria;
+    
+    private String categoria;
 
     public Especificacion() {
     }
@@ -96,5 +100,32 @@ public class Especificacion implements java.io.Serializable {
 
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
+    }
+
+    @Column(name = "USA_ACTIVIDAD", nullable = false)
+    public boolean isUsaActividad() {
+        return usaActividad;
+    }
+
+    public void setUsaActividad(boolean usaActividad) {
+        this.usaActividad = usaActividad;
+    }
+    
+    @Column(name="ID_ECATEGORIA", nullable= false)
+    public String getIdEcategoria() {
+        return idEcategoria;
+    }
+
+    public void setIdEcategoria(String idEcategoria) {
+        this.idEcategoria = idEcategoria;
+    }
+
+    @Column(name="CATEGORIA", insertable = false, updatable = false)
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

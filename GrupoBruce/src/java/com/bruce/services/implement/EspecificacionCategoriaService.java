@@ -5,9 +5,8 @@
  */
 package com.bruce.services.implement;
 
-import com.bruce.dao.design.IEspecificacionDAO;
-import com.bruce.dao.to.Especificacion;
-import com.bruce.services.design.IEspecificacionService;
+import com.bruce.dao.design.IEspecificacionCategoriaDAO;
+import com.bruce.dao.to.EspecificacionCategoria;
 import com.bruce.util.FilterPage;
 import com.bruce.util.SortPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,33 +19,55 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.bruce.services.design.IEspecificacionCategoriaService;
 
 /**
  *
  * @author SISTEMAS
  */
 @Service
-public class EspecificacionService implements IEspecificacionService{
-    
+public class EspecificacionCategoriaService implements IEspecificacionCategoriaService {
+
     @Autowired
-    private IEspecificacionDAO dao;
-    
+    private IEspecificacionCategoriaDAO dao;
+
     @Override
     @Transactional
-    public void insert(Especificacion t) {
+    public void insert(EspecificacionCategoria t) {
+        EspecificacionCategoria last = dao.lastByFilter(null), sup = dao.get(t.getIdSupecategoria());
+        int idLast = last != null ? Integer.parseInt(last.getIdEcategoria()) : 0;
+        t.setIdEcategoria(String.format("%04d", idLast + 1));
         dao.create(t);
+        if (sup != null) {
+            sup.setLeaf(false);
+            dao.update(sup);
+        }
     }
 
     @Override
     @Transactional
-    public void update(Especificacion t) {
+    public void update(EspecificacionCategoria t) {
         dao.update(t);
     }
 
     @Override
     @Transactional
-    public void delete(Especificacion t) {
-        dao.delete(t);
+    public void delete(EspecificacionCategoria t) {
+        List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
+        EspecificacionCategoria sup = dao.get(t.getIdSupecategoria());
+        filters.add(new FilterPage("eq","idSupecategoria", t.getIdEcategoria()));
+        filters2.add(new FilterPage("eq","idSupecategoria", t.getIdSupecategoria()));
+        
+        int childs = dao.countByFilter(filters);
+        if (childs > 0) {
+            throw new RuntimeException("La categoria no debe contener subcategoría.");
+        } else {
+            dao.delete(t);
+            if (sup != null) {
+                sup.setLeaf(dao.countByFilter(filters2) == 0);
+                dao.update(sup);
+            }
+        }
     }
 
     @Override
@@ -59,23 +80,23 @@ public class EspecificacionService implements IEspecificacionService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query + "%"));
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(EspecificacionService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EspecificacionCategoriaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.countByFilter(filters);
     }
 
     @Override
     @Transactional
-    public Especificacion find(Object id) {
+    public EspecificacionCategoria find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public Especificacion lastByFilter(String filter, String query) {
+    public EspecificacionCategoria lastByFilter(String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<FilterPage> filters = new ArrayList<>();
         try {
@@ -83,23 +104,23 @@ public class EspecificacionService implements IEspecificacionService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query + "%"));
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(EspecificacionService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EspecificacionCategoriaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.lastByFilter(filters);
     }
 
     @Override
     @Transactional
-    public List<Especificacion> findAll() {
+    public List<EspecificacionCategoria> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Transactional
-    public List<Especificacion> getByFilter(int start, int limit, String sort, String filter, String query) {
+    public List<EspecificacionCategoria> getByFilter(int start, int limit, String sort, String filter, String query) {
         ObjectMapper mapper = new ObjectMapper();
         List<SortPage> sorts = new ArrayList<>();
         List<FilterPage> filters = new ArrayList<>();
@@ -111,14 +132,13 @@ public class EspecificacionService implements IEspecificacionService{
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } 
-            if (query != null) {
-                filters.add(new FilterPage("like", "descripcion", "%" + query + "%"));
+            } else if (query != null) {
+                filters.add(new FilterPage("like", "nombre", "%" + query));
             }
         } catch (IOException ex) {
-            Logger.getLogger(EspecificacionService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EspecificacionCategoriaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
 }

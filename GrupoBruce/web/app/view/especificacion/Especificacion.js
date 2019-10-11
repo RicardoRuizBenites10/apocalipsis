@@ -2,13 +2,16 @@ Ext.define('GrupoBruce.view.especificacion.Especificacion', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        'GrupoBruce.view.especificacion.EspecificaciónController',
-        'GrupoBruce.view.especificacion.EspecificaciónModel'
+        'GrupoBruce.view.especificacion.EspecificacionController',
+        'GrupoBruce.view.especificacion.EspecificacionModel',
+        
+        'GrupoBruce.view.especificacion.ListEspecificacion',
+        'GrupoBruce.view.especificacion.FormEspecificacion'
     ],
 
-    controller: 'Cespecificación',
+    controller: 'Cespecificacion',
     viewModel: {
-        type: 'VMespecificación'
+        type: 'VMespecificacion'
     },
 
     title: 'Lista de especificaciones',

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Actividad implements java.io.Serializable {
     private String idMoneda;
     private String idEproceso;
     private String idUsuario;
+    
+    private String etapa;
 
     public Actividad() {
     }
@@ -138,5 +142,15 @@ public class Actividad implements java.io.Serializable {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="ETAPA", insertable = false, updatable = false)
+    public String getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 }

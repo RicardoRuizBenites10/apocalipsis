@@ -30,6 +30,7 @@ public class EspecificacionActividad implements java.io.Serializable {
     private Date fecha;
     
     private String actividad;
+    private String etapa;
 
     public EspecificacionActividad() {
     }
@@ -72,5 +73,15 @@ public class EspecificacionActividad implements java.io.Serializable {
 
     public void setActividad(String actividad) {
         this.actividad = actividad;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="ETAPA", insertable = false, updatable = false)
+    public String getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 }

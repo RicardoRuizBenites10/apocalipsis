@@ -1559,6 +1559,30 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Proveedor"
       }
+    },
+    "app/model/EspecificacionCategoria.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fecha:date:null,fechaUpdate:date:null,idEcategoria:string:null,idSupecategoria:string:null,leaf:boolean:null,nombre:string:null,situacion:boolean:null",
+        "modelFileName": "EspecificacionCategoria",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EspecificacionCategoria"
+      }
+    },
+    "app/model/EspecificacionActividad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "myField1:auto:null",
+        "modelFileName": "EspecificacionActividad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EspecificacionActividad"
+      }
     }
   }
 }

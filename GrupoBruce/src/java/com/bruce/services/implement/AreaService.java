@@ -55,8 +55,8 @@ public class AreaService implements IAreaService {
     public void delete(Area t) {
         List<FilterPage> filters = new ArrayList<>(), filters2 = new ArrayList<>();
         Area sup = dao.get(t.getIdSuparea());
-        filters.add(new FilterPage("idSuparea", t.getIdArea()));
-        filters2.add(new FilterPage("idSuparea", t.getIdSuparea()));
+        filters.add(new FilterPage("eq","idSuparea", t.getIdArea()));
+        filters2.add(new FilterPage("eq","idSuparea", t.getIdSuparea()));
         int childs = dao.countByFilter(filters);
         if (childs > 0) {
             throw new RuntimeException("El área no debe contener subareas.");

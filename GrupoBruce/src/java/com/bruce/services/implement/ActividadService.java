@@ -62,7 +62,8 @@ public class ActividadService implements IActividadService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
+            }
+            if (query != null) {
                 if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
                 } else {
@@ -90,7 +91,8 @@ public class ActividadService implements IActividadService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
+            }
+            if (query != null) {
                 if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
                 } else {
@@ -123,7 +125,8 @@ public class ActividadService implements IActividadService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
+            }
+            if (query != null) {
                 if (Metodo.isNumeric(query.trim())) {
                     filters.add(new FilterPage("like", "ID_ACTIVIDAD", query));
                 } else {

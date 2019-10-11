@@ -1,40 +1,40 @@
-Ext.define('GrupoBruce.view.actividad.ActividadController', {
+Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Cactividad',
+    alias: 'controller.Cespecificacion',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.actividad.FormActividad();
+        var window = new GrupoBruce.view.especificacion.FormEspecificacion();
         var vmWindow = window.getViewModel();
-        var vmWindow2 = Ext.getCmp('id_wactividadmaterial').getViewModel();
+        var vmWindow2 = Ext.getCmp('id_wespecificacionactividad').getViewModel();
 
         vmWindow2.set('newRegister', !record);
         vmWindow.set('newRegister', !record);
         if (!record) {
-            window.setTitle('Registrar actividad');
-            record = new GrupoBruce.model.Actividad();
-            record.set('idActividad', 0);
+            window.setTitle('Registrar especificacion');
+            record = new GrupoBruce.model.Especificacion();
+            record.set('idEspecificacion', 0);
         } else {
-            vmWindow.set('miCodex', record.get('idEproceso'));
+            vmWindow.set('miCodex', record.get('idEspecificacion'));
         }
-        vmWindow2.set('recordActividad', record);
+        vmWindow2.set('recordEspecificacion', record);
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addActividad: function () {
+    addEspecificacion: function () {
         this.createDialog(null);
     },
 
-    editActividad: function () {
-        var model = this.getViewModel().get('selectActividad');
+    editEspecificacion: function () {
+        var model = this.getViewModel().get('selectEspecificacion');
         this.createDialog(model);
     },
 
-    onSaveActividad: function (btn) {
+    onSaveEspecificacion: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistactividad');
-        var grid2 = Ext.getCmp('id_wactividadmaterial');
+        var grid = Ext.getCmp('id_wlistespecificacion');
+        var grid2 = Ext.getCmp('id_wespecificacionactividad');
         var model = form.getRecord();
         var windowVM = window.getViewModel();
         var nuevo = windowVM.get('newRegister');
@@ -42,20 +42,20 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionactividad').checked, usamat = grid2.getStore().count() > 0;
-            model.set('idUsuario', loggedIn.idUsuario);
-            model.set('usaMaterial', usamat);
+            var situacion = this.lookupReference('chk_situacionespecificacion').checked, usaact = grid2.getStore().count() > 0;
+            model.set('usuUpdate', loggedIn.idUsuario);
+            model.set('usaActividad', usaact);
             model.set('situacion', situacion);
-            model.set('idEproceso', Ext.getCmp('id_treeetapa').getValue())
+            model.set('idEcategoria', Ext.getCmp('id_treecategoria').getValue())
 
             model.save({// save the record to the server
                 success: function (model, operation) {
                     if (nuevo) {
                         grid2.getStore().each(function (item) {
-                            item.set('idActividad', model.get('idActividad'));
+                            item.set('idEspecificacion', model.get('idEspecificacion'));
                         });
                     }
-                    if (nuevo && usamat) {
+                    if (nuevo && usaact) {
                         grid2.getStore().sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
@@ -101,8 +101,8 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
         }
     },
 
-    deleteActividad: function () {
-        var grid = this.lookupReference('list_actividad');
+    deleteEspecificacion: function () {
+        var grid = this.lookupReference('list_especificacion');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {

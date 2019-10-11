@@ -1,12 +1,12 @@
 Ext.define('GrupoBruce.store.EspecificacionActividad',{
     extend: 'Ext.data.Store',
-    alias: 'store.SespecificacionActividad',
-    model: 'GrupoBruce.model.EspecifiacionActividad',
+    alias: 'store.Sespecificacionactividad',
+    model: 'GrupoBruce.model.EspecificacionActividad',
     
     remoteSort: true,
     remoteFilter: true,
     sorters: [{
-            property: 'ACTIVIDAD',
+            property: '-ACTIVIDAD',
             direction: 'ASC'
     }]
 });

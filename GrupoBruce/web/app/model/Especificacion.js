@@ -2,12 +2,16 @@ Ext.define('GrupoBruce.model.Especificacion', {
     extend: 'Ext.data.Model',
     idProperty: 'idEspecificacion',
     fields: [
+        { name: 'categoria', type: 'string' },
         { name: 'descripcion', type: 'string' },
         { name: 'fechaInsert', type: 'date' },
         { name: 'fechaUpdate', type: 'date' },
         { name: 'idEspecificacion', type: 'int' },
+        { name: 'idEcategoria', type: 'string' },
         { name: 'situacion', type: 'boolean' },
-        { name: 'usuInsert', type: 'string' }
+        { name: 'usaActividad', type: 'boolean' },
+        { name: 'usuInsert', type: 'string' },
+        { name: 'usuUpdate', type: 'string' }
     ],
     
     identifier: 'sequential',

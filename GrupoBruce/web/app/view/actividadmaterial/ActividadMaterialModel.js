@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialModel', {
             type: 'Sactividadmaterial',
             autoLoad: true,
             autoSync: '{!newRegister}',
-            trackRemoved : '{!newRegister}',
+            trackRemoved: '{!newRegister}',
             filters: [{
                     property: 'ID_ACTIVIDAD',
                     operator: 'eq',
@@ -31,6 +31,10 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialModel', {
                     property: 'ID_SUCURSAL',
                     operator: 'eq',
                     value: '{idSucursal}'
+                }, {
+                    property: 'ID_MATERIAL',
+                    operator: 'nin',
+                    value: '{nomaterial}'
                 }]
         },
         materialunidads: {
@@ -40,11 +44,11 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialModel', {
                     property: 'ID_EMPRESA',
                     operator: 'eq',
                     value: '{selectMaterial.idEmpresa}'
-                },{
+                }, {
                     property: 'ID_SUCURSAL',
                     operator: 'eq',
                     value: '{selectMaterial.idSucursal}'
-                },{
+                }, {
                     property: 'ID_MATERIAL',
                     operator: 'eq',
                     value: '{selectMaterial.idMaterial}'
@@ -61,6 +65,14 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialModel', {
         idSucursal: function (get) {
             var modMain = Ext.getCmp('id_wmain').getViewModel();
             return modMain.get('selectSucursal').get('idSucursal');
+        },
+        nomaterial: function (get) {
+            var store = Ext.getCmp('id_wactividadmaterial').getStore();
+            var nm = [];
+            store.each(function (item) {
+                nm.push(item.get('idMaterial'));
+            });
+            return store.getCount() > 0 ? nm.toString() : 0;
         }
     }
 

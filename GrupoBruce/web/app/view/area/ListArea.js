@@ -5,14 +5,11 @@ Ext.define('GrupoBruce.view.area.ListArea', {
     id: 'id_larea',
 
     bind: {
-        title: '{title}',
         store: '{areas}',
         selection: '{selectArea}'
     },
     allowDeselect: true,
-
     rootVisible: false,
-//    singleExpand: true,
     closable: true,
 
     style: 'border: solid rgb(234,234,236) 1px',

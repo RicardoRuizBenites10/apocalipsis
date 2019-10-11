@@ -5,6 +5,7 @@ Ext.define('GrupoBruce.model.Actividad', {
     idProperty: "idActividad",
     fields: [
         {name: 'duracion', type: 'float'},
+        {name: 'etapa', type: 'string'},
         {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idActividad', type: 'int'},
         {name: 'idEproceso', type: 'string'},

@@ -8,14 +8,12 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IEspecificacionDAO;
 import com.bruce.dao.to.Especificacion;
 import com.bruce.util.FilterPage;
+import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,23 +50,29 @@ public class EspecificacionDAO implements IEspecificacionDAO{
     @Override
     public Especificacion lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Especificacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("ESPECIFICACION", "E");
+        reverse.addResult("E.ID_ESPECIFICACION");
+        reverse.addResult("E.DESCRIPCION");
+        reverse.addResult("E.FECHA_INSERT");
+        reverse.addResult("E.USU_INSERT");
+        reverse.addResult("E.FECHA_UPDATE");
+        reverse.addResult("E.USU_UPDATE");
+        reverse.addResult("E.SITUACION");
+        reverse.addResult("E.USA_ACTIVIDAD");
+        reverse.addResult("E.ID_ECATEGORIA");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
+        reverse.setFilters(filters);
+        reverse.getLSorts().add(new SortPage("ID_ESPECIFICACION", "DESC"));
+        reverse.setPagination(0, 1);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Especificacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.addOrder(Order.desc("idEspecificacion"));
-        cr.setFirstResult(0);
-
-        List result = cr.list();
+        List result = query.list();
         Especificacion item = !result.isEmpty() ? (Especificacion) result.get(0) : null;
         return item;
     }
@@ -81,41 +85,44 @@ public class EspecificacionDAO implements IEspecificacionDAO{
     @Override
     public List<Especificacion> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Especificacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("ESPECIFICACION", "E");
+        reverse.addResult("E.ID_ESPECIFICACION");
+        reverse.addResult("E.DESCRIPCION");
+        reverse.addResult("E.FECHA_INSERT");
+        reverse.addResult("E.USU_INSERT");
+        reverse.addResult("E.FECHA_UPDATE");
+        reverse.addResult("E.USU_UPDATE");
+        reverse.addResult("E.SITUACION");
+        reverse.addResult("E.USA_ACTIVIDAD");
+        reverse.addResult("E.ID_ECATEGORIA");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Especificacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        return cr.list();
+        return query.list();
     }
 
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        Criteria cr = session.createCriteria(Especificacion.class);
-        if (filters != null) {
-            filters.forEach(item -> {
-                switch (item.getOperator()) {
-                    case "like":
-                        cr.add(Restrictions.like(item.getProperty(), item.getValue()));
-                        break;
-                    default:
-                        cr.add(Restrictions.eq(item.getProperty(), item.getValue()));
-                        break;
-                }
+        ReverseQuery reverse = new ReverseQuery("ESPECIFICACION", "E");
+        reverse.setFilters(filters);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
             });
         }
-        cr.setProjection(Projections.rowCount());
-        List result = cr.list();
-        return ((Long) result.get(0)).intValue();
+        List result = query.list();
+        return (int) result.get(0);
     }
     
 }
