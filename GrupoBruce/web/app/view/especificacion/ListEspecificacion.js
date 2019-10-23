@@ -23,6 +23,13 @@ Ext.define('GrupoBruce.view.especificacion.ListEspecificacion', {
         }, {
             text: 'Situacion',
             dataIndex: 'situacion',
+            renderer: function (val) {
+                if (val) {
+                    return '<span style="background:#26B99A;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> ACTIVO </span>';
+                } else {
+                    return '<span style="background:#d9534f;font-size: 75%;border-radius: .25em; color:white; padding: .1em .6em .1em; text-align: center;"> INACTIVO </span>';
+                }
+            },
             align: 'center'
         }],
 

@@ -40,9 +40,10 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
                                             fieldLabel: 'Área',
                                             valueField: 'idEproceso',
                                             displayField: 'descripcion',
+                                            name: 'idEproceso',
                                             bind: {
                                                 store: '{eprocesos}',
-                                                value: '{miCodex}'
+                                                rawValue: '{recordActividad.etapa}'
                                             },
                                             emptyText: 'Seleccionar',
                                             forceSelection: true,

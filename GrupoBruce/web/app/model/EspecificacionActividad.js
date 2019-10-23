@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.model.EspecificacionActividad', {
     fields: [
         {name: 'actividad', type: 'string'},
         {name: 'etapa', type: 'string'},
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idActividad', type: 'int'},
         {name: 'idEspecificacion', type: 'int'}
     ],
@@ -13,10 +13,10 @@ Ext.define('GrupoBruce.model.EspecificacionActividad', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiEspecificacionActividad',
+            create: 'iiLEspecificacionActividad',
             read: 'especificacionActividads',
-            update: 'uuEspecificacionActividad',
-            destroy: 'ddEspecificacionActividad'
+            update: 'uuLEspecificacionActividad',
+            destroy: 'ddLEspecificacionActividad'
         },
         reader: {
             type: 'json',
@@ -25,6 +25,7 @@ Ext.define('GrupoBruce.model.EspecificacionActividad', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

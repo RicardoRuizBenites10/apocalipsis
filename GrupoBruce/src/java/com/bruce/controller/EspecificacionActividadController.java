@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.EspecificacionActividad;
 import com.bruce.services.design.IEspecificacionActividadService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,17 @@ public class EspecificacionActividadController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/iiLEspecificacionActividad", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<EspecificacionActividad> especificacionActividad) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLEspecificacionActividad(especificacionActividad);
+        map.put("success", true);
+        map.put("data", especificacionActividad);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/uuEspecificacionActividad", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody EspecificacionActividad especificacionActividad) {
         Map<String, Object> map = new HashMap<>();
@@ -65,6 +77,17 @@ public class EspecificacionActividadController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/uuLEspecificacionActividad", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<EspecificacionActividad> especificacionActividad) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLEspecificacionActividad(especificacionActividad);
+        map.put("success", true);
+        map.put("data", especificacionActividad);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
     @ResponseBody
     @RequestMapping(value = "/ddEspecificacionActividad", method = RequestMethod.POST)
     public Map<String, Object> delete(@RequestBody EspecificacionActividad especificacionActividad) {
@@ -82,5 +105,15 @@ public class EspecificacionActividadController {
         map.put("message", msg);
         return map;
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value = "/ddLEspecificacionActividad", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<EspecificacionActividad> especificacionActividad) {
+        Map<String, Object> map = new HashMap<>();
+        serv.deleteLEspecificacionActividad(especificacionActividad);
+        map.put("success", true);
+        map.put("data", especificacionActividad);
+        map.put("message", "Eliminación exitosa");
+        return map;
+    }
 }

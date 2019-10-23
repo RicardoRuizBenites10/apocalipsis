@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.EspecificacionActividad;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEspecificacionActividadService extends IEntidadService<EspecificacionActividad>{
-    
+    public void changeLEspecificacionActividad(List<EspecificacionActividad> ea);
+    public void deleteLEspecificacionActividad(List<EspecificacionActividad> ea);
 }

@@ -43,7 +43,6 @@ Ext.define('GrupoBruce.view.especificacionactividad.EspecificacionActividadModel
             store.each(function (item) {
                 nm.push(item.get('idActividad'));
             });
-            console.log(store.getCount() > 0 ? nm.toString() : null);
             return store.getCount() > 0 ? nm.toString() : 0;
         }
     }

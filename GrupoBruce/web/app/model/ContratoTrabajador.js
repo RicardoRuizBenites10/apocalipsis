@@ -4,6 +4,7 @@ Ext.define('GrupoBruce.model.ContratoTrabajador', {
 
     idProperty: 'idContrato',
     fields: [
+        {name: 'area', type: 'string'},
         {name: 'idTrabajador', type: 'string'},
         {name: 'idContrato', type: 'int'},
         {name: 'fechaCese', type: 'date', dateFormat: 'c'},

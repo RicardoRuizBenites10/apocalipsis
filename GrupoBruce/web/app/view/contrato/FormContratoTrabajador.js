@@ -62,9 +62,10 @@ Ext.define('GrupoBruce.view.contrato.FormContratoTrabajador', {
                             fieldLabel: 'Área de trabajo',
                             displayField: 'nombre',
                             valueField: 'idArea',
+                            name: 'idArea',
                             bind: {
                                 store: '{areas}',
-                                value: '{miCodex}'
+                                rawValue: '{recordContrato.area}'
                             },
                             emptyText: 'Seleccionar',
                             editable: false,

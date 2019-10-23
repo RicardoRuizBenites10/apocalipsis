@@ -13,12 +13,10 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
             window.setTitle('Registrar especificacion');
             record = new GrupoBruce.model.Especificacion();
             record.set('idEspecificacion', 0);
-        } else {
-            vmWindow.set('miCodex', record.get('idEspecificacion'));
         }
         vmWindow2.set('recordEspecificacion', record);
+        vmWindow.set('recordEspecificacion', record);
         window.down('form').loadRecord(record);
-        window.show();
     },
 
     addEspecificacion: function () {
@@ -43,7 +41,11 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
             var situacion = this.lookupReference('chk_situacionespecificacion').checked, usaact = grid2.getStore().count() > 0;
+            if (nuevo) {
+                model.set('usuInsert', loggedIn.idUsuario);
+            }
             model.set('usuUpdate', loggedIn.idUsuario);
+            model.set('fechaUpdate', new Date());
             model.set('usaActividad', usaact);
             model.set('situacion', situacion);
             model.set('idEcategoria', Ext.getCmp('id_treecategoria').getValue())

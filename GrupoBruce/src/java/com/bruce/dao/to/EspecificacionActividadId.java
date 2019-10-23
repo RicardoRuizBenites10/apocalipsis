@@ -28,11 +28,11 @@ public class EspecificacionActividadId implements java.io.Serializable {
         this.idEspecificacion = idEspecificacion;
     }
 
+    @Column(name = "ID_ACTIVIDAD", nullable = false)
     public int getIdActividad() {
         return idActividad;
     }
 
-    @Column(name = "ID_ACTIVIDAD", nullable = false)
     public void setIdActividad(int idActividad) {
         this.idActividad = idActividad;
     }

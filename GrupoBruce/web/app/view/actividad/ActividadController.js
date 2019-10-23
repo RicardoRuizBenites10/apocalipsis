@@ -13,10 +13,9 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
             window.setTitle('Registrar actividad');
             record = new GrupoBruce.model.Actividad();
             record.set('idActividad', 0);
-        } else {
-            vmWindow.set('miCodex', record.get('idEproceso'));
         }
         vmWindow2.set('recordActividad', record);
+        vmWindow.set('recordActividad', record);
         window.down('form').loadRecord(record);
         window.show();
     },

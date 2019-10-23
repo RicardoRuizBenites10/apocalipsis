@@ -34,7 +34,7 @@ public class EspecificacionActividadDAO implements IEspecificacionActividadDAO{
 
     @Override
     public void update(EspecificacionActividad t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

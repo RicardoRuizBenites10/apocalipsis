@@ -13,9 +13,9 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorController', {
                 idTrabajador: idTrabajador
             });
         }else{
-            vmWindow.set('miCodex', record.get('idArea'));
             vmWindow.set('selectArea', record.get('idArea'));
         }
+        vmWindow.set('recordContrato', record);
         window.down('form').loadRecord(record);
     },
 

@@ -33,6 +33,7 @@ Ext.define('GrupoBruce.view.especificacionactividad.EspecificacionActividadContr
             form.updateRecord(model); // update the record with the form data
             model.set('actividad', window.getViewModel().get('selectActividad').get('nombre'));
             model.set('etapa', window.getViewModel().get('selectActividad').get('etapa'));
+            model.set('fecha', new Date());
             grid.getStore().add(model);
             form.reset();
             window.destroy();

@@ -16,7 +16,7 @@ Ext.define('GrupoBruce.view.contrato.ContratoTrabajadorModel', {
             type: 'ScontratoTrabajador',
             autoLoad: true,
             filters: [{
-                    property: 'idTrabajador',
+                    property: 'ID_TRABAJADOR',
                     value: '{recordTrabajador.idTrabajador}'
                 }]
         },

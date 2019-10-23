@@ -75,8 +75,8 @@ public class ActividadDAO implements IActividadDAO {
             });
         }
         List result = query.list();
-        Actividad actividad = !result.isEmpty() ? (Actividad) result.get(0) : null;
-        return actividad;
+        Actividad item = !result.isEmpty() ? (Actividad) result.get(0) : null;
+        return item;
     }
 
     @Override

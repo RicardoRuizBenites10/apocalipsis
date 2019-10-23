@@ -56,8 +56,9 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "idTrabajador", "%" + query));
+            }
+            if (query != null) {
+                filters.add(new FilterPage("like", "ID_TRABAJADOR", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -70,7 +71,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
     public void insert(ContratoTrabajador newContrato) {
         int idCLast = 0;
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idTrabajador", newContrato.getIdTrabajador()));
+        filters.add(new FilterPage("ID_TRABAJADOR", newContrato.getIdTrabajador()));
         ContratoTrabajador lastContrato = dao.lastByFilter(filters);
         if (lastContrato != null) {
             idCLast = lastContrato.getIdContrato();
@@ -83,6 +84,8 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         newContrato.setIdEcontrato(Constante.CONTRATO_ESTADO_VIGENTE);
         dao.create(newContrato);
         /*---actualizacion en situacion y trabajador----*/
+        filters.removeAll(filters);
+        filters.add(new FilterPage("idTrabajador", newContrato.getIdTrabajador()));
         Situacion lastSituacion = dao2.lastByFilter(filters);
         Trabajador trabajador = dao3.get(newContrato.getIdTrabajador());
         int idSLast = lastSituacion != null ? lastSituacion.getIdSituacion() : 0;
@@ -128,8 +131,9 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "idTrabajador", "%" + query));
+            }
+            if (query != null) {
+                filters.add(new FilterPage("like", "ID_TRABAJADOR", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();
@@ -143,7 +147,7 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
         Map<String, Object> map = new HashMap<>();
 
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("idTrabajador", idTrabajador));
+        filters.add(new FilterPage("ID_TRABAJADOR", idTrabajador));
         ContratoTrabajador lastContrato = dao.lastByFilter(filters);
         boolean success = true;
         Date inicio = null;
@@ -166,8 +170,9 @@ public class ContratoTrabajadorService implements IContratoTrabajadorService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "idTrabajador", "%" + query));
+            } 
+            if (query != null) {
+                filters.add(new FilterPage("like", "ID_TRABAJADOR", "%" + query));
             }
         } catch (IOException ex) {
             ex.getMessage();

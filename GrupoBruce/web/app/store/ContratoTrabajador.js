@@ -4,5 +4,10 @@ Ext.define('GrupoBruce.store.ContratoTrabajador', {
     model: 'GrupoBruce.model.ContratoTrabajador',
     
     remoteSort: true,
-    remoteFilter: true
+    remoteFilter: true,
+    
+    sorters: [{
+            property: 'ID_CONTRATO',
+            direction: 'DESC'
+        }]
 });

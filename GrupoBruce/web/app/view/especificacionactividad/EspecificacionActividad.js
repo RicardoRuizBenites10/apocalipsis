@@ -23,13 +23,10 @@ Ext.define('GrupoBruce.view.especificacionactividad.EspecificacionActividad', {
     height: 300,
 
     columns: [{
-            text: 'Código',
-            dataIndex: 'idActividad'
-        }, {
             text: 'Actividad',
             dataIndex: 'actividad',
             align: 'left',
-            width: 200
+            width: 370
         },{
             text: 'Área',
             dataIndex: 'etapa'

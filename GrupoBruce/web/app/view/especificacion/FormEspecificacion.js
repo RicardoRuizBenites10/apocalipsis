@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
     requires: [
         'GrupoBruce.view.especificacionactividad.EspecificacionActividad'
     ],
-    
+
     controller: 'Cespecificacion',
     viewModel: {
         type: 'VMespecificacion'
@@ -47,12 +47,16 @@ Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
                                             xtype: 'treepicker',
                                             id: 'id_treecategoria',
                                             fieldLabel: 'Categoría',
-                                            displayField: 'nombre',
                                             valueField: 'idEcategoria',
+                                            displayField: 'nombre',
+                                            name: 'idEcategoria',
                                             bind: {
                                                 store: '{especificacioncategorias}',
-                                                value: '{miCodex}'
+                                                rawValue: '{recordEspecificacion.categoria}'
                                             },
+                                            emptyText: 'Seleccionar',
+                                            forceSelection: true,
+                                            editable: false,
                                             flex: 1
                                         }]
                                 }, {
@@ -65,6 +69,7 @@ Ext.define('GrupoBruce.view.especificacion.FormEspecificacion', {
                                 }, {
                                     items: [{
                                             xtype: 'checkbox',
+                                            name: 'situacion',
                                             reference: 'chk_situacionespecificacion',
                                             fieldLabel: 'Situación',
                                             boxLabel: 'Activo'

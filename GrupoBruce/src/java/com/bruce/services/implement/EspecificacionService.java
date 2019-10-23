@@ -34,6 +34,9 @@ public class EspecificacionService implements IEspecificacionService{
     @Override
     @Transactional
     public void insert(Especificacion t) {
+        Especificacion last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdEspecificacion() : 0;
+        t.setIdEspecificacion(idLast + 1);
         dao.create(t);
     }
 

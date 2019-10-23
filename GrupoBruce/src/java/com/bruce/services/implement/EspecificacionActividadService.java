@@ -119,5 +119,21 @@ public class EspecificacionActividadService implements IEspecificacionActividadS
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void changeLEspecificacionActividad(List<EspecificacionActividad> ea) {
+        ea.forEach(item -> {
+            dao.update(item);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteLEspecificacionActividad(List<EspecificacionActividad> ea) {
+        ea.forEach(item -> {
+            dao.delete(item);
+        });
+    }
     
 }

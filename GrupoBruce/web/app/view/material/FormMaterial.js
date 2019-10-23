@@ -15,6 +15,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
 
     modal: true,
     closable: false,
+    resizable: false,
     scrollable: true,
     width: 400,
     maxHeight: Ext.getBody().getViewSize().height * 0.8,
