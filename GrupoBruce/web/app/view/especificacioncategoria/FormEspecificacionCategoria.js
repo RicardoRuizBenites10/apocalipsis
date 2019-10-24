@@ -11,6 +11,7 @@ Ext.define('GrupoBruce.view.especificacioncategoria.FormEspecificacionCategoria'
 
     modal: true,
     closable: false,
+    resizable: false,
     autoShow: true,
     width: 400,
     title: 'Editar Categoría Especificación',

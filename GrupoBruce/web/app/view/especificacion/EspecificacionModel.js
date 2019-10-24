@@ -3,13 +3,18 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionModel', {
     alias: 'viewmodel.VMespecificacion',
 
     data: {
-        
+        categorias: null
     },
 
     stores: {
         especificacions: {
             type: 'Sespecificacion',
-            autoLoad: true
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_ECATEGORIA',
+                    operator: 'in',
+                    value: '{categorias}'
+            }]
         },
         especificacioncategorias: {
             type: 'Sespecificacioncategoria',

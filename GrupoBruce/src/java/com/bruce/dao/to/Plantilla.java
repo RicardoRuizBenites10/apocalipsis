@@ -28,7 +28,9 @@ public class Plantilla implements java.io.Serializable {
     private String idCarroceria;
     private int idEspecificacion;
     private Date fechaInsert;
+    private String usuInsert;
     private Date fechaUpdate;
+    private String usuUpdate;
     
     private String especificacion;
 
@@ -73,6 +75,24 @@ public class Plantilla implements java.io.Serializable {
 
     public void setFechaUpdate(Date fechaUpdate) {
         this.fechaUpdate = fechaUpdate;
+    }
+
+    @Column(name = "USU_INSERT", nullable = false)
+    public String getUsuInsert() {
+        return usuInsert;
+    }
+
+    public void setUsuInsert(String usuInsert) {
+        this.usuInsert = usuInsert;
+    }
+
+    @Column(name = "USU_UPDATE", nullable = false)
+    public String getUsuUpdate() {
+        return usuUpdate;
+    }
+
+    public void setUsuUpdate(String usuUpdate) {
+        this.usuUpdate = usuUpdate;
     }
 
     @Generated(GenerationTime.NEVER)

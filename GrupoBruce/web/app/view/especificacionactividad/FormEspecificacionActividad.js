@@ -31,8 +31,7 @@ Ext.define('GrupoBruce.view.especificacionactividad.FormEspecificacionActividad'
                             valueField: 'idEproceso',
                             displayField: 'descripcion',
                             bind: {
-                                store: '{etapaprocesos}',
-                                value: '{miCodex}'
+                                store: '{etapaprocesos}'
                             },
                             editable: false,
                             emptyText: 'Seleccionar',
@@ -40,10 +39,6 @@ Ext.define('GrupoBruce.view.especificacionactividad.FormEspecificacionActividad'
                             flex: 1,
                             listeners: {
                                 select: 'selectPicker'
-//                                select: function (picker, record) {
-//                                    console.log(record);
-////                                    picker.up('window').getViewModel().set('selectArea', record.get('idArea'));
-//                                }
                             }
                         }]
                 }, {

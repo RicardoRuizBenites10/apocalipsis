@@ -104,7 +104,11 @@ public class EspecificacionDAO implements IEspecificacionDAO{
         query.addEntity(Especificacion.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         return query.list();
@@ -118,7 +122,11 @@ public class EspecificacionDAO implements IEspecificacionDAO{
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         List result = query.list();

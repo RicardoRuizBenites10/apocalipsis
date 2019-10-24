@@ -8,7 +8,6 @@ package com.bruce.dao.implement;
 import com.bruce.dao.design.IActividadDAO;
 import com.bruce.dao.to.Actividad;
 import com.bruce.util.FilterPage;
-import com.bruce.util.Metodo;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
 import java.util.List;

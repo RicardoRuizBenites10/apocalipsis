@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.model.Especificacion', {
         {name: 'fechaUpdate', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idEspecificacion', type: 'int'},
         {name: 'idEcategoria', type: 'string'},
-        {name: 'situacion', type: 'boolean'},
+        {name: 'situacion', type: 'boolean', defaultValue: true},
         {name: 'usaActividad', type: 'boolean'},
         {name: 'usuInsert', type: 'string'},
         {name: 'usuUpdate', type: 'string'}

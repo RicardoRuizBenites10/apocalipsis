@@ -115,6 +115,38 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
+    },
+
+    changeCheck: function (check, newValue, oldValue) {
+        var vm = check.up('grid').up('panel').getViewModel();
+        var store = vm.get('especificacions');
+        if (newValue) {
+            store.addFilter([{
+                property: 'ID_ECATEGORIA',
+                operator: 'in',
+                value: vm.get('categorias')
+            }]);
+        } else {
+            store.clearFilter();
+        }
+    },
+
+    selectPicker: function (picker, record) {
+        var codigos = [];
+        codigos.push(record.get('idEcategoria'));
+        this.childsString(record, codigos);
+        picker.up('grid').up('panel').getViewModel().set('categorias', codigos.toString());
+    },
+
+    childsString: function (record, codigos) {
+        var childs = record.childNodes;
+        if (childs.length === 0) {
+            codigos.push(record.get('idEcategoria'));
+        } else {
+            for (var i = 0; i < childs.length; i++) {
+                this.childsString(childs[i], codigos);
+            }
+        }
     }
 
 });

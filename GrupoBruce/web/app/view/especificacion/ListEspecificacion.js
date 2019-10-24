@@ -4,17 +4,22 @@ Ext.define('GrupoBruce.view.especificacion.ListEspecificacion', {
     reference: 'list_especificacion',
     id: 'id_wlistespecificacion',
 
+//    requires: [
+//        'Ext.grid.feature.Grouping'
+//    ],
+
     bind: {
         store: '{especificacions}',
         selection: '{selectEspecificacion}'
     },
     allowDeselect: true,
 
+    style: 'border: solid rgb(234,234,236) 1px',
     columns: [{
             text: 'Nombre',
             dataIndex: 'descripcion',
             align: 'left',
-            width: 350
+            width: 600
         }, {
             text: 'Categoría',
             dataIndex: 'categoria',
@@ -33,10 +38,39 @@ Ext.define('GrupoBruce.view.especificacion.ListEspecificacion', {
             align: 'center'
         }],
 
+//    features: [{
+//            ftype: 'grouping',
+//            startCollapsed: true,
+//            groupHeaderTpl: '{columnName}: {name}   ({rows.length} Item{[values.rows.length > 1 ? "s" : ""]})'
+//        }],
+
     dockedItems: [{
             xtype: 'toolbar',
             overflowHandler: 'menu',
             items: [{
+                    xtype: 'checkbox',
+                    reference: 'filterCategoria',
+                    boxLabel: 'Filtrar por categorias',
+                    checked: true,
+                    listeners: {
+                        change: 'changeCheck'
+                    }
+                }, {
+                    xtype: 'treepicker',
+                    fieldLabel: 'Categorias',
+                    valueField: 'idEcategoria',
+                    displayField: 'nombre',
+                    bind: {
+                        store: '{especificacioncategorias}',
+                        hidden: '{!filterCategoria.checked}'
+                    },
+                    editable: false,
+                    emptyText: 'Seleccionar',
+                    labelAlign: 'right',
+                    listeners: {
+                        select: 'selectPicker'
+                    }
+                },'-',{
                     xtype: 'button',
                     iconCls: 'x-fa fa-plus',
                     text: 'Nuevo',
@@ -61,6 +95,12 @@ Ext.define('GrupoBruce.view.especificacion.ListEspecificacion', {
                     },
                     handler: 'deleteEspecificacion'
                 }]
+        }, {
+            xtype: 'pagingtoolbar',
+            dock: 'bottom',
+            bind: {
+                store: '{especificacions}'
+            }
         }]
 
 });

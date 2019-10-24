@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.store.Plantilla',{
     remoteSort: true,
     remoteFilter: true,
     sorters: [{
-            property: 'ESPECIFICACION',
+            property: '-ESPECIFICACION',
             direction: 'ASC'
     }]
 });
