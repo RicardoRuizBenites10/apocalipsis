@@ -8,12 +8,30 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaModel', {
     stores: {
         especificacions: {
             type: 'Sespecificacion',
-            autoLoad: true,
+            proxy: {
+                type: 'ajax',
+                url: 'especificacionSelects',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: 'total'
+                },
+                writer: {
+                    type: 'json',
+                    writeAllFields: true
+                }
+            },
             filters: [{
+                    property: 'IDCARROCERIA',
+                    operator: 'eq',
+                    value: '{recordCarroceria.idCarroceria}',
+                    inWhere: false
+                }, {
                     property: 'ID_ECATEGORIA',
                     operator: 'in',
                     value: '{categorias}'
-            }]
+                }],
+            autoLoad: true
         },
         especificacioncategorias: {
             type: 'Sespecificacioncategoria',

@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.Especificacion;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEspecificacionService extends IEntidadService<Especificacion>{
-    
+    public List<Especificacion> getByFilterSelects(int start, int limit, String sort, String filter, String query);
 }

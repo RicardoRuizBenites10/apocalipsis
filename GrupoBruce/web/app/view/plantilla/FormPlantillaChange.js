@@ -10,7 +10,7 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
     },
 
     modal: true,
-    closable: false,
+    closable: true,
     resizable: false,
     width: 600,
     autoShow: true,
@@ -21,9 +21,14 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
             selModel: {
                 type: 'checkboxmodel',
                 mode: 'SIMPLE',
-                checkOnly: false
+                checkOnly: false,
+                isSelected: function (record) {
+                    if (record !== undefined) {
+                        return record.get('asignado');
+                    }
+                }
             },
-            
+
             bind: {
                 store: '{especificacions}'
             },
@@ -39,6 +44,14 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
                     dataIndex: 'descripcion',
                     align: 'left',
                     width: 450
+                }, {
+                    text: 'Asignado',
+                    dataIndex: 'asignado',
+                    render: function (val, meta, record, rowIndex, colIndex, store, view) {
+                        if (val) {
+                            this.selectable(record);
+                        }
+                    }
                 }],
             dockedItems: [{
                     xtype: 'toolbar',

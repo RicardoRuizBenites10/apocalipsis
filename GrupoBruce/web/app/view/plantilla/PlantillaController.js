@@ -106,7 +106,7 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
     savePlantillaChange: function (btn) {
         var window = btn.up('window');
         var selection = btn.up('grid').getSelection();
-
+        console.log(selection);
         if (selection.length) {
             let name = '';
             selection.map(item => {

@@ -32,6 +32,7 @@ public class Especificacion implements java.io.Serializable {
     private String idEcategoria;
     
     private String categoria;
+    private boolean asignado;
 
     public Especificacion() {
     }
@@ -127,5 +128,14 @@ public class Especificacion implements java.io.Serializable {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+    
+    @Column(name="ASIGNADO", insertable = false, updatable = false)
+    public boolean isAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(boolean asignado) {
+        this.asignado = asignado;
     }
 }

@@ -6,11 +6,14 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.Especificacion;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IEspecificacionDAO extends IEntidadDAO<Especificacion>{
-    
+    public List<Especificacion> getByFilterSelects(int start, int limit, List<SortPage> sorts, List<FilterPage> filters);
 }

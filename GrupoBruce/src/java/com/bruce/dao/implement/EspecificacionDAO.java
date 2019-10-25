@@ -22,11 +22,11 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class EspecificacionDAO implements IEspecificacionDAO{
+public class EspecificacionDAO implements IEspecificacionDAO {
 
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(Especificacion t) {
         sf.getCurrentSession().save(t);
@@ -61,6 +61,7 @@ public class EspecificacionDAO implements IEspecificacionDAO{
         reverse.addResult("E.USA_ACTIVIDAD");
         reverse.addResult("E.ID_ECATEGORIA");
         reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addResult("0 ASIGNADO");
         reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_ESPECIFICACION", "DESC"));
@@ -96,6 +97,7 @@ public class EspecificacionDAO implements IEspecificacionDAO{
         reverse.addResult("E.USA_ACTIVIDAD");
         reverse.addResult("E.ID_ECATEGORIA");
         reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addResult("0 ASIGNADO");
         reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
@@ -122,6 +124,43 @@ public class EspecificacionDAO implements IEspecificacionDAO{
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
+                if (item.isInWhere()) {
+                    if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                        query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                    } else {
+                        query.setParameter(item.getProperty(), item.getValue());
+                    }
+                }
+            });
+        }
+        List result = query.list();
+        return (int) result.get(0);
+    }
+
+    @Override
+    public List<Especificacion> getByFilterSelects(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        ReverseQuery reverse = new ReverseQuery("ESPECIFICACION", "E");
+        reverse.addResult("E.ID_ESPECIFICACION");
+        reverse.addResult("E.DESCRIPCION");
+        reverse.addResult("E.FECHA_INSERT");
+        reverse.addResult("E.USU_INSERT");
+        reverse.addResult("E.FECHA_UPDATE");
+        reverse.addResult("E.USU_UPDATE");
+        reverse.addResult("E.SITUACION");
+        reverse.addResult("E.USA_ACTIVIDAD");
+        reverse.addResult("E.ID_ECATEGORIA");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addResult("ISNULL(PT.ID_ESPECIFICACION ,0) ASIGNADO");
+        reverse.addJoin("LEFT JOIN PLANTILLA PT", "PT.ID_ESPECIFICACION=E.ID_ESPECIFICACION AND PT.ID_CARROCERIA= :IDCARROCERIA");;
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(Especificacion.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
                 if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
                     query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
                 } else {
@@ -129,8 +168,7 @@ public class EspecificacionDAO implements IEspecificacionDAO{
                 }
             });
         }
-        List result = query.list();
-        return (int) result.get(0);
+        return query.list();
     }
-    
+
 }

@@ -123,5 +123,29 @@ public class EspecificacionService implements IEspecificacionService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public List<Especificacion> getByFilterSelects(int start, int limit, String sort, String filter, String query) {
+        ObjectMapper mapper = new ObjectMapper();
+        List<SortPage> sorts = new ArrayList<>();
+        List<FilterPage> filters = new ArrayList<>();
+        try {
+            if (sort != null) {
+                sorts = mapper.readValue(sort, new TypeReference<List<SortPage>>() {
+                });
+            }
+            if (filter != null) {
+                filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
+                });
+            } 
+            if (query != null) {
+                filters.add(new FilterPage("like", "descripcion", "%" + query + "%"));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(EspecificacionService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dao.getByFilterSelects(start, limit, sorts, filters);
+    }
     
 }
