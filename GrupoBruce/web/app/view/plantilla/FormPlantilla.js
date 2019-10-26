@@ -31,12 +31,16 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantilla', {
                             flex: 1,
                             height: 400,
                             columns: [{
-                                    text: 'Categoría'
+                                    text: 'Categoría',
+                                    dataIndex: 'categoria'
                                 }, {
                                     text: 'Especificación',
+                                    dataIndex: 'especificacion',
                                     width: 300
                                 }, {
-                                    text: 'Actualización'
+                                    text: 'Actualización',
+                                    dataIndex: 'fechaUpdate',
+                                    formatter: 'date("d/m/Y")'
                                 }],
                             dockedItems: [{
                                     xtype: 'toolbar',

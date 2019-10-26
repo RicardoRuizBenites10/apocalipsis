@@ -22,10 +22,9 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
                 type: 'checkboxmodel',
                 mode: 'SIMPLE',
                 checkOnly: false,
-                isSelected: function (record) {
-                    if (record !== undefined) {
-                        return record.get('asignado');
-                    }
+                ignoreRightMouseSelection: true,
+                renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+                    console.log('ronron');
                 }
             },
 
@@ -44,15 +43,22 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
                     dataIndex: 'descripcion',
                     align: 'left',
                     width: 450
-                }, {
-                    text: 'Asignado',
-                    dataIndex: 'asignado',
-                    render: function (val, meta, record, rowIndex, colIndex, store, view) {
-                        if (val) {
-                            this.selectable(record);
-                        }
-                    }
                 }],
+            listeners: {
+                afterrender: function (grid, opts) {
+                    console.log('dale bro');
+//                    var store = grid.getStore(),selections = [];
+//                    store.each(function (item) {
+//                        if (item.get('asignado')) {
+//                            selections.push(item);
+//                        }
+//                    });
+//                    grid.getSelectionModel().select(selections);
+                },
+                refresh: function (view) {
+                    console.log('dedal');
+                }
+            },
             dockedItems: [{
                     xtype: 'toolbar',
                     overflowHandler: 'menu',

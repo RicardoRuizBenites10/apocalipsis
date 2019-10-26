@@ -36,10 +36,10 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
                     grid.getStore().reload();
                     form.reset();
                     window.destroy();
-                    Ext.Msg.alert('Success', 'Operación exitosa.')
+                    Ext.Msg.alert('Success', 'Operación exitosa.');
                 },
                 failure: function (model, operation) {
-                    Ext.Msg.alert('Failure', 'Operacion fallada.')
+                    Ext.Msg.alert('Failure', 'Operacion fallada.');
                 }
             });
         } else { // display error alert if the data is invalid
@@ -56,7 +56,7 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
                 Ext.Msg.alert('Success', 'Eliminación exitosa.');
             },
             failure: function (response, operation) {
-                Ext.Msg.alert('Failure', 'Operacion fallada.')
+                Ext.Msg.alert('Failure', 'Operacion fallada.');
             }
         });
     },
