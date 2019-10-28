@@ -60,14 +60,14 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
 
             model.save({// save the record to the server
                 success: function (model, operation) {
-                    var dada = Ext.getCmp('id_wmaterialunidad').getViewModel().get('materialunidads');
+                    var store = Ext.getCmp('id_wmaterialunidad').getViewModel().get('materialunidads');
                     if (nuevo) {
-                        dada.each(function (item) {
+                        store.each(function (item) {
                             item.set('idEmpresa', model.get('idEmpresa'));
                             item.set('idSucursal', model.get('idSucursal'));
                             item.set('idMaterial', model.get('idMaterial'));
                         });
-                        dada.sync({
+                        store.sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
                                 form.reset();
@@ -82,7 +82,6 @@ Ext.define('GrupoBruce.view.material.MaterialController', {
                                     for (var i = 0; i < batch.exceptions.length; i++) {
                                         switch (batch.exceptions[i].action) {
                                             case "destroy" :
-                                                console.log(batch.exceptions[i]);
                                                 msg = msg + batch.exceptions[i]._records.length + " Delete, ";
                                                 break;
                                             case "update" :

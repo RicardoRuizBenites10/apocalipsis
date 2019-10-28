@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.Plantilla;
 import com.bruce.services.design.IPlantillaService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,17 @@ public class PlantillaController {
     public Map<String, Object> insert(@RequestBody Plantilla plantilla) {
         Map<String, Object> map = new HashMap<>();
         serv.insert(plantilla);
+        map.put("success", true);
+        map.put("data", plantilla);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/iiLPlantilla", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<Plantilla> plantilla) {
+        Map<String, Object> map = new HashMap<>();
+//        serv.insert(plantilla);
         map.put("success", true);
         map.put("data", plantilla);
         map.put("message", "Registro exitoso.");

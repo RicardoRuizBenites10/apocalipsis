@@ -18,14 +18,12 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
 
     items: [{
             xtype: 'grid',
+            id: 'id_gridesp',
             selModel: {
                 type: 'checkboxmodel',
                 mode: 'SIMPLE',
                 checkOnly: false,
-                ignoreRightMouseSelection: true,
-                renderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
-                    console.log('ronron');
-                }
+                ignoreRightMouseSelection: true
             },
 
             bind: {
@@ -44,21 +42,6 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
                     align: 'left',
                     width: 450
                 }],
-            listeners: {
-                afterrender: function (grid, opts) {
-                    console.log('dale bro');
-//                    var store = grid.getStore(),selections = [];
-//                    store.each(function (item) {
-//                        if (item.get('asignado')) {
-//                            selections.push(item);
-//                        }
-//                    });
-//                    grid.getSelectionModel().select(selections);
-                },
-                refresh: function (view) {
-                    console.log('dedal');
-                }
-            },
             dockedItems: [{
                     xtype: 'toolbar',
                     overflowHandler: 'menu',

@@ -81,7 +81,6 @@ public class ReverseQuery {
         boolean paramVP;
         int cont = 0;
         if (this.filters != null && !this.filters.isEmpty()) {
-            filterString = filterString + "WHERE\n";
             for (FilterPage item : filters) {
                 cont++;
                 ArrayList<String> propiedad = (ArrayList<String>) Metodo.getSplit(item.getProperty(), ".");
@@ -91,7 +90,6 @@ public class ReverseQuery {
                 } else {
                     filterBand = "DECRYPTBYPASSPHRASE('Bruces@22'," + iniEntidad + "." + item.getProperty() + ")";
                 }
-
                 if (item.getOperator() != null) {
                     switch (item.getOperator()) {
                         case "like":
@@ -115,6 +113,9 @@ public class ReverseQuery {
                     filterString = filterString + filterBand + filterSensitive + (this.filters.size() != cont ? (item.isAnd() ? " AND " : " OR ") : "");
                 }
             }
+        }
+        if (!filterString.trim().equals("")) {
+            filterString = "\nWHERE\n" + filterString;
         }
         return filterString;
     }

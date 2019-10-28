@@ -31,7 +31,20 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaModel', {
                     operator: 'in',
                     value: '{categorias}'
                 }],
-            autoLoad: true
+            listeners: {
+                load: function (store, records, successful, operation, eOpts) {
+                    var grid = Ext.getCmp('id_gridesp'), selections = [];
+                    selections = records.filter(item => item.get('asignado'));
+                    if (grid !== undefined) {
+//                        store.each(function (item) {
+//                            if (item.get('asignado')) {
+//                                selections.push(item);
+//                            }
+//                        });
+                        grid.getSelectionModel().select(selections);
+                    }
+                }
+            }
         },
         especificacioncategorias: {
             type: 'Sespecificacioncategoria',

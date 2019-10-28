@@ -82,6 +82,12 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
                 }]);
         } else {
             store.clearFilter();
+            store.addFilter([{
+                    property: 'IDCARROCERIA',
+                    operator: 'eq',
+                    value: vm.get('recordCarroceria').get('idCarroceria'),
+                    inWhere: false
+                }]);
         }
     },
 
@@ -105,15 +111,28 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
 
     savePlantillaChange: function (btn) {
         var window = btn.up('window');
-        var selection = btn.up('grid').getSelection();
-        console.log(selection);
+        var selection = btn.up('grid').getSelection(), dataSelect=[];
         if (selection.length) {
-            let name = '';
+//            let name = '';
             selection.map(item => {
-                name += item.get('descripcion') + '<br>';
+                dataSelect.push(item.data);
+//                name += item.get('descripcion') + '<br>';
             });
-            Ext.Msg.alert('Selected Record', name);
+//            Ext.Msg.alert('Selected Record', name);
         }
+        Ext.Ajax.request({
+            url: 'iiLPlantilla',
+            jsonData: dataSelect,
+            params: {isEcat: 4},
+            method: 'POST',
+            scope: this,
+            success: function (response, opts) {
+                Ext.Msg.alert('Information', response.status);
+            },
+            failurer: function (response, opts) {
+                Ext.Msg.alert('Warning', response.status);
+            }
+        });
         window.close();
     }
 
