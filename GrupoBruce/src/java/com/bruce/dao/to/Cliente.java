@@ -23,6 +23,7 @@ public class Cliente implements java.io.Serializable {
     private String telefono;
     private String correo;
     private String direccion;
+    private boolean situacion;
 
     public Cliente() {
     }
@@ -46,7 +47,7 @@ public class Cliente implements java.io.Serializable {
         this.nombre = nombre;
     }
 
-    @Column(name = "TELEFONO", nullable = true)
+    @Column(name = "TELEFONO")
     public String getTelefono() {
         return telefono;
     }
@@ -56,7 +57,7 @@ public class Cliente implements java.io.Serializable {
         this.telefono = telefono;
     }
 
-    @Column(name = "CORREO", nullable = true)
+    @Column(name = "CORREO")
     public String getCorreo() {
         return correo;
     }
@@ -65,13 +66,22 @@ public class Cliente implements java.io.Serializable {
         this.correo = correo;
     }
 
-    @Column(name = "DIRECCION", nullable = true)
+    @Column(name = "DIRECCION")
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    @Column(name = "SITUACION", nullable = true)
+    public boolean isSituacion() {
+        return situacion;
+    }
+
+    public void setSituacion(boolean situacion) {
+        this.situacion = situacion;
     }
 
 }

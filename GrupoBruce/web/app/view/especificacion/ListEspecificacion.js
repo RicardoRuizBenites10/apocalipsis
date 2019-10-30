@@ -57,7 +57,6 @@ Ext.define('GrupoBruce.view.especificacion.ListEspecificacion', {
                     }
                 }, {
                     xtype: 'treepicker',
-                    fieldLabel: 'Categorias',
                     valueField: 'idEcategoria',
                     displayField: 'nombre',
                     bind: {
