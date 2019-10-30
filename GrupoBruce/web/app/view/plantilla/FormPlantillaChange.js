@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
     extend: 'Ext.window.Window',
     alias: 'widget.Wformplantillachange',
     reference: 'form_plantillachange',
-    id: 'id_formplantillachange',
+    id: 'id_wformplantillachange',
 
     controller: 'Cplantilla',
     viewModel: {
@@ -14,8 +14,8 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
     resizable: false,
     width: 600,
     autoShow: true,
+    
     title: 'Lista de especificaciones',
-
     items: [{
             xtype: 'grid',
             id: 'id_gridesp',
@@ -48,14 +48,13 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantillaChange', {
                     items: [{
                             xtype: 'checkbox',
                             reference: 'filterCategoria',
-                            boxLabel: 'Filtrar por categorias',
+                            boxLabel: 'Categorias',
                             checked: true,
                             listeners: {
-                                change: 'changeCheck'
+                                change: 'changeCheckEsp'
                             }
                         }, {
                             xtype: 'treepicker',
-                            fieldLabel: 'Categorias',
                             valueField: 'idEcategoria',
                             displayField: 'nombre',
                             bind: {

@@ -5,7 +5,6 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
     createDialog: function (record) {
         var window = new GrupoBruce.view.plantilla.FormPlantilla();
         window.getViewModel().set('recordCarroceria', record);
-        window.down('form').loadRecord(record);
     },
 
     addPlantilla: function () {
@@ -71,7 +70,7 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
         this.createWindow('GrupoBruce.view.plantilla.FormPlantillaChange');
     },
 
-    changeCheck: function (check, newValue, oldValue) {
+    changeCheckEsp: function (check, newValue, oldValue) {
         var vm = check.up('grid').up('panel').getViewModel();
         var store = vm.get('especificacions');
         if (newValue) {
@@ -83,10 +82,29 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
         } else {
             store.clearFilter();
             store.addFilter([{
-                    property: 'IDCARROCERIA',
+                    property: 'PT.ID_CARROCERIA',
                     operator: 'eq',
                     value: vm.get('recordCarroceria').get('idCarroceria'),
                     inWhere: false
+                }]);
+        }
+    },
+
+    changeCheckPT: function (check, newValue, oldValue) {
+        var vm = check.up('grid').up('panel').getViewModel();
+        var store = vm.get('plantillas');
+        if (newValue) {
+            store.addFilter([{
+                    property: 'EC.ID_ECATEGORIA',
+                    operator: 'in',
+                    value: vm.get('categorias')
+                }]);
+        } else {
+            store.clearFilter();
+            store.addFilter([{
+                    property: 'ID_CARROCERIA',
+                    operator: 'eq',
+                    value: vm.get('recordCarroceria').get('idCarroceria')
                 }]);
         }
     },
@@ -110,30 +128,36 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
     },
 
     savePlantillaChange: function (btn) {
-        var window = btn.up('window');
-        var selection = btn.up('grid').getSelection(), dataSelect=[];
+        var window = btn.up('window'), vm = window.getViewModel();
+        var selection = btn.up('grid').getSelection(), dataSelect = [];
+        var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
+        var idCarroceria = vm.get('recordCarroceria').get('idCarroceria');
         if (selection.length) {
-//            let name = '';
             selection.map(item => {
-                dataSelect.push(item.data);
-//                name += item.get('descripcion') + '<br>';
+                dataSelect.push({
+                    idCarroceria: idCarroceria,
+                    idEspecificacion: item.get('idEspecificacion'),
+                    fechaUpdate: new Date(),
+                    usuUpdate: loggedIn.idUsuario,
+                    asignado: true
+                });
             });
-//            Ext.Msg.alert('Selected Record', name);
         }
         Ext.Ajax.request({
             url: 'iiLPlantilla',
             jsonData: dataSelect,
-            params: {isEcat: 4},
+            params: {categorias: vm.get('categorias'), idCarroceria: idCarroceria, idUsuario: loggedIn.idUsuario},
             method: 'POST',
             scope: this,
             success: function (response, opts) {
-                Ext.Msg.alert('Information', response.status);
+                Ext.getCmp('id_wformplantilla').getViewModel().get('plantillas').reload();
+                Ext.Msg.alert('Information', "Operación exitosa.");
+                window.close();
             },
             failurer: function (response, opts) {
-                Ext.Msg.alert('Warning', response.status);
+                Ext.Msg.alert('Error', "Error en operación.");
             }
         });
-        window.close();
     }
 
 });

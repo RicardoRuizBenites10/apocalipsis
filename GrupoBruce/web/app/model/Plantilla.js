@@ -2,13 +2,14 @@ Ext.define('GrupoBruce.model.Plantilla', {
     extend: 'Ext.data.Model',
     idProperty: 'idEspecificacion',
     fields: [
-        { name: 'especificacion', type: 'string' },
-        { name: 'fechaInsert', type: 'date' },
-        { name: 'fechaUpdate', type: 'date' },
-        { name: 'idCarroceria', type: 'string' },
-        { name: 'idEspecificacion', type: 'int' }
+        {name: 'asignado', type: 'boolean', defaultValue: true},
+        {name: 'especificacion', type: 'string'},
+        {name: 'fechaUpdate', type: 'date', dateFormat: 'c', defaultValue: new Date()},
+        {name: 'idCarroceria', type: 'string'},
+        {name: 'idEspecificacion', type: 'int'},
+        {name: 'usuUpdate', type: 'string'}
     ],
-    
+
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

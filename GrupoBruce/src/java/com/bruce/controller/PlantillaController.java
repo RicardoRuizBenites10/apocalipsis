@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PlantillaController {
+
     @Autowired
     private IPlantillaService serv;
 
@@ -57,11 +58,15 @@ public class PlantillaController {
 
     @ResponseBody
     @RequestMapping(value = "/iiLPlantilla", method = RequestMethod.POST)
-    public Map<String, Object> insertL(@RequestBody List<Plantilla> plantilla) {
+    public Map<String, Object> insertL(
+            @RequestBody List<Plantilla> plantillas,
+            @RequestParam("idCarroceria") String idCarroceria,
+            @RequestParam("categorias") String categorias,
+            @RequestParam("idUsuario") String idUsuario) {
         Map<String, Object> map = new HashMap<>();
-//        serv.insert(plantilla);
+        serv.changeLPlantilla(plantillas, categorias, idCarroceria,idUsuario);
         map.put("success", true);
-        map.put("data", plantilla);
+        map.put("data", plantillas);
         map.put("message", "Registro exitoso.");
         return map;
     }

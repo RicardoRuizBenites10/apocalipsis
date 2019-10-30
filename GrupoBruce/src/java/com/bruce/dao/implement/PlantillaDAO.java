@@ -22,14 +22,14 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class PlantillaDAO implements IPlantillaDAO{
-    
+public class PlantillaDAO implements IPlantillaDAO {
+
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(Plantilla t) {
-        sf.getCurrentSession().save(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override
@@ -53,12 +53,13 @@ public class PlantillaDAO implements IPlantillaDAO{
         ReverseQuery reverse = new ReverseQuery("PLANTILLA", "PT");
         reverse.addResult("PT.ID_CARROCERIA");
         reverse.addResult("PT.ID_ESPECIFICACION");
-        reverse.addResult("PT.FECHA_INSERT");
-        reverse.addResult("PT.USU_INSERT");
         reverse.addResult("PT.FECHA_UPDATE");
         reverse.addResult("PT.USU_UPDATE");
+        reverse.addResult("PT.ASIGNADO");
         reverse.addResult("ES.DESCRIPCION ESPECIFICACION");
-        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PT.ID_ESPECIFICACION");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PT.ID_ESPECIFICACION AND PT.ASIGNADO=1");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "ES.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_ESPECIFICACION", "DESC"));
         reverse.setPagination(0, 1);
@@ -85,12 +86,13 @@ public class PlantillaDAO implements IPlantillaDAO{
         ReverseQuery reverse = new ReverseQuery("PLANTILLA", "PT");
         reverse.addResult("PT.ID_CARROCERIA");
         reverse.addResult("PT.ID_ESPECIFICACION");
-        reverse.addResult("PT.FECHA_INSERT");
-        reverse.addResult("PT.USU_INSERT");
         reverse.addResult("PT.FECHA_UPDATE");
         reverse.addResult("PT.USU_UPDATE");
+        reverse.addResult("PT.ASIGNADO");
         reverse.addResult("ES.DESCRIPCION ESPECIFICACION");
-        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PT.ID_ESPECIFICACION");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PT.ID_ESPECIFICACION AND PT.ASIGNADO=1");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "ES.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -98,7 +100,11 @@ public class PlantillaDAO implements IPlantillaDAO{
         query.addEntity(Plantilla.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         return query.list();
@@ -108,15 +114,21 @@ public class PlantillaDAO implements IPlantillaDAO{
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("PLANTILLA", "PT");
+        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PT.ID_ESPECIFICACION AND PT.ASIGNADO=1");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "ES.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
-                query.setParameter(item.getProperty(), item.getValue());
+                if ((item.getOperator().equalsIgnoreCase("in") || item.getOperator().equalsIgnoreCase("nin")) && item.getValue() != null) {
+                    query.setParameterList(item.getProperty(), item.getValue().toString().split(","));
+                } else {
+                    query.setParameter(item.getProperty(), item.getValue());
+                }
             });
         }
         List result = query.list();
         return (int) result.get(0);
     }
-    
+
 }

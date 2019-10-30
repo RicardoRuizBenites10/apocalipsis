@@ -27,12 +27,12 @@ public class Plantilla implements java.io.Serializable {
 
     private String idCarroceria;
     private int idEspecificacion;
-    private Date fechaInsert;
-    private String usuInsert;
     private Date fechaUpdate;
     private String usuUpdate;
+    private boolean asignado;
     
     private String especificacion;
+    private String categoria;
 
     public Plantilla() {
     }
@@ -58,16 +58,6 @@ public class Plantilla implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA_INSERT", nullable = false)
-    public Date getFechaInsert() {
-        return fechaInsert;
-    }
-
-    public void setFechaInsert(Date fechaInsert) {
-        this.fechaInsert = fechaInsert;
-    }
-
-    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_UPDATE", nullable = false)
     public Date getFechaUpdate() {
         return fechaUpdate;
@@ -75,15 +65,6 @@ public class Plantilla implements java.io.Serializable {
 
     public void setFechaUpdate(Date fechaUpdate) {
         this.fechaUpdate = fechaUpdate;
-    }
-
-    @Column(name = "USU_INSERT", nullable = false)
-    public String getUsuInsert() {
-        return usuInsert;
-    }
-
-    public void setUsuInsert(String usuInsert) {
-        this.usuInsert = usuInsert;
     }
 
     @Column(name = "USU_UPDATE", nullable = false)
@@ -95,6 +76,15 @@ public class Plantilla implements java.io.Serializable {
         this.usuUpdate = usuUpdate;
     }
 
+    @Column(name = "ASIGNADO", nullable = false)
+    public boolean isAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(boolean asignado) {
+        this.asignado = asignado;
+    }
+
     @Generated(GenerationTime.NEVER)
     @Column(name="ESPECIFICACION", insertable = false, updatable = false)
     public String getEspecificacion() {
@@ -103,5 +93,15 @@ public class Plantilla implements java.io.Serializable {
 
     public void setEspecificacion(String especificacion) {
         this.especificacion = especificacion;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name="CATEGORIA", insertable = false, updatable = false)
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

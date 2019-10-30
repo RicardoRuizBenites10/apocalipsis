@@ -22,7 +22,7 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaModel', {
                 }
             },
             filters: [{
-                    property: 'IDCARROCERIA',
+                    property: 'PT.ID_CARROCERIA',
                     operator: 'eq',
                     value: '{recordCarroceria.idCarroceria}',
                     inWhere: false
@@ -36,11 +36,6 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaModel', {
                     var grid = Ext.getCmp('id_gridesp'), selections = [];
                     selections = records.filter(item => item.get('asignado'));
                     if (grid !== undefined) {
-//                        store.each(function (item) {
-//                            if (item.get('asignado')) {
-//                                selections.push(item);
-//                            }
-//                        });
                         grid.getSelectionModel().select(selections);
                     }
                 }
@@ -61,6 +56,10 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaModel', {
                     property: 'ID_CARROCERIA',
                     operator: 'EQ',
                     value: '{recordCarroceria.idCarroceria}'
+                }, {
+                    property: 'EC.ID_ECATEGORIA',
+                    operator: 'in',
+                    value: '{categorias}'
                 }]
         }
     }

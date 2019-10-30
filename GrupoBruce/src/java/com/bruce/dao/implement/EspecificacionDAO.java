@@ -152,7 +152,7 @@ public class EspecificacionDAO implements IEspecificacionDAO {
         reverse.addResult("E.ID_ECATEGORIA");
         reverse.addResult("EC.NOMBRE CATEGORIA");
         reverse.addResult("ISNULL(PT.ID_ESPECIFICACION ,0) ASIGNADO");
-        reverse.addJoin("LEFT JOIN PLANTILLA PT", "PT.ID_ESPECIFICACION=E.ID_ESPECIFICACION AND PT.ID_CARROCERIA= :IDCARROCERIA");;
+        reverse.addJoin("LEFT JOIN PLANTILLA PT", "PT.ID_ESPECIFICACION=E.ID_ESPECIFICACION AND PT.ASIGNADO=1 AND PT.ID_CARROCERIA= :PT.ID_CARROCERIA");
         reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "E.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
