@@ -28,7 +28,10 @@ public class ProformaDetalle implements java.io.Serializable {
     private int idProforma;
     private int idEspecificacion;
     private Date fecha;
-    
+    private boolean wasstd;
+    private boolean asignado;
+    private String usuUpdate;
+
     private String especificacion;
 
     public ProformaDetalle() {
@@ -62,6 +65,33 @@ public class ProformaDetalle implements java.io.Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    @Column(name = "WASSTD", nullable = false)
+    public boolean isWasstd() {
+        return wasstd;
+    }
+
+    public void setWasstd(boolean wasstd) {
+        this.wasstd = wasstd;
+    }
+
+    @Column(name = "ASIGNADO", nullable = false)
+    public boolean isAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(boolean asignado) {
+        this.asignado = asignado;
+    }
+
+    @Column(name = "USU_UPDATE", nullable = false)
+    public String getUsuUpdate() {
+        return usuUpdate;
+    }
+
+    public void setUsuUpdate(String usuUpdate) {
+        this.usuUpdate = usuUpdate;
     }
 
     @Generated(GenerationTime.NEVER)

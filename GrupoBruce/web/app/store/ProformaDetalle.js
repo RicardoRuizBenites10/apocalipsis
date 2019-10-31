@@ -1,6 +1,6 @@
 Ext.define('GrupoBruce.store.ProformaDetalle', {
     extend: 'Ext.data.Store',
-    alias: 'store.SproformaDetalle',
+    alias: 'store.Sproformadetalle',
     model: 'GrupoBruce.model.ProformaDetalle',
 
     remoteSort: true,

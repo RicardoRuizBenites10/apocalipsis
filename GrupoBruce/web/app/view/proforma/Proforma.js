@@ -14,7 +14,7 @@ Ext.define('GrupoBruce.view.proforma.Proforma', {
         type: 'VMproforma'
     },
 
-    tilte: 'Lista de proformas de clientes',
+    title: 'Lista de proformas de clientes',
     items: [{
             xtype: 'Wlistproforma',
             height: 500

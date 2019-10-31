@@ -29,7 +29,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                 defaults: {
                     allowBlank: false,
                     labelAlign: 'top',
-                    padding: 5
+                    padding: 7
                 }
             },
             fieldDefaults: {
@@ -94,7 +94,7 @@ Ext.define('GrupoBruce.view.material.FormMaterial', {
                 }
                 , {
                     layout: 'fit',
-                    margin: '10px 0 10px 0',
+                    padding: '0 10 0 10',
                     allowBlank: true,
                     items: [{
                             xtype: 'fieldset',
