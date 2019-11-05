@@ -157,6 +157,7 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                                 selection: '{selectCarroceria}'
                                                             },
                                                             emptyText: 'Seleccionar',
+                                                            forceSelection: true,
                                                             editable: false,
                                                             flex: 1,
                                                             listeners: {

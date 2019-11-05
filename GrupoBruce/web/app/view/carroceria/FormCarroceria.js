@@ -13,6 +13,7 @@ Ext.define('GrupoBruce.view.carroceria.FormCarroceria', {
     resizable: false,
     autoShow: true,
 
+    title: 'Editar modelo de carrocería',
     items: [{
             xtype: 'form',
             defaults: {

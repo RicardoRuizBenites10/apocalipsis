@@ -33,6 +33,7 @@ public class ProformaDetalle implements java.io.Serializable {
     private String usuUpdate;
 
     private String especificacion;
+    private String categoria;
 
     public ProformaDetalle() {
     }
@@ -102,5 +103,15 @@ public class ProformaDetalle implements java.io.Serializable {
 
     public void setEspecificacion(String especificacion) {
         this.especificacion = especificacion;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "CATEGORIA", insertable = false, updatable = false)
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

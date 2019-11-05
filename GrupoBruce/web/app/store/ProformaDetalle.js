@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.store.ProformaDetalle', {
     remoteFilter: true,
 
     sorters: [{
-            property: 'ESPECIFICACION',
+            property: '-ESPECIFICACION',
             direction: 'ASC'
         }]
 });

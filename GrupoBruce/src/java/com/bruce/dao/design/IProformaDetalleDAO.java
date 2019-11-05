@@ -6,11 +6,14 @@
 package com.bruce.dao.design;
 
 import com.bruce.dao.to.ProformaDetalle;
+import com.bruce.util.FilterPage;
+import com.bruce.util.SortPage;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IProformaDetalleDAO extends IEntidadDAO<ProformaDetalle>{
-    
+    public List<ProformaDetalle> getByFilterP(int start, int limit, List<SortPage> sorts, List<FilterPage> filters);
 }

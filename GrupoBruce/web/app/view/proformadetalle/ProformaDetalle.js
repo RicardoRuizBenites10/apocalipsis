@@ -6,7 +6,9 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalle', {
 
     requires: [
         'GrupoBruce.view.proformadetalle.ProformaDetalleController',
-        'GrupoBruce.view.proformadetalle.ProformaDetalleModel'
+        'GrupoBruce.view.proformadetalle.ProformaDetalleModel',
+        
+        'GrupoBruce.view.proformadetalle.FormProformaDetalle'
     ],
 
     controller: 'Cproformadetalle',
@@ -21,11 +23,26 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalle', {
     allowDeselect: true,
 
     columns: [{
-            text: 'Categoría'
+            text: 'Categoría',
+            dataIndex: 'categoria',
+            align: 'left'
         }, {
-            text: 'Especificación'
+            text: 'Especificación',
+            dataIndex: 'especificacion',
+            width: 380
         }, {
-            text: 'Estandar'
+            text: 'Estandar',
+            dataIndex: 'wasstd',
+            renderer: function (val) {
+                var icon;
+                if(val){
+                    icon = '<i class="fa fa-check-square"></i>';
+                }else{
+                    icon = '<i class="fa fa-square-o"></i>';
+                }
+                return icon;
+            },
+            align: 'center'
         }],
 
     dockedItems: [{
@@ -34,18 +51,17 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalle', {
             items: [{
                     text: 'Adicionar',
                     iconCls: 'x-fa fa-plus',
+                    bind: {
+                      disabled: '{!recordCarroceria}'
+                    },
                     handler: 'addProformaDetalle'
                 }, {
                     text: 'Quitar',
                     iconCls: 'x-fa fa-trash',
+                    bind: {
+                      disabled: '{!selectProformaDetalle}'  
+                    },
                     handler: 'deleteProformaDetalle'
                 }]
-        }, {
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            bind: {
-                store: '{proformadetalles}'
-            },
-            displayInfo: true
         }]
 });

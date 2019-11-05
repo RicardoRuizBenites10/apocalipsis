@@ -22,11 +22,11 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ProformaDetalleDAO implements IProformaDetalleDAO{
+public class ProformaDetalleDAO implements IProformaDetalleDAO {
 
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(ProformaDetalle t) {
         sf.getCurrentSession().save(t);
@@ -54,7 +54,11 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO{
         reverse.addResult("PD.ID_PROFORMA");
         reverse.addResult("PD.ID_ESPECIFICACION");
         reverse.addResult("PD.FECHA");
+        reverse.addResult("PD.WASSTD");
+        reverse.addResult("PD.ASIGNADO");
+        reverse.addResult("PD.USU_UPDATE");
         reverse.addResult("ES.DESCRIPCION ESPECIFICACION");
+        reverse.addJoin("INNER JOIN PROFORMA PF", "PD.ID_PROFORMA=PF.ID_PROFORMA AND PF.ID_CARROCERIA=:PF.ID_CARROCERIA");
         reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PD.ID_ESPECIFICACION");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_ESPECIFICACION", "DESC"));
@@ -83,8 +87,14 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO{
         reverse.addResult("PD.ID_PROFORMA");
         reverse.addResult("PD.ID_ESPECIFICACION");
         reverse.addResult("PD.FECHA");
+        reverse.addResult("PD.WASSTD");
+        reverse.addResult("PD.ASIGNADO");
+        reverse.addResult("PD.USU_UPDATE");
         reverse.addResult("ES.DESCRIPCION ESPECIFICACION");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN PROFORMA PF", "PD.ID_PROFORMA=PF.ID_PROFORMA AND PF.ID_CARROCERIA=:PF.ID_CARROCERIA");
         reverse.addJoin("INNER JOIN ESPECIFICACION ES", "ES.ID_ESPECIFICACION=PD.ID_ESPECIFICACION");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "ES.ID_ECATEGORIA=EC.ID_ECATEGORIA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -102,6 +112,7 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO{
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("PROFORMA_DETALLE", "PD");
+        reverse.addJoin("INNER JOIN PROFORMA PF", "PD.ID_PROFORMA=PF.ID_PROFORMA AND PF.ID_CARROCERIA=:PF.ID_CARROCERIA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -112,5 +123,32 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO{
         List result = query.list();
         return (int) result.get(0);
     }
-    
+
+    @Override
+    public List<ProformaDetalle> getByFilterP(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+        Session session = sf.getCurrentSession();
+        ReverseQuery reverse = new ReverseQuery("PLANTILLA", "PF");
+        reverse.addResult("0 ID_PROFORMA");
+        reverse.addResult("PF.ID_ESPECIFICACION");
+        reverse.addResult("GETDATE() FECHA");
+        reverse.addResult("1 WASSTD");
+        reverse.addResult("1 ASIGNADO");
+        reverse.addResult("'' USU_UPDATE");
+        reverse.addResult("ES.DESCRIPCION ESPECIFICACION");
+        reverse.addResult("EC.NOMBRE CATEGORIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION ES", "PF.ID_ESPECIFICACION=ES.ID_ESPECIFICACION AND PF.ID_CARROCERIA=:PF.ID_CARROCERIA");
+        reverse.addJoin("INNER JOIN ESPECIFICACION_CATEGORIA EC", "ES.ID_ECATEGORIA=EC.ID_ECATEGORIA");
+        reverse.setFilters(filters);
+        reverse.setSorts(sorts);
+        reverse.setPagination(start, limit);
+        SQLQuery query = session.createSQLQuery(reverse.getQuery());
+        query.addEntity(ProformaDetalle.class);
+        if (!filters.isEmpty()) {
+            filters.forEach((item) -> {
+                query.setParameter(item.getProperty(), item.getValue());
+            });
+        }
+        return query.list();
+    }
+
 }

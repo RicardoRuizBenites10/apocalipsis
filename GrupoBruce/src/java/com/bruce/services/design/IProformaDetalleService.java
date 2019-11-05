@@ -6,11 +6,12 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.ProformaDetalle;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IProformaDetalleService extends IEntidadService<ProformaDetalle>{
-    
+    public List<ProformaDetalle> getByFilterP(int start, int limit, String sort, String filter, String query);
 }

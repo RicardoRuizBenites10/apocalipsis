@@ -3,12 +3,13 @@ Ext.define('GrupoBruce.model.ProformaDetalle', {
     idProperty: 'idEspecificacion',
     fields: [
         {name: 'asignado', type: 'boolean'},
+        {name: 'categoria', type: 'string'},
         {name: 'especificacion', type: 'string'},
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idEspecificacion', type: 'int'},
         {name: 'idProforma', type: 'int'},
         {name: 'usuUpdate', type: 'string'},
-        {name: 'wasstd', type: 'boolean'}
+        {name: 'wasstd', type: 'boolean', defaultValue: false}
     ],
 
     identifier: 'sequential',

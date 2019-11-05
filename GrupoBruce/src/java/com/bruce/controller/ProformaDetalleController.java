@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.ProformaDetalle;
 import com.bruce.services.design.IProformaDetalleService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +37,14 @@ public class ProformaDetalleController {
             @RequestParam(required = false, value = "filter") String filter,
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
+        List<ProformaDetalle> lista = serv.getByFilter(start, limit, sort, filter, query);
+        if(lista.isEmpty()){
+            System.err.println("FILTER P------");
+            lista = serv.getByFilterP(start, limit, sort, filter, query);
+        }
         map.put("success", true);
         map.put("message", "Lista de proformaDetalle");
-        map.put("data", serv.getByFilter(start, limit, sort, filter, query));
+        map.put("data", lista);
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }
