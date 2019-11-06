@@ -5,9 +5,9 @@ Ext.define('GrupoBruce.model.ProformaDetalle', {
         {name: 'asignado', type: 'boolean'},
         {name: 'categoria', type: 'string'},
         {name: 'especificacion', type: 'string'},
-        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
+        {name: 'fechaUpdate', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'idEspecificacion', type: 'int'},
-        {name: 'idProforma', type: 'int'},
+        {name: 'idProforma', type: 'string'},
         {name: 'usuUpdate', type: 'string'},
         {name: 'wasstd', type: 'boolean', defaultValue: false}
     ],

@@ -35,7 +35,7 @@ Ext.define('GrupoBruce.view.estado.EstadoController', {
             model.set('idProceso', window.getViewModel().get('recordProceso').get('idProceso'));
             model.save({// save the record to the server
                 success: function (model, operation) {
-                    var main = Ext.getCmp('id_mainMenu').down('treelist');
+                    var main = Ext.getCmp('id_wmainmenu').down('treelist');
                     main.getStore().getRoot().removeAll();
                     main.getStore().reload();
 
@@ -66,7 +66,7 @@ Ext.define('GrupoBruce.view.estado.EstadoController', {
                 if (responseText.validacion) {
                     model.erase({
                         success: function (response, operation) {
-                            var main = Ext.getCmp('id_mainMenu').down('treelist');
+                            var main = Ext.getCmp('id_wmainmenu').down('treelist');
                             main.getStore().getRoot().removeAll();
                             main.getStore().reload();
 

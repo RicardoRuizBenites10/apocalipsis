@@ -55,7 +55,7 @@ Ext.define('GrupoBruce.view.main.Main', {
     },
     layout: 'border',
     items: [{
-            xtype: 'WmainMenu',
+            xtype: 'Wmainmenu',
             region: 'west',
             split: false,
             border: true

@@ -53,7 +53,7 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO {
         ReverseQuery reverse = new ReverseQuery("PROFORMA_DETALLE", "PD");
         reverse.addResult("PD.ID_PROFORMA");
         reverse.addResult("PD.ID_ESPECIFICACION");
-        reverse.addResult("PD.FECHA");
+        reverse.addResult("PD.FECHA_UPDATE");
         reverse.addResult("PD.WASSTD");
         reverse.addResult("PD.ASIGNADO");
         reverse.addResult("PD.USU_UPDATE");
@@ -86,7 +86,7 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO {
         ReverseQuery reverse = new ReverseQuery("PROFORMA_DETALLE", "PD");
         reverse.addResult("PD.ID_PROFORMA");
         reverse.addResult("PD.ID_ESPECIFICACION");
-        reverse.addResult("PD.FECHA");
+        reverse.addResult("PD.FECHA_UPDATE");
         reverse.addResult("PD.WASSTD");
         reverse.addResult("PD.ASIGNADO");
         reverse.addResult("PD.USU_UPDATE");
@@ -130,7 +130,7 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO {
         ReverseQuery reverse = new ReverseQuery("PLANTILLA", "PF");
         reverse.addResult("0 ID_PROFORMA");
         reverse.addResult("PF.ID_ESPECIFICACION");
-        reverse.addResult("GETDATE() FECHA");
+        reverse.addResult("GETDATE() FECHA_UPDATE");
         reverse.addResult("1 WASSTD");
         reverse.addResult("1 ASIGNADO");
         reverse.addResult("'' USU_UPDATE");

@@ -39,7 +39,13 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalleModel', {
                     operator: 'eq',
                     value: '{recordCarroceria.idCarroceria}',
                     inWhere: false
-                }]
+                }],
+            listeners: {
+                beforeload: function(store){
+                    var window = Ext.getCmp('id_wformproforma');
+                    store.getProxy().setExtraParam("newProforma", window.getViewModel().get('newRegister'));
+                }
+            }
         }
     }
 

@@ -78,12 +78,13 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                     items: [{
                                                             xtype: 'combobox',
                                                             fieldLabel: 'Tipo de carroceria',
-                                                            name: 'idCarmod',
                                                             valueField: 'idCarmod',
                                                             displayField: 'nombre',
                                                             bind: {
                                                                 store: '{carroceriamodelos}',
-                                                                selection: '{selectCarroceriaModelo}'
+                                                                selection: '{selectCarroceriaModelo}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idCarmod}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             forceSelection: true,
@@ -92,18 +93,19 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                         }, {
                                                             xtype: 'combobox',
                                                             fieldLabel: 'Subtipo de carroceria',
-                                                            name: 'idCartip',
                                                             valueField: 'idCartip',
                                                             displayField: 'nombre',
                                                             bind: {
                                                                 store: '{carroceriatipos}',
-                                                                selection: '{selectCarroceriaTipo}'
+                                                                selection: '{selectCarroceriaTipo}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idCartip}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             forceSelection: true,
                                                             editable: false,
                                                             flex: 1
-                                                        },{
+                                                        }, {
                                                             xtype: 'combobox',
                                                             fieldLabel: 'Falda de carroceria',
                                                             name: 'idCarfal',
@@ -111,7 +113,9 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                             displayField: 'nombre',
                                                             bind: {
                                                                 store: '{carroceriafaldas}',
-                                                                selection: '{selectCarroceriaFalda}'
+                                                                selection: '{selectCarroceriaFalda}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idCarfal}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             editable: false,
@@ -126,7 +130,9 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                             displayField: 'nombre',
                                                             bind: {
                                                                 store: '{chasisproveedors}',
-                                                                selection: '{selectChasisProveedor}'
+                                                                selection: '{selectChasisProveedor}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idChapro}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             editable: false,
@@ -139,7 +145,9 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                             displayField: 'modelo',
                                                             bind: {
                                                                 store: '{chasiss}',
-                                                                selection: '{selectChasis}'
+                                                                selection: '{selectChasis}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idChasis}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             editable: false,
@@ -154,7 +162,9 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                                                             displayField: 'descripcion',
                                                             bind: {
                                                                 store: '{carrocerias}',
-                                                                selection: '{selectCarroceria}'
+                                                                selection: '{selectCarroceria}',
+                                                                readOnly: '{!newRegister}',
+                                                                value: '{carroceriaProforma.idCarroceria}'
                                                             },
                                                             emptyText: 'Seleccionar',
                                                             forceSelection: true,
@@ -195,7 +205,7 @@ Ext.define('GrupoBruce.view.proforma.FormProforma', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'onSaveCliente'
+                        click: 'onSaveProforma'
                     }
                 }]
         }]

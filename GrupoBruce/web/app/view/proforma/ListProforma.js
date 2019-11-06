@@ -11,11 +11,19 @@ Ext.define('GrupoBruce.view.proforma.ListProforma', {
     allowDeselect: true,
 
     columns: [{
-            text: 'Referente'
-        }, {
-            text: 'Proforma'
-        }, {
-            text: 'Fecha'
+            text: 'Código',
+            dataIndex: 'idProforma'
+        },{
+            text: 'Carrocería',
+            dataIndex: 'idCarroceria'
+        },{
+            text: 'Cliente',
+            dataIndex: 'cliente',
+            width: 400
+        },  {
+            text: 'Actualización',
+            dataIndex: 'fechaUpdate',
+            formatter: 'date("d/m/Y")'
         }],
 
     dockedItems: [{

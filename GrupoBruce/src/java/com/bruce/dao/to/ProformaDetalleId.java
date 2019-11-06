@@ -5,6 +5,7 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Objects;
 import javax.persistence.Column;
 
 /**
@@ -13,18 +14,18 @@ import javax.persistence.Column;
  */
 public class ProformaDetalleId implements java.io.Serializable {
 
-    private int idProforma;
+    private String idProforma;
     private int idEspecificacion;
 
     public ProformaDetalleId() {
     }
 
     @Column(name = "ID_PROFORMA", nullable = false)
-    public int getIdProforma() {
+    public String getIdProforma() {
         return idProforma;
     }
 
-    public void setIdProforma(int idProforma) {
+    public void setIdProforma(String idProforma) {
         this.idProforma = idProforma;
     }
 
@@ -40,8 +41,8 @@ public class ProformaDetalleId implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + this.idProforma;
-        hash = 37 * hash + this.idEspecificacion;
+        hash = 41 * hash + Objects.hashCode(this.idProforma);
+        hash = 41 * hash + this.idEspecificacion;
         return hash;
     }
 
@@ -57,10 +58,10 @@ public class ProformaDetalleId implements java.io.Serializable {
             return false;
         }
         final ProformaDetalleId other = (ProformaDetalleId) obj;
-        if (this.idProforma != other.idProforma) {
+        if (this.idEspecificacion != other.idEspecificacion) {
             return false;
         }
-        if (this.idEspecificacion != other.idEspecificacion) {
+        if (!Objects.equals(this.idProforma, other.idProforma)) {
             return false;
         }
         return true;

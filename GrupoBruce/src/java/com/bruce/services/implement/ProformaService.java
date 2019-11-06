@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,14 +27,19 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ProformaService implements IProformaService{
+public class ProformaService implements IProformaService {
 
     @Autowired
     private IProformaDAO dao;
-    
+
     @Override
     @Transactional
     public void insert(Proforma t) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "ANIO", t.getAnio()));
+        Proforma last = dao.lastByFilter(filters);
+        int idLast = last != null ? Integer.parseInt(last.getIdProforma().substring(2)) : 0;
+        t.setIdProforma((t.getAnio() % 1000) + String.format("%03d", idLast + 1));
         dao.create(t);
     }
 
@@ -119,5 +125,5 @@ public class ProformaService implements IProformaService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
 }

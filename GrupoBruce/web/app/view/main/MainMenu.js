@@ -1,8 +1,8 @@
 Ext.define('GrupoBruce.view.main.MainMenu', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.WmainMenu',
+    alias: 'widget.Wmainmenu',
     reference: 'main_menu',
-    id: 'id_mainMenu',
+    id: 'id_wmainmenu',
 
     width: 240,
     layout: {

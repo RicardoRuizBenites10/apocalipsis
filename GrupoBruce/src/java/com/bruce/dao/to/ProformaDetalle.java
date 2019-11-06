@@ -25,9 +25,9 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "PROFORMA_DETALLE", schema = "dbo", catalog = "BDBRUCE")
 public class ProformaDetalle implements java.io.Serializable {
 
-    private int idProforma;
+    private String idProforma;
     private int idEspecificacion;
-    private Date fecha;
+    private Date fechaUpdate;
     private boolean wasstd;
     private boolean asignado;
     private String usuUpdate;
@@ -40,11 +40,11 @@ public class ProformaDetalle implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_PROFORMA", nullable = false)
-    public int getIdProforma() {
+    public String getIdProforma() {
         return idProforma;
     }
 
-    public void setIdProforma(int idProforma) {
+    public void setIdProforma(String idProforma) {
         this.idProforma = idProforma;
     }
 
@@ -59,13 +59,13 @@ public class ProformaDetalle implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false)
+    @Column(name = "FECHA_UPDATE", nullable = false)
     public Date getFecha() {
-        return fecha;
+        return fechaUpdate;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(Date fechaUpdate) {
+        this.fechaUpdate = fechaUpdate;
     }
 
     @Column(name = "WASSTD", nullable = false)

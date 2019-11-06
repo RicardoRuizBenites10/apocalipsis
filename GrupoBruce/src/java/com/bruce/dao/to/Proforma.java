@@ -23,10 +23,15 @@ import org.hibernate.annotations.GenerationTime;
 @Table(name = "PROFORMA", schema = "dbo", catalog = "BDBRUCE")
 public class Proforma implements java.io.Serializable{
 
+    private int anio;
+    private Date fechaInsert;
+    private Date fechaUpdate;
     private String idCliente;
-    private int idProforma;
-    private Date fecha;
+    private String idProforma;
     private String idCarroceria;
+    private boolean situacion;
+    private String usuInsert;
+    private String usuUpdate;
     
     private String cliente;
     private String carroceria;
@@ -36,22 +41,41 @@ public class Proforma implements java.io.Serializable{
 
     @Id
     @Column(name = "ID_PROFORMA", nullable = false)
-    public int getIdProforma() {
+    public String getIdProforma() {
         return idProforma;
     }
 
-    public void setIdProforma(int idProforma) {
+    @Column(name = "ANIO", nullable = false)
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public void setIdProforma(String idProforma) {
         this.idProforma = idProforma;
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "FECHA", nullable = false)
-    public Date getFecha() {
-        return fecha;
+    @Column(name = "FECHA_UPDATE", nullable = false)
+    public Date getFechaUpdate() {
+        return fechaUpdate;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaUpdate(Date fechaUpdate) {
+        this.fechaUpdate = fechaUpdate;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_INSERT", nullable = false)
+    public Date getFechaInsert() {
+        return fechaInsert;
+    }
+
+    public void setFechaInsert(Date fechaInsert) {
+        this.fechaInsert = fechaInsert;
     }
 
     @Column(name = "ID_CLIENTE", nullable = false)
@@ -70,6 +94,33 @@ public class Proforma implements java.io.Serializable{
 
     public void setIdCarroceria(String idCarroceria) {
         this.idCarroceria = idCarroceria;
+    }
+
+    @Column(name = "SITUACION", nullable = false)
+    public boolean isSituacion() {
+        return situacion;
+    }
+
+    public void setSituacion(boolean situacion) {
+        this.situacion = situacion;
+    }
+
+    @Column(name = "USU_INSERT", nullable = false)
+    public String getUsuInsert() {
+        return usuInsert;
+    }
+
+    public void setUsuInsert(String usuInsert) {
+        this.usuInsert = usuInsert;
+    }
+
+    @Column(name = "USU_UPDATE", nullable = false)
+    public String getUsuUpdate() {
+        return usuUpdate;
+    }
+
+    public void setUsuUpdate(String usuUpdate) {
+        this.usuUpdate = usuUpdate;
     }
 
     @Generated(GenerationTime.NEVER)

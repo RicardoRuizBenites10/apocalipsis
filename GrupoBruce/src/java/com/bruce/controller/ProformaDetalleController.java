@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class ProformaDetalleController {
+
     @Autowired
     private IProformaDetalleService serv;
 
@@ -35,17 +36,14 @@ public class ProformaDetalleController {
             @RequestParam("limit") int limit,
             @RequestParam(required = false, value = "sort") String sort,
             @RequestParam(required = false, value = "filter") String filter,
-            @RequestParam(required = false, value = "query") String query) {
+            @RequestParam(required = false, value = "query") String query,
+            @RequestParam("newProforma") boolean newProforma) {
         Map<String, Object> map = new HashMap<>();
-        List<ProformaDetalle> lista = serv.getByFilter(start, limit, sort, filter, query);
-        if(lista.isEmpty()){
-            System.err.println("FILTER P------");
-            lista = serv.getByFilterP(start, limit, sort, filter, query);
-        }
+        List<ProformaDetalle> lista = !newProforma ? serv.getByFilter(start, limit, sort, filter, query) : serv.getByFilterP(start, limit, sort, filter, query);
         map.put("success", true);
         map.put("message", "Lista de proformaDetalle");
         map.put("data", lista);
-        map.put("total", serv.countByFilter(filter, query));
+        map.put("total", 0);
         return map;
     }
 

@@ -27,7 +27,7 @@ Ext.define('GrupoBruce.view.menu.MenuController', {
             model.erase({
                 success: function (response, operation) {
                     grid.getStore().reload();
-                    var main = Ext.getCmp('id_mainMenu').down('treelist');
+                    var main = Ext.getCmp('id_wmainmenu').down('treelist');
                     main.getStore().getRoot().removeAll();
                     main.getStore().reload();
                     Ext.Msg.alert('Success', 'Eliminación exitosa.');
@@ -58,7 +58,7 @@ Ext.define('GrupoBruce.view.menu.MenuController', {
                     form.reset();
                     window.destroy();
                     grid.getStore().reload();
-                    var main = Ext.getCmp('id_mainMenu').down('treelist');
+                    var main = Ext.getCmp('id_wmainmenu').down('treelist');
                     main.getStore().getRoot().removeAll();
                     main.getStore().reload();
                     Ext.Msg.alert('Success', 'Operación exitosa.');

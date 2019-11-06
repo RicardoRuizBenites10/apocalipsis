@@ -6,13 +6,14 @@ Ext.define('GrupoBruce.view.proforma.ProformaController', {
         var window = new GrupoBruce.view.proforma.FormProforma();
         var vmWindow = window.getViewModel();
         var vmWindow2 = Ext.getCmp('id_wproformadetalle').getViewModel();
+        var usuario = Ext.getCmp('id_wmain').getViewModel().get('thisUsuario');
 
         vmWindow2.set('newRegister', !record);
         vmWindow.set('newRegister', !record);
         if (!record) {
             window.setTitle('Registrar proforma');
             record = new GrupoBruce.model.Proforma();
-            record.set('idProforma', 0);
+            record.set('usuInsert',usuario.idUsuario);
         }
         vmWindow2.set('recordProforma', record);
         vmWindow2.set('recordCarroceria', vmWindow.get('selectCarroceria'));
@@ -38,53 +39,51 @@ Ext.define('GrupoBruce.view.proforma.ProformaController', {
         var model = form.getRecord();
         var windowVM = window.getViewModel();
         var nuevo = windowVM.get('newRegister');
+        var usuario = Ext.getCmp('id_wmain').getViewModel().get('thisUsuario'), hasesp = grid2.getStore().getCount() > 0;
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionproforma').checked, usamat = grid2.getStore().count() > 0;
-            model.set('idUsuario', loggedIn.idUsuario);
-            model.set('usaMaterial', usamat);
-            model.set('situacion', situacion);
-            model.set('idEproceso', Ext.getCmp('id_treeetapa').getValue())
-
+            model.set('fechaUpdate', new Date());
+            model.set('usuUpdate', usuario.idUsuario);
+            
             model.save({// save the record to the server
                 success: function (model, operation) {
                     if (nuevo) {
                         grid2.getStore().each(function (item) {
                             item.set('idProforma', model.get('idProforma'));
+                            item.set('usuUpdate', usuario.idUsuario);
                         });
                     }
-                    if (nuevo && usamat) {
-                        grid2.getStore().sync({
-                            success: function (response, operation) {
-                                grid.getStore().reload();
-                                form.reset();
-                                window.destroy();
-                                Ext.Msg.alert('Success', 'Operación exitosa.');
-                            },
-                            failure: function (batch, operation) {
-                                model.erase();
-                                var msg = '';
-                                if (batch.hasException) {
-                                    for (var i = 0; i < batch.exceptions.length; i++) {
-                                        switch (batch.exceptions[i].action) {
-                                            case "destroy" :
-                                                msg = msg + batch.exceptions[i]._records.length + " Delete, ";
-                                                break;
-                                            case "update" :
-                                                msg = msg + batch.exceptions[i]._records.length + " Update, ";
-                                                break;
-                                            case "create" :
-                                                msg = msg + batch.exceptions[i]._records.length + " Create, ";
-                                                break;
-                                        }
-                                    }
-                                    Ext.Msg.alert("Status", msg + " operation failed!");
-                                } else
-                                    Ext.Msg.alert('Status', 'Changes failed.');
-                            }
-                        });
+                    if (nuevo && hasesp) {
+//                        grid2.getStore().sync({
+//                            success: function (response, operation) {
+//                                grid.getStore().reload();
+//                                form.reset();
+//                                window.destroy();
+//                                Ext.Msg.alert('Success', 'Operación exitosa.');
+//                            },
+//                            failure: function (batch, operation) {
+//                                model.erase();
+//                                var msg = '';
+//                                if (batch.hasException) {
+//                                    for (var i = 0; i < batch.exceptions.length; i++) {
+//                                        switch (batch.exceptions[i].action) {
+//                                            case "destroy" :
+//                                                msg = msg + batch.exceptions[i]._records.length + " Delete, ";
+//                                                break;
+//                                            case "update" :
+//                                                msg = msg + batch.exceptions[i]._records.length + " Update, ";
+//                                                break;
+//                                            case "create" :
+//                                                msg = msg + batch.exceptions[i]._records.length + " Create, ";
+//                                                break;
+//                                        }
+//                                    }
+//                                    Ext.Msg.alert("Status", msg + " operation failed!");
+//                                } else
+//                                    Ext.Msg.alert('Status', 'Changes failed.');
+//                            }
+//                        });
                     } else {
                         grid.getStore().reload();
                         form.reset();
@@ -117,7 +116,6 @@ Ext.define('GrupoBruce.view.proforma.ProformaController', {
 
     onChangeCarroceria: function (combo, newValue, oldValue) {
         var vmWindow = combo.up('window').getViewModel();
-        console.log('onChangeCarroceria');
         var vmWindow2 = Ext.getCmp('id_wproformadetalle').getViewModel();
         vmWindow2.set('recordCarroceria', vmWindow.get('selectCarroceria'));
     }
