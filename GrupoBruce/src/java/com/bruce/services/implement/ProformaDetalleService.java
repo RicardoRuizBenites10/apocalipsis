@@ -147,4 +147,24 @@ public class ProformaDetalleService implements IProformaDetalleService {
         return dao.getByFilterP(0, 0, sorts, filters);
     }
 
+    @Override
+    @Transactional
+    public void changeLProformaDetalle(List<ProformaDetalle> pd) {
+        if (!pd.isEmpty()) {
+            pd.forEach(item -> {
+                dao.update(item);
+            });
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteLProformaDetalle(List<ProformaDetalle> pd) {
+        if (!pd.isEmpty()) {
+            pd.forEach(item -> {
+                dao.delete(item);
+            });
+        }
+    }
+
 }

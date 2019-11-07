@@ -13,8 +13,6 @@ Ext.define('GrupoBruce.view.especificacionactividad.EspecificacionActividadModel
         especificacionactividads: {
             type: 'Sespecificacionactividad',
             autoLoad: true,
-            autoSync: '{!newRegister}',
-            trackRemoved: '{!newRegister}',
             filters: [{
                     property: 'ID_ESPECIFICACION',
                     operator: 'eq',

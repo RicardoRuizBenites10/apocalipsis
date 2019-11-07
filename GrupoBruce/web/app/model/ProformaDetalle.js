@@ -2,7 +2,7 @@ Ext.define('GrupoBruce.model.ProformaDetalle', {
     extend: 'Ext.data.Model',
     idProperty: 'idEspecificacion',
     fields: [
-        {name: 'asignado', type: 'boolean'},
+        {name: 'asignado', type: 'boolean', defaultValue: true},
         {name: 'categoria', type: 'string'},
         {name: 'especificacion', type: 'string'},
         {name: 'fechaUpdate', type: 'date', dateFormat: 'c', defaultValue: new Date()},
@@ -16,10 +16,10 @@ Ext.define('GrupoBruce.model.ProformaDetalle', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiProformaDetalle',
+            create: 'iiLProformaDetalle',
             read: 'proformaDetalles',
-            update: 'uuProformaDetalle',
-            destroy: 'ddProformaDetalle'
+            update: 'uuLProformaDetalle',
+            destroy: 'ddLProformaDetalle'
         },
         reader: {
             type: 'json',
@@ -28,6 +28,7 @@ Ext.define('GrupoBruce.model.ProformaDetalle', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

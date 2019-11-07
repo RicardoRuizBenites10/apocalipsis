@@ -12,8 +12,8 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialModel', {
         actividadmaterials: {
             type: 'Sactividadmaterial',
             autoLoad: true,
-            autoSync: '{!newRegister}',
-            trackRemoved: '{!newRegister}',
+//            autoSync: '{!newRegister}',
+//            trackRemoved: '{!newRegister}',
             filters: [{
                     property: 'ID_ACTIVIDAD',
                     operator: 'eq',

@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface IProformaDetalleService extends IEntidadService<ProformaDetalle>{
     public List<ProformaDetalle> getByFilterP(int start, int limit, String sort, String filter, String query);
+    public void changeLProformaDetalle(List<ProformaDetalle> pd);
+    public void deleteLProformaDetalle(List<ProformaDetalle> pd);
 }

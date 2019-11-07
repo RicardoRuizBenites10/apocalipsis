@@ -30,9 +30,19 @@ Ext.define('GrupoBruce.view.actividadmaterial.ActividadMaterialController', {
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
+            var store = grid.getStore();
             form.updateRecord(model); // update the record with the form data
             model.set('material',window.getViewModel().get('selectMaterial').get('nombre'));
-            grid.getStore().add(model);
+            store.add(model);
+            
+            var removedRecords = store.getRemovedRecords();
+            removedRecords.forEach(function (item, index) {
+                if (model.get('idMaterial') === item.get('idMaterial')) {
+                    removedRecords.splice(index, 1);
+                }
+            });
+            store.removed = removedRecords;
+            
             form.reset();
             window.destroy();
         } else { // display error alert if the data is invalid

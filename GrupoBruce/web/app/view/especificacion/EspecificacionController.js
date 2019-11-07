@@ -40,7 +40,7 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionespecificacion').checked, usaact = grid2.getStore().count() > 0;
+            var situacion = this.lookupReference('chk_situacionespecificacion').checked, usaact = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
             if (nuevo) {
                 model.set('usuInsert', loggedIn.idUsuario);
             }
@@ -57,7 +57,7 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
                             item.set('idEspecificacion', model.get('idEspecificacion'));
                         });
                     }
-                    if (nuevo && usaact) {
+                    if (usaact) {
                         grid2.getStore().sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
@@ -122,10 +122,10 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
         var store = vm.get('especificacions');
         if (newValue) {
             store.addFilter([{
-                property: 'ID_ECATEGORIA',
-                operator: 'in',
-                value: vm.get('categorias')
-            }]);
+                    property: 'ID_ECATEGORIA',
+                    operator: 'in',
+                    value: vm.get('categorias')
+                }]);
         } else {
             store.clearFilter();
         }

@@ -30,11 +30,21 @@ Ext.define('GrupoBruce.view.especificacionactividad.EspecificacionActividadContr
         var model = form.getRecord();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
+            var store = grid.getStore();
             form.updateRecord(model); // update the record with the form data
             model.set('actividad', window.getViewModel().get('selectActividad').get('nombre'));
             model.set('etapa', window.getViewModel().get('selectActividad').get('etapa'));
             model.set('fecha', new Date());
-            grid.getStore().add(model);
+            store.add(model);
+            
+            var removedRecords = store.getRemovedRecords();
+            removedRecords.forEach(function (item, index) {
+                if (model.get('idActividad') === item.get('idActividad')) {
+                    removedRecords.splice(index, 1);
+                }
+            });
+            store.removed = removedRecords;
+            
             form.reset();
             window.destroy();
         } else { // display error alert if the data is invalid

@@ -57,12 +57,33 @@ public class ProformaDetalleController {
         map.put("message", "Registro exitoso.");
         return map;
     }
+    @ResponseBody
+    @RequestMapping(value = "/iiLProformaDetalle", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<ProformaDetalle> proformaDetalle) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLProformaDetalle(proformaDetalle);
+        map.put("success", true);
+        map.put("data", proformaDetalle);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/uuProformaDetalle", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody ProformaDetalle proformaDetalle) {
         Map<String, Object> map = new HashMap<>();
         serv.update(proformaDetalle);
+        map.put("success", true);
+        map.put("data", proformaDetalle);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuLProformaDetalle", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody List<ProformaDetalle> proformaDetalle) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLProformaDetalle(proformaDetalle);
         map.put("success", true);
         map.put("data", proformaDetalle);
         map.put("message", "Actualización exitosa.");
@@ -84,6 +105,17 @@ public class ProformaDetalleController {
         map.put("success", success);
         map.put("data", proformaDetalle);
         map.put("message", msg);
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ddLProformaDetalle", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<ProformaDetalle> proformaDetalle) {
+        Map<String, Object> map = new HashMap<>();
+        serv.deleteLProformaDetalle(proformaDetalle);
+        map.put("success", true);
+        map.put("data", proformaDetalle);
+        map.put("message", "Eliminacion exitosa.");
         return map;
     }
 

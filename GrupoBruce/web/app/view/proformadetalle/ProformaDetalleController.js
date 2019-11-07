@@ -27,14 +27,25 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalleController', {
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wproformadetalle');
         var model = form.getRecord();
+        var usuario = Ext.getCmp('id_wmain').getViewModel().get('thisUsuario')
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
+            var store = grid.getStore();
             form.updateRecord(model); // update the record with the form data
             model.set('categoria', window.getViewModel().get('selectCategoria').get('nombre'));
             model.set('especificacion', window.getViewModel().get('selectEspecificacion').get('descripcion'));
-            console.log(model);
-            console.log(grid.getStore());
-            grid.getStore().add(model);
+            model.set('usuUpdate', usuario.idUsuario);
+            store.add(model);
+
+            var removedRecords = store.getRemovedRecords();
+            removedRecords.forEach(function (item, index) {
+                if (model.get('idEspecificacion') === item.get('idEspecificacion')) {
+                    model.set('wasstd', item.get('wasstd'));
+                    removedRecords.splice(index, 1);
+                }
+            });
+            store.removed = removedRecords;
+            
             form.reset();
             window.destroy();
         } else { // display error alert if the data is invalid
@@ -45,6 +56,7 @@ Ext.define('GrupoBruce.view.proformadetalle.ProformaDetalleController', {
     deleteProformaDetalle: function () {
         var grid = Ext.getCmp('id_wproformadetalle');
         var model = grid.getSelection()[0];
-        grid.getStore().remove(model);
+        var store = grid.getStore();
+        store.remove(model);
     }
 });

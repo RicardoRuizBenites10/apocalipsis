@@ -39,7 +39,7 @@ Ext.define('GrupoBruce.view.proforma.ProformaController', {
         var model = form.getRecord();
         var windowVM = window.getViewModel();
         var nuevo = windowVM.get('newRegister');
-        var usuario = Ext.getCmp('id_wmain').getViewModel().get('thisUsuario'), hasesp = grid2.getStore().getCount() > 0;
+        var usuario = Ext.getCmp('id_wmain').getViewModel().get('thisUsuario'), hasesp = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
@@ -54,36 +54,36 @@ Ext.define('GrupoBruce.view.proforma.ProformaController', {
                             item.set('usuUpdate', usuario.idUsuario);
                         });
                     }
-                    if (nuevo && hasesp) {
-//                        grid2.getStore().sync({
-//                            success: function (response, operation) {
-//                                grid.getStore().reload();
-//                                form.reset();
-//                                window.destroy();
-//                                Ext.Msg.alert('Success', 'Operación exitosa.');
-//                            },
-//                            failure: function (batch, operation) {
-//                                model.erase();
-//                                var msg = '';
-//                                if (batch.hasException) {
-//                                    for (var i = 0; i < batch.exceptions.length; i++) {
-//                                        switch (batch.exceptions[i].action) {
-//                                            case "destroy" :
-//                                                msg = msg + batch.exceptions[i]._records.length + " Delete, ";
-//                                                break;
-//                                            case "update" :
-//                                                msg = msg + batch.exceptions[i]._records.length + " Update, ";
-//                                                break;
-//                                            case "create" :
-//                                                msg = msg + batch.exceptions[i]._records.length + " Create, ";
-//                                                break;
-//                                        }
-//                                    }
-//                                    Ext.Msg.alert("Status", msg + " operation failed!");
-//                                } else
-//                                    Ext.Msg.alert('Status', 'Changes failed.');
-//                            }
-//                        });
+                    if (hasesp) {
+                        grid2.getStore().sync({
+                            success: function (response, operation) {
+                                grid.getStore().reload();
+                                form.reset();
+                                window.destroy();
+                                Ext.Msg.alert('Success', 'Operación exitosa.');
+                            },
+                            failure: function (batch, operation) {
+                                model.erase();
+                                var msg = '';
+                                if (batch.hasException) {
+                                    for (var i = 0; i < batch.exceptions.length; i++) {
+                                        switch (batch.exceptions[i].action) {
+                                            case "destroy" :
+                                                msg = msg + batch.exceptions[i]._records.length + " Delete, ";
+                                                break;
+                                            case "update" :
+                                                msg = msg + batch.exceptions[i]._records.length + " Update, ";
+                                                break;
+                                            case "create" :
+                                                msg = msg + batch.exceptions[i]._records.length + " Create, ";
+                                                break;
+                                        }
+                                    }
+                                    Ext.Msg.alert("Status", msg + " operation failed!");
+                                } else
+                                    Ext.Msg.alert('Status', 'Changes failed.');
+                            }
+                        });
                     } else {
                         grid.getStore().reload();
                         form.reset();

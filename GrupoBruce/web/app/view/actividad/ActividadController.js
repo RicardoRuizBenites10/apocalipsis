@@ -41,7 +41,7 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionactividad').checked, usamat = grid2.getStore().count() > 0;
+            var situacion = this.lookupReference('chk_situacionactividad').checked, usamat = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
             model.set('idUsuario', loggedIn.idUsuario);
             model.set('usaMaterial', usamat);
             model.set('situacion', situacion);
@@ -54,7 +54,7 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
                             item.set('idActividad', model.get('idActividad'));
                         });
                     }
-                    if (nuevo && usamat) {
+                    if (usamat) { //nuevo && usamat
                         grid2.getStore().sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();

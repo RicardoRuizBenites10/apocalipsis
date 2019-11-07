@@ -34,7 +34,7 @@ public class ProformaDetalleDAO implements IProformaDetalleDAO {
 
     @Override
     public void update(ProformaDetalle t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override
