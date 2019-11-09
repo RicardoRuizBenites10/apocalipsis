@@ -27,7 +27,7 @@ public class ObraTipoController {
     private IObraTipoService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/obraTipos", method = RequestMethod.GET)
+    @RequestMapping(value = "/obratipos", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,

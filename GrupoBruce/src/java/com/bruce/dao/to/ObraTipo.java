@@ -18,8 +18,7 @@ import javax.persistence.Table;
 @Table(name = "OBRA_TIPO", schema = "dbo", catalog = "BDBRUCE")
 public class ObraTipo implements java.io.Serializable {
 
-    private int idObrtip;
-    private String codigo;
+    private String idObrtip;
     private String descripcion;
     private boolean situacion;
 
@@ -28,21 +27,12 @@ public class ObraTipo implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_OBRTIP", nullable = false)
-    public int getIdObrtip() {
+    public String getIdObrtip() {
         return idObrtip;
     }
 
-    public void setIdObrtip(int idObrtip) {
+    public void setIdObrtip(String idObrtip) {
         this.idObrtip = idObrtip;
-    }
-
-    @Column(name = "CODIGO", nullable = false)
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     @Column(name = "DESCRIPCION", nullable = false)

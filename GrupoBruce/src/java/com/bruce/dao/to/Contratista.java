@@ -26,7 +26,7 @@ public class Contratista implements java.io.Serializable {
     private String telefono;
     private String correo;
     private boolean situacion;
-    private int idEproceso;
+    private String idEproceso;
 
     private String etapaProceso;
 
@@ -89,11 +89,11 @@ public class Contratista implements java.io.Serializable {
     }
 
     @Column(name = "ID_EPROCESO", nullable = false)
-    public int getIdEproceso() {
+    public String getIdEproceso() {
         return idEproceso;
     }
 
-    public void setIdEproceso(int idEproceso) {
+    public void setIdEproceso(String idEproceso) {
         this.idEproceso = idEproceso;
     }
 

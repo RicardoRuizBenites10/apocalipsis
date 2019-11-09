@@ -1583,6 +1583,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "EspecificacionActividad"
       }
+    },
+    "app/model/ObraTipo.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "descripcion:string:null,idObrtip:string:null,situacion:boolean:null",
+        "modelFileName": "ObraTipo",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ObraTipo"
+      }
     }
   }
 }

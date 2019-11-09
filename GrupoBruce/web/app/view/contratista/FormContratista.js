@@ -36,11 +36,16 @@ Ext.define('GrupoBruce.view.contratista.FormContratista', {
                             maxLength: 15,
                             width: '48%',
                             bind: {
-                                editable: '{newRegister}'
+                                readOnly: '{!newRecord}'
+                            },
+                            listeners: {
+                                change: function (textfield, newValue, oldValue) {
+                                    textfield.up('window').getViewModel().set('currentCodigo', newValue);
+                                }
                             },
                             flex: 1
                         }]
-                },{
+                }, {
                     items: [{
                             xtype: 'textfield',
                             name: 'nombre',
@@ -53,7 +58,7 @@ Ext.define('GrupoBruce.view.contratista.FormContratista', {
                             name: 'direccion',
                             fieldLabel: 'Dirección',
                             flex: 1
-                    }]
+                        }]
                 }, {
                     items: [{
                             xtype: 'textfield',
@@ -61,37 +66,37 @@ Ext.define('GrupoBruce.view.contratista.FormContratista', {
                             fieldLabel: 'Teléfono',
                             allowBlank: true,
                             flex: 1
-                    },{
+                        }, {
                             xtype: 'textfield',
                             name: 'correo',
                             fieldLabel: 'Correo electronico',
                             allowBlank: true,
                             flex: 1
-                    }]
-                },{
+                        }]
+                }, {
                     items: [{
-                            xtype: 'combobox',
+                            xtype: 'treepicker',
                             fieldLabel: 'Área de producción',
-                            name: 'idEproceso',
                             valueField: 'idEproceso',
                             displayField: 'descripcion',
+                            name: 'idEproceso',
                             bind: {
                                 store: '{etapasproceso}',
-                                selection: '{selectEtapaProceso}'
+                                rawValue: '{recordContratista.etapaProceso}'
                             },
-                            editable: false,
-                            forceSelection: true,
                             emptyText: 'Seleccionar',
+                            forceSelection: true,
+                            editable: false,
                             flex: 1
-                    }]
-                },{
+                        }]
+                }, {
                     items: [{
                             xtype: 'checkbox',
-                            name:'situacion',
+                            name: 'situacion',
                             fieldLabel: 'Situacion',
                             boxLabel: 'Activo',
                             reference: 'chk_situacioncontratista'
-                    }]
+                        }]
                 }],
             buttons: [{
                     text: 'Cancelar',

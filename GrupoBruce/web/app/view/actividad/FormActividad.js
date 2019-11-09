@@ -36,7 +36,6 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
                             items: [{
                                     items: [{
                                             xtype: 'treepicker',
-                                            id: 'id_treeetapa',
                                             fieldLabel: 'Área',
                                             valueField: 'idEproceso',
                                             displayField: 'descripcion',
@@ -48,7 +47,12 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
                                             emptyText: 'Seleccionar',
                                             forceSelection: true,
                                             editable: false,
-                                            flex: 2
+                                            flex: 2,
+                                            listeners: {
+                                                select: function (picker, record) {
+                                                    picker.up('window').getViewModel().set('selectEtapaProceso', record);
+                                                }
+                                            }
                                         }, {
                                             xtype: 'combobox',
                                             name: 'idMoneda',

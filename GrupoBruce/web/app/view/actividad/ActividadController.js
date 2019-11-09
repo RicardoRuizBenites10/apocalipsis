@@ -45,7 +45,7 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
             model.set('idUsuario', loggedIn.idUsuario);
             model.set('usaMaterial', usamat);
             model.set('situacion', situacion);
-            model.set('idEproceso', Ext.getCmp('id_treeetapa').getValue())
+            model.set('idEproceso', windowVM.get('selectEtapaProceso').get('idEproceso'));
 
             model.save({// save the record to the server
                 success: function (model, operation) {

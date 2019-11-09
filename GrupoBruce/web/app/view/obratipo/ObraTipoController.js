@@ -1,42 +1,40 @@
-Ext.define('GrupoBruce.view.contratista.ContratistaController', {
+Ext.define('GrupoBruce.view.obratipo.ObraTipoController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Ccontratista',
+    alias: 'controller.Cobratipo',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.contratista.FormContratista();
-        var vmWindow = window.getViewModel();
-        vmWindow.set('newRecord', !record);
+        var window = new GrupoBruce.view.obratipo.FormObraTipo();
+        var vm = window.getViewModel();
+        vm.set('newRecord', !record);
         if (!record) {
-            window.setTitle('Registrar contratista');
-            record = new GrupoBruce.model.Contratista();
-            record.set('idContratista', '');
+            window.setTitle('Registrar tipo de orden de producción');
+            record = new GrupoBruce.model.ObraTipo();
+            record.set('idObrtip', '');
         }
-        vmWindow.set('recordContratista', record);
         window.down('form').loadRecord(record);
-        window.show();
     },
 
-    addContratista: function () {
+    addObraTipo: function () {
         this.createDialog(null);
     },
 
-    editContratista: function () {
-        var model = this.getViewModel().get('selectContratista');
+    editObraTipo: function () {
+        var model = this.getViewModel().get('selectObraTipo');
         this.createDialog(model);
     },
 
-    onSaveContratista: function (btn) {
+    onSaveObraTipo: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistcontratista');
+        var grid = Ext.getCmp('id_wlistobratipo');
         var model = form.getRecord();
         var vmWindow = window.getViewModel();
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var situacion = this.lookupReference('chk_situacioncontratista').checked;
+            var situacion = this.lookupReference('chk_situacionobratipo').checked;
             model.set('situacion', situacion);
-            if (vmWindow.get('currentContratista').getCount() === 0 || !vmWindow.get('newRecord')) {
+            if (vmWindow.get('currentObraTipo').getCount() === 0 || !vmWindow.get('newRecord')) {
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         grid.getStore().reload();
@@ -51,7 +49,7 @@ Ext.define('GrupoBruce.view.contratista.ContratistaController', {
             } else {
                 Ext.Msg.show({
                     title: 'Error',
-                    msg: 'El nro RUC ingresado ya existe, intente con otro.',
+                    msg: 'El código ingresado ya existe, intente con otro.',
                     icon: Ext.Msg.ERROR,
                     botones: Ext.Msg.OK
                 });
@@ -61,8 +59,8 @@ Ext.define('GrupoBruce.view.contratista.ContratistaController', {
         }
     },
 
-    deleteContratista: function () {
-        var grid = this.lookupReference('list_contratista');
+    deleteObraTipo: function () {
+        var grid = this.lookupReference('list_obratipo');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {

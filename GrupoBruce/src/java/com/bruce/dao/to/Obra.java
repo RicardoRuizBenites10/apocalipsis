@@ -30,7 +30,7 @@ public class Obra implements java.io.Serializable {
     private Date fechaFin;
     private int idObrtip;
     private String idCliente;
-    private int idProforma;
+    private String idProforma;
 
     private String tipo;
     private String cliente;
@@ -106,11 +106,11 @@ public class Obra implements java.io.Serializable {
     }
 
     @Column(name = "ID_PROFORMA", nullable = false)
-    public int getIdProforma() {
+    public String getIdProforma() {
         return idProforma;
     }
 
-    public void setIdProforma(int idProforma) {
+    public void setIdProforma(String idProforma) {
         this.idProforma = idProforma;
     }
 

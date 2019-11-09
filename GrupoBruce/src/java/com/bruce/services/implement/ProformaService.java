@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +64,7 @@ public class ProformaService implements IProformaService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "ID_PROFORMA", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ProformaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,8 +87,9 @@ public class ProformaService implements IProformaService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+            } 
+            if (query != null) {
+                filters.add(new FilterPage("like", "ID_PROFORMA", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ProformaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,8 +117,9 @@ public class ProformaService implements IProformaService {
             if (filter != null) {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
-            } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+            } 
+            if (query != null) {
+                filters.add(new FilterPage("like", "ID_PROFORMA", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ProformaService.class.getName()).log(Level.SEVERE, null, ex);

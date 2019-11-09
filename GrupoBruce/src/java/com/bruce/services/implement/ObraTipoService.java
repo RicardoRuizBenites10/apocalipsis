@@ -59,7 +59,7 @@ public class ObraTipoService implements IObraTipoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ObraTipoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class ObraTipoService implements IObraTipoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ObraTipoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ObraTipoService implements IObraTipoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "nombre", "%" + query));
+                filters.add(new FilterPage("like", "descripcion", "%" + query));
             }
         } catch (IOException ex) {
             Logger.getLogger(ObraTipoService.class.getName()).log(Level.SEVERE, null, ex);

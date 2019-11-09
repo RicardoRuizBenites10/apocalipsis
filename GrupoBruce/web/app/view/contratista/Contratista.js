@@ -14,9 +14,7 @@ Ext.define('GrupoBruce.view.contratista.Contratista', {
         type: 'VMcontratista'
     },
 
-    bind: {
-        title: '{titulo}'
-    },
+    title: 'Lista de contratistas',
     items: [{
             xtype: 'Wlistcontratista',
             height: 500

@@ -2,9 +2,9 @@ Ext.define('GrupoBruce.view.contratista.ContratistaModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMcontratista',
     data: {
-        titulo: 'Lista de contratistas'
+        currentCodigo: null
     },
-    
+
     stores: {
         contratistas: {
             type: 'Scontratista',
@@ -13,6 +13,15 @@ Ext.define('GrupoBruce.view.contratista.ContratistaModel', {
         etapasproceso: {
             type: 'Setapaproceso',
             autoLoad: true
+        },
+        currentContratista: {
+            type: 'Scontratista',
+            autoLoad: true,
+            filters: [{
+                    property: 'ID_CONTRATISTA',
+                    operator: 'eq',
+                    value: '{currentCodigo}'
+                }]
         }
     }
 
