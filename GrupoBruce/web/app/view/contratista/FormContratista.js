@@ -75,22 +75,6 @@ Ext.define('GrupoBruce.view.contratista.FormContratista', {
                         }]
                 }, {
                     items: [{
-                            xtype: 'treepicker',
-                            fieldLabel: 'Área de producción',
-                            valueField: 'idEproceso',
-                            displayField: 'descripcion',
-                            name: 'idEproceso',
-                            bind: {
-                                store: '{etapasproceso}',
-                                rawValue: '{recordContratista.etapaProceso}'
-                            },
-                            emptyText: 'Seleccionar',
-                            forceSelection: true,
-                            editable: false,
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
                             xtype: 'checkbox',
                             name: 'situacion',
                             fieldLabel: 'Situacion',

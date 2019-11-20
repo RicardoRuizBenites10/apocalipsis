@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -26,9 +24,6 @@ public class Contratista implements java.io.Serializable {
     private String telefono;
     private String correo;
     private boolean situacion;
-    private String idEproceso;
-
-    private String etapaProceso;
 
     public Contratista() {
     }
@@ -86,24 +81,5 @@ public class Contratista implements java.io.Serializable {
 
     public void setSituacion(boolean situacion) {
         this.situacion = situacion;
-    }
-
-    @Column(name = "ID_EPROCESO", nullable = false)
-    public String getIdEproceso() {
-        return idEproceso;
-    }
-
-    public void setIdEproceso(String idEproceso) {
-        this.idEproceso = idEproceso;
-    }
-
-    @Generated(GenerationTime.NEVER)
-    @Column(name = "ETAPA_PROCESO", insertable = false, updatable = false)
-    public String getEtapaProceso() {
-        return etapaProceso;
-    }
-
-    public void setEtapaProceso(String etapaProceso) {
-        this.etapaProceso = etapaProceso;
     }
 }

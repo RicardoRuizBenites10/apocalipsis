@@ -7,7 +7,6 @@ package com.bruce.dao.implement;
 
 import com.bruce.dao.design.IObraDAO;
 import com.bruce.dao.to.Obra;
-import com.bruce.dao.to.Obra;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -51,19 +50,37 @@ public class ObraDAO implements IObraDAO{
     @Override
     public Obra lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
-        reverse.addResult("OB.ID_OBRA");
-        reverse.addResult("OB.NOMBRE");
-        reverse.addResult("OB.FECHA");
-        reverse.addResult("OB.FECHA_INICIO");
-        reverse.addResult("OB.FECHA_FIN");
-        reverse.addResult("OB.ID_OBRTIP");
-        reverse.addResult("OB.ID_CLIENTE");
-        reverse.addResult("OB.ID_PROFORMA");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "O");
+        reverse.addResult("O.ID_OBRA");
+        reverse.addResult("O.FECHA");
+        reverse.addResult("O.NOMBRE");
+        reverse.addResult("O.NRO_CHASIS");
+        reverse.addResult("O.FECHA_INGRESO");
+        reverse.addResult("O.FECHA_SALIDA");
+        reverse.addResult("O.FECHA_INICIO");
+        reverse.addResult("O.FECHA_FIN");
+        reverse.addResult("O.HASCONTRATISTA");
+        reverse.addResult("O.GOPINTURA");
+        reverse.addResult("O.GOPINTURAFECHA");
+        reverse.addResult("O.ASIENTO_NROORDEN");
+        reverse.addResult("O.ASIENTO_RECEPCION");
+        reverse.addResult("O.EJECUCION");
+        reverse.addResult("O.DETENIDO");
+        reverse.addResult("O.TERMINADO");
+        reverse.addResult("O.ENTREGADOSTO");
+        reverse.addResult("O.ENTREGADOCLI");
+        reverse.addResult("O.ID_OBRTIP");
+        reverse.addResult("O.ID_PROFORMA");
+        reverse.addResult("O.ID_EOBRA");
+        reverse.addResult("O.ID_USUARIO");
         reverse.addResult("OT.DESCRIPCION TIPO");
+        reverse.addResult("EO.NOMBRE ESTADO");
         reverse.addResult("CL.NOMBRE CLIENTE");
-        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=OB.ID_OBRTIP");
-        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=OB.ID_CLIENTE");
+        reverse.addResult("PF.ID_CARROCERIA CARROCERIA");
+        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=O.ID_OBRTIP");
+        reverse.addJoin("INNER JOIN ESTADO_OBRA EO", "EO.ID_EOBRA=O.ID_EOBRA");
+        reverse.addJoin("INNER JOIN PROFORMA PF", "PF.ID_PROFORMA=O.ID_PROFORMA");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=PF.ID_CLIENTE");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_OBRA", "DESC"));
         reverse.setPagination(0, 1);
@@ -87,19 +104,37 @@ public class ObraDAO implements IObraDAO{
     @Override
     public List<Obra> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
-        reverse.addResult("OB.ID_OBRA");
-        reverse.addResult("OB.NOMBRE");
-        reverse.addResult("OB.FECHA");
-        reverse.addResult("OB.FECHA_INICIO");
-        reverse.addResult("OB.FECHA_FIN");
-        reverse.addResult("OB.ID_OBRTIP");
-        reverse.addResult("OB.ID_CLIENTE");
-        reverse.addResult("OB.ID_PROFORMA");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "O");
+        reverse.addResult("O.ID_OBRA");
+        reverse.addResult("O.FECHA");
+        reverse.addResult("O.NOMBRE");
+        reverse.addResult("O.NRO_CHASIS");
+        reverse.addResult("O.FECHA_INGRESO");
+        reverse.addResult("O.FECHA_SALIDA");
+        reverse.addResult("O.FECHA_INICIO");
+        reverse.addResult("O.FECHA_FIN");
+        reverse.addResult("O.HASCONTRATISTA");
+        reverse.addResult("O.GOPINTURA");
+        reverse.addResult("O.GOPINTURAFECHA");
+        reverse.addResult("O.ASIENTO_NROORDEN");
+        reverse.addResult("O.ASIENTO_RECEPCION");
+        reverse.addResult("O.EJECUCION");
+        reverse.addResult("O.DETENIDO");
+        reverse.addResult("O.TERMINADO");
+        reverse.addResult("O.ENTREGADOSTO");
+        reverse.addResult("O.ENTREGADOCLI");
+        reverse.addResult("O.ID_OBRTIP");
+        reverse.addResult("O.ID_PROFORMA");
+        reverse.addResult("O.ID_EOBRA");
+        reverse.addResult("O.ID_USUARIO");
         reverse.addResult("OT.DESCRIPCION TIPO");
+        reverse.addResult("EO.NOMBRE ESTADO");
         reverse.addResult("CL.NOMBRE CLIENTE");
-        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=OB.ID_OBRTIP");
-        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=OB.ID_CLIENTE");
+        reverse.addResult("PF.ID_CARROCERIA CARROCERIA");
+        reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=O.ID_OBRTIP");
+        reverse.addJoin("INNER JOIN ESTADO_OBRA EO", "EO.ID_EOBRA=O.ID_EOBRA");
+        reverse.addJoin("INNER JOIN PROFORMA PF", "PF.ID_PROFORMA=O.ID_PROFORMA");
+        reverse.addJoin("INNER JOIN CLIENTE CL", "CL.ID_CLIENTE=PF.ID_CLIENTE");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -116,7 +151,7 @@ public class ObraDAO implements IObraDAO{
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("OBRA", "OB");
+        ReverseQuery reverse = new ReverseQuery("OBRA", "O");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {

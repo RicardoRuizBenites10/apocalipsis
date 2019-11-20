@@ -5,11 +5,9 @@ Ext.define('GrupoBruce.model.Contratista', {
         {name: 'correo', type: 'string'},
         {name: 'direccion', type: 'string'},
         {name: 'idContratista', type: 'string'},
-        {name: 'idEproceso', type: 'string'},
         {name: 'nombre', type: 'string'},
         {name: 'situacion', type: 'boolean'},
-        {name: 'telefono', type: 'string'},
-        {name: 'etapaProceso', type: 'string'}
+        {name: 'telefono', type: 'string'}
     ],
 
     identifier: 'sequential',

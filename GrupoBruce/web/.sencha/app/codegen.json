@@ -1595,6 +1595,78 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "ObraTipo"
       }
+    },
+    "app/model/EstadoObra.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "detenido:boolean:null,ejecucion:boolean:null,entregadocli:boolean:null,entregadosto:boolean:null,idEobra:string:null,nombre:string:null,situacion:boolean:null,terminado:boolean:null,xllegar:boolean:null",
+        "modelFileName": "EstadoObra",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "EstadoObra"
+      }
+    },
+    "app/model/ObraContratista.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "contratista:string:null,etapa:string:null,idContratista:string:null,idEproceso:string:null,idObra:int:null",
+        "modelFileName": "ObraContratista",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ObraContratista"
+      }
+    },
+    "app/model/ObraSeguimiento.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "fin:date:null,finProgramado:date:null,idEproceso:string:null,idObra:int:null,idUsuario:string:null,inicio:date:null,inicioProgramado:date:null,observacion:string:null",
+        "modelFileName": "ObraSeguimiento",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ObraSeguimiento"
+      }
+    },
+    "app/model/ColorDiseno.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "denominacion:string:null,fecha:date:null,idCdiseno:string:null",
+        "modelFileName": "ColorDiseno",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ColorDiseno"
+      }
+    },
+    "app/model/ColorFormula.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "cantidad:float:null,colordiseno:string:null,idCdiseno:string:null,idMaterial:int:null,material:string:null",
+        "modelFileName": "ColorFormula",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ColorFormula"
+      }
+    },
+    "app/model/ObraPintura.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "colordiseno:string:null,fecha:date:null,idCdiseno:string:null,idObra:int:null",
+        "modelFileName": "ObraPintura",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "ObraPintura"
+      }
     }
   }
 }

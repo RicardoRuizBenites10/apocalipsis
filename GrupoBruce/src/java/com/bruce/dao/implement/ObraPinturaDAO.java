@@ -5,8 +5,8 @@
  */
 package com.bruce.dao.implement;
 
-import com.bruce.dao.design.IContratistaDAO;
-import com.bruce.dao.to.Contratista;
+import com.bruce.dao.design.IObraPinturaDAO;
+import com.bruce.dao.to.ObraPintura;
 import com.bruce.util.FilterPage;
 import com.bruce.util.ReverseQuery;
 import com.bruce.util.SortPage;
@@ -22,77 +22,74 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ContratistaDAO implements IContratistaDAO {
+public class ObraPinturaDAO implements IObraPinturaDAO {
 
     @Autowired
     private SessionFactory sf;
 
     @Override
-    public void create(Contratista t) {
+    public void create(ObraPintura t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    public void update(Contratista t) {
+    public void update(ObraPintura t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    public void delete(Contratista t) {
+    public void delete(ObraPintura t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    public Contratista get(Object idT) {
+    public ObraPintura get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Contratista lastByFilter(List<FilterPage> filters) {
+    public ObraPintura lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
-        reverse.addResult("C.ID_CONTRATISTA");
-        reverse.addResult("C.NOMBRE");
-        reverse.addResult("C.DIRECCION");
-        reverse.addResult("C.TELEFONO");
-        reverse.addResult("C.CORREO");
-        reverse.addResult("C.SITUACION");
+        ReverseQuery reverse = new ReverseQuery("OBRA_PINTURA", "OP");
+        reverse.addResult("OP.ID_OBRA");
+        reverse.addResult("OP.ID_CDISENO");
+        reverse.addResult("OP.FECHA");
+        reverse.addResult("CD.DENOMINACION COLORDISENO");
+        reverse.addJoin("INNER JOIN COLOR_DISENO CD", "CD.ID_CDISENO=OP.ID_CDISENO");
         reverse.setFilters(filters);
-        reverse.getLSorts().add(new SortPage("ID_CONTRATISTA", "DESC"));
+        reverse.getLSorts().add(new SortPage("ID_CDISENO", "DESC"));
         reverse.setPagination(0, 1);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Contratista.class);
+        query.addEntity(ObraPintura.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
             });
         }
         List result = query.list();
-        Contratista contratista = !result.isEmpty() ? (Contratista) result.get(0) : null;
-        
-        return contratista;
+        ObraPintura item = !result.isEmpty() ? (ObraPintura) result.get(0) : null;
+        return item;
     }
 
     @Override
-    public List<Contratista> getAll() {
+    public List<ObraPintura> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Contratista> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
+    public List<ObraPintura> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
-        reverse.addResult("C.ID_CONTRATISTA");
-        reverse.addResult("C.NOMBRE");
-        reverse.addResult("C.DIRECCION");
-        reverse.addResult("C.TELEFONO");
-        reverse.addResult("C.CORREO");
-        reverse.addResult("C.SITUACION");
+        ReverseQuery reverse = new ReverseQuery("OBRA_PINTURA", "OP");
+        reverse.addResult("OP.ID_OBRA");
+        reverse.addResult("OP.ID_CDISENO");
+        reverse.addResult("OP.FECHA");
+        reverse.addResult("CD.DENOMINACION COLORDISENO");
+        reverse.addJoin("INNER JOIN COLOR_DISENO CD", "CD.ID_CDISENO=OP.ID_CDISENO");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
-        query.addEntity(Contratista.class);
+        query.addEntity(ObraPintura.class);
         if (!filters.isEmpty()) {
             filters.forEach((item) -> {
                 query.setParameter(item.getProperty(), item.getValue());
@@ -104,7 +101,7 @@ public class ContratistaDAO implements IContratistaDAO {
     @Override
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
-        ReverseQuery reverse = new ReverseQuery("CONTRATISTA", "C");
+        ReverseQuery reverse = new ReverseQuery("OBRA_PINTURA", "OP");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {

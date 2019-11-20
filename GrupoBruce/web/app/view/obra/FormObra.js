@@ -18,74 +18,82 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     tiltle: 'Editar orden de producción',
     items: [{
             xtype: 'form',
-            defaults: {
-                layout: 'hbox',
-                defaults: {
-                    allowBlank: false,
-                    labelAlign: 'top',
-                    padding: 7
-                }
-            },
             items: [{
+                    xtype: 'tabpanel',
                     items: [{
-                            xtype: 'combobox',
-                            name: 'idObrtip',
-                            fieldLabel: 'Tipo',
-                            displayField: 'descripcion',
-                            valueField: 'idObrtip',
-                            bind: {
-                                store: '{obratipos}',
-                                selection: '{selectObraTipo}'
+                            title: 'Datos generales',
+                            defaults: {
+                                layout: 'hbox',
+                                defaults: {
+                                    allowBlank: false,
+                                    labelAlign: 'top',
+                                    padding: 7
+                                }
                             },
-                            emptyText: 'Seleccionar',
-                            editable: false,
-                            forceSelection: true,
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'textfield',
-                            name: 'nombre',
-                            fieldLabel: 'Número de OP'
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'combobox',
-                            name: 'idProforma',
-                            fieldLabel: 'Proforma',
-                            displayField: 'idProforma',
-                            valueField: 'idProforma',
-                            bind: {
-                                store: '{proformas}',
-                                selection: '{selectProforma}'
-                            },
-                            emptyText: 'Seleccionar',
-                            editable: false,
-                            forceSelection: true,
-                            flex: 1
+                            items: [{
+                                    items: [{
+                                            xtype: 'combobox',
+                                            name: 'idObrtip',
+                                            fieldLabel: 'Tipo',
+                                            displayField: 'descripcion',
+                                            valueField: 'idObrtip',
+                                            bind: {
+                                                store: '{obratipos}',
+                                                selection: '{selectObraTipo}'
+                                            },
+                                            emptyText: 'Seleccionar',
+                                            editable: false,
+                                            forceSelection: true,
+                                            flex: 1
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'textfield',
+                                            name: 'nombre',
+                                            fieldLabel: 'Número de OP'
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'combobox',
+                                            name: 'idProforma',
+                                            fieldLabel: 'Proforma',
+                                            displayField: 'idProforma',
+                                            valueField: 'idProforma',
+                                            bind: {
+                                                store: '{proformas}',
+                                                selection: '{selectProforma}'
+                                            },
+                                            emptyText: 'Seleccionar',
+                                            editable: false,
+                                            forceSelection: true,
+                                            flex: 1
+                                        }, {
+                                            xtype: 'textfield',
+                                            fieldLabel: 'Cliente',
+                                            bind: {
+                                                value: '{selectProforma.cliente}'
+                                            },
+                                            flex: 1
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'datefield',
+                                            name: 'fechaInicio',
+                                            fieldLabel: 'Inicio programado:',
+                                            format: 'd/m/Y',
+                                            bind: '{currentDate}',
+                                            flex: 1
+                                        }, {
+                                            xtype: 'datefield',
+                                            name: 'fechaFin',
+                                            fieldLabel: 'Fin programado:',
+                                            format: 'd/m/Y',
+                                            bind: '{currentDate}',
+                                            flex: 1
+                                        }]
+                                }]
                         }, {
-                            xtype: 'textfield',
-                            fieldLabel: 'Cliente',
-                            bind: {
-                                value: '{selectProforma.cliente}'
-                            },
-                            flex: 1
-                        }]
-                }, {
-                    items: [{
-                            xtype: 'datefield',
-                            name: 'fechaInicio',
-                            fieldLabel: 'Inicio programado:',
-                            format: 'd/m/Y',
-                            bind: '{currentDate}',
-                            flex: 1
-                        }, {
-                            xtype: 'datefield',
-                            name: 'fechaFin',
-                            fieldLabel: 'Fin programado:',
-                            format: 'd/m/Y',
-                            bind: '{currentDate}',
-                            flex: 1
+                            title: 'Asignacion de contratistas'
                         }]
                 }],
             buttons: [{
