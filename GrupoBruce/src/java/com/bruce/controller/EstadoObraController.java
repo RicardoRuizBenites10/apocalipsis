@@ -28,7 +28,7 @@ public class EstadoObraController {
     private IEstadoObraService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/areas", method = RequestMethod.GET)
+    @RequestMapping(value = "/estadoObras", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam(required = false, value = "page") Integer page,
             @RequestParam(required = false, value = "start") Integer start,

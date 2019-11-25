@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     autoShow: true,
     closable: false,
     resizable: false,
-    width: 400,
+    width: 370,
 
     tiltle: 'Editar orden de producción',
     items: [{
@@ -34,7 +34,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                     items: [{
                                             xtype: 'combobox',
                                             name: 'idObrtip',
-                                            fieldLabel: 'Tipo',
+                                            fieldLabel: 'Tipo OP',
                                             displayField: 'descripcion',
                                             valueField: 'idObrtip',
                                             bind: {
@@ -44,13 +44,59 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             emptyText: 'Seleccionar',
                                             editable: false,
                                             forceSelection: true,
-                                            flex: 1
+                                            listeners: {
+                                                change: 'onChangeTOP'
+                                            }
+                                        },{
+                                            xtype: 'textfield',
+                                            fieldLabel: 'Denominación OP',
+                                            readOnly: true
                                         }]
                                 }, {
                                     items: [{
-                                            xtype: 'textfield',
-                                            name: 'nombre',
-                                            fieldLabel: 'Número de OP'
+                                            layout: 'hbox',
+                                            defaults: {
+                                                allowBlank: false,
+                                                labelAlign: 'top',
+                                                hideTrigger: true
+                                            },
+                                            items: [{
+                                                    xtype: 'numberfield',
+                                                    fieldLabel: 'Tipo',
+                                                    bind: {
+                                                        value: '{selectObraTipo.idObrtip}'
+                                                    },
+                                                    editable: false,
+                                                    maxLength: 2,
+                                                    width: 45
+                                                }, {
+                                                    xtype: 'displayfield',
+                                                    value: '-',
+                                                    margin: '30 5 0 5'
+                                                }, {
+                                                    xtype: 'numberfield',
+                                                    fieldLabel: 'Nro.',
+                                                    maxLength: 3,
+                                                    width: 50
+                                                }, {
+                                                    xtype: 'displayfield',
+                                                    value: '-',
+                                                    margin: '30 5 0 5'
+                                                }, {
+                                                    xtype: 'numberfield',
+                                                    fieldLabel: 'Año',
+                                                    bind: {
+                                                        value: '{currentYear}'
+                                                    },
+                                                    editable: false,
+                                                    maxLength: 2,
+                                                    width: 45
+                                                }],
+                                        },{
+                                            xtype: 'numberfield',
+                                            name: 'nroChasis',
+                                            fieldLabel: 'Nro. Chasis',
+                                            hideTrigger: true
                                         }]
                                 }, {
                                     items: [{
@@ -65,9 +111,10 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             },
                                             emptyText: 'Seleccionar',
                                             editable: false,
-                                            forceSelection: true,
-                                            flex: 1
-                                        }, {
+                                            forceSelection: true
+                                        }]
+                                },{
+                                    items:[{
                                             xtype: 'textfield',
                                             fieldLabel: 'Cliente',
                                             bind: {
@@ -76,20 +123,25 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             flex: 1
                                         }]
                                 }, {
+                                    flex: 3,
                                     items: [{
                                             xtype: 'datefield',
-                                            name: 'fechaInicio',
+                                            name: 'fechaIngreso',
                                             fieldLabel: 'Inicio programado:',
                                             format: 'd/m/Y',
-                                            bind: '{currentDate}',
-                                            flex: 1
+                                            bind: {
+                                                value: '{ini_fecha}',
+                                                maxValue: '{fin_fecha}'
+                                            }
                                         }, {
                                             xtype: 'datefield',
-                                            name: 'fechaFin',
+                                            name: 'fechaSalida',
                                             fieldLabel: 'Fin programado:',
                                             format: 'd/m/Y',
-                                            bind: '{currentDate}',
-                                            flex: 1
+                                            bind: {
+                                                value: '{fin_fecha}',
+                                                minValue: '{ini_fecha}'
+                                            }
                                         }]
                                 }]
                         }, {

@@ -59,6 +59,24 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
+    },
+
+    onChangeTOP: function (combo, newValue, oldValue, eOpts) {
+        Ext.Ajax.request({
+            url: 'obras',
+            parameters: '',
+            method: 'POST',
+            async: false,
+            params: {ID_CARMOD: mod.get('idCarmod'), ID_CARTIP: tip.get('idCartip'), ID_CARFAL: fal.get('idCarfal')},
+            success: function (response, opts) {
+                var responseText = Ext.decode(response.responseText);
+                codigo = responseText.data;
+                codigoNum = codigo.substr(4, 3);
+            },
+            failurer: function (response, opts) {
+                console.log('Joder 2');
+            }
+        });
     }
 
 });

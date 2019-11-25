@@ -2,7 +2,8 @@ Ext.define('GrupoBruce.view.obra.ObraModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.VMobra',
     data: {
-        selectObra: null
+        selectObra: null,
+        currentDate: new Date()
     },
 
     stores: {
@@ -13,6 +14,14 @@ Ext.define('GrupoBruce.view.obra.ObraModel', {
         proformas: {
             type: 'Sproforma',
             autoLoad: true
+        }
+    },
+    
+    formulas: {
+        currentYear : function(get){
+            var fecha = new Date();
+            var ano = (fecha.getFullYear()).toString().substr(2);
+            return ano;
         }
     }
 
