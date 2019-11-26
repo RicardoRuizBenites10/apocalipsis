@@ -64,19 +64,17 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
     onChangeTOP: function (combo, newValue, oldValue, eOpts) {
         Ext.Ajax.request({
             url: 'obras',
-            parameters: '',
-            method: 'POST',
+            method: 'GET',
             async: false,
-            params: {ID_CARMOD: mod.get('idCarmod'), ID_CARTIP: tip.get('idCartip'), ID_CARFAL: fal.get('idCarfal')},
+            params: {page: 1, start: 0, limit: 25, filters: "[{property: 'idObrtip', value: '" + newValue + "', operator: 'eq'}]"},
             success: function (response, opts) {
-                var responseText = Ext.decode(response.responseText);
-                codigo = responseText.data;
-                codigoNum = codigo.substr(4, 3);
+                console.log(response);
             },
             failurer: function (response, opts) {
-                console.log('Joder 2');
+                console.log('Error 2');
             }
         });
+        console.log('dale');
     }
 
 });
