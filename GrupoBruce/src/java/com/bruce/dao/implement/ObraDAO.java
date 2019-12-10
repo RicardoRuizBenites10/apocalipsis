@@ -53,6 +53,8 @@ public class ObraDAO implements IObraDAO{
         ReverseQuery reverse = new ReverseQuery("OBRA", "O");
         reverse.addResult("O.ID_OBRA");
         reverse.addResult("O.FECHA");
+        reverse.addResult("O.NUMERO");
+        reverse.addResult("O.ANIO");
         reverse.addResult("O.NOMBRE");
         reverse.addResult("O.NRO_CHASIS");
         reverse.addResult("O.FECHA_INGRESO");
@@ -107,6 +109,8 @@ public class ObraDAO implements IObraDAO{
         ReverseQuery reverse = new ReverseQuery("OBRA", "O");
         reverse.addResult("O.ID_OBRA");
         reverse.addResult("O.FECHA");
+        reverse.addResult("O.NUMERO");
+        reverse.addResult("O.ANIO");
         reverse.addResult("O.NOMBRE");
         reverse.addResult("O.NRO_CHASIS");
         reverse.addResult("O.FECHA_INGRESO");

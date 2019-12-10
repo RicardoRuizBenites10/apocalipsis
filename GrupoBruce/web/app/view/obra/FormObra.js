@@ -4,6 +4,10 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     reference: 'form_obra',
     id: 'id_wformobra',
 
+    requires: [
+        'GrupoBruce.view.obracontratista.ObraContratista'
+    ],
+
     controller: 'Cobra',
     viewModel: {
         type: 'VMobra'
@@ -47,9 +51,10 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             listeners: {
                                                 change: 'onChangeTOP'
                                             }
-                                        },{
+                                        }, {
                                             xtype: 'textfield',
                                             fieldLabel: 'Denominación OP',
+                                            bind: '{nombreOP}',
                                             readOnly: true
                                         }]
                                 }, {
@@ -77,6 +82,8 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                                     xtype: 'numberfield',
                                                     fieldLabel: 'Nro.',
                                                     maxLength: 3,
+                                                    bind: '{numeroOP}',
+                                                    minValue: 1,
                                                     width: 50
                                                 }, {
                                                     xtype: 'displayfield',
@@ -86,16 +93,17 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                                     xtype: 'numberfield',
                                                     fieldLabel: 'Año',
                                                     bind: {
-                                                        value: '{currentYear}'
+                                                        value: '{anioOP}'
                                                     },
                                                     editable: false,
                                                     maxLength: 2,
                                                     width: 45
                                                 }],
-                                        },{
+                                        }, {
                                             xtype: 'numberfield',
                                             name: 'nroChasis',
                                             fieldLabel: 'Nro. Chasis',
+                                            maxLength: 14,
                                             hideTrigger: true
                                         }]
                                 }, {
@@ -113,8 +121,8 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             editable: false,
                                             forceSelection: true
                                         }]
-                                },{
-                                    items:[{
+                                }, {
+                                    items: [{
                                             xtype: 'textfield',
                                             fieldLabel: 'Cliente',
                                             bind: {
@@ -145,7 +153,10 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                         }]
                                 }]
                         }, {
-                            title: 'Asignacion de contratistas'
+                            title: 'Asignacion de contratistas',
+                            items: [{
+                                    xtype: 'Wobracontratista'
+                                }]
                         }]
                 }],
             buttons: [{

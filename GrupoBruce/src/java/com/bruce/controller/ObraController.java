@@ -83,5 +83,15 @@ public class ObraController {
         map.put("message", msg);
         return map;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/llObra", method = RequestMethod.POST)
+    public Map<String, Object> last(@RequestParam(required = false, value = "idObrtip") String idObrtip) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("data", serv.llObra(idObrtip));
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
 
 }

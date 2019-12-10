@@ -25,6 +25,8 @@ public class Obra implements java.io.Serializable {
 
     private int idObra;
     private Date fecha;
+    private int numero;
+    private int anio;
     private String nombre;
     private String nroChasis;
     private Date fechaIngreso;
@@ -79,6 +81,24 @@ public class Obra implements java.io.Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    @Column(name = "NUMERO", nullable = false)
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    @Column(name = "ANIO", nullable = false)
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 
     @Temporal(TemporalType.DATE)

@@ -4,12 +4,19 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
 
     createDialog: function (record) {
         var window = new GrupoBruce.view.obra.FormObra();
+        var vmWindow = window.getViewModel();
+        var vmWindow2 = Ext.getCmp('id_wobracontratista').getViewModel();
+        
+        vmWindow2.set('newRegister', !record);
+        vmWindow.set('newRegister', !record);
         if (!record) {
             window.setTitle('Registrar orden de producción');
             record = new GrupoBruce.model.Obra();
+            record.set('idObra',0);
         }
+        vmWindow2.set('recordObra', record);
+        vmWindow.set('recordObra', record);
         window.down('form').loadRecord(record);
-        window.show();
     },
 
     addObra: function () {
@@ -62,19 +69,26 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
     },
 
     onChangeTOP: function (combo, newValue, oldValue, eOpts) {
+        var vm = this.getViewModel();
+        var numOP = 1;
         Ext.Ajax.request({
-            url: 'obras',
-            method: 'GET',
+            url: 'llObra',
+            method: 'POST',
             async: false,
-            params: {page: 1, start: 0, limit: 25, filters: "[{property: 'idObrtip', value: '" + newValue + "', operator: 'eq'}]"},
+            params: {idObrtip: newValue},
             success: function (response, opts) {
-                console.log(response);
+                var responseText = Ext.decode(response.responseText);
+                var op = responseText.data;
+                if (op !== null) {
+                    numOP = op.numero + 1;
+                }
             },
             failurer: function (response, opts) {
                 console.log('Error 2');
             }
         });
-        console.log('dale');
+        vm.set('numeroOP', numOP);
+        vm.set('anioOP', vm.get('currentYear'));
     }
 
 });

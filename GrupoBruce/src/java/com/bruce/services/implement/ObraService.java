@@ -119,5 +119,13 @@ public class ObraService implements IObraService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public Obra llObra(String idObrtip) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage("eq", "ID_OBRTIP", idObrtip));
+        return dao.lastByFilter(filters);
+    }
     
 }

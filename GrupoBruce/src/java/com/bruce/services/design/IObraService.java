@@ -12,5 +12,5 @@ import com.bruce.dao.to.Obra;
  * @author SISTEMAS
  */
 public interface IObraService extends IEntidadService<Obra>{
-    
+    public Obra llObra(String idObrtip);
 }
