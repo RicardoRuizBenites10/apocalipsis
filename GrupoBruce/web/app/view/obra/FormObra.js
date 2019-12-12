@@ -17,7 +17,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     autoShow: true,
     closable: false,
     resizable: false,
-    width: 370,
+    width: 400,
 
     tiltle: 'Editar orden de producción',
     items: [{
@@ -103,6 +103,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             xtype: 'numberfield',
                                             name: 'nroChasis',
                                             fieldLabel: 'Nro. Chasis',
+                                            allowBlank: true,
                                             maxLength: 14,
                                             hideTrigger: true
                                         }]
@@ -128,7 +129,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             bind: {
                                                 value: '{selectProforma.cliente}'
                                             },
-                                            flex: 1
+                                            width: 354
                                         }]
                                 }, {
                                     flex: 3,

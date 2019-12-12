@@ -59,7 +59,7 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ContratistaService implements IContratistaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "NOMBRE", "%" + query));
+                filters.add(new FilterPage("like", "NOMBRE", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ContratistaService.class.getName()).log(Level.SEVERE, null, ex);

@@ -29,7 +29,8 @@ Ext.define('GrupoBruce.view.obracontratista.ObraContratista', {
             width: 150
         }, {
             text: 'Contratista',
-            dataIndex: 'contratista'
+            dataIndex: 'contratista',
+            width: 220
         }],
 
     dockedItems: [{
