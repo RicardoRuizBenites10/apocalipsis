@@ -5,11 +5,14 @@
  */
 package com.bruce.dao.to;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
@@ -25,6 +28,7 @@ public class ObraContratista implements java.io.Serializable {
     private int idObra;
     private String idContratista;
     private String idEproceso;
+    private Date fecha;
 
     private String contratista;
     private String etapa;
@@ -59,6 +63,16 @@ public class ObraContratista implements java.io.Serializable {
 
     public void setIdEproceso(String idEproceso) {
         this.idEproceso = idEproceso;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA")
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     @Generated(GenerationTime.NEVER)

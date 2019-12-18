@@ -23,7 +23,7 @@ public class EstadoObra implements java.io.Serializable {
     private boolean xllegar;
     private boolean ejecucion;
     private boolean detenido;
-    private boolean finalizado;
+    private boolean terminado;
     private boolean entregadosto;
     private boolean entregadocli;
     private boolean situacion;
@@ -77,13 +77,13 @@ public class EstadoObra implements java.io.Serializable {
         this.detenido = detenido;
     }
 
-    @Column(name = "FINALIZADO", nullable = false)
-    public boolean isFinalizado() {
-        return finalizado;
+    @Column(name = "TERMINADO", nullable = false)
+    public boolean isTerminado() {
+        return terminado;
     }
 
-    public void setFinalizado(boolean finalizado) {
-        this.finalizado = finalizado;
+    public void setTerminado(boolean terminado) {
+        this.terminado = terminado;
     }
 
     @Column(name = "ENTREGADOSTO", nullable = false)

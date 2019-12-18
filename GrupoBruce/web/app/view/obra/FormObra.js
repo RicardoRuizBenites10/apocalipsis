@@ -19,7 +19,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     resizable: false,
     width: 400,
 
-    tiltle: 'Editar orden de producción',
+    title: 'Editar orden de producción',
     items: [{
             xtype: 'form',
             items: [{
@@ -43,7 +43,8 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             valueField: 'idObrtip',
                                             bind: {
                                                 store: '{obratipos}',
-                                                selection: '{selectObraTipo}'
+                                                selection: '{selectObraTipo}',
+                                                disabled: '{!newRegister}'
                                             },
                                             emptyText: 'Seleccionar',
                                             editable: false,
@@ -53,6 +54,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                             }
                                         }, {
                                             xtype: 'textfield',
+                                            name: 'nombre',
                                             fieldLabel: 'Denominación OP',
                                             bind: '{nombreOP}',
                                             readOnly: true
@@ -80,9 +82,13 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                                     margin: '30 5 0 5'
                                                 }, {
                                                     xtype: 'numberfield',
+                                                    name: 'numero',
+                                                    bind: {
+                                                        value: '{numeroOP}',
+                                                        readOnly: '{!newRegister}'
+                                                    },
                                                     fieldLabel: 'Nro.',
                                                     maxLength: 3,
-                                                    bind: '{numeroOP}',
                                                     minValue: 1,
                                                     width: 50
                                                 }, {
@@ -91,6 +97,7 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                                     margin: '30 5 0 5'
                                                 }, {
                                                     xtype: 'numberfield',
+                                                    name: 'anio',
                                                     fieldLabel: 'Año',
                                                     bind: {
                                                         value: '{anioOP}'
@@ -151,6 +158,21 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
                                                 value: '{fin_fecha}',
                                                 minValue: '{ini_fecha}'
                                             }
+                                        }]
+                                }, {
+                                    items: [{
+                                            xtype: 'combo',
+                                            name: 'idEobra',
+                                            fieldLabel: 'Situación',
+                                            valueField: 'idEobra',
+                                            displayField: 'nombre',
+                                            bind: {
+                                                store: '{estadoobras}',
+                                                selection: '{selectEstadoObra}'
+                                            },
+                                            emptyText: 'Seleccionar',
+                                            editable: false,
+                                            forceSelection: true
                                         }]
                                 }]
                         }, {

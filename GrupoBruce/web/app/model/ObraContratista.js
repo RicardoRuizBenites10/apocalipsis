@@ -4,11 +4,12 @@ Ext.define('GrupoBruce.model.ObraContratista', {
 
     idProperty: 'idContratista',
     fields: [
-        { name: 'contratista', type: 'string' },
-        { name: 'etapa', type: 'string' },
-        { name: 'idContratista', type: 'string' },
-        { name: 'idEproceso', type: 'string' },
-        { name: 'idObra', type: 'int' }
+        {name: 'contratista', type: 'string'},
+        {name: 'etapa', type: 'string'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
+        {name: 'idContratista', type: 'string'},
+        {name: 'idEproceso', type: 'string'},
+        {name: 'idObra', type: 'int'}
     ],
 
     proxy: {

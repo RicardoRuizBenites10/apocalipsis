@@ -11,16 +11,32 @@ Ext.define('GrupoBruce.view.obra.ListObra', {
     allowDeselect: true,
 
     columns: [{
-            text: 'Tipo'
+            text: 'Tipo',
+            dataIndex: 'tipo'
         }, {
-            text: 'Nombre'
+            text: 'Nombre',
+            dataIndex: 'nombre'
         }, {
             text: 'Cliente',
-            width: 300
+            dataIndex: 'cliente',
+            width: 270
         }, {
-            text: 'Inicio'
+            text: 'Inicio',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaIngreso',
+            align: 'center'
         }, {
-            text: 'Fin'
+            text: 'Fin',
+            formatter: 'date("d/m/Y")',
+            dataIndex: 'fechaSalida',
+            align: 'center'
+        },{
+            text: 'Pintura',
+            dataIndex: 'gopintura',
+            renderer: function(value){
+                return value ? 'Go' : '-';
+            },
+            align: 'center'
         }],
 
     dockedItems: [{
@@ -50,6 +66,11 @@ Ext.define('GrupoBruce.view.obra.ListObra', {
                         disabled: '{!selectObra}'
                     },
                     handler: 'deleteObra'
+                },'-',{
+                    text: 'Referente a Pintura',
+                    bind: {
+                        disabled: '{!selectObra}'
+                    },
                 }]
         }, {
             xtype: 'pagingtoolbar',

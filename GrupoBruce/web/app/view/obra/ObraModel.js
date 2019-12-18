@@ -17,6 +17,14 @@ Ext.define('GrupoBruce.view.obra.ObraModel', {
         proformas: {
             type: 'Sproforma',
             autoLoad: true
+        },
+        estadoobras: {
+            type: 'Sestadoobra',
+            autoLoad: true
+        },
+        obras: {
+            type: 'Sobra',
+            autoLoad: true
         }
     },
 

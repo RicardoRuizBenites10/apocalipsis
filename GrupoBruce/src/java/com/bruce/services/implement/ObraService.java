@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ObraService implements IObraService{
+public class ObraService implements IObraService {
     
     @Autowired
     private IObraDAO dao;
@@ -34,21 +34,24 @@ public class ObraService implements IObraService{
     @Override
     @Transactional
     public void insert(Obra t) {
+        Obra last = dao.lastByFilter(new ArrayList<>());
+        int idLast = last != null ? last.getIdObra() : 0;
+        t.setIdObra(idLast + 1);
         dao.create(t);
     }
-
+    
     @Override
     @Transactional
     public void update(Obra t) {
         dao.update(t);
     }
-
+    
     @Override
     @Transactional
     public void delete(Obra t) {
         dao.delete(t);
     }
-
+    
     @Override
     @Transactional
     public int countByFilter(String filter, String query) {
@@ -66,13 +69,13 @@ public class ObraService implements IObraService{
         }
         return dao.countByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public Obra find(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public Obra lastByFilter(String filter, String query) {
@@ -90,13 +93,13 @@ public class ObraService implements IObraService{
         }
         return dao.lastByFilter(filters);
     }
-
+    
     @Override
     @Transactional
     public List<Obra> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     @Transactional
     public List<Obra> getByFilter(int start, int limit, String sort, String filter, String query) {
@@ -119,12 +122,12 @@ public class ObraService implements IObraService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-
+    
     @Override
     @Transactional
-    public Obra llObra(String idObrtip) {
+    public Obra llObra(String property, String operator, Object value) {
         List<FilterPage> filters = new ArrayList<>();
-        filters.add(new FilterPage("eq", "ID_OBRTIP", idObrtip));
+        filters.add(new FilterPage(operator, property, value));
         return dao.lastByFilter(filters);
     }
     

@@ -34,6 +34,7 @@ Ext.define('GrupoBruce.view.obracontratista.ObraContratistaController', {
             form.updateRecord(model); // update the record with the form data
             model.set('contratista', window.getViewModel().get('selectContratista').get('nombre'));
             model.set('etapa', window.getViewModel().get('selectEtapa').get('descripcion'));
+            model.set('fecha', new Date());
 
             store.each(function (item) {
                 if (item.get('idEproceso') === model.get('idEproceso')) {
