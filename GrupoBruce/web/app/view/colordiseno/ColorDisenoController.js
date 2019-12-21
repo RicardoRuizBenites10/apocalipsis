@@ -1,68 +1,53 @@
-Ext.define('GrupoBruce.view.obra.ObraController', {
+Ext.define('GrupoBruce.view.colordiseno.ColorDisenoController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Cobra',
+    alias: 'controller.Ccolordiseno',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.obra.FormObra();
+        var window = new GrupoBruce.view.colordiseno.FormColorDiseno();
         var vmWindow = window.getViewModel();
-        var vmWindow2 = Ext.getCmp('id_wobracontratista').getViewModel();
+        var vmWindow2 = Ext.getCmp('id_wcolorformula').getViewModel();
 
         vmWindow2.set('newRegister', !record);
         vmWindow.set('newRegister', !record);
         if (!record) {
-            window.setTitle('Registrar orden de producción');
-            record = new GrupoBruce.model.Obra();
-            record.set('idObra', 0);
+            window.setTitle('Registrar colores de diseños');
+            record = new GrupoBruce.model.ColorDiseno();
+            record.set('idCdiseno', 0);
         }
-        vmWindow2.set('recordObra', record);
-        vmWindow.set('recordObra', record);
+        vmWindow2.set('recordColorDiseno', record);
+        vmWindow.set('recordColorDiseno', record);
         window.down('form').loadRecord(record);
     },
 
-    addObra: function () {
+    addColorDiseno: function () {
         this.createDialog(null);
     },
 
-    editObra: function () {
-        var model = this.getViewModel().get('selectObra');
+    editColorDiseno: function () {
+        var model = this.getViewModel().get('selectColorDiseno');
         this.createDialog(model);
     },
 
-    onSaveObra: function (btn) {
+    onSaveColorDiseno: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistobra');
-        var grid2 = Ext.getCmp('id_wobracontratista');
+        var grid = Ext.getCmp('id_wlistcolordiseno');
+        var grid2 = Ext.getCmp('id_wcolorformula');
         var model = form.getRecord();
         var windowVM = window.getViewModel();
         var nuevo = windowVM.get('newRegister'), exit = false;
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
             var usalist2 = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
-            model.set('idUsuario', loggedIn.idUsuario);
-            model.set('hascontratista', usalist2);
-            Ext.Ajax.request({
-                url: 'llObra',
-                method: 'POST',
-                async: false,
-                params: {property: 'NOMBRE', operator: 'eq', value: model.get('nombre')},
-                success: function (response, opts) {
-                    var responseText = Ext.decode(response.responseText);
-                    var op = responseText.data;
-                    exit = op !== null;
-                },
-                failurer: function (response, opts) {
-                    console.log('Error 2');
-                }
-            });
-            if (!exit) {
+//            model.set('hascontratista', usalist2);
+            model.set('fecha', new Date());
+            if (windowVM.get('lastColorDiseno').getCount() === 0 || !nuevo) {
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         if (nuevo) {
                             grid2.getStore().each(function (item) {
-                                item.set('idObra', model.get('idObra'));
+                                item.set('idCdiseno', model.get('idCdiseno'));
                             });
                         }
                         if (usalist2) { //nuevo && usamat
@@ -106,10 +91,10 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
                         Ext.Msg.alert('Failure', 'Operacion fallada.')
                     }
                 });
-            }else{
+            } else {
                 Ext.Msg.show({
                     title: 'Error',
-                    msg: 'El número de OP ya existe.',
+                    msg: 'El código ingresado ya existe.',
                     icon: Ext.Msg.ERROR,
                     botones: Ext.Msg.OK
                 });
@@ -120,8 +105,8 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
 
     },
 
-    deleteObra: function () {
-        var grid = this.lookupReference('list_obra');
+    deleteColorDiseno: function () {
+        var grid = this.lookupReference('list_colordiseno');
         var model = grid.getSelection()[0];
         model.erase({
             success: function (response, operation) {
@@ -132,31 +117,6 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
                 Ext.Msg.alert('Failure', 'Operacion fallada.')
             }
         });
-    },
-
-    onChangeTOP: function (combo, newValue, oldValue, eOpts) {
-        var vm = this.getViewModel();
-        if (vm.get('newRegister')) {
-            var numOP = 1;
-            Ext.Ajax.request({
-                url: 'llObra',
-                method: 'POST',
-                async: false,
-                params: {property: 'ID_OBRTIP', operator: 'eq', value: newValue},
-                success: function (response, opts) {
-                    var responseText = Ext.decode(response.responseText);
-                    var op = responseText.data;
-                    if (op !== null) {
-                        numOP = op.numero + 1;
-                    }
-                },
-                failurer: function (response, opts) {
-                    console.log('Error 2');
-                }
-            });
-            vm.set('numeroOP', numOP);
-            vm.set('anioOP', vm.get('currentYear'));
-        }
     }
 
 });

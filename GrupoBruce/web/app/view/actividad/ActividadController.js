@@ -42,10 +42,11 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
             var situacion = this.lookupReference('chk_situacionactividad').checked, usamat = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
+            var selectEP = windowVM.get('selectEtapaProceso');
             model.set('idUsuario', loggedIn.idUsuario);
             model.set('usaMaterial', usamat);
             model.set('situacion', situacion);
-            model.set('idEproceso', windowVM.get('selectEtapaProceso').get('idEproceso'));
+            model.set('idEproceso', selectEP !== null ? selectEP.get('idEproceso') : model.get('idEproceso'));
 
             model.save({// save the record to the server
                 success: function (model, operation) {

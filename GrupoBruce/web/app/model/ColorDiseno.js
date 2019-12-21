@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.ColorDiseno', {
     idProperty: 'idCdiseno',
     fields: [
         { name: 'denominacion', type: 'string' },
-        { name: 'fecha', type: 'date' },
+        { name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         { name: 'idCdiseno', type: 'string' }
     ],
 

@@ -52,12 +52,12 @@ public class ColorFormulaDAO implements IColorFormulaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("COLOR_FORMULA", "CF");
         reverse.addResult("CF.ID_CDISENO");
-        reverse.addResult("CF.ID_MATERIA");
+        reverse.addResult("CF.ID_MATERIAL");
         reverse.addResult("CF.CANTIDAD");
         reverse.addResult("CD.DENOMINACION COLORDISENO");
         reverse.addResult("M.NOMBRE MATERIAL");
         reverse.addJoin("INNER JOIN COLOR_DISENO CD", "CF.ID_CDISENO=CD.ID_CDISENO");
-        reverse.addJoin("INNER JOIN MATERIAL M", "CF.ID_MATERIAL=M.ID_MATERIAL AND M.ID_SUCURSAL= :M.ID_SUCURSAL");
+        reverse.addJoin("INNER JOIN MATERIAL M", "CF.ID_MATERIAL=M.ID_MATERIAL AND M.ID_EMPRESA= :M.ID_EMPRESA AND M.ID_SUCURSAL= :M.ID_SUCURSAL");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_CDISENO", "DESC"));
         reverse.setPagination(0, 1);
@@ -83,12 +83,12 @@ public class ColorFormulaDAO implements IColorFormulaDAO {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("COLOR_FORMULA", "CF");
         reverse.addResult("CF.ID_CDISENO");
-        reverse.addResult("CF.ID_MATERIA");
+        reverse.addResult("CF.ID_MATERIAL");
         reverse.addResult("CF.CANTIDAD");
         reverse.addResult("CD.DENOMINACION COLORDISENO");
         reverse.addResult("M.NOMBRE MATERIAL");
         reverse.addJoin("INNER JOIN COLOR_DISENO CD", "CF.ID_CDISENO=CD.ID_CDISENO");
-        reverse.addJoin("INNER JOIN MATERIAL M", "CF.ID_MATERIAL=M.ID_MATERIAL AND M.ID_SUCURSAL= :M.ID_SUCURSAL");
+        reverse.addJoin("INNER JOIN MATERIAL M", "CF.ID_MATERIAL=M.ID_MATERIAL AND M.ID_EMPRESA= :M.ID_EMPRESA AND M.ID_SUCURSAL= :M.ID_SUCURSAL");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -106,6 +106,8 @@ public class ColorFormulaDAO implements IColorFormulaDAO {
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("COLOR_FORMULA", "CF");
+        reverse.addJoin("INNER JOIN COLOR_DISENO CD", "CF.ID_CDISENO=CD.ID_CDISENO");
+        reverse.addJoin("INNER JOIN MATERIAL M", "CF.ID_MATERIAL=M.ID_MATERIAL AND M.ID_EMPRESA= :M.ID_EMPRESA AND M.ID_SUCURSAL= :M.ID_SUCURSAL");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {

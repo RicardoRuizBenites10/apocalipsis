@@ -7,6 +7,9 @@ Ext.define('GrupoBruce.store.Proforma', {
     remoteFilter: true,
 
     sorters: [{
+            property: 'ID_PROFORMA',
+            direction: 'ASC'
+        }, {
             property: 'FECHA_UPDATE',
             direction: 'DESC'
         }]

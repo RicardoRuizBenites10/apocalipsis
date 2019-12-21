@@ -17,7 +17,9 @@ Ext.define('GrupoBruce.view.obra.FormObra', {
     autoShow: true,
     closable: false,
     resizable: false,
+    scrollable: true,
     width: 400,
+    maxHeight: Ext.getBody().getViewSize().height * 0.8,
 
     title: 'Editar orden de producción',
     items: [{

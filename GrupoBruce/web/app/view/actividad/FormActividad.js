@@ -82,6 +82,7 @@ Ext.define('GrupoBruce.view.actividad.FormActividad', {
                                             fieldLabel: 'Duración',
                                             minValue: 0,
                                             hideTrigger: true,
+                                            decimalPrecision: 5,
                                             width: '48%'
                                         }, {
                                             xtype: 'checkbox',
