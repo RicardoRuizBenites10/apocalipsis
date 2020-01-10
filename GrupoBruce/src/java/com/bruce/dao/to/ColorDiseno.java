@@ -24,6 +24,7 @@ public class ColorDiseno implements java.io.Serializable{
     private String idCdiseno;
     private Date fecha;
     private String denominacion;
+    private boolean hasformula;
 
     public ColorDiseno() {
     }
@@ -55,5 +56,14 @@ public class ColorDiseno implements java.io.Serializable{
 
     public void setDenominacion(String denominacion) {
         this.denominacion = denominacion;
+    }
+
+    @Column(name = "HASFORMULA", nullable = false)
+    public boolean isHasformula() {
+        return hasformula;
+    }
+
+    public void setHasformula(boolean hasformula) {
+        this.hasformula = hasformula;
     }
 }

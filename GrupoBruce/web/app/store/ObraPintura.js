@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.store.ObraPintura',{
     remoteFilter: true,
     
     sorters: [{
-            property: 'COLORDISENO',
+            property: '-COLORDISENO',
             direction: 'ASC'
     }]
 });

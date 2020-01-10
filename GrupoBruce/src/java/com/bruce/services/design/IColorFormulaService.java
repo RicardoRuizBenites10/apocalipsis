@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.ColorFormula;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IColorFormulaService extends IEntidadService<ColorFormula>{
-    
+    public void changeLColorFormula(List<ColorFormula> cf);
+    public void deleteLColorFormula(List<ColorFormula> cf);
 }

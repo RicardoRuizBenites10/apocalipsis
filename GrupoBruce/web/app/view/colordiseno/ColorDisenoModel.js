@@ -12,21 +12,6 @@ Ext.define('GrupoBruce.view.colordiseno.ColorDisenoModel', {
             type: 'Scolordiseno',
             autoLoad: true
         },
-        colorformulas: {
-            type: 'Scolorformula',
-            autoLoad: true,
-            filters: [{
-                    property: 'M.ID_EMPRESA',
-                    operator: 'eq',
-                    inWhere: false,
-                    value: '{idEmpresa}'
-                }, {
-                    property: 'M.ID_SUCURSAL',
-                    operator: 'eq',
-                    inWhere: false,
-                    value: '{idSucursal}'
-                }]
-        },
         lastColorDiseno: {
             type: 'Scolordiseno',
             loading: true,
@@ -36,18 +21,6 @@ Ext.define('GrupoBruce.view.colordiseno.ColorDisenoModel', {
                     operator: 'eq',
                     value: '{idCdiseno}'
                 }]
-        }
-    },
-
-    formulas: {
-        idEmpresa: function (get) {
-            var modMain = Ext.getCmp('id_wmain').getViewModel();
-            return modMain.get('selectEmpresa').get('idEmpresa');
-        },
-
-        idSucursal: function (get) {
-            var modMain = Ext.getCmp('id_wmain').getViewModel();
-            return modMain.get('selectSucursal').get('idSucursal');
         }
     }
 

@@ -59,7 +59,7 @@ public class ColorDisenoService implements IColorDisenoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ColorDisenoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class ColorDisenoService implements IColorDisenoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ColorDisenoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ColorDisenoService implements IColorDisenoService {
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "denominacion", "%" + query));
+                filters.add(new FilterPage("like", "denominacion", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ColorDisenoService.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,4 +120,11 @@ public class ColorDisenoService implements IColorDisenoService {
         return dao.getByFilter(start, limit, sorts, filters);
     }
 
+    @Override
+    @Transactional
+    public ColorDiseno llColorDiseno(String property, String operator, Object value) {
+        List<FilterPage> filters = new ArrayList<>();
+        filters.add(new FilterPage(operator, property, value));
+        return dao.lastByFilter(filters);
+    }
 }

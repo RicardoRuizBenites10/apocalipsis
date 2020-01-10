@@ -15,10 +15,10 @@ Ext.define('GrupoBruce.model.ColorFormula', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiColorFormula',
+            create: 'iiLColorFormula',
             read: 'colorFormulas',
-            update: 'uuColorFormula',
-            destroy: 'ddColorFormula'
+            update: 'uuLColorFormula',
+            destroy: 'ddLColorFormula'
         },
         reader: {
             type: 'json',
@@ -27,6 +27,7 @@ Ext.define('GrupoBruce.model.ColorFormula', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

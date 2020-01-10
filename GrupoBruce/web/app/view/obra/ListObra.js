@@ -67,10 +67,12 @@ Ext.define('GrupoBruce.view.obra.ListObra', {
                     },
                     handler: 'deleteObra'
                 },'-',{
-                    text: 'Referente a Pintura',
+                    iconCls: 'x-fa fa-paint-brush',
+                    text: 'Colores / Diseño',
                     bind: {
                         disabled: '{!selectObra}'
                     },
+                    handler: 'onObraPintura'
                 }]
         }, {
             xtype: 'pagingtoolbar',

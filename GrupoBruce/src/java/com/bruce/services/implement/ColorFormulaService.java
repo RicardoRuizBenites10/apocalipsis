@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author SISTEMAS
  */
 @Service
-public class ColorFormulaService implements IColorFormulaService{
+public class ColorFormulaService implements IColorFormulaService {
 
     @Autowired
     private IColorFormulaDAO dao;
-    
+
     @Override
     @Transactional
     public void insert(ColorFormula t) {
@@ -59,7 +59,7 @@ public class ColorFormulaService implements IColorFormulaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "modelo", "%" + query));
+                filters.add(new FilterPage("like", "-MATERIAL", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class ColorFormulaService implements IColorFormulaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "CD.DENOMINACION", "%" + query));
+                filters.add(new FilterPage("like", "-MATERIAL", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,12 +112,28 @@ public class ColorFormulaService implements IColorFormulaService{
                 filters = mapper.readValue(filter, new TypeReference<List<FilterPage>>() {
                 });
             } else if (query != null) {
-                filters.add(new FilterPage("like", "CD.DENOMINACION", "%" + query));
+                filters.add(new FilterPage("like", "-MATERIAL", "%" + query + "%"));
             }
         } catch (IOException ex) {
             Logger.getLogger(ChasisService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
-    
+
+    @Override
+    @Transactional
+    public void changeLColorFormula(List<ColorFormula> cf) {
+        cf.forEach(item -> {
+            dao.update(item);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteLColorFormula(List<ColorFormula> cf) {
+        cf.forEach(item -> {
+            dao.delete(item);
+        });
+    }
+
 }

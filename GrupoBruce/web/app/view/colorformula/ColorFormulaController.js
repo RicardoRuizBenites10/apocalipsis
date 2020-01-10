@@ -8,8 +8,8 @@ Ext.define('GrupoBruce.view.colorformula.ColorFormulaController', {
         if (!record) {
             window.setTitle('Agregar fórmula');
             record = new GrupoBruce.model.ColorFormula();
-            record.set('idMaterial', 0);
             record.set('idCdiseno', vmGrid.get('recordColorDiseno').get('idCdiseno'));
+            record.set('idMaterial', 0);
         }
         window.down('form').loadRecord(record);
         window.show();

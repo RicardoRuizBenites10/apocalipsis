@@ -23,6 +23,25 @@ Ext.define('GrupoBruce.view.colorformula.ColorFormulaModel', {
                     operator: 'nin',
                     value: '{nomaterial}'
                 }]
+        },
+        colorformulas: {
+            type: 'Scolorformula',
+            autoLoad: true,
+            filters: [{
+                    property: 'M.ID_EMPRESA',
+                    operator: 'eq',
+                    inWhere: false,
+                    value: '{idEmpresa}'
+                }, {
+                    property: 'M.ID_SUCURSAL',
+                    operator: 'eq',
+                    inWhere: false,
+                    value: '{idSucursal}'
+                }, {
+                    property: 'ID_CDISENO',
+                    operator: 'eq',
+                    value: '{recordColorDiseno.idCdiseno}'
+                }]
         }
     },
 
@@ -36,7 +55,7 @@ Ext.define('GrupoBruce.view.colorformula.ColorFormulaModel', {
             var modMain = Ext.getCmp('id_wmain').getViewModel();
             return modMain.get('selectSucursal').get('idSucursal');
         },
-        
+
         nomaterial: function (get) {
             var store = Ext.getCmp('id_wcolorformula').getStore();
             var nm = [];

@@ -4,9 +4,10 @@ Ext.define('GrupoBruce.model.ColorDiseno', {
 
     idProperty: 'idCdiseno',
     fields: [
-        { name: 'denominacion', type: 'string' },
-        { name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
-        { name: 'idCdiseno', type: 'string' }
+        {name: 'denominacion', type: 'string'},
+        {name: 'fecha', type: 'date', dateFormat: 'c', defaultValue: new Date()},
+        {name: 'idCdiseno', type: 'string'},
+        {name: 'hasformula', type: 'boolean'}
     ],
 
     identifier: 'sequential',

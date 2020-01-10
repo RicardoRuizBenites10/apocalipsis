@@ -1,62 +1,46 @@
-Ext.define('GrupoBruce.view.actividad.ActividadController', {
+Ext.define('GrupoBruce.view.obrapintura.ObraPinturaController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Cactividad',
+    alias: 'controller.Cobrapintura',
 
     createDialog: function (record) {
-        var window = new GrupoBruce.view.actividad.FormActividad();
-        var vmWindow = window.getViewModel();
-        var vmWindow2 = Ext.getCmp('id_wactividadmaterial').getViewModel();
-
-        vmWindow2.set('newRegister', !record);
-        vmWindow.set('newRegister', !record);
+        var window = new GrupoBruce.view.obrapintura.FormObraPintura();
+        var vmGrid = this.getViewModel();
         if (!record) {
-            window.setTitle('Registrar actividad');
-            record = new GrupoBruce.model.Actividad();
-            record.set('idActividad', 0);
+            window.setTitle('Agregar color a orden de producción');
+            record = new GrupoBruce.model.ObraPintura();
+            record.set('idObra', vmGrid.get('recordObra').get('idObra'));
+            record.set('idCdiseno', '');
         }
-        vmWindow2.set('recordActividad', record);
-        vmWindow.set('recordActividad', record);
         window.down('form').loadRecord(record);
         window.show();
     },
 
-    addActividad: function () {
+    addObraPintura: function () {
         this.createDialog(null);
     },
 
-    editActividad: function () {
-        var model = this.getViewModel().get('selectActividad');
+    editObraPintura: function () {
+        var model = this.getViewModel().get('selectObraPintura');
         this.createDialog(model);
     },
 
-    onSaveActividad: function (btn) {
+    onSaveObra2: function (btn) {
         var form = btn.up('form');
         var window = btn.up('window');
-        var grid = Ext.getCmp('id_wlistactividad');
+        var grid = Ext.getCmp('id_wlistobra');
+        var windowVM2 = window.getViewModel();
+        var store2 = windowVM2.get('obrapinturas');
         var model = form.getRecord();
-        var windowVM = window.getViewModel();
-        var windowVM2 = Ext.getCmp('id_wactividadmaterial').getViewModel();
-        var store2 = windowVM2.get('actividadmaterials');
-        var nuevo = windowVM.get('newRegister');
-        var selectEP = windowVM.get('selectEtapaProceso');
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionactividad').checked;
-            model.set('idUsuario', loggedIn.idUsuario);
-            model.set('usaMaterial', store2.count() > 0);
-            model.set('situacion', situacion);
-            model.set('idEproceso', selectEP !== null ? selectEP.get('idEproceso') : model.get('idEproceso'));
 
+            var gopintura = this.lookupReference('chk_gopintura').checked;
+            model.set('gopintura', gopintura);
+            //console.log(usamat);
             model.save({// save the record to the server
                 success: function (model, operation) {
-                    if (nuevo) {
-                        store2.each(function (item) {
-                            item.set('idActividad', model.get('idActividad'));
-                        });
-                    }
-                    if (store2.needsSync !== undefined && store2.needsSync) {
+                    if (store2.needsSync !== undefined && store2.needsSync) { 
                         store2.sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
@@ -65,7 +49,6 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
                                 Ext.Msg.alert('Success', 'Operación exitosa.');
                             },
                             failure: function (batch, operation) {
-                                model.erase();
                                 var msg = '';
                                 if (batch.hasException) {
                                     for (var i = 0; i < batch.exceptions.length; i++) {
@@ -102,18 +85,38 @@ Ext.define('GrupoBruce.view.actividad.ActividadController', {
         }
     },
 
-    deleteActividad: function () {
-        var grid = this.lookupReference('list_actividad');
+    onSaveObraPintura: function (btn) {
+        var form = btn.up('form');
+        var window = btn.up('window');
+        var grid = Ext.getCmp('id_wlistobrapintura');
+        var model = form.getRecord();
+
+        if (form.isValid()) { // make sure the form contains valid data before submitting
+            var store = grid.getStore();
+            form.updateRecord(model); // update the record with the form data
+            model.set('colordiseno', window.getViewModel().get('selectColorDiseno').get('denominacion'));
+            model.set('fecha', new Date());
+            store.add(model);
+
+            var removedRecords = store.getRemovedRecords();
+            removedRecords.forEach(function (item, index) {
+                if (model.get('idCdiseno') === item.get('idCdiseno')) {
+                    removedRecords.splice(index, 1);
+                }
+            });
+            store.removed = removedRecords;
+
+            form.reset();
+            window.destroy();
+        } else { // display error alert if the data is invalid
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.');
+        }
+    },
+
+    deleteObraPintura: function () {
+        var grid = Ext.getCmp('id_wlistobrapintura');
         var model = grid.getSelection()[0];
-        model.erase({
-            success: function (response, operation) {
-                grid.getStore().reload();
-                Ext.Msg.alert('Success', 'Eliminación exitosa.');
-            },
-            failure: function (response, operation) {
-                Ext.Msg.alert('Failure', 'Operacion fallada.')
-            }
-        });
+        grid.getStore().remove(model);
     }
 
 });

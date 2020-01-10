@@ -34,7 +34,7 @@ public class ColorFormulaDAO implements IColorFormulaDAO {
 
     @Override
     public void update(ColorFormula t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

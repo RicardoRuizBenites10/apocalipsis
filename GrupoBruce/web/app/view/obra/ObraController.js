@@ -32,17 +32,17 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
         var form = btn.up('form');
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wlistobra');
-        var grid2 = Ext.getCmp('id_wobracontratista');
         var model = form.getRecord();
-        var windowVM = window.getViewModel();
-        var nuevo = windowVM.get('newRegister'), exit = false;
+        var windowVM2 = Ext.getCmp('id_wobracontratista').getViewModel();
+        var store2 = windowVM2.get('obracontratistas');
+        var nuevo = windowVM2.get('newRegister'), exit = false;
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var usalist2 = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
             model.set('idUsuario', loggedIn.idUsuario);
-            model.set('hascontratista', usalist2);
+            model.set('hascontratista', store2.count() > 0);
+
             Ext.Ajax.request({
                 url: 'llObra',
                 method: 'POST',
@@ -50,23 +50,23 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
                 params: {property: 'NOMBRE', operator: 'eq', value: model.get('nombre')},
                 success: function (response, opts) {
                     var responseText = Ext.decode(response.responseText);
-                    var op = responseText.data;
-                    exit = op !== null;
+                    exit = responseText.data !== null;
                 },
                 failurer: function (response, opts) {
                     console.log('Error 2');
                 }
             });
-            if (!exit) {
+
+            if ((nuevo && !exit) || (!nuevo && exit)) {
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         if (nuevo) {
-                            grid2.getStore().each(function (item) {
+                            store2.each(function (item) {
                                 item.set('idObra', model.get('idObra'));
                             });
                         }
-                        if (usalist2) { //nuevo && usamat
-                            grid2.getStore().sync({
+                        if (store2.needsSync !== undefined && store2.needsSync) {
+                            store2.sync({
                                 success: function (response, operation) {
                                     grid.getStore().reload();
                                     form.reset();
@@ -106,7 +106,7 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
                         Ext.Msg.alert('Failure', 'Operacion fallada.')
                     }
                 });
-            }else{
+            } else {
                 Ext.Msg.show({
                     title: 'Error',
                     msg: 'El número de OP ya existe.',
@@ -157,6 +157,17 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
             vm.set('numeroOP', numOP);
             vm.set('anioOP', vm.get('currentYear'));
         }
-    }
+    },
 
+    createWindow: function (view) {
+        var grid = this.lookupReference('list_obra');
+        var record = grid.getSelection()[0];
+        var window = Ext.create(view);
+        window.getViewModel().set('recordObra', record);
+        window.down('form').loadRecord(record);
+    },
+
+    onObraPintura: function () {
+        this.createWindow('GrupoBruce.view.obrapintura.ObraPintura');
+    }
 });

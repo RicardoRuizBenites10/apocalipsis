@@ -12,7 +12,8 @@ Ext.define('GrupoBruce.view.colordiseno.ColorDisenoController', {
         if (!record) {
             window.setTitle('Registrar colores de diseños');
             record = new GrupoBruce.model.ColorDiseno();
-            record.set('idCdiseno', 0);
+            record.set('idCdiseno', '');
+            vmWindow.set('idCdiseno', '');
         }
         vmWindow2.set('recordColorDiseno', record);
         vmWindow.set('recordColorDiseno', record);
@@ -32,26 +33,41 @@ Ext.define('GrupoBruce.view.colordiseno.ColorDisenoController', {
         var form = btn.up('form');
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wlistcolordiseno');
-        var grid2 = Ext.getCmp('id_wcolorformula');
         var model = form.getRecord();
         var windowVM = window.getViewModel();
+        var windowVM2 = Ext.getCmp('id_wcolorformula').getViewModel();
+        var store2 = windowVM2.get('colorformulas');
         var nuevo = windowVM.get('newRegister'), exit = false;
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            var usalist2 = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
-//            model.set('hascontratista', usalist2);
             model.set('fecha', new Date());
-            if (windowVM.get('lastColorDiseno').getCount() === 0 || !nuevo) {
+            model.set('hasformula', store2.count() > 0);
+            
+            Ext.Ajax.request({
+                url: 'llColorDiseno',
+                method: 'POST',
+                async: false,
+                params: {property: 'idCdiseno', operator: 'eq', value: model.get('idCdiseno')},
+                success: function (response, opts) {
+                    var responseText = Ext.decode(response.responseText);
+                    exit = responseText.data !== null;
+                },
+                failurer: function (response, opts) {
+                    console.log('Error 2');
+                }
+            });
+            
+            if ((nuevo && !exit) || (!nuevo && exit)) {
                 model.save({// save the record to the server
                     success: function (model, operation) {
                         if (nuevo) {
-                            grid2.getStore().each(function (item) {
+                            store2.each(function (item) {
                                 item.set('idCdiseno', model.get('idCdiseno'));
                             });
                         }
-                        if (usalist2) { //nuevo && usamat
-                            grid2.getStore().sync({
+                        if (store2.needsSync !== undefined && store2.needsSync) {
+                            store2.sync({
                                 success: function (response, operation) {
                                     grid.getStore().reload();
                                     form.reset();

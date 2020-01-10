@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.ColorFormula;
 import com.bruce.services.design.IColorFormulaService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,10 +57,32 @@ public class ColorFormulaController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/iiLColorFormula", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<ColorFormula> colorFormula) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLColorFormula(colorFormula);
+        map.put("success", true);
+        map.put("data", colorFormula);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/uuColorFormula", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody ColorFormula colorFormula) {
         Map<String, Object> map = new HashMap<>();
         serv.update(colorFormula);
+        map.put("success", true);
+        map.put("data", colorFormula);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/uuLColorFormula", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<ColorFormula> colorFormula) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLColorFormula(colorFormula);
         map.put("success", true);
         map.put("data", colorFormula);
         map.put("message", "Actualización exitosa.");
@@ -74,6 +97,24 @@ public class ColorFormulaController {
         String msg = "Operacion exitosa";
         try {
             serv.delete(colorFormula);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", colorFormula);
+        map.put("message", msg);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddLColorFormula", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<ColorFormula> colorFormula) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            serv.deleteLColorFormula(colorFormula);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();

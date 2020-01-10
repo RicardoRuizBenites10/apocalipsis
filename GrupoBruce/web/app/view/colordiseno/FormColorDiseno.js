@@ -42,8 +42,12 @@ Ext.define('GrupoBruce.view.colordiseno.FormColorDiseno', {
                                             xtype: 'textfield',
                                             name: 'idCdiseno',
                                             fieldLabel: 'Código de color',
-                                            bind: '{idCdiseno}',
-                                            maxSize: 8,
+                                            bind: {
+                                                value: '{idCdiseno}',
+                                                readOnly: '{!newRegister}'
+                                            },
+                                            minLength: 5,
+                                            maxLength: 8,
                                             flex: 1
                                         }]
                                 }, {

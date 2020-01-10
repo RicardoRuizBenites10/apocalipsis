@@ -6,7 +6,9 @@ Ext.define('GrupoBruce.view.obra.Obra', {
         'GrupoBruce.view.obra.ObraModel',
         
         'GrupoBruce.view.obra.ListObra',
-        'GrupoBruce.view.obra.FormObra'
+        'GrupoBruce.view.obra.FormObra',
+        
+        'GrupoBruce.view.obrapintura.ObraPintura'
     ],
 
     controller: 'Cobra',

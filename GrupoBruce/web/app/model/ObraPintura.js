@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.ObraPintura', {
     idProperty: 'idCdiseno',
     fields: [
         {name: 'colordiseno', type: 'string'},
-        {name: 'fecha', type: 'date'},
+        {name: 'fecha', type: 'date', valueFormat: 'c'},
         {name: 'idCdiseno', type: 'string'},
         {name: 'idObra', type: 'int'}
     ],
