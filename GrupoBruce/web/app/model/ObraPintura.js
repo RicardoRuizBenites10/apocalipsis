@@ -5,7 +5,7 @@ Ext.define('GrupoBruce.model.ObraPintura', {
     idProperty: 'idCdiseno',
     fields: [
         {name: 'colordiseno', type: 'string'},
-        {name: 'fecha', type: 'date', valueFormat: 'c'},
+        {name: 'fecha', type: 'date', dateFormat: 'c'},
         {name: 'idCdiseno', type: 'string'},
         {name: 'idObra', type: 'int'}
     ],
@@ -13,10 +13,10 @@ Ext.define('GrupoBruce.model.ObraPintura', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiObraPintura',
+            create: 'iiLObraPintura',
             read: 'obraPinturas',
-            update: 'uuObraPintura',
-            destroy: 'ddObraPintura'
+            update: 'uuLObraPintura',
+            destroy: 'ddLObraPintura'
         },
         reader: {
             type: 'json',
@@ -25,6 +25,7 @@ Ext.define('GrupoBruce.model.ObraPintura', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

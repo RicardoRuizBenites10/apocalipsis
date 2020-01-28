@@ -8,6 +8,7 @@ Ext.define('GrupoBruce.model.EstadoObra', {
         {name: 'ejecucion', type: 'boolean'},
         {name: 'entregadocli', type: 'boolean'},
         {name: 'entregadosto', type: 'boolean'},
+        {name: 'fase', type: 'string'},
         {name: 'idEobra', type: 'string'},
         {name: 'nombre', type: 'string'},
         {name: 'situacion', type: 'boolean'},

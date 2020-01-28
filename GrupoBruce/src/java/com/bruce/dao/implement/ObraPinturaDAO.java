@@ -34,7 +34,7 @@ public class ObraPinturaDAO implements IObraPinturaDAO {
 
     @Override
     public void update(ObraPintura t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override

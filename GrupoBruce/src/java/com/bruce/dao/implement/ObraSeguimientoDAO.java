@@ -22,11 +22,11 @@ import org.springframework.stereotype.Repository;
  * @author SISTEMAS
  */
 @Repository
-public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
+public class ObraSeguimientoDAO implements IObraSeguimientoDAO {
 
     @Autowired
     private SessionFactory sf;
-    
+
     @Override
     public void create(ObraSeguimiento t) {
         sf.getCurrentSession().save(t);
@@ -34,7 +34,7 @@ public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
 
     @Override
     public void update(ObraSeguimiento t) {
-        sf.getCurrentSession().update(t);
+        sf.getCurrentSession().saveOrUpdate(t);
     }
 
     @Override
@@ -51,16 +51,18 @@ public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
     public ObraSeguimiento lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("OBRA_SEGUIMIENTO", "OS");
-        reverse.addResult("OS.ID_OBRA");
-        reverse.addResult("OS.ID_EPROCESO");
+        reverse.addResult("ISNULL(OS.ID_OBRA,:ID_OBRA) ID_OBRA");
+        reverse.addResult("EP.ID_EPROCESO");
         reverse.addResult("OS.INICIO_PROGRAMADO");
         reverse.addResult("OS.FIN_PROGRAMADO");
         reverse.addResult("OS.INICIO");
         reverse.addResult("OS.FIN");
         reverse.addResult("OS.OBSERVACION");
+        reverse.addResult("ISNULL(OS.UBICACION,0) UBICACION");
         reverse.addResult("OS.ID_USUARIO");
         reverse.addResult("EP.DESCRIPCION ETAPA");
-        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=OS.ID_EPROCESO");
+        reverse.addResult("EP.ORDEN ORDEN");
+        reverse.addJoin("RIGHT JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=OS.ID_EPROCESO AND OS.ID_OBRA=:ID_OBRA");
         reverse.setFilters(filters);
         reverse.getLSorts().add(new SortPage("ID_EPROCESO", "DESC"));
         reverse.setPagination(0, 1);
@@ -85,16 +87,18 @@ public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
     public List<ObraSeguimiento> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("OBRA_SEGUIMIENTO", "OS");
-        reverse.addResult("OS.ID_OBRA");
-        reverse.addResult("OS.ID_EPROCESO");
+        reverse.addResult("ISNULL(OS.ID_OBRA,:ID_OBRA) ID_OBRA");
+        reverse.addResult("EP.ID_EPROCESO");
         reverse.addResult("OS.INICIO_PROGRAMADO");
         reverse.addResult("OS.FIN_PROGRAMADO");
         reverse.addResult("OS.INICIO");
         reverse.addResult("OS.FIN");
         reverse.addResult("OS.OBSERVACION");
+        reverse.addResult("ISNULL(OS.UBICACION,0) UBICACION");
         reverse.addResult("OS.ID_USUARIO");
         reverse.addResult("EP.DESCRIPCION ETAPA");
-        reverse.addJoin("INNER JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=OS.ID_EPROCESO");
+        reverse.addResult("EP.ORDEN ORDEN");
+        reverse.addJoin("RIGHT JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=OS.ID_EPROCESO AND OS.ID_OBRA=:ID_OBRA");
         reverse.setFilters(filters);
         reverse.setSorts(sorts);
         reverse.setPagination(start, limit);
@@ -112,6 +116,7 @@ public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         ReverseQuery reverse = new ReverseQuery("OBRA_SEGUIMIENTO", "OS");
+        reverse.addJoin("RIGHT JOIN ETAPA_PROCESO EP", "EP.ID_EPROCESO=OS.ID_EPROCESO AND OS.ID_OBRA=:ID_OBRA");
         reverse.setFilters(filters);
         SQLQuery query = session.createSQLQuery(reverse.getQuery());
         if (!filters.isEmpty()) {
@@ -122,5 +127,5 @@ public class ObraSeguimientoDAO implements IObraSeguimientoDAO{
         List result = query.list();
         return (int) result.get(0);
     }
-    
+
 }

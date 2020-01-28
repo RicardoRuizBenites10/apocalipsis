@@ -4,13 +4,23 @@ Ext.define('GrupoBruce.view.etapaproceso.ListEtapaProceso', {
     reference: 'list_etapaproceso',
     id: 'id_wetapaproceso',
 
+//    viewConfig: {
+//        plugins: {
+//            ptype: 'treeviewdragdrop'
+//        },
+//        listeners: {
+//            beforedrop(node, data, overModel, dropPosition, dropHandlers, eOpts) {
+//
+//            }
+//        }
+//    },
+
     bind: {
         store: '{etapasproceso}',
         selection: '{selectEtapaProceso}'
     },
     allowDeselect: true,
     rootVisible: false,
-    useArrows: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{

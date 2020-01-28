@@ -169,5 +169,9 @@ Ext.define('GrupoBruce.view.obra.ObraController', {
 
     onObraPintura: function () {
         this.createWindow('GrupoBruce.view.obrapintura.ObraPintura');
+    },
+
+    onObraSeguimiento: function () {
+        this.createWindow('GrupoBruce.view.obraseguimiento.ObraSeguimiento');
     }
 });

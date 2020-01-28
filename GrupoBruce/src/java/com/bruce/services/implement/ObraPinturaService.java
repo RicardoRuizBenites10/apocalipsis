@@ -119,5 +119,21 @@ public class ObraPinturaService implements IObraPinturaService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void changeLObraPintura(List<ObraPintura> op) {
+        op.forEach(item -> {
+            dao.update(item);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteLObraPintura(List<ObraPintura> op) {
+        op.forEach(item -> {
+            dao.delete(item);
+        });
+    }
     
 }

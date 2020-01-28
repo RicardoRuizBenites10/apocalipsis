@@ -7,7 +7,7 @@ Ext.define('GrupoBruce.store.ObraSeguimiento',{
     remoteFilter: true,
     
     sorters: [{
-            property: '-ETAPA',
+            property: '-ORDEN',
             direction: 'ASC'
     }]
 });

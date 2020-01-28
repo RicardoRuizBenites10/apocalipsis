@@ -26,6 +26,7 @@ public class EstadoObra implements java.io.Serializable {
     private boolean terminado;
     private boolean entregadosto;
     private boolean entregadocli;
+    private String fase;
     private boolean situacion;
 
     public EstadoObra() {
@@ -102,6 +103,15 @@ public class EstadoObra implements java.io.Serializable {
 
     public void setEntregadocli(boolean entregadocli) {
         this.entregadocli = entregadocli;
+    }
+
+    @Column(name = "FASE", nullable = false)
+    public String getFase() {
+        return fase;
+    }
+
+    public void setFase(String fase) {
+        this.fase = fase;
     }
 
     @Column(name = "SITUACION", nullable = false)

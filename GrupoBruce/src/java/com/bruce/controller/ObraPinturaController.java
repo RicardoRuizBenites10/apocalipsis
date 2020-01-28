@@ -8,6 +8,7 @@ package com.bruce.controller;
 import com.bruce.dao.to.ObraPintura;
 import com.bruce.services.design.IObraPinturaService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,10 +57,32 @@ public class ObraPinturaController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/iiLObraPintura", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<ObraPintura> obraPintura) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLObraPintura(obraPintura);
+        map.put("success", true);
+        map.put("data", obraPintura);
+        map.put("message", "Registro exitoso.");
+        return map;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/uuObraPintura", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody ObraPintura obraPintura) {
         Map<String, Object> map = new HashMap<>();
         serv.update(obraPintura);
+        map.put("success", true);
+        map.put("data", obraPintura);
+        map.put("message", "Actualización exitosa.");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uuLObraPintura", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<ObraPintura> obraPintura) {
+        Map<String, Object> map = new HashMap<>();
+        serv.changeLObraPintura(obraPintura);
         map.put("success", true);
         map.put("data", obraPintura);
         map.put("message", "Actualización exitosa.");
@@ -74,6 +97,24 @@ public class ObraPinturaController {
         String msg = "Operacion exitosa";
         try {
             serv.delete(obraPintura);
+            success = true;
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+        map.put("success", success);
+        map.put("data", obraPintura);
+        map.put("message", msg);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ddLObraPintura", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<ObraPintura> obraPintura) {
+        Map<String, Object> map = new HashMap<>();
+        boolean success = false;
+        String msg = "Operacion exitosa";
+        try {
+            serv.deleteLObraPintura(obraPintura);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();

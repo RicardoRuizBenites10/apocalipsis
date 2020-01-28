@@ -18,6 +18,7 @@ Ext.define('GrupoBruce.model.Obra', {
         {name: 'gopintura', type: 'boolean'},
         {name: 'gopinturafecha', type: 'date', dateFormat: 'c'},
         {name: 'hascontratista', type: 'boolean'},
+        {name: 'idEproceso', type: 'string'},
         {name: 'idEobra', type: 'string', defaultValue: 'XL'},
         {name: 'idObra', type: 'int'},
         {name: 'idObrtip', type: 'string'},

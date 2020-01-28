@@ -1667,6 +1667,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "ObraPintura"
       }
+    },
+    "app/model/Requerimiento.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "extornado:boolean:null,fechaGenerado:date:null,fechaProgramado:date:null,idActividad:int:null,idEspecificacion:int:null,idObra:int:null,idRequerimiento:int:null,idTrabajador:string:null,idUsuario:string:null",
+        "modelFileName": "Requerimiento",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "Requerimiento"
+      }
     }
   }
 }

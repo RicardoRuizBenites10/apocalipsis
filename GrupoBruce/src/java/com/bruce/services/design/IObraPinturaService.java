@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.ObraPintura;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IObraPinturaService extends IEntidadService<ObraPintura>{
-    
+    public void changeLObraPintura(List<ObraPintura> op);
+    public void deleteLObraPintura(List<ObraPintura> op);
 }

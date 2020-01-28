@@ -7,13 +7,22 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimientoModel', {
     },
     
     stores: {
+        estadoobras: {
+            type: 'Sestadoobra',
+            autoLoad: true
+        },
         obraseguimientos: {
             type: 'Sobraseguimiento',
-            autoload: true,
+            autoLoad: true,
             filters: [{
                     property: 'ID_OBRA',
-                    operatos: 'eq',
+                    operator: 'eq',
+                    inWhere: false,
                     value: '{recordObra.idObra}'
+            },{
+                property: 'EP.PASA_BUS',
+                operator: 'eq',
+                value: 1
             }]
         }
     }

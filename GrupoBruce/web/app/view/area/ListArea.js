@@ -10,7 +10,6 @@ Ext.define('GrupoBruce.view.area.ListArea', {
     },
     allowDeselect: true,
     rootVisible: false,
-    closable: true,
 
     style: 'border: solid rgb(234,234,236) 1px',
     columns: [{

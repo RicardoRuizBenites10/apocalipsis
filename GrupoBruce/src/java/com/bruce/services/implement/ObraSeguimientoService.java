@@ -119,5 +119,21 @@ public class ObraSeguimientoService implements IObraSeguimientoService{
         }
         return dao.getByFilter(start, limit, sorts, filters);
     }
+
+    @Override
+    @Transactional
+    public void changeLObraSeguimiento(List<ObraSeguimiento> os) {
+        os.forEach(item -> {
+            dao.update(item);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteLObraSeguimiento(List<ObraSeguimiento> os) {
+        os.forEach(item -> {
+            dao.delete(item);
+        });
+    }
     
 }

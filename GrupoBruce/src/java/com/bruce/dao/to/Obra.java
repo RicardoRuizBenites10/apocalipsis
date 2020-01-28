@@ -43,6 +43,7 @@ public class Obra implements java.io.Serializable {
     private Date terminado;
     private Date entregadosto;
     private Date entregadocli;
+    private String idEproceso;
     private String idObrtip;
     private String idProforma;
     private String idUsuario;
@@ -263,6 +264,15 @@ public class Obra implements java.io.Serializable {
 
     public void setIdEobra(String idEobra) {
         this.idEobra = idEobra;
+    }
+    
+    @Column(name = "ID_EPROCESO")
+    public String getIdEproceso() {
+        return idEproceso;
+    }
+
+    public void setIdEproceso(String idEproceso) {
+        this.idEproceso = idEproceso;
     }
 
     @Column(name = "ID_OBRTIP", nullable = false)

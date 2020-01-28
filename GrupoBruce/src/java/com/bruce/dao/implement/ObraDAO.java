@@ -71,6 +71,7 @@ public class ObraDAO implements IObraDAO{
         reverse.addResult("O.TERMINADO");
         reverse.addResult("O.ENTREGADOSTO");
         reverse.addResult("O.ENTREGADOCLI");
+        reverse.addResult("O.ID_EPROCESO");
         reverse.addResult("O.ID_OBRTIP");
         reverse.addResult("O.ID_PROFORMA");
         reverse.addResult("O.ID_EOBRA");
@@ -127,6 +128,7 @@ public class ObraDAO implements IObraDAO{
         reverse.addResult("O.TERMINADO");
         reverse.addResult("O.ENTREGADOSTO");
         reverse.addResult("O.ENTREGADOCLI");
+        reverse.addResult("O.ID_EPROCESO");
         reverse.addResult("O.ID_OBRTIP");
         reverse.addResult("O.ID_PROFORMA");
         reverse.addResult("O.ID_EOBRA");

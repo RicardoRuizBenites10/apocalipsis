@@ -17,11 +17,10 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimiento', {
     resizable: false,
     closable: false,
     autoShow: true,
-
     width: 600,
-    height: 400,
 
-    item: [{
+    title: 'Seguimiento de Orden de Producción',
+    items: [{
             xtype: 'form',
             items: [{
                     defaults: {
@@ -29,8 +28,7 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimiento', {
                         defaults: {
                             allowBlank: false,
                             labelAlign: 'top',
-                            padding: 7,
-                            flex: 1
+                            padding: 7
                         }
                     },
                     items: [{
@@ -43,16 +41,47 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimiento', {
                                     },
                                     editable: false
                                 }, {
-                                    xtype: 'checkbox',
-                                    name: 'gopintura',
-                                    reference: 'chk_gopintura',
-                                    fieldLabel: 'GO Pintura',
-                                    boxLabel: 'Aprobado'
+                                    xtype: 'combobox',
+                                    name: 'idEobra',
+                                    fieldLabel: 'Situación',
+                                    valueField: 'idEobra',
+                                    displayField: 'nombre',
+                                    bind: {
+                                        store: '{estadoobras}',
+                                        selection: '{selectEstadoObra}'
+                                    },
+                                    emptyText: 'Seleccionar',
+                                    editable: false,
+                                    forceSelection: true
                                 }]
                         }]
                 }, {
-                    xtype: 'Wlistobraseguimienti',
+                    xtype: 'Wlistobraseguimiento',
                     height: 280
+                }],
+
+            buttons: [{
+                    text: 'Cancelar',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                            this.up('window').close();
+                        }
+                    }
+                }, {
+                    text: 'Restablecer',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                        }
+                    }
+                }, {
+                    text: 'Grabar',
+                    iconCls: 'fa fa-save',
+                    formBind: true,
+                    listeners: {
+                        click: 'onSaveObraSeguimiento'
+                    }
                 }]
         }]
 });

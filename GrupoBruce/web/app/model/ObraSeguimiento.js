@@ -5,14 +5,16 @@ Ext.define('GrupoBruce.model.ObraSeguimiento', {
     idProperty: 'idEproceso',
     fields: [
         {name: 'etapa', type: 'string'},
-        {name: 'fin', type: 'date'},
-        {name: 'finProgramado', type: 'date'},
+        {name: 'fin', type: 'date', dateFormat: 'c'},
+        {name: 'finProgramado', type: 'date', dateFormat: 'c'},
         {name: 'idEproceso', type: 'string'},
         {name: 'idObra', type: 'int'},
         {name: 'idUsuario', type: 'string'},
-        {name: 'inicio', type: 'date'},
-        {name: 'inicioProgramado', type: 'date'},
-        {name: 'observacion', type: 'string'}
+        {name: 'inicio', type: 'date', dateFormat: 'c'},
+        {name: 'inicioProgramado', type: 'date', dateFormat: 'c'},
+        {name: 'observacion', type: 'string'},
+        {name: 'orden', type: 'int'},
+        {name: 'ubicacion', type: 'boolean'}
     ],
 
     identifier: 'sequential',
@@ -20,10 +22,10 @@ Ext.define('GrupoBruce.model.ObraSeguimiento', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiObraSeguimiento',
+            create: 'iiLObraSeguimiento',
             read: 'obraSeguimientos',
-            update: 'uuObraSeguimiento',
-            destroy: 'ddObraSeguimiento'
+            update: 'uuLObraSeguimiento',
+            destroy: 'ddLObraSeguimiento'
         },
         reader: {
             type: 'json',
@@ -32,6 +34,7 @@ Ext.define('GrupoBruce.model.ObraSeguimiento', {
         },
         writer: {
             type: 'json',
+            allowSingle: false,
             writeAllFields: true
         }
     }

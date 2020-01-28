@@ -67,12 +67,19 @@ Ext.define('GrupoBruce.view.obra.ListObra', {
                     },
                     handler: 'deleteObra'
                 },'-',{
-                    iconCls: 'x-fa fa-paint-brush',
+                    iconCls: 'x-fa fa-tint',
                     text: 'Colores / Diseño',
                     bind: {
                         disabled: '{!selectObra}'
                     },
                     handler: 'onObraPintura'
+                },{ 
+                    iconCls: 'x-fa fa-bullseye',
+                    text: 'Seguimiento',
+                    bind: {
+                        disabled: '{!selectObra}'
+                    },
+                    handler: 'onObraSeguimiento'
                 }]
         }, {
             xtype: 'pagingtoolbar',

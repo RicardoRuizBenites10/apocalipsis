@@ -32,9 +32,11 @@ public class ObraSeguimiento implements java.io.Serializable {
     private Date inicio;
     private Date fin;
     private String observacion;
+    private boolean ubicacion;
     private String idUsuario;
 
     private String etapa;
+    private int orden;
 
     public ObraSeguimiento() {
     }
@@ -108,6 +110,15 @@ public class ObraSeguimiento implements java.io.Serializable {
         this.observacion = observacion;
     }
 
+    @Column(name = "UBICACION", nullable = false)
+    public boolean isUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(boolean ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     @Column(name = "ID_USUARIO", nullable = false)
     public String getIdUsuario() {
         return idUsuario;
@@ -125,5 +136,15 @@ public class ObraSeguimiento implements java.io.Serializable {
 
     public void setEtapa(String etapa) {
         this.etapa = etapa;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "ORDEN", insertable = false, updatable = false)
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 }
