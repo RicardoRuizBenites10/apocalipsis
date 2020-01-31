@@ -12,12 +12,11 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimientoController', {
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
-            //console.log(usamat);
+            var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
             var ubiVeri = true;
             store2.each(function (item) {
-                item.set('idObra', model.get('idObra'));
                 if (item.get('ubicacion')) {
-                    model.set('idEproceso',item.get('idEproceso'));
+                    model.set('idEproceso', item.get('idEproceso'));
                     ubiVeri = item.get('inicioProgramado') && item.get('finProgramado');
                 }
             });
@@ -33,6 +32,11 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimientoController', {
             model.save({// save the record to the server
                 success: function (model, operation) {
                     if (store2.needsSync !== undefined && store2.needsSync) {
+                        store2.each(function (item) {
+                            if (item.get('inicioProgramado') && item.get('finProgramado')) {
+                                item.set('idUsuario', loggedIn.idUsuario);
+                            }
+                        });
                         store2.sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
@@ -73,7 +77,7 @@ Ext.define('GrupoBruce.view.obraseguimiento.ObraSeguimientoController', {
                 }
             });
         } else { // display error alert if the data is invalid
-            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.',)
+            Ext.Msg.alert('Datos invalidos', 'Por favor corregir los errores.', )
         }
     },
 

@@ -26,14 +26,20 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
         }, {
             text: 'Área',
             columns: [{
-                    text: 'Nombre'
+                    text: 'Nombre',
+                    dataIndex: 'area'
                 }, {
-                    text: 'Inicio'
+                    text: 'Inicio',
+                    dataIndex: 'iniarea',
+                    formatter: 'date("d/m/Y")'
                 }, {
-                    text: 'Fin'
+                    text: 'Fin',
+                    dataIndex: 'finarea',
+                    formatter: 'date("d/m/Y")'
                 }]
         }, {
-            text: 'Situación'
+            text: 'Situación',
+            dataIndex: 'estado'
         }],
 
     dockedItems: [{
@@ -41,6 +47,19 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
             overflowHandler: 'menu',
             items: [{
                     xtype: 'textfield'
+                },'-',{
+                   text: 'Asignar ejecución',
+                   iconCls: 'x-fa fa-file',
+                   bind: {
+                       disabled: '{!selectObra}'
+                   },
+                   handler: 'onRequerimiento'
+                },{
+                   text: 'Asignar trabajo',
+                   iconCls: 'x-fa fa-file',
+                   bind: {
+                       disabled: '{!selectObra}'
+                   }
                 }]
         }, {
             xtype: 'pagingtoolbar',

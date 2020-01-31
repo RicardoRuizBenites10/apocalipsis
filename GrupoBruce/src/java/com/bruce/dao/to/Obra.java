@@ -50,7 +50,12 @@ public class Obra implements java.io.Serializable {
     private String idEobra;
 
     private String tipo;
+    private String estado;
     private String cliente;
+    private String carroceria;
+    private String area;
+    private Date iniarea;
+    private Date finarea;
 
     public Obra() {
     }
@@ -311,5 +316,57 @@ public class Obra implements java.io.Serializable {
 
     public void setCliente(String cliente) {
         this.cliente = cliente;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "ESTADO", insertable = false, updatable = false)
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "CARROCERIA", insertable = false, updatable = false)
+    public String getCarroceria() {
+        return carroceria;
+    }
+
+    public void setCarroceria(String carroceria) {
+        this.carroceria = carroceria;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Column(name = "AREA", insertable = false, updatable = false)
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "INIAREA", insertable = false, updatable = false)
+    public Date getIniarea() {
+        return iniarea;
+    }
+
+    public void setIniarea(Date iniarea) {
+        this.iniarea = iniarea;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FINAREA", insertable = false, updatable = false)
+    public Date getFinarea() {
+        return finarea;
+    }
+
+    public void setFinarea(Date finarea) {
+        this.finarea = finarea;
     }
 }

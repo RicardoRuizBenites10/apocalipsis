@@ -5,7 +5,8 @@ Ext.define('GrupoBruce.view.requerimiento.Requerimiento', {
         'GrupoBruce.view.requerimiento.RequerimientoController',
         'GrupoBruce.view.requerimiento.RequerimientoModel',
 
-        'GrupoBruce.view.requerimiento.ListObraRequerimiento'
+        'GrupoBruce.view.requerimiento.ListObraRequerimiento',
+        'GrupoBruce.view.requerimiento.ListRequerimiento'
     ],
 
     controller: 'Crequerimiento',
@@ -13,9 +14,17 @@ Ext.define('GrupoBruce.view.requerimiento.Requerimiento', {
         type: 'VMrequerimiento'
     },
 
-    title: 'Lista de ordenes de producción',
+    title: 'Manejo de actividades de ordenes de producción',
     items: [{
-            xtype: 'Wlistobrarequerimiento',
-            height: 500
+            xtype: 'tabpanel',
+            items: [{
+                    title: 'Ejecución de actividades',
+                    items: [{
+                            xtype: 'Wlistobrarequerimiento',
+                            height: 500
+                        }]
+                }, {
+                    title: 'Programación'
+                }]
         }]
 });
