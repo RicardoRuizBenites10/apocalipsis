@@ -82,7 +82,7 @@ public class ObraDAO implements IObraDAO{
         reverse.addResult("PF.ID_CARROCERIA CARROCERIA");
         reverse.addResult("OS.INICIO_PROGRAMADO INIAREA");
         reverse.addResult("OS.FIN_PROGRAMADO FINAREA");
-        reverse.addResult("EP.DESCRIPCION AREA");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
         reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=O.ID_OBRTIP");
         reverse.addJoin("INNER JOIN ESTADO_OBRA EO", "EO.ID_EOBRA=O.ID_EOBRA");
         reverse.addJoin("INNER JOIN PROFORMA PF", "PF.ID_PROFORMA=O.ID_PROFORMA");
@@ -144,7 +144,7 @@ public class ObraDAO implements IObraDAO{
         reverse.addResult("PF.ID_CARROCERIA CARROCERIA");
         reverse.addResult("OS.INICIO_PROGRAMADO INIAREA");
         reverse.addResult("OS.FIN_PROGRAMADO FINAREA");
-        reverse.addResult("EP.DESCRIPCION AREA");
+        reverse.addResult("EP.DESCRIPCION ETAPA");
         reverse.addJoin("INNER JOIN OBRA_TIPO OT", "OT.ID_OBRTIP=O.ID_OBRTIP");
         reverse.addJoin("INNER JOIN ESTADO_OBRA EO", "EO.ID_EOBRA=O.ID_EOBRA");
         reverse.addJoin("INNER JOIN PROFORMA PF", "PF.ID_PROFORMA=O.ID_PROFORMA");

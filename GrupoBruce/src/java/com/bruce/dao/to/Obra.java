@@ -53,7 +53,7 @@ public class Obra implements java.io.Serializable {
     private String estado;
     private String cliente;
     private String carroceria;
-    private String area;
+    private String etapa;
     private Date iniarea;
     private Date finarea;
 
@@ -339,13 +339,13 @@ public class Obra implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
-    @Column(name = "AREA", insertable = false, updatable = false)
-    public String getArea() {
-        return area;
+    @Column(name = "ETAPA", insertable = false, updatable = false)
+        public String getEtapa() {
+        return etapa;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 
     @Generated(GenerationTime.NEVER)

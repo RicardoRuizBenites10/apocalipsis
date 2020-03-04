@@ -32,33 +32,34 @@ Ext.define('GrupoBruce.view.especificacion.EspecificacionController', {
         var form = btn.up('form');
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wlistespecificacion');
-        var grid2 = Ext.getCmp('id_wespecificacionactividad');
         var model = form.getRecord();
+        var windowVM2 = Ext.getCmp('id_wespecificacionactividad').getViewModel();
+        var store2 = windowVM2.get('especificacionactividads');
         var windowVM = window.getViewModel();
         var nuevo = windowVM.get('newRegister');
 
         if (form.isValid()) { // make sure the form contains valid data before submitting
             form.updateRecord(model); // update the record with the form data
             var loggedIn = Ext.decode(localStorage.getItem("sesionUsuario"));
-            var situacion = this.lookupReference('chk_situacionespecificacion').checked, usaact = (grid2.getStore().count() > 0 || grid2.getStore().getRemovedRecords().length > 0);
+            var situacion = this.lookupReference('chk_situacionespecificacion').checked;
             if (nuevo) {
                 model.set('usuInsert', loggedIn.idUsuario);
             }
             model.set('usuUpdate', loggedIn.idUsuario);
             model.set('fechaUpdate', new Date());
-            model.set('usaActividad', usaact);
+            model.set('usaActividad', store2.count() > 0 );
             model.set('situacion', situacion);
             model.set('idEcategoria', Ext.getCmp('id_treecategoria').getValue())
 
             model.save({// save the record to the server
                 success: function (model, operation) {
                     if (nuevo) {
-                        grid2.getStore().each(function (item) {
+                        store2.each(function (item) {
                             item.set('idEspecificacion', model.get('idEspecificacion'));
                         });
                     }
-                    if (usaact) {
-                        grid2.getStore().sync({
+                    if (store2.needsSync !== undefined && store2.needsSync) {
+                        store2.sync({
                             success: function (response, operation) {
                                 grid.getStore().reload();
                                 form.reset();

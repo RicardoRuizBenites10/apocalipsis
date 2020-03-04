@@ -32,31 +32,26 @@ public class RolDAO implements IRolDAO {
     private SessionFactory sf;
 
     @Override
-    @Transactional
     public void create(Rol t) {
         sf.getCurrentSession().save(t);
     }
 
     @Override
-    @Transactional
     public void update(Rol t) {
         sf.getCurrentSession().update(t);
     }
 
     @Override
-    @Transactional
     public void delete(Rol t) {
         sf.getCurrentSession().delete(t);
     }
 
     @Override
-    @Transactional
     public Rol get(Object idT) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    @Transactional
     public Rol lastByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Rol entity = null;
@@ -77,7 +72,6 @@ public class RolDAO implements IRolDAO {
     }
 
     @Override
-    @Transactional
     public List<Rol> getAll() {
         Session session = sf.getCurrentSession();
         Query query = session.createQuery("FROM Rol");
@@ -85,7 +79,6 @@ public class RolDAO implements IRolDAO {
     }
 
     @Override
-    @Transactional
     public List<Rol> getByFilter(int start, int limit, List<SortPage> sorts, List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Rol.class);
@@ -110,7 +103,6 @@ public class RolDAO implements IRolDAO {
     }
 
     @Override
-    @Transactional
     public int countByFilter(List<FilterPage> filters) {
         Session session = sf.getCurrentSession();
         Criteria cr = session.createCriteria(Rol.class);

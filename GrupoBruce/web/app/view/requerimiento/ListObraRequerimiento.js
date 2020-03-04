@@ -10,8 +10,14 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
     allowDeselect: true,
 
     columns: [{
-            text: 'O.P.',
-            dataIndex: 'nombre'
+            text: 'Orden de producción',
+            columns: [{
+                    text: 'Nombre',
+                    dataIndex: 'nombre'
+                }, {
+                    text: 'Modelo',
+                    dataIndex: 'carroceria'
+                }]
         }, {
             text: 'Programación',
             columns: [{
@@ -27,7 +33,7 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
             text: 'Área',
             columns: [{
                     text: 'Nombre',
-                    dataIndex: 'area'
+                    dataIndex: 'etapa'
                 }, {
                     text: 'Inicio',
                     dataIndex: 'iniarea',
@@ -47,19 +53,19 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
             overflowHandler: 'menu',
             items: [{
                     xtype: 'textfield'
-                },'-',{
-                   text: 'Asignar ejecución',
-                   iconCls: 'x-fa fa-file',
-                   bind: {
-                       disabled: '{!selectObra}'
-                   },
-                   handler: 'onRequerimiento'
-                },{
-                   text: 'Asignar trabajo',
-                   iconCls: 'x-fa fa-file',
-                   bind: {
-                       disabled: '{!selectObra}'
-                   }
+                }, '-', {
+                    text: 'Asignar ejecución',
+                    iconCls: 'x-fa fa-file',
+                    bind: {
+                        disabled: '{!selectObra}'
+                    },
+                    handler: 'onRequerimiento'
+                }, {
+                    text: 'Asignar trabajo',
+                    iconCls: 'x-fa fa-file',
+                    bind: {
+                        disabled: '{!selectObra}'
+                    }
                 }]
         }, {
             xtype: 'pagingtoolbar',

@@ -28,10 +28,26 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimiento', {
             items: [{
                     items: [{
                             xtype: 'textfield',
-                            fieldLabel: 'OP'
+                            fieldLabel: 'OP',
+                            bind: '{recordObra.nombre}'
                         }, {
-                            xtype: 'combo',
-                            fieldLabel: 'Área'
+                            xtype: 'treepicker',
+                            fieldLabel: 'Área',
+                            valueField: 'idEproceso',
+                            displayField: 'descripcion',
+                            bind: {
+                                store: '{eprocesos}',
+                                rawValue: '{recordObra.etapa}',
+                                value: '{recordObra.idEproceso}'
+                            },
+                            emptyText: 'Seleccionar',
+                            forceSelection: true,
+                            editable: false,
+                            listeners: {
+                                select: function (picker, record) {
+                                    picker.up('window').getViewModel().set('selectEtapaProceso', record);
+                                }
+                            }
                         }]
                 }, {
                     items: [{
@@ -44,7 +60,7 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimiento', {
                             fieldLabel: 'Programación'
                         }]
                 }]
-        },{
-            
+        }, {
+
         }]
 });
