@@ -37,8 +37,8 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimiento', {
                             displayField: 'descripcion',
                             bind: {
                                 store: '{eprocesos}',
-                                rawValue: '{recordObra.etapa}',
-                                value: '{recordObra.idEproceso}'
+                                value: '{recordObra.idEproceso}',
+                                rawValue: '{recordObra.etapa}'
                             },
                             emptyText: 'Seleccionar',
                             forceSelection: true,
@@ -53,14 +53,37 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimiento', {
                     items: [{
                             xtype: 'combobox',
                             fieldLabel: 'Trabajador',
+                            displayField: 'nombres',
+                            valueField: 'idTrabajador',
+                            emptyText: 'Buscar..',
+                            bind: {
+                                store: '{trabajadors}',
+                                selection: '{selectTrabajador}'
+                            },
+                            tpl: [
+                                '<ul class="x-list-plain">',
+                                '<tpl for=".">',
+                                '<li class="',
+                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
+                                '<li class="x-boundlist-item">',
+                                '{nombresCompletos} ',
+                                '</li>',
+                                '</tpl>',
+                                '</ul>'
+                            ],
+                            minChars: 3,
+                            pageSize: true,
                             hideTrigger: true,
+                            triggerAction: 'query',
                             width: 356
                         }, {
                             xtype: 'datefield',
-                            fieldLabel: 'Programación'
+                            fieldLabel: 'Programación',
+                            value: new Date()
                         }]
                 }]
         }, {
-
+            xtype: 'Wlistrequerimientoactividad',
+            height: 300
         }]
 });

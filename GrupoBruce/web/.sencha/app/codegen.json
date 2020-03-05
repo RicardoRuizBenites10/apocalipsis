@@ -1679,6 +1679,18 @@
         "modelNamespace": "GrupoBruce.model",
         "name": "Requerimiento"
       }
+    },
+    "app/model/RequerimientoActividad.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "GrupoBruce",
+        "baseClass": "Ext.data.Model",
+        "fields": "actividad:string:null,despachado:float:null,estado:string:null,idActividad:int:null,idEspecifiacion:int:null,idObra:int:null,requerido:float:null",
+        "modelFileName": "RequerimientoActividad",
+        "modelNamespace": "GrupoBruce.model",
+        "name": "RequerimientoActividad"
+      }
     }
   }
 }

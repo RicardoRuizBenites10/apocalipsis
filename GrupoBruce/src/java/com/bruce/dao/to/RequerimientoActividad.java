@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
@@ -30,6 +31,7 @@ public class RequerimientoActividad implements java.io.Serializable {
     private String estado;
 
     private String actividad;
+    private String idTemp;
 
     public RequerimientoActividad() {
     }
@@ -99,5 +101,15 @@ public class RequerimientoActividad implements java.io.Serializable {
 
     public void setActividad(String actividad) {
         this.actividad = actividad;
+    }
+
+    @Transient
+    public String getIdTemp() {
+        idTemp = String.format("%04d", this.idObra) + String.format("%04d", this.idEspecifiacion) + String.format("%04d", this.idActividad);
+        return idTemp;
+    }
+
+    public void setIdTemp(String idTemp) {
+        this.idTemp = idTemp;
     }
 }

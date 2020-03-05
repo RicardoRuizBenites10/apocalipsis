@@ -28,7 +28,7 @@ public class RequerimientoActividadController {
     private IRequerimientoActividadService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/requerimientoActividads", method = RequestMethod.GET)
+    @RequestMapping(value = "/requerimientoactividads", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
