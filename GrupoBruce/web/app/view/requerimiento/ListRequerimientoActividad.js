@@ -6,7 +6,7 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimientoActividad', {
 
     selModel: {
         type: 'checkboxmodel',
-        checkOnly: true
+        checkOnly: false
     },
     bind: {
         store: '{requerimientoactividads}',

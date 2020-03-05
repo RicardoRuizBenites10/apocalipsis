@@ -45,41 +45,55 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimiento', {
                             editable: false,
                             listeners: {
                                 select: function (picker, record) {
-                                    picker.up('window').getViewModel().set('selectEtapaProceso', record);
+                                    picker.up('window').getViewModel().set('selectEtapaProceso_id', record.get('idEproceso'));
                                 }
                             }
                         }]
                 }, {
                     items: [{
-                            xtype: 'combobox',
-                            fieldLabel: 'Trabajador',
-                            displayField: 'nombres',
-                            valueField: 'idTrabajador',
-                            emptyText: 'Buscar..',
-                            bind: {
-                                store: '{trabajadors}',
-                                selection: '{selectTrabajador}'
+                            xtype: 'fieldset',
+                            title: 'Datos para programación',
+                            margin: '0 8px 8px 8px',
+                            defaults: {
+                                layout: 'hbox',
+                                defaults: {
+                                    labelAlign: 'top',
+                                    padding: 7
+                                }
                             },
-                            tpl: [
-                                '<ul class="x-list-plain">',
-                                '<tpl for=".">',
-                                '<li class="',
-                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
-                                '<li class="x-boundlist-item">',
-                                '{nombresCompletos} ',
-                                '</li>',
-                                '</tpl>',
-                                '</ul>'
-                            ],
-                            minChars: 3,
-                            pageSize: true,
-                            hideTrigger: true,
-                            triggerAction: 'query',
-                            width: 356
-                        }, {
-                            xtype: 'datefield',
-                            fieldLabel: 'Programación',
-                            value: new Date()
+                            items: [{
+                                    items: [{
+                                            xtype: 'combobox',
+                                            fieldLabel: 'Trabajador asignado',
+                                            displayField: 'nombres',
+                                            valueField: 'idTrabajador',
+                                            emptyText: 'Buscar..',
+                                            bind: {
+                                                store: '{trabajadors}',
+                                                selection: '{selectTrabajador}'
+                                            },
+                                            tpl: [
+                                                '<ul class="x-list-plain">',
+                                                '<tpl for=".">',
+                                                '<li class="',
+                                                Ext.baseCSSPrefix, 'grid-group-hd ', Ext.baseCSSPrefix, 'grid-group-title">DNI : {idTrabajador}</li>',
+                                                '<li class="x-boundlist-item">',
+                                                '{nombresCompletos} ',
+                                                '</li>',
+                                                '</tpl>',
+                                                '</ul>'
+                                            ],
+                                            minChars: 3,
+                                            pageSize: true,
+                                            hideTrigger: true,
+                                            triggerAction: 'query',
+                                            width: 356
+                                        }, {
+                                            xtype: 'datefield',
+                                            fieldLabel: 'Programación',
+                                            value: new Date()
+                                        }]
+                                }]
                         }]
                 }]
         }, {

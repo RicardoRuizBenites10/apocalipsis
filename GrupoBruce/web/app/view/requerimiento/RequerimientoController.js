@@ -48,6 +48,7 @@ Ext.define('GrupoBruce.view.requerimiento.RequerimientoController', {
         var selectmodel = grid.getSelection()[0];
         var window = Ext.create(view);
         window.getViewModel().set('recordObra', selectmodel);
+        window.getViewModel().set('selectEtapaProceso_id', selectmodel.get('idEproceso'));
     },
 
     onRequerimiento: function () {

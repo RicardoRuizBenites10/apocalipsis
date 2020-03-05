@@ -4,7 +4,7 @@ Ext.define('GrupoBruce.view.requerimiento.RequerimientoModel', {
     data: {
         selectObra: null,
         recordObra: null,
-        selectEtapaProceso: null,
+        selectEtapaProceso_id: null,
         selectRequerimientoActividad: null
     },
 
@@ -24,6 +24,10 @@ Ext.define('GrupoBruce.view.requerimiento.RequerimientoModel', {
                     property: 'ID_OBRA',
                     operator: 'eq',
                     value: '{recordObra.idObra}'
+                },{
+                    property: 'AC.ID_EPROCESO',
+                    operator: 'eq',
+                    value: '{selectEtapaProceso_id}'
                 }]
         },
         trabajadors: {
