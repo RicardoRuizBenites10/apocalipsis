@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bruce.dao.design;
-
-import com.bruce.dao.to.RequerimientoDetalle;
+package com.bruce.dao.implement;
 
 /**
  *
  * @author SISTEMAS
  */
-public interface IRequerimientoDetalle extends IEntidadDAO<RequerimientoDetalle>{
+public class RequerimientoDAO {
     
 }

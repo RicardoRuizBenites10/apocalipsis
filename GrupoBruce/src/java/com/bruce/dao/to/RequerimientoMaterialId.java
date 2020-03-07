@@ -11,12 +11,12 @@ import javax.persistence.Column;
  *
  * @author SISTEMAS
  */
-public class RequerimientoDetalleId implements java.io.Serializable {
+public class RequerimientoMaterialId implements java.io.Serializable {
 
     private int idRequerimiento;
     private int idMaterial;
 
-    public RequerimientoDetalleId() {
+    public RequerimientoMaterialId() {
     }
 
     @Column(name = "ID_REQUERIMIENTO", nullable = false)
@@ -56,7 +56,7 @@ public class RequerimientoDetalleId implements java.io.Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final RequerimientoDetalleId other = (RequerimientoDetalleId) obj;
+        final RequerimientoMaterialId other = (RequerimientoMaterialId) obj;
         if (this.idRequerimiento != other.idRequerimiento) {
             return false;
         }

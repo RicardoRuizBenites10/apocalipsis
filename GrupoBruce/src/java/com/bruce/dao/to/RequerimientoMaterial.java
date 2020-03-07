@@ -10,15 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
  * @author SISTEMAS
  */
 @Entity
-@IdClass(value = RequerimientoDetalleId.class)
-@Table(name = "REQUERIMIENTO_DETALLE", schema = "dbo", catalog = "BDBRUCE")
-public class RequerimientoDetalle implements java.io.Serializable {
+@IdClass(value = RequerimientoMaterialId.class)
+@Table(name = "REQUERIMIENTO_MATERIAL", schema = "dbo", catalog = "BDBRUCE")
+public class RequerimientoMaterial implements java.io.Serializable {
 
     private int idRequerimiento;
     private int idMaterial;
@@ -26,8 +28,11 @@ public class RequerimientoDetalle implements java.io.Serializable {
     private float despachado;
     private boolean pendiente;
     private int idUmedida;
+    
+    private String material;
+    private float stock;
 
-    public RequerimientoDetalle() {
+    public RequerimientoMaterial() {
     }
 
     @Id
@@ -84,5 +89,23 @@ public class RequerimientoDetalle implements java.io.Serializable {
 
     public void setIdUmedida(int idUmedida) {
         this.idUmedida = idUmedida;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public float getStock() {
+        return stock;
+    }
+
+    public void setStock(float stock) {
+        this.stock = stock;
     }
 }

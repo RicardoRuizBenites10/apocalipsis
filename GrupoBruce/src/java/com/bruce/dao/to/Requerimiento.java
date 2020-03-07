@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *
@@ -30,6 +32,10 @@ public class Requerimiento implements java.io.Serializable {
     private int idEspecificacion;
     private int idActividad;
     private String idUsuario;
+    
+    private String obra;
+    private String actividad;
+    private String trabajador;
 
     public Requerimiento() {
     }
@@ -116,5 +122,32 @@ public class Requerimiento implements java.io.Serializable {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public String getObra() {
+        return obra;
+    }
+
+    public void setObra(String obra) {
+        this.obra = obra;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public String getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public String getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(String trabajador) {
+        this.trabajador = trabajador;
     }
 }

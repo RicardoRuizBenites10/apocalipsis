@@ -59,7 +59,7 @@ Ext.define('GrupoBruce.view.requerimiento.ListObraRequerimiento', {
                     bind: {
                         disabled: '{!selectObra}'
                     },
-                    handler: 'onRequerimiento'
+                    handler: 'onRequerimientoActividad'
                 }, {
                     text: 'Asignar trabajo',
                     iconCls: 'x-fa fa-file',

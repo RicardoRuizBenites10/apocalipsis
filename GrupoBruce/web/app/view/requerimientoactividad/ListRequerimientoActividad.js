@@ -1,4 +1,4 @@
-Ext.define('GrupoBruce.view.requerimiento.ListRequerimientoActividad', {
+Ext.define('GrupoBruce.view.requerimientoactividad.ListRequerimientoActividad', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.Wlistrequerimientoactividad',
     reference: 'list_requerimientoactividad',
@@ -13,7 +13,7 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimientoActividad', {
         selection: '{selectRequerimientoActividad}'
     },
     allowDeselect: true,
-    
+
     columns: [{
             text: 'Actividad',
             dataIndex: 'actividad',
@@ -34,7 +34,8 @@ Ext.define('GrupoBruce.view.requerimiento.ListRequerimientoActividad', {
                     text: 'Generar vale',
                     bind: {
                         disabled: '{!selectRequerimientoActividad}'
-                    }
+                    },
+                    handler: 'onGenerarRequerimientos'
                 }]
         }, {
             xtype: 'pagingtoolbar',

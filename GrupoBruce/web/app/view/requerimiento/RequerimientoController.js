@@ -51,8 +51,8 @@ Ext.define('GrupoBruce.view.requerimiento.RequerimientoController', {
         window.getViewModel().set('selectEtapaProceso_id', selectmodel.get('idEproceso'));
     },
 
-    onRequerimiento: function () {
-        this.createWindow('GrupoBruce.view.requerimiento.ListRequerimiento');
-    },
+    onRequerimientoActividad: function () {
+        this.createWindow('GrupoBruce.view.requerimientoactividad.RequerimientoActividad');
+    }
 
 });

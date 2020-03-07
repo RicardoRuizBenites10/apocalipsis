@@ -5,8 +5,7 @@ Ext.define('GrupoBruce.view.requerimiento.Requerimiento', {
         'GrupoBruce.view.requerimiento.RequerimientoController',
         'GrupoBruce.view.requerimiento.RequerimientoModel',
 
-        'GrupoBruce.view.requerimiento.ListObraRequerimiento',
-        'GrupoBruce.view.requerimiento.ListRequerimiento'
+        'GrupoBruce.view.requerimiento.ListObraRequerimiento'
     ],
 
     controller: 'Crequerimiento',
