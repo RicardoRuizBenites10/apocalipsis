@@ -4,13 +4,15 @@ Ext.define('GrupoBruce.model.RequerimientoMaterial', {
 
     idProperty: 'idMaterial',
     fields: [
+        {name: 'estandar', type: 'float'},
         {name: 'despachado', type: 'float'},
+        {name: 'despachadot', type: 'float'},
         {name: 'idMaterial', type: 'int'},
         {name: 'idRequerimiento', type: 'int'},
         {name: 'idUmedida', type: 'string'},
         {name: 'material', type: 'string'},
-        {name: 'pendiente', type: 'boolean'},
         {name: 'requerido', type: 'float'},
+        {name: 'requeridot', type: 'float'},
         {name: 'stock', type: 'float'}
     ],
     

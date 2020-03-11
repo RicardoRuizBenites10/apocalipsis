@@ -22,11 +22,20 @@ Ext.define('GrupoBruce.view.requerimientoactividad.RequerimientoActividadControl
             trabajador: trabajador.get('nombresCompletos')
         });
         window.getViewModel().set('recordRequerimiento', requerimiento);
-//        window.getViewModel().set('selectEtapaProceso_id', selectmodel.get('idEproceso'));
     },
 
     onGenerarRequerimientos: function () {
-        this.createWindow('GrupoBruce.view.requerimientomaterial.RequerimientoMaterial');
+        var trabajador = this.getViewModel().get('selectTrabajador');
+        if (!trabajador) {
+            Ext.Msg.show({
+                title: 'Error',
+                msg: 'Es necesario ingresar datos para programación.',
+                icon: Ext.Msg.ERROR,
+                botones: Ext.Msg.OK
+            });
+        } else {
+            this.createWindow('GrupoBruce.view.requerimientomaterial.RequerimientoMaterial');
+        }
     }
 
 });

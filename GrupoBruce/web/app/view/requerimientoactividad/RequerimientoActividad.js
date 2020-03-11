@@ -69,7 +69,7 @@ Ext.define('GrupoBruce.view.requerimientoactividad.RequerimientoActividad', {
                             items: [{
                                     items: [{
                                             xtype: 'combobox',
-                                            fieldLabel: 'Trabajador que realizara actividad',
+                                            fieldLabel: 'Trabajador que realizara actividad(es)',
                                             displayField: 'nombres',
                                             valueField: 'idTrabajador',
                                             emptyText: 'Buscar..',
@@ -88,6 +88,7 @@ Ext.define('GrupoBruce.view.requerimientoactividad.RequerimientoActividad', {
                                                 '</tpl>',
                                                 '</ul>'
                                             ],
+                                            forceSelection: true,
                                             minChars: 3,
                                             pageSize: true,
                                             hideTrigger: true,
@@ -95,7 +96,7 @@ Ext.define('GrupoBruce.view.requerimientoactividad.RequerimientoActividad', {
                                             width: 356
                                         }, {
                                             xtype: 'datefield',
-                                            fieldLabel: 'Fecha ejecución',
+                                            fieldLabel: 'Fecha a realizar',
                                             bind: '{fechaProgramado}'
                                         }]
                                 }]

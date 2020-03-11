@@ -27,6 +27,8 @@ public class Requerimiento implements java.io.Serializable {
     private Date fechaGenerado;
     private Date fechaProgramado;
     private boolean extornado;
+    private float requerido;
+    private float despachado;
     private int idObra;
     private String idTrabajador;
     private int idEspecificacion;
@@ -77,6 +79,24 @@ public class Requerimiento implements java.io.Serializable {
 
     public void setExtornado(boolean extornado) {
         this.extornado = extornado;
+    }
+
+    @Column(name="REQUERIDO", nullable = false)
+    public float getRequerido() {
+        return requerido;
+    }
+
+    public void setRequerido(float requerido) {
+        this.requerido = requerido;
+    }
+
+    @Column(name="DESPACHADO", nullable = false)
+    public float getDespachado() {
+        return despachado;
+    }
+
+    public void setDespachado(float despachado) {
+        this.despachado = despachado;
     }
 
     @Column(name="ID_OBRA", nullable = false)

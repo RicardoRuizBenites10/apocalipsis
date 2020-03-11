@@ -5,58 +5,81 @@ Ext.define('GrupoBruce.view.requerimientomaterial.RequerimientoMaterial', {
         'GrupoBruce.view.requerimientomaterial.RequerimientoMaterialController',
         'GrupoBruce.view.requerimientomaterial.RequerimientoMaterialModel',
 
-        'GrupoBruce.view.requerimientomaterial.ListRequerimientoMaterial'
+        'GrupoBruce.view.requerimientomaterial.ListRequerimientoMaterial',
+        'GrupoBruce.view.requerimientomaterial.FormRequerimientoMaterial'
     ],
 
-    controller: 'requerimientomaterial-requerimientomaterial',
+    controller: 'Crequerimientomaterial',
     viewModel: {
-        type: 'requerimientomaterial-requerimientomaterial'
+        type: 'VMrequerimientomaterial'
     },
 
     modal: true,
     autoShow: true,
     resizable: false,
+    closable: false,
     width: 600,
 
     title: 'Requerimiento de materiales',
     items: [{
-            defaults: {
-                layout: 'hbox',
-                defaults: {
-                    labelAlign: 'top',
-                    padding: 7
-                }
-            },
+            xtype: 'form',
             items: [{
+                    defaults: {
+                        layout: 'hbox',
+                        defaults: {
+                            labelAlign: 'top',
+                            padding: 7
+                        }
+                    },
                     items: [{
-                            xtype: 'textfield',
-                            fieldLabel: 'Actividad a realizar',
-                            bind: {
-                                value: '{recordRequerimiento.actividad}'
-                            },
-                            readOnly: true,
-                            flex: 1
+                            items: [{
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Actividad a realizar',
+                                    bind: {
+                                        value: '{recordRequerimiento.actividad}'
+                                    },
+                                    readOnly: true,
+                                    flex: 1
+                                }, {
+                                    xtype: 'datefield',
+                                    fieldLabel: 'Fecha a realizar',
+                                    bind: {
+                                        value: '{recordRequerimiento.fechaProgramado}'
+                                    },
+                                    readOnly: true
+                                }]
                         }, {
-                            xtype: 'datefield',
-                            fieldLabel: 'Fecha a realizar',
-                            bind: {
-                                value: '{recordRequerimiento.fechaProgramado}'
-                            },
-                            readOnly: true
+                            items: [{
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Trabajo que realizara actividad',
+                                    bind: {
+                                        value: '{recordRequerimiento.trabajador}'
+                                    },
+                                    readOnly: true,
+                                    flex: 1
+                                }]
                         }]
                 }, {
-                    items: [{
-                            xtype: 'textfield',
-                            fieldLabel: 'Trabajo que realizara actividad',
-                            bind: {
-                                value: '{recordRequerimiento.trabajador}'
-                            },
-                            readOnly: true,
-                            flex: 1
-                        }]
+                    xtype: 'Wlistrequerimientomaterial',
+                    height: 300
+                }],
+
+            buttons: [{
+                    text: 'Cancelar',
+                    listeners: {
+                        click: function () {
+                            this.up('form').reset();
+                            this.up('window').close();
+                        }
+                    }
+                }, {
+                    text: 'Grabar',
+                    iconCls: 'fa fa-save',
+                    formBind: true,
+                    listeners: {
+                        click: 'onSaveRequerimientoMaterial'
+                    }
                 }]
-        }, {
-            xtype: 'Wlistrequerimientomaterial',
-            height: 300
         }]
+
 });

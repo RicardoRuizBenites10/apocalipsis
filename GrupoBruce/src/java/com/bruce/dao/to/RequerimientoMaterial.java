@@ -24,13 +24,15 @@ public class RequerimientoMaterial implements java.io.Serializable {
 
     private int idRequerimiento;
     private int idMaterial;
+    private float estandar;
     private float requerido;
     private float despachado;
-    private boolean pendiente;
-    private int idUmedida;
+    private String idUmedida;
     
     private String material;
     private float stock;
+    private float requeridot;
+    private float despachadot;
 
     public RequerimientoMaterial() {
     }
@@ -55,6 +57,15 @@ public class RequerimientoMaterial implements java.io.Serializable {
         this.idMaterial = idMaterial;
     }
 
+    @Column(name = "ESTANDAR", nullable = false)
+    public float getEstandar() {
+        return estandar;
+    }
+
+    public void setEstandar(float estandar) {
+        this.estandar = estandar;
+    }
+
     @Column(name = "REQUERIDO", nullable = false)
     public float getRequerido() {
         return requerido;
@@ -73,21 +84,12 @@ public class RequerimientoMaterial implements java.io.Serializable {
         this.despachado = despachado;
     }
 
-    @Column(name = "PENDIENTE", nullable = false)
-    public boolean isPendiente() {
-        return pendiente;
-    }
-
-    public void setPendiente(boolean pendiente) {
-        this.pendiente = pendiente;
-    }
-
     @Column(name = "ID_UMEDIDA", nullable = false)
-    public int getIdUmedida() {
+    public String getIdUmedida() {
         return idUmedida;
     }
 
-    public void setIdUmedida(int idUmedida) {
+    public void setIdUmedida(String idUmedida) {
         this.idUmedida = idUmedida;
     }
 
@@ -107,5 +109,23 @@ public class RequerimientoMaterial implements java.io.Serializable {
 
     public void setStock(float stock) {
         this.stock = stock;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public float getRequeridot() {
+        return requeridot;
+    }
+
+    public void setRequeridot(float requeridot) {
+        this.requeridot = requeridot;
+    }
+
+    @Generated(GenerationTime.NEVER)
+    public float getDespachadot() {
+        return despachadot;
+    }
+
+    public void setDespachadot(float despachadot) {
+        this.despachadot = despachadot;
     }
 }

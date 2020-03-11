@@ -86,6 +86,7 @@ Ext.define('GrupoBruce.Application', {
         'GrupoBruce.store.ProformaDetalle',
         'GrupoBruce.store.RegimenPensionario',
         'GrupoBruce.store.RequerimientoActividad',
+        'GrupoBruce.store.RequerimientoMaterial',
         'GrupoBruce.store.Rol',
         'GrupoBruce.store.Sucursal',
         'GrupoBruce.store.Textralaboral',

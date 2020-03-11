@@ -1,8 +1,13 @@
-Ext.define('GrupoBruce.view.requerimientomaterial.ForRequerimientoMaterial', {
+Ext.define('GrupoBruce.view.requerimientomaterial.FormRequerimientoMaterial', {
     extend: 'Ext.window.Window',
     alias: 'widget.Wformrequerimientomaterial',
     reference: 'form_requerimientomaterial',
     id: 'id_wformrequerimientomaterial',
+
+    controller: 'Crequerimientomaterial',
+    viewModel: {
+        type: 'VMrequerimientomaterial'
+    },
 
     modal: true,
     autoShow: true,
@@ -26,23 +31,38 @@ Ext.define('GrupoBruce.view.requerimientomaterial.ForRequerimientoMaterial', {
                     items: [{
                             xtype: 'combobox',
                             fieldLabel: 'Material',
+                            name: 'idMaterial',
+                            valueField: 'idMaterial',
+                            displayField: 'nombre',
                             bind: {
                                 store: '{materials}',
                                 selection: '{selectMaterial}'
                             },
-                            emptyText: 'Buscar..'
+                            emptyText: 'Buscar..',
+                            hideTrigger: true,
+                            forceSelection: true,
+                            minChars: 3,
+                            pageSize: true,
+                            triggerAction: 'query',
+                            flex: 1
+
                         }]
-                },{
+                }, {
                     items: [{
                             xtype: 'combobox',
-                            fieldLabel: 'Unidad',
+                            fieldLabel: 'Unidad medida',
+                            name: 'idUmedida',
+                            valueField: 'idUmedida',
+                            displayField: 'idUmedida',
                             bind: {
                                 store: '{materialunidads}',
                                 selection: '{selectMaterialUnidad}'
                             },
                             emptyText: 'Seleccionar',
-                            editable: false
-                    }]
+                            forceSelection: true,
+                            editable: false,
+                            flex: 1
+                        }]
                 }],
             buttons: [{
                     text: 'Cancelar',
@@ -64,7 +84,7 @@ Ext.define('GrupoBruce.view.requerimientomaterial.ForRequerimientoMaterial', {
                     iconCls: 'fa fa-save',
                     formBind: true,
                     listeners: {
-                        click: 'onSaveRequerimientoMaterial'
+                        click: 'onSaveMaterial'
                     }
                 }]
         }]

@@ -4,6 +4,8 @@ Ext.define('GrupoBruce.model.Requerimiento', {
 
     idProperty: 'idActividad',
     fields: [
+        {name: 'actvidad', type: 'string'},
+        {name: 'despachado', type: 'float'},
         {name: 'extornado', type: 'boolean', defaultValue: false},
         {name: 'fechaGenerado', type: 'date', dateFormat: 'c', defaultValue: new Date()},
         {name: 'fechaProgramado', type: 'date'},
@@ -14,7 +16,7 @@ Ext.define('GrupoBruce.model.Requerimiento', {
         {name: 'idTrabajador', type: 'string'},
         {name: 'idUsuario', type: 'string'},
         {name: 'obra', type: 'string'},
-        {name: 'actvidad', type: 'string'},
+        {name: 'requerido', type: 'float'},
         {name: 'trabajador', type: 'string'}
     ],
 

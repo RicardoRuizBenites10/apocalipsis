@@ -5,21 +5,47 @@ Ext.define('GrupoBruce.view.requerimientomaterial.ListRequerimientoMaterial', {
     id: 'id_wlistrequerimientomaterial',
 
     bind: {
-        store: '{requermientomaterials}',
+        store: '{requerimientomaterials}',
         selection: '{selectRequerimientoMaterial}'
     },
     allowDeselect: true,
+  
+    plugins: {
+        ptype: 'cellediting',
+        clicksToEdit: 1
+    },
 
     columns: [{
-            text: 'Código'
+            text: 'Material',
+            dataIndex: 'material',
+            width: 300
         }, {
-            text: 'Material'
+            text: 'Estandar',
+            dataIndex: 'estandar'
         }, {
-            text: 'Unidad'
+            text: 'Unidad',
+            dataIndex: 'idUmedida'
         }, {
-            text: 'Estandar'
+            text: 'Pedir',
+            dataIndex: 'requerido',
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 0,
+                maxValue: 100000
+            }
         }, {
-            text: 'Requerido'
+            text: 'Momento actual',
+            columns: [{
+                    text: 'Stock',
+                    dataIndex: 'stock'
+                }, {
+                    text: 'Requerido',
+                    dataIndex: 'requeridot'
+                }, {
+                    text: 'Despachado',
+                    dataIndex: 'despachadot'
+                }]
         }],
 
     dockedItems: [{
@@ -28,17 +54,16 @@ Ext.define('GrupoBruce.view.requerimientomaterial.ListRequerimientoMaterial', {
             overflowHandler: 'menu',
             items: [{
                     text: 'Agregar',
-                    iconCls: 'x-fa fa-plus'
+                    iconCls: 'x-fa fa-plus',
+                    handler: 'addMaterial'
                 }, {
                     text: 'Quitar',
-                    iconCls: 'x-fa fa-trash'
+                    iconCls: 'x-fa fa-trash',
+                    bind: {
+                        disabled: '{!selectRequerimientoMaterial}'
+                    },
+                    handler: 'deleteMaterial'
                 }]
-        }, {
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            bind: {
-                store: '{requerimientomaterials}'
-            }
         }]
 
 });
