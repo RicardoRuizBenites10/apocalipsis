@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenerationTime;
 public class RequerimientoActividad implements java.io.Serializable {
 
     private int idObra;
-    private int idEspecifiacion;
+    private int idEspecificacion;
     private int idActividad;
     private float requerido;
     private float despachado;
@@ -48,12 +48,12 @@ public class RequerimientoActividad implements java.io.Serializable {
 
     @Id
     @Column(name = "ID_ESPECIFICACION", nullable = false)
-    public int getIdEspecifiacion() {
-        return idEspecifiacion;
+    public int getIdEspecificacion() {
+        return idEspecificacion;
     }
 
-    public void setIdEspecifiacion(int idEspecifiacion) {
-        this.idEspecifiacion = idEspecifiacion;
+    public void setIdEspecificacion(int idEspecifiacion) {
+        this.idEspecificacion = idEspecifiacion;
     }
 
     @Id
@@ -105,7 +105,7 @@ public class RequerimientoActividad implements java.io.Serializable {
 
     @Transient
     public String getIdTemp() {
-        idTemp = String.format("%04d", this.idObra) + String.format("%04d", this.idEspecifiacion) + String.format("%04d", this.idActividad);
+        idTemp = String.format("%04d", this.idObra) + String.format("%04d", this.idEspecificacion) + String.format("%04d", this.idActividad);
         return idTemp;
     }
 

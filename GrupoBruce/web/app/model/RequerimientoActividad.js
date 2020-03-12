@@ -8,7 +8,7 @@ Ext.define('GrupoBruce.model.RequerimientoActividad', {
         {name: 'despachado', type: 'float'},
         {name: 'estado', type: 'string'},
         {name: 'idActividad', type: 'int'},
-        {name: 'idEspecifiacion', type: 'int'},
+        {name: 'idEspecificacion', type: 'int'},
         {name: 'idObra', type: 'int'},
         {name: 'idTemp', type: 'string'},
         {name: 'requerido', type: 'float'}

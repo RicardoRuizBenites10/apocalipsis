@@ -5,8 +5,8 @@
  */
 package com.bruce.controller;
 
-import com.bruce.dao.to.RequerimientoMaterial;
-import com.bruce.services.design.IRequerimientoMaterialService;
+import com.bruce.dao.to.Requerimiento;
+import com.bruce.services.design.IRequerimientoService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author SISTEMAS
  */
 @Controller
-public class RequerimientoMaterialController {
-
+public class RequerimientoController {
+    
     @Autowired
-    private IRequerimientoMaterialService serv;
+    private IRequerimientoService serv;
 
     @ResponseBody
-    @RequestMapping(value = "/requerimientomaterials", method = RequestMethod.GET)
+    @RequestMapping(value = "/requerimientos", method = RequestMethod.GET)
     public Map<String, Object> getByFilters(
             @RequestParam("page") int page,
             @RequestParam("start") int start,
@@ -39,82 +39,83 @@ public class RequerimientoMaterialController {
             @RequestParam(required = false, value = "query") String query) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("message", "Lista de requerimiento material");
+        map.put("message", "Lista de requerimiento");
         map.put("data", serv.getByFilter(start, limit, sort, filter, query));
         map.put("total", serv.countByFilter(filter, query));
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> insert(@RequestBody RequerimientoMaterial requerimientoMaterial) {
+    @RequestMapping(value = "/iiRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> insert(@RequestBody Requerimiento requerimiento) {
         Map<String, Object> map = new HashMap<>();
-        serv.insert(requerimientoMaterial);
+        serv.insert(requerimiento);
         map.put("success", true);
-        map.put("data", requerimientoMaterial);
+        map.put("data", requerimiento);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/iiLRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> insertL(@RequestBody List<RequerimientoMaterial> requerimientoMaterial) {
+    @RequestMapping(value = "/iiLRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> insertL(@RequestBody List<Requerimiento> requerimiento) {
         Map<String, Object> map = new HashMap<>();
-        serv.changeLRequerimientoMaterial(requerimientoMaterial);
+        serv.changeLRequerimiento(requerimiento);
         map.put("success", true);
-        map.put("data", requerimientoMaterial);
+        map.put("data", requerimiento);
         map.put("message", "Registro exitoso.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> update(@RequestBody RequerimientoMaterial requerimientoMaterial) {
+    @RequestMapping(value = "/uuRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> update(@RequestBody Requerimiento requerimiento) {
         Map<String, Object> map = new HashMap<>();
-        serv.update(requerimientoMaterial);
+        serv.update(requerimiento);
         map.put("success", true);
-        map.put("data", requerimientoMaterial);
+        map.put("data", requerimiento);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/uuLRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> updateL(@RequestBody List<RequerimientoMaterial> requerimientoMaterial) {
+    @RequestMapping(value = "/uuLRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> updateL(@RequestBody List<Requerimiento> requerimiento) {
         Map<String, Object> map = new HashMap<>();
-        serv.changeLRequerimientoMaterial(requerimientoMaterial);
+        serv.changeLRequerimiento(requerimiento);
         map.put("success", true);
-        map.put("data", requerimientoMaterial);
+        map.put("data", requerimiento);
         map.put("message", "Actualización exitosa.");
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> delete(@RequestBody RequerimientoMaterial requerimientoMaterial) {
+    @RequestMapping(value = "/ddRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> delete(@RequestBody Requerimiento requerimiento) {
         Map<String, Object> map = new HashMap<>();
         boolean success = false;
         String msg = "Operacion exitosa";
         try {
-            serv.delete(requerimientoMaterial);
+            serv.delete(requerimiento);
             success = true;
         } catch (Exception e) {
             msg = e.getMessage();
         }
         map.put("success", success);
-        map.put("data", requerimientoMaterial);
+        map.put("data", requerimiento);
         map.put("message", msg);
         return map;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/ddLRequerimientoMaterial", method = RequestMethod.POST)
-    public Map<String, Object> deleteL(@RequestBody List<RequerimientoMaterial> requerimiento) {
+    @RequestMapping(value = "/ddLRequerimiento", method = RequestMethod.POST)
+    public Map<String, Object> deleteL(@RequestBody List<Requerimiento> requerimiento) {
         Map<String, Object> map = new HashMap<>();
-        serv.deleteLRequerimientoMaterial(requerimiento);
+        serv.deleteLRequerimiento(requerimiento);
         map.put("success", true);
         map.put("data", requerimiento);
         map.put("message", "Eliminación exitosa");
         return map;
     }
+    
 }

@@ -20,10 +20,10 @@ Ext.define('GrupoBruce.model.RequerimientoMaterial', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'iiRequerimientoMaterial',
+            create: 'iiLRequerimientoMaterial',
             read: 'requerimientomaterials',
-            update: 'uuRequerimientoMaterial',
-            destroy: 'ddRequerimientoMaterial'
+            update: 'uuLRequerimientoMaterial',
+            destroy: 'ddLRequerimientoMaterial'
         },
         reader: {
             type: 'json',

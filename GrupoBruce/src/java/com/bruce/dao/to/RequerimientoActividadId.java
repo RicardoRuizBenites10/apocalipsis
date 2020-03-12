@@ -14,7 +14,7 @@ import javax.persistence.Column;
 public class RequerimientoActividadId implements java.io.Serializable {
 
     private int idObra;
-    private int idEspecifiacion;
+    private int idEspecificacion;
     private int idActividad;
 
     public RequerimientoActividadId() {
@@ -30,12 +30,12 @@ public class RequerimientoActividadId implements java.io.Serializable {
     }
 
     @Column(name = "ID_ESPECIFICACION", nullable = false)
-    public int getIdEspecifiacion() {
-        return idEspecifiacion;
+    public int getIdEspecificacion() {
+        return idEspecificacion;
     }
 
-    public void setIdEspecifiacion(int idEspecifiacion) {
-        this.idEspecifiacion = idEspecifiacion;
+    public void setIdEspecificacion(int idEspecifiacion) {
+        this.idEspecificacion = idEspecifiacion;
     }
 
     @Column(name = "ID_ACTIVIDAD", nullable = false)
@@ -51,7 +51,7 @@ public class RequerimientoActividadId implements java.io.Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + this.idObra;
-        hash = 67 * hash + this.idEspecifiacion;
+        hash = 67 * hash + this.idEspecificacion;
         hash = 67 * hash + this.idActividad;
         return hash;
     }
@@ -71,7 +71,7 @@ public class RequerimientoActividadId implements java.io.Serializable {
         if (this.idObra != other.idObra) {
             return false;
         }
-        if (this.idEspecifiacion != other.idEspecifiacion) {
+        if (this.idEspecificacion != other.idEspecificacion) {
             return false;
         }
         if (this.idActividad != other.idActividad) {

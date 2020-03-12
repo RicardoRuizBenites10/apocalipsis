@@ -94,6 +94,7 @@ public class RequerimientoMaterial implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public String getMaterial() {
         return material;
     }
@@ -103,6 +104,7 @@ public class RequerimientoMaterial implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public float getStock() {
         return stock;
     }
@@ -112,6 +114,7 @@ public class RequerimientoMaterial implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public float getRequeridot() {
         return requeridot;
     }
@@ -121,6 +124,7 @@ public class RequerimientoMaterial implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public float getDespachadot() {
         return despachadot;
     }

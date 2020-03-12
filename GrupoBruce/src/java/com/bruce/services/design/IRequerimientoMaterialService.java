@@ -6,11 +6,13 @@
 package com.bruce.services.design;
 
 import com.bruce.dao.to.RequerimientoMaterial;
+import java.util.List;
 
 /**
  *
  * @author SISTEMAS
  */
 public interface IRequerimientoMaterialService extends IEntidadService<RequerimientoMaterial>{
-    
+    public void changeLRequerimientoMaterial(List<RequerimientoMaterial> list);
+    public void deleteLRequerimientoMaterial(List<RequerimientoMaterial> list);
 }

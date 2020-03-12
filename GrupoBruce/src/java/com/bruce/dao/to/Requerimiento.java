@@ -145,6 +145,7 @@ public class Requerimiento implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public String getObra() {
         return obra;
     }
@@ -154,6 +155,7 @@ public class Requerimiento implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public String getActividad() {
         return actividad;
     }
@@ -163,6 +165,7 @@ public class Requerimiento implements java.io.Serializable {
     }
 
     @Generated(GenerationTime.NEVER)
+    @Column(insertable = false, updatable = false)
     public String getTrabajador() {
         return trabajador;
     }
