@@ -20,9 +20,25 @@ Ext.define('GrupoBruce.view.requerimientoactividad.ListRequerimientoActividad', 
             width: 390
         }, {
             text: 'Situación',
-            dataIndex: 'estado'
-        }, {
-            text: 'Tareo'
+            dataIndex: 'estado',
+            width: 170,
+            renderer: function (val) {
+                var texto;
+                switch (val) {
+                    case 'S':
+                        texto='Generado';
+                        break;
+                    case 'C':
+                        texto='Desp. conforme';
+                        break;
+                    case 'I':
+                        texto='Desp. inconforme';
+                        break;
+                    default:
+                        texto='No generado';
+                }
+                return texto;
+            }
         }],
 
     dockedItems: [{

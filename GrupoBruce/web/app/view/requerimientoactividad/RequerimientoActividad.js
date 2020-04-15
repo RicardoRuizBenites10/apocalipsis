@@ -32,6 +32,11 @@ Ext.define('GrupoBruce.view.requerimientoactividad.RequerimientoActividad', {
             items: [{
                     items: [{
                             xtype: 'textfield',
+                            fieldLabel: 'Referencia',
+                            readOnly: true,
+                            bind: '{recordObra.carroceria}'
+                        }, {
+                            xtype: 'textfield',
                             fieldLabel: 'OP',
                             readOnly: true,
                             bind: '{recordObra.nombre}'

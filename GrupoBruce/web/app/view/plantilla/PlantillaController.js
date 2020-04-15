@@ -17,6 +17,7 @@ Ext.define('GrupoBruce.view.plantilla.PlantillaController', {
     },
 
     onSavePlantilla: function (btn) {
+        console.log('ya la jodi');
         var form = btn.up('form');
         var window = btn.up('window');
         var grid = Ext.getCmp('id_wtipotrabajador');
