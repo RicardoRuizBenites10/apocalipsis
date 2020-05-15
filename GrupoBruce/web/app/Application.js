@@ -131,7 +131,6 @@ Ext.define('GrupoBruce.Application', {
         Ext.ux.ActivityMonitor.isActive = function () {
 //            Ext.Msg.alert('Monitor', 'User is active!');
         };
-
         Ext.create({
             xtype: loggedIn ? 'app-main' : 'login'
         });

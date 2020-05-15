@@ -119,6 +119,5 @@ public class CarroceriaFaldaService implements ICarroceriaFaldaService{
             Logger.getLogger(CarroceriaFaldaService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.getByFilter(start, limit, sorts, filters);
-    }
-    
+    }  
 }

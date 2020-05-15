@@ -87,7 +87,7 @@ public class PlantillaController {
     public Map<String, Object> delete(@RequestBody Plantilla plantilla) {
         Map<String, Object> map = new HashMap<>();
         boolean success = false;
-        String msg = "Operacion exitosa";
+        String msg = "Operacion exitosa" ;
         try {
             serv.delete(plantilla);
             success = true;

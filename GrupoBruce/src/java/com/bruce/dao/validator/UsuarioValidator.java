@@ -29,5 +29,4 @@ public class UsuarioValidator implements Validator {
             errors.rejectValue("clave", "clave.incorrect", "Clave es necesaria.");
         }
     }
-
 }

@@ -7,7 +7,6 @@ Ext.define('GrupoBruce.model.Dia', {
         {name: 'descripcion', type: 'string'},
         {name: 'idDia', type: 'int'}
     ],
-
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

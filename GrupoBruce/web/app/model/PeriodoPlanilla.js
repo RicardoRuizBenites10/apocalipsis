@@ -16,7 +16,6 @@ Ext.define('GrupoBruce.model.PeriodoPlanilla', {
         {name: 'inicio', type: 'date', dateFormat: 'c'},
         {name: 'situacion', type: 'boolean', defaultValue: true}
     ],
-
     identifier: 'sequential',
     proxy: {
         type: 'ajax',

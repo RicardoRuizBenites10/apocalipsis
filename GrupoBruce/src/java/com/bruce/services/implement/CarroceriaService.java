@@ -131,5 +131,4 @@ public class CarroceriaService implements ICarroceriaService {
         int idLast = carroceriaLast != null ? Integer.parseInt(carroceriaLast.getCodigo()) : 0;
         return (idCarmod + idCartip + idCarfal).substring(0, 3) + '-' + String.format("%03d", idLast + 1);
     }
-
 }
