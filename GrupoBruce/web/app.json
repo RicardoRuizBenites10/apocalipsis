@@ -11,7 +11,6 @@
     ],
 
     "indexHtmlPath": "welcome.html",
-
     "classpath": [
         "app",
         "${toolkit.name}/src"
@@ -23,7 +22,6 @@
     ],
 
     "fashion": {
-
         "inliner": {
             "enable": true
         }

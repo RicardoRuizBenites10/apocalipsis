@@ -117,5 +117,4 @@ public class ClienteDAO implements IClienteDAO{
         List result = cr.list();
         return ((Long) result.get(0)).intValue();
     }
-    
 }

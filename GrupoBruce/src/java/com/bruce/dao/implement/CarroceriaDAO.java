@@ -142,5 +142,4 @@ public class CarroceriaDAO implements ICarroceriaDAO {
         List result = query.list();
         return (int) result.get(0);
     }
-
 }

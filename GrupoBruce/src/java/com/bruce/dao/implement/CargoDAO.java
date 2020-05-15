@@ -98,6 +98,5 @@ public class CargoDAO implements ICargoDAO{
     @Override
     public List<Cargo> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }   
 }

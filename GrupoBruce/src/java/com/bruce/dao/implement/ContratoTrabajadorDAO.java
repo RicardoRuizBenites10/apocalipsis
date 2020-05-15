@@ -141,5 +141,4 @@ public class ContratoTrabajadorDAO implements IContratoTrabajadorDAO {
         ContratoTrabajador item = !result.isEmpty() ? (ContratoTrabajador) result.get(0) : null;
         return item;
     }
-
 }
