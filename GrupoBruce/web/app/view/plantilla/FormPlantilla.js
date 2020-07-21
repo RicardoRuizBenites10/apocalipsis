@@ -69,7 +69,7 @@ Ext.define('GrupoBruce.view.plantilla.FormPlantilla', {
                                 select: 'selectPicker'
                             }
                         }, {
-                            text: 'Actualizar',
+                            text: 'Agregar/Quitar',
                             iconCls: 'x-fa fa-edit',
                             handler: 'onPlantillaChange'
                         }]

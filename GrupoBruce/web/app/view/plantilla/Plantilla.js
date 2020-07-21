@@ -21,7 +21,7 @@ Ext.define('GrupoBruce.view.plantilla.Plantilla', {
                     overflowHandler: 'menu',
                     items: [{
                             iconCls: 'x-fa fa-file-text-o',
-                            text: 'Manejo de especificaciones',
+                            text: 'Especificaciones asignadas',
                             disabled: true,
                             bind: {
                                 disabled: '{!selectCarroceria}'
